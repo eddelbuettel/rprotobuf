@@ -1,8 +1,5 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; -*-
 
-// PKG_LIBS="-L/usr/lib/R/site-library/Rcpp/lib -lRcpp -Wl,-rpath,/usr/lib/R/site-library/Rcpp/lib -lprotobuf" PKG_CPPFLAGS="-I/usr/lib/R/site-library/Rcpp/lib" R CMD SHLIB list_people_R.cpp addressbook.pb.cc
-
-
 // list_people_R.cpp -- R wrapper / version for list_people.cc example
 
 #include <iostream>
@@ -13,7 +10,6 @@
 #include "addressbook.pb.h"
 
 #include <Rcpp.h>		
-//using namespace std;
 
 RcppExport SEXP listPeople(SEXP paramSEXP) {
 
@@ -68,31 +64,38 @@ RcppExport SEXP listPeople(SEXP paramSEXP) {
 
 	    preframe1.addRow(row1);
 
-	    for (int j = 0; j < person.phone_size(); j++) {
-		const tutorial::Person::PhoneNumber& phone_number = person.phone(j);
+	    if (person.phone_size() > 0) {
+		for (int j = 0; j < person.phone_size(); j++) {
+		    const tutorial::Person::PhoneNumber& phone_number = person.phone(j);
 		
-		std::vector<ColDatum> row2(ncol);
+		    std::vector<ColDatum> row2(ncol);
 
-		row2[0].setIntValue(static_cast<int>(person.id())); // id of user
+		    row2[0].setIntValue(static_cast<int>(person.id())); // id of user
 
-		std::string txt;
-		switch (phone_number.type()) {
-		case tutorial::Person::MOBILE:
-		    txt = "mobile";
-		    break;
-		case tutorial::Person::HOME:
-		    txt = "home";
-		    break;
-		case tutorial::Person::WORK:
-		    txt = "work";
-		    break;
+		    std::string txt;
+		    switch (phone_number.type()) {
+		    case tutorial::Person::MOBILE:
+			txt = "mobile";
+			break;
+		    case tutorial::Person::HOME:
+			txt = "home";
+			break;
+		    case tutorial::Person::WORK:
+			txt = "work";
+			break;
+		    }
+		    row2[1].setStringValue(txt);
+		    row2[2].setStringValue(phone_number.number());
+
+		    preframe2.addRow(row2);
 		}
-		row2[1].setStringValue(txt);
-		row2[2].setStringValue(phone_number.number());
-
+	    } else {
+		std::vector<ColDatum> row2(ncol);
+		row2[0].setIntValue(static_cast<int>(person.id())); // id of user
+		row2[1].setStringValue("NA");
+		row2[2].setStringValue("NA");
 		preframe2.addRow(row2);
 	    }
-
 	}
 
 	rs.add("preframe1", preframe1);
