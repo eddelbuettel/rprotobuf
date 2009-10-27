@@ -2,10 +2,20 @@
 ## Configure tells us about locations for
 ## both Rcpp (ie libRcpp.so and Rcpp.h) and 
 ## ProtoBuf headers and library
-PKG_CPPFLAGS=@PKG_CPPFLAGS@
-PKG_LIBS=@PKG_LIBS@
+PKG_CPPFLAGS=		@PKG_CPPFLAGS@
+PKG_LIBS=		@PKG_LIBS@
 
-## always remake proto headers and code
-.PHONY: prototarget
-prototarget:
-	@protoc --cpp_out=. addressbook.proto
+pkg=			RProtoBuf
+
+all:			addressbook.pb.cc pkglib
+
+addressbook.pb.cc:	addressbook.proto
+			protoc --cpp_out=. $<
+
+addressbook.pb.o:	addressbook.pb.cc
+			$(SHLIB_CXXLD) -c $< $(PKG_CPPFLAGS) $(SHLIB_CXXLDFLAGS) 
+
+pkglib:			addressbook.pb.o list_people_R.o 
+			$(SHLIB_CXXLD) -o $(pkg)$(DYLIB_EXT) $^ $(SHLIB_CXXLDFLAGS) $(PKG_LIBS)
+
+
