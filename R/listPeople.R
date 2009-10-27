@@ -5,7 +5,7 @@ listPeopleAsList <- function(filename, verbose=FALSE) {
         filename <- system.file("examples/AddressBookFile", package="RProtoBuf")
 
     ## call the listPeople function, with a sole parameter for the AddressBook
-    resList <- .Call("listPeopleAsLists",
+    resList <- .Call("listPeopleAsList",
                      list("filename"=filename), package="RProtoBuf")
     if (verbose) {
         print(str(resList))
@@ -19,7 +19,7 @@ listPeopleAsDataFrame <- function(filename, verbose=FALSE) {
         filename <- system.file("examples/AddressBookFile", package="RProtoBuf")
 
     ## call the listPeople function, with a sole parameter for the AddressBook
-    resList <- .Call("listPeopleAsDataFrames",
+    resList <- .Call("listPeopleAsDataFrame",
                      list("filename"=filename), package="RProtoBuf")
     people <- data.frame(resList[[1]])
     numbers <- data.frame(resList[[2]])
