@@ -1,17 +1,26 @@
-##!/usr/bin/env r
 
-## load the shared library
-#dyn.load("list_people_R.so")
-
-listPeople <- function(filename, verbose=FALSE) {
+listPeopleAsList <- function(filename, verbose=FALSE) {
 
     if (missing(filename))
         filename <- system.file("examples/AddressBookFile", package="RProtoBuf")
 
     ## call the listPeople function, with a sole parameter for the AddressBook
-    resList <- .Call("listPeople",
+    resList <- .Call("listPeopleAsLists",
                      list("filename"=filename), package="RProtoBuf")
+    if (verbose) {
+        print(str(resList))
+    }
+    invisible(resList)
+}
 
+listPeopleAsDataFrame <- function(filename, verbose=FALSE) {
+
+    if (missing(filename))
+        filename <- system.file("examples/AddressBookFile", package="RProtoBuf")
+
+    ## call the listPeople function, with a sole parameter for the AddressBook
+    resList <- .Call("listPeopleAsDataFrames",
+                     list("filename"=filename), package="RProtoBuf")
     people <- data.frame(resList[[1]])
     numbers <- data.frame(resList[[2]])
     numbers$Type <- as.factor(numbers$Type)
@@ -27,8 +36,6 @@ listPeople <- function(filename, verbose=FALSE) {
 
         cat("\nMerged data.frame: People and Numbers\n")
         print(alldata)
-        ##print(summary(alldata))
     }
-
     invisible(alldata)
 }
