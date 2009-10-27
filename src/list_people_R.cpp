@@ -128,31 +128,35 @@ RcppExport SEXP listPeopleAsList(SEXP paramSEXP) {
 	for (int i = 0; i < address_book.person_size(); i++) {
 	    const tutorial::Person& person = address_book.person(i);
 
-	    //row1[0].setIntValue(static_cast<int>(person.id()));
 	    idlist.append("id", person.id());
 	    peoplelist.append("name", person.name());
 	    emaillist.append("email", person.has_email() ? person.email(): "NA");
 
-	    RcppList phoneslist;
-	    phoneslist.setSize(person.phone_size());
+	    RcppList phones;
 
-	    for (int j = 0; j < person.phone_size(); j++) {
-		const tutorial::Person::PhoneNumber& phone_number = person.phone(j);
-		std::string txt;
-		switch (phone_number.type()) {
-		case tutorial::Person::MOBILE:
-		    txt = "mobile";
-		    break;
-		case tutorial::Person::HOME:
-		    txt = "home";
-		    break;
-		case tutorial::Person::WORK:
-		    txt = "work";
-		    break;
+	    if (person.phone_size() == 0) {
+		phones.setSize(1);
+		phones.append("NA", "NA");
+	    } else {
+		phones.setSize(person.phone_size());
+		for (int j = 0; j < person.phone_size(); j++) {
+		    const tutorial::Person::PhoneNumber& phone_number = person.phone(j);
+		    std::string txt;
+		    switch (phone_number.type()) {
+		    case tutorial::Person::MOBILE:
+			txt = "mobile";
+			break;
+		    case tutorial::Person::HOME:
+			txt = "home";
+			break;
+		    case tutorial::Person::WORK:
+			txt = "work";
+			break;
+		    }
+		    phones.append(txt, phone_number.number());
 		}
-		phoneslist.append(txt, phone_number.number());
 	    }
-	    phonelist.append("phones", phoneslist.getList());
+	    phonelist.append("phones", phones.getList());
 	}
 
 	rs.add("id", idlist.getList(), false);
@@ -279,90 +283,3 @@ RcppExport SEXP listPeopleAsDataFrame(SEXP paramSEXP) {
     return rl;
 }
 
-RcppExport SEXP listPeopleV1(SEXP paramSEXP) {
-
-    SEXP rl = R_NilValue;
-    char* exceptionMesg = NULL;
-  
-    try {
-
-	RcppParams params(paramSEXP);      // parameter from R based on parms
-	std::string filename = params.getStringValue("filename");
-	RcppResultSet rs;
-
-	// Verify that the version of the library that we linked against is
-	// compatible with the version of the headers we compiled against.
-	//
-	// TODO -- should we throw() here? The macro probably dies on us...
-	GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-	tutorial::AddressBook address_book;
-
-	{
-	  // Read the existing address book.
-	  std::fstream input(filename.c_str(), std::ios::in | std::ios::binary);
-	  if (!address_book.ParseFromIstream(&input)) {
-	      throw std::range_error("list_people_R.cpp: file " 
-				     + filename + 
-				     " failed to parse as address book.");
-	  }
-	}
-
-	std::vector<int> id;
-	std::vector<std::string> name;
-	std::vector<std::string> email;
-
-	//ListPeople(address_book);
-
-	// Iterates though all people in the AddressBook and prints info about them.
-	//void ListPeople(const tutorial::AddressBook& address_book) {
-	for (int i = 0; i < address_book.person_size(); i++) {
-	    const tutorial::Person& person = address_book.person(i);
-
-	    std::cout << "Person ID: " << person.id() << std::endl;
-	    std::cout << "  Name: " << person.name() << std::endl;
-	    id.push_back(static_cast<int>(person.id()));
-	    name.push_back(person.name());
-	    if (person.has_email()) {
-		std::cout << "  E-mail address: " << person.email() << std::endl;
-		email.push_back(person.email());
-	    } else {
-		email.push_back("NA");
-	    }
-
-	    for (int j = 0; j < person.phone_size(); j++) {
-		const tutorial::Person::PhoneNumber& phone_number = person.phone(j);
-
-		switch (phone_number.type()) {
-		case tutorial::Person::MOBILE:
-		    std::cout << "  Mobile phone #: ";
-		    break;
-		case tutorial::Person::HOME:
-		    std::cout << "  Home phone #: ";
-		    break;
-		case tutorial::Person::WORK:
-		    std::cout << "  Work phone #: ";
-		    break;
-		}
-		std::cout << phone_number.number() << std::endl;
-	    }
-	}
-	//}
-
-	rs.add("id", id);
-	rs.add("name", name);
-	rs.add("email", email);
-
-        rl = rs.getReturnList();
-
-    } catch(std::exception& ex) {
-        exceptionMesg = copyMessageToR(ex.what());
-    } catch(...) {
-        exceptionMesg = copyMessageToR("unknown reason");
-    }
-  
-    if (exceptionMesg != NULL)
-        Rf_error(exceptionMesg);
-    
-    return rl;
-}
