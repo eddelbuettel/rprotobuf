@@ -1,0 +1,72 @@
+# -*- mode: autoconf; autoconf-indentation: 4; -*-
+#
+# RProtoBuf configure.in by Dirk Eddelbuettel <edd@debian.org>
+#
+# $Id$
+
+# require at least autoconf 2.50
+AC_PREREQ(2.50)
+
+# Process this file with autoconf to produce a configure script.
+AC_INIT(RProtoBuf, 0.0.1)
+
+# We are using C++
+AC_LANG(C++)
+AC_REQUIRE_CPP
+AC_PROG_CXX
+
+AC_DEFUN(AC_PROG_R, [AC_CHECK_PROG(R,R,yes)])
+AC_PROG_R
+
+## With thanks to Kurt
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+    AC_MSG_ERROR([Could not determine R_HOME.])   
+fi
+CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+
+## look for Rscript, but use the one found via R_HOME to allow for multiple installations
+AC_DEFUN(AC_PROG_RSCRIPT, [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
+AC_PROG_RSCRIPT
+AC_MSG_CHECKING([for Rscript])
+if test x"${RSCRIPT}" == x"yes" ; then
+    AC_MSG_RESULT([yes])    
+    ## Rcpp compile flag providing header directory containing Rcpp.h
+    rcpp_cxxflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::CxxFlags()'`
+    ## link flag providing libary as well as path to library, and optionally rpath
+    rcpp_ldflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::LdFlags()'`
+    ## now use all these
+    AC_SUBST([CXXFLAGS],["${CXXFLAGS} $rcpp_cxxflags"])
+    AC_SUBST([LDFLAGS],["${LDFLAGS} $rcpp_ldflags"])
+else
+    AC_MSG_RESULT([no])    
+    echo "
+  Your installation does not appear to have Rscript installed.
+
+  Please make sure that you have a working and complete R installation.
+"
+    exit 1
+fi
+
+## look for protoc, the ProtoBuf compiler
+AC_DEFUN(AC_PROG_PROTOC, [AC_CHECK_PROG(PROTOC,protoc,yes)])
+AC_PROG_PROTOC
+AC_MSG_CHECKING([for protoc])
+if test x"${PROTOC}" == x"yes" ; then
+    AC_MSG_RESULT([yes])    
+else
+		 AC_MSG_RESULT([no])    
+    echo "
+  Your installation does not appear to have protoc installed.
+
+  Please make sure that you have a working and complete ProtoBuf installation.
+"
+    exit 1
+fi
+
+## need to look for -lproto and include files
+
+AC_SUBST(CXXFLAGS)
+AC_SUBST(LDFLAGS)
+AC_OUTPUT(src/Makevars)
+echo "Completed configuration and ready to build."
