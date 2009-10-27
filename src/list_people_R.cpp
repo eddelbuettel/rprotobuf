@@ -14,7 +14,7 @@
 class RcppList {
 public:
     RcppList(void): 
-	numProtected(0), currListPosn(0), listSize(0), listArg(R_NilValue) { }; 
+	listArg(R_NilValue), listSize(0), currListPosn(0), numProtected(0) { }; 
     ~RcppList() {
 	UNPROTECT(numProtected);
     }
@@ -89,7 +89,7 @@ void RcppList::append(std::string name, SEXP sexp) {
     names.push_back(name);
 }
 
-RcppExport SEXP listPeopleAsLists(SEXP paramSEXP) {
+RcppExport SEXP listPeopleAsList(SEXP paramSEXP) {
 
     SEXP rl = R_NilValue;
     char* exceptionMesg = NULL;
@@ -174,7 +174,7 @@ RcppExport SEXP listPeopleAsLists(SEXP paramSEXP) {
     return rl;
 }
 
-RcppExport SEXP listPeopleAsDataFrames(SEXP paramSEXP) {
+RcppExport SEXP listPeopleAsDataFrame(SEXP paramSEXP) {
 
     SEXP rl = R_NilValue;
     char* exceptionMesg = NULL;
