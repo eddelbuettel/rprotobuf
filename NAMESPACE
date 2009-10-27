@@ -2,5 +2,6 @@
 ## Package has dynamic library
 useDynLib(RProtoBuf)
 
-## And currently only one core function
-export(listPeople)
+## And some functions
+export(listPeopleAsDataFrame,
+       listPeopleAsList)
