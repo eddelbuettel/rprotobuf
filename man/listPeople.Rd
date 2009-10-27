@@ -1,12 +1,14 @@
 \name{listPeople}
-\alias{listPeople}
+\alias{listPeopleAsList}
+\alias{listPeopleAsDataFrame}
 \title{List content of address book example for ProtoBuf}
 \description{
-  The \code{listPeople} function provides a simple example for using
-  ProtoBuf generated accessor functions.
+  These function provide two simple examples for using
+  ProtoBuf generated accessor functions to import ProtoBuf data into R.
 }
 \usage{
-  listPeople(filename, verbose=FALSE)
+  listPeopleAsList(filename, verbose=FALSE)
+  listPeopleAsDataFrame(filename, verbose=FALSE)
 }
 \arguments{
   \item{filename}{complete path to a binary addressbook written in
@@ -14,8 +16,11 @@
     file is used is no argument is supplied}
   \item{verbose}{optional boolean flag indicating verbose operation}
 }
-\value{A data.frame combining the id,name,email and
-  id,phoneType,phoneNumber data sets.}
+\value{For \code{listPeopelAsDataFrame}, a data.frame combining the id,name,email and
+  id,phoneType,phoneNumber data sets. For \code{listPeopelAsList}, a
+  nested list combining the id, name, email and
+  phoneType, phoneNumber data sets.
+}
 \details{
   This function provides an implementation of the \code{list_people.cc} example
   provided with the ProtoBuf compiler.
@@ -34,3 +39,4 @@
 \examples{
   print(listPeople())
 }
+
