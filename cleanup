@@ -1,4 +1,5 @@
 #!/bin/sh
 
-rm -f config.* src/Makedeps  \
+rm -f config.* src/Makedeps src/Makevars \
+    src/addressbook.pb.cc src/addressbook.pb.h \
     src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~
