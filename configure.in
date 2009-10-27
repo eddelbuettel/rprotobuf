@@ -28,18 +28,12 @@ CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 ## look for Rscript, but use the one found via R_HOME to allow for multiple installations
 AC_DEFUN(AC_PROG_RSCRIPT, [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
 AC_PROG_RSCRIPT
-AC_MSG_CHECKING([for Rscript])
 if test x"${RSCRIPT}" == x"yes" ; then
-    AC_MSG_RESULT([yes])    
     ## Rcpp compile flag providing header directory containing Rcpp.h
     rcpp_cxxflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::CxxFlags()'`
     ## link flag providing libary as well as path to library, and optionally rpath
     rcpp_ldflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::LdFlags()'`
-    ## now use all these
-    AC_SUBST([CXXFLAGS],["${CXXFLAGS} $rcpp_cxxflags"])
-    AC_SUBST([LDFLAGS],["${LDFLAGS} $rcpp_ldflags"])
 else
-    AC_MSG_RESULT([no])    
     echo "
   Your installation does not appear to have Rscript installed.
 
@@ -51,11 +45,7 @@ fi
 ## look for protoc, the ProtoBuf compiler
 AC_DEFUN(AC_PROG_PROTOC, [AC_CHECK_PROG(PROTOC,protoc,yes)])
 AC_PROG_PROTOC
-AC_MSG_CHECKING([for protoc])
-if test x"${PROTOC}" == x"yes" ; then
-    AC_MSG_RESULT([yes])    
-else
-		 AC_MSG_RESULT([no])    
+if test x"${PROTOC}" == x"no" ; then
     echo "
   Your installation does not appear to have protoc installed.
 
@@ -64,9 +54,63 @@ else
     exit 1
 fi
 
-## need to look for -lproto and include files
+## look for protobud headers -- manually! Once release 2.2 of protobuf is more 
+## widely installed, we will switch to pkg-config which supports is support in 2.2
 
-AC_SUBST(CXXFLAGS)
-AC_SUBST(LDFLAGS)
+## let's look around -- code copied from RdbuiPgSQL but modified to use test -f
+## 
+AC_MSG_CHECKING([for ProtoBuf headers and library])
+for dir in \
+    /usr/include \
+    /usr/local/include \
+    /opt/include \
+    /opt/local/include \
+    /sw/include
+    do
+
+    if test -f ${dir}/google/protobuf/stubs/common.h
+    then
+    	pb_incdir=${dir}
+	break
+    fi
+done
+
+## likewise, let's look around for libpq.so
+for dir in \
+    /usr/lib \
+    /usr/local/lib \
+    /opt/lib \
+    /opt/local/lib \
+    /sw/lib
+    do
+    if test -f ${dir}/libprotobuf.so
+    then
+    	pb_libdir=${dir}
+	break
+    fi
+    ## also test of OS X
+    if test -f ${dir}/libprotobuf.dylib
+    then
+    	pb_libdir=${dir}
+	break
+    fi
+done
+
+if test x"${pb_incdir}" != x"" && test x"${pb_libdir}" != x"" ; then
+    AC_MSG_RESULT([yes])    
+else
+    AC_MSG_RESULT([no])    
+    echo "
+
+  Your installation does not appear to have ProtoBuf headers and libraries.
+
+  Please make sure that you have a working and complete ProtoBuf installation.
+"
+    exit 1
+fi
+
+## now use all these
+AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} $rcpp_cxxflags -I${pb_incdir}"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags -L${pb_libdir} -lprotobuf -lpthread"])
 AC_OUTPUT(src/Makevars)
 echo "Completed configuration and ready to build."
