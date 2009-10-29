@@ -39,6 +39,7 @@ namespace{
 
 RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
 RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 
+RcppExport SEXP new_RS4_EnumDescriptor( const EnumDescriptor *); 
 
 } // namespace
 } // namespace rprotobuf

@@ -48,6 +48,30 @@ SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
 }
 
 
+SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufEnumDescriptor")) );
+  	if (!inherits(oo, "protobufEnumDescriptor"))
+  	  error("unable to create 'protobufEnumDescriptor' S4 object");
+ 
+	SEXP name  = PROTECT( mkString( fd->name().c_str() ) ) ; 
+	SEXP fname = PROTECT( mkString( fd->full_name().c_str() ) ) ;
+	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)fd , 
+		R_NilValue, R_NilValue));
+	SEXP type  = PROTECT( mkString( fd->containing_type()->full_name().c_str() ) ) ;
+	
+	SET_SLOT( oo, install("name"), name ) ;
+	SET_SLOT( oo, install("full_name"), fname ) ;
+	SET_SLOT( oo, install("type"), type ) ;
+	SET_SLOT( oo, install("pointer"), ptr ) ;
+	
+	UNPROTECT(5) ; /* oo, name, fname, ptr */
+	
+	return oo; 
+}
+
+
+
 } // namespace
 } // namespace rprotobuf
 } // namespace rproject

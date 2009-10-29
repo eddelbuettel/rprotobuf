@@ -234,16 +234,29 @@ RcppExport SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	
 	// trying fields first :
 	
-	const FieldDescriptor * fd = desc->FindFieldByName(what) ;
-	if( fd ){
-		return( new_RS4_FieldDescriptor(fd ) ) ;
-	} 
+	if( desc->field_count() ){
+		const FieldDescriptor * fd = desc->FindFieldByName(what) ;
+		if( fd ){
+			return( new_RS4_FieldDescriptor(fd ) ) ;
+		}
+	}
 	
 	// now trying nested types
-	const Descriptor* d = desc->FindNestedTypeByName(what) ;
-	if( d ){
-		return( new_RS4_Descriptor( d ) ) ;
+	if( desc->nested_type_count() ){
+		const Descriptor* d = desc->FindNestedTypeByName(what) ;
+		if( d ){
+			return( new_RS4_Descriptor( d ) ) ;
+		}
 	}
+	
+	// now for enum types
+	if( desc->enum_type_count() ){
+		const EnumDescriptor * ed = desc->FindEnumTypeByName(what) ;
+		if( ed ){
+			return( new_RS4_EnumDescriptor( ed ) ) ;
+		}
+	}
+	
 	
 	// TODO: extensions, services, ... (later)
 	
