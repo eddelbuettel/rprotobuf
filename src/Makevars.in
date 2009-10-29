@@ -15,7 +15,7 @@ addressbook.pb.cc:	addressbook.proto
 addressbook.pb.o:	addressbook.pb.cc
 			$(SHLIB_CXXLD) -c $< $(CXXPICFLAGS) $(SHLIB_CXXLDFLAGS) $(PKG_CPPFLAGS) 
 
-pkglib:			addressbook.pb.o list_people_R.o rprotobuf.o
+pkglib:			addressbook.pb.o list_people_R.o rprotobuf.o lookup.o
 			$(SHLIB_CXXLD) -o $(pkg)$(DYLIB_EXT) $^ $(SHLIB_CXXLDFLAGS) $(PKG_LIBS)
 
 
