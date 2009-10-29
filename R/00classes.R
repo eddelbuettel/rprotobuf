@@ -10,6 +10,13 @@ setClass( "protobufMessage",  representation(
    type    = "character"       # message type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
+setClass( "protobufEnum",  representation( 
+   pointer = "externalptr",    # pointer to some C++ variable
+   type    = "character"       # enum type (fully qualified, with package path)
+), prototype = list( pointer = NULL, type = character(0) ) ) 
+
+
+
 setGeneric("new")
 setMethod("new", signature(Class="protobufDescriptor"), function(Class, ...) newProto(Class, ...))
 
@@ -19,7 +26,7 @@ P <- function( type, file ){
 		stop( "'type' is required" )
 	}
 	if( !missing(file) ){
-		.Call( "readProtoFile", PACKAGE = "RProtoBuf" )
+		readProtoFiles( file ) 
 	}
 	ptr <- .Call( "getProtobufDescriptor", type, PACKAGE = "RProtoBuf" )
 	new( "protobufDescriptor", pointer = ptr, type = type ) 

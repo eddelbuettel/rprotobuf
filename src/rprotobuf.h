@@ -29,5 +29,7 @@
 #define _TRUE_ (Rboolean)TRUE
 #define _FALSE_ (Rboolean)FALSE
 
+using namespace google::protobuf::compiler ;
+using namespace google::protobuf ;
 
 #endif
