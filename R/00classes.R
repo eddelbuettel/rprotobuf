@@ -53,10 +53,10 @@ P <- function( type, file ){
 		readProtoFiles( file ) 
 	}
 	ptr <- getProtobufDescriptor( type )
-	if( !is.null( ptr ) ){
+	if( is.null( ptr ) ){
 		stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
 	}
-	new( "protobufDescriptor", pointer = ptr, type = type ) 
+	ptr 
 }
 # }}}
 
@@ -85,7 +85,7 @@ setMethod("$<-", c(x="protobufMessage"), function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value )
 	x
 } )
-setMethod("$", c(x="protobufDescriptor"), function(x, name, value) {
+setMethod("$<-", c(x="protobufDescriptor"), function(x, name, value) {
 	warning( "$<- not implemented" )
 	x
 } )
