@@ -32,4 +32,18 @@
 using namespace google::protobuf::compiler ;
 using namespace google::protobuf ;
 
+namespace org{
+namespace rproject{
+namespace rprotobuf{
+namespace{
+
+RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
+RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 
+
+} // namespace
+} // namespace rprotobuf
+} // namespace rproject
+} // namespace org
+
+
 #endif

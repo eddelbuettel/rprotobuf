@@ -100,6 +100,9 @@ return R_NilValue ;
  * get the descriptor associated with a message type
  *
  * @param type message type
+ *
+ * @return an S4 object of class protobufDescriptor, or NULL if the type 
+ *  is unknown
  */
 RcppExport SEXP getProtobufDescriptor( SEXP type ){
 
@@ -116,16 +119,8 @@ PrintValue( type ) ;
 		return R_NilValue ;
 	}
 	
-	SEXP ptr ; 
-	// TODO: should we implement the finalizer for this external pointer
-	PROTECT(ptr = R_MakeExternalPtr( (void*)desc, R_NilValue, R_NilValue));
-	UNPROTECT(1); 
+	return( new_RS4_Descriptor( desc ) ) ;
 
-#ifdef RPB_DEBUG
-Rprintf( "</getProtobufDescriptor>\n" ) ;
-#endif
-	
-	return ptr ;
 }
 
 
@@ -224,7 +219,7 @@ Rprintf( "</setMessageField>\n" ) ;
 	return R_NilValue ;
 	
 }
-   
+
 /**
  * dollar extractor for Descriptor objects
  * it may return a Field descriptor or a nested type descriptor
@@ -237,8 +232,24 @@ RcppExport SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	const char * what = CHAR( STRING_ELT( name, 0 ) ) ;
 	Descriptor * desc = (Descriptor*) EXTPTR_PTR(pointer) ;
 	
+	// trying fields first :
+	
+	const FieldDescriptor * fd = desc->FindFieldByName(what) ;
+	if( fd ){
+		return( new_RS4_FieldDescriptor(fd ) ) ;
+	} 
+	
+	// now trying nested types
+	const Descriptor* d = desc->FindNestedTypeByName(what) ;
+	if( d ){
+		return( new_RS4_Descriptor( d ) ) ;
+	}
+	
+	// TODO: extensions, services, ... (later)
+	
+	// give up
+	return( R_NilValue ); 
 }
-
 
 } // namespace
 
