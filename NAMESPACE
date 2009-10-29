@@ -5,3 +5,10 @@ useDynLib(RProtoBuf)
 ## And some functions
 export(listPeopleAsDataFrame,
        listPeopleAsList)
+       
+importFrom( methods, new )
+exportClasses( "protobufDescriptor", "protobufMessage" )
+exportMethods( "new", "$", "$<-" )
+
+export( "P" )
+
