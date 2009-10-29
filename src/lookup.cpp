@@ -72,6 +72,7 @@ int rProtoBufTable_remove(const char * const name,  R_ObjectTable *tb){
  Rprintf( "  >> rProtoBufTable_remove( %s) \n", name ); 
 #endif
 	error( "cannot remove from protobuf descriptor pool" ) ;
+ 	return(0); // make -Wall happy
 }
 
 /**
@@ -97,6 +98,7 @@ SEXP rProtoBufTable_assign(const char * const name, SEXP value, R_ObjectTable *t
  Rprintf( "  >> rProtoBufTable_assign( %s ) \n", name ); 
 #endif
     error("can't assign to protocol buffer descriptor pool");
+ 	return(R_NilValue); // make -Wall happy
 }
 
 /**
