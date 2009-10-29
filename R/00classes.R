@@ -8,8 +8,12 @@ setClass( "protobufDescriptor", representation(
 ), prototype = list( pointer = NULL, type = character(0) ) )
 
 setClass( "protobufFieldDescriptor", representation( 
-	pointer = "externalptr"    # pointer to a google::protobuf::FieldDescriptor c++ object
-), prototype = list( pointer = NULL ) ) 	
+	pointer = "externalptr" ,   # pointer to a google::protobuf::FieldDescriptor c++ object
+	name    = "character", 
+	full_name  = "character", 
+	type    = "character"
+), prototype = list( pointer = NULL, name = character(0), 
+	full_name = character(0), type = character(0) ) ) 	
 
 setClass( "protobufEnumDescriptor", representation( 
 	pointer = "externalptr"    # pointer to a google::protobuf::EnumDescriptor c++ object
@@ -60,6 +64,13 @@ P <- function( type, file ){
 setMethod( "show", c( "protobufMessage" ), function(object){
 	show( sprintf( "protobuf message of type '%s' ", object@type ) ) 
 } )
+setMethod( "show", c( "protobufDescriptor" ), function(object){
+	show( sprintf( "descriptor for protobuf message of type '%s' ", object@type ) ) 
+} )
+setMethod( "show", c( "protobufFieldDescriptor" ), function(object){
+	show( sprintf( "descriptor for field '%s' for type '%s' ", object@name, object@type ) ) 
+} )
+
 # }}}
 
 # {{{ dollar extractors

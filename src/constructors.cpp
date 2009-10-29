@@ -35,12 +35,14 @@ SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
 	SEXP fname = PROTECT( mkString( fd->full_name().c_str() ) ) ;
 	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));
+	SEXP type  = PROTECT( mkString( fd->containing_type()->full_name().c_str() ) ) ;
 	
 	SET_SLOT( oo, install("name"), name ) ;
 	SET_SLOT( oo, install("full_name"), fname ) ;
+	SET_SLOT( oo, install("type"), type ) ;
 	SET_SLOT( oo, install("pointer"), ptr ) ;
 	
-	UNPROTECT(4) ; /* oo, name, fname, ptr */
+	UNPROTECT(5) ; /* oo, name, fname, ptr */
 	
 	return oo; 
 }
