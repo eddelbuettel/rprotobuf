@@ -225,6 +225,21 @@ Rprintf( "</setMessageField>\n" ) ;
 	
 }
    
+/**
+ * dollar extractor for Descriptor objects
+ * it may return a Field descriptor or a nested type descriptor
+ *
+ * @param pointer external pointer to a google::protobuf::Descriptor object
+ * @param name name of the thing to extract
+ */
+RcppExport SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
+	
+	const char * what = CHAR( STRING_ELT( name, 0 ) ) ;
+	Descriptor * desc = (Descriptor*) EXTPTR_PTR(pointer) ;
+	
+}
+
+
 } // namespace
 
 } // namespace rprotobuf

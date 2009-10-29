@@ -1,12 +1,25 @@
+# :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
+
+# {{{ class definitions 
 
 setClass( "protobufDescriptor", representation( 
-	pointer = "externalptr",   # pointer to some C++ variable
+	pointer = "externalptr",   # pointer to a google::protobuf::Descriptor c++ object
 	type = "character"         # message type
 ), prototype = list( pointer = NULL, type = character(0) ) )
 
+setClass( "protobufFieldDescriptor", representation( 
+	pointer = "externalptr"    # pointer to a google::protobuf::FieldDescriptor c++ object
+), prototype = list( pointer = NULL ) ) 	
+
+setClass( "protobufEnumDescriptor", representation( 
+	pointer = "externalptr"    # pointer to a google::protobuf::EnumDescriptor c++ object
+), prototype = list( pointer = NULL ) ) 	
+
+
+# actual objects
 
 setClass( "protobufMessage",  representation( 
-   pointer = "externalptr",    # pointer to some C++ variable
+   pointer = "externalptr",    # pointer to sa google::protobuf::Message object
    type    = "character"       # message type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
@@ -15,11 +28,18 @@ setClass( "protobufEnum",  representation(
    type    = "character"       # enum type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
+# }}}
 
-
+# {{{ new
 setGeneric("new")
 setMethod("new", signature(Class="protobufDescriptor"), function(Class, ...) newProto(Class, ...))
+newProto <- function( descriptor ){
+	ptr <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
+	new( "protobufMessage", pointer = ptr, type = descriptor@type )
+}
+# }}}
 
+# {{{ P
 P <- function( type, file ){
 	
 	if( missing( type ) ){
@@ -34,21 +54,28 @@ P <- function( type, file ){
 	}
 	new( "protobufDescriptor", pointer = ptr, type = type ) 
 }
+# }}}
 
-newProto <- function( descriptor ){
-	ptr <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
-	new( "protobufMessage", pointer = ptr, type = descriptor@type )
-}
-
+# {{{ show
 setMethod( "show", c( "protobufMessage" ), function(object){
 	show( sprintf( "protobuf message of type '%s' ", object@type ) ) 
 } )
+# }}}
 
+# {{{ dollar extractors
 setMethod("$", c(x="protobufMessage"), function(x, name) {
 	.Call( "getMessageField", x@pointer, name )
 } )
+setMethod("$", c(x="protobufDescriptor"), function(x, name) {
+	.Call( "do_dollar_Descriptor", x@pointer, name ) 
+} )
+
 setMethod("$<-", c(x="protobufMessage"), function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value )
 	x
 } )
-
+setMethod("$", c(x="protobufDescriptor"), function(x, name, value) {
+	warning( "$<- not implemented" )
+	x
+} )
+# }}}
