@@ -12,7 +12,7 @@
 #include <Rcpp.h>
 
 /* undefine this to quiet debug messages */
-#define RPB_DEBUG
+// #define RPB_DEBUG
 
 #define PrintValue Rf_PrintValue
 #define install Rf_install

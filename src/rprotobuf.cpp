@@ -38,9 +38,6 @@ PrintValue( file ) ;
 		error( "'file must be a character vector"  );
 	}
 	
-	// TODO : read all the files, not just the first one
-	const char * filename = CHAR( STRING_ELT( file, 0 ) ); 
-
 #ifdef RPB_DEBUG
 Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 #endif
@@ -49,9 +46,16 @@ Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 	DiskSourceTree source_tree;
 	source_tree.MapPath("/", "/");
 	Importer importer(&source_tree, &error_collector);
-	const FileDescriptor* proto_file =
-    	importer.Import( "/tmp/person.proto" );
-    
+	
+	int j = 0 ;
+	int n = LENGTH(file) ;
+	while( j < n ){
+		const FileDescriptor* proto_file =
+	    	importer.Import( CHAR(STRING_ELT(file, j)) );
+	    j++; 
+	}
+	
+#ifdef RPB_DEBUG
 Rprintf( "  name    = %s \n", proto_file->name().c_str()  ) ;
 Rprintf( "  package = %s \n", proto_file->package().c_str()  ) ;
 int nmessages = proto_file->message_type_count() ;
@@ -85,6 +89,7 @@ while( i<nfields){
 		i, f->name().c_str(), f->number(), f->type() ) ; 
 	i++; 
 }
+#endif
 
 #ifdef RPB_DEBUG
 Rprintf( "</readProtoFiles>\n" ) ;

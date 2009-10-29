@@ -49,17 +49,25 @@ newProto <- function( descriptor ){
 # {{{ P
 P <- function( type, file ){
 	
-	if( missing( type ) ){
-		stop( "'type' is required" )
-	}
 	if( !missing(file) ){
 		readProtoFiles( file ) 
 	}
-	ptr <- getProtobufDescriptor( type )
-	if( is.null( ptr ) ){
+	if( missing( type ) ){
+		stop( "'type' is required" )
+	}
+	if( !is.character(type) ){
+		stop( "'type' is not a character vector" ) 
+	}
+	if( length(type) != 1L){
+		stop( "'type' should have exactly one element" )
+	}
+	
+	desc <- .Call( "getProtobufDescriptor", type, 
+		PACKAGE = "RProtoBuf" ) 
+	if( is.null( desc ) ){
 		stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
 	}
-	ptr 
+	desc 
 }
 # }}}
 

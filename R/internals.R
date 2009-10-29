@@ -28,22 +28,3 @@ readProtoFiles <- function(
 	invisible(NULL)
 }
 
-#' get the Descriptor for a protocol buffer message type
-#' 
-#' @param type message type (fully qualified)
-#'
-#' @return external pointer to the Descriptor instance
-getProtobufDescriptor <- function( type ){
-	
-	if( !is.character(type) ){
-		stop( "'type' is not a character vector" ) 
-	}
-	if( length(type) != 1L){
-		stop( "'type' should have exactly one element" )
-	}
-	
-	.Call( "getProtobufDescriptor", type, 
-		PACKAGE = "RProtoBuf" ) 
-	
-}
-
