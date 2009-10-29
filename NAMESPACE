@@ -8,7 +8,7 @@ export(listPeopleAsDataFrame,
        
 importFrom( methods, new )
 exportClasses( "protobufDescriptor", "protobufMessage" )
-exportMethods( "new", "$", "$<-" )
+exportMethods( "new", "$", "$<-", "show" )
 
 export( "P" )
 

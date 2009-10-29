@@ -30,7 +30,7 @@ namespace{
 RcppExport SEXP readProtoFiles( SEXP file ){
 	
 #ifdef RPB_DEBUG
-Rprintf( "<readProtoFile>\n" ) ;
+Rprintf( "<readProtoFiles>\n" ) ;
 PrintValue( file ) ;
 #endif
 	
@@ -72,8 +72,22 @@ while( i<nenum ){
 	i++ ;
 }
 
+// look into the descriptor pool
+Rprintf( "  Retrieve the 'tutorial.Person' descriptor from the pool\n" ) ;
+const DescriptorPool * pool = DescriptorPool::generated_pool() ;
+const Descriptor * desc = pool->FindMessageTypeByName( "tutorial.Person" ) ; 
+int nfields = desc->field_count() ;
+Rprintf( "  %d fields\n", nfields ) ;
+i=0; 
+while( i<nfields){
+	const FieldDescriptor * f = desc->field( i ) ; 
+	Rprintf( "       [%d] : %s (tag number=%d, type=%d)\n", 
+		i, f->name().c_str(), f->number(), f->type() ) ; 
+	i++; 
+}
+
 #ifdef RPB_DEBUG
-Rprintf( "</readProtoFile>\n" ) ;
+Rprintf( "</readProtoFiles>\n" ) ;
 #endif
 
 return R_NilValue ;
@@ -94,19 +108,22 @@ Rprintf( "<getProtobufDescriptor>\n      type = " ) ;
 PrintValue( type ) ;
 #endif
 	
-	if( TYPEOF( type ) != STRSXP ){
-		error( "'type' must be a character vector"  );
+	const char * typeName = CHAR( STRING_ELT(type, 0 ) ) ;
+	
+	const DescriptorPool * pool = DescriptorPool::generated_pool() ;
+	const Descriptor * desc = pool->FindMessageTypeByName( typeName ) ; 
+	if( !desc ){
+		return R_NilValue ;
 	}
+	
+	SEXP ptr ; 
+	// TODO: should we implement the finalizer for this external pointer
+	PROTECT(ptr = R_MakeExternalPtr( (void*)desc, R_NilValue, R_NilValue));
+	UNPROTECT(1); 
 
 #ifdef RPB_DEBUG
 Rprintf( "</getProtobufDescriptor>\n" ) ;
 #endif
-
-	SEXP ptr ; 
-	// TODO: replace 0 with some C++ pointer
-	// TODO: implement the finalizer for this external pointer
-	PROTECT(ptr = R_MakeExternalPtr(0, R_NilValue, R_NilValue));
-	UNPROTECT(1); 
 	
 	return ptr ;
 }
