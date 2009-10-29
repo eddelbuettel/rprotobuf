@@ -111,8 +111,10 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 #endif
 	
 	tb->active = _FALSE_;
-	SEXP res = R_NilValue ; 
+	SEXP res = PROTECT( allocVector( STRSXP, 0 ) ) ; 
 	tb->active = _TRUE_;
+	UNPROTECT(1); 
+	
 	return( res ); 
 }
 
