@@ -15,10 +15,97 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
        
     if( fieldDesc->is_repeated() ){
     	
-    	// TODO
-    	Rf_warning( "repeated fields are not implemented yet" ) ;
-    	return( R_NilValue ) ; 
-   	
+    	SEXP res ;
+    	
+    	int size = ref->FieldSize(*message, fieldDesc ); 
+    	switch( fieldDesc->type() ){
+    		
+    		case TYPE_INT32:
+    		case TYPE_SINT32:
+    		case TYPE_SFIXED32:
+    			res = PROTECT( Rf_allocVector( INTSXP, size ) ); 
+    			for( int i=0; i<size; i++){
+    				INTEGER(res)[i] = (int) ref->GetRepeatedInt32( *message, fieldDesc, i ) ;
+    				i++ ;
+    			}
+    			break ;
+    		
+    		case TYPE_INT64:
+    		case TYPE_SINT64:
+    		case TYPE_SFIXED64:
+    			res = PROTECT( Rf_allocVector( INTSXP, size )) ; 
+    			for( int i=0; i<size; i++){
+    				INTEGER(res)[i] = (int) ref->GetRepeatedInt64( *message, fieldDesc, i ) ;
+    			}
+    			break ;
+    		
+    		case TYPE_UINT32:
+    		case TYPE_FIXED32:
+    			res = PROTECT( Rf_allocVector( INTSXP, size )) ; 
+    			for( int i=0; i<size; i++){
+    				INTEGER(res)[i] = (int) ref->GetRepeatedUInt32( *message, fieldDesc, i) ;
+    			}
+    			break ;
+    		
+    		case TYPE_UINT64:
+    		case TYPE_FIXED64:
+    			res = PROTECT( Rf_allocVector( INTSXP, size )) ; 
+    			for( int i=0; i<size; i++){
+    				INTEGER(res)[i] = (int) ref->GetRepeatedUInt64( *message, fieldDesc, i ) ;
+    			}
+    			break ;
+ 
+    		case TYPE_DOUBLE:
+    			res = PROTECT( Rf_allocVector( REALSXP, size )) ; 
+    			for( int i=0; i<size; i++){
+    				REAL(res)[i] = (double) ref->GetRepeatedDouble( *message, fieldDesc, i ) ;
+    			}
+    			break ;
+    		
+    		case TYPE_FLOAT:
+    			res = PROTECT( Rf_allocVector( REALSXP, size )) ; 
+    			for( int i=0; i<size; i++){
+    				REAL(res)[i] = (double) ref->GetRepeatedFloat( *message, fieldDesc, i ) ;
+    			}
+    			break ;
+    			
+    		case TYPE_BOOL:
+    			res = PROTECT( Rf_allocVector( LGLSXP, size ) );
+    			for( int i=0; i<size; i++){
+    				LOGICAL(res)[i] = ref->GetRepeatedBool( *message, fieldDesc, i ) ? 1 : 0;
+    			}
+    			break ;
+    		
+    		case TYPE_ENUM : 
+    			res = PROTECT( Rf_allocVector( INTSXP, size )  ); 
+    			for( int i=0; i<size; i++){
+    				INTEGER(res)[i] = ref->GetRepeatedEnum( *message, fieldDesc, i )->number() ;
+    			}
+    			break ;	
+    			
+    		
+    		case TYPE_STRING:
+    		case TYPE_BYTES:
+    			res = PROTECT( Rf_allocVector( STRSXP, size )  );  
+    			for( int i=0; i<size; i++){
+    				SET_STRING_ELT( res, i, Rf_mkChar( ref->GetRepeatedString( *message, fieldDesc, i ).c_str() ) ) ;
+    			}
+    			break ;
+    		
+    		case TYPE_MESSAGE:
+    		case TYPE_GROUP:
+    			res = PROTECT( Rf_allocVector( VECSXP, size ) ) ;
+    			for( int i=0; i<size; i++){
+    				SET_VECTOR_ELT( res, i, 
+    					new_RS4_Message_( &ref->GetRepeatedMessage( *message, fieldDesc, i ) ) ) ;
+    			}
+    			break ;
+    	}
+    	
+    	UNPROTECT(1); /* res */
+    	return( res ); 
+     	
+    	
     } else {
  
     	
