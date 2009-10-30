@@ -11,7 +11,8 @@ class MockErrorCollector : public MultiFileErrorCollector {
   // implements ErrorCollector ---------------------------------------
   void AddError(const string& filename, int line, int column,
                 const string& message) {
-  
+  	
+  	/* we should send this as a warning in R */
   	cerr << filename ;
   	cerr << ":" << (line + 1) << ":" << (column + 1);
   	cerr << ": " << message << endl;
@@ -145,25 +146,23 @@ Rprintf( "<newProtoMessage>\n" ) ;
 	SEXP type = GET_SLOT( descriptor, Rf_install("type") ) ;
 	
 	/* the pointer to the c++ descriptor object */
-	SEXP desc_ptr  = GET_SLOT( descriptor, Rf_install("pointer") ) ;
+	Descriptor* desc = (Descriptor*)EXTPTR_PTR( GET_SLOT( descriptor, Rf_install("pointer") ) );
 
 #ifdef RPB_DEBUG
 PRINT_DEBUG_INFO( "type", type ) ;
 PRINT_DEBUG_INFO( "desc_ptr", desc_ptr ) ;
 #endif
 	
-	/* create the a prototype for this message and create an external pointer to it */
-	SEXP p ; 
-	// TODO: replace 0 with some C++ pointer
-	// TODO: implement the finalizer for this external pointer
-	PROTECT(p = R_MakeExternalPtr(0, R_NilValue, R_NilValue));
-	UNPROTECT(1); 
-	
+	/* grab the Message from the factory */
+	const Message * message = MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	if( !message ){
+		Rf_error( "could not call factory->GetPrototype(desc)->New()" ) ; 
+	}
 #ifdef RPB_DEBUG
 Rprintf( "</newProtoMessage>\n" ) ;
 #endif
-
-	return p ;
+	
+	return( new_RS4_Message( message, type )  ) ;
 }
 
 

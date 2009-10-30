@@ -108,7 +108,31 @@ SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
 	return oo; 
 }
 
-
+/**
+ * @param pointer to a google::protobuf::Message
+ * @param type type of the message, as a STRSXP
+ *
+ * @return a new R S4 object of class "protobufMessage"
+ * holding the Message pointer as an external pointer
+ */
+SEXP new_RS4_Message( const Message* message, SEXP type ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMessage")) );
+  	if (!Rf_inherits(oo, "protobufMessage"))
+  	  Rf_error("unable to create 'protobufMessage' S4 object");
+  	
+  	/* external pointer to the Message */
+	/* TODO: finalizer */
+	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)message , 
+		R_NilValue, R_NilValue));
+	
+	SET_SLOT( oo, Rf_install("type"), type ) ;
+	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+	UNPROTECT( 2) ; /* ptr, oo */
+	return( oo ); 
+	
+}
 
 } // namespace
 } // namespace rprotobuf

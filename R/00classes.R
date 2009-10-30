@@ -41,8 +41,8 @@ setClass( "protobufEnum",  representation(
 setGeneric("new")
 setMethod("new", signature(Class="protobufDescriptor"), function(Class, ...) newProto(Class, ...))
 newProto <- function( descriptor ){
-	ptr <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
-	new( "protobufMessage", pointer = ptr, type = descriptor@type )
+	message <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
+	message
 }
 # }}}
 

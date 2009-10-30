@@ -3,6 +3,7 @@
 
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/compiler/importer.h>
+#include <google/protobuf/dynamic_message.h>
 
 #define R_NO_REMAP
 
@@ -38,6 +39,8 @@ namespace{
 RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
 RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 
 RcppExport SEXP new_RS4_EnumDescriptor( const EnumDescriptor *); 
+RcppExport SEXP new_RS4_Message( const Message *, SEXP ); 
+
 
 } // namespace
 } // namespace rprotobuf
