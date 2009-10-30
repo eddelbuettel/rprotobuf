@@ -40,6 +40,7 @@ RcppExport SEXP new_RS4_Descriptor( const Descriptor * );
 RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 
 RcppExport SEXP new_RS4_EnumDescriptor( const EnumDescriptor *); 
 RcppExport SEXP new_RS4_Message( const Message *, SEXP ); 
+RcppExport SEXP new_RS4_Message_( const Message* ); 
 
 RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const FieldDescriptor *) ;
 

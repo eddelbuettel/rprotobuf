@@ -134,6 +134,30 @@ SEXP new_RS4_Message( const Message* message, SEXP type ){
 	
 }
 
+/* same as above, but get the type from the message */
+SEXP new_RS4_Message_( const Message* message ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMessage")) );
+  	if (!Rf_inherits(oo, "protobufMessage"))
+  	  Rf_error("unable to create 'protobufMessage' S4 object");
+  	
+  	/* external pointer to the Message */
+	/* TODO: finalizer */
+	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)message , 
+		R_NilValue, R_NilValue));
+	
+	/* the message type */
+	SEXP type = PROTECT( Rf_mkString( message->GetDescriptor()->full_name().c_str() )) ;
+	
+	SET_SLOT( oo, Rf_install("type"), type ) ;
+	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+	UNPROTECT( 3) ; /* ptr, oo, type */
+	return( oo ); 
+	
+}
+
+
 } // namespace
 } // namespace rprotobuf
 } // namespace rproject
