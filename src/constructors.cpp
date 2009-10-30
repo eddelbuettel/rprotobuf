@@ -147,7 +147,7 @@ SEXP new_RS4_Message_( const Message* message ){
 		R_NilValue, R_NilValue));
 	
 	/* the message type */
-	SEXP type = PROTECT( Rf_mkString( message->GetDescriptor()->full_name().c_str() )) ;
+	SEXP type = PROTECT( Rf_mkString( message->GetTypeName().c_str() )) ;
 	
 	SET_SLOT( oo, Rf_install("type"), type ) ;
 	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;

@@ -44,6 +44,10 @@ RcppExport SEXP new_RS4_Message_( const Message* );
 
 RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const FieldDescriptor *) ;
 
+RcppExport SEXP getMessageFieldNames( SEXP) ;
+RcppExport SEXP getDescriptorMemberNames( SEXP) ;
+
+
 } // namespace
 } // namespace rprotobuf
 } // namespace rproject

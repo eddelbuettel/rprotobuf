@@ -68,7 +68,8 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
     			break ;
     		
     		case TYPE_ENUM : 
-    			Rf_error( "CPPTYPE_ENUM not yet implemented" ) ;
+    			res = PROTECT( Rf_allocVector( INTSXP, 1 )  ); 
+    			INTEGER(res)[0] = ref->GetEnum( *message, fieldDesc )->number() ;
     			break ;	
     			
     		

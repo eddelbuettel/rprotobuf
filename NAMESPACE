@@ -7,8 +7,14 @@ export(listPeopleAsDataFrame,
        listPeopleAsList)
        
 importFrom( methods, new )
-exportClasses( "protobufDescriptor", "protobufMessage" )
+exportClasses( "protobufDescriptor", "protobufMessage", 
+	"protobufFieldDescriptor", "protobufEnumDescriptor", 
+	"protobufEnum" )
 exportMethods( "new", "$", "$<-", "show" )
 
 export( "P" )
+
+if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
+S3method(.DollarNames, protobufMessage )
+S3method(.DollarNames, protobufDescriptor )
 
