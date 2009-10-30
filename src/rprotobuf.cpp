@@ -35,7 +35,7 @@ PrintValue( file ) ;
 #endif
 	
 	if( TYPEOF( file) != STRSXP ){
-		error( "'file must be a character vector"  );
+		Rf_error( "'file must be a character vector"  );
 	}
 	
 #ifdef RPB_DEBUG
@@ -44,6 +44,7 @@ Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 	
 	MockErrorCollector error_collector ;
 	DiskSourceTree source_tree;
+	// FIXME : this works only on linux I suppose
 	source_tree.MapPath("/", "/");
 	Importer importer(&source_tree, &error_collector);
 	
@@ -141,10 +142,10 @@ Rprintf( "<newProtoMessage>\n" ) ;
 #endif
 
 	/* the message type */
-	SEXP type = GET_SLOT( descriptor, install("type") ) ;
+	SEXP type = GET_SLOT( descriptor, Rf_install("type") ) ;
 	
 	/* the pointer to the c++ descriptor object */
-	SEXP desc_ptr  = GET_SLOT( descriptor, install("pointer") ) ;
+	SEXP desc_ptr  = GET_SLOT( descriptor, Rf_install("pointer") ) ;
 
 #ifdef RPB_DEBUG
 PRINT_DEBUG_INFO( "type", type ) ;

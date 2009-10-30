@@ -4,6 +4,8 @@
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/compiler/importer.h>
 
+#define R_NO_REMAP
+
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
@@ -14,13 +16,9 @@
 /* undefine this to quiet debug messages */
 // #define RPB_DEBUG
 
-#define PrintValue Rf_PrintValue
-#define install Rf_install
-#define error Rf_error
-
 #define PRINT_DEBUG_INFO(name,o) \
 	Rprintf( "     %s [%d] =     ", name, TYPEOF(o) ) ; \
-	PrintValue( o ) ; \
+	Rf_PrintValue( o ) ; \
 
 #define RPROTOBUF_LOOKUP 24
 #define LOOKUP_DEBUG

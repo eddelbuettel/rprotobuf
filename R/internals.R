@@ -16,9 +16,11 @@ readProtoFiles <- function(
 	if( !is.character( files )  ){
 		stop( "file should be a character vector" )
 	}
+	# TODO: we need to pass the full path of the file
+	#       or create a mapping from the current working directory
+	#       in the DiskSourceTree 
 	
 	ex <- sapply( files, file.exists )
-	
 	if( ! any( ex ) ){
 		stop( "none of the files exist" ) 
 	}

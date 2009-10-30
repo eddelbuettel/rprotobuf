@@ -71,7 +71,7 @@ int rProtoBufTable_remove(const char * const name,  R_ObjectTable *tb){
 #ifdef LOOKUP_DEBUG
  Rprintf( "  >> rProtoBufTable_remove( %s) \n", name ); 
 #endif
-	error( "cannot remove from protobuf descriptor pool" ) ;
+	Rf_error( "cannot remove from protobuf descriptor pool" ) ;
  	return(0); // make -Wall happy
 }
 
@@ -97,7 +97,7 @@ SEXP rProtoBufTable_assign(const char * const name, SEXP value, R_ObjectTable *t
 #ifdef LOOKUP_DEBUG
  Rprintf( "  >> rProtoBufTable_assign( %s ) \n", name ); 
 #endif
-    error("can't assign to protocol buffer descriptor pool");
+    Rf_error("can't assign to protocol buffer descriptor pool");
  	return(R_NilValue); // make -Wall happy
 }
 
@@ -113,7 +113,7 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 #endif
 	
 	tb->active = _FALSE_;
-	SEXP res = PROTECT( allocVector( STRSXP, 0 ) ) ; 
+	SEXP res = PROTECT( Rf_allocVector( STRSXP, 0 ) ) ; 
 	tb->active = _TRUE_;
 	UNPROTECT(1); 
 	
@@ -130,7 +130,7 @@ RcppExport SEXP newProtocolBufferLookup(){
 
   tb = (R_ObjectTable *) malloc(sizeof(R_ObjectTable));
   if(!tb)
-      error( "cannot allocate space for an internal R object table" );
+      Rf_error( "cannot allocate space for an internal R object table" );
   
   tb->type = RPROTOBUF_LOOKUP ; /* FIXME: not sure what this should be */
   tb->cachedNames = NULL;
@@ -148,11 +148,10 @@ RcppExport SEXP newProtocolBufferLookup(){
   tb->onAttach = NULL;
   tb->onDetach = NULL;
 
-  PROTECT(val = R_MakeExternalPtr(tb, install("UserDefinedDatabase"), R_NilValue));
-  PROTECT(klass = NEW_CHARACTER(1));
-   SET_STRING_ELT(klass, 0, COPY_TO_USER_STRING("UserDefinedDatabase"));
-   SET_CLASS(val, klass);
-  UNPROTECT(2);
+  PROTECT(val = R_MakeExternalPtr(tb, Rf_install("UserDefinedDatabase"), R_NilValue));
+  PROTECT(klass = Rf_mkString( "UserDefinedDatabase" ) );
+  Rf_setAttrib(val, R_ClassSymbol, klass) ;
+  UNPROTECT(2); /* val, klass */
 
 #ifdef LOOKUP_DEBUG
  Rprintf( "</newProtocolBufferLookup>\n" ); 
