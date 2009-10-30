@@ -89,6 +89,7 @@ setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 
 # {{{ dollar extractors
 setMethod("$", c(x="protobufMessage"), function(x, name) {
+	stopifnot( is.character(name) )
 	.Call( "getMessageField", x@pointer, name )
 } )
 setMethod("$", c(x="protobufDescriptor"), function(x, name) {

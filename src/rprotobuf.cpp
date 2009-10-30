@@ -184,14 +184,27 @@ PRINT_DEBUG_INFO( "pointer", pointer ) ;
 PRINT_DEBUG_INFO( "name", name ) ;
 #endif
 
-	/* TODO: do something */
-	
+	/* grab the Message pointer */
+	Message* message = (Message*)EXTPTR_PTR(pointer) ;
 
+	/* what we are looking for */
+	const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
+	
+	/* the message descriptor */
+	const Descriptor* desc = message->GetDescriptor() ;
+	
+	/* the field descriptor */
+	const FieldDescriptor* field_desc = desc->FindFieldByName( what ) ;
+	if( !field_desc ){
+		/* TODO: replace this with a custom condition class */
+		Rf_error( "could not get FieldDescriptor for field '%s'", what ) ;
+	}
+	
 #ifdef RPB_DEBUG
 Rprintf( "</getMessageField>\n" ) ;
 #endif
-	
-	return R_NilValue ;
+
+	return( extractFieldAsSEXP(message, desc, field_desc) ) ;
 	
 }
 
