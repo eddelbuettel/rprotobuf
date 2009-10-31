@@ -3,13 +3,11 @@
 useDynLib(RProtoBuf)
 
 ## And some functions
-export(listPeopleAsDataFrame,
-       listPeopleAsList )
+export(listPeopleAsDataFrame, listPeopleAsList)
        
 importFrom( methods, new )
 exportClasses( "protobufDescriptor", "protobufMessage", 
-	"protobufFieldDescriptor", "protobufEnumDescriptor", 
-	"protobufEnum" )
+	"protobufFieldDescriptor", "protobufEnumDescriptor" )
 exportMethods( "new", "$", "$<-", "show",
 	"serialize", "as.character" )
 

@@ -30,10 +30,10 @@ setClass( "protobufMessage",  representation(
    type    = "character"       # message type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
-setClass( "protobufEnum",  representation( 
-   pointer = "externalptr",    # pointer to some C++ variable
-   type    = "character"       # enum type (fully qualified, with package path)
-), prototype = list( pointer = NULL, type = character(0) ) ) 
+# setClass( "protobufEnum",  representation( 
+#    pointer = "externalptr",    # pointer to some C++ variable
+#    type    = "character"       # enum type (fully qualified, with package path)
+# ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
 # }}}
 
