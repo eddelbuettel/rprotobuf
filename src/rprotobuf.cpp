@@ -52,47 +52,10 @@ Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 	int j = 0 ;
 	int n = LENGTH(file) ;
 	while( j < n ){
-		const FileDescriptor* proto_file =
-	    	importer.Import( CHAR(STRING_ELT(file, j)) );
+		importer.Import( CHAR(STRING_ELT(file, j)) );
 	    j++; 
 	}
 	
-#ifdef RPB_DEBUG
-Rprintf( "  name    = %s \n", proto_file->name().c_str()  ) ;
-Rprintf( "  package = %s \n", proto_file->package().c_str()  ) ;
-int nmessages = proto_file->message_type_count() ;
-Rprintf( "  number of top level message types = %d \n", nmessages ) ;
-int i=0;
-while( i<nmessages ){
-	const Descriptor* descriptor = proto_file->message_type(i); 
-	Rprintf( "       %d  : %s \n", i, descriptor->full_name().c_str() ) ;
-	i++ ;
-}
-
-int nenum = proto_file->enum_type_count() ;
-Rprintf( "  number of top level enum types = %d \n", nenum ) ;
-i=0;
-while( i<nenum ){
-	const EnumDescriptor* descriptor = proto_file->enum_type(i); 
-	Rprintf( "       %d  : %s \n", i, descriptor->full_name().c_str() ) ;
-	i++ ;
-}
-
-// look into the descriptor pool
-Rprintf( "  Retrieve the 'tutorial.Person' descriptor from the pool\n" ) ;
-const DescriptorPool * pool = DescriptorPool::generated_pool() ;
-const Descriptor * desc = pool->FindMessageTypeByName( "tutorial.Person" ) ; 
-int nfields = desc->field_count() ;
-Rprintf( "  %d fields\n", nfields ) ;
-i=0; 
-while( i<nfields){
-	const FieldDescriptor * f = desc->field( i ) ; 
-	Rprintf( "       [%d] : %s (tag number=%d, type=%d)\n", 
-		i, f->name().c_str(), f->number(), f->type() ) ; 
-	i++; 
-}
-#endif
-
 #ifdef RPB_DEBUG
 Rprintf( "</readProtoFiles>\n" ) ;
 #endif
