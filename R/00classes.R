@@ -100,8 +100,4 @@ setMethod("$<-", c(x="protobufMessage"), function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value )
 	x
 } )
-setMethod("$<-", c(x="protobufDescriptor"), function(x, name, value) {
-	warning( "$<- not implemented" )
-	x
-} )
 # }}}
