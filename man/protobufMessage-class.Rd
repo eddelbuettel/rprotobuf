@@ -1,0 +1,65 @@
+\name{protobufMessage-class}
+\Rdversion{1.1}
+\docType{class}
+\alias{protobufMessage-class}
+\alias{as.character,protobufMessage-method}
+\alias{$<-,protobufMessage-method}
+\alias{$,protobufMessage-method}
+\alias{serialize,protobufMessage-method}
+\alias{show,protobufMessage-method}
+
+\title{Class "protobufMessage" }
+\description{
+R representation of protocol buffer messages. This is a thin wrapper
+around the \code{Message} c++ class that holds the actual message
+as an external pointer.
+}
+\section{Objects from the Class}{
+	Objects are typically created by the \code{new} function invoked 
+	on a \linkS4class{protobufDescriptor} object.
+}
+\section{Slots}{
+  \describe{
+  	  \item{\code{pointer}:}{external pointer to the c++ \code{Message} object}
+  	  \item{\code{type}:}{fully qualified name of the message type}
+  }
+}
+\section{Methods}{
+  \describe{
+    \item{as.character}{\code{signature(x = "protobufMessage")}: returns the debug string of the message. 
+    	This is built from a call to the \code{DebugString} message of the \code{Message} object}
+    \item{$<-}{\code{signature(x = "protobufMessage")}: set the value of a field of the message. \emph{not yet implemented, patches welcome} }
+    \item{$}{\code{signature(x = "protobufMessage")}: gets the value of a field. 
+    Primitive types are brough back to R as R objects of the closest matching R type. 
+    Messages are brought back as instances of the \code{protobufMessage} class.}
+    \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message to a connection. \emph{not yet implemented, patches welcome} }
+    \item{show}{\code{signature(object = "protobufMessage")}: displays a short text about the message }
+	 }
+}
+\references{ 
+	The \code{Message} class from the C++ proto library.
+}
+\author{ Romain Francois <francoisromain@free.fr> }
+\seealso{
+	\code{\link{P}} creates objects of class \linkS4class{protobufDescriptor} that 
+	can be used to create messages. 
+}
+\examples{
+
+# example proto file supplied with this package
+proto.file <- system.file( "examples", "addressbook.proto", package = "RProtoBuf" ) 
+
+# reading a proto file and creating the descriptor
+Person <- P( "tutorial.Person", file = proto.file )
+	
+# creating a prototype message from the descriptor
+p <- new( Person )
+p$email
+p$id
+as.character( p )
+
+# returns the payload as a raw vector
+serialize( p, con = NULL )
+
+}
+\keyword{classes}
