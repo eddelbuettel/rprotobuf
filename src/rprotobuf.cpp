@@ -165,49 +165,6 @@ Rprintf( "</newProtoMessage>\n" ) ;
 	return( new_RS4_Message( message, type )  ) ;
 }
 
-
-/**
- * extract a field from a message
- *
- * @param pointer external pointer to a message
- * @param name name of the field
- *
- * @return the field called "name" of the message if the 
- *         message has the field, otherwise an error is generated
- */
-RcppExport SEXP getMessageField( SEXP pointer, SEXP name ){
-	
-#ifdef RPB_DEBUG
-Rprintf( "<getMessageField>\n" ) ;
-
-PRINT_DEBUG_INFO( "pointer", pointer ) ;
-PRINT_DEBUG_INFO( "name", name ) ;
-#endif
-
-	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(pointer) ;
-
-	/* what we are looking for */
-	const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-	
-	/* the message descriptor */
-	const Descriptor* desc = message->GetDescriptor() ;
-	
-	/* the field descriptor */
-	const FieldDescriptor* field_desc = desc->FindFieldByName( what ) ;
-	if( !field_desc ){
-		/* TODO: replace this with a custom condition class */
-		Rf_error( "could not get FieldDescriptor for field '%s'", what ) ;
-	}
-	
-#ifdef RPB_DEBUG
-Rprintf( "</getMessageField>\n" ) ;
-#endif
-
-	return( extractFieldAsSEXP(message, desc, field_desc) ) ;
-	
-}
-
 /**
  * set a message field to a new value
  *

@@ -6,6 +6,47 @@ namespace rproject{
 namespace rprotobuf{
 namespace{
 
+/**
+ * extract a field from a message
+ *
+ * @param pointer external pointer to a message
+ * @param name name of the field
+ *
+ * @return the field called "name" of the message if the 
+ *         message has the field, otherwise an error is generated
+ */
+SEXP getMessageField( SEXP pointer, SEXP name ){
+	
+#ifdef RPB_DEBUG
+Rprintf( "<getMessageField>\n" ) ;
+
+PRINT_DEBUG_INFO( "pointer", pointer ) ;
+PRINT_DEBUG_INFO( "name", name ) ;
+#endif
+
+	/* grab the Message pointer */
+	Message* message = (Message*)EXTPTR_PTR(pointer) ;
+
+	/* what we are looking for */
+	const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
+	
+	/* the message descriptor */
+	const Descriptor* desc = message->GetDescriptor() ;
+	
+	/* the field descriptor */
+	const FieldDescriptor* field_desc = desc->FindFieldByName( what ) ;
+	if( !field_desc ){
+		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
+	}
+	
+#ifdef RPB_DEBUG
+Rprintf( "</getMessageField>\n" ) ;
+#endif
+
+	return( extractFieldAsSEXP(message, desc, field_desc) ) ;
+	
+}
+
 SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const FieldDescriptor * fieldDesc ){
 	
 	/* depending on the type, we need to create some regular SEXP (INTSXP) 

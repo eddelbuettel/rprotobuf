@@ -12,7 +12,7 @@ exportClasses( "protobufDescriptor", "protobufMessage",
 	"protobufEnum" )
 exportMethods( "new", "$", "$<-", "show" )
 
-export( "P" )
+export( "P", "throw" )
 
 if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
 S3method(.DollarNames, protobufMessage )
