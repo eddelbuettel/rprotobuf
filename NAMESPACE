@@ -10,7 +10,7 @@ importFrom( methods, new )
 exportClasses( "protobufDescriptor", "protobufMessage", 
 	"protobufFieldDescriptor", "protobufEnumDescriptor", 
 	"protobufEnum" )
-exportMethods( "new", "$", "$<-", "show" )
+exportMethods( "new", "$", "$<-", "show", "serialize" )
 
 export( "P", "throw" )
 

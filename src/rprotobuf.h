@@ -55,6 +55,9 @@ RcppExport SEXP getDescriptorMemberNames( SEXP) ;
 /* in exceptions.cpp */
 RcppExport SEXP throwException( const char*, const char*) ;
 
+/* in serialize.cpp */
+RcppExport SEXP getMessagePayload( SEXP ) ;
+
 
 } // namespace
 } // namespace rprotobuf
