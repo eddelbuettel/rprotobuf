@@ -28,7 +28,7 @@ namespace{
  *
  * @param file proto file name
  */
-RcppExport SEXP readProtoFiles( SEXP file ){
+SEXP readProtoFiles( SEXP file ){
 	
 #ifdef RPB_DEBUG
 Rprintf( "<readProtoFiles>\n" ) ;
@@ -74,7 +74,7 @@ return R_NilValue ;
  * @return an S4 object of class protobufDescriptor, or NULL if the type 
  *  is unknown
  */
-RcppExport SEXP getProtobufDescriptor( SEXP type ){
+SEXP getProtobufDescriptor( SEXP type ){
 
 #ifdef RPB_DEBUG
 Rprintf( "<getProtobufDescriptor>\n      type = " ) ;
@@ -99,7 +99,7 @@ PrintValue( type ) ;
  *
  * @param descriptor a "protobufDescriptor" R object
  */
-RcppExport SEXP newProtoMessage( SEXP descriptor ){
+SEXP newProtoMessage( SEXP descriptor ){
 
 #ifdef RPB_DEBUG
 Rprintf( "<newProtoMessage>\n" ) ;
@@ -137,7 +137,7 @@ Rprintf( "</newProtoMessage>\n" ) ;
  *
  * @return allways NULL, the message is modified by reference
  */
-RcppExport SEXP setMessageField( SEXP pointer, SEXP name, SEXP value ){
+SEXP setMessageField( SEXP pointer, SEXP name, SEXP value ){
 	
 #ifdef RPB_DEBUG
 Rprintf( "<setMessageField>\n" ) ;
@@ -165,7 +165,7 @@ Rprintf( "</setMessageField>\n" ) ;
  * @param pointer external pointer to a google::protobuf::Descriptor object
  * @param name name of the thing to extract
  */
-RcppExport SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
+SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	
 	const char * what = CHAR( STRING_ELT( name, 0 ) ) ;
 	Descriptor * desc = (Descriptor*) EXTPTR_PTR(pointer) ;
@@ -199,11 +199,42 @@ RcppExport SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	// TODO: extensions, services, ... (later)
 	
 	// give up
+	// TODO: should this be unbound instead
 	return( R_NilValue ); 
 }
 
-} // namespace
+/**
+ * Get the debug string of a message
+ *
+ * @param xp external pointer to a Message pointer
+ */
+SEXP get_message_debug_string( SEXP xp ){
+	
+	/* grab the Message pointer */
+	Message* message = (Message*)EXTPTR_PTR(xp) ;
+	
+	SEXP res = PROTECT( Rf_mkString(message->DebugString().c_str() ) ) ; 
+	UNPROTECT(1); /* res */
+	return res ;
+}
 
+
+/**
+ * Get the debug string of a message
+ *
+ * @param xp external pointer to a Descriptor pointer
+ */
+SEXP get_descriptor_debug_string( SEXP xp ){
+	
+	/* grab the Message pointer */
+	Descriptor* desc = (Descriptor*)EXTPTR_PTR(xp) ;
+	
+	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
+	UNPROTECT(1); /* res */
+	return res ;
+}
+
+} // namespace
 } // namespace rprotobuf
 } // namespace rproject
 } // namespace org

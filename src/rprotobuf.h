@@ -35,8 +35,16 @@ namespace org{
 namespace rproject{
 namespace rprotobuf{
 namespace{
-	
-	
+
+/* in rprotobuf.cpp */
+RcppExport SEXP get_message_debug_string( SEXP ); 
+RcppExport SEXP get_descriptor_debug_string( SEXP ); 
+RcppExport SEXP do_dollar_Descriptor( SEXP, SEXP ) ;
+RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
+RcppExport SEXP newProtoMessage( SEXP) ;
+RcppExport SEXP getProtobufDescriptor( SEXP ) ;
+RcppExport SEXP readProtoFiles( SEXP ); 
+
 /* in constructors.cpp */
 RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
 RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 

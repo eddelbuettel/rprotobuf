@@ -37,6 +37,7 @@
 }
 \author{Dirk Eddelbuettel for the R package; Google for Protocal Buffers.}
 \examples{
-  print(listPeople())
+  print(listPeopleAsList())
+  print(listPeopleAsDataFrame())
 }
 
