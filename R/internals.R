@@ -6,26 +6,46 @@
 #'
 #' @param files list of proto files to import
 #' @param dir directory in which to look for proto files (ignored if files is given)
-#' 
+#' @param package if specified, proto files are imported from the "proto" directory 
+#'                of the package
 #' @return invisible(NULL)
 readProtoFiles <- function( 
-	files= list.files( dir, pattern = "\\.proto$", full.names = TRUE ), 
-	dir = getwd()
+	files, 
+	dir, 
+	package = "RProtoBuf"
 	){
 	
-	if( !is.character( files )  ){
-		stop( "file should be a character vector" )
+	if( missing( files ) ){
+		if( missing( dir ) ){
+			if( missing(package) ){
+				dir <- getwd() 
+			} else {
+				dir <- system.file( "proto", package = package )
+				if( !file.exists( dir ) ){
+					stop( sprintf("package '%s' does not have a 'proto' directory") )
+				}
+			}
+		}
+		files <- list.files( dir, pattern = "\\.proto$", full.names = TRUE ) 
+	} else {
+		if( !is.character( files )  ){
+			stop( "'file' should be a character vector" )
+		}
+		
+		files <- sapply( files, function(x){
+			tools:::file_path_as_absolute(x)
+		} )
+		
+		# TODO: we need to pass the full path of the file
+		#       or create a mapping from the current working directory
+		#       in the DiskSourceTree 
+		
+		ex <- sapply( files, file.exists )
+		if( ! any( ex ) ){
+			stop( "none of the files exist" ) 
+		}
+		files <- files[ex]
 	}
-	# TODO: we need to pass the full path of the file
-	#       or create a mapping from the current working directory
-	#       in the DiskSourceTree 
-	
-	ex <- sapply( files, file.exists )
-	if( ! any( ex ) ){
-		stop( "none of the files exist" ) 
-	}
-	files <- files[ex]
-
 	.Call( "readProtoFiles", files, PACKAGE = "RProtoBuf" )
 	invisible(NULL)
 }

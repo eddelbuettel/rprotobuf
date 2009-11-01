@@ -11,7 +11,7 @@ exportClasses( "protobufDescriptor", "protobufMessage",
 exportMethods( "new", "$", "$<-", "show",
 	"serialize", "as.character" )
 
-export( "P", "throw" )
+export( "P", "throw", "readProtoFiles" )
 
 if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
 S3method(.DollarNames, protobufMessage )
