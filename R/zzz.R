@@ -1,5 +1,5 @@
 
 .onLoad <- function(libname, pkgname ){
-	readProtoFiles( package = "RProtoBuf" )
+	readProtoFiles( package = pkgname )
 }
 
