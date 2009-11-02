@@ -56,7 +56,7 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
        
     if( fieldDesc->is_repeated() ){
     	
-    	SEXP res ;
+    	SEXP res = R_NilValue;
     	
     	int size = ref->FieldSize(*message, fieldDesc ); 
     	switch( fieldDesc->type() ){
@@ -150,7 +150,7 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
     } else {
  
     	
-    	SEXP res ;
+    	SEXP res = R_NilValue;
     	
     	switch( fieldDesc->type() ){
     		
