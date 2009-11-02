@@ -1,9 +1,9 @@
 #include "rprotobuf.h"
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /**
  * Creates an R object of S4 class protobufDescriptor
@@ -158,8 +158,8 @@ SEXP new_RS4_Message_( const Message* message ){
 }
 
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

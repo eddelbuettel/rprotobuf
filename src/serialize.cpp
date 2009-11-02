@@ -1,9 +1,9 @@
 #include "rprotobuf.h"
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /**
  * create a raw vector that contains the content of the serialized 
@@ -23,8 +23,8 @@ SEXP getMessagePayload( SEXP xp ){
 }
 	
 	
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

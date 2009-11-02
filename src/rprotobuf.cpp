@@ -1,7 +1,7 @@
 #include "rprotobuf.h"
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
 
 class MockErrorCollector : public MultiFileErrorCollector {
@@ -21,7 +21,7 @@ class MockErrorCollector : public MultiFileErrorCollector {
 };
 
 
-namespace{
+//namespace{
 	
 /**
  * read a proto file and cache the message definitions it contains
@@ -194,8 +194,8 @@ SEXP get_descriptor_debug_string( SEXP xp ){
 	return res ;
 }
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

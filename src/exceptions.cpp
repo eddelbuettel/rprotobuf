@@ -1,9 +1,9 @@
 #include "rprotobuf.h"
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 
 /**
@@ -28,8 +28,8 @@ SEXP throwException( const char* message, const char* subclass ){
 	return( R_NilValue ); 
 }
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

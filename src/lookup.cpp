@@ -2,10 +2,10 @@
 
 /* This uses the mechanism of the RObjectTables package
    see: http://www.omegahat.org/RObjectTables/ */
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /**
  * Returns the R_UnboundValue
@@ -176,8 +176,8 @@ SEXP newProtocolBufferLookup(){
   return(val);
 }
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

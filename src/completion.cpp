@@ -1,9 +1,9 @@
 #include "rprotobuf.h"
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /**
  * returns the field names of the message
@@ -76,8 +76,8 @@ SEXP getDescriptorMemberNames( SEXP xp ){
 
 }
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

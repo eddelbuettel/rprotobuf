@@ -31,10 +31,10 @@
 using namespace google::protobuf::compiler ;
 using namespace google::protobuf ;
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /* in rprotobuf.cpp */
 RcppExport SEXP get_message_debug_string( SEXP ); 
@@ -71,10 +71,10 @@ RcppExport SEXP newProtocolBufferLookup() ;
 /* in mutators.cpp */
 RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 
 
 #endif

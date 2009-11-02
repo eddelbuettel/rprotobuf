@@ -1,10 +1,10 @@
 #include "rprotobuf.h" 
 #include "fieldtypes.h" 
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /**
  * set a message field to a new value
@@ -307,8 +307,8 @@ Rprintf( "</setMessageField>\n" ) ;
 	
 }
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 

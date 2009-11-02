@@ -1,10 +1,10 @@
 #include "rprotobuf.h"
 #include "fieldtypes.h"
 
-namespace org{
-namespace rproject{
+//namespace org{
+//namespace rproject{
 namespace rprotobuf{
-namespace{
+//namespace{
 
 /**
  * extract a field from a message
@@ -221,8 +221,8 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
 }
 
 
-} // namespace
+//} // namespace
 } // namespace rprotobuf
-} // namespace rproject
-} // namespace org
+//} // namespace rproject
+//} // namespace org
 
