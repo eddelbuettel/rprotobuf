@@ -33,13 +33,6 @@ SEXP readProtoFiles( SEXP file ){
 #ifdef RPB_DEBUG
 Rprintf( "<readProtoFiles>\n" ) ;
 PrintValue( file ) ;
-#endif
-	
-	if( TYPEOF( file) != STRSXP ){
-		Rf_error( "'file must be a character vector"  );
-	}
-	
-#ifdef RPB_DEBUG
 Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 #endif
 	
@@ -116,43 +109,13 @@ PRINT_DEBUG_INFO( "desc_ptr", desc_ptr ) ;
 	/* grab the Message from the factory */
 	const Message * message = MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
 	if( !message ){
-		Rf_error( "could not call factory->GetPrototype(desc)->New()" ) ; 
+		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
 #ifdef RPB_DEBUG
 Rprintf( "</newProtoMessage>\n" ) ;
 #endif
 	
 	return( new_RS4_Message( message, type )  ) ;
-}
-
-/**
- * set a message field to a new value
- *
- * @param pointer external pointer to a message
- * @param name name of the field
- * @param value new value for the field
- *
- * @return allways NULL, the message is modified by reference
- */
-SEXP setMessageField( SEXP pointer, SEXP name, SEXP value ){
-	
-#ifdef RPB_DEBUG
-Rprintf( "<setMessageField>\n" ) ;
-
-PRINT_DEBUG_INFO( "pointer", pointer ) ;
-PRINT_DEBUG_INFO( "name", name ) ;
-PRINT_DEBUG_INFO( "value", value ) ;
-#endif
-
-	/* TODO: do something */
-	
-
-#ifdef RPB_DEBUG
-Rprintf( "</setMessageField>\n" ) ;
-#endif
-	
-	return R_NilValue ;
-	
 }
 
 /**

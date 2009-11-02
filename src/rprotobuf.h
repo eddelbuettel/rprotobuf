@@ -40,7 +40,6 @@ namespace{
 RcppExport SEXP get_message_debug_string( SEXP ); 
 RcppExport SEXP get_descriptor_debug_string( SEXP ); 
 RcppExport SEXP do_dollar_Descriptor( SEXP, SEXP ) ;
-RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
 RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;
 RcppExport SEXP readProtoFiles( SEXP ); 
@@ -68,6 +67,9 @@ RcppExport SEXP getMessagePayload( SEXP ) ;
 
 /* in lookup.cpp */
 RcppExport SEXP newProtocolBufferLookup() ;
+
+/* in mutators.cpp */
+RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
 
 } // namespace
 } // namespace rprotobuf

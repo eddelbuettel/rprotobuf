@@ -18,7 +18,7 @@ SEXP new_RS4_Descriptor( const Descriptor * d ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufDescriptor")) );
   	if (!Rf_inherits(oo, "protobufDescriptor"))
-  	  Rf_error("unable to create 'protobufDescriptor' S4 object");
+  	  throwException("unable to create 'protobufDescriptor' S4 object", "CannotCreateObjectException" );
   	
 	/* grab the fully qualified name of the message type */
   	SEXP name  = PROTECT( Rf_mkString( d->full_name().c_str() ) ) ; 
@@ -44,7 +44,7 @@ SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufFieldDescriptor")) );
   	if (!Rf_inherits(oo, "protobufFieldDescriptor"))
-  	  Rf_error("unable to create 'protobufFieldDescriptor' S4 object");
+  		throwException("unable to create 'protobufFieldDescriptor' S4 object", "CannotCreateObjectException" );
   	
   	/* grab the short name of the field */
 	SEXP name  = PROTECT( Rf_mkString( fd->name().c_str() ) ) ; 
@@ -82,7 +82,7 @@ SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufEnumDescriptor")) );
   	if (!Rf_inherits(oo, "protobufEnumDescriptor"))
-  	  Rf_error("unable to create 'protobufEnumDescriptor' S4 object");
+  		throwException( "unable to create 'protobufEnumDescriptor' S4 object", "CannotCreateObjectException" );
  
   	/* the simple name of the enum */
 	SEXP name  = PROTECT( Rf_mkString( fd->name().c_str() ) ) ; 
@@ -119,7 +119,7 @@ SEXP new_RS4_Message( const Message* message, SEXP type ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMessage")) );
   	if (!Rf_inherits(oo, "protobufMessage"))
-  	  Rf_error("unable to create 'protobufMessage' S4 object");
+  		throwException( "unable to create 'protobufMessage' S4 object", "CannotCreateObjectException" );
   	
   	/* external pointer to the Message */
 	/* TODO: finalizer */
@@ -139,7 +139,7 @@ SEXP new_RS4_Message_( const Message* message ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMessage")) );
   	if (!Rf_inherits(oo, "protobufMessage"))
-  	  Rf_error("unable to create 'protobufMessage' S4 object");
+  	  throwException("unable to create 'protobufMessage' S4 object", "CannotCreateObjectException" );
   	
   	/* external pointer to the Message */
 	/* TODO: finalizer */
