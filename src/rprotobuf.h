@@ -22,7 +22,7 @@
 	Rf_PrintValue( o ) ; \
 
 #define RPROTOBUF_LOOKUP 24
-#define LOOKUP_DEBUG
+// #define LOOKUP_DEBUG
 
 /* FIXME : quick hack because just using TRUE and FALSE did not work in lookup.cpp */
 #define _TRUE_ (Rboolean)TRUE
@@ -66,6 +66,8 @@ RcppExport SEXP throwException( const char*, const char*) ;
 /* in serialize.cpp */
 RcppExport SEXP getMessagePayload( SEXP ) ;
 
+/* in lookup.cpp */
+RcppExport SEXP newProtocolBufferLookup() ;
 
 } // namespace
 } // namespace rprotobuf

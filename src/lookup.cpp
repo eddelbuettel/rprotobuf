@@ -1,12 +1,11 @@
-
 #include "rprotobuf.h"
-
-class RProtoBufLookup {
-	
-} ;
 
 /* This uses the mechanism of the RObjectTables package
    see: http://www.omegahat.org/RObjectTables/ */
+namespace org{
+namespace rproject{
+namespace rprotobuf{
+namespace{
 
 /**
  * Returns the R_UnboundValue
@@ -33,7 +32,12 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
     return( _FALSE_ );
 
  tb->active = _FALSE_;
- Rboolean val = _FALSE_ ;
+ const DescriptorPool * pool = DescriptorPool::generated_pool() ;
+ const Descriptor * desc = pool->FindMessageTypeByName( name ) ; 
+ Rboolean val = _TRUE_ ;
+ if( !desc ) {
+ 	val = _FALSE_;
+ }
  tb->active = _TRUE_;
  
  return( val );
@@ -58,9 +62,22 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
     return(R_UnboundValue);
 
  tb->active = _FALSE_;
- val = R_getUnboundValue() ;
+ SEXP name_sxp = PROTECT( Rf_mkString( name ) ) ; 
+ val = PROTECT( getProtobufDescriptor(name_sxp) ) ;
+ if( val == R_NilValue ){
+#ifdef LOOKUP_DEBUG
+ Rprintf( "      NULL  \n" ); 
+#endif
+ 	 UNPROTECT(2); /* val, name_sxp */
+ 	 tb->active = _TRUE_;
+ 	 return( R_getUnboundValue() ) ; 
+ }
+#ifdef LOOKUP_DEBUG
+Rprintf( "      :  \n" );
+Rf_PrintValue( GET_SLOT(val, Rf_install("type") ) ) ;
+#endif
+ UNPROTECT(2 ) ; /* val, name_sxp */
  tb->active = _TRUE_;
-
  return(val);
 }
 
@@ -106,7 +123,7 @@ SEXP rProtoBufTable_assign(const char * const name, SEXP value, R_ObjectTable *t
  * packages. 
  *
  * @param tb lookup table
- */ 
+ */
 SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 #ifdef LOOKUP_DEBUG
  Rprintf( "  >> rProtoBufTable_objects\n" ); 
@@ -120,7 +137,7 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 	return( res ); 
 }
 
-RcppExport SEXP newProtocolBufferLookup(){
+SEXP newProtocolBufferLookup(){
 #ifdef LOOKUP_DEBUG
  Rprintf( "<newProtocolBufferLookup>\n" ); 
 #endif
@@ -158,4 +175,9 @@ RcppExport SEXP newProtocolBufferLookup(){
 #endif
   return(val);
 }
+
+} // namespace
+} // namespace rprotobuf
+} // namespace rproject
+} // namespace org
 

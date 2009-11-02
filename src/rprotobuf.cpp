@@ -82,7 +82,6 @@ PrintValue( type ) ;
 #endif
 	
 	const char * typeName = CHAR( STRING_ELT(type, 0 ) ) ;
-	
 	const DescriptorPool * pool = DescriptorPool::generated_pool() ;
 	const Descriptor * desc = pool->FindMessageTypeByName( typeName ) ; 
 	if( !desc ){
@@ -90,9 +89,7 @@ PrintValue( type ) ;
 	}
 	
 	return( new_RS4_Descriptor( desc ) ) ;
-
 }
-
 
 /**
  * make a new protobuf message
