@@ -13,7 +13,7 @@ Rprintf( "<as_list_message>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(xp) ;
+    //Message* message = (Message*)EXTPTR_PTR(xp) ;
 	
 	SEXP fieldNames = PROTECT( getMessageFieldNames(xp) ) ;
 	int nf = LENGTH( fieldNames ); 

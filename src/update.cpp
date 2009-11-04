@@ -11,7 +11,7 @@ Rprintf( "<update_message>\n" ) ;
 	SEXP names = Rf_getAttrib(list, Rf_install("names") ) ;
 	
 	int n = LENGTH(list);
-	char* what ;
+	//char* what ;
 	for( int i=0; i<n; i++){
 		setMessageField( xp, 
 			Rf_mkString( CHAR( STRING_ELT( names, i) ) ), 

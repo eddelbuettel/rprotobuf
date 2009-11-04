@@ -20,7 +20,7 @@ namespace rprotobuf{
  * @throws CastException if x[index] cannot be converted to int
  */ 
 int GETINT( SEXP x, int index ){
-	int res ;
+	int res = 0;  // default value to quieten g++ -Wall
 	switch( TYPEOF(x) ){
 		case INTSXP: 
 			{
