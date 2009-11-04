@@ -14,17 +14,28 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 # {{{ protobufMessage
 .DollarNames.protobufMessage <- function(x, pattern = "" ){
 	
-	names <- .Call( "getMessageFieldNames", x@pointer, PACKAGE = "RProtoBuf" ) 
-	# TODO: add 'methods' here, such as "read()", "write()"
+	names <- c( 
+		.Call( "getMessageFieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
+		"has(", "clone()", "clone("  )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
 
-
 # {{{ protobufDescriptor
 .DollarNames.protobufDescriptor <- function(x, pattern = "" ){
 	
-	names <- .Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ) 
+	names <- c( 
+		.Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		"new(" )
+	grep( pattern, names, value = TRUE )
+}
+# }}}
+
+# {{{ protobufEnumDescriptor
+.DollarNames.protobufEnumDescriptor <- function(x, pattern = "" ){
+	
+	names <- c( 
+		.Call( "getEnumDescriptorConstantNames", x@pointer, PACKAGE = "RProtoBuf" ) )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

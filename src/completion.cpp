@@ -1,9 +1,6 @@
 #include "rprotobuf.h"
 
-//namespace org{
-//namespace rproject{
 namespace rprotobuf{
-//namespace{
 
 /**
  * returns the field names of the message
@@ -31,7 +28,6 @@ SEXP getMessageFieldNames( SEXP xp ){
 	return( res );
 	
 }
-
 
 /**
  * returns the names of the members contained in the descriptor
@@ -73,11 +69,29 @@ SEXP getDescriptorMemberNames( SEXP xp ){
 	
 	UNPROTECT(1); 
 	return( res );
-
 }
 
-//} // namespace
+/**
+ * returns the names of the members contained in the descriptor
+ * (nested types, enums, fields)
+ *
+ * @param xp external pointer to a Descriptor
+ *
+ * @return member names, as an R character vector (STRSXP)
+ */
+SEXP getEnumDescriptorConstantNames( SEXP xp){
+	
+	EnumDescriptor* d = (EnumDescriptor*)EXTPTR_PTR(xp) ;
+	
+	int n = d->value_count() ;
+	SEXP names = PROTECT( Rf_allocVector( STRSXP, n ) );
+	for( int i=0; i<n; i++){
+		SET_STRING_ELT( names, i, Rf_mkChar(d->value(i)->name().c_str() ) ) ;
+	}
+	UNPROTECT(1) ; /* names */
+	return names ;
+	
+}
+
 } // namespace rprotobuf
-//} // namespace rproject
-//} // namespace org
 

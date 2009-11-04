@@ -1,10 +1,6 @@
 #include "rprotobuf.h"
 
-//namespace org{
-//namespace rproject{
 namespace rprotobuf{
-//namespace{
-
 
 /**
  * create a call to throw an evaluate it
@@ -28,8 +24,5 @@ SEXP throwException( const char* message, const char* subclass ){
 	return( R_NilValue ); 
 }
 
-//} // namespace
 } // namespace rprotobuf
-//} // namespace rproject
-//} // namespace org
 

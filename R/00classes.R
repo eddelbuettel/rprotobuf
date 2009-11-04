@@ -40,8 +40,9 @@ setClass( "protobufMessage",  representation(
 # {{{ new
 setGeneric("new")
 setMethod("new", signature(Class="protobufDescriptor"), function(Class, ...) newProto(Class, ...))
-newProto <- function( descriptor ){
+newProto <- function( descriptor, ... ){
 	message <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
+	update( message, ... )
 	message
 }
 # }}}
@@ -89,15 +90,50 @@ setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 
 # {{{ dollar extractors
 setMethod("$", c(x="protobufMessage"), function(x, name) {
-	stopifnot( is.character(name) )
-	.Call( "getMessageField", x@pointer, name )
+	if( identical( name, "has") ){
+		function( what ) {
+			.Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" )
+		}
+	} else if( identical( name, "clone" ) ) {
+		function( ... ){
+			._clone.message( x, ... )
+		}
+	} else {
+		.Call( "getMessageField", x@pointer, name )
+	}
 } )
 setMethod("$", c(x="protobufDescriptor"), function(x, name) {
+	if( identical( name, "new") ){
+		function( ... ){
+			newProto( x, ... )
+		}
+	}
 	.Call( "do_dollar_Descriptor", x@pointer, name ) 
 } )
-
+setMethod( "$", "protobufEnumDescriptor", function(x, name ){
+	.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
+} )
 setMethod("$<-", c(x="protobufMessage"), function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value )
 	x
+} )
+# }}}
+
+# {{{ update
+setGeneric( "update" )
+setMethod( "update", "protobufMessage", function( object, ... ){
+	
+	dots <- list( ... )
+	if( !length( dots ) ){
+		return( object )
+	}
+	names <- names( dots )
+	named <- dots[ names != "" ]
+	if( !length( named ) ){
+		return( object )
+	}
+	.Call( "update_message", object@pointer, named )
+	object
+	
 } )
 # }}}

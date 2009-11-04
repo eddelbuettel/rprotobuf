@@ -22,7 +22,7 @@ An error is generated otherwise.
 Romain Francois <francoisromain@free.fr>
 }
 \examples{
-proto.file <- system.file( "examples", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 Person <- P( "tutorial.Person", file = proto.file )
 as.character( Person )
 }

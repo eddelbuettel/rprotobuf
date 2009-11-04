@@ -1,7 +1,5 @@
 #include "rprotobuf.h"
 
-//namespace org{
-//namespace rproject{
 namespace rprotobuf{
 
 class MockErrorCollector : public MultiFileErrorCollector {
@@ -21,8 +19,6 @@ class MockErrorCollector : public MultiFileErrorCollector {
 };
 
 
-//namespace{
-	
 /**
  * read a proto file and cache the message definitions it contains
  *
@@ -163,39 +159,29 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	return( R_NilValue ); 
 }
 
-/**
- * Get the debug string of a message
+/** 
  *
- * @param xp external pointer to a Message pointer
- */
-SEXP get_message_debug_string( SEXP xp ){
+ * @param m potentially a message 
+ * @param target the exxpected type
+ *
+ * @return TRUE if m is a a message of the given type
+ */ 
+Rboolean isMessage( SEXP m, const char* target ){
+#ifdef RPB_DEBUG
+Rprintf( "<isMessage>\n" ) ;
+#endif
+
+	if( TYPEOF(m) != S4SXP || !Rf_inherits( m, "protobufMessage") ) return _FALSE_ ;
 	
-	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(xp) ;
+	Message* message = (Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) );
 	
-	SEXP res = PROTECT( Rf_mkString(message->DebugString().c_str() ) ) ; 
-	UNPROTECT(1); /* res */
-	return res ;
+	const char* type = message->GetDescriptor()->full_name().c_str() ;
+	if( strcmp( type, target) ){
+		return _FALSE_ ;
+	}
+
+	return _TRUE_ ; 
 }
 
-
-/**
- * Get the debug string of a message
- *
- * @param xp external pointer to a Descriptor pointer
- */
-SEXP get_descriptor_debug_string( SEXP xp ){
-	
-	/* grab the Message pointer */
-	Descriptor* desc = (Descriptor*)EXTPTR_PTR(xp) ;
-	
-	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
-	UNPROTECT(1); /* res */
-	return res ;
-}
-
-//} // namespace
 } // namespace rprotobuf
-//} // namespace rproject
-//} // namespace org
 

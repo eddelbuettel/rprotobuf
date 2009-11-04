@@ -9,11 +9,20 @@ importFrom( methods, new )
 exportClasses( "protobufDescriptor", "protobufMessage", 
 	"protobufFieldDescriptor", "protobufEnumDescriptor" )
 exportMethods( "new", "$", "$<-", "show",
-	"serialize", "as.character" )
+	"serialize", "as.character", "update", "has", "clone" )
 
 export( "P", "throw", "readProtoFiles" )
 
 if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
 S3method(.DollarNames, protobufMessage )
 S3method(.DollarNames, protobufDescriptor )
+S3method(.DollarNames, protobufEnumDescriptor )
 
+S3method( with, protobufMessage )
+S3method( within, protobufMessage)
+
+S3method( as.list, protobufMessage )
+S3method( as.list, protobufDescriptor )
+S3method( as.list, protobufEnumDescriptor )
+
+importFrom( "stats", "update")

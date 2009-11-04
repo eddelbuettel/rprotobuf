@@ -3,6 +3,7 @@
 \docType{class}
 \alias{protobufFieldDescriptor-class}
 \alias{show,protobufFieldDescriptor-method}
+\alias{as.character,protobufFieldDescriptor-method}
 
 \title{Class "protobufFieldDescriptor"}
 \description{R representation of message type field descriptor. 
@@ -21,7 +22,11 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
 \section{Methods}{
   \describe{
     \item{show}{\code{signature(object = "protobufFieldDescriptor")}: small description }
-	 }
+    \item{as.character}{\code{signature(x = "protobufFieldDescriptor")}: 
+  	  	  returns the debug string of the field descriptor. 
+  	  	  This is retrieved by a call to the \code{DebugString}
+  	      method of the FieldDescriptor object.  }
+  	}
 }
 \references{ The \code{FieldDescriptor} C++ class }
 \author{ Romain Francois <francoisromain@free.fr> }
@@ -30,13 +35,16 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
 }
 \examples{
 # example proto file supplied with this package
-proto.file <- system.file( "examples", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
 
-# field
+# field descriptor object
 Person$email
+
+# debug string
+as.character( Person$email )
 
 }
 \keyword{classes}

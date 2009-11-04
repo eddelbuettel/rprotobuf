@@ -28,21 +28,24 @@
 #define _TRUE_ (Rboolean)TRUE
 #define _FALSE_ (Rboolean)FALSE
 
+#define GET_MESSAGE_POINTER_FROM_XP(xp)  (Message*) EXTPTR_PTR( xp )
+#define GET_MESSAGE_POINTER_FROM_S4(m)   (Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
+
+#define GET_DESCRIPTOR_POINTER_FROM_XP(xp)  (Descriptor*) EXTPTR_PTR( xp )
+#define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
+
+
 using namespace google::protobuf::compiler ;
 using namespace google::protobuf ;
 
-//namespace org{
-//namespace rproject{
 namespace rprotobuf{
-//namespace{
 
 /* in rprotobuf.cpp */
-RcppExport SEXP get_message_debug_string( SEXP ); 
-RcppExport SEXP get_descriptor_debug_string( SEXP ); 
 RcppExport SEXP do_dollar_Descriptor( SEXP, SEXP ) ;
 RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;
 RcppExport SEXP readProtoFiles( SEXP ); 
+RcppExport Rboolean isMessage( SEXP, const char* ) ;
 
 /* in constructors.cpp */
 RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
@@ -58,6 +61,7 @@ RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const Fi
 /* in completion.cpp */
 RcppExport SEXP getMessageFieldNames( SEXP) ;
 RcppExport SEXP getDescriptorMemberNames( SEXP) ;
+RcppExport SEXP getEnumDescriptorConstantNames( SEXP ) ;
 
 /* in exceptions.cpp */
 RcppExport SEXP throwException( const char*, const char*) ;
@@ -69,12 +73,31 @@ RcppExport SEXP getMessagePayload( SEXP ) ;
 RcppExport SEXP newProtocolBufferLookup() ;
 
 /* in mutators.cpp */
+RcppExport int GETINT( SEXP, int) ;                                                                        
 RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
 
-//} // namespace
+/* in aslist.cpp */
+RcppExport SEXP as_list_message( SEXP ) ;
+RcppExport SEXP as_list_descriptor( SEXP ); 
+RcppExport SEXP as_list_enum_descriptor( SEXP ); 
+
+/* in ascharacter.cpp */
+RcppExport SEXP as_character_message( SEXP );
+RcppExport SEXP as_character_descriptor( SEXP ); 
+RcppExport SEXP as_character_enum_descriptor( SEXP ); 
+RcppExport SEXP as_character_field_descriptor(SEXP);
+RcppExport SEXP get_value_of_enum( SEXP, SEXP); 
+
+/* in update.cpp */
+RcppExport SEXP update_message( SEXP, SEXP) ;
+
+/* in has.cpp */
+RcppExport SEXP message_has_field( SEXP, SEXP ); 
+
+/* in clobe.cpp */
+RcppExport SEXP clone_message( SEXP ) ;
+
 } // namespace rprotobuf
-//} // namespace rproject
-//} // namespace org
 
 
 #endif

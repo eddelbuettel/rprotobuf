@@ -49,7 +49,7 @@ C++ class \code{Descriptor}}
 \examples{
 
 # example proto file supplied with this package
-proto.file <- system.file( "examples", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )

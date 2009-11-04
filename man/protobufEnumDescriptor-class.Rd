@@ -3,6 +3,8 @@
 \docType{class}
 \alias{protobufEnumDescriptor-class}
 \alias{show,protobufEnumDescriptor-method}
+\alias{as.character,protobufEnumDescriptor-method}
+\alias{$,protobufEnumDescriptor-method}
 
 \title{Class "protobufEnumDescriptor"  }
 \description{ R representation of an enum descriptor. This 
@@ -22,7 +24,14 @@ Objects of this class are typically retrieved as members of
 \section{Methods}{
   \describe{
     \item{show}{\code{signature(object = "protobufEnumDescriptor")}: small information }
-	 }
+    \item{as.character}{\code{signature(x = "protobufEnumDescriptor")}: 
+  	  	  returns the debug string of the enum descriptor. 
+  	  	  This is retrieved by a call to the \code{DebugString}
+  	      method of the EnumDescriptor object.  }
+  	\item{$}{\code{signature(x = "protobufEnumDescriptor")}: get the 
+  	number associated with the name}
+  }
+  	
 }
 \references{ The \code{EnumDescriptor} C++ class }
 \author{ Romain Francois <francoisromain@free.fr> }
@@ -30,7 +39,7 @@ Objects of this class are typically retrieved as members of
 \examples{
 
 # example proto file supplied with this package
-proto.file <- system.file( "examples", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )

@@ -7,6 +7,7 @@
 \alias{$,protobufMessage-method}
 \alias{serialize,protobufMessage-method}
 \alias{show,protobufMessage-method}
+\alias{update,protobufMessage-method}
 
 \title{Class "protobufMessage" }
 \description{
@@ -34,6 +35,7 @@ as an external pointer.
     Messages are brought back as instances of the \code{protobufMessage} class.}
     \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message to a connection. \emph{not yet implemented, patches welcome} }
     \item{show}{\code{signature(object = "protobufMessage")}: displays a short text about the message }
+    \item{update}{\code{signature(object = "protobufMessage")}: set several fields of the message at once }
 	 }
 }
 \references{ 
@@ -47,19 +49,48 @@ as an external pointer.
 \examples{
 
 # example proto file supplied with this package
-proto.file <- system.file( "examples", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
-	
+PhoneNumber <- P( "tutorial.Person.PhoneNumber" )
+
 # creating a prototype message from the descriptor
 p <- new( Person )
-p$email
-p$id
-as.character( p )
+p$email # not set, returns default value
+p$id    # not set, returns default value
+as.character( p ) # empty
+has( p, "email" ) # is the "email" field set
+has( p, "phone" ) # is the "email" field set
 
+# update several fields at once
+romain <- update( new( Person ), 
+	email = "francoisromain@free.fr", 
+	id = 1, 
+	name = "Romain Francois", 
+	phone = new( PhoneNumber , number = "+33(0)...", type = "MOBILE" )
+	)
+
+# supply parameters to the constructor
+dirk <- new( Person, 
+	email = "edd@debian.org", 
+	id = 2, 
+	name = "Dirk Eddelbuettel" ) 
+# update the phone repeated field with a list of PhoneNumber messages
+dirk$phone <- list( 
+	new( PhoneNumber , number = "+01...", type = "MOBILE" ), 
+	new( PhoneNumber , number = "+01...", type = "HOME" ) )
+	
+# with/within style
+saptarshi <- within( new(Person), {
+	id <- 3
+	name <- "Saptarshi Guha"
+	email <- "saptarshi.guha@gmail.com" 
+} )
+	
 # returns the payload as a raw vector
-serialize( p, con = NULL )
+# not yet implemented
+# serialize( p, con = NULL )
 
 }
 \keyword{classes}
