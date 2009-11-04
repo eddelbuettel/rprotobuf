@@ -1,0 +1,7 @@
+* finalizers
+* serialize/parse messages from/to connections
+* unit testing
+* vignette
+* what to do when unload the package
+* useR abstract
+* useR presentation
