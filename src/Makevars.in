@@ -9,8 +9,8 @@ pkg=			RProtoBuf
 
 all:			addressbook.pb.cc pkglib
 
-addressbook.pb.cc:	addressbook.proto
-			protoc --cpp_out=. $<
+addressbook.pb.cc:	../inst/proto/addressbook.proto
+			protoc --cpp_out=. --proto_path=../inst/proto $<
 
 addressbook.pb.o:	addressbook.pb.cc
 			$(SHLIB_CXXLD) -c $< $(CXXPICFLAGS) $(SHLIB_CXXLDFLAGS) $(PKG_CPPFLAGS) 
