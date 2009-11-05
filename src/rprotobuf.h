@@ -94,8 +94,11 @@ RcppExport SEXP update_message( SEXP, SEXP) ;
 /* in has.cpp */
 RcppExport SEXP message_has_field( SEXP, SEXP ); 
 
-/* in clobe.cpp */
+/* in clone.cpp */
 RcppExport SEXP clone_message( SEXP ) ;
+
+/* in merge.cpp */
+RcppExport SEXP merge_message( SEXP, SEXP ); 
 
 } // namespace rprotobuf
 
