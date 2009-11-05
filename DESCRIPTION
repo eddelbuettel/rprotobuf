@@ -11,5 +11,6 @@ Depends: Rcpp (>= 0.6.4), methods
 SystemRequirements: ProtoBuf compiler (to create C++ header and source files
  from .proto descriptions) and library
 License: GPL-2
-URL: http://code.google.com/p/protobuf/
+URL: http://r-forge.r-project.org/projects/rprotobuf/, http://code.google.com/p/protobuf/, http://romainfrancois.blog.free.fr, http://dirk.eddelbuettel.com/
+MailingList: <rprotobuf-yada@lists.r-forge.r-project.org>
 
