@@ -1,7 +1,8 @@
 ## -*- mode: makefile; -*-
+
 ## Configure tells us about locations for
 ## both Rcpp (ie libRcpp.so and Rcpp.h) and 
-## ProtoBuf headers and library
+## ProtoBuf headers and library via the variables
 PKG_CPPFLAGS=		@PKG_CPPFLAGS@
 PKG_LIBS=		@PKG_LIBS@
 
@@ -15,6 +16,8 @@ addressbook.pb.cc:	../inst/proto/addressbook.proto
 addressbook.pb.o:	addressbook.pb.cc
 			$(SHLIB_CXXLD) -c $< $(CXXPICFLAGS) $(SHLIB_CXXLDFLAGS) $(PKG_CPPFLAGS) 
 
-pkglib:			addressbook.pb.o list_people_R.o rprotobuf.o lookup.o constructors.o extractors.o completion.o exceptions.o serialize.o mutators.o aslist.o update.o ascharacter.o has.o clone.o merge.o
+## The $(OBJECTS) variable is filled by R CMD ... based on all 
+## .cpp files in this directory, but we need to add addressbook.pb.o
+pkglib:			addressbook.pb.o $(OBJECTS)
 			$(SHLIB_CXXLD) -o $(pkg)$(DYLIB_EXT) $^ $(SHLIB_CXXLDFLAGS) $(PKG_LIBS)
 
