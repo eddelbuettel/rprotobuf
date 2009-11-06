@@ -107,8 +107,13 @@ setMethod("$", c(x="protobufDescriptor"), function(x, name) {
 		function( ... ){
 			newProto( x, ... )
 		}
+	} else if( identical( name, "read" ) ) {
+		function( input ){
+			read( x, input )
+		}
+	} else{
+		.Call( "do_dollar_Descriptor", x@pointer, name )
 	}
-	.Call( "do_dollar_Descriptor", x@pointer, name ) 
 } )
 setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 	.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )

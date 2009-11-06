@@ -95,8 +95,8 @@ Rprintf( "<newProtoMessage>\n" ) ;
 	SEXP type = GET_SLOT( descriptor, Rf_install("type") ) ;
 	
 	/* the pointer to the c++ descriptor object */
-	Descriptor* desc = (Descriptor*)EXTPTR_PTR( GET_SLOT( descriptor, Rf_install("pointer") ) );
-
+	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_S4( descriptor ); 
+	
 #ifdef RPB_DEBUG
 PRINT_DEBUG_INFO( "type", type ) ;
 PRINT_DEBUG_INFO( "desc_ptr", desc_ptr ) ;

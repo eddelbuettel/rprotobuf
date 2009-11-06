@@ -26,7 +26,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	
 	names <- c( 
 		.Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"new(" )
+		"new(", "read(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

@@ -1,9 +1,15 @@
 #ifndef RPROTOBUF_H
 #define RPROTOBUF_H
 
+/* should we check this is available */
+#include <fcntl.h>
+/* FIXME: need to include some header file instead of this define */
+#define O_BINARY 0
+
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
+#include <google/protobuf/message.h>
 
 #define R_NO_REMAP
 
@@ -99,6 +105,9 @@ RcppExport SEXP clone_message( SEXP ) ;
 
 /* in merge.cpp */
 RcppExport SEXP merge_message( SEXP, SEXP ); 
+
+/* in read.cpp */
+RcppExport SEXP readMessageFromFile( SEXP, SEXP ) ;
 
 } // namespace rprotobuf
 
