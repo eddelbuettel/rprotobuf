@@ -22,6 +22,9 @@ book <- system.file( "examples", "AddressBookFile", package = "RProtoBuf" )
 # read the message
 message <- read( tutorial.AddressBook, book )
 
+# or using the pseudi method 
+message <- tutorial.AddressBook$read( book )
+
 # write its debug string
 writeLines( as.character( message ) )
 
