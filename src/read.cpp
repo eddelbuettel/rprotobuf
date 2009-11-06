@@ -23,6 +23,8 @@ SEXP readMessageFromFile( SEXP xp, SEXP filename ){
 	
 	message->ParseFromFileDescriptor( file ); 
 	
+	close( file ) ;
+	
 	return( new_RS4_Message_( message ) ) ;
 	
 }

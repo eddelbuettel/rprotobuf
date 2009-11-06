@@ -74,6 +74,7 @@ RcppExport SEXP throwException( const char*, const char*) ;
 
 /* in serialize.cpp */
 RcppExport SEXP getMessagePayload( SEXP ) ;
+RcppExport SEXP serializeMessageToFile( SEXP , SEXP ) ;
 
 /* in lookup.cpp */
 RcppExport SEXP newProtocolBufferLookup() ;

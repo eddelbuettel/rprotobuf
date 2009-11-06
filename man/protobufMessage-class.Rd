@@ -29,11 +29,11 @@ as an external pointer.
   \describe{
     \item{as.character}{\code{signature(x = "protobufMessage")}: returns the debug string of the message. 
     	This is built from a call to the \code{DebugString} message of the \code{Message} object}
-    \item{$<-}{\code{signature(x = "protobufMessage")}: set the value of a field of the message. \emph{not yet implemented, patches welcome} }
+    \item{$<-}{\code{signature(x = "protobufMessage")}: set the value of a field of the message. }
     \item{$}{\code{signature(x = "protobufMessage")}: gets the value of a field. 
     Primitive types are brough back to R as R objects of the closest matching R type. 
     Messages are brought back as instances of the \code{protobufMessage} class.}
-    \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message to a connection. \emph{not yet implemented, patches welcome} }
+    \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message to a connection.  }
     \item{show}{\code{signature(object = "protobufMessage")}: displays a short text about the message }
     \item{update}{\code{signature(object = "protobufMessage")}: set several fields of the message at once }
 	 }
@@ -87,10 +87,18 @@ saptarshi <- within( new(Person), {
 	name <- "Saptarshi Guha"
 	email <- "saptarshi.guha@gmail.com" 
 } )
-	
-# returns the payload as a raw vector
-# not yet implemented
-# serialize( p, con = NULL )
+
+# make an addressbook
+book <- new( tutorial.AddressBook, person = list( romain, dirk, saptarshi ) )
+
+# serialize the message to a file
+tf <- tempfile( )
+serialize( book, tf )
+
+# read the file into a new message
+m <- tutorial.AddressBook$read( tf )
+writeLines( as.character( m ) )
+sapply( m$person, function(p) name )
 
 }
 \keyword{classes}

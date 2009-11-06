@@ -7,15 +7,35 @@
 setGeneric( "serialize" )
 setMethod( "serialize", c( object = "protobufMessage" ) , 
 	function( object, connection, ascii = FALSE, refhook = NULL){
-		# grab the payload as a raw vector
-		payload <- .Call( "getMessagePayload", object@pointer, PACKAGE = "RProtoBuf" )
 		
-		if( is.null(connection) ){
-			payload
-		} else {
-			stop( "serialization of 'protobufMessage' to connection is not implemented yet" ) 
+		iscon <- inherits(connection, "connection")
+		isnull <- is.null( connection )
+		
+		if( is.character( connection ) ){
+			# pretend it is a file name
+			if( !file.exists(connection) ){
+				file.create( connection )
+				file <- tools:::file_path_as_absolute(connection)
+				unlink( file )
+			} else{
+				file <- tools:::file_path_as_absolute(connection)
+			}
+		} else if( iscon || isnull ) {
+			# right now we go through a file anyway
+			# and write it all back into the connection later
+			file <- tempfile()
 		}
 		
+		.Call( "serializeMessageToFile", object@pointer, file, PACKAGE = "RProtoBuf" )
+		
+		if( iscon || isnull ){
+			# FIXME: the idea if to read the file, and write it back to the 
+			# connection
+			unlink( file ) 
+			stop( "serializing to connections is not implemented yet, patches welcome" )
+		}
+		
+		invisible( NULL) 
 	}
 )
 

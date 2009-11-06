@@ -18,6 +18,27 @@ SEXP getMessagePayload( SEXP xp ){
 	return( payload ) ;
 	
 }
+
+/** 
+ * serialize a message to a file
+ *
+ * @param xp external pointer to a Message*
+ * @param filename file name where to serialize
+ */
+SEXP serializeMessageToFile( SEXP xp, SEXP filename ){
 	
+	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ); 
+	
+	int file = open( CHAR(STRING_ELT(filename, 0 )), 
+		O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666); 
+	
+	message->SerializeToFileDescriptor( file ) ;
+	
+	close( file ) ; 
+	
+	return( R_NilValue ); 
+}
+
+
 } // namespace rprotobuf
 
