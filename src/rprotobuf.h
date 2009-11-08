@@ -10,6 +10,7 @@
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
 #include <google/protobuf/message.h>
+#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 
 #define R_NO_REMAP
 

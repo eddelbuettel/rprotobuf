@@ -21,28 +21,23 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 			} else{
 				file <- tools:::file_path_as_absolute(connection)
 			}
-		} else if( iscon || isnull ) {
-			# right now we go through a file anyway
-			# and write it all back into the connection later
-			file <- tempfile()
-		}
-		
-		.Call( "serializeMessageToFile", object@pointer, file, PACKAGE = "RProtoBuf" )
-		
-		if( iscon || isnull ){
-			# FIXME: the idea if to read the file, and write it back to the 
-			# connection
-			lines <- readLines( file )
-			unlink( file ) 
-			if( iscon ){
-				writeLines( lines, con = connection )
-			} else{
-				lines
-			}
-		} else{
+			.Call( "serializeMessageToFile", object@pointer, file, PACKAGE = "RProtoBuf" )
 			invisible( NULL)
+		} else if( iscon || isnull ) {
+			# not anymore
+			# # right now we go through a file anyway
+			# # and write it all back into the connection later
+			# file <- tempfile()
+			
+			payload <- .Call( "getMessagePayload", object@pointer, PACKAGE = "RProtoBuf" )
+			if( isnull ){
+				payload
+			} else{
+				writeBin( payload, connection )
+				invisible( NULL )
+			}
+			
 		}
-		
 	}
 )
 

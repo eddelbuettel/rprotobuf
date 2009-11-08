@@ -11,13 +11,18 @@ namespace rprotobuf{
  */
 SEXP getMessagePayload( SEXP xp ){
 	           
-	SEXP payload = PROTECT( Rf_allocVector( RAWSXP, 0) ); 
-	/* TODO: implement */
-	Rf_warning( "serialization not implemented yet" ) ;
+	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+	
+	int size = message->ByteSize() ;
+	SEXP payload = PROTECT( Rf_allocVector( RAWSXP, size) );
+	
+	io::ArrayOutputStream raw_output( RAW(payload), size ); 
+	io::CodedOutputStream stream(&raw_output);
+
+	message->SerializeWithCachedSizes( &stream ); 
 	
 	UNPROTECT(1); /* payload */ 
 	return( payload ) ;
-	
 }
 
 /** 
