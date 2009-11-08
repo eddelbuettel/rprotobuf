@@ -1,4 +1,5 @@
 #include "rprotobuf.h"
+#include "RconnectionCopyingInputStream.h"
 
 namespace rprotobuf{
 
@@ -29,5 +30,33 @@ SEXP readMessageFromFile( SEXP xp, SEXP filename ){
 	return( new_RS4_Message_( message ) ) ;
 	
 }
+
+/**
+ * read a message from a binary connection
+ * 
+ * @param xp external pointer to a Descriptor*
+ * @param con connection id
+ *
+ */ 
+SEXP readMessageFromConnection( SEXP xp, SEXP con ){
+	
+	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
+	
+	int conn_id = INTEGER(con)[0] ;
+	
+	RconnectionCopyingInputStream wrapper( conn_id ) ;
+	io::CopyingInputStreamAdaptor stream( &wrapper, 1024 ) ;
+	io::CodedInputStream coded_stream(&stream ) ;
+	
+	/* create a prototype of the message we are going to read */
+	Message * message = (Message*)MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	if( !message ){
+		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
+	}
+	
+	message->MergePartialFromCodedStream( &coded_stream ) ;
+	return( new_RS4_Message_( message ) ) ;
+}
+
 
 } // namespace rprotobuf

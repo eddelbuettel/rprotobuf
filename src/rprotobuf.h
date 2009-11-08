@@ -115,6 +115,7 @@ RcppExport SEXP merge_message( SEXP, SEXP );
 
 /* in read.cpp */
 RcppExport SEXP readMessageFromFile( SEXP, SEXP ) ;
+RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ; 
 
 } // namespace rprotobuf
 

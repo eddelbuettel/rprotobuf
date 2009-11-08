@@ -14,8 +14,6 @@ function( descriptor, input ){
 	if( !inherits( input, "connection" ) ){ 
 		stop( "can only read from connections" )
 	}
-	
-	.NotYetImplemented( ) 
-	
+	.Call( "readMessageFromConnection", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
 } )
 
