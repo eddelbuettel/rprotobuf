@@ -9,8 +9,13 @@ function(descriptor, input ){
 	.Call( "readMessageFromFile", descriptor@pointer, file, PACKAGE = "RProtoBuf" ) 
 } )
 
-setMethod( "read", c( descriptor = "protobufDescriptor" , input = "connection" ), 
+setMethod( "read", c( descriptor = "protobufDescriptor" ), 
 function( descriptor, input ){
-	.NotYetImplemented() 
+	if( !inherits( input, "connection" ) ){ 
+		stop( "can only read from connections" )
+	}
+	
+	.NotYetImplemented( ) 
+	
 } )
 

@@ -3,7 +3,7 @@
 \alias{read}
 \alias{read-methods}
 \alias{read,protobufDescriptor,character-method}
-\alias{read,protobufDescriptor,connection-method}
+\alias{read,protobufDescriptor,ANY-method}
 \title{Read a protocol buffer message from a connection}
 \description{
 	Read a \linkS4class{protobufMessage} from a 
@@ -12,7 +12,7 @@
 \section{Methods}{
 \describe{
 	\item{\code{signature(descriptor = "protobufDescriptor", input = "character")}}{ Read the message from a file }
-	\item{\code{signature(descriptor = "protobufDescriptor", input = "connection")}}{ Read from a binary connection.  }
+	\item{\code{signature(descriptor = "protobufDescriptor")}}{ Read from a binary connection.  }
 }}
 \keyword{methods}
 \examples{

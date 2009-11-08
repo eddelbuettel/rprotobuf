@@ -14,7 +14,7 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 		if( is.character( connection ) ){
 			# pretend it is a file name
 			if( !file.exists(connection) ){
-				# FIXME: hack to grab the absoulte path name
+				# FIXME: hack to grab the absolute path name
 				file.create( connection )
 				file <- tools:::file_path_as_absolute(connection)
 				unlink( file )
@@ -32,6 +32,9 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 				payload
 			} else{
 				# otherwise write the payload to the connection
+				# FIXME: we might want to be more clever about this so that 
+				#        we don't have to store the full payload in memory
+				#        but for now it will do just fine
 				writeBin( payload, connection )
 				invisible( NULL )
 			}
