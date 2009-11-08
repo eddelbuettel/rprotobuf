@@ -11,6 +11,8 @@ namespace rprotobuf{
 	
 		private: 
 			int connection_id ;
+			
+			SEXP getReadBinCall(int size) ;
 } ;
 
 } // namespace rprotobuf
