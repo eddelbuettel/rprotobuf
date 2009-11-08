@@ -99,6 +99,9 @@ book <- new( tutorial.AddressBook, person = list( romain, dirk, saptarshi ) )
 tf <- tempfile( )
 serialize( book, tf )
 
+# the payload of the message
+serialize( book, NULL )
+
 # read the file into a new message
 m <- tutorial.AddressBook$read( tf )
 writeLines( as.character( m ) )
