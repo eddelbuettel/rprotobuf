@@ -33,7 +33,11 @@ as an external pointer.
     \item{$}{\code{signature(x = "protobufMessage")}: gets the value of a field. 
     Primitive types are brough back to R as R objects of the closest matching R type. 
     Messages are brought back as instances of the \code{protobufMessage} class.}
-    \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message to a connection.  }
+    \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message. If the 
+    	"connection" argument is \code{NULL}, the payload of the message is returned as a raw vector, 
+    	if the "connection" argument is a binary writable connection, the payload is written into the 
+       connection. If "connection" is a character vector, the message is sent to 
+       the file (in binary format). }
     \item{show}{\code{signature(object = "protobufMessage")}: displays a short text about the message }
     \item{update}{\code{signature(object = "protobufMessage")}: set several fields of the message at once }
 	 }

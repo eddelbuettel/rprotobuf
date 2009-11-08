@@ -24,15 +24,14 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 			.Call( "serializeMessageToFile", object@pointer, file, PACKAGE = "RProtoBuf" )
 			invisible( NULL)
 		} else if( iscon || isnull ) {
-			# not anymore
-			# # right now we go through a file anyway
-			# # and write it all back into the connection later
-			# file <- tempfile()
 			
+			# first grab the payload as a raw vector, 
 			payload <- .Call( "getMessagePayload", object@pointer, PACKAGE = "RProtoBuf" )
 			if( isnull ){
+				# just return it if the connections is NULL
 				payload
 			} else{
+				# otherwise write the payload to the connection
 				writeBin( payload, connection )
 				invisible( NULL )
 			}
@@ -40,9 +39,4 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 		}
 	}
 )
-
-# serializeToConn <- function( message, con ){
-# 	.Call( "serialize_to_connection", message@pointer, con, PACKAGE = "RProtoBuf" ) 
-# }
-
 
