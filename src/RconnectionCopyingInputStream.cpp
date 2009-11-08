@@ -28,6 +28,7 @@ namespace rprotobuf{
 		return len ;
 	}
 	
+	/* makes the call : readBin( con, raw(0), size ) */
 	SEXP RconnectionCopyingInputStream::getReadBinCall( int size ){
 		SEXP con = PROTECT( Rf_ScalarInteger(connection_id) );
 		SEXP what = PROTECT( Rf_allocVector(RAWSXP, 0) ) ;
