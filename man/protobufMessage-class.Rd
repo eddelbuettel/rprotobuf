@@ -105,7 +105,7 @@ serialize( book, NULL )
 # read the file into a new message
 m <- tutorial.AddressBook$read( tf )
 writeLines( as.character( m ) )
-sapply( m$person, function(p) name )
+sapply( m$person, function(p) p$name )
 
 }
 \keyword{classes}
