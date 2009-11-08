@@ -21,7 +21,7 @@ SEXP readMessageFromFile( SEXP xp, SEXP filename ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
 	
-	message->ParseFromFileDescriptor( file ); 
+	message->ParsePartialFromFileDescriptor( file ); 
 	
 	close( file ) ;
 	

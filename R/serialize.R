@@ -14,6 +14,7 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 		if( is.character( connection ) ){
 			# pretend it is a file name
 			if( !file.exists(connection) ){
+				# FIXME: hack to grab the absoulte path name
 				file.create( connection )
 				file <- tools:::file_path_as_absolute(connection)
 				unlink( file )
@@ -31,11 +32,22 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 		if( iscon || isnull ){
 			# FIXME: the idea if to read the file, and write it back to the 
 			# connection
+			lines <- readLines( file )
 			unlink( file ) 
-			stop( "serializing to connections is not implemented yet, patches welcome" )
+			if( iscon ){
+				writeLines( lines, con = connection )
+			} else{
+				lines
+			}
+		} else{
+			invisible( NULL)
 		}
 		
-		invisible( NULL) 
 	}
 )
+
+# serializeToConn <- function( message, con ){
+# 	.Call( "serialize_to_connection", message@pointer, con, PACKAGE = "RProtoBuf" ) 
+# }
+
 

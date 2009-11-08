@@ -13,6 +13,9 @@
 
 #define R_NO_REMAP
 
+/* we need to read and write to connections */
+#define NEED_CONNECTION_PSTREAMS
+
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
@@ -75,6 +78,7 @@ RcppExport SEXP throwException( const char*, const char*) ;
 /* in serialize.cpp */
 RcppExport SEXP getMessagePayload( SEXP ) ;
 RcppExport SEXP serializeMessageToFile( SEXP , SEXP ) ;
+RcppExport SEXP serialize_to_connection( SEXP, SEXP ) ;
 
 /* in lookup.cpp */
 RcppExport SEXP newProtocolBufferLookup() ;

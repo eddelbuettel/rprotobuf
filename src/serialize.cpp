@@ -1,4 +1,5 @@
 #include "rprotobuf.h"
+#include "connections.h"
 
 namespace rprotobuf{
 
@@ -32,13 +33,34 @@ SEXP serializeMessageToFile( SEXP xp, SEXP filename ){
 	int file = open( CHAR(STRING_ELT(filename, 0 )), 
 		O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666); 
 	
-	message->SerializeToFileDescriptor( file ) ;
+	/* using partial to allow partially filled messages */
+	message->SerializePartialToFileDescriptor( file ) ;
 	
 	close( file ) ; 
 	
 	return( R_NilValue ); 
 }
 
+/**
+ * serialize a message to a connection
+ * 
+ * @param xp external pointer to a Message
+ * @param connection output connection
+ */
+SEXP serialize_to_connection( SEXP xp, SEXP connection ){
+    	
+	// Rprintf( "sizeof(void*) = %d \n", sizeof(void*) );  
+	// Rprintf( "sizeof(Rconnection) = %d \n", sizeof(Rconn*) );  
+	
+	// Rconnection con   ;
+    // struct R_outpstream_st out;
+    // R_pstream_format_t type = R_pstream_binary_format ;
+    // SEXP (*hook)(SEXP, SEXP) = NULL ;
+    // con = getConnection(Rf_asInteger(connection));
+    // R_InitConnOutPStream(&out, con, type, 0, hook, R_NilValue );
+    Rf_error( "serializing to connections is not implementable" ) ; 
+    return R_NilValue;
+}
 
 } // namespace rprotobuf
 
