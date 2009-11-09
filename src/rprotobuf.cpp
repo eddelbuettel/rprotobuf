@@ -1,4 +1,5 @@
 #include "rprotobuf.h"
+#include "RSourceTree.h"
 
 namespace rprotobuf{
 
@@ -33,9 +34,7 @@ Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 #endif
 	
 	MockErrorCollector error_collector ;
-	DiskSourceTree source_tree;
-	// FIXME : this works only on linux I suppose
-	source_tree.MapPath("/", "/");
+	RSourceTree source_tree;
 	Importer importer(&source_tree, &error_collector);
 	
 	int j = 0 ;
