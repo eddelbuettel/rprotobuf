@@ -11,84 +11,6 @@
 
 #include <Rcpp.h>		
 
-class RcppList {
-public:
-    RcppList(void): 
-	listArg(R_NilValue), listSize(0), currListPosn(0), numProtected(0) { }; 
-    ~RcppList() {
-	UNPROTECT(numProtected);
-    }
-    void setSize(int size);
-    void append(std::string name, double value);
-    void append(std::string name, int value);
-    void append(std::string name, std::string value);
-    //void append(std::string name, RcppDate& date);
-    //void append(std::string name, RcppDatetime& datetime);
-    void append(std::string name, SEXP sexp);
-    void clearProtectionStack() {
-	UNPROTECT(numProtected);
-	numProtected = 0;
-    }
-    SEXP getList(void) const { 
-	SEXP li = PROTECT(Rf_allocVector(VECSXP, listSize));
-	SEXP nm = PROTECT(Rf_allocVector(STRSXP, listSize));
-	for (int i=0; i<listSize; i++) {
-	    SET_VECTOR_ELT(li, i, VECTOR_ELT(listArg, i));
-	    SET_STRING_ELT(nm, i, Rf_mkChar(names[i].c_str()));
-	}
-	Rf_setAttrib(li, R_NamesSymbol, nm);
-	UNPROTECT(2);
-	return li; 
-    }
-private:
-    SEXP listArg;
-    int listSize, currListPosn, numProtected;
-    std::vector<std::string> names;
-};
-
-void RcppList::setSize(int n) {
-    listSize = n;
-    listArg = PROTECT(Rf_allocVector(VECSXP, n));
-    numProtected++;
-}
-
-void RcppList::append(std::string name, double value) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(double): list posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(REALSXP,1));
-    numProtected++;
-    REAL(valsxp)[0] = value;
-    SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
-    names.push_back(name);
-}
-
-void RcppList::append(std::string name, int value) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(int): posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(INTSXP,1));
-    numProtected++;
-    INTEGER(valsxp)[0] = value;
-    SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
-    names.push_back(name);
-}
-
-void RcppList::append(std::string name, std::string value) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(string): posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(STRSXP,1));
-    numProtected++;
-    SET_STRING_ELT(valsxp, 0, Rf_mkChar(value.c_str()));
-    SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
-    names.push_back(name);
-}
-
-void RcppList::append(std::string name, SEXP sexp) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(sexp): posn out of range");
-    SET_VECTOR_ELT(listArg, currListPosn++, sexp);
-    names.push_back(name);
-}
-
 RcppExport SEXP listPeopleAsList(SEXP paramSEXP) {
 
     SEXP rl = R_NilValue;
@@ -159,10 +81,10 @@ RcppExport SEXP listPeopleAsList(SEXP paramSEXP) {
 	    phonelist.append("phones", phones.getList());
 	}
 
-	rs.add("id", idlist.getList(), false);
-	rs.add("name", peoplelist.getList(), false);
-	rs.add("email", emaillist.getList(), false);
-	rs.add("phones", phonelist.getList(), false);
+ 	rs.add("id", idlist);
+	rs.add("name", peoplelist);
+	rs.add("email", emaillist);
+	rs.add("phones", phonelist);
 
         rl = rs.getReturnList();
 
