@@ -1,5 +1,6 @@
 #include "rprotobuf.h"
 #include "RSourceTree.h"
+#include "DescriptorPoolLookup.h" 
 
 namespace rprotobuf{
 
@@ -37,11 +38,15 @@ Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 	RSourceTree source_tree;
 	Importer importer(&source_tree, &error_collector);
 	
-	int j = 0 ;
 	int n = LENGTH(file) ;
-	while( j < n ){
-		importer.Import( CHAR(STRING_ELT(file, j)) );
-	    j++; 
+	for( int j=0; j < n; j++ ){
+		const FileDescriptor* file_desc = importer.Import( CHAR(STRING_ELT(file, j)) );
+	    int ntypes = file_desc->message_type_count() ;
+	    for( int i=0; i<ntypes; i++){
+	    	const Descriptor* desc = file_desc->message_type( i ) ;
+	    	DescriptorPoolLookup::add( desc->full_name() ); 
+	    	/* should we bother recursing ? */
+	    }
 	}
 	
 #ifdef RPB_DEBUG

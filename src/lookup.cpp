@@ -1,4 +1,5 @@
 #include "rprotobuf.h"
+#include "DescriptorPoolLookup.h" 
 
 /* This uses the mechanism of the RObjectTables package
    see: http://www.omegahat.org/RObjectTables/ */
@@ -19,7 +20,6 @@ SEXP R_getUnboundValue() {
  *
  * @return _TRUE_ if there is a message of the given type in the DescriptorPool
  */
-/* not actually used by R */
 Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_ObjectTable *tb){
 
 #ifdef LOOKUP_DEBUG
@@ -30,11 +30,19 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
     return( _FALSE_ );
 
  tb->active = _FALSE_;
- const DescriptorPool * pool = DescriptorPool::generated_pool() ;
- const Descriptor * desc = pool->FindMessageTypeByName( name ) ; 
- Rboolean val = _TRUE_ ;
- if( !desc ) {
- 	val = _FALSE_;
+ Rboolean val = _FALSE_ ;
+ if( DescriptorPoolLookup::contains( name ) ){
+ 	 /* first check the cache */
+ 	 val = _TRUE_ ;
+ } else {
+ 	const DescriptorPool * pool = DescriptorPool::generated_pool() ;
+ 	const Descriptor * desc = pool->FindMessageTypeByName( name ) ; 
+ 	if( !desc ) {
+ 		val = _FALSE_;
+ 	} else{
+ 		/* cache this */
+ 		DescriptorPoolLookup::add( name ) ;
+ 	}
  }
  tb->active = _TRUE_;
  
@@ -60,6 +68,7 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
     return(R_UnboundValue);
 
  tb->active = _FALSE_;
+ 
  SEXP name_sxp = PROTECT( Rf_mkString( name ) ) ; 
  val = PROTECT( getProtobufDescriptor(name_sxp) ) ;
  if( val == R_NilValue ){
@@ -74,6 +83,9 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
 Rprintf( "      :  \n" );
 Rf_PrintValue( GET_SLOT(val, Rf_install("type") ) ) ;
 #endif
+
+ DescriptorPoolLookup::add( name ) ;  
+ 
  UNPROTECT(2 ) ; /* val, name_sxp */
  tb->active = _TRUE_;
  return(val);
@@ -128,11 +140,13 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 #endif
 	
 	tb->active = _FALSE_;
-	SEXP res = PROTECT( Rf_allocVector( STRSXP, 0 ) ) ; 
+	SEXP unsorted = PROTECT( DescriptorPoolLookup::getElements() ) ; 
+	SEXP call = PROTECT( Rf_lang2( Rf_install( "sort" ), unsorted ) ) ;
+	SEXP sorted = PROTECT( Rf_eval( call, R_GlobalEnv ) );
 	tb->active = _TRUE_;
-	UNPROTECT(1); 
+	UNPROTECT(3); /* sorted, call, unsorted */
 	
-	return( res ); 
+	return( sorted ); 
 }
 
 SEXP newProtocolBufferLookup(){
@@ -150,8 +164,7 @@ SEXP newProtocolBufferLookup(){
   tb->type = RPROTOBUF_LOOKUP ; /* FIXME: not sure what this should be */
   tb->cachedNames = NULL;
   
-  /* replace this with a pointer to the descriptor pool */
-  tb->privateData = (void*)0 ; 
+  tb->privateData = (void*)0 ;
 
   tb->exists = rProtoBufTable_exists;
   tb->get = rProtoBufTable_get;
@@ -173,6 +186,8 @@ SEXP newProtocolBufferLookup(){
 #endif
   return(val);
 }
+
+
 
 } // namespace rprotobuf
 
