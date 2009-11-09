@@ -16,10 +16,10 @@ protocol buffer messages from R
 \details{
 \tabular{ll}{
 Package: \tab RProtoBuf\cr
-Version: \tab 0.0-2\cr
+Version: \tab 0.0-3\cr
 Date: \tab $Date$\cr
 Depends: \tab Rcpp (>= 0.6.4), methods\cr
-SystemRequirements: \tab ProtoBuf compiler (to create C++ header and soure files
+SystemRequirements: \tab ProtoBuf compiler (to create C++ header and source files
 from .proto descriptions) and library\cr
 License: \tab GPL-2\cr
 URL: \tab http://code.google.com/p/protobuf/\cr
@@ -39,5 +39,19 @@ Maintainer: Dirk Eddelbuettel <edd@debian.org>
 \keyword{ package }
 \seealso{
 	\linkS4class{protobufMessage} for some examples
+}
+
+\examples{
+\dontrun{
+# an example proto file
+system.file( "proto", "AddressBook.proto", package = "RProtoBuf" )
+
+# create a message of type AddressBook, defined in the example proto file
+demo( "addressbook", package = "RProtoBuf" )
+
+# using R binary connections and files to read and write messages
+demo( "io", package = "RProtoBuf" )
+
+}
 }
 

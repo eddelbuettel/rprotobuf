@@ -10,6 +10,8 @@ writeLines( as.character( m1 ) )
 # read the same message from a (binary) file connection
 con <- file( f, open = "rb" )
 m2 <- read( tutorial.AddressBook, con )
+# this also works: 
+# m2 <- tutorial.AddressBook$read( con )
 writeLines( as.character( m2 ) )
 close( con )
 

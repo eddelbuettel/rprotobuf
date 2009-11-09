@@ -10,7 +10,7 @@ exportClasses( "protobufDescriptor", "protobufMessage",
 	"protobufFieldDescriptor", "protobufEnumDescriptor" )
 exportMethods( "new", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
-	"has", "clone", "merge", "read" )
+	"has", "clone", "merge", "read", "bytesize" )
 
 export( "P", "throw", "readProtoFiles" )
 
