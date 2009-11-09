@@ -16,7 +16,7 @@ protocol buffer messages from R
 \details{
 \tabular{ll}{
 Package: \tab RProtoBuf\cr
-Version: \tab 0.0-3\cr
+Version: \tab 0.0-4\cr
 Date: \tab $Date$\cr
 Depends: \tab Rcpp (>= 0.6.4), methods\cr
 SystemRequirements: \tab ProtoBuf compiler (to create C++ header and source files
