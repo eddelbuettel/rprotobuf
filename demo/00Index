@@ -1,1 +1,3 @@
 addressbook	Demonstration of RProtoBuf functionality
+io Input/Output handling of protocol buffer messages
+

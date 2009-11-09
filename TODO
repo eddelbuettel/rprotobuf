@@ -1,5 +1,4 @@
 * finalizers
-* serialize/parse messages from/to connections
 * unit testing
 * vignette
 * services (protobuf RPC method)

@@ -45,5 +45,3 @@ rprotobuf.developpers <- new( tutorial.AddressBook,
 # debug 
 writeLines( as.character( rprotobuf.developpers ) )
 
-# TODO: serialize and parse back
-

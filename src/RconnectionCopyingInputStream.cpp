@@ -17,7 +17,6 @@ namespace rprotobuf{
 	 */
 	int	RconnectionCopyingInputStream::Read(void * buffer, int size){
 		
-		/* FIXME: maybe we should cache these 4 objects instead of recalculating them all the time */
 		SEXP call = PROTECT( getReadBinCall( size ) ) ;
 		SEXP res = PROTECT( Rf_eval( call, R_GlobalEnv ) ); 
 		
