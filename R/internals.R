@@ -32,19 +32,17 @@ readProtoFiles <- function(
 			stop( "'file' should be a character vector" )
 		}
 		
-		files <- sapply( files, function(x){
-			tools:::file_path_as_absolute(x)
-		} )
-		
-		# TODO: we need to pass the full path of the file
-		#       or create a mapping from the current working directory
-		#       in the DiskSourceTree 
-		
 		ex <- sapply( files, file.exists )
 		if( ! any( ex ) ){
 			stop( "none of the files exist" ) 
 		}
-		files <- files[ex]
+		
+		# TODO: we need to pass the full path of the file
+		#       or create a mapping from the current working directory
+		#       in the DiskSourceTree 
+		files <- sapply( files[ex], function(x){
+			tools:::file_path_as_absolute(x)
+		} )
 	}
 	.Call( "readProtoFiles", files, PACKAGE = "RProtoBuf" )
 	invisible(NULL)
