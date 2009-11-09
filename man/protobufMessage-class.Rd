@@ -8,6 +8,8 @@
 \alias{serialize,protobufMessage-method}
 \alias{show,protobufMessage-method}
 \alias{update,protobufMessage-method}
+\alias{length,protobufMessage-method}
+\alias{str,protobufMessage-method}
 
 \title{Class "protobufMessage" }
 \description{
@@ -40,6 +42,10 @@ as an external pointer.
        the file (in binary format). }
     \item{show}{\code{signature(object = "protobufMessage")}: displays a short text about the message }
     \item{update}{\code{signature(object = "protobufMessage")}: set several fields of the message at once }
+    \item{length}{\code{signature(x = "protobufMessage")}: The number of fields actually contained in the message. 
+    A field counts in these two situations: the field is repeated and the field size is greater than 0, 
+    the field is not repeated and the message has the field.}
+    \item{str}{\code{signature(object = "protobufMessage")}: displays the structure of the message }
 	 }
 }
 \references{ 
@@ -66,6 +72,7 @@ p$id    # not set, returns default value
 as.character( p ) # empty
 has( p, "email" ) # is the "email" field set
 has( p, "phone" ) # is the "email" field set
+length( p )       # number of fields actually set
 
 # update several fields at once
 romain <- update( new( Person ), 

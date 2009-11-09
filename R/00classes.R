@@ -142,3 +142,23 @@ setMethod( "update", "protobufMessage", function( object, ... ){
 	
 } )
 # }}}
+
+# {{{ length
+setGeneric( "length" )
+setMethod( "length", "protobufMessage", function( x ){
+	.Call( "get_message_length", x@pointer, PACKAGE = "RProtoBuf" )
+} )
+# }}}
+
+# {{{ str
+# we need to do this otherwise it gets messed up by the length method
+setGeneric( "str" )
+setMethod( "str", "protobufMessage", function( object, ...){
+txt <- sprintf( '	Formal class \'protobufMessage\' [package "RProtoBuf"] with 2 slots
+  ..@ pointer:<externalptr>
+  ..@ type   : chr "%s"
+', x@type )
+writeLines( txt )
+} )
+# }}}
+
