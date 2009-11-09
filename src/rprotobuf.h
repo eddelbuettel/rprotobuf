@@ -123,6 +123,9 @@ RcppExport SEXP get_message_bytesize( SEXP ) ;
 /* in length.cpp */
 RcppExport SEXP get_message_length( SEXP ) ;
 
+/* in initialized.cpp */
+RcppExport SEXP is_message_initialized( SEXP ) ;
+
 } // namespace rprotobuf
 
 

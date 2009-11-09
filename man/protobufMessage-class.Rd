@@ -50,6 +50,7 @@ as an external pointer.
 }
 \references{ 
 	The \code{Message} class from the C++ proto library.
+	\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message.html}
 }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{

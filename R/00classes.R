@@ -98,6 +98,10 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 		function( ... ){
 			._clone.message( x, ... )
 		}
+	} else if( identical( name, "isInitialized" ) ) {
+		function() isInitialized( x )
+	} else if( identical( name, "serialize" ) ){
+		function(...) serialize( x, ... ) 
 	} else {
 		.Call( "getMessageField", x@pointer, name )
 	}
@@ -157,7 +161,7 @@ setMethod( "str", "protobufMessage", function( object, ...){
 txt <- sprintf( '	Formal class \'protobufMessage\' [package "RProtoBuf"] with 2 slots
   ..@ pointer:<externalptr>
   ..@ type   : chr "%s"
-', x@type )
+', object@type )
 writeLines( txt )
 } )
 # }}}
