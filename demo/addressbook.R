@@ -39,9 +39,30 @@ saptarshi <- within( new(tutorial.Person), {
 } )
 
 # build the address book
-rprotobuf.developpers <- new( tutorial.AddressBook, 
+book <- new( tutorial.AddressBook, 
 	person = list( romain, dirk, saptarshi ) )
 
-# debug 
-writeLines( as.character( rprotobuf.developpers ) )
+# debug string. This is not what is transferred in the wire
+writeLines( as.character( book ) )
+
+# the serialized message
+# see also the io demo to see how to serialize messages to connections 
+# and files
+serialize( book, NULL )
+
+# number of bytes taken by the message on the wire
+bytesize( book )
+length( serialize( book, NULL ) )
+
+# swap two persons in the address book
+book$swap( "person", 0L , 1L )
+writeLines( as.character( book ) )
+
+# number of "person" in the book
+book$size( "person" )
+
+# clear the message
+book$clear( )
+writeLines( as.character( book ) )
+
 

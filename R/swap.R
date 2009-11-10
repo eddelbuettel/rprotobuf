@@ -10,5 +10,5 @@ setMethod( "swap", "protobufMessage", function( object, field, left, right ){
 	}
 	.Call( "message_swap_fields", object@pointer, field, left, right, 
 		PACKAGE = "RProtoBuf" ) 
-	object
+	invisible( object )
 } )
