@@ -56,6 +56,75 @@ SEXP set_field_size(SEXP xp, SEXP field, SEXP newsize){
 			/* nothing to do */
 		} else { /* current < target */
 			
+			while( current != target ){
+			
+				switch( field_desc->type() ){
+						case TYPE_INT32:
+    					case TYPE_SINT32:
+    					case TYPE_SFIXED32:
+    				        {
+    				        	ref->AddInt32(message, field_desc, (int32)0 ) ;
+    				        	break ;
+    				        }
+    					case TYPE_INT64:
+						case TYPE_SINT64:
+						case TYPE_SFIXED64:
+    				        {
+    				        	ref->AddInt64(message, field_desc, (int64)0 ) ;
+    				        	break ;
+    				        }
+		    			case TYPE_UINT32:
+    					case TYPE_FIXED32:
+    						{
+    							ref->AddUInt32(message, field_desc, (uint32)0 ) ;
+    				        	break ;
+    				        }
+    					case TYPE_UINT64:
+    					case TYPE_FIXED64:
+    						{
+    							ref->AddUInt32(message, field_desc, (uint64)0 ) ;
+    				        	break ;
+    						}
+    				    case TYPE_DOUBLE:
+    				    	{
+    				    		ref->AddDouble(message, field_desc, (double)0.0 ) ;
+    				    		break ;
+    				    	}
+    				    case TYPE_FLOAT:
+    				    	{
+    				    		ref->AddFloat(message, field_desc, (float)0.0 ) ;
+    				    		break ;
+    				    	}
+    				    case TYPE_BOOL:
+    				    	{
+    				    		ref->AddBool(message, field_desc, (bool)0 ) ;
+    				    		break ;
+    				    	}
+    				    case TYPE_STRING:
+    				    case TYPE_BYTES:
+    				    	{
+    				    		ref->AddString(message, field_desc, "" ) ;
+    							break ;
+    				    	}
+    				    case TYPE_MESSAGE:
+    				    case TYPE_GROUP:
+    				    	{
+    				    		/* fill with the prototype for that message type */
+    				    		Rf_error( "not implemented yet, patches welcome" ) ;
+    				    		break ;
+    				    	}
+    				    case TYPE_ENUM:
+    				    	{ 
+    				    		/* fill with the prototype for that message type */
+    				    		Rf_error( "not implemented yet, patches welcome" ) ;
+    				    		break ;
+    				    	}
+    				} /* switch */
+    			
+    			current++ ;
+    		} /* while */
+			
+			
 		}
 		
 	} else{
@@ -99,7 +168,7 @@ SEXP set_field_size(SEXP xp, SEXP field, SEXP newsize){
     			    	}
     			    case TYPE_FLOAT:
     			    	{
-    			    		ref->SetDouble(message, field_desc, (float)0.0 ) ;
+    			    		ref->SetFloat(message, field_desc, (float)0.0 ) ;
     			    		break ;
     			    	}
     			    case TYPE_BOOL:

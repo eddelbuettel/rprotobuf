@@ -130,6 +130,7 @@ RcppExport SEXP is_message_initialized( SEXP ) ;
 
 /* in clear.cpp */
 RcppExport SEXP clear_message( SEXP ) ;
+RcppExport SEXP clear_message_field( SEXP, SEXP ) ;
 
 } // namespace rprotobuf
 
