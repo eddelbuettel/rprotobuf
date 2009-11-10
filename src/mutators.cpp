@@ -2,10 +2,10 @@
 #include "fieldtypes.h" 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
-/* FIXME: this contains a lot of redundant code due to the cpp type 
+/* this contains a lot of redundant code due to the cpp type 
           in proto and the R SEXP type (INTSXP, ...) */
 
-/* FIXME: need to actually copy the string */
+/* need to actually copy the string */
 #define COPYSTRING(s) s
 
 namespace rprotobuf{
@@ -1222,7 +1222,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:
     						{
-    							/* FIXME: do we need to consider the case of empty enum descriptors */
     							int nenums = enum_desc->value_count() ;
     							int possibles [ nenums ] ;
     							for( int i=0; i< nenums; i++){
@@ -1285,7 +1284,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case STRSXP:
     						{
     							
-    							/* FIXME: do we need to consider the case of empty enum descriptors */
     							int nenums = enum_desc->value_count() ;
     							char* possibles [ nenums ] ;
     							for( int i=0; i< nenums; i++){

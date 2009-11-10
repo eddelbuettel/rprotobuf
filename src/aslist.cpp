@@ -90,7 +90,6 @@ Rprintf( "<as_list_enum_descriptor>\n" ) ;
 	for( int i=0; i<n; i++){
 		const EnumValueDescriptor* value_d = d->value(i) ;
 		INTEGER(values)[i] = value_d->number() ;
-		/* FIXME: should we copy the string */
 		SET_STRING_ELT( names, i, Rf_mkChar(value_d->name().c_str()) ) ;
 	}
 	

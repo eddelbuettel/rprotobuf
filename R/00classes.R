@@ -90,6 +90,7 @@ setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 
 # {{{ dollar extractors
 setMethod("$", c(x="protobufMessage"), function(x, name) {
+	# TODO: replace these with a switch
 	if( identical( name, "has") ){
 		function( what ) {
 			.Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" )
@@ -102,6 +103,8 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 		function() isInitialized( x )
 	} else if( identical( name, "serialize" ) ){
 		function(...) serialize( x, ... ) 
+	} else if( identical( name, "clear" ) ){
+		function() clear( x )
 	} else {
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 	}
