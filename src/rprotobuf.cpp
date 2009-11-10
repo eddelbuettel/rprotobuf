@@ -171,5 +171,36 @@ Rprintf( "<isMessage>\n" ) ;
 	return _TRUE_ ; 
 }
 
+
+FieldDescriptor* getFieldDescriptor(Message* message, SEXP name){
+	FieldDescriptor* field_desc = (FieldDescriptor*)0;
+	const Descriptor* desc = message->GetDescriptor() ;
+	switch( TYPEOF(name) ){
+		case STRSXP:
+			{
+				const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
+				field_desc = (FieldDescriptor*)desc->FindFieldByName( what ) ;
+				break ;
+			}
+		case REALSXP: 
+			{
+				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
+				break ;
+			}
+		case INTSXP:
+			{
+				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
+				break ;
+			}
+	}
+	
+	if( !field_desc ){
+		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
+	}
+	
+	return field_desc ;
+}
+
+
 } // namespace rprotobuf
 

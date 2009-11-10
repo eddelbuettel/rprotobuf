@@ -175,34 +175,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	const Descriptor* desc = message->GetDescriptor() ;
 	
 	/* {{{ check that we can get a file descriptor from name */
-	FieldDescriptor* field_desc = (FieldDescriptor*)0;
-	switch( TYPEOF(name) ){
-		case STRSXP:
-			{
-				const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-	
-				field_desc = (FieldDescriptor*)desc->FindFieldByName( what ) ;
-				
-				break ;
-			}
-		case REALSXP: 
-			{
-				
-				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
-			
-				break ;
-			}
-		case INTSXP:
-			{
-				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
-				
-				break ;
-			}
-	}
-	
-	if( !field_desc ){
-		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
-	}
+	FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
 	// }}}
 	
 	const Reflection * ref = message->GetReflection() ;

@@ -101,6 +101,8 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 		"isInitialized" = function() isInitialized( x ), 
 		"serialize" = function(...) serialize( x, ... ),
 		"clear" = function() clear( x ), 
+		"size"  = function(field, ...) size(x, field, ... ),
+		"bytesize" = function() bytesize(x), 
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )

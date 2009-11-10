@@ -57,6 +57,7 @@ RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;
 RcppExport SEXP readProtoFiles( SEXP ); 
 RcppExport Rboolean isMessage( SEXP, const char* ) ;
+RcppExport FieldDescriptor* getFieldDescriptor(Message*, SEXP) ;
 
 /* in constructors.cpp */
 RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
@@ -118,6 +119,7 @@ RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ;
 
 /* in size.cpp */
 RcppExport SEXP get_message_bytesize( SEXP ) ;
+RcppExport SEXP get_field_size(SEXP, SEXP);
 
 /* in length.cpp */
 RcppExport SEXP get_message_length( SEXP ) ;
