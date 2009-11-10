@@ -220,6 +220,114 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		int value_size = LENGTH(value); 
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
+		/* in case of messages or enum, we have to check that all values
+		  are ok before doing anything, othewise this could leed to modify a few values 
+		  and then fail which is not good */
+		
+		switch( field_desc->type() ){
+    		case TYPE_MESSAGE:
+    		case TYPE_GROUP:
+    			{
+    				switch( TYPEOF( value ) ){
+    					case VECSXP :
+    						{
+    							/* check that it is a list of Messages of the appropriate type */
+    							for( int i=0; i<value_size; i++){
+	    							if( !isMessage( VECTOR_ELT(value, i), field_desc->message_type()->full_name().c_str() ) ){
+	    								/* TODO: include i, target type and actual type in the message */
+	    								throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
+	    							}
+	    						}
+	    						break ;
+	    					}
+	    				case S4SXP: 
+	    					{
+	    						/* check that this is a message of the appropriate type */
+	    						if( !isMessage( value, field_desc->message_type()->full_name().c_str() ) ){
+    								throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
+    							}
+    							break ;
+    						}
+    					default:
+    						{
+    							throwException( "impossible to convert to a message" , "ConversionException" ) ; 
+    						}
+    				}
+    				break ;
+    			}
+    		case TYPE_ENUM : 
+    			{
+    				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+
+    				/* check first, it means we have to loop twice, but 
+    				   otherwise this could have some side effects before 
+    				   the exception is thrown */
+    				   
+    				/* FIXME: the checking should go before the resizing */   
+    				
+    				switch( TYPEOF( value ) ){
+    					// {{{ INSXP 
+    					case INTSXP:
+    					case REALSXP:
+    					case LGLSXP:
+    					case RAWSXP:
+    						{
+    							int nenums = enum_desc->value_count() ;
+    							int possibles [ nenums ] ;
+    							for( int i=0; i< nenums; i++){
+    								possibles[i] = enum_desc->value(i)->number(); 
+    							}
+    							
+    							/* loop around the numbers to see if they are in the possibles */
+    							for( int i=0; i<value_size; i++){
+    								int val = GET_int(value, i ); 
+    								int ok = 0; 
+    								for( int j=0; j<nenums; j++){
+    									if( val == possibles[j] ){
+    										ok = 1; 
+    										break ; 
+    									}
+    								}
+    								if( !ok ){
+    									throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
+    								}
+    							}
+    							
+    							break ;
+    						}
+    					case STRSXP:
+    						{
+    							int nenums = enum_desc->value_count() ;
+    							char* possibles [ nenums ] ;
+    							for( int i=0; i< nenums; i++){
+    								possibles[i] = (char*)enum_desc->value(i)->name().c_str() ; 
+    							}
+    							
+    							/* loop around the numbers to see if they are in the possibles */
+    							for( int i=0; i<value_size; i++){
+    								const char* val = CHAR( STRING_ELT(value, i )) ; 
+    								int ok = 0; 
+    								/* FIXME: there is probably something more efficient */
+    								for( int j=0; j<nenums; j++){
+    									if( !strcmp( val, possibles[j]) ){
+    										ok = 1; 
+    										break ; 
+    									}
+    								}
+    								if( !ok ){
+    									throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
+    								}
+    							}
+     							
+    							break ;
+    						}
+    					default:
+    						throwException( "impossible to convert to a enum" , "ConversionException" ) ; 
+    				}
+    				break ;
+    			}
+		}
+		  
 		/* remove some items once if there are too many */
 		if( field_size > value_size ) {
 			/* we need to remove some */
@@ -486,10 +594,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_GROUP: 
     			{    
     				if( TYPEOF( value ) == S4SXP ) { 
-    					/* probably a single message */
-    					if( !isMessage( value, field_desc->message_type()->full_name().c_str() ) ){
-    						throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
-    					}
+    					/* we know it is a message of the correct type (tested above) */
     					Message* mess = GET_MESSAGE_POINTER_FROM_S4( value ) ; 
     					
     					if( field_size == 1 ) {
@@ -500,22 +605,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						ref->AddMessage( message, field_desc )->CopyFrom( *mess ) ; 
     					}
     				} else if( TYPEOF(value) == VECSXP )  {
-    					/* probably a list of messages */
-    					
-    					/* first of all, check that all elements of the list 
-    						are message of the correct type, so that if one is not
-    						we generate the exception first without side effect of altering
-    						the previous messages */
-    					
-    					/* FIXME: this should go before the resizing */	
-    						
-    					for( int i=0; i<value_size; i++){
-    						if( !isMessage( VECTOR_ELT(value, i), field_desc->message_type()->full_name().c_str() ) ){
-    							/* TODO: include i, target type and actual type in the message */
-    							throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
-    						}
-    					}
-    					
     					/* in any case, fill the values up to field_size */
     					int i = 0;
     					for( ; i<field_size; i++){
@@ -549,12 +638,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
 
-    				/* check first, it means we have to loop twice, but 
-    				   otherwise this could have some side effects before 
-    				   the exception is thrown */
-    				   
-    				/* FIXME: the checking should go before the resizing */   
-    				
     				switch( TYPEOF( value ) ){
     					// {{{ INSXP 
     					case INTSXP:
@@ -562,29 +645,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:
     						{
-    							int nenums = enum_desc->value_count() ;
-    							int possibles [ nenums ] ;
-    							for( int i=0; i< nenums; i++){
-    								possibles[i] = enum_desc->value(i)->number(); 
-    							}
-    							
-    							/* loop around the numbers to see if they are in the possibles */
-    							for( int i=0; i<value_size; i++){
-    								int val = GET_int(value, i ); 
-    								int ok = 0; 
-    								for( int j=0; j<nenums; j++){
-    									if( val == possibles[j] ){
-    										ok = 1; 
-    										break ; 
-    									}
-    								}
-    								if( !ok ){
-    									throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
-    								}
-    							}
-    							
-    							/* we are ok now, all values are suitable */
-    							
     							/* in any case, fill the values up to field_size */
     							int i = 0;
     							for( ; i<field_size; i++){
@@ -607,31 +667,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
 						// {{{ STRSXP
     					case STRSXP:
     						{
-    							
-    							int nenums = enum_desc->value_count() ;
-    							char* possibles [ nenums ] ;
-    							for( int i=0; i< nenums; i++){
-    								possibles[i] = (char*)enum_desc->value(i)->name().c_str() ; 
-    							}
-    							
-    							/* loop around the numbers to see if they are in the possibles */
-    							for( int i=0; i<value_size; i++){
-    								const char* val = CHAR( STRING_ELT(value, i )) ; 
-    								int ok = 0; 
-    								for( int j=0; j<nenums; j++){
-    									if( !strcmp( val, possibles[j]) ){
-    										ok = 1; 
-    										break ; 
-    									}
-    								}
-    								if( !ok ){
-    									throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
-    								}
-    							}
-    							
-    							/* we are ok now, all values are suitable */
-    							
-    							
     							/* in any case, fill the values up to field_size */
     							int i = 0;
     							for( ; i<field_size; i++){
