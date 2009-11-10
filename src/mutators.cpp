@@ -2,9 +2,6 @@
 #include "fieldtypes.h" 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
-/* this contains a lot of redundant code due to the cpp type 
-          in proto and the R SEXP type (INTSXP, ...) */
-
 /* need to actually copy the string */
 #define COPYSTRING(s) s
 
@@ -172,12 +169,12 @@ PRINT_DEBUG_INFO( "value", value ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(pointer) ;
+	Message* message = GET_MESSAGE_POINTER_FROM_XP(pointer) ;
 
 	/* the message descriptor */
 	const Descriptor* desc = message->GetDescriptor() ;
 	
-	/* the field descriptor */
+	/* {{{ check that we can get a file descriptor from name */
 	FieldDescriptor* field_desc = (FieldDescriptor*)0;
 	switch( TYPEOF(name) ){
 		case STRSXP:
@@ -206,6 +203,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	if( !field_desc ){
 		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
 	}
+	// }}}
 	
 	const Reflection * ref = message->GetReflection() ;
     
@@ -220,7 +218,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		int value_size = LENGTH(value); 
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
-		/* in case of messages or enum, we have to check that all values
+		/* {{{ in case of messages or enum, we have to check that all values
 		  are ok before doing anything, othewise this could leed to modify a few values 
 		  and then fail which is not good */
 		
@@ -266,7 +264,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				/* FIXME: the checking should go before the resizing */   
     				
     				switch( TYPEOF( value ) ){
-    					// {{{ INSXP 
+    					// {{{ numbers 
     					case INTSXP:
     					case REALSXP:
     					case LGLSXP:
@@ -295,6 +293,9 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							
     							break ;
     						}
+    					// }}}
+    					
+    					// {{{ STRSXP
     					case STRSXP:
     						{
     							int nenums = enum_desc->value_count() ;
@@ -321,14 +322,17 @@ PRINT_DEBUG_INFO( "value", value ) ;
      							
     							break ;
     						}
+    					// }}}
+    					
     					default:
     						throwException( "impossible to convert to a enum" , "ConversionException" ) ; 
     				}
     				break ;
     			}
 		}
+		// }}}
 		  
-		/* remove some items once if there are too many */
+		/* {{{ remove some items once if there are too many */
 		if( field_size > value_size ) {
 			/* we need to remove some */
 			while( field_size > value_size ){
@@ -336,6 +340,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 				field_size-- ;
 			}
 		}
+		// }}}
 		
 		switch( field_desc->type() ){
 			// {{{ int32
