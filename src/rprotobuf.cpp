@@ -1,25 +1,9 @@
 #include "rprotobuf.h"
 #include "RSourceTree.h"
 #include "DescriptorPoolLookup.h" 
+#include "RWarningErrorCollector.h"
 
 namespace rprotobuf{
-
-class MockErrorCollector : public MultiFileErrorCollector {
- public:
-  MockErrorCollector() {}
-  ~MockErrorCollector() {}
-  // implements ErrorCollector ---------------------------------------
-  void AddError(const string& filename, int line, int column,
-                const string& message) {
-  	
-  	/* we should send this as a warning in R */
-  	cerr << filename ;
-  	cerr << ":" << (line + 1) << ":" << (column + 1);
-  	cerr << ": " << message << endl;
-  
-  }
-};
-
 
 /**
  * read a proto file and cache the message definitions it contains
@@ -34,7 +18,7 @@ PrintValue( file ) ;
 Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 #endif
 	
-	MockErrorCollector error_collector ;
+	RWarningErrorCollector error_collector ;
 	RSourceTree source_tree;
 	Importer importer(&source_tree, &error_collector);
 	
