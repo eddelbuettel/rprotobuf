@@ -10,7 +10,7 @@ importFrom( utils, str )
 
 exportClasses( "protobufDescriptor", "protobufMessage", 
 	"protobufFieldDescriptor", "protobufEnumDescriptor" )
-exportMethods( "new", "$", "$<-", "show",
+exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
 	"has", "clone", "merge", "read", "bytesize",
 	"length", "str", "isInitialized" )

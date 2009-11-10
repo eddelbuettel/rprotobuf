@@ -103,7 +103,7 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 	} else if( identical( name, "serialize" ) ){
 		function(...) serialize( x, ... ) 
 	} else {
-		.Call( "getMessageField", x@pointer, name )
+		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 	}
 } )
 setMethod("$", c(x="protobufDescriptor"), function(x, name) {
@@ -123,9 +123,54 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 	.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 } )
 setMethod("$<-", c(x="protobufMessage"), function(x, name, value) {
-	.Call( "setMessageField", x@pointer, name, value )
+	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
 	x
 } )
+# }}}
+
+# {{{ [[
+setMethod( "[[", "protobufMessage", function(x, i, j, ...){
+	
+	if( missing( i ) ){
+		stop( "`i` is required" )
+	}
+	if( !missing(j) ){
+		warning( "`j` is ignored" )
+	}
+	
+	if( is.character( i ) || is.numeric( i ) ){
+		.Call( "getMessageField", x@pointer, i, PACKAGE = "RProtoBuf" )
+	} else {
+		stop( "wrong type, `i` should be a character or a number" )
+	}
+	
+} )
+# }}}
+
+# {{{ [[<-
+setReplaceMethod( "[[", "protobufMessage", 
+function(x, i, j, ..., value ){
+
+	# TODO: we might want to relax this later, i.e 
+	# allow to mutate repeated fields like this: 
+	# x[[ "field", 1:2 ]] <- 1:2
+	
+	if( missing( i ) ){
+		stop( "`i` is required" )
+	}
+	if( !missing(j) ){
+		warning( "`j` is ignored" )
+	}
+	
+	if( is.character( i ) || is.numeric( i ) ){
+		.Call( "setMessageField", x@pointer, i, value, PACKAGE = "RProtoBuf" )
+	} else {
+		stop( "wrong type, `i` should be a character or a number" )
+	}
+	x
+	
+} )
+
 # }}}
 
 # {{{ update

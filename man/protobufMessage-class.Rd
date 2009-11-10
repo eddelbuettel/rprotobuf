@@ -5,6 +5,8 @@
 \alias{as.character,protobufMessage-method}
 \alias{$<-,protobufMessage-method}
 \alias{$,protobufMessage-method}
+\alias{[[,protobufMessage-method}
+\alias{[[<-,protobufMessage-method}
 \alias{serialize,protobufMessage-method}
 \alias{show,protobufMessage-method}
 \alias{update,protobufMessage-method}
@@ -35,7 +37,9 @@ as an external pointer.
     \item{$}{\code{signature(x = "protobufMessage")}: gets the value of a field. 
     Primitive types are brough back to R as R objects of the closest matching R type. 
     Messages are brought back as instances of the \code{protobufMessage} class.}
-    \item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message. If the 
+    \item{[[}{\code{signature(x = "protobufMessage")}: extracts a field identified by its name or declared tag number }
+    \item{[[<-}{\code{signature(x = "protobufMessage")}: replace the value of a field identified by its name or declared tag number }
+	\item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message. If the 
     	"connection" argument is \code{NULL}, the payload of the message is returned as a raw vector, 
     	if the "connection" argument is a binary writable connection, the payload is written into the 
        connection. If "connection" is a character vector, the message is sent to 
@@ -46,7 +50,7 @@ as an external pointer.
     A field counts in these two situations: the field is repeated and the field size is greater than 0, 
     the field is not repeated and the message has the field.}
     \item{str}{\code{signature(object = "protobufMessage")}: displays the structure of the message }
-	 }
+     }
 }
 \references{ 
 	The \code{Message} class from the C++ proto library.

@@ -69,17 +69,38 @@ PRINT_DEBUG_INFO( "name", name ) ;
 PRINT_DEBUG_INFO( "value", value ) ;
 #endif
 
-/* grab the Message pointer */
+	/* grab the Message pointer */
 	Message* message = (Message*)EXTPTR_PTR(pointer) ;
 
-	/* what we are looking for */
-	const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-	
 	/* the message descriptor */
 	const Descriptor* desc = message->GetDescriptor() ;
 	
 	/* the field descriptor */
-	const FieldDescriptor* field_desc = desc->FindFieldByName( what ) ;
+	FieldDescriptor* field_desc = (FieldDescriptor*)0;
+	switch( TYPEOF(name) ){
+		case STRSXP:
+			{
+				const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
+	
+				field_desc = (FieldDescriptor*)desc->FindFieldByName( what ) ;
+				
+				break ;
+			}
+		case REALSXP: 
+			{
+				
+				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
+			
+				break ;
+			}
+		case INTSXP:
+			{
+				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
+				
+				break ;
+			}
+	}
+	
 	if( !field_desc ){
 		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
 	}
