@@ -6,7 +6,11 @@
 \title{Size of a message field}
 \description{
 The number of object currently in a given field of a protocol buffer
-message. For non repeated field, it is allways 1.
+message. 
+
+For non repeated fields, the size is 1 if the message has the field, 0 otherwise. 
+
+For repeated fields, the size is the number of objects in the array.
 }
 \section{Methods}{
 \describe{

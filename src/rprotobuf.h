@@ -120,6 +120,7 @@ RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ;
 /* in size.cpp */
 RcppExport SEXP get_message_bytesize( SEXP ) ;
 RcppExport SEXP get_field_size(SEXP, SEXP);
+RcppExport SEXP set_field_size(SEXP, SEXP, SEXP);
 
 /* in length.cpp */
 RcppExport SEXP get_message_length( SEXP ) ;

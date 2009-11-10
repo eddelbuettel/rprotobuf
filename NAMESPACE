@@ -13,7 +13,7 @@ exportClasses( "protobufDescriptor", "protobufMessage",
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
 	"has", "clone", "merge", "read", "bytesize",
-	"length", "str", "isInitialized", "clear", "size" )
+	"length", "str", "isInitialized", "clear", "size", "size<-" )
 
 export( "P", "throw", "readProtoFiles" )
 

@@ -124,7 +124,7 @@ setMethod("$", c(x="protobufDescriptor"), function(x, name) {
 setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 	.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 } )
-setMethod("$<-", c(x="protobufMessage"), function(x, name, value) {
+setMethod("$<-", "protobufMessage", function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
 	x
 } )

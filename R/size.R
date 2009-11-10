@@ -19,3 +19,23 @@ setMethod( "size", "protobufMessage", function(object, field, ...){
 	
 } )
 
+
+setGeneric( "size<-", function( object, field, ..., value ){
+	standardGeneric( "size<-" )
+} )
+setMethod( "size<-", "protobufMessage", function(object, field, ..., value){
+	
+	if( !is.numeric( value ) ){
+		stop("value should be a number")
+	}
+	value <- as.integer( value )[1]
+	
+	if( is.character( field ) || is.numeric( field ) ){
+		.Call( "set_field_size", object@pointer, field, value, PACKAGE = "RProtoBuf" )
+	} else{
+		stop( "field should be a character or a number" )
+	}
+	object
+} )
+
+
