@@ -92,17 +92,14 @@ setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 setMethod("$", c(x="protobufMessage"), function(x, name) {
 	
 	switch( name, 
-		"has" = function( what ) {
-			.Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" )
-		}, 
-		"clone" = function( ... ){
-			._clone.message( x, ... )
-		}, 
+		"has" = function( what ) .Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" ), 
+		"clone" = function( ... ) ._clone.message( x, ... ), 
 		"isInitialized" = function() isInitialized( x ), 
 		"serialize" = function(...) serialize( x, ... ),
 		"clear" = function(...) clear( x, ... ), 
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x), 
+		"swap" = function(...) swap(x,...), 
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
@@ -110,12 +107,8 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 	} )
 setMethod("$", c(x="protobufDescriptor"), function(x, name) {
 	switch( name, 
-		"new" = function( ... ){
-			newProto( x, ... )
-		}, 
-		"read" = function( input ){
-			read( x, input )
-		},
+		"new" = function( ... ) newProto( x, ... ) , 
+		"read" = function( input ) read( x, input ) ,
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )

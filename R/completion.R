@@ -17,7 +17,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	names <- c( 
 		.Call( "getMessageFieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
 		"has(", "clone()", "clone(", "isInitialized()", "serialize(", 
-		"clear()", "clear(", "size(", "bytesize()" )
+		"clear()", "clear(", "size(", "bytesize()", "swap(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

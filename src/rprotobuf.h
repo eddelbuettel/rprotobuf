@@ -88,6 +88,7 @@ RcppExport SEXP newProtocolBufferLookup() ;
 
 /* in mutators.cpp */
 RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
+RcppExport int GET_int( SEXP, int ) ;
 
 /* in aslist.cpp */
 RcppExport SEXP as_list_message( SEXP ) ;
@@ -131,6 +132,9 @@ RcppExport SEXP is_message_initialized( SEXP ) ;
 /* in clear.cpp */
 RcppExport SEXP clear_message( SEXP ) ;
 RcppExport SEXP clear_message_field( SEXP, SEXP ) ;
+
+/* in swap.cpp */
+RcppExport SEXP message_swap_fields(SEXP, SEXP, SEXP, SEXP) ;
 
 } // namespace rprotobuf
 
