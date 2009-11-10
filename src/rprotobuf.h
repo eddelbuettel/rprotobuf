@@ -86,7 +86,6 @@ RcppExport SEXP serialize_to_connection( SEXP, SEXP ) ;
 RcppExport SEXP newProtocolBufferLookup() ;
 
 /* in mutators.cpp */
-RcppExport int GETINT( SEXP, int) ;                                                                        
 RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
 
 /* in aslist.cpp */

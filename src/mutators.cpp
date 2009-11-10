@@ -10,46 +10,148 @@
 
 namespace rprotobuf{
 
-// {{{ GETINT
+// {{{ GETDOUBLE
 /**
- * get the index'th value of x, as an int
+ * get the index'th value of x, as an double
  *
  * @param x some R data
  * @param index the index
- * @return x[index], as an int
- * @throws CastException if x[index] cannot be converted to int
- */ 
-int GETINT( SEXP x, int index ){
-	int res = 0;  // default value to quieten g++ -Wall
+ * @return x[index], as an double
+ * @throws CastException if x[index] cannot be converted to double
+ */
+/* FIXME: should we convert the NA's */
+double GET_double( SEXP x, int index ){
 	switch( TYPEOF(x) ){
 		case INTSXP: 
-			{
-				res = INTEGER(x)[index] ;
-				break ; 
-			}
+			return( (double)INTEGER(x)[index] ) ;
 		case REALSXP: 
-			{
-				res = (int)REAL(x)[index] ;
-				break ;
-			}
+			return( REAL(x)[index] ) ;
 		case LGLSXP:
-			{
-				res = (int)LOGICAL(x)[index];
-				break ;
-			}
+			return( (double)LOGICAL(x)[index] );
 		case RAWSXP:
-			{
-				res = (int)RAW(x)[index];
-			}
+			return( (double)RAW(x)[index] ) ;
 		default:
-			{
-				throwException( "cannot cast SEXP to int", "CastException" ) ; 
-			}
+				throwException( "cannot cast SEXP to double", "CastException" ) ; 
 	}
-	return res ;
+	return 0.0  ; // -Wall 
 }
-// }}}	
-	
+// }}}
+
+float GET_float( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (float)INTEGER(x)[index] ) ;
+		case REALSXP: 
+			return( (float)REAL(x)[index] ) ;
+		case LGLSXP:
+			return( (float)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (float)RAW(x)[index] ) ;
+		default:
+				throwException( "cannot cast SEXP to double", "CastException" ) ; 
+	}
+	return (float)0.0  ; // -Wall 
+}
+
+int GET_int( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( INTEGER(x)[index] );
+		case REALSXP: 
+			return( (int)REAL(x)[index] );
+		case LGLSXP:
+			return( (int)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (int)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to int32", "CastException" ) ; 
+	}
+	return 0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+
+int32 GET_int32( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (int32)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (int32)REAL(x)[index] );
+		case LGLSXP:
+			return( (int32)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (int32)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to int32", "CastException" ) ; 
+	}
+	return (int32)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+
+int64 GET_int64( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (int64)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (int64)REAL(x)[index] );
+		case LGLSXP:
+			return( (int64)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (int64)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to int64", "CastException" ) ; 
+	}
+	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+uint32 GET_uint32( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (uint32)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (uint32)REAL(x)[index] );
+		case LGLSXP:
+			return( (uint32)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (uint32)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to uint32", "CastException" ) ; 
+	}
+	return (uint32)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+uint64 GET_uint64( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (uint64)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (uint64)REAL(x)[index] );
+		case LGLSXP:
+			return( (uint64)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (uint64)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
+	}
+	return (uint64)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+bool GET_bool( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (bool)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (bool)REAL(x)[index] );
+		case LGLSXP:
+			return( (bool)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (bool)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to bool", "CastException" ) ; 
+	}
+	return (bool)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+
 /**
  * set a message field to a new value
  *
@@ -118,6 +220,15 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		int value_size = LENGTH(value); 
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
+		/* remove some items once if there are too many */
+		if( field_size > value_size ) {
+			/* we need to remove some */
+			while( field_size > value_size ){
+				ref->RemoveLast( message, field_desc ) ;
+				field_size-- ;
+			}
+		}
+		
 		switch( field_desc->type() ){
 			// {{{ int32
     		case TYPE_INT32:
@@ -126,122 +237,21 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedInt32( message, field_desc, i, GET_int32(value,i) ) ;
     							}
-    							break ;
-    						}
-    					case RAWSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) RAW(value)[i] ) ;
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddInt32( message, field_desc, GET_int32(value,i) ) ;
     								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt32( message, field_desc, i, (int32) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt32( message, field_desc, (int32) RAW(value)[i] ) ;
-    								}
-    								
     							}
     							break ;
     						}
@@ -261,133 +271,28 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-    					
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
     							}
-    							break ;
-    						}
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
+    								}
+    							}
 
-    					case RAWSXP: 
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) RAW(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedInt64( message, field_desc, i, (int64) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddInt64( message, field_desc, (int64) RAW(value)[i] ) ;
-    								}
-    								
-    							}
     							break ;
     						}
 
     					default: 
-    						{
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    						}
+    						throwException( "Cannot convert to int64", "ConversionException" ) ; 
     				}
     				break ;
     			}
@@ -398,134 +303,28 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_FIXED32:
     			{
     				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
+   						case INTSXP:
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedUInt32( message, field_desc, i, GET_int32(value,i) ) ;
     							}
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddUInt32( message, field_desc, GET_int32(value,i) ) ;
+    								}
+    							}
+
     							break ;
     						}
-
-    					case RAWSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) RAW(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt32( message, field_desc, i, (uint32) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, (uint32) RAW(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					default: 
-    						{
-    							throwException( "Cannot convert to uint32", "ConversionException" ) ; 
-    						}
+    						throwException( "Cannot convert to uint32", "ConversionException" ) ; 
     				}
     				break ;   
     			}
@@ -536,134 +335,28 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_FIXED64:
     			{
     				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
+	   					case INTSXP:
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
     							}
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
+    								}
+    							}
+
     							break ;
     						}
-
-    					case RAWSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) RAW(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedUInt64( message, field_desc, i, (uint64) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddUInt64( message, field_desc, (uint64) RAW(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					default: 
-    						{
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    						}
+    						throwException( "Cannot convert to int64", "ConversionException" ) ; 
     				}
     				break ;   
     			}
@@ -674,133 +367,27 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedDouble( message, field_desc, i, GET_double(value,i) ) ;
     							}
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddDouble( message, field_desc, GET_double(value,i) ) ;
+    								}
+    							}
+
     							break ;
     						}
-
-    					case RAWSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) RAW(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedDouble( message, field_desc, i, (double) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddDouble( message, field_desc, (double) RAW(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					default: 
-    						{
-    							throwException( "Cannot convert to double", "ConversionException" ) ; 
-    						}
+    						throwException( "Cannot convert to double", "ConversionException" ) ; 
     				}
     				break ;   
     			}
@@ -811,133 +398,27 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedFloat( message, field_desc, i, GET_float(value,i) ) ;
     							}
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddFloat( message, field_desc, GET_float(value,i) ) ;
+    								}
+    							}
+
     							break ;
     						}
-
-    					case RAWSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) RAW(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedFloat( message, field_desc, i, (float) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddFloat( message, field_desc, (float) RAW(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					default: 
-    						{
-    							throwException( "Cannot convert to float", "ConversionException" ) ; 
-    						}
+    						throwException( "Cannot convert to float", "ConversionException" ) ; 
     				}
     				break ;   
     			}
@@ -947,134 +428,28 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			case TYPE_BOOL:
    			{
     				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) INTEGER(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) INTEGER(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) INTEGER(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) INTEGER(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
+     					case INTSXP:
     					case REALSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) REAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) REAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) REAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) REAL(value)[i] ) ;
-    								}
-    								
-    							}
-    							break ;
-    						}
-
     					case LGLSXP:
+    					case RAWSXP:	
     						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) LOGICAL(value)[i] ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) LOGICAL(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) LOGICAL(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) LOGICAL(value)[i] ) ;
-    								}
-    								
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								ref->SetRepeatedBool( message, field_desc, i, GET_bool(value,i) ) ;
     							}
-    							break ;
-    						}
-    						
-    					case RAWSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) RAW(value)[i] ) ;
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									ref->AddBool( message, field_desc, GET_bool(value,i) ) ;
     								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedBool( message, field_desc, i, (bool) RAW(value)[i] ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) RAW(value)[i] ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddBool( message, field_desc, (bool) RAW(value)[i] ) ;
-    								}
-    								
     							}
-    							break ;
-    						}
 
-    					default: 
-    						{
-    							throwException( "Cannot convert to float", "ConversionException" ) ; 
+    							break ;
     						}
+   						default: 
+    						throwException( "Cannot convert to float", "ConversionException" ) ; 
     				}
     				break ;   
     			}
@@ -1084,39 +459,24 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			case TYPE_STRING:
     		case TYPE_BYTES:
     			{
-    				switch( TYPEOF( value ) ){
-    					case STRSXP:
-    						{
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-    								}
-    								
-    							}
-    							break ;
+    				if( TYPEOF(value) == STRSXP ){ 
+    					/* in any case, fill the values up to field_size */
+    					int i = 0;
+    					for( ; i<field_size; i++){
+    						ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
+    					}
+    					
+    					/* then add some if needed */
+    					if( value_size > field_size ){
+    						for( ; i<value_size; i++){
+    							ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
     						}
+    					}
 
+    				} else{
+    					throwException( "Cannot convert to string", "ConversionException" ) ;
     				}
+    				
     				break ; 
     			}
 			// }}}
@@ -1124,7 +484,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			// {{{ message
     		case TYPE_MESSAGE:
     		case TYPE_GROUP: 
-    			{
+    			{    
     				if( TYPEOF( value ) == S4SXP ) { 
     					/* probably a single message */
     					if( !isMessage( value, field_desc->message_type()->full_name().c_str() ) ){
@@ -1135,16 +495,20 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					if( field_size == 1 ) {
     						ref->MutableRepeatedMessage(message, field_desc, 0 )->CopyFrom( *mess ) ;
     					} else {
+    						/* FIXME */
     						ref->ClearField( message, field_desc ); 
     						ref->AddMessage( message, field_desc )->CopyFrom( *mess ) ; 
     					}
     				} else if( TYPEOF(value) == VECSXP )  {
     					/* probably a list of messages */
+    					
     					/* first of all, check that all elements of the list 
     						are message of the correct type, so that if one is not
     						we generate the exception first without side effect of altering
     						the previous messages */
     					
+    					/* FIXME: this should go before the resizing */	
+    						
     					for( int i=0; i<value_size; i++){
     						if( !isMessage( VECTOR_ELT(value, i), field_desc->message_type()->full_name().c_str() ) ){
     							/* TODO: include i, target type and actual type in the message */
@@ -1152,45 +516,19 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						}
     					}
     					
-    					if( field_size == value_size ){
-    						/* same size : set all the messages */
-    						for(int i=0 ;i<value_size; i++){
-    							
-    							Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
-    							/* we already know it is of the correct type because of the 
-    							  premptive chjeck above */
-    							
-    							ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ; ; 
-    							
-    						}
+    					/* in any case, fill the values up to field_size */
+    					int i = 0;
+    					for( ; i<field_size; i++){
+    						Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
+    						/* we already know it is of the correct type because of the 
+    						  premptive chjeck above */
+    						
+    						ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ; ; 
+    					}
     					
-    					} else if( field_size < value_size )  {
-    						
-    						int i;
-    						/* first set the values up to the current field size */
-    						for( i=0; i<field_size; i++){
-    							Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
-    							/* we already know it is of the correct type because of the 
-    							  premptive chjeck above */
-    							
-    							ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ; 
-    						}
-    						
-    						/* then add the remaining messages */
-    						for( ;i<value_size; i++){
-    							Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
-    							/* we already know it is of the correct type because of the 
-    							  premptive chjeck above */
-    							
-    							ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
-    						}
-    						
-    					} else{ 
-    						/* FIXME : do we really have to clear ? */
-    						
-    						ref->ClearField( message, field_desc );
-    						
-    						for(int i=0 ;i<value_size; i++){
+    					/* then add some if needed */
+    					if( value_size > field_size ){
+    						for( ; i<value_size; i++){
     							Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
     							/* we already know it is of the correct type because of the 
     							  premptive chjeck above */
@@ -1198,7 +536,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
     						}
     					}
-    								
+		
     				} else{
     					throwException( "type mismatch, expecting a 'protobufMessage' object or a list of them", "TypeMismatchException" ) ;
     				}
@@ -1214,6 +552,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				/* check first, it means we have to loop twice, but 
     				   otherwise this could have some side effects before 
     				   the exception is thrown */
+    				   
+    				/* FIXME: the checking should go before the resizing */   
     				
     				switch( TYPEOF( value ) ){
     					// {{{ INSXP 
@@ -1230,7 +570,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							
     							/* loop around the numbers to see if they are in the possibles */
     							for( int i=0; i<value_size; i++){
-    								int val = GETINT(value, i ); 
+    								int val = GET_int(value, i ); 
     								int ok = 0; 
     								for( int j=0; j<nenums; j++){
     									if( val == possibles[j] ){
@@ -1245,35 +585,19 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							
     							/* we are ok now, all values are suitable */
     							
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									int val = GETINT(value, i ); 
-    									ref->SetRepeatedEnum( message, field_desc, i, enum_desc->FindValueByNumber(val) ) ; 
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									int val = GETINT(value, i ); 
-    									ref->SetRepeatedEnum( message, field_desc, i, enum_desc->FindValueByNumber(val) ) ;
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
-    									int val = GETINT(value, i ); 
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+    								int val = GET_int(value, i ); 
+    								ref->SetRepeatedEnum( message, field_desc, i, enum_desc->FindValueByNumber(val) ) ;
+    							}
+    							
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
+    									int val = GET_int(value, i ); 
     									ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									int val = GETINT(value, i ); 
-    									ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
-    								}
-    								
+									}
     							}
     							
     							break ;
@@ -1308,40 +632,21 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							/* we are ok now, all values are suitable */
     							
     							
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+    							for( ; i<field_size; i++){
+   									std::string val = CHAR( STRING_ELT( value, i) ) ;
+    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+    								ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
+    							}
     							
-    							if( value_size == field_size ){
-    								/* just set the values */
-    								for( int i=0; i<value_size; i++){
-    									std::string val = CHAR( STRING_ELT( value, i) ) ;
-    									const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
-    									ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
-    								}
-    							} else if( value_size < field_size ) {
-    								int i;
-    								/* first set the values up to the current field size */
-    								for( i=0; i<field_size; i++){
-    									std::string val = CHAR( STRING_ELT( value, i) ) ;
-    									const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
-    									ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
-    								}
-    								/* then add the remaining */
-    								for( ;i<value_size; i++){
+    							/* then add some if needed */
+    							if( value_size > field_size ){
+    								for( ; i<value_size; i++){
     									std::string val = CHAR( STRING_ELT( value, i) ) ;
     									const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
     									ref->AddEnum( message, field_desc, evd ) ; 
-    								}
-    								
-    							} else{
-    								/* need to reset */
-    								ref->ClearField( message, field_desc ); 
-    								
-    								/* and add all */
-    								for(int i=0 ;i<value_size; i++){
-    									std::string val = CHAR( STRING_ELT( value, i) ) ;
-    									const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
-    									ref->AddEnum( message, field_desc, evd ) ; 
-    								}
-    								
+									}
     							}
     							
     							break ;
@@ -1371,23 +676,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetInt32(message, field_desc, (int32) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetInt32(message, field_desc, (int32) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetInt32(message, field_desc, (int32) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetInt32(message, field_desc, (int32) RAW(value)[0] ) ;
+    							ref->SetInt32(message, field_desc, GET_int32( value, 0 ) ); 
     							break ;
     						}
     					default: 
@@ -1406,23 +699,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetInt64(message, field_desc, (int64) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetInt64(message, field_desc, (int64) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetInt64(message, field_desc, (int64) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetInt64(message, field_desc, (int64) RAW(value)[0] ) ;
+    							ref->SetInt64(message, field_desc, GET_int64( value, 0 ) ) ;
     							break ;
     						}
     					default: 
@@ -1440,23 +721,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetUInt32(message, field_desc, (uint32) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetUInt32(message, field_desc, (uint32) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetUInt32(message, field_desc, (uint32) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetUInt32(message, field_desc, (uint32) RAW(value)[0] ) ;
+    							ref->SetUInt32(message, field_desc, GET_uint32( value, 0) ) ;
     							break ;
     						}
     					default: 
@@ -1474,23 +743,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetUInt64(message, field_desc, (int64) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetUInt64(message, field_desc, (int64) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetUInt64(message, field_desc, (int64) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetUInt64(message, field_desc, (int64) RAW(value)[0] ) ;
+    							ref->SetUInt64(message, field_desc, GET_int64( value, 0) ) ;
     							break ;
     						}
     					default: 
@@ -1507,23 +764,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetDouble(message, field_desc, (double) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetDouble(message, field_desc, (double) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetDouble(message, field_desc, (double) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetDouble(message, field_desc, (double) RAW(value)[0] ) ;
+    							ref->SetDouble(message, field_desc, GET_double(value, 0) ) ;
     							break ;
     						}
     					default: 
@@ -1540,23 +785,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetFloat(message, field_desc, (float) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetFloat(message, field_desc, (float) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetFloat(message, field_desc, (float) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetFloat(message, field_desc, (float) RAW(value)[0] ) ;
+    							ref->SetFloat(message, field_desc, GET_float(value, 0) ) ;
     							break ;
     						}
     					default: 
@@ -1573,23 +806,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
    			{
     				switch( TYPEOF( value ) ){
     					case INTSXP:
-    						{
-    							ref->SetBool(message, field_desc, (bool) INTEGER(value)[0] ) ;
-    							break ;
-    						}
     					case REALSXP:
-    						{
-    							ref->SetBool(message, field_desc, (bool) REAL(value)[0] ) ;
-    							break ;
-    						}
     					case LGLSXP:
-    						{
-    							ref->SetBool(message, field_desc, (bool) LOGICAL(value)[0] ) ;
-    							break ;
-    						}
     					case RAWSXP:
     						{
-    							ref->SetBool(message, field_desc, (bool) RAW(value)[0] ) ;
+    							ref->SetBool(message, field_desc, GET_bool(value, 0) ) ;
     							break ;
     						}
     					default: 
@@ -1611,6 +832,10 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							ref->SetString(message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,0 )) ) ) ;
     							break ;
     						}
+    					default: 
+    						{
+    							throwException( "Cannot convert to string", "ConversionException" ) ;
+    						}
     				}
     				break ; 
     			}
@@ -1629,8 +854,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					}
     					Message* m = ref->MutableMessage( message, field_desc ) ; 
     					m->CopyFrom( *mess ) ;
-    					
-    					Rf_warning( "setting 'messages' fields not yet implemented , patches welcome" ) ;		
     				} else {
     					throwException( "type mismatch, expecting a 'protobufMessage' object", "TypeMismatchException" ) ;
     				}
@@ -1649,7 +872,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:
     						{
-    							int val = GETINT(value, 0 ) ;
+    							int val = GET_int(value, 0 ) ;
     							const EnumValueDescriptor* evd = enum_desc->FindValueByNumber(val) ;
     							if( !evd ){
     								throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
