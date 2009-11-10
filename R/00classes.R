@@ -90,37 +90,34 @@ setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 
 # {{{ dollar extractors
 setMethod("$", c(x="protobufMessage"), function(x, name) {
-	# TODO: replace these with a switch
-	if( identical( name, "has") ){
-		function( what ) {
+	
+	switch( name, 
+		"has" = function( what ) {
 			.Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" )
-		}
-	} else if( identical( name, "clone" ) ) {
-		function( ... ){
+		}, 
+		"clone" = function( ... ){
 			._clone.message( x, ... )
-		}
-	} else if( identical( name, "isInitialized" ) ) {
-		function() isInitialized( x )
-	} else if( identical( name, "serialize" ) ){
-		function(...) serialize( x, ... ) 
-	} else if( identical( name, "clear" ) ){
-		function() clear( x )
-	} else {
+		}, 
+		"isInitialized" = function() isInitialized( x ), 
+		"serialize" = function(...) serialize( x, ... ),
+		"clear" = function() clear( x ), 
+		
+		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
-	}
-} )
+		)
+	} )
 setMethod("$", c(x="protobufDescriptor"), function(x, name) {
-	if( identical( name, "new") ){
-		function( ... ){
+	switch( name, 
+		"new" = function( ... ){
 			newProto( x, ... )
-		}
-	} else if( identical( name, "read" ) ) {
-		function( input ){
+		}, 
+		"read" = function( input ){
 			read( x, input )
-		}
-	} else{
+		},
+		
+		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
-	}
+	)
 } )
 setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 	.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
