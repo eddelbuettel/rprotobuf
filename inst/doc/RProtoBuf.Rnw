@@ -1,13 +1,30 @@
 \documentclass{article}
+%\usepackage{Sweave}
 
+\usepackage{\Sexpr{file.path( R.home(), "share/texmf/Sweave" ) }}
 \usepackage{url}
-\usepackage{Sweave}
+
+<<echo=FALSE,print=FALSE>>=
+library( "RProtoBuf" )
+rpb.version <- packageDescription( "RProtoBuf" )$Version
+@
 
 \author{Romain Fran\c{c}ois, Dirk Eddelbuettel, Saptarshi Guha}
-\title{RProtoBuf \Sexpr{packageDescription( "RProtoBuf" )$Version}: R API for Protocol Buffers}
+\title{RProtoBuf \Sexpr{rpb.version}: R API for Protocol Buffers}
 
 \begin{document}
 \maketitle
+
+\abstract{
+Protocol message buffers is Google's open source 
+data interchange format designed with efficiency in mind. The 
+official project page for protocol buffers presents the language
+and API for Java, C++ and python. 
+
+This vignette describes the version \Sexpr{rpb.version} of the 
+\texttt{RProtoBuf} package for R, which brings support for 
+protocol buffer messages into R. 
+}
 
 \section{Protocol Buffers}
 
@@ -32,16 +49,193 @@ created to support protocol buffers for many languages. The list of knowns
 languages to support protocol buffers is compiled as part of the
 project page: \url{http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns}
 
-\subsection{Example}
+\subsection{The address book example}
+
+The protocol buffer project page contains a comprehensive 
+description of the language: \url{http://code.google.com/apis/protocolbuffers/docs/proto.html}
 
 Through this document, we will use the \texttt{addressbook} example
-that is also used by the official tutorials for java, python and C++. 
+that is also used by the official tutorials for java, python and C++.
 
 <<echo=F>>=
 ab.proto <- system.file( "proto", "addressbook.proto", 
 	package = "RProtoBuf" )
 writeLines( readLines( ab.proto ) )
 @
+
+The proto file defines : 
+\begin{itemize}
+\item the message types \texttt{tutorial.Person}, 
+\texttt{tutorial.Person.PhoneNumber} and \texttt{tutorial.AddressBook}
+\item the enum type \texttt{tutorial.Person.PhoneType}
+\end{itemize}
+
+A message type can contain : 
+\begin{itemize}
+\item A set of fields. For example the \texttt{Person} message type
+contains the required field \texttt{name} of primitive type
+\texttt{string} associated with the tag number 1. 
+\item other message type descriptions, for example \texttt{Person}
+contains the nested message type \texttt{PhoneNumber}. The fully qualified
+type of \texttt{PhoneNumber} is therefore \texttt{tutorial.Person.PhoneNumber}
+\item enum type descriptions. 
+\end{itemize}
+
+\section{Using protocol buffers in R}
+
+This section describes how to use the R API to create and manipulate
+protocol buffer messages in R, and how to read and write the 
+binary \emph{payload} of the messages to files and arbitrary binary 
+R connections.
+
+\subsection{Importing proto files}
+
+As opposed to other languages (Java, C++, python), the implementation
+used by the \texttt{RProtoBuf} package does not rely on the \texttt{protoc}
+compiler, which means that no initial step of 
+statically compiling the proto file into R code is necessary. Instead, 
+\texttt{proto} files are parsed and processed at runtime by the 
+protobuf C++ library. 
+
+The \texttt{readProtoFiles} function allows importing \texttt{proto}
+files in several ways. 
+
+<<>>=
+args( readProtoFiles )
+@
+
+Using the \texttt{file} argument, on can specify one or several file
+paths that ought to be proto files. 
+
+<<>>=
+proto.dir <- system.file( "proto", package = "RProtoBuf" )
+proto.file <- file.path( proto.dir, "addressbook.proto" )
+readProtoFiles( proto.file )
+@
+
+With the \texttt{dir} argument, 
+ignored if \texttt{file} is supplied, all files matching the 
+\texttt{.proto} extension will be imported. 
+
+<<>>=
+dir( proto.dir, pattern = "\\.proto$", full.names = TRUE )
+readProtoFiles( dir = proto.dir )
+@
+
+Finally, with the 
+\texttt{package} argument (ignored if \texttt{file} or
+\texttt{dir} is supplied), the function will import all \texttt{.proto}
+files that are located in the \texttt{proto} sub-directory of the given 
+package. A typical use for this argument is in the \texttt{.onLoad} 
+function of a package.
+
+<<>>=
+readProtoFiles( package = "RProtoBuf" )
+@
+
+Once the proto files are imported, all message descriptors are 
+are available in the R search path in the \emph{RProtoBuf:DescriptorPool}
+special environment. A later section describes the mechanism used
+by this special environment.
+
+<<>>=
+ls( "RProtoBuf:DescriptorPool" )
+@
+
+\subsection{Creating a message}
+
+The objects contained in the special environment are 
+descriptors for their associated message types. Descriptors will be
+discussed in detail in another part of this document, but for the 
+purpose of this section, descriptors are just used with the \texttt{new}
+function to create messages. 
+
+<<>>=
+p <- new( tutorial.Person, name = "Romain", id = 1 )
+@
+
+\subsection{Access and modify fields of a message}
+
+Once the message created, its fields can be quiered 
+and modified using the dollar operator of R, making protocol 
+buffer messages seem like lists. 
+
+<<>>=
+p$name
+p$id
+p$email <- "francoisromain@free.fr"
+@
+
+\subsection{Display messages}
+
+For debugging purposes, protocol buffer messages
+implement the \texttt{as.character} method: 
+
+<<>>=
+writeLines( as.character( p ) )
+@
+
+\subsection{Serializing messages}
+
+However, the main focus of protocol buffer messages is 
+efficiency. Therefore, messages are transported as a sequence
+of bytes. The \texttt{serialize} method is implemented for 
+protocol buffer messages to serialize a message into the sequence of 
+bytes (raw vector in R speech) that represents the message.
+
+<<>>=
+serialize( p, NULL )
+@
+
+The same method can also be used to serialize messages to files :
+
+<<>>=
+tf1 <- tempfile()
+tf1
+serialize( p, tf1 )
+readBin( tf1, raw(0), 500 )
+@
+
+Or to arbitrary binary connections: 
+
+<<>>=
+tf2 <- tempfile()
+con <- file( tf2, open = "wb" )
+serialize( p, con )
+close( con )
+readBin( tf2, raw(0), 500 )
+@
+
+\subsection{Parsing messages}
+
+The \texttt{RProtoBuf} package defines the \texttt{read}
+function to read messages from files and arbitrary binary connections.
+
+<<>>=
+read
+@
+
+
+The binary representation of the message (often called the payload)
+does not contain information that can be used to dynamically 
+infer the message type, so we have to provide this information
+to the \texttt{read} function in the form of a descriptor :
+
+<<>>=
+message <- read( tutorial.Person, tf1 )
+writeLines( as.character( message ) )
+@
+
+The \texttt{input} argument of \texttt{read} can also be a binary 
+readable R connection, such as a binary file connection: 
+
+<<>>=
+con <- file( tf2, open = "rb" )
+message <- read( tutorial.Person, con )
+close( con )
+writeLines( as.character( message ) )
+@
+
 
 \end{document}
 
