@@ -1,5 +1,3 @@
-// See README.txt for information and build instructions.
-
 package tutorial;
 
 option java_package = "com.example.tutorial";

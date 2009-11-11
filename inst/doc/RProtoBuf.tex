@@ -1,0 +1,76 @@
+\documentclass{article}
+
+\usepackage{url}
+\usepackage{Sweave}
+
+\author{Romain Fran\c{c}ois, Dirk Eddelbuettel, Saptarshi Guha}
+\title{RProtoBuf 0.0-4: R API for Protocol Buffers}
+
+\begin{document}
+\maketitle
+
+\section{Protocol Buffers}
+
+Protocol buffers are a language-neutral, platform-neutral, extensible 
+way of serializing structured data for use in communications 
+protocols, data storage, and more. 
+
+It is an open-source language (BSD license) developed by Google. The 
+protocol buffer project (\url{http://code.google.com/p/protobuf/})
+contains a C++ library and a set of runtime libraries and compilers for
+C++, java and python. 
+
+With these languages, the workflow consists of 
+compiling a protocol buffer description file into
+language specific classes that can be used to create, read, write and 
+manipulate protocol buffer messages. The project page contains a tutorial
+for each of these officially supported languages:
+\url{http://code.google.com/apis/protocolbuffers/docs/tutorials.html}
+
+Aside C++, java and python implementations, several projects have been 
+created to support protocol buffers for many languages. The list of knowns
+languages to support protocol buffers is compiled as part of the
+project page: \url{http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns}
+
+\subsection{Example}
+
+Through this document, we will use the \texttt{addressbook} example
+that is also used by the official tutorials for java, python and C++. 
+
+\begin{Schunk}
+\begin{Soutput}
+// See README.txt for information and build instructions.
+
+package tutorial;
+
+option java_package = "com.example.tutorial";
+option java_outer_classname = "AddressBookProtos";
+
+message Person {
+  required string name = 1;
+  required int32 id = 2;        // Unique ID number for this person.
+  optional string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    required string number = 1;
+    optional PhoneType type = 2 [default = HOME];
+  }
+
+  repeated PhoneNumber phone = 4;
+}
+
+// Our address book file is just one of these.
+message AddressBook {
+  repeated Person person = 1;
+}
+\end{Soutput}
+\end{Schunk}
+
+\end{document}
+
