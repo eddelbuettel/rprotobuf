@@ -472,6 +472,7 @@ message <- new( tutorial.Person, name = "foo",
 		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
 		) )
 message$size( "phone" )
+size( message, "phone" )
 @
 
 The \texttt{size} method is a thin wrapper around the \texttt{FieldSize}
@@ -488,6 +489,7 @@ method of the \texttt{google::protobuf::Message} C++ class.
 <<>>=
 message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
 message$bytesize()
+bytesize( message )
 length( message$serialize( NULL ) )
 @
 
@@ -506,14 +508,36 @@ message <- new( tutorial.Person, name = "foo",
 message$swap( "phone", 1, 2 )
 writeLines( as.character( message$phone[[1]] ) )
 writeLines( as.character( message$phone[[2]] ) )
-@
 
+swap( message, "phone", 1, 2 )
+writeLines( as.character( message$phone[[1]] ) )
+writeLines( as.character( message$phone[[2]] ) )
+@
 
 \subsubsection{protobufMessage\$str method}
 \label{protobufMessage-method-str}
 
+The \texttt{str} method gives the R structure of the message. This is rarely 
+useful.
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+message$str()
+str( message )
+@
+
 \subsubsection{protobufMessage\$as.character method}
 \label{protobufMessage-method-ascharacter}
+
+The \texttt{as.character} method gives the debug string of the message.
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+writeLines( message$as.character() )
+writeLines( as.character( message ) ) 
+@
+
+
 
 \end{document}
 
