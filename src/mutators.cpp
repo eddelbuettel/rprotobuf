@@ -172,7 +172,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	Message* message = GET_MESSAGE_POINTER_FROM_XP(pointer) ;
 
 	/* the message descriptor */
-	const Descriptor* desc = message->GetDescriptor() ;
+	// const Descriptor* desc = message->GetDescriptor() ;
 	
 	/* {{{ check that we can get a file descriptor from name */
 	FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
@@ -304,6 +304,24 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				}
     				break ;
     			}
+    		case TYPE_DOUBLE : 
+    		case TYPE_FLOAT : 
+    		case TYPE_INT64 : 
+    		case TYPE_UINT64 : 
+    		case TYPE_INT32 : 
+    		case TYPE_FIXED64 : 
+    		case TYPE_FIXED32 : 
+    		case TYPE_BOOL : 
+    		case TYPE_STRING : 
+    		case TYPE_BYTES : 
+    		case TYPE_UINT32 : 
+    		case TYPE_SFIXED32 : 
+    		case TYPE_SFIXED64 : 
+    		case TYPE_SINT32 : 
+    		case TYPE_SINT64 : 
+    			{
+					; // nothing, just to satisfy -Wall 
+				}
 		}
 		// }}}
 		  
