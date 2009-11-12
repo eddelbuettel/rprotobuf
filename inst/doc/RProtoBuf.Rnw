@@ -5,16 +5,25 @@
 \usepackage{\Sexpr{file.path( R.home(), "share/texmf/Sweave" ) }}
 \usepackage{url}
 
+% \usepackage{layout}
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\textwidth}{17cm}
+
 <<echo=FALSE,print=FALSE>>=
 library( "RProtoBuf" )
 rpb.version <- packageDescription( "RProtoBuf" )$Version
 @
+
+
 
 \author{Romain Fran\c{c}ois, Dirk Eddelbuettel, Saptarshi Guha}
 \title{RProtoBuf \Sexpr{rpb.version}: R API for Protocol Buffers}
 
 \begin{document}
 \maketitle
+
+% \layout
 
 \abstract{
 Protocol message buffers is Google's open source 
@@ -143,6 +152,7 @@ by this special environment.
 ls( "RProtoBuf:DescriptorPool" )
 @
 
+
 \subsection{Creating a message}
 
 The objects contained in the special environment are 
@@ -165,6 +175,18 @@ buffer messages seem like lists.
 p$name
 p$id
 p$email <- "francoisromain@free.fr"
+@
+
+However, as opposed to R lists, no partial matching is performed
+and the name must be given entirely. 
+
+The \verb|[[| operator can also be used to query and set fields 
+of a mesages, supplying either their name or their tag number : 
+
+<<>>=
+p[["name"]] <- "Romain Francois"
+p[[ 2 ]] <- 3
+p[[ "email" ]]
 @
 
 \subsection{Display messages}
@@ -207,6 +229,19 @@ close( con )
 readBin( tf2, raw(0), 500 )
 @
 
+\texttt{serialize} can also be used in a more traditionnal 
+object oriented fashion using the dollar operator :
+
+<<>>=
+# serialize to a file
+p$serialize( tf1 )
+# serialize to a binary connection
+con <- file( tf2, open = "wb" )
+p$serialize( con )
+close( con )
+@
+
+
 \subsection{Parsing messages}
 
 The \texttt{RProtoBuf} package defines the \texttt{read}
@@ -236,6 +271,82 @@ message <- read( tutorial.Person, con )
 close( con )
 writeLines( as.character( message ) )
 @
+
+\texttt{read} can also be used as a pseudo method of the descriptor 
+object : 
+
+<<>>=
+# reading from a file
+message <- tutorial.Person$read( tf1 )
+# reading from a binary connection
+con <- file( tf2, open = "rb" )
+message <- tutorial.Person$read( con )
+close( con )
+@
+
+\section{Classes, Methods and Pseudo Methods}
+
+The \texttt{RProtoBuf} package uses the S4 system to store 
+information about descriptors and messages, but the information stored
+in the R object is very minimal and mainly consists of an external 
+pointer to a C++ variable that is managed by the \texttt{proto} C++
+library. 
+
+<<>>=
+str( p ) 
+@
+
+Using the S4 system allows the \texttt{RProtoBuf} package to dispatch
+methods that are not generic in the S3 sense, such as \texttt{new}
+and \texttt{serialize}. 
+
+The \texttt{RProtoBuf} package combines the \emph{R typical} dispatch
+of the form \verb|method( object, arguments)| and the more traditionnal
+object oriented notation \verb|object$method(arguments)|. 
+
+\subsection{messages}
+
+Messages are represented in R using the \texttt{protobufMessage} 
+S4 class. The class contains the slots \texttt{pointer} and \texttt{type} as
+described on the table~\ref{protobufMessage-class-table} :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{slot} & \textbf{description} \\
+\hline
+\texttt{pointer} & external pointer to the \texttt{Message} object of the C++ proto library. Documentation for the 
+\texttt{Message} class is available from the protocol buffer project page:
+\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message.html#Message} \\
+\hline
+\texttt{type} & fully qualified path of the message. For example a \texttt{Person} message
+has its \texttt{type} slot set to \texttt{tutorial.Person} \\
+\hline
+\end{tabular}
+\caption{\label{protobufMessage-class-table}Description of slots for the \texttt{protobufMessage} S4 class}
+\end{table}
+
+Although the \texttt{RProtoBuf} package uses 
+the S4 system, the \verb|@| operator is very rarely used. Fields of the 
+message are retrieved or modified using the \verb|$| or \verb|[[| operators 
+as seen on the previous section, and pseudo-methods can also 
+be called using the \verb|$| operator. The table~\ref{protobufMessage-methods-table}
+describes the methods defined for the \texttt{protobufMessage} class :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{method} & \textbf{description} \\
+\hline
+\texttt{has} & Indicates if a message has a given field.  \\
+\texttt{} & \\
+\hline
+\end{tabular}
+\caption{\label{protobufMessage-methods-table}Description of slots for the \texttt{protobufMessage} S4 class}
+\end{table}
+
 
 
 \end{document}

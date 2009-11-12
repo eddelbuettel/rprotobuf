@@ -99,7 +99,8 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 		"clear" = function(...) clear( x, ... ), 
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x), 
-		"swap" = function(...) swap(x,...), 
+		"swap" = function(...) swap(x,...),
+		"update" = function(...) update(x, ...),
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
