@@ -1,12 +1,8 @@
 \documentclass{article}
 %\VignetteIndexEntry{RProtoBuf}
 
-% \usepackage{\Sexpr{file.path( R.home(), "share/texmf/Sweave" ) }}
 \usepackage{url}
 \usepackage[colorlinks]{hyperref}
-
-% \usepackage{layout}
-
 \setlength{\oddsidemargin}{0pt}
 \setlength{\textwidth}{17cm}
 
@@ -22,8 +18,6 @@ rpb.version <- packageDescription( "RProtoBuf" )$Version
 
 \begin{document}
 \maketitle
-
-% \layout
 
 \abstract{
 Protocol message buffers is Google's open source 
@@ -707,8 +701,13 @@ descriptor in R. This is a wrapper S4 class around the
 \caption{\label{protobufFieldDescriptor-class-table}Description of slots for the \texttt{protobufFieldDescriptor} S4 class}
 \end{table}
 
-Currently, only the \texttt{as.character} method is implemented for
-field descriptors. 
+\subsubsection{as.character}
+
+The \texttt{as.character} method brings the debug string of the field descriptor.
+
+<<>>=
+writeLines( as.character( tutorial.Person$PhoneNumber ) ) 
+@
 
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}
@@ -753,16 +752,87 @@ writeLines( as.character( tutorial.Person$PhoneType ) )
 
 \section{Utilities}
 
+\subsection{completion}
+
+The \texttt{RProtoBuf} package implements the 
+\texttt{.DollarNames} S3 generic function 
+(defined in the \texttt{utils} package) for all classes. 
+
+Completion possibilities include pseudo method names for all 
+classes, plus :
+\begin{itemize}
+\item field names for messages
+\item field names, enum types, nested types for message type descriptors
+\item names for enum descriptors
+\end{itemize}
+
 \subsection{with and within}
+
+The S3 generic \texttt{with} function is implemented for class
+\texttt{protobufMessage}, allowing to evaluate an R expression in 
+an environment that allows to retrieve and set fields of a message 
+simply using their names.
+
+<<>>=
+message <- new( tutorial.Person, email = "foo@bar.com" )
+with( message, {
+	# set the id field
+	id <- 2
+	
+	# set the name field from the email field
+	name <- gsub( "[@]", " ", email )
+	
+	sprintf( "%d [%s] : %s", id, email, name )
+} )
+@
+
+The difference between \texttt{with} and \texttt{within} is the value
+that is returned. For \texttt{with} returns the result of the R expression,
+for \texttt{within} the message is returned. In both cases, the message
+is modified because \texttt{RProtoBuf} works by reference.
 
 \subsection{merge}
 
-\subsection{completion}
+\texttt{merge} can be used to merge two messages of the same type. 
+
+<<>>=
+m1 <- new( tutorial.Person, name = "foobar" )
+m2 <- new( tutorial.Person, email = "foo@bar.com" )
+m3 <- merge( m1, m2 )
+writeLines( as.character( m3 ) )
+@
 
 \subsection{P}
 
-\section{Descriptor lookup}
+The \texttt{P} function is an alternative way to retrieve
+a message descriptor using its type name. It is not often used because 
+of the lookup mechanism described in section~\ref{sec-lookup}.
 
+<<>>=
+P("tutorial.Person")
+new( P("tutorial.Person") )
+
+# but we can do this instead
+tutorial.Person
+new( tutorial.Person )
+@
+
+\section{Descriptor lookup}
+\label{sec-lookup}
+
+The \texttt{RProtoBuf} package uses the user defined tables framework
+that is defined as part of the \texttt{RObjectTables} package available
+from the OmegaHat project.
+
+The feature allows \texttt{RProtoBuf} to install the
+special environment \emph{RProtoBuf:DescriptorPool} in the R search path. 
+The environment is special in that, instead of being associated with a
+static hash table, it is dynamically queried by R as part of R's usual
+variable lookup. In other words, it means that when the R interpreter
+looks for a binding to a symbol (foo) in its search path,
+it asks to our package if it knows the binding "foo", this is then 
+implemented by the \texttt{RProtoBuf} package by calling an internal 
+method of the \texttt{protobuf} C++ library. 
 
 
 \end{document}
