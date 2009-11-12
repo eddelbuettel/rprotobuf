@@ -48,7 +48,7 @@ SEXP set_field_size(SEXP xp, SEXP field, SEXP newsize){
 		if( target == 0){
 			ref->ClearField( message, field_desc );
 		} else if( current > target ){
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 2002000
 			Rf_error( "cannot shrink the size with this version of the protobuf library, either update to 2.2 or submit a patch" ) ; 
 #else
 		while( current != target ){

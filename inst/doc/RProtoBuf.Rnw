@@ -494,15 +494,18 @@ length( message$serialize( NULL ) )
 \subsubsection{protobufMessage\$swap method}
 \label{protobufMessage-method-swap}
 
-The \texttt{swap} method can be used to swap elements of a repeated field. 
+The \texttt{swap} method can be used to swap elements
+of a repeated field. 
 
-<<>>=
+<<keep.source=T>>=
 message <- new( tutorial.Person, name = "foo", 
 	phone = list( 
 		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ), 
 		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
 		) )
-message$swap( "phone", 0, 1 )
+message$swap( "phone", 1, 2 )
+writeLines( as.character( message$phone[[1]] ) )
+writeLines( as.character( message$phone[[2]] ) )
 @
 
 

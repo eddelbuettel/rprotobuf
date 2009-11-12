@@ -1,6 +1,6 @@
 #include "rprotobuf.h"
 
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 2002000
 #include "fieldtypes.h"
 #endif
 
@@ -16,8 +16,8 @@ namespace rprotobuf{
 		}
 		int n = LENGTH(left); /* we know that length(left) == length(right) */ 
 		for( int i=0; i<n; i++){
-#if GOOGLE_PROTOBUF_VERSION < 2002001
-			
+#if GOOGLE_PROTOBUF_VERSION < 2002000
+	
 			/* no SwapElements in protobuf < 2.2 so we cook our own */
 			int i_left  = GET_int(left, i) ;
 			int i_right = GET_int(right, i) ;
@@ -111,9 +111,9 @@ namespace rprotobuf{
     					 m_left->CopyFrom( ref->GetRepeatedMessage( *message, field_desc, i_right ) ) ; 
     					 m_right->CopyFrom(ref->GetRepeatedMessage( *message, field_desc, i_left ) ) ;
     					 ref->MutableRepeatedMessage(message, field_desc, i_left )->Clear() ; 
-    					 ref->MutableRepeatedMessage(message, field_desc, i_left )->CopyFrom( *m_right ) ;
+    					 ref->MutableRepeatedMessage(message, field_desc, i_left )->CopyFrom( *m_left ) ;
     					 ref->MutableRepeatedMessage(message, field_desc, i_right )->Clear() ; 
-    					 ref->MutableRepeatedMessage(message, field_desc, i_right )->CopyFrom( *m_left ) ;
+    					 ref->MutableRepeatedMessage(message, field_desc, i_right )->CopyFrom( *m_right ) ;
     					 break ;
     				}
 
