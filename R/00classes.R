@@ -104,6 +104,7 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 		"str" = function() str(x), 
 		"as.character" = function() as.character(x), 
 		"as.list" = function() as.list(x), 
+		"descriptor" = function() descriptor(x), 
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )

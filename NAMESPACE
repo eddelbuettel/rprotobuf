@@ -14,7 +14,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
 	"has", "clone", "merge", "read", "bytesize",
 	"length", "str", "isInitialized", 
-	"clear", "size", "size<-", "swap" )
+	"clear", "size", "size<-", "swap", 
+	"descriptor" )
 
 export( "P", "throw", "readProtoFiles" )
 

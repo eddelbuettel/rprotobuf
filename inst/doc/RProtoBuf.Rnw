@@ -351,6 +351,7 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
 \texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
+\texttt{descriptor} & \ref{protobufMessage-method-descriptor} & get the descriptor of the message type of this message\\
 \hline
 \end{tabular}
 \caption{\label{protobufMessage-methods-table}Description of slots for the \texttt{protobufMessage} S4 class}
@@ -578,7 +579,22 @@ update( message,
 writeLines( message$as.character() )
 @
 
+\subsubsection{protobufMessage\$descriptor method}
+\label{protobufMessage-method-descriptor}
+
+The \texttt{descriptor} method retrieves the 
+descriptor of a message. See section~\ref{subsec-descriptor}
+for more information about message type descriptors.
+
+<<>>=
+message <- new( tutorial.Person )
+message$descriptor()
+descriptor( message )
+@
+
+
 \subsection{message descriptors}
+\label{subsec-descriptor}
 
 Message descriptors are represented in R with the 
 \emph{protobufDescriptor} S4 class. The class contains

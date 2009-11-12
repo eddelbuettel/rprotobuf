@@ -18,7 +18,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		.Call( "getMessageFieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
 		"has(", "clone()", "clone(", "isInitialized()", "serialize(", 
 		"clear()", "clear(", "size(", "bytesize()", 
-		"swap(", "str()", "as.character()", "update(", "as.list()" )
+		"swap(", "str()", "as.character()", "update(", "as.list()", 
+		"descriptor()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
