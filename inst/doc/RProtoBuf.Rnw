@@ -336,18 +336,181 @@ describes the methods defined for the \texttt{protobufMessage} class :
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|cp{10cm}|}
+\begin{tabular}{|ccp{8cm}|}
 \hline
-\textbf{method} & \textbf{description} \\
+\textbf{method} & \textbf{section} & \textbf{description} \\
 \hline
-\texttt{has} & Indicates if a message has a given field.  \\
-\texttt{} & \\
+\texttt{has} & \ref{protobufMessage-method-has} & Indicates if a message has a given field.   \\
+\texttt{clone} &  \ref{protobufMessage-method-clone} & Creates a clone of the message \\
+\texttt{isInitialized} & \ref{protobufMessage-method-isInitialized} & Indicates if a message has all its required fields set\\
+\texttt{serialize} & \ref{protobufMessage-method-serialize} & serialize a message to a file or a binary connection or retrieve the message payload as a raw vector\\
+\texttt{clear} & \ref{protobufMessage-method-clear} & Clear one or several fields of a message, or the entire message\\
+\texttt{size} & \ref{protobufMessage-method-size} & The number of elements in a message field\\
+\texttt{bytesize} & \ref{protobufMessage-method-bytesize} & The number of bytes the message would take once serialized\\
+\texttt{swap} & \ref{protobufMessage-method-swap} & swap elements of a repeated field of a message\\
+\texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
+\texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
 \hline
 \end{tabular}
 \caption{\label{protobufMessage-methods-table}Description of slots for the \texttt{protobufMessage} S4 class}
 \end{table}
 
+\subsubsection{protobufMessage\$has method}
+\label{protobufMessage-method-has}
 
+The \texttt{has} method indicates if a field of a message is set. For
+repeated fields, the field is considered set if there is at least 
+on object in the array. For non-repeated fields, the field is considered
+set if it has been initialized. 
+
+The \texttt{has} method is a thin wrapper around the \texttt{HasField}
+and \texttt{FieldSize} methods of the \texttt{google::protobuf::Reflection} C++ class. 
+
+<<>>=
+message <- new( tutorial.Person, name = "foo" )
+message$has( "name" )
+message$has( "id" )
+message$has( "phone" )
+@
+
+\subsubsection{protobufMessage\$clone method}
+\label{protobufMessage-method-clone}
+
+The \texttt{clone} function creates a new message that is a clone 
+of the message. This function is a wrapper around the methods \texttt{New}
+and \texttt{CopyFrom} of the \texttt{google::protobuf::Message} C++ class.
+
+<<>>=
+m1 <- new( tutorial.Person, name = "foo" )
+m2 <- m1$clone( )
+m2$email <- "foo@bar.com"
+writeLines( as.character( m1 ) )
+writeLines( as.character( m2 ) )
+@
+
+\subsubsection{protobufMessage\$isInitialized method}
+\label{protobufMessage-method-isInitialized}
+
+The \texttt{isInitialized} method quickly checks
+if all required fields have values set. This is a thin wrapper
+around the \texttt{IsInitialized} method of the 
+\texttt{google::protobuf::Message} C++ class.
+
+<<>>=
+message <- new( tutorial.Person, name = "foo" )
+message$isInitialized()
+message$id <- 2
+message$isInitialized()
+@
+
+\subsubsection{protobufMessage\$serialize method}
+\label{protobufMessage-method-serialize}
+
+The \texttt{serialize} method can be used to serialize 
+the message as a sequence of bytes into a file or a binary connection. 
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+tf1 <- tempfile( )
+tf1
+message$serialize( tf1 )
+
+tf2 <- tempfile( )
+tf2
+con <- file( tf2, open = "wb" )
+message$serialize( con )
+close( con )
+@
+
+The files \Sexpr{basename(tf1)} and \Sexpr{basename(tf2)} both 
+contain the message payload as a sequence of bytes. The \texttt{readBin}
+function can be used to read the files as a raw vector in R:
+
+<<>>=
+readBin( tf1, raw(0), 500 )
+readBin( tf2, raw(0), 500 )
+@
+
+The \texttt{serialize} method can also be used to directly retrieve the
+payload of the message as a raw vector: 
+
+<<>>=
+message$serialize(NULL)
+@
+
+\subsubsection{protobufMessage\$clear method}
+\label{protobufMessage-method-clear}
+
+The \texttt{clear} method can be used to clear all fields of a
+message when used with no argument, or a given field. 
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+writeLines( as.character( message ) )
+message$clear()
+writeLines( as.character( message ) )
+
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+message$clear( "id" )
+writeLines( as.character( message ) )
+@
+
+The \texttt{clear} method is a thin wrapper around the 
+\texttt{Clear} method of the \texttt{google::protobuf::Message} C++ class.
+
+
+\subsubsection{protobufMessage\$size method}
+\label{protobufMessage-method-size}
+
+The \texttt{size} method is used to query the number of objects 
+in a repeated field of a message :
+
+<<keep.source=T>>=
+message <- new( tutorial.Person, name = "foo", 
+	phone = list( 
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ), 
+		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
+		) )
+message$size( "phone" )
+@
+
+The \texttt{size} method is a thin wrapper around the \texttt{FieldSize}
+method of the \texttt{google::protobuf::Reflection} C++ class.
+
+
+\subsubsection{protobufMessage\$bytesize method}
+\label{protobufMessage-method-bytesize}
+
+The \texttt{bytesize} method retrieves the number of bytes the message
+would take once serialized. This is a thin wrapper around the \texttt{ByteSize}
+method of the \texttt{google::protobuf::Message} C++ class.
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+message$bytesize()
+length( message$serialize( NULL ) )
+@
+
+\subsubsection{protobufMessage\$swap method}
+\label{protobufMessage-method-swap}
+
+The \texttt{swap} method can be used to swap elements of a repeated field. 
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", 
+	phone = list( 
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ), 
+		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
+		) )
+message$swap( "phone", 0, 1 )
+@
+
+
+\subsubsection{protobufMessage\$str method}
+\label{protobufMessage-method-str}
+
+\subsubsection{protobufMessage\$as.character method}
+\label{protobufMessage-method-ascharacter}
 
 \end{document}
 

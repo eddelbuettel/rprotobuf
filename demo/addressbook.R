@@ -55,7 +55,8 @@ bytesize( book )
 length( serialize( book, NULL ) )
 
 # swap two persons in the address book
-book$swap( "person", 0L , 1L )
+# (1-based indexing)
+book$swap( "person", 1L , 2L )
 writeLines( as.character( book ) )
 
 # number of "person" in the book
