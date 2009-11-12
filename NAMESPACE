@@ -31,3 +31,5 @@ S3method( as.list, protobufDescriptor )
 S3method( as.list, protobufEnumDescriptor )
 
 importFrom( "stats", "update")
+importFrom( "utils", "packageDescription" )
+

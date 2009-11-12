@@ -201,6 +201,14 @@ FieldDescriptor* getFieldDescriptor(Message* message, SEXP name){
 	return field_desc ;
 }
 
+SEXP check_libprotobuf_version( SEXP minversion ){
+
+	int version = INTEGER(minversion)[0] ;
+#if GOOGLE_PROTOBUF_VERSION < version
+	Rf_error( "The protobuf library you are using is too old for this package, please upgrade" )
+#endif
+	return( R_NilValue ) ;
+}
 
 } // namespace rprotobuf
 
