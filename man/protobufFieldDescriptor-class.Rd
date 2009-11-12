@@ -3,6 +3,7 @@
 \docType{class}
 \alias{protobufFieldDescriptor-class}
 \alias{show,protobufFieldDescriptor-method}
+\alias{$,protobufFieldDescriptor-method}
 \alias{as.character,protobufFieldDescriptor-method}
 
 \title{Class "protobufFieldDescriptor"}
@@ -26,6 +27,8 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
   	  	  returns the debug string of the field descriptor. 
   	  	  This is retrieved by a call to the \code{DebugString}
   	      method of the FieldDescriptor object.  }
+  	\item{$}{\code{signature(x = "protobufFieldDescriptor")}: used to invoke pseudo methods }
+    
   	}
 }
 \references{ The \code{FieldDescriptor} C++ class }
@@ -45,6 +48,9 @@ Person$email
 
 # debug string
 as.character( Person$email )
+
+# or as a pseudo method
+Person$email$as.character()
 
 }
 \keyword{classes}

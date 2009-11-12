@@ -89,7 +89,7 @@ setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 # }}}
 
 # {{{ dollar extractors
-setMethod("$", c(x="protobufMessage"), function(x, name) {
+setMethod("$", "protobufMessage", function(x, name) {
 	
 	switch( name, 
 		"has" = function( what ) .Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" ), 
@@ -110,7 +110,7 @@ setMethod("$", c(x="protobufMessage"), function(x, name) {
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
 	} )
-setMethod("$", c(x="protobufDescriptor"), function(x, name) {
+setMethod("$", "protobufDescriptor", function(x, name) {
 	switch( name, 
 		"new" = function( ... ) newProto( x, ... ) , 
 		"read" = function( input ) read( x, input ) ,
@@ -120,8 +120,23 @@ setMethod("$", c(x="protobufDescriptor"), function(x, name) {
 	)
 } )
 setMethod( "$", "protobufEnumDescriptor", function(x, name ){
-	.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
+	switch( name, 
+		"as.character" = function() as.character(x), 
+		"as.list"= function() as.list(x) , 
+		
+		# default
+		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
+		)
 } )
+setMethod( "$", "protobufFieldDescriptor", function(x, name ){
+	switch( name, 
+		"as.character" = function() as.character(x),
+		
+		invisible(NULL)
+		)
+} )
+
+
 setMethod("$<-", "protobufMessage", function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
 	x

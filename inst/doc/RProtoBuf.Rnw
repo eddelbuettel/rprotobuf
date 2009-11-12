@@ -685,9 +685,71 @@ writeLines( as.character( m ) )
 \subsection{field descriptors}
 \label{subsec-field-descriptor}
 
+The class \emph{protobufFieldDescriptor} represents field
+descriptor in R. This is a wrapper S4 class around the 
+\texttt{google::protobuf::FieldDescriptor} C++ class.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{slot} & \textbf{description} \\
+\hline
+\texttt{pointer} & External pointer to the \texttt{FieldDescriptor} C++ variable \\
+\hline
+\texttt{name} & simple name of the field \\
+\hline
+\texttt{full\_name} & fully qualified name of the field \\
+\hline
+\texttt{type} & name of the message type where the field is declared \\
+\hline
+\end{tabular}
+\caption{\label{protobufFieldDescriptor-class-table}Description of slots for the \texttt{protobufFieldDescriptor} S4 class}
+\end{table}
+
+Currently, only the \texttt{as.character} method is implemented for
+field descriptors. 
 
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}
+
+The class \emph{protobufEnumDescriptor} is an R wrapper 
+class around the C++ class \texttt{google::protobuf::EnumDescriptor}. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{slot} & \textbf{description} \\
+\hline
+\texttt{pointer} & External pointer to the \texttt{EnumDescriptor} C++ variable \\
+\hline
+\texttt{name} & simple name of the enum \\
+\hline
+\texttt{full\_name} & fully qualified name of the enum \\
+\hline
+\texttt{type} & name of the message type where the enum is declared \\
+\hline
+\end{tabular}
+\caption{\label{protobufEnumDescriptor-class-table}Description of slots for the \texttt{protobufEnumDescriptor} S4 class}
+\end{table}
+
+\subsubsection{as.list}
+
+The \texttt{as.list} method creates a named R integer vector that
+captures the values of the enum and their names. 
+
+<<>>=
+as.list( tutorial.Person$PhoneType )
+@
+
+\subsubsection{as.character}
+
+The \texttt{as.character} method brings the debug string of the enum type.
+
+<<>>=
+writeLines( as.character( tutorial.Person$PhoneType ) ) 
+@
 
 \section{Utilities}
 

@@ -71,6 +71,7 @@ RcppExport SEXP new_RS4_Message_( const Message* );
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
 RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const FieldDescriptor *) ;
+RcppExport SEXP get_message_descriptor( SEXP ); 
 
 /* in completion.cpp */
 RcppExport SEXP getMessageFieldNames( SEXP) ;
