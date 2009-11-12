@@ -327,7 +327,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		  
 		/* {{{ remove some items once if there are too many */
 		if( field_size > value_size ) {
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 			 need_clear = 1 ;
 #else			
 			/* we need to remove some */
@@ -353,7 +353,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							int i = 0;
 
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -374,7 +374,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     									}
     								}
     							
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							}
 #endif
     							break ;
@@ -401,7 +401,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							int i = 0;
 
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -420,7 +420,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
 	    								}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -444,7 +444,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case RAWSXP:	
     						{
     							int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -463,7 +463,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddUInt32( message, field_desc, GET_int32(value,i) ) ;
 	    								}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -487,7 +487,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							
     							int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -506,7 +506,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
 	    								}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -529,7 +529,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							
     							int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -548,7 +548,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddDouble( message, field_desc, GET_double(value,i) ) ;
 	    								}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -571,7 +571,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							
     							int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -590,7 +590,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddFloat( message, field_desc, GET_float(value,i) ) ;
 	    								}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -613,7 +613,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							
     							int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -632,7 +632,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddBool( message, field_desc, GET_bool(value,i) ) ;
 	    								}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -651,7 +651,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				if( TYPEOF(value) == STRSXP ){ 
     					/* in any case, fill the values up to field_size */
     					int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
@@ -669,7 +669,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			    							ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
 			    						}
 			    					}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     				} else{
@@ -701,7 +701,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				} else if( TYPEOF(value) == VECSXP )  {
     					/* in any case, fill the values up to field_size */
     					int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								
@@ -735,7 +735,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			    							ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
 			    						}
 			    					}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     				} else{
@@ -758,7 +758,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case RAWSXP:
     						{
     							int i = 0;
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								
@@ -781,7 +781,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
 										}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
@@ -794,7 +794,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							/* in any case, fill the values up to field_size */
     							int i = 0;
 
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
     							if( need_clear ){
     								ref->ClearField( message, field_desc ) ; 
     								
@@ -820,7 +820,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    									ref->AddEnum( message, field_desc, evd ) ; 
 										}
 	    							}
-#if GOOGLE_PROTOBUF_VERSION < 2002001
+#if GOOGLE_PROTOBUF_VERSION < 200200
 								}
 #endif
     							break ;
