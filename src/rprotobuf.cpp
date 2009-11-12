@@ -209,5 +209,9 @@ SEXP check_libprotobuf_version( SEXP minversion ){
 	return( R_NilValue ) ;
 }
 
+SEXP get_protobuf_library_version(){
+	return( Rf_ScalarInteger( GOOGLE_PROTOBUF_VERSION ) );
+}
+
 } // namespace rprotobuf
 

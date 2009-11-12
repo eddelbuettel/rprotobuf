@@ -59,6 +59,7 @@ RcppExport SEXP readProtoFiles( SEXP );
 RcppExport Rboolean isMessage( SEXP, const char* ) ;
 RcppExport FieldDescriptor* getFieldDescriptor(Message*, SEXP) ;
 RcppExport SEXP check_libprotobuf_version( SEXP ) ;
+RcppExport SEXP get_protobuf_library_version() ;
 
 /* in constructors.cpp */
 RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
