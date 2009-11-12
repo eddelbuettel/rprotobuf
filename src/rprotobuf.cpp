@@ -203,10 +203,9 @@ FieldDescriptor* getFieldDescriptor(Message* message, SEXP name){
 
 SEXP check_libprotobuf_version( SEXP minversion ){
 
-	int version = INTEGER(minversion)[0] ;
-#if GOOGLE_PROTOBUF_VERSION < version
-	Rf_error( "The protobuf library you are using is too old for this package, please upgrade" )
-#endif
+	if( GOOGLE_PROTOBUF_VERSION < INTEGER(minversion)[0] ){
+		Rf_error( "The protobuf library you are using is too old for this package, please upgrade" ) ;
+	}
 	return( R_NilValue ) ;
 }
 
