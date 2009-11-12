@@ -4,6 +4,7 @@
 
 \usepackage{\Sexpr{file.path( R.home(), "share/texmf/Sweave" ) }}
 \usepackage{url}
+\usepackage[colorlinks]{hyperref}
 
 % \usepackage{layout}
 
@@ -350,10 +351,21 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{swap} & \ref{protobufMessage-method-swap} & swap elements of a repeated field of a message\\
 \texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
+\texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
 \hline
 \end{tabular}
 \caption{\label{protobufMessage-methods-table}Description of slots for the \texttt{protobufMessage} S4 class}
 \end{table}
+
+\subsubsection{Retrieve fields}
+\label{protobufMessage-method-getfield}
+
+TODO
+
+\subsubsection{Modify fields}
+\label{protobufMessage-method-setfield}
+
+TODO
 
 \subsubsection{protobufMessage\$has method}
 \label{protobufMessage-method-has}
@@ -536,6 +548,143 @@ message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
 writeLines( message$as.character() )
 writeLines( as.character( message ) ) 
 @
+
+\subsubsection{protobufMessage\$as.list method}
+\label{protobufMessage-method-aslist}
+
+The \texttt{as.list} method converts the message to an named R list
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+as.list( message )
+@
+
+The names of the list are the names of the declared fields of the 
+message type, and the content is the same as can be extracted with 
+the \verb|$| operator described in 
+section~\ref{protobufMessage-method-getfield}.
+
+\subsubsection{protobufMessage\$update method}
+\label{protobufMessage-method-update}
+
+The \texttt{update} method can be used to update several fields
+of a message at once. 
+
+<<keep.source=TRUE>>=
+message <- new( tutorial.Person )
+update( message, 
+	name = "foo", 
+	id = 2, 
+	email = "foo@bar.com" )
+writeLines( message$as.character() )
+@
+
+\subsection{message descriptors}
+
+Message descriptors are represented in R with the 
+\emph{protobufDescriptor} S4 class. The class contains
+the slots \texttt{pointer} and \texttt{type} :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{slot} & \textbf{description} \\
+\hline
+\texttt{pointer} & external pointer to the \texttt{Descriptor} object of the C++ proto library. Documentation for the 
+\texttt{Descriptor} class is available from the protocol buffer project page:
+\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#Descriptor} \\
+\hline
+\texttt{type} & fully qualified path of the message type. \\
+\hline
+\end{tabular}
+\caption{\label{protobufDescriptor-class-table}Description of slots for the \texttt{protobufDescriptor} S4 class}
+\end{table}
+
+Similarly to messages, the \verb|$| operator can be used to extract 
+information from the descriptor, or invoke pseuso-methods. 
+
+\subsubsection{Extracting descriptors}
+
+The \verb|$| operator, when used on a descriptor object retrieves
+descriptors that are contained in the descriptor. 
+
+This can be a field descriptor (see section~\ref{subsec-field-descriptor} ), 
+an enum descriptor (see section~\ref{subsec-enum-descriptor}) or a descriptor
+for a nested type
+
+<<>>=
+# field descriptor
+tutorial.Person$email
+
+# enum descriptor
+tutorial.Person$PhoneType
+
+# nested type descriptor
+tutorial.Person$PhoneNumber
+# same as 
+tutorial.Person.PhoneNumber
+@
+
+\subsubsection{The new method}
+
+The \texttt{new} method creates a prototype of a message
+described by the descriptor. 
+
+<<>>=
+tutorial.Person$new( )
+new( tutorial.Person )
+@
+
+Passing additional arguments to the method allows to directlt set 
+the fields of the message at construction time. 
+
+<<>>=
+tutorial.Person$new( email = "foo@bar.com" )
+
+# same as
+update( tutorial.Person$new( ), email = "foo@bar.com" )
+@
+
+\subsubsection{The read method}
+
+The \texttt{read} method is used to read a message 
+from a file or a binary connection. 
+
+<<>>=
+# start by serializing a message
+message <- new( tutorial.Person.PhoneNumber, 
+	type = "HOME", number = "+33(0)...." )
+tf <- tempfile()
+serialize( message, tf )
+
+# now read back the message
+m <- tutorial.Person.PhoneNumber$read( tf )
+writeLines( as.character( m ) )
+
+m <- read( tutorial.Person.PhoneNumber, tf )
+writeLines( as.character( m ) )
+@
+
+
+\subsection{field descriptors}
+\label{subsec-field-descriptor}
+
+
+\subsection{enum descriptors}
+\label{subsec-enum-descriptor}
+
+\section{Utilities}
+
+\subsection{with and within}
+
+\subsection{merge}
+
+\subsection{completion}
+
+\subsection{P}
+
+\section{Descriptor lookup}
 
 
 
