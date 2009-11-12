@@ -191,6 +191,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		int value_size = LENGTH(value); 
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
+		int need_clear = 0 ;
+		
 		/* {{{ in case of messages or enum, we have to check that all values
 		  are ok before doing anything, othewise this could leed to modify a few values 
 		  and then fail which is not good */
@@ -307,11 +309,15 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		  
 		/* {{{ remove some items once if there are too many */
 		if( field_size > value_size ) {
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+			 need_clear = 1 ;
+#else			
 			/* we need to remove some */
 			while( field_size > value_size ){
 				ref->RemoveLast( message, field_desc ) ;
 				field_size-- ;
 			}
+#endif
 		}
 		// }}}
 		
@@ -327,18 +333,32 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
     							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedInt32( message, field_desc, i, GET_int32(value,i) ) ;
-    							}
-    							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
     									ref->AddInt32( message, field_desc, GET_int32(value,i) ) ;
     								}
+    							} else {
+#endif    							
+
+    								/* in any case, fill the values up to field_size */
+    								for( ; i<field_size; i++){
+    									ref->SetRepeatedInt32( message, field_desc, i, GET_int32(value,i) ) ;
+    								}
+    								
+    								/* then add some if needed */
+    								if( value_size > field_size ){
+    									for( ; i<value_size; i++){
+    										ref->AddInt32( message, field_desc, GET_int32(value,i) ) ;
+    									}
+    								}
+    							
+#if GOOGLE_PROTOBUF_VERSION < 2002001
     							}
+#endif
     							break ;
     						}
     					default: 
@@ -361,19 +381,30 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
     							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
-    							}
-    							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
     									ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
     								}
-    							}
-
+    							} else {
+#endif    						
+	    							/* in any case, fill the values up to field_size */
+	    							for( ; i<field_size; i++){
+	    								ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
+	    								}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
 
@@ -394,19 +425,29 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
     							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedUInt32( message, field_desc, i, GET_int32(value,i) ) ;
-    							}
-    							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
-    									ref->AddUInt32( message, field_desc, GET_int32(value,i) ) ;
+    									ref->AddUInt32( message, field_desc, GET_uint32(value,i) ) ;
     								}
-    							}
-
+    							} else {
+#endif    							
+	    							/* in any case, fill the values up to field_size */
+	    							for( ; i<field_size; i++){
+	    								ref->SetRepeatedUInt32( message, field_desc, i, GET_int32(value,i) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddUInt32( message, field_desc, GET_int32(value,i) ) ;
+	    								}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
     					default: 
@@ -426,19 +467,30 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
-    							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
-    							}
     							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+    							int i = 0;
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
     									ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
     								}
-    							}
-
+    							} else {
+#endif    							
+	    							/* in any case, fill the values up to field_size */
+									for( ; i<field_size; i++){
+	    								ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
+	    								}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
     					default: 
@@ -457,19 +509,30 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
-    							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedDouble( message, field_desc, i, GET_double(value,i) ) ;
-    							}
     							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+    							int i = 0;
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
     									ref->AddDouble( message, field_desc, GET_double(value,i) ) ;
     								}
-    							}
-
+    							} else {
+#endif    							
+	    							/* in any case, fill the values up to field_size */
+									for( ; i<field_size; i++){
+	    								ref->SetRepeatedDouble( message, field_desc, i, GET_double(value,i) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddDouble( message, field_desc, GET_double(value,i) ) ;
+	    								}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
     					default: 
@@ -488,19 +551,30 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
-    							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedFloat( message, field_desc, i, GET_float(value,i) ) ;
-    							}
     							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+    							int i = 0;
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
     									ref->AddFloat( message, field_desc, GET_float(value,i) ) ;
     								}
-    							}
-
+    							} else {
+#endif    							
+	    							/* in any case, fill the values up to field_size */
+	    							for( ; i<field_size; i++){
+	    								ref->SetRepeatedFloat( message, field_desc, i, GET_float(value,i) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddFloat( message, field_desc, GET_float(value,i) ) ;
+	    								}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
     					default: 
@@ -519,19 +593,30 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:	
     						{
-    							/* in any case, fill the values up to field_size */
-    							int i = 0;
-    							for( ; i<field_size; i++){
-    								ref->SetRepeatedBool( message, field_desc, i, GET_bool(value,i) ) ;
-    							}
     							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+    							int i = 0;
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
     								for( ; i<value_size; i++){
     									ref->AddBool( message, field_desc, GET_bool(value,i) ) ;
     								}
-    							}
-
+    							} else {
+#endif    							
+	    							/* in any case, fill the values up to field_size */
+	    							for( ; i<field_size; i++){
+	    								ref->SetRepeatedBool( message, field_desc, i, GET_bool(value,i) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddBool( message, field_desc, GET_bool(value,i) ) ;
+	    								}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
    						default: 
@@ -548,17 +633,27 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				if( TYPEOF(value) == STRSXP ){ 
     					/* in any case, fill the values up to field_size */
     					int i = 0;
-    					for( ; i<field_size; i++){
-    						ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-    					}
-    					
-    					/* then add some if needed */
-    					if( value_size > field_size ){
-    						for( ; i<value_size; i++){
-    							ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-    						}
-    					}
-
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
+    								for( ; i<value_size; i++){
+    									ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
+    								}
+    							} else {
+#endif    							
+			    					for( ; i<field_size; i++){
+			    						ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
+			    					}
+			    					
+			    					/* then add some if needed */
+			    					if( value_size > field_size ){
+			    						for( ; i<value_size; i++){
+			    							ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
+			    						}
+			    					}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     				} else{
     					throwException( "Cannot convert to string", "ConversionException" ) ;
     				}
@@ -576,34 +671,55 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					Message* mess = GET_MESSAGE_POINTER_FROM_S4( value ) ; 
     					
     					if( field_size == 1 ) {
+    						/* FIXME: we should not __copy__ the message */ 
     						ref->MutableRepeatedMessage(message, field_desc, 0 )->CopyFrom( *mess ) ;
     					} else {
     						/* FIXME */
     						ref->ClearField( message, field_desc ); 
+    						
+    						/* FIXME: we should not __copy__ the message */
     						ref->AddMessage( message, field_desc )->CopyFrom( *mess ) ; 
     					}
     				} else if( TYPEOF(value) == VECSXP )  {
     					/* in any case, fill the values up to field_size */
     					int i = 0;
-    					for( ; i<field_size; i++){
-    						Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
-    						/* we already know it is of the correct type because of the 
-    						  premptive chjeck above */
-    						
-    						ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ; ; 
-    					}
-    					
-    					/* then add some if needed */
-    					if( value_size > field_size ){
-    						for( ; i<value_size; i++){
-    							Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
-    							/* we already know it is of the correct type because of the 
-    							  premptive chjeck above */
-    							
-    							ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
-    						}
-    					}
-		
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
+    								
+    								for( ; i<value_size; i++){
+    									
+    									Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
+			    						/* we already know it is of the correct type because of the 
+			    						  premptive chjeck above */
+			    						
+			    						/* FIXME: we should not __copy__ */
+			    						ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ;
+    									
+    								}
+    							} else {
+#endif    							
+			    					for( ; i<field_size; i++){
+			    						Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
+			    						/* we already know it is of the correct type because of the 
+			    						  premptive chjeck above */
+			    						
+			    						ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ; ; 
+			    					}
+			    					
+			    					/* then add some if needed */
+			    					if( value_size > field_size ){
+			    						for( ; i<value_size; i++){
+			    							Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
+			    							/* we already know it is of the correct type because of the 
+			    							  premptive chjeck above */
+			    							
+			    							ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
+			    						}
+			    					}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     				} else{
     					throwException( "type mismatch, expecting a 'protobufMessage' object or a list of them", "TypeMismatchException" ) ;
     				}
@@ -623,21 +739,33 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:
     						{
-    							/* in any case, fill the values up to field_size */
     							int i = 0;
-    							for( ; i<field_size; i++){
-    								int val = GET_int(value, i ); 
-    								ref->SetRepeatedEnum( message, field_desc, i, enum_desc->FindValueByNumber(val) ) ;
-    							}
-    							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
+    								
     								for( ; i<value_size; i++){
     									int val = GET_int(value, i ); 
-    									ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
+	    								ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
 									}
-    							}
-    							
+    							} else {
+#endif    							
+	    							/* in any case, fill the values up to field_size */
+	    							for( ; i<field_size; i++){
+	    								int val = GET_int(value, i ); 
+	    								ref->SetRepeatedEnum( message, field_desc, i, enum_desc->FindValueByNumber(val) ) ;
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									int val = GET_int(value, i ); 
+	    									ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
+										}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
 						// }}}
@@ -647,21 +775,36 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							/* in any case, fill the values up to field_size */
     							int i = 0;
-    							for( ; i<field_size; i++){
-   									std::string val = CHAR( STRING_ELT( value, i) ) ;
-    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
-    								ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
-    							}
-    							
-    							/* then add some if needed */
-    							if( value_size > field_size ){
+
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+    							if( need_clear ){
+    								ref->ClearField( message, field_desc ) ; 
+    								
     								for( ; i<value_size; i++){
     									std::string val = CHAR( STRING_ELT( value, i) ) ;
-    									const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
-    									ref->AddEnum( message, field_desc, evd ) ; 
+	    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    								ref->AddEnum( message, field_desc, evd ) ;
 									}
-    							}
-    							
+									
+    							} else {
+#endif    							
+	    							for( ; i<field_size; i++){
+	   									std::string val = CHAR( STRING_ELT( value, i) ) ;
+	    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    								ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
+	    							}
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									std::string val = CHAR( STRING_ELT( value, i) ) ;
+	    									const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    									ref->AddEnum( message, field_desc, evd ) ; 
+										}
+	    							}
+#if GOOGLE_PROTOBUF_VERSION < 2002001
+								}
+#endif
     							break ;
     						}
 						// }}}

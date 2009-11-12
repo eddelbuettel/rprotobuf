@@ -1,5 +1,6 @@
 \documentclass{article}
 %\usepackage{Sweave}
+%\VignetteIndexEntry{RProtoBuf}
 
 \usepackage{\Sexpr{file.path( R.home(), "share/texmf/Sweave" ) }}
 \usepackage{url}
