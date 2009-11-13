@@ -30,3 +30,20 @@ setMethod( "set", "protobufMessage", function(object, field, index, values ){
 	invisible( NULL )
 } )
 
+setGeneric( "fetch", function(object, field, index ){
+	standardGeneric( "fetch" )
+} )
+setMethod( "fetch", "protobufMessage", function(object, field, index ){
+	
+	if( !is.numeric( index ) ){
+		stop( "index should be numbers" )
+	}
+	fsize <- size( object, field )
+	if( any( index > fsize ) || any( index < 1) ){
+		stop( sprintf( "index should only contain values between 1 and %d", fsize )  ) 
+	}
+	.Call( "get_field_values", object@pointer, 
+		field, index - 1L , PACKAGE = "RProtoBuf" )
+} )
+
+

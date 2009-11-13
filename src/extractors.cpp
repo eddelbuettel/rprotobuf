@@ -3,6 +3,52 @@
 
 namespace rprotobuf{
 
+	/* this is only to be called for repeated fields */
+	int MESSAGE_GET_REPEATED_INT( Message * message, FieldDescriptor* field_desc, int index ){
+		
+		const Reflection* ref = message->GetReflection() ; 
+		
+		switch( field_desc->type() ){
+			case TYPE_INT32:
+    		case TYPE_SINT32:
+    		case TYPE_SFIXED32:
+    			return (int) ref->GetRepeatedInt32( *message, field_desc, index ) ;
+    		case TYPE_INT64:
+    		case TYPE_SINT64:
+    		case TYPE_SFIXED64:
+    			return (int) ref->GetRepeatedInt64( *message, field_desc, index ) ;
+    		case TYPE_UINT32:
+    		case TYPE_FIXED32:
+    			return (int) ref->GetRepeatedUInt32( *message, field_desc, index ) ;
+    		case TYPE_UINT64:
+    		case TYPE_FIXED64:
+    			return (int) ref->GetRepeatedUInt64( *message, field_desc, index ) ;
+    		case TYPE_ENUM:
+    			return ref->GetRepeatedEnum( *message, field_desc, index )->number() ;
+    		default:
+    			throwException( "cannot cast to int", "CastException" ) ; 
+		}
+		return 0 ; // -Wall
+	}
+	
+	/* this is only to be called for repeated fields */
+	double MESSAGE_GET_REPEATED_DOUBLE( Message * message, FieldDescriptor* field_desc, int index ){
+		
+		const Reflection* ref = message->GetReflection() ; 
+		
+		switch( field_desc->type() ){
+			case TYPE_FLOAT:
+    			return (double) ref->GetRepeatedFloat( *message, field_desc, index ) ;
+    		case TYPE_DOUBLE:
+    			return (double) ref->GetRepeatedDouble( *message, field_desc, index ) ;
+    		default:
+    			throwException( "cannot cast to double", "CastException" ) ; 
+		}
+		return 0 ; // -Wall
+	}
+	
+	
+	
 /**
  * extract a field from a message
  *

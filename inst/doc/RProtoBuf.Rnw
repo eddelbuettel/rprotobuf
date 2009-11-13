@@ -156,9 +156,9 @@ readProtoFiles( package = "RProtoBuf" )
 @
 
 Once the proto files are imported, all message descriptors are
-are available in the R search path in the \emph{RProtoBuf:DescriptorPool}
-special environment. A later section describes the mechanism used
-by this special environment.
+are available in the R search path in the \texttt{RProtoBuf:DescriptorPool}
+special environment. The mechanism in use is 
+described in section~\ref{sec-lookup}.
 
 <<>>=
 ls( "RProtoBuf:DescriptorPool" )
@@ -348,6 +348,7 @@ describes the methods defined for the \texttt{protobufMessage} class :
 
 \begin{table}[h]
 \centering
+\begin{small}
 \begin{tabular}{|ccp{8cm}|}
 \hline
 \textbf{method} & \textbf{section} & \textbf{description} \\
@@ -360,20 +361,80 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{size} & \ref{protobufMessage-method-size} & The number of elements in a message field\\
 \texttt{bytesize} & \ref{protobufMessage-method-bytesize} & The number of bytes the message would take once serialized\\
 \texttt{swap} & \ref{protobufMessage-method-swap} & swap elements of a repeated field of a message\\
-\texttt{set} & \ref{protobufMessage-method-set} & set elements of a  repeated field\\
+\texttt{set} & \ref{protobufMessage-method-set} & set elements of a repeated field\\
+\texttt{fetch} & \ref{protobufMessage-method-fetch} & fetch elements of a repeated field\\
 \texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
 \texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
 \texttt{descriptor} & \ref{protobufMessage-method-descriptor} & get the descriptor of the message type of this message\\
 \hline
 \end{tabular}
+\end{small}
 \caption{\label{protobufMessage-methods-table}Description of slots for the \texttt{protobufMessage} S4 class}
 \end{table}
 
 \subsubsection{Retrieve fields}
 \label{protobufMessage-method-getfield}
 
-TODO
+The \verb|$| and \verb|[[| operators allow extraction of a field data.
+
+<<keep.source=T>>=
+message <- new( tutorial.Person, 
+	name = "foo", email = "foo@bar.com", id = 2,
+	phone = list( 
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME" ),
+		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE" )
+	) )
+message$name
+message$email
+message[[ "phone" ]]
+# using the tag number
+message[[ 2 ]] # id
+@
+
+Neither \verb|$| nor \verb|[[| support partial matching of names. The 
+\verb|$| is also used to call methods on the message, and the 
+\verb|[[| operator can use the tag number of the field. 
+
+The table~\ref{table-get-types} details correspondance between 
+the field type and the type of data that is retrieved by \verb|$| and 
+\verb|[[|. 
+
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|c|p{5cm}p{5cm}|}
+\hline
+field type & R type (non repeated) & R type (repeated) \\
+\hline
+\hline
+double	& \texttt{double} vector & \texttt{double} vector \\
+float	& \texttt{double} vector & \texttt{double} vector \\
+\hline
+int32	  & \texttt{integer} vector & \texttt{integer} vector \\
+int64	  & \texttt{integer} vector & \texttt{integer} vector \\
+uint32	  & \texttt{integer} vector & \texttt{integer} vector \\
+uint64	  & \texttt{integer} vector & \texttt{integer} vector \\
+sint32	  & \texttt{integer} vector & \texttt{integer} vector \\
+sint64	  & \texttt{integer} vector & \texttt{integer} vector \\
+fixed32	  & \texttt{integer} vector & \texttt{integer} vector \\
+fixed64	  & \texttt{integer} vector & \texttt{integer} vector \\
+sfixed32  & \texttt{integer} vector & \texttt{integer} vector \\
+sfixed64  & \texttt{integer} vector & \texttt{integer} vector \\
+\hline
+bool	& \texttt{logical} vector & \texttt{logical} vector \\
+\hline
+string	& \texttt{character} vector & \texttt{character} vector \\
+bytes	& \texttt{character} vector & \texttt{character} vector \\
+\hline
+enum & \texttt{integer} vector & \texttt{integer} vector \\
+\hline
+message & \texttt{S4} object of class \texttt{protobufMessage} & \texttt{list} of \texttt{S4} objects of class \texttt{protobufMessage} \\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{table-get-types}Correspondance between field type and R type retrieved by the extractors.}
+\end{table}
 
 \subsubsection{Modify fields}
 \label{protobufMessage-method-setfield}
@@ -540,8 +601,8 @@ writeLines( as.character( message$phone[[2]] ) )
 @
 
 
-\subsubsection{protobufMessage\$str method}
-\label{protobufMessage-method-swap}
+\subsubsection{protobufMessage\$set method}
+\label{protobufMessage-method-set}
 
 The \texttt{set} method can be used to set values
 of a repeated field. 
@@ -558,7 +619,20 @@ message$set( "phone", 1, number )
 writeLines( as.character( message ) )
 @
 
+\subsubsection{protobufMessage\$fetch method}
+\label{protobufMessage-method-fetch}
 
+The \texttt{fetch} method can be used to set values
+of a repeated field. 
+
+<<keep.source=T>>=
+message <- new( tutorial.Person, name = "foo",
+	phone = list(
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ),
+		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
+		) )
+message$fetch( "phone", 1 )
+@
 
 
 \subsubsection{protobufMessage\$str method}

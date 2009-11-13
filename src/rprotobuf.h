@@ -71,7 +71,10 @@ RcppExport SEXP new_RS4_Message_( const Message* );
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
 RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const FieldDescriptor *) ;
-RcppExport SEXP get_message_descriptor( SEXP ); 
+RcppExport SEXP get_message_descriptor( SEXP );
+RcppExport int MESSAGE_GET_REPEATED_INT( Message*, FieldDescriptor*, int) ;
+RcppExport double MESSAGE_GET_REPEATED_DOUBLE( Message*, FieldDescriptor*, int) ;
+
 
 /* in completion.cpp */
 RcppExport SEXP getMessageFieldNames( SEXP) ;
@@ -151,6 +154,7 @@ RcppExport SEXP message_swap_fields(SEXP, SEXP, SEXP, SEXP) ;
 
 /* in set.cpp */
 RcppExport SEXP set_field_values( SEXP, SEXP, SEXP, SEXP ) ;
+RcppExport SEXP get_field_values( SEXP, SEXP, SEXP) ;
 
 } // namespace rprotobuf
 
