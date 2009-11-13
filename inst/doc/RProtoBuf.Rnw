@@ -1,115 +1,118 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 %\VignetteIndexEntry{RProtoBuf}
 
 \usepackage{url}
 \usepackage[colorlinks]{hyperref}
 \setlength{\oddsidemargin}{0pt}
-\setlength{\textwidth}{17cm}
+\setlength{\textwidth}{17cm} % uh-oh, I use letter :)
 
 <<echo=FALSE,print=FALSE>>=
 library( "RProtoBuf" )
 rpb.version <- packageDescription( "RProtoBuf" )$Version
 @
+% closing $ needed here
 
 
-
-\author{Romain Fran\c{c}ois, Dirk Eddelbuettel, Saptarshi Guha}
-\title{RProtoBuf \Sexpr{rpb.version}: R API for Protocol Buffers}
+\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
+\title{RProtoBuf \Sexpr{rpb.version}: An R API for Protocol Buffers}
 
 \begin{document}
 \maketitle
 
 \abstract{
-Protocol message buffers is Google's open source 
-data interchange format designed with efficiency in mind. The 
-official project page for protocol buffers presents the language
-and API for Java, C++ and python. 
+  \noindent
+  \textsl{Protocol Buffers} is a software project by Google that is used
+  extensively internally and also released under an Open Source license.
+  It provides a way of encoding structured data in an efficient yet
+  extensible format. Google formally supports APIs for C++, Java and Python.
 
-This vignette describes the version \Sexpr{rpb.version} of the 
-\texttt{RProtoBuf} package for R, which brings support for 
-protocol buffer messages into R. 
+  This vignette describes version \Sexpr{rpb.version} of the
+  \texttt{RProtoBuf} package which brings support for protocol buffer
+  messages to R.
 }
 
 \section{Protocol Buffers}
 
-Protocol buffers are a language-neutral, platform-neutral, extensible 
-way of serializing structured data for use in communications 
-protocols, data storage, and more. 
+Protocol buffers are a language-neutral, platform-neutral, extensible
+way of serializing structured data for use in communications
+protocols, data storage, and more.
 
-It is an open-source language (BSD license) developed by Google. The 
+It is an open-source language (BSD license) developed by Google. The
 protocol buffer project (\url{http://code.google.com/p/protobuf/})
 contains a C++ library and a set of runtime libraries and compilers for
-C++, java and python. 
+C++, Java and Python.
 
-With these languages, the workflow consists of 
-compiling a protocol buffer description file into
-language specific classes that can be used to create, read, write and 
+With these languages, the workflow follows standard practice of so-called
+\href{http://en.wikipedia.org/wiki/Interface_description_language}{Interface
+  Description Languages (IDL)}. This consists of
+compiling a protocol buffer description file (ending in \texttt{.proto}) into
+language specific classes that can be used to create, read, write and
 manipulate protocol buffer messages. The project page contains a tutorial
 for each of these officially supported languages:
 \url{http://code.google.com/apis/protocolbuffers/docs/tutorials.html}
 
-Aside C++, java and python implementations, several projects have been 
-created to support protocol buffers for many languages. The list of knowns
+Besides the officially supported C++, Java and Python implementations, several projects have been
+created to support protocol buffers for many languages. The list of known
 languages to support protocol buffers is compiled as part of the
 project page: \url{http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns}
 
 \subsection{The address book example}
 
-The protocol buffer project page contains a comprehensive 
+The protocol buffer project page contains a comprehensive
 description of the language: \url{http://code.google.com/apis/protocolbuffers/docs/proto.html}
 
 Through this document, we will use the \texttt{addressbook} example
 that is also used by the official tutorials for java, python and C++.
 
 <<echo=F>>=
-ab.proto <- system.file( "proto", "addressbook.proto", 
+ab.proto <- system.file( "proto", "addressbook.proto",
 	package = "RProtoBuf" )
 writeLines( readLines( ab.proto ) )
 @
 
-The proto file defines : 
+The proto file defines :
 \begin{itemize}
-\item the message types \texttt{tutorial.Person}, 
+\item the message types \texttt{tutorial.Person},
 \texttt{tutorial.Person.PhoneNumber} and \texttt{tutorial.AddressBook}
 \item the enum type \texttt{tutorial.Person.PhoneType}
 \end{itemize}
 
-A message type can contain : 
+A message type can contain :
 \begin{itemize}
 \item A set of fields. For example the \texttt{Person} message type
 contains the required field \texttt{name} of primitive type
-\texttt{string} associated with the tag number 1. 
+\texttt{string} associated with the tag number 1.
 \item other message type descriptions, for example \texttt{Person}
 contains the nested message type \texttt{PhoneNumber}. The fully qualified
 type of \texttt{PhoneNumber} is therefore \texttt{tutorial.Person.PhoneNumber}
-\item enum type descriptions. 
+\item enum type descriptions.
 \end{itemize}
 
 \section{Using protocol buffers in R}
 
 This section describes how to use the R API to create and manipulate
-protocol buffer messages in R, and how to read and write the 
-binary \emph{payload} of the messages to files and arbitrary binary 
+protocol buffer messages in R, and how to read and write the
+binary \emph{payload} of the messages to files and arbitrary binary
 R connections.
 
 \subsection{Importing proto files}
 
 As opposed to other languages (Java, C++, python), the implementation
 used by the \texttt{RProtoBuf} package does not rely on the \texttt{protoc}
-compiler, which means that no initial step of 
-statically compiling the proto file into R code is necessary. Instead, 
-\texttt{proto} files are parsed and processed at runtime by the 
-protobuf C++ library. 
+compiler, which means that no initial step of
+statically compiling the proto file into R code is necessary. Instead,
+\texttt{proto} files are parsed and processed at runtime by the
+protobuf C++ library.
 
 The \texttt{readProtoFiles} function allows importing \texttt{proto}
-files in several ways. 
+files in several ways.
 
 <<>>=
 args( readProtoFiles )
 @
 
 Using the \texttt{file} argument, on can specify one or several file
-paths that ought to be proto files. 
+paths that ought to be proto files.
 
 <<>>=
 proto.dir <- system.file( "proto", package = "RProtoBuf" )
@@ -117,27 +120,27 @@ proto.file <- file.path( proto.dir, "addressbook.proto" )
 readProtoFiles( proto.file )
 @
 
-With the \texttt{dir} argument, 
-ignored if \texttt{file} is supplied, all files matching the 
-\texttt{.proto} extension will be imported. 
+With the \texttt{dir} argument,
+ignored if \texttt{file} is supplied, all files matching the
+\texttt{.proto} extension will be imported.
 
 <<>>=
 dir( proto.dir, pattern = "\\.proto$", full.names = TRUE )
 readProtoFiles( dir = proto.dir )
 @
 
-Finally, with the 
+Finally, with the
 \texttt{package} argument (ignored if \texttt{file} or
 \texttt{dir} is supplied), the function will import all \texttt{.proto}
-files that are located in the \texttt{proto} sub-directory of the given 
-package. A typical use for this argument is in the \texttt{.onLoad} 
+files that are located in the \texttt{proto} sub-directory of the given
+package. A typical use for this argument is in the \texttt{.onLoad}
 function of a package.
 
 <<>>=
 readProtoFiles( package = "RProtoBuf" )
 @
 
-Once the proto files are imported, all message descriptors are 
+Once the proto files are imported, all message descriptors are
 are available in the R search path in the \emph{RProtoBuf:DescriptorPool}
 special environment. A later section describes the mechanism used
 by this special environment.
@@ -149,11 +152,11 @@ ls( "RProtoBuf:DescriptorPool" )
 
 \subsection{Creating a message}
 
-The objects contained in the special environment are 
+The objects contained in the special environment are
 descriptors for their associated message types. Descriptors will be
-discussed in detail in another part of this document, but for the 
+discussed in detail in another part of this document, but for the
 purpose of this section, descriptors are just used with the \texttt{new}
-function to create messages. 
+function to create messages.
 
 <<>>=
 p <- new( tutorial.Person, name = "Romain", id = 1 )
@@ -161,9 +164,9 @@ p <- new( tutorial.Person, name = "Romain", id = 1 )
 
 \subsection{Access and modify fields of a message}
 
-Once the message created, its fields can be quiered 
-and modified using the dollar operator of R, making protocol 
-buffer messages seem like lists. 
+Once the message created, its fields can be quiered
+and modified using the dollar operator of R, making protocol
+buffer messages seem like lists.
 
 <<>>=
 p$name
@@ -172,10 +175,10 @@ p$email <- "francoisromain@free.fr"
 @
 
 However, as opposed to R lists, no partial matching is performed
-and the name must be given entirely. 
+and the name must be given entirely.
 
-The \verb|[[| operator can also be used to query and set fields 
-of a mesages, supplying either their name or their tag number : 
+The \verb|[[| operator can also be used to query and set fields
+of a mesages, supplying either their name or their tag number :
 
 <<>>=
 p[["name"]] <- "Romain Francois"
@@ -186,7 +189,7 @@ p[[ "email" ]]
 \subsection{Display messages}
 
 For debugging purposes, protocol buffer messages
-implement the \texttt{as.character} method: 
+implement the \texttt{as.character} method:
 
 <<>>=
 writeLines( as.character( p ) )
@@ -194,10 +197,10 @@ writeLines( as.character( p ) )
 
 \subsection{Serializing messages}
 
-However, the main focus of protocol buffer messages is 
+However, the main focus of protocol buffer messages is
 efficiency. Therefore, messages are transported as a sequence
-of bytes. The \texttt{serialize} method is implemented for 
-protocol buffer messages to serialize a message into the sequence of 
+of bytes. The \texttt{serialize} method is implemented for
+protocol buffer messages to serialize a message into the sequence of
 bytes (raw vector in R speech) that represents the message.
 
 <<>>=
@@ -213,7 +216,7 @@ serialize( p, tf1 )
 readBin( tf1, raw(0), 500 )
 @
 
-Or to arbitrary binary connections: 
+Or to arbitrary binary connections:
 
 <<>>=
 tf2 <- tempfile()
@@ -223,7 +226,7 @@ close( con )
 readBin( tf2, raw(0), 500 )
 @
 
-\texttt{serialize} can also be used in a more traditionnal 
+\texttt{serialize} can also be used in a more traditionnal
 object oriented fashion using the dollar operator :
 
 <<>>=
@@ -247,7 +250,7 @@ read
 
 
 The binary representation of the message (often called the payload)
-does not contain information that can be used to dynamically 
+does not contain information that can be used to dynamically
 infer the message type, so we have to provide this information
 to the \texttt{read} function in the form of a descriptor :
 
@@ -256,8 +259,8 @@ message <- read( tutorial.Person, tf1 )
 writeLines( as.character( message ) )
 @
 
-The \texttt{input} argument of \texttt{read} can also be a binary 
-readable R connection, such as a binary file connection: 
+The \texttt{input} argument of \texttt{read} can also be a binary
+readable R connection, such as a binary file connection:
 
 <<>>=
 con <- file( tf2, open = "rb" )
@@ -266,8 +269,8 @@ close( con )
 writeLines( as.character( message ) )
 @
 
-\texttt{read} can also be used as a pseudo method of the descriptor 
-object : 
+\texttt{read} can also be used as a pseudo method of the descriptor
+object :
 
 <<>>=
 # reading from a file
@@ -280,27 +283,27 @@ close( con )
 
 \section{Classes, Methods and Pseudo Methods}
 
-The \texttt{RProtoBuf} package uses the S4 system to store 
+The \texttt{RProtoBuf} package uses the S4 system to store
 information about descriptors and messages, but the information stored
-in the R object is very minimal and mainly consists of an external 
+in the R object is very minimal and mainly consists of an external
 pointer to a C++ variable that is managed by the \texttt{proto} C++
-library. 
+library.
 
 <<>>=
-str( p ) 
+str( p )
 @
 
 Using the S4 system allows the \texttt{RProtoBuf} package to dispatch
 methods that are not generic in the S3 sense, such as \texttt{new}
-and \texttt{serialize}. 
+and \texttt{serialize}.
 
 The \texttt{RProtoBuf} package combines the \emph{R typical} dispatch
 of the form \verb|method( object, arguments)| and the more traditionnal
-object oriented notation \verb|object$method(arguments)|. 
+object oriented notation \verb|object$method(arguments)|.
 
 \subsection{messages}
 
-Messages are represented in R using the \texttt{protobufMessage} 
+Messages are represented in R using the \texttt{protobufMessage}
 S4 class. The class contains the slots \texttt{pointer} and \texttt{type} as
 described on the table~\ref{protobufMessage-class-table} :
 
@@ -310,7 +313,7 @@ described on the table~\ref{protobufMessage-class-table} :
 \hline
 \textbf{slot} & \textbf{description} \\
 \hline
-\texttt{pointer} & external pointer to the \texttt{Message} object of the C++ proto library. Documentation for the 
+\texttt{pointer} & external pointer to the \texttt{Message} object of the C++ proto library. Documentation for the
 \texttt{Message} class is available from the protocol buffer project page:
 \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message.html#Message} \\
 \hline
@@ -321,10 +324,10 @@ has its \texttt{type} slot set to \texttt{tutorial.Person} \\
 \caption{\label{protobufMessage-class-table}Description of slots for the \texttt{protobufMessage} S4 class}
 \end{table}
 
-Although the \texttt{RProtoBuf} package uses 
-the S4 system, the \verb|@| operator is very rarely used. Fields of the 
-message are retrieved or modified using the \verb|$| or \verb|[[| operators 
-as seen on the previous section, and pseudo-methods can also 
+Although the \texttt{RProtoBuf} package uses
+the S4 system, the \verb|@| operator is very rarely used. Fields of the
+message are retrieved or modified using the \verb|$| or \verb|[[| operators
+as seen on the previous section, and pseudo-methods can also
 be called using the \verb|$| operator. The table~\ref{protobufMessage-methods-table}
 describes the methods defined for the \texttt{protobufMessage} class :
 
@@ -365,12 +368,12 @@ TODO
 \label{protobufMessage-method-has}
 
 The \texttt{has} method indicates if a field of a message is set. For
-repeated fields, the field is considered set if there is at least 
+repeated fields, the field is considered set if there is at least
 on object in the array. For non-repeated fields, the field is considered
-set if it has been initialized. 
+set if it has been initialized.
 
 The \texttt{has} method is a thin wrapper around the \texttt{HasField}
-and \texttt{FieldSize} methods of the \texttt{google::protobuf::Reflection} C++ class. 
+and \texttt{FieldSize} methods of the \texttt{google::protobuf::Reflection} C++ class.
 
 <<>>=
 message <- new( tutorial.Person, name = "foo" )
@@ -382,7 +385,7 @@ message$has( "phone" )
 \subsubsection{protobufMessage\$clone method}
 \label{protobufMessage-method-clone}
 
-The \texttt{clone} function creates a new message that is a clone 
+The \texttt{clone} function creates a new message that is a clone
 of the message. This function is a wrapper around the methods \texttt{New}
 and \texttt{CopyFrom} of the \texttt{google::protobuf::Message} C++ class.
 
@@ -399,7 +402,7 @@ writeLines( as.character( m2 ) )
 
 The \texttt{isInitialized} method quickly checks
 if all required fields have values set. This is a thin wrapper
-around the \texttt{IsInitialized} method of the 
+around the \texttt{IsInitialized} method of the
 \texttt{google::protobuf::Message} C++ class.
 
 <<>>=
@@ -412,8 +415,8 @@ message$isInitialized()
 \subsubsection{protobufMessage\$serialize method}
 \label{protobufMessage-method-serialize}
 
-The \texttt{serialize} method can be used to serialize 
-the message as a sequence of bytes into a file or a binary connection. 
+The \texttt{serialize} method can be used to serialize
+the message as a sequence of bytes into a file or a binary connection.
 
 <<>>=
 message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
@@ -428,7 +431,7 @@ message$serialize( con )
 close( con )
 @
 
-The files \Sexpr{basename(tf1)} and \Sexpr{basename(tf2)} both 
+The files \Sexpr{basename(tf1)} and \Sexpr{basename(tf2)} both
 contain the message payload as a sequence of bytes. The \texttt{readBin}
 function can be used to read the files as a raw vector in R:
 
@@ -438,7 +441,7 @@ readBin( tf2, raw(0), 500 )
 @
 
 The \texttt{serialize} method can also be used to directly retrieve the
-payload of the message as a raw vector: 
+payload of the message as a raw vector:
 
 <<>>=
 message$serialize(NULL)
@@ -448,7 +451,7 @@ message$serialize(NULL)
 \label{protobufMessage-method-clear}
 
 The \texttt{clear} method can be used to clear all fields of a
-message when used with no argument, or a given field. 
+message when used with no argument, or a given field.
 
 <<>>=
 message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
@@ -461,20 +464,20 @@ message$clear( "id" )
 writeLines( as.character( message ) )
 @
 
-The \texttt{clear} method is a thin wrapper around the 
+The \texttt{clear} method is a thin wrapper around the
 \texttt{Clear} method of the \texttt{google::protobuf::Message} C++ class.
 
 
 \subsubsection{protobufMessage\$size method}
 \label{protobufMessage-method-size}
 
-The \texttt{size} method is used to query the number of objects 
+The \texttt{size} method is used to query the number of objects
 in a repeated field of a message :
 
 <<keep.source=T>>=
-message <- new( tutorial.Person, name = "foo", 
-	phone = list( 
-		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ), 
+message <- new( tutorial.Person, name = "foo",
+	phone = list(
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ),
 		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
 		) )
 message$size( "phone" )
@@ -503,12 +506,12 @@ length( message$serialize( NULL ) )
 \label{protobufMessage-method-swap}
 
 The \texttt{swap} method can be used to swap elements
-of a repeated field. 
+of a repeated field.
 
 <<keep.source=T>>=
-message <- new( tutorial.Person, name = "foo", 
-	phone = list( 
-		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ), 
+message <- new( tutorial.Person, name = "foo",
+	phone = list(
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ),
 		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
 		) )
 message$swap( "phone", 1, 2 )
@@ -523,7 +526,7 @@ writeLines( as.character( message$phone[[2]] ) )
 \subsubsection{protobufMessage\$str method}
 \label{protobufMessage-method-str}
 
-The \texttt{str} method gives the R structure of the message. This is rarely 
+The \texttt{str} method gives the R structure of the message. This is rarely
 useful.
 
 <<>>=
@@ -540,7 +543,7 @@ The \texttt{as.character} method gives the debug string of the message.
 <<>>=
 message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
 writeLines( message$as.character() )
-writeLines( as.character( message ) ) 
+writeLines( as.character( message ) )
 @
 
 \subsubsection{protobufMessage\$as.list method}
@@ -553,22 +556,22 @@ message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
 as.list( message )
 @
 
-The names of the list are the names of the declared fields of the 
-message type, and the content is the same as can be extracted with 
-the \verb|$| operator described in 
+The names of the list are the names of the declared fields of the
+message type, and the content is the same as can be extracted with
+the \verb|$| operator described in
 section~\ref{protobufMessage-method-getfield}.
 
 \subsubsection{protobufMessage\$update method}
 \label{protobufMessage-method-update}
 
 The \texttt{update} method can be used to update several fields
-of a message at once. 
+of a message at once.
 
 <<keep.source=TRUE>>=
 message <- new( tutorial.Person )
-update( message, 
-	name = "foo", 
-	id = 2, 
+update( message,
+	name = "foo",
+	id = 2,
 	email = "foo@bar.com" )
 writeLines( message$as.character() )
 @
@@ -576,7 +579,7 @@ writeLines( message$as.character() )
 \subsubsection{protobufMessage\$descriptor method}
 \label{protobufMessage-method-descriptor}
 
-The \texttt{descriptor} method retrieves the 
+The \texttt{descriptor} method retrieves the
 descriptor of a message. See section~\ref{subsec-descriptor}
 for more information about message type descriptors.
 
@@ -590,7 +593,7 @@ descriptor( message )
 \subsection{message descriptors}
 \label{subsec-descriptor}
 
-Message descriptors are represented in R with the 
+Message descriptors are represented in R with the
 \emph{protobufDescriptor} S4 class. The class contains
 the slots \texttt{pointer} and \texttt{type} :
 
@@ -600,7 +603,7 @@ the slots \texttt{pointer} and \texttt{type} :
 \hline
 \textbf{slot} & \textbf{description} \\
 \hline
-\texttt{pointer} & external pointer to the \texttt{Descriptor} object of the C++ proto library. Documentation for the 
+\texttt{pointer} & external pointer to the \texttt{Descriptor} object of the C++ proto library. Documentation for the
 \texttt{Descriptor} class is available from the protocol buffer project page:
 \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#Descriptor} \\
 \hline
@@ -610,15 +613,15 @@ the slots \texttt{pointer} and \texttt{type} :
 \caption{\label{protobufDescriptor-class-table}Description of slots for the \texttt{protobufDescriptor} S4 class}
 \end{table}
 
-Similarly to messages, the \verb|$| operator can be used to extract 
-information from the descriptor, or invoke pseuso-methods. 
+Similarly to messages, the \verb|$| operator can be used to extract
+information from the descriptor, or invoke pseuso-methods.
 
 \subsubsection{Extracting descriptors}
 
 The \verb|$| operator, when used on a descriptor object retrieves
-descriptors that are contained in the descriptor. 
+descriptors that are contained in the descriptor.
 
-This can be a field descriptor (see section~\ref{subsec-field-descriptor} ), 
+This can be a field descriptor (see section~\ref{subsec-field-descriptor} ),
 an enum descriptor (see section~\ref{subsec-enum-descriptor}) or a descriptor
 for a nested type
 
@@ -631,22 +634,22 @@ tutorial.Person$PhoneType
 
 # nested type descriptor
 tutorial.Person$PhoneNumber
-# same as 
+# same as
 tutorial.Person.PhoneNumber
 @
 
 \subsubsection{The new method}
 
 The \texttt{new} method creates a prototype of a message
-described by the descriptor. 
+described by the descriptor.
 
 <<>>=
 tutorial.Person$new( )
 new( tutorial.Person )
 @
 
-Passing additional arguments to the method allows to directlt set 
-the fields of the message at construction time. 
+Passing additional arguments to the method allows to directlt set
+the fields of the message at construction time.
 
 <<>>=
 tutorial.Person$new( email = "foo@bar.com" )
@@ -657,12 +660,12 @@ update( tutorial.Person$new( ), email = "foo@bar.com" )
 
 \subsubsection{The read method}
 
-The \texttt{read} method is used to read a message 
-from a file or a binary connection. 
+The \texttt{read} method is used to read a message
+from a file or a binary connection.
 
 <<>>=
 # start by serializing a message
-message <- new( tutorial.Person.PhoneNumber, 
+message <- new( tutorial.Person.PhoneNumber,
 	type = "HOME", number = "+33(0)...." )
 tf <- tempfile()
 serialize( message, tf )
@@ -680,7 +683,7 @@ writeLines( as.character( m ) )
 \label{subsec-field-descriptor}
 
 The class \emph{protobufFieldDescriptor} represents field
-descriptor in R. This is a wrapper S4 class around the 
+descriptor in R. This is a wrapper S4 class around the
 \texttt{google::protobuf::FieldDescriptor} C++ class.
 
 \begin{table}[h]
@@ -706,14 +709,14 @@ descriptor in R. This is a wrapper S4 class around the
 The \texttt{as.character} method brings the debug string of the field descriptor.
 
 <<>>=
-writeLines( as.character( tutorial.Person$PhoneNumber ) ) 
+writeLines( as.character( tutorial.Person$PhoneNumber ) )
 @
 
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}
 
-The class \emph{protobufEnumDescriptor} is an R wrapper 
-class around the C++ class \texttt{google::protobuf::EnumDescriptor}. 
+The class \emph{protobufEnumDescriptor} is an R wrapper
+class around the C++ class \texttt{google::protobuf::EnumDescriptor}.
 
 \begin{table}[h]
 \centering
@@ -736,7 +739,7 @@ class around the C++ class \texttt{google::protobuf::EnumDescriptor}.
 \subsubsection{as.list}
 
 The \texttt{as.list} method creates a named R integer vector that
-captures the values of the enum and their names. 
+captures the values of the enum and their names.
 
 <<>>=
 as.list( tutorial.Person$PhoneType )
@@ -747,18 +750,18 @@ as.list( tutorial.Person$PhoneType )
 The \texttt{as.character} method brings the debug string of the enum type.
 
 <<>>=
-writeLines( as.character( tutorial.Person$PhoneType ) ) 
+writeLines( as.character( tutorial.Person$PhoneType ) )
 @
 
 \section{Utilities}
 
 \subsection{completion}
 
-The \texttt{RProtoBuf} package implements the 
-\texttt{.DollarNames} S3 generic function 
-(defined in the \texttt{utils} package) for all classes. 
+The \texttt{RProtoBuf} package implements the
+\texttt{.DollarNames} S3 generic function
+(defined in the \texttt{utils} package) for all classes.
 
-Completion possibilities include pseudo method names for all 
+Completion possibilities include pseudo method names for all
 classes, plus :
 \begin{itemize}
 \item field names for messages
@@ -769,8 +772,8 @@ classes, plus :
 \subsection{with and within}
 
 The S3 generic \texttt{with} function is implemented for class
-\texttt{protobufMessage}, allowing to evaluate an R expression in 
-an environment that allows to retrieve and set fields of a message 
+\texttt{protobufMessage}, allowing to evaluate an R expression in
+an environment that allows to retrieve and set fields of a message
 simply using their names.
 
 <<>>=
@@ -778,10 +781,10 @@ message <- new( tutorial.Person, email = "foo@bar.com" )
 with( message, {
 	# set the id field
 	id <- 2
-	
+
 	# set the name field from the email field
 	name <- gsub( "[@]", " ", email )
-	
+
 	sprintf( "%d [%s] : %s", id, email, name )
 } )
 @
@@ -793,7 +796,7 @@ is modified because \texttt{RProtoBuf} works by reference.
 
 \subsection{merge}
 
-\texttt{merge} can be used to merge two messages of the same type. 
+\texttt{merge} can be used to merge two messages of the same type.
 
 <<>>=
 m1 <- new( tutorial.Person, name = "foobar" )
@@ -805,7 +808,7 @@ writeLines( as.character( m3 ) )
 \subsection{P}
 
 The \texttt{P} function is an alternative way to retrieve
-a message descriptor using its type name. It is not often used because 
+a message descriptor using its type name. It is not often used because
 of the lookup mechanism described in section~\ref{sec-lookup}.
 
 <<>>=
@@ -825,14 +828,14 @@ that is defined as part of the \texttt{RObjectTables} package available
 from the OmegaHat project.
 
 The feature allows \texttt{RProtoBuf} to install the
-special environment \emph{RProtoBuf:DescriptorPool} in the R search path. 
+special environment \emph{RProtoBuf:DescriptorPool} in the R search path.
 The environment is special in that, instead of being associated with a
 static hash table, it is dynamically queried by R as part of R's usual
 variable lookup. In other words, it means that when the R interpreter
 looks for a binding to a symbol (foo) in its search path,
-it asks to our package if it knows the binding "foo", this is then 
-implemented by the \texttt{RProtoBuf} package by calling an internal 
-method of the \texttt{protobuf} C++ library. 
+it asks to our package if it knows the binding "foo", this is then
+implemented by the \texttt{RProtoBuf} package by calling an internal
+method of the \texttt{protobuf} C++ library.
 
 
 \end{document}
