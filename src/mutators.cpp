@@ -148,6 +148,116 @@ bool GET_bool( SEXP x, int index ){
 	return (bool)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
+std::string GET_stdstring( SEXP x, int index ){
+	if( TYPEOF(x) == STRSXP){
+		return( CHAR(STRING_ELT(x, index)) );
+	}
+	return "" ; // -Wall, should not happen since we only call this when we know it works
+}
+
+
+/**
+ * check that all the values contained in value are suitable for the 
+ * enum type 
+ *
+ * @param field_desc field descriptor of an enum type
+ * @param value value to potentially fill the enum
+ *
+ */
+void CHECK_values_for_enum( FieldDescriptor* field_desc, SEXP value ){
+	
+	const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+    
+	int n = LENGTH(value) ;
+	
+    switch( TYPEOF( value ) ){
+    	// {{{ numbers 
+    	case INTSXP:
+    	case REALSXP:
+    	case LGLSXP:
+    	case RAWSXP:
+    		{
+    			int nenums = enum_desc->value_count() ;
+    			int possibles [ nenums ] ;
+    			for( int i=0; i< nenums; i++){
+    				possibles[i] = enum_desc->value(i)->number(); 
+    			}
+    			
+    			/* loop around the numbers to see if they are in the possibles */
+    			for( int i=0; i<n; i++){
+    				int val = GET_int(value, i ); 
+    				int ok = 0; 
+    				for( int j=0; j<nenums; j++){
+    					if( val == possibles[j] ){
+    						ok = 1; 
+    						break ; 
+    					}
+    				}
+    				if( !ok ){
+    					throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
+    				}
+    			}
+    			
+    			break ;
+    		}
+    	// }}}
+    	
+    	// {{{ STRSXP
+    	case STRSXP:
+    		{
+    			int nenums = enum_desc->value_count() ;
+    			char* possibles [ nenums ] ;
+    			for( int i=0; i< nenums; i++){
+    				possibles[i] = (char*)enum_desc->value(i)->name().c_str() ; 
+    			}
+    			
+    			/* loop around the numbers to see if they are in the possibles */
+    			for( int i=0; i<n; i++){
+    				const char* val = CHAR( STRING_ELT(value, i )) ; 
+    				int ok = 0; 
+    				/* FIXME: there is probably something more efficient */
+    				for( int j=0; j<nenums; j++){
+    					if( !strcmp( val, possibles[j]) ){
+    						ok = 1; 
+    						break ; 
+    					}
+    				}
+    				if( !ok ){
+    					throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
+    				}
+    			}
+    			
+    			break ;
+    		}
+    	// }}}
+    	
+    	default:
+    		throwException( "impossible to convert to a enum" , "ConversionException" ) ; 
+    }
+	
+    
+}
+
+/**
+ * check that the values are suitable for the field descriptor
+ */
+void CHECK_messages( FieldDescriptor* field_desc, SEXP values ){
+	
+	if( TYPEOF( values ) != VECSXP ){
+		throwException( "expecting a list of messages", "ConversionException" ) ;
+	}
+	
+	const char* target = field_desc->message_type()->full_name().c_str() ;
+	int n = LENGTH(values) ; 
+	for( int i=0; i<n; i++){
+		if( !isMessage( VECTOR_ELT(values, i), target ) ){
+			/* TODO: include i, target type and actual type in the message */
+			throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
+		}
+	}
+	
+}
+
 
 /**
  * set a message field to a new value
@@ -751,7 +861,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
 
     				switch( TYPEOF( value ) ){
-    					// {{{ INSXP 
+    					// {{{ numbers 
     					case INTSXP:
     					case REALSXP:
     					case LGLSXP:

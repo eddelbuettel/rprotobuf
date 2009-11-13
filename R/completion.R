@@ -19,7 +19,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		"has(", "clone()", "clone(", "isInitialized()", "serialize(", 
 		"clear()", "clear(", "size(", "bytesize()", 
 		"swap(", "str()", "as.character()", "update(", "as.list()", 
-		"descriptor()" )
+		"descriptor()", "set(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
@@ -43,3 +43,9 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
+# {{{ protobufFieldDescriptor
+.DollarNames.protobufFieldDescriptor <- function(x, pattern = "" ){
+	names <- c("as.character(")
+	grep( pattern, names, value = TRUE )
+}
+# }}}

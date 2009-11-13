@@ -41,9 +41,9 @@ protocols, data storage, and more.
 Protocol Buffers offer key features such as an efficient data interchange
 format that is both language- and operating system-agnostic yet uses a
 lightweight and highly performant encoding, object serialization and
-de-serialization as well data and configuration management. Performance
-buffers are also forward compatible: updates the to proto files do not
-break programs built against the previous specification.
+de-serialization as well data and configuration management. Protocol
+buffers are also forward compatible: updates to the \texttt{proto}
+files do not break programs built against the previous specification.
 
 While benchmarks are not available, Google states on the project page that in
 comparison to XML, protocol buffers are at the same time \textsl{simpler},
@@ -360,6 +360,7 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{size} & \ref{protobufMessage-method-size} & The number of elements in a message field\\
 \texttt{bytesize} & \ref{protobufMessage-method-bytesize} & The number of bytes the message would take once serialized\\
 \texttt{swap} & \ref{protobufMessage-method-swap} & swap elements of a repeated field of a message\\
+\texttt{set} & \ref{protobufMessage-method-set} & set elements of a  repeated field\\
 \texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
 \texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
@@ -537,6 +538,28 @@ swap( message, "phone", 1, 2 )
 writeLines( as.character( message$phone[[1]] ) )
 writeLines( as.character( message$phone[[2]] ) )
 @
+
+
+\subsubsection{protobufMessage\$str method}
+\label{protobufMessage-method-swap}
+
+The \texttt{set} method can be used to set values
+of a repeated field. 
+
+<<keep.source=T>>=
+message <- new( tutorial.Person, name = "foo",
+	phone = list(
+		new( tutorial.Person.PhoneNumber, number = "+33(0)...", type = "HOME"  ),
+		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
+		) )
+number <- new( tutorial.Person.PhoneNumber, 
+		number = "+33(0)---", type = "WORK"  ) 
+message$set( "phone", 1, number )
+writeLines( as.character( message ) )
+@
+
+
+
 
 \subsubsection{protobufMessage\$str method}
 \label{protobufMessage-method-str}

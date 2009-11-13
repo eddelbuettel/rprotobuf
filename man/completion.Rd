@@ -2,6 +2,7 @@
 \alias{.DollarNames.protobufMessage}
 \alias{.DollarNames.protobufDescriptor}
 \alias{.DollarNames.protobufEnumDescriptor}
+\alias{.DollarNames.protobufFieldDescriptor}
 \title{
 Completion support for protocol buffer messages and descriptors
 }
@@ -13,6 +14,7 @@ messages and descriptors.
 \S3method{.DollarNames}{protobufMessage}(x, pattern = "")
 \S3method{.DollarNames}{protobufDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{protobufEnumDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{protobufFieldDescriptor}(x, pattern = "")
 }
 \arguments{
 \item{x}{message (\linkS4class{protobufMessage}) or descriptor (\linkS4class{protobufDescriptor}) }
@@ -36,17 +38,11 @@ defined in the associated message type.
 Romain Francois <francoisromain@free.fr>
 }
 \examples{
-# example proto file supplied with this package
-proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
-
-# reading a proto file and creating the descriptor
-Person <- P( "tutorial.Person", file = proto.file )
-
 # creating a prototype message from the descriptor
-p <- new( Person )
+p <- new( tutorial.Person )
 
 .DollarNames( p )
-.DollarNames( Person )
+.DollarNames( tutorial.Person )
 # but this is usually used with the <TAB> expansion on the command line
 # <TAB> means "press the TAB key"
 # p$<TAB>
