@@ -439,7 +439,52 @@ message & \texttt{S4} object of class \texttt{protobufMessage} & \texttt{list} o
 \subsubsection{Modify fields}
 \label{protobufMessage-method-setfield}
 
-TODO
+The \verb|$<-| and \verb|[[<-| operators are implemented for 
+\texttt{protobufMessage} objects to set the value of a field. The 
+R data is coerced to match the type of the message field.
+
+<<>>=
+message <- new( tutorial.Person, 
+	name = "foo", id = 2 )
+message$email <- "foo@bar.com"
+message[[ "id" ]] <- 2
+message[[ 1 ]] <- "foobar"
+writeLines( message$as.character() )
+@
+
+The table~\ref{table-message-field-setters} describes the R types that 
+are allowed in the right hand side depending on the target type of the 
+field. 
+
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|p{5cm}|p{7cm}|}
+\hline
+internal type & allowed R types \\
+\hline
+\hline
+\texttt{double}, \texttt{float}	& \texttt{integer}, \texttt{raw}, \texttt{double}, \texttt{logical} \\
+\hline
+\texttt{int32},  \texttt{int64},  \texttt{uint32},  \texttt{uint64},  \texttt{sint32}, 
+\texttt{sint64},  \texttt{fixed32},  \texttt{fixed64},  \texttt{sfixed32},  \texttt{sfixed64} 
+& 
+	\texttt{integer}, \texttt{raw}, \texttt{double}, \texttt{logical} \\
+\hline
+\texttt{bool} & \texttt{integer}, \texttt{raw}, \texttt{double}, \texttt{logical} \\
+\hline
+\texttt{bytes}, \texttt{string} & \texttt{character} \\
+\hline
+\texttt{enum} & \texttt{integer}, \texttt{double}, \texttt{raw}, \texttt{character} \\
+\hline
+\texttt{message}, \texttt{group} & \texttt{S4}, of class \texttt{protobufMessage} of the appropriate message type, or a \texttt{list} of 
+\texttt{S4} objects of class \texttt{protobufMessage} of the appropriate message type.\\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{table-message-field-setters}Allowed R types depending on internal field types. }
+\end{table}
+
 
 \subsubsection{protobufMessage\$has method}
 \label{protobufMessage-method-has}
