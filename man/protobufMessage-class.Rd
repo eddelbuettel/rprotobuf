@@ -12,6 +12,7 @@
 \alias{update,protobufMessage-method}
 \alias{length,protobufMessage-method}
 \alias{str,protobufMessage-method}
+\alias{toString,protobufMessage-method}
 
 \title{Class "protobufMessage" }
 \description{
@@ -33,6 +34,7 @@ as an external pointer.
   \describe{
     \item{as.character}{\code{signature(x = "protobufMessage")}: returns the debug string of the message. 
     	This is built from a call to the \code{DebugString} message of the \code{Message} object}
+    \item{toString}{\code{signature(x = "protobufMessage")}: same as \code{as.character} }
     \item{$<-}{\code{signature(x = "protobufMessage")}: set the value of a field of the message. }
     \item{$}{\code{signature(x = "protobufMessage")}: gets the value of a field. 
     Primitive types are brough back to R as R objects of the closest matching R type. 

@@ -7,6 +7,7 @@
 \alias{$,protobufDescriptor-method}
 \alias{new,protobufDescriptor-method}
 \alias{show,protobufDescriptor-method}
+\alias{toString,protobufDescriptor-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -28,6 +29,7 @@ C++ class \code{Descriptor}}
   	  	  returns the debug string of the descriptor. 
   	  	  This is retrieved by a call to the \code{DebugString}
   	      method of the Descriptor object.  }
+  	\item{toString}{\code{signature(x = "protobufDescriptor")}: same as \code{as.character} }
     \item{$}{\code{signature(x = "protobufDescriptor")}: retrieves a
     descriptor for a member of the message type. This can 
     either be another "protobufDescriptor" instance describing 

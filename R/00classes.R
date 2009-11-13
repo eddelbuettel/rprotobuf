@@ -107,6 +107,7 @@ setMethod("$", "protobufMessage", function(x, name) {
 		"descriptor" = function() descriptor(x), 
 		"set" = function(...) set( x, ... ), 
 		"fetch" = function(...) fetch(x, ... ), 
+		"toString" = function(...) toString( x, ... ),
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
@@ -116,6 +117,7 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 	switch( name, 
 		"new" = function( ... ) newProto( x, ... ) , 
 		"read" = function( input ) read( x, input ) ,
+		"toString" = function(...) toString(x, ...) ,
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
@@ -125,6 +127,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x), 
 		"as.list"= function() as.list(x) , 
+		"toString" = function(...) toString(x, ...) ,
 		
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
@@ -133,6 +136,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x),
+		"toString" = function(...) toString(x, ...) ,
 		
 		invisible(NULL)
 		)

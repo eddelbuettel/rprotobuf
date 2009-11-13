@@ -365,6 +365,7 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{fetch} & \ref{protobufMessage-method-fetch} & fetch elements of a repeated field\\
 \texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
+\texttt{toString} & \ref{protobufMessage-method-toString} & character representation of a message (same as \texttt{as.character}) \\
 \texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
 \texttt{descriptor} & \ref{protobufMessage-method-descriptor} & get the descriptor of the message type of this message\\
 \hline
@@ -702,6 +703,18 @@ message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
 writeLines( message$as.character() )
 writeLines( as.character( message ) )
 @
+
+\subsubsection{protobufMessage\$toString method}
+\label{protobufMessage-method-toString}
+
+\texttt{toString} currently is an alias to the \texttt{as.character} function.
+
+<<>>=
+message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
+writeLines( message$toString() )
+writeLines( toString( message ) )
+@
+
 
 \subsubsection{protobufMessage\$as.list method}
 \label{protobufMessage-method-aslist}

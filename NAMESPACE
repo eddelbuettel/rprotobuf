@@ -15,7 +15,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"has", "clone", "merge", "read", "bytesize",
 	"length", "str", "isInitialized", 
 	"clear", "size", "size<-", "swap", 
-	"descriptor", "set", "fetch" )
+	"descriptor", "set", "fetch", "toString" )
 
 export( "P", "throw", "readProtoFiles" )
 

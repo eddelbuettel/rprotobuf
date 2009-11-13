@@ -4,6 +4,7 @@
 \alias{protobufEnumDescriptor-class}
 \alias{show,protobufEnumDescriptor-method}
 \alias{as.character,protobufEnumDescriptor-method}
+\alias{toString,protobufEnumDescriptor-method}
 \alias{$,protobufEnumDescriptor-method}
 
 \title{Class "protobufEnumDescriptor"  }
@@ -28,6 +29,7 @@ Objects of this class are typically retrieved as members of
   	  	  returns the debug string of the enum descriptor. 
   	  	  This is retrieved by a call to the \code{DebugString}
   	      method of the EnumDescriptor object.  }
+  	\item{toString}{\code{signature(x = "protobufEnumDescriptor")}: same as \code{as.character} }
   	\item{$}{\code{signature(x = "protobufEnumDescriptor")}: get the 
   	number associated with the name}
   }
