@@ -29,6 +29,7 @@ rpb.version <- packageDescription( "RProtoBuf" )$Version
   This vignette describes version \Sexpr{rpb.version} of the
   \texttt{RProtoBuf} package which brings support for protocol buffer
   messages to R.
+
 }
 
 \section{Protocol Buffers}
@@ -37,18 +38,32 @@ Protocol buffers are a language-neutral, platform-neutral, extensible
 way of serializing structured data for use in communications
 protocols, data storage, and more.
 
-It is an open-source language (BSD license) developed by Google. The
+Protocol Buffers offer key features such as an efficient data interchange
+format that is both language- and operating system-agnostic yet uses a
+lightweight and highly performant encoding, object serialization and
+de-serialization as well data and configuration management. Performance
+buffers are also forward compatible: updates the to proto files do not
+break programs built against the previous specification.
+
+While benchmarks are not available, Google states on the project page that in
+comparison to XML, protocol buffers are at the same time \textsl{simpler},
+between three to ten times \textsl{smaller}, between twenty and one hundred
+times \textsl{faster}, as well as less ambiguous and easier to program.
+
+The protocol buffers code is released under an open-source (BSD) license. The
 protocol buffer project (\url{http://code.google.com/p/protobuf/})
 contains a C++ library and a set of runtime libraries and compilers for
 C++, Java and Python.
 
 With these languages, the workflow follows standard practice of so-called
-\href{http://en.wikipedia.org/wiki/Interface_description_language}{Interface
-  Description Languages (IDL)}. This consists of
-compiling a protocol buffer description file (ending in \texttt{.proto}) into
-language specific classes that can be used to create, read, write and
-manipulate protocol buffer messages. The project page contains a tutorial
-for each of these officially supported languages:
+Interface Description Languages (IDL)
+(c.f. \href{http://en.wikipedia.org/wiki/Interface_description_language}{Wikipedia
+  on IDL}).  This consists of compiling a protocol buffer description file
+(ending in \texttt{.proto}) into language specific classes that can be used
+to create, read, write and manipulate protocol buffer messages. In other
+words, given the 'proto' description file, code is automatically generated
+for the chosen target language(s). The project page contains a tutorial for
+each of these officially supported languages:
 \url{http://code.google.com/apis/protocolbuffers/docs/tutorials.html}
 
 Besides the officially supported C++, Java and Python implementations, several projects have been
