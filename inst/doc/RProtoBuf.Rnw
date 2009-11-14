@@ -974,6 +974,13 @@ m2 <- update( new( tutorial.Person) , email = "foo@bar.com", id = 2 )
 identical( m1, m2 )
 @
 
+The \verb|==| operator can be used as an alias to \texttt{identical}.
+
+<<>>=
+m1 == m2
+m1 != m2
+@
+
 \subsection{merge}
 
 \texttt{merge} can be used to merge two messages of the same type.

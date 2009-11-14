@@ -14,6 +14,8 @@
 \alias{str,protobufMessage-method}
 \alias{toString,protobufMessage-method}
 \alias{identical,protobufMessage,protobufMessage-method}
+\alias{==,protobufMessage,protobufMessage-method}
+\alias{!=,protobufMessage,protobufMessage-method}
 
 \title{Class "protobufMessage" }
 \description{
@@ -54,6 +56,8 @@ as an external pointer.
     the field is not repeated and the message has the field.}
     \item{str}{\code{signature(object = "protobufMessage")}: displays the structure of the message }
     \item{identical}{\code{signature(x = "protobufMessage", y = "protobufMessage")}: Test if two messages are exactly identical }
+    \item{==}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Same as \code{identical} }
+    \item{!=}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Negation of \code{identical} }
      }
 }
 \references{ 
