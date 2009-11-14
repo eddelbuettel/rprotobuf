@@ -156,6 +156,9 @@ RcppExport SEXP message_swap_fields(SEXP, SEXP, SEXP, SEXP) ;
 RcppExport SEXP set_field_values( SEXP, SEXP, SEXP, SEXP ) ;
 RcppExport SEXP get_field_values( SEXP, SEXP, SEXP) ;
 
+/* in identical.cpp */
+RcppExport SEXP identical_messages( SEXP, SEXP) ;
+
 } // namespace rprotobuf
 
 

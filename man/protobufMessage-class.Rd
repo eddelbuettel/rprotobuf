@@ -13,6 +13,7 @@
 \alias{length,protobufMessage-method}
 \alias{str,protobufMessage-method}
 \alias{toString,protobufMessage-method}
+\alias{identical,protobufMessage,protobufMessage-method}
 
 \title{Class "protobufMessage" }
 \description{
@@ -52,6 +53,7 @@ as an external pointer.
     A field counts in these two situations: the field is repeated and the field size is greater than 0, 
     the field is not repeated and the message has the field.}
     \item{str}{\code{signature(object = "protobufMessage")}: displays the structure of the message }
+    \item{identical}{\code{signature(x = "protobufMessage", y = "protobufMessage")}: Test if two messages are exactly identical }
      }
 }
 \references{ 

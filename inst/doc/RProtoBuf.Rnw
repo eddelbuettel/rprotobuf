@@ -964,6 +964,16 @@ that is returned. For \texttt{with} returns the result of the R expression,
 for \texttt{within} the message is returned. In both cases, the message
 is modified because \texttt{RProtoBuf} works by reference.
 
+\subsection{identical}
+
+The \texttt{identical} method is implemented to compare two messages.
+
+<<>>=
+m1 <- new( tutorial.Person, email = "foo@bar.com", id = 2 )
+m2 <- update( new( tutorial.Person) , email = "foo@bar.com", id = 2 )
+identical( m1, m2 )
+@
+
 \subsection{merge}
 
 \texttt{merge} can be used to merge two messages of the same type.
