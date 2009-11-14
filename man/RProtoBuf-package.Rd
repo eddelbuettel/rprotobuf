@@ -18,7 +18,7 @@ protocol buffer messages from R
 Package: \tab RProtoBuf\cr
 Version: \tab 0.0-4\cr
 Date: \tab $Date$\cr
-Depends: \tab Rcpp (>= 0.6.4), methods\cr
+Depends: \tab Rcpp (>= 0.6.7), methods\cr
 SystemRequirements: \tab ProtoBuf compiler (to create C++ header and source files
 from .proto descriptions) and library\cr
 License: \tab GPL-2\cr
@@ -29,12 +29,15 @@ Built: \tab R 2.11.0; i686-pc-linux-gnu; 2009-11-02 20:55:29 UTC; unix\cr
 }
 
 \author{
-Dirk Eddelbuettel <edd@debian.org>, Romain Francois <francoisromain@free.fr>, Saptarshi Guha <saptarshi.guha@gmail.com>
+Romain Francois <francoisromain@free.fr> and Dirk Eddelbuettel <edd@debian.org>
 
-Maintainer: Dirk Eddelbuettel <edd@debian.org>
+Maintainer: Romain and Dirk <rprotobuf-yada@lists.r-forge.r-project.org>
 }
 \references{
 \url{http://code.google.com/p/protobuf/}
+
+The project is maintained in r-forge: \url{http://r-forge.r-project.org/projects/rprotobuf/}
+and has a mailing list : \url{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rprotobuf-yada}
 }
 \keyword{ package }
 \seealso{
@@ -51,6 +54,9 @@ demo( "addressbook", package = "RProtoBuf" )
 
 # using R binary connections and files to read and write messages
 demo( "io", package = "RProtoBuf" )
+
+# more documentation in the vignette
+vignette( "RProtoBuf", package = "RProtoBuf" )
 
 }
 }

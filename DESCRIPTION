@@ -2,7 +2,7 @@ Package: RProtoBuf
 Version: 0.0-4
 Date: $Date$
 Author: Romain Francois <francoisromain@free.fr> and Dirk Eddelbuettel <edd@debian.org>
-Maintainer: Dirk Eddelbuettel <edd@debian.org> 
+Maintainer: Romain and Dirk <rprotobuf-yada@lists.r-forge.r-project.org>
 Title: R Interface to the Protocol Buffers API
 Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
@@ -12,5 +12,4 @@ SystemRequirements: ProtoBuf compiler (to create C++ header and source files
  from .proto descriptions) and library
 License: GPL-2
 URL: http://r-forge.r-project.org/projects/rprotobuf/, http://code.google.com/p/protobuf/
-MailingList: <rprotobuf-yada@lists.r-forge.r-project.org>
 MinimumLibProtoVersion: 2001000
