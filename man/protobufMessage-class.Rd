@@ -16,6 +16,7 @@
 \alias{identical,protobufMessage,protobufMessage-method}
 \alias{==,protobufMessage,protobufMessage-method}
 \alias{!=,protobufMessage,protobufMessage-method}
+\alias{all.equal,protobufMessage,protobufMessage-method}
 
 \title{Class "protobufMessage" }
 \description{
@@ -58,6 +59,7 @@ as an external pointer.
     \item{identical}{\code{signature(x = "protobufMessage", y = "protobufMessage")}: Test if two messages are exactly identical }
     \item{==}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Same as \code{identical} }
     \item{!=}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Negation of \code{identical} }
+    \item{all.equal}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Test near equality }
      }
 }
 \references{ 

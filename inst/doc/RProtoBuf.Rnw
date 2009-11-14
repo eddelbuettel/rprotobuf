@@ -981,6 +981,9 @@ m1 == m2
 m1 != m2
 @
 
+Alternatively, the \texttt{all.equal} function can be used, allowing 
+a tolerance when comparing \texttt{float} or \texttt{double} values.
+
 \subsection{merge}
 
 \texttt{merge} can be used to merge two messages of the same type.

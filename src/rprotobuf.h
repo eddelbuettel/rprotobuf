@@ -158,6 +158,7 @@ RcppExport SEXP get_field_values( SEXP, SEXP, SEXP) ;
 
 /* in identical.cpp */
 RcppExport SEXP identical_messages( SEXP, SEXP) ;
+RcppExport SEXP all_equal_messages( SEXP, SEXP, SEXP) ;
 
 } // namespace rprotobuf
 

@@ -11,3 +11,9 @@ setMethod( "!=", c( e1 = "protobufMessage", e2 = "protobufMessage" ), function(e
 	! .Call( "identical_messages", e1@pointer, e2@pointer, PACKAGE = "RProtoBuf" )
 } )
 
+setGeneric( "all.equal" )
+setMethod( "all.equal", c( target = "protobufMessage", current = "protobufMessage" ), 
+	function(target, current, tolerance = .Machine$double.eps^0.5, ...){
+	.Call( "all_equal_messages", target@pointer, current@pointer, tolerance, PACKAGE = "RProtoBuf" )
+} )
+
