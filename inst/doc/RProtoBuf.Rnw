@@ -1007,6 +1007,38 @@ it asks to our package if it knows the binding "foo", this is then
 implemented by the \texttt{RProtoBuf} package by calling an internal
 method of the \texttt{protobuf} C++ library.
 
+\section{Plans for future releases}
+
+Saptarshi Guha wrote another package that deals with integration 
+of protocol buffer messages with R, taking a different angle : 
+serializing any R object as a message, based on a single catch-all 
+\texttt{proto} file. We plan to integrate this functionality into 
+\texttt{RProtoBuf}. Saptarshi's package is available at 
+\url{http://ml.stat.purdue.edu/rhipe/doc/html/ProtoBuffers.html}
+
+Protocol buffers have a mechanism for remote procedure calls (rpc) 
+that is not yet used by \texttt{RProtoBuf}, but we plan to 
+take advantage of this by writing a protocol buffer message R server, 
+and client code as well, probably based on the functionality 
+of the \texttt{Rserve} package.
+
+% \section{Troubleshouting}
+
+\section{Acknowledgments}
+
+% protobuf ?
+% saptarshi ?
+
+Some of the design of the package is based on the design of the 
+\texttt{rJava} package by Simon Urbanek (dispatch on new, S4 class 
+structures using external pointers, etc ...). We'd like to thank
+Simon for his indirect involvment on \texttt{RProtoBuf}. 
+
+The user defined table mechasnism, implemented by Duncan Temple Lang
+for the purpose of the \texttt{RObjectTables} package allowed the 
+dynamic symbol lookup (see section~\ref{sec-lookup}). Many thanks 
+to Duncan for this amazing feature. 
+
 
 \end{document}
 
