@@ -8,8 +8,8 @@ Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
  of its internal RPC protocols and file formats.  
 Depends: Rcpp (>= 0.6.7), methods
-SystemRequirements: ProtoBuf compiler (to create C++ header and source files
- from .proto descriptions) and library
+SystemRequirements: Protocol Buffer compiler (to create C++ header and source files
+ from .proto descriptions) and library (version 2.2.0 or later)
 License: GPL-2
 URL: http://r-forge.r-project.org/projects/rprotobuf/, http://code.google.com/p/protobuf/
-MinimumLibProtoVersion: 2001000
+MinimumLibProtoVersion: 2002000
