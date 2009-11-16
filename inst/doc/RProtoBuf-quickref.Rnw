@@ -1,0 +1,141 @@
+\documentclass[8pt,twocolumn,a4paper]{article}
+%\VignetteIndexEntry{RProtoBuf-quickref}
+
+\setlength{\hoffset}{-0.8in}
+\setlength{\voffset}{-0.8in}
+
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\footskip}{0pt}
+\setlength{\textheight}{27cm}
+\setlength{\textwidth}{20cm}
+
+\usepackage[colorlinks]{hyperref}
+
+<<echo=FALSE,print=FALSE>>=
+options( width= 50)
+library( "RProtoBuf" )
+rpb.version <- packageDescription( "RProtoBuf" )$Version
+@
+% closing $ needed here
+
+\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
+\title{RProtoBuf \Sexpr{rpb.version}: Quick Reference Guide}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\paragraph{example proto file}
+
+<<echo=F>>=
+ab.proto <- system.file( "proto", "addressbook.proto",
+	package = "RProtoBuf" )
+writeLines( readLines( ab.proto ) )
+@
+
+\paragraph{read proto description files}
+
+<<eval=F>>=
+readProtoFiles( "somefile.proto" )
+readProtoFiles( dir = somedir )
+readProtoFiles( package = AnRPackage )
+@
+
+\paragraph{create a message}
+
+<<keep.source=T>>=
+message <- new( tutorial.Person, id = 0,
+	name = "Romain Francois", 
+	email = "francoisromain@free.fr" )
+@
+
+\paragraph{serialize a message to a file or binary connection}
+
+<<keep.source=T>>=
+# to a file
+tf1 <- tempfile()
+message$serialize( tf1 )
+
+# to a binary connection
+tf2 <- tempfile(); con <- file( tf2, open = "wb" )
+message$serialize( con )
+close(con)
+
+# retrieve the payload
+message$serialize( NULL )
+@
+
+\paragraph{read a message from a file or binary connection}
+
+<<keep.source=T>>=
+# from a file
+tutorial.Person$read( tf1 )
+# from a connection
+con <- file( tf2, open = "rb" )
+tutorial.Person$read( con ) 
+<<echo=F,print=F>>=
+close( con )
+@
+
+\paragraph{Get/Set fields}
+
+<<keep.source=T>>=
+email <- message$email
+message$id <- 2
+message[[ "name" ]] <- "Romain"
+id <- message[[ 2 ]] # tag number for 'id'
+@
+
+\paragraph{Message methods}
+
+\begin{center}
+\begin{small}
+\begin{tabular}{cp{7cm}}
+\hline
+\texttt{has} & Indicates if a message has a given field.   \\
+\texttt{clone} & Creates a clone of the message \\
+\texttt{isInitialized}  & Indicates if a message has all its required fields set\\
+\texttt{serialize} & serialize a message to a file or a binary connection or retrieve the message payload as a raw vector\\
+\texttt{clear}  & Clear one or several fields of a message, or the entire message\\
+\texttt{size}  & The number of elements in a message field\\
+\texttt{bytesize}  & The number of bytes the message would take once serialized\\
+\hline
+\texttt{swap}  & swap elements of a repeated field of a message\\
+\texttt{set}  & set elements of a repeated field\\
+\texttt{fetch}  & fetch elements of a repeated field\\
+\texttt{add}  & add elements to a repeated field \\
+\hline
+\texttt{str}  & the R structure of the message\\
+\texttt{as.character}  & character representation of a message\\
+\texttt{toString}  & character representation of a message (same as \texttt{as.character}) \\
+\texttt{update}  & updates several fields of a message at once\\
+\texttt{descriptor} & get the descriptor of the message type of this message\\
+\hline
+\end{tabular}
+\end{small}
+\end{center}
+
+<<>>=
+writeLines( message$toString() )
+@
+
+\paragraph{More info}
+
+\begin{center}
+\begin{small}
+\begin{tabular}{cp{7cm}}
+full vignette & \verb|vignette( "RProtoBuf")| \\
+protobuf & \url{http://code.google.com/p/protobuf/} \\
+RProtoBuf & \url{http://r-forge.r-project.org/projects/rprotobuf/}\\
+mailing list & \url{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rprotobuf-yada} \\
+\end{tabular}
+\end{small}
+\end{center}
+
+\end{document}
+
