@@ -15,7 +15,7 @@ AC_LANG(C++)
 AC_REQUIRE_CPP
 AC_PROG_CXX
 
-AC_DEFUN(AC_PROG_R, [AC_CHECK_PROG(R,R,yes)])
+AC_DEFUN([AC_PROG_R], [AC_CHECK_PROG(R,R,yes)])
 AC_PROG_R
 
 ## With thanks to Kurt
@@ -26,7 +26,7 @@ fi
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 
 ## look for Rscript, but use the one found via R_HOME to allow for multiple installations
-AC_DEFUN(AC_PROG_RSCRIPT, [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
+AC_DEFUN([AC_PROG_RSCRIPT], [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
 AC_PROG_RSCRIPT
 if test x"${RSCRIPT}" == x"yes" ; then
     ## Rcpp compile flag providing header directory containing Rcpp.h
@@ -42,98 +42,18 @@ else
     exit 1
 fi
 
-## look for protobuf headers -- manually! Once release 2.2 of protobuf is more 
-## widely installed, we will switch to pkg-config which supports is support in 2.2
+## look for protobuf headers -- now use pkg-config which even does minimum version
 ##
-## This should work
-##    PKG_CHECK_MODULES([PROTOBUF_VERSION],[protobuf >= 2.2.0] [,ACTION-IF-FOUND,[ACTION-IF-NOT-FOUND]])
-## but doesn't in various variants even though I see RGtk2 and other use it :-/
-#
-#PROTOBUF_VERSION="2.2.0"
-#AC_DEFUN(PKG_CHECK_PROTOBUF, [
-#			     PROTOBUF_VERSION=0
-#			     PKG_CHECK_MODULES([PROTOBUF], protobuf >= $PROTOBUF_VERSION, PROTOBUF_VERSION=2.2.0, AC_MSG_ERROR(Protobuf version version $PROTOBUF_VERSION required))
-#			     ])
-#PKG_CHECK_PROTOBUF
-#echo "PROTOBUF_VERSION is $PROTOBUF_VERSION"
+PROTOBUF_VERSION="2.2.0"
+PKG_CHECK_MODULES(ProtoBuf, protobuf >= $PROTOBUF_VERSION, , AC_MSG_ERROR(Protobuf version $PROTOBUF_VERSION required))
 
-AC_MSG_CHECKING([for Protocol Buffers headers and library])
-
-# So use a more mechanical approach still using pkg-config
-AC_DEFUN(AC_PROG_PKGCONFIG, [AC_CHECK_PROG(PKGCONFIG,pkg-config,yes)])
-AC_PROG_PKGCONFIG
-if test x"${PKGCONFIG}" == x"yes" ; then
-    # use pkg-config for ProtoBuf settings
-    protobuf_cxxflags=`pkg-config --cflags protobuf`
-    protobuf_libs=`pkg-config --libs protobuf`
-    protobuf_version=`pkg-config --modversion protobuf`
-
-    # also test for protbuf version using result from pkg-config --modversion protobuf
-    case ${protobuf_version} in
-    1.*|2.0.*|2.1.*)
-	AC_MSG_WARN([RProtoBuf requires ProtoBuf (>= 2.2.0).])
-	AC_MSG_ERROR([Please upgrade to a more recent version.])
-	;;
-    esac
-else
-    AC_MSG_ERROR([Please install Protocol Buffers before trying to build RProtoBuf.])
-fi
-
-dnl ## Old and deprecated code below
-dnl ## let's look around -- code copied from RdbuiPgSQL but modified to use test -f
-dnl ## 
-dnl AC_MSG_CHECKING([for ProtoBuf headers and library])
-dnl for dir in \
-dnl     /usr/include \
-dnl     /usr/local/include \
-dnl     /opt/include \
-dnl     /opt/local/include \
-dnl     /sw/include
-dnl     do
-
-dnl     if test -f ${dir}/google/protobuf/stubs/common.h
-dnl     then
-dnl     	pb_incdir=${dir}
-dnl 	break
-dnl     fi
-dnl done
-
-dnl ## likewise, let's look around for libpq.so
-dnl for dir in \
-dnl     /usr/lib \
-dnl     /usr/local/lib \
-dnl     /opt/lib \
-dnl     /opt/local/lib \
-dnl     /sw/lib
-dnl     do
-dnl     if test -f ${dir}/libprotobuf.so
-dnl     then
-dnl     	pb_libdir=${dir}
-dnl 	break
-dnl     fi
-dnl     ## also test of OS X
-dnl     if test -f ${dir}/libprotobuf.dylib
-dnl     then
-dnl     	pb_libdir=${dir}
-dnl 	break
-dnl     fi
-dnl done
-
-if test x"${protobuf_cxxflags}" != x"" && test x"${protobuf_libs}" != x"" ; then
-    AC_MSG_RESULT([yes])    
-else
-    AC_MSG_RESULT([no])    
-    echo "
-
-  Your installation does not appear to have Protocol Buffers headers and libraries.
-
-  Please make sure that you have a working and complete Protcol Buffers installation.
-"
-    exit 1
-fi
-
+## use pkg-config for ProtoBuf settings
+##
+protobuf_cxxflags=`pkg-config --cflags protobuf`
+protobuf_libs=`pkg-config --libs protobuf`
+    
 ## look for protoc, the ProtoBuf compiler
-AC_DEFUN(AC_PROG_PROTOC, [AC_CHECK_PROG(PROTOC,protoc,yes)])
+AC_DEFUN([AC_PROG_PROTOC], [AC_CHECK_PROG(PROTOC,protoc,yes)])
 AC_PROG_PROTOC
 if test x"${PROTOC}" == x"no" ; then
     echo "
