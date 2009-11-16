@@ -12,6 +12,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/io/coded_stream.h>
+#include <google/protobuf/service.h>
 
 #define R_NO_REMAP
 
@@ -45,6 +46,9 @@
 #define GET_DESCRIPTOR_POINTER_FROM_XP(xp)  (Descriptor*) EXTPTR_PTR( xp )
 #define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
+#define GET_METHOD(xp)  (MethodDescriptor*) EXTPTR_PTR( xp )
+
+
 #define COPYSTRING(s) s
 
 using namespace google::protobuf::compiler ;
@@ -67,7 +71,9 @@ RcppExport SEXP new_RS4_Descriptor( const Descriptor * );
 RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 
 RcppExport SEXP new_RS4_EnumDescriptor( const EnumDescriptor *); 
 RcppExport SEXP new_RS4_Message( const Message *, SEXP ); 
-RcppExport SEXP new_RS4_Message_( const Message* ); 
+RcppExport SEXP new_RS4_Message_( const Message* );
+RcppExport SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor *) ;
+RcppExport SEXP new_RS4_MethodDescriptor( const MethodDescriptor *) ;
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
@@ -118,6 +124,8 @@ RcppExport SEXP as_character_descriptor( SEXP );
 RcppExport SEXP as_character_enum_descriptor( SEXP ); 
 RcppExport SEXP as_character_field_descriptor(SEXP);
 RcppExport SEXP get_value_of_enum( SEXP, SEXP); 
+RcppExport SEXP as_character_service_descriptor(SEXP);
+RcppExport SEXP as_character_method_descriptor(SEXP);
 
 /* in update.cpp */
 RcppExport SEXP update_message( SEXP, SEXP) ;
@@ -163,6 +171,14 @@ RcppExport SEXP all_equal_messages( SEXP, SEXP, SEXP) ;
 
 /* in add.cpp */
 RcppExport SEXP message_add_values( SEXP, SEXP, SEXP);
+
+/* in methods.cpp */
+RcppExport SEXP get_method_output_type( SEXP) ;
+RcppExport SEXP get_method_input_type( SEXP) ;
+RcppExport SEXP get_method_output_prototype( SEXP) ;
+RcppExport SEXP get_method_input_prototype( SEXP) ;
+RcppExport SEXP valid_input_message( SEXP, SEXP) ;
+RcppExport SEXP valid_output_message( SEXP, SEXP) ;
 
 } // namespace rprotobuf
 

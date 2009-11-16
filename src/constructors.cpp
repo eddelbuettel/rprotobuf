@@ -154,5 +154,72 @@ SEXP new_RS4_Message_( const Message* message ){
 	
 }
 
+
+/**
+ * Creates a new "protobufServiceDescriptor" R S4 object
+ *
+ * @param fd pointer to a google::protobuf::ServiceDescriptor
+ *
+ * @return a new "protobufServiceDescriptor" holding the 
+ * ServiceDescriptor as an external pointer
+ */
+SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor * sd ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufServiceDescriptor")) );
+  	if (!Rf_inherits(oo, "protobufServiceDescriptor"))
+  		throwException( "unable to create 'protobufServiceDescriptor' S4 object", "CannotCreateObjectException" );
+ 
+  	/* the simple name of the enum */
+	SEXP name  = PROTECT( Rf_mkString( sd->full_name().c_str() ) ) ; 
+	
+	/* external pointer to the ServiceDescriptor */
+	/* TODO: finalizer */
+	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)sd , 
+		R_NilValue, R_NilValue));
+	
+	SET_SLOT( oo, Rf_install("name"), name ) ;
+	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+	UNPROTECT(3) ; /* oo, name,ptr */
+	
+	return oo; 
+}
+
+/**
+ * Creates a new "protobufMethodDescriptor" R S4 object
+ *
+ * @param fd pointer to a google::protobuf::MethodDescriptor
+ *
+ * @return a new "protobufMethodDescriptor" holding the 
+ * MethodDescriptor as an external pointer
+ */
+SEXP new_RS4_MethodDescriptor( const MethodDescriptor * md ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMethodDescriptor")) );
+  	if (!Rf_inherits(oo, "protobufMethodDescriptor"))
+  		throwException( "unable to create 'protobufMethodDescriptor' S4 object", "CannotCreateObjectException" );
+ 
+  	/* the full name */
+	SEXP fname = PROTECT( Rf_mkString( md->full_name().c_str() ) ) ;
+	
+	/* external pointer to the EnumDescriptor */
+	/* TODO: finalizer */
+	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)md , 
+		R_NilValue, R_NilValue));
+	
+	/* message type where the enum is defined */
+	SEXP service  = PROTECT( Rf_mkString( md->service()->full_name().c_str() ) ) ;
+	
+	SET_SLOT( oo, Rf_install("name"), fname ) ;
+	SET_SLOT( oo, Rf_install("service"), service ) ;
+	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+	UNPROTECT(4) ; /* oo, fname, ptr, service */
+	
+	return oo; 
+}
+
+
+
 } // namespace rprotobuf
 

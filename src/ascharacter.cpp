@@ -67,6 +67,38 @@ SEXP as_character_descriptor( SEXP xp ){
 }
 
 /**
+ * Get the debug string of a service descriptor
+ *
+ * @param xp (ServiceDescriptor*) external pointer
+ */
+SEXP as_character_service_descriptor( SEXP xp ){
+	
+	/* grab the Message pointer */
+	ServiceDescriptor* desc = (ServiceDescriptor*)EXTPTR_PTR(xp) ;
+	
+	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
+	UNPROTECT(1); /* res */
+	return res ;
+}
+
+/**
+ * Get the debug string of a method descriptor
+ *
+ * @param xp (MethodDescriptor*) external pointer
+ */
+SEXP as_character_method_descriptor( SEXP xp ){
+	
+	/* grab the Message pointer */
+	MethodDescriptor* desc = (MethodDescriptor*)EXTPTR_PTR(xp) ;
+	
+	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
+	UNPROTECT(1); /* res */
+	return res ;
+}
+
+
+
+/**
  * Get the value of the enum called name
  *
  * @param xp external pointer to an EnumDescriptor

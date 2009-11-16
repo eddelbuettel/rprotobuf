@@ -36,12 +36,11 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
  	 val = _TRUE_ ;
  } else {
  	const DescriptorPool * pool = DescriptorPool::generated_pool() ;
- 	const Descriptor * desc = pool->FindMessageTypeByName( name ) ; 
- 	if( !desc ) {
- 		val = _FALSE_;
- 	} else{
- 		/* cache this */
+ 	if( pool->FindMessageTypeByName( name ) ||  pool->FindEnumTypeByName( name ) || pool->FindServiceByName( name ) || pool->FindMethodByName( name ) ){
+ 		
  		DescriptorPoolLookup::add( name ) ;
+ 		val = _TRUE_ ;
+ 	
  	}
  }
  tb->active = _TRUE_;
@@ -63,32 +62,54 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
  Rprintf( "  >> rProtoBufTable_get\n" ); 
 #endif
 
- SEXP val;
  if(tb->active == _FALSE_)
     return(R_UnboundValue);
 
  tb->active = _FALSE_;
  
- SEXP name_sxp = PROTECT( Rf_mkString( name ) ) ; 
- val = PROTECT( getProtobufDescriptor(name_sxp) ) ;
- if( val == R_NilValue ){
-#ifdef LOOKUP_DEBUG
- Rprintf( "      NULL  \n" ); 
-#endif
- 	 UNPROTECT(2); /* val, name_sxp */
- 	 tb->active = _TRUE_;
- 	 return( R_getUnboundValue() ) ; 
+ const DescriptorPool * pool = DescriptorPool::generated_pool() ;
+ const Descriptor * desc = pool->FindMessageTypeByName( name ) ;
+ if( desc ){
+ 	/* message */
+ 	DescriptorPoolLookup::add( name ) ;
+ 	SEXP res = PROTECT( new_RS4_Descriptor( desc ) ); 
+ 	tb->active = _TRUE_; 
+ 	UNPROTECT(1); 
+ 	return( res ) ;
+ } else {
+ 	 const EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name ) ;
+ 	 if( enum_desc ){
+ 	 	/* enum */
+ 	 	DescriptorPoolLookup::add( name ) ;
+ 	 	SEXP res = PROTECT( new_RS4_EnumDescriptor( enum_desc ) ); 
+ 		tb->active = _TRUE_; 
+ 		UNPROTECT(1); 
+ 		return( res ) ;
+ 	 } else{
+		const ServiceDescriptor* service_desc = pool->FindServiceByName( name ) ;
+		if( service_desc ){
+			DescriptorPoolLookup::add( name ) ;
+			SEXP res = PROTECT( new_RS4_ServiceDescriptor( service_desc ) ); 
+			tb->active = _TRUE_; 
+			UNPROTECT(1); 
+			return( res ) ;
+ 	 	} else {
+ 	 		const MethodDescriptor* method_desc = pool->FindMethodByName( name ); 
+ 	 		if( method_desc ){
+				DescriptorPoolLookup::add( name ) ;
+				SEXP res = PROTECT( new_RS4_MethodDescriptor( method_desc ) ); 
+				tb->active = _TRUE_; 
+				UNPROTECT(1); 
+				return( res ) ;
+ 	 		} else{
+ 	 			tb->active = _TRUE_;
+ 	 			return( R_getUnboundValue() ) ;
+ 	 		}
+ 	 	}
+ 	 }
  }
-#ifdef LOOKUP_DEBUG
-Rprintf( "      :  \n" );
-Rf_PrintValue( GET_SLOT(val, Rf_install("type") ) ) ;
-#endif
-
- DescriptorPoolLookup::add( name ) ;  
  
- UNPROTECT(2 ) ; /* val, name_sxp */
- tb->active = _TRUE_;
- return(val);
+ return( R_getUnboundValue() ) ; // -Wall
 }
 
 /**
@@ -139,6 +160,8 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
  Rprintf( "  >> rProtoBufTable_objects\n" ); 
 #endif
 	
+	// FIXME: this is silly, we need to maintain the data sorted
+	//        using a dedicated C++ class
 	tb->active = _FALSE_;
 	SEXP unsorted = PROTECT( DescriptorPoolLookup::getElements() ) ; 
 	SEXP call = PROTECT( Rf_lang2( Rf_install( "sort" ), unsorted ) ) ;

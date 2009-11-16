@@ -41,8 +41,6 @@ return R_NilValue ;
 
 }
 
-
-
 /**
  * get the descriptor associated with a message type
  *

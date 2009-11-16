@@ -23,17 +23,23 @@ setClass( "protobufEnumDescriptor", representation(
 ), prototype = list( pointer = NULL, name = character(0), 
 	full_name = character(0), type = character(0) ) )
 
+setClass( "protobufServiceDescriptor", representation( 
+	pointer = "externalptr",   # pointer to a google::protobuf::ServiceDescriptor c++ object
+	name = "character"         # full name of the service
+), prototype = list( pointer = NULL, name = character(0) ) )
+
+setClass( "protobufMethodDescriptor", representation( 
+	pointer = "externalptr",   # pointer to a google::protobuf::ServiceDescriptor c++ object
+	name = "character"     ,   # full name of the service
+	service = "character"      # full name of the service that defines this method
+), prototype = list( pointer = NULL, name = character(0), service = character(0) ) )
+
 # actual objects
 
 setClass( "protobufMessage",  representation( 
    pointer = "externalptr",    # pointer to sa google::protobuf::Message object
    type    = "character"       # message type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
-
-# setClass( "protobufEnum",  representation( 
-#    pointer = "externalptr",    # pointer to some C++ variable
-#    type    = "character"       # enum type (fully qualified, with package path)
-# ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
 # }}}
 
@@ -142,7 +148,6 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		invisible(NULL)
 		)
 } )
-
 
 setMethod("$<-", "protobufMessage", function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )

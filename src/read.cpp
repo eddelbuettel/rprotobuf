@@ -58,5 +58,4 @@ SEXP readMessageFromConnection( SEXP xp, SEXP con ){
 	return( new_RS4_Message_( message ) ) ;
 }
 
-
 } // namespace rprotobuf

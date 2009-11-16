@@ -9,7 +9,8 @@ importFrom( methods, new )
 importFrom( utils, str )
 
 exportClasses( "protobufDescriptor", "protobufMessage", 
-	"protobufFieldDescriptor", "protobufEnumDescriptor" )
+	"protobufFieldDescriptor", "protobufEnumDescriptor", 
+	"protobufServiceDescriptor", "protobufMethodDescriptor" )
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
 	"has", "clone", "merge", "read", "bytesize",
@@ -34,4 +35,9 @@ S3method( as.list, protobufEnumDescriptor )
 
 importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )
+
+
+# rpc stuff
+
+export( invokeLocally )
 
