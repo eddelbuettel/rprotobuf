@@ -2,9 +2,6 @@
 #include "fieldtypes.h" 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
-/* need to actually copy the string */
-#define COPYSTRING(s) s
-
 namespace rprotobuf{
 
 // {{{ GETDOUBLE
@@ -284,9 +281,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	/* the message descriptor */
 	// const Descriptor* desc = message->GetDescriptor() ;
 	
-	/* {{{ check that we can get a file descriptor from name */
+	/* check that we can get a file descriptor from name */
 	FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
-	// }}}
 	
 	const Reflection * ref = message->GetReflection() ;
     

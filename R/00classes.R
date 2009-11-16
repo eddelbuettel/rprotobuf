@@ -108,6 +108,7 @@ setMethod("$", "protobufMessage", function(x, name) {
 		"set" = function(...) set( x, ... ), 
 		"fetch" = function(...) fetch(x, ... ), 
 		"toString" = function(...) toString( x, ... ),
+		"add" = function(...) add( x, ...), 
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )

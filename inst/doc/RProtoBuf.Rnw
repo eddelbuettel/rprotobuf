@@ -353,6 +353,7 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \hline
 \textbf{method} & \textbf{section} & \textbf{description} \\
 \hline
+\hline
 \texttt{has} & \ref{protobufMessage-method-has} & Indicates if a message has a given field.   \\
 \texttt{clone} &  \ref{protobufMessage-method-clone} & Creates a clone of the message \\
 \texttt{isInitialized} & \ref{protobufMessage-method-isInitialized} & Indicates if a message has all its required fields set\\
@@ -360,9 +361,12 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{clear} & \ref{protobufMessage-method-clear} & Clear one or several fields of a message, or the entire message\\
 \texttt{size} & \ref{protobufMessage-method-size} & The number of elements in a message field\\
 \texttt{bytesize} & \ref{protobufMessage-method-bytesize} & The number of bytes the message would take once serialized\\
+\hline
 \texttt{swap} & \ref{protobufMessage-method-swap} & swap elements of a repeated field of a message\\
 \texttt{set} & \ref{protobufMessage-method-set} & set elements of a repeated field\\
 \texttt{fetch} & \ref{protobufMessage-method-fetch} & fetch elements of a repeated field\\
+\texttt{add} & \label{protobufMessage-method-add} & add elements to a repeated field \\
+\hline
 \texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
 \texttt{toString} & \ref{protobufMessage-method-toString} & character representation of a message (same as \texttt{as.character}) \\
@@ -680,6 +684,18 @@ message <- new( tutorial.Person, name = "foo",
 message$fetch( "phone", 1 )
 @
 
+\subsubsection{protobufMessage\$add method}
+\label{protobufMessage-method-add}
+
+The \texttt{add} method can be used to add values to a repeated field.
+
+<<keep.source=T>>=
+message <- new( tutorial.Person, name = "foo")
+phone <- new( tutorial.Person.PhoneNumber, 
+	number = "+33(0)...", type = "HOME"  )
+message$add( "phone", phone )
+writeLines( message$toString() )
+@
 
 \subsubsection{protobufMessage\$str method}
 \label{protobufMessage-method-str}

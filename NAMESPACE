@@ -16,7 +16,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"length", "str", "isInitialized", 
 	"clear", "size", "size<-", "swap", 
 	"descriptor", "set", "fetch", "toString", 
-	"identical", "==", "!=", "all.equal" )
+	"identical", "==", "!=", "all.equal", "add" )
 
 export( "P", "throw", "readProtoFiles" )
 

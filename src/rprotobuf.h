@@ -45,6 +45,7 @@
 #define GET_DESCRIPTOR_POINTER_FROM_XP(xp)  (Descriptor*) EXTPTR_PTR( xp )
 #define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
+#define COPYSTRING(s) s
 
 using namespace google::protobuf::compiler ;
 using namespace google::protobuf ;
@@ -159,6 +160,9 @@ RcppExport SEXP get_field_values( SEXP, SEXP, SEXP) ;
 /* in identical.cpp */
 RcppExport SEXP identical_messages( SEXP, SEXP) ;
 RcppExport SEXP all_equal_messages( SEXP, SEXP, SEXP) ;
+
+/* in add.cpp */
+RcppExport SEXP message_add_values( SEXP, SEXP, SEXP);
 
 } // namespace rprotobuf
 
