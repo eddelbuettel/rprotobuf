@@ -48,15 +48,10 @@ SEXP set_field_size(SEXP xp, SEXP field, SEXP newsize){
 		if( target == 0){
 			ref->ClearField( message, field_desc );
 		} else if( current > target ){
-#if GOOGLE_PROTOBUF_VERSION < 2002000
-			Rf_error( "cannot shrink the size with this version of the protobuf library, either update to 2.2 or submit a patch" ) ; 
-#else
-		while( current != target ){
+			while( current != target ){
 				ref->RemoveLast( message, field_desc ) ;
 				current-- ;
 			}
-#endif			
-			
 		} else if( current == target ) {
 			/* nothing to do */
 		} else { /* current < target */
@@ -115,13 +110,13 @@ SEXP set_field_size(SEXP xp, SEXP field, SEXP newsize){
     				    case TYPE_GROUP:
     				    	{
     				    		/* fill with the prototype for that message type */
-    				    		Rf_error( "not implemented yet, patches welcome" ) ;
+    				    		Rf_error( "growing repeated messages not implemented yet, patches welcome" ) ;
     				    		break ;
     				    	}
     				    case TYPE_ENUM:
     				    	{ 
     				    		/* fill with the prototype for that message type */
-    				    		Rf_error( "not implemented yet, patches welcome" ) ;
+    				    		Rf_error( "growing repeated enum not implemented yet, patches welcome" ) ;
     				    		break ;
     				    	}
     				} /* switch */
