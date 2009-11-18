@@ -15,13 +15,9 @@ message Person {
   }
   repeated PhoneNumber phone = 4;
 }
-
-// Our address book file is just one of these.
 message AddressBook {
   repeated Person person = 1;
 }
-
-// remote procedure call dummy service
 service EchoService {
   rpc Echo (Person) returns (Person);
 }
