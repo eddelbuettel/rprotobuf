@@ -257,7 +257,8 @@ close( con )
 \subsection{Parsing messages}
 
 The \texttt{RProtoBuf} package defines the \texttt{read}
-function to read messages from files and arbitrary binary connections.
+function to read messages from files, raw vector (the message payload)
+and arbitrary binary connections.
 
 <<>>=
 read
@@ -284,6 +285,15 @@ close( con )
 writeLines( as.character( message ) )
 @
 
+Finally, the payload of the message can be used :
+
+<<>>=
+# reading the raw vector payload of the message
+payload <- readBin( tf1, raw(0), 5000 )
+message <- read( tutorial.Person, payload )
+@
+
+
 \texttt{read} can also be used as a pseudo method of the descriptor
 object :
 
@@ -294,6 +304,8 @@ message <- tutorial.Person$read( tf1 )
 con <- file( tf2, open = "rb" )
 message <- tutorial.Person$read( con )
 close( con )
+# read from the payload
+message <- tutorial.Person$read( payload )
 @
 
 \section{Classes, Methods and Pseudo Methods}
