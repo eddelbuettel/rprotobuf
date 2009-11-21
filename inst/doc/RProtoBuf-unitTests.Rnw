@@ -1,0 +1,32 @@
+\documentclass[11pt]{article}
+%\VignetteIndexEntry{RProtoBuf-unitTests}
+
+\usepackage{url}
+\usepackage[colorlinks]{hyperref}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\textwidth}{17cm} % uh-oh, I use letter :)
+
+<<echo=FALSE,print=FALSE>>=
+library( "RProtoBuf" )
+rpb.version <- packageDescription( "RProtoBuf" )$Version
+@
+% closing $ needed here
+
+\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
+\title{RProtoBuf \Sexpr{rpb.version}: Unit Tests Results}
+
+\begin{document}
+\maketitle
+
+<<echo=F>>=
+if( !require( "svUnit", quietly = TRUE, character.only = TRUE ) ){
+	cat( "Package svUnit not available, unit tests are not run\n" )
+} else{
+# add unit tests here
+
+
+
+}
+@
+
+\end{document}
