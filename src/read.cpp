@@ -49,7 +49,7 @@ SEXP readMessageFromConnection( SEXP xp, SEXP con ){
 	io::CodedInputStream coded_stream(&stream ) ;
 	
 	/* create a prototype of the message we are going to read */
-	Message * message = (Message*)MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	Message * message = PROTOTYPE( desc ) ; 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
@@ -57,5 +57,29 @@ SEXP readMessageFromConnection( SEXP xp, SEXP con ){
 	message->MergePartialFromCodedStream( &coded_stream ) ;
 	return( new_RS4_Message_( message ) ) ;
 }
+
+/**
+ * read a message from its payload
+ *
+ * @param xp (Descriptor*) external pointer
+ * @param raw the payload of the message
+ */
+SEXP readMessageFromRawVector( SEXP xp, SEXP raw){
+	
+	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
+	
+	io::ArrayInputStream ais( (void*)RAW(raw), LENGTH(raw) ); 
+	io::CodedInputStream stream( &ais ) ; 
+	
+	Message * message = PROTOTYPE( desc ) ; 
+	if( !message ){
+		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
+	}
+	
+	message->MergePartialFromCodedStream( &stream ) ;
+	return( new_RS4_Message_( message ) ) ;
+}
+
+
 
 } // namespace rprotobuf

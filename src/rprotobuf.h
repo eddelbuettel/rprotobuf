@@ -47,7 +47,7 @@
 #define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
 #define GET_METHOD(xp)  (MethodDescriptor*) EXTPTR_PTR( xp )
-
+#define PROTOTYPE(desc) (Message*)MessageFactory::generated_factory()->GetPrototype( desc )->New() 
 
 #define COPYSTRING(s) s
 
@@ -141,7 +141,8 @@ RcppExport SEXP merge_message( SEXP, SEXP );
 
 /* in read.cpp */
 RcppExport SEXP readMessageFromFile( SEXP, SEXP ) ;
-RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ; 
+RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ;
+RcppExport SEXP readMessageFromRawVector( SEXP, SEXP );
 
 /* in size.cpp */
 RcppExport SEXP get_message_bytesize( SEXP ) ;

@@ -28,7 +28,7 @@ setMethod( "serialize", c( object = "protobufMessage" ) ,
 			# first grab the payload as a raw vector, 
 			payload <- .Call( "getMessagePayload", object@pointer, PACKAGE = "RProtoBuf" )
 			if( isnull ){
-				# just return it if the connections is NULL
+				# just return it if the connection is NULL
 				payload
 			} else{
 				# otherwise write the payload to the connection

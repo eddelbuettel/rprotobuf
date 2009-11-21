@@ -9,9 +9,9 @@ function(descriptor, input ){
 	.Call( "readMessageFromFile", descriptor@pointer, file, PACKAGE = "RProtoBuf" ) 
 } )
 
-# setMethod( "read", c( descriptor = "protobufDescriptor", input = "raw" ), function(descriptor, input ){
-# 	# .Call( "readMessageFromRawVector", descriptor@pointer, input, PACKAGE="RProtoBuf" )
-# } )
+setMethod( "read", c( descriptor = "protobufDescriptor", input = "raw" ), function(descriptor, input ){
+	.Call( "readMessageFromRawVector", descriptor@pointer, input, PACKAGE="RProtoBuf" )
+} )
 
 setMethod( "read", c( descriptor = "protobufDescriptor" ), 
 function( descriptor, input ){
