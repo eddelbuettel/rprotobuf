@@ -166,6 +166,29 @@ SEXP rawToString( SEXP raw){
 	return res ;
 }
 
+/**
+ * indicates if this is a list of messages
+ * 
+ * @param x a list (VECSXP)
+ * @return TRUE if all objects are instances of protobufMessage class
+ */
+Rboolean allAreMessages( SEXP x) {
+	
+	if( TYPEOF(x) != VECSXP ) return _FALSE_ ;
+	
+	int n = LENGTH(x) ;
+	SEXP current ;
+	for( int i=0; i<n; i++){
+		current = VECTOR_ELT( x, i) ;
+		/* not an S4 object */
+		if( TYPEOF(current) != S4SXP ) return _FALSE_ ;
+		
+		/* not a protobufMessage object */
+		if( !Rf_inherits( current, "protobufMessage" ) ) return _FALSE_ ;
+	}
+	return _TRUE_ ;
+}
+
 
 /**
  * check that all the values contained in value are suitable for the 
@@ -313,8 +336,16 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		// then value_size is actually one because the raw vector
 		// is converted to a string
 		int field_type = field_desc->type() ;
-		if( TYPEOF(value) == RAWSXP && ( field_type == TYPE_STRING || field_type == TYPE_BYTES  ) ){
-			value_size = 1 ;
+		if( field_type == TYPE_STRING || field_type == TYPE_BYTES ){
+			if( TYPEOF(value) == RAWSXP ){
+				value_size = 1 ;
+			} else if( TYPEOF(value) == S4SXP && Rf_inherits( value, "protobufMessage") ){
+				value_size = 1 ; /* we will store the message payload */
+			} else if( TYPEOF(value) == VECSXP && allAreMessages( value ) ){
+				value_size = LENGTH(value) ;
+			} else{
+				throwException( "cannot convert to string", "ConversionException" ) ;
+			}
 		}
 		
 		int field_size = ref->FieldSize( *message, field_desc ) ;
@@ -712,6 +743,44 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						{
     							ref->SetRepeatedString( message, field_desc, 0, COPYSTRING( CHAR(STRING_ELT(rawToString(value),0 )) ) ) ;
     						}
+    					case S4SXP:
+    						{
+    							/* check if value is a message */
+    							if( !Rf_inherits( value, "protobufMessage" ) ){
+    								throwException( "Can only convert S4 objects of class 'protobufMessage' ", "ConversionException" ) ;
+    							}
+    							Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
+    							ref->SetRepeatedString(message, field_desc, 0, 
+    								__mess->SerializeAsString() ) ;
+    							break ;
+    						}
+    					case VECSXP:
+    						{
+    							// we know it is a list of messages because it 
+    							// has been tested above
+    							
+    							// FIXME: we should probably use SerializeToString 
+    							//        as indicated in the protobuf api documentation
+    							//        http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message_lite.html#MessageLite.SerializeAsString.details
+    							Message* __mess ;
+    							
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+			    				for( ; i<field_size; i++){
+			    					__mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i ) ); 
+			    					ref->SetRepeatedString( message, field_desc, i, __mess->SerializeAsString() ) ;
+			    				}
+			    				
+			    				/* then add some if needed */
+			    				if( value_size > field_size ){
+			    					for( ; i<value_size; i++){
+			    						__mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i ) ); 
+			    						ref->AddString( message, field_desc, __mess->SerializeAsString() ) ;
+			    					}
+			    				}
+			    				break ;
+    							
+    						}
     					default: 
     						throwException( "Cannot convert to string", "ConversionException" ) ;
     				}
@@ -1001,6 +1070,16 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case RAWSXP:
     						{
     							ref->SetString(message, field_desc, COPYSTRING( CHAR(STRING_ELT( rawToString( value ) ,0 )) ) ) ;
+    							break ;
+    						}
+    					case S4SXP:
+    						{
+    							/* check if value is a message */
+    							if( !Rf_inherits( value, "protobufMessage" ) ){
+    								throwException( "Can only convert S4 objects of class 'protobufMessage' ", "ConversionException" ) ;
+    							}
+    							Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
+    							ref->SetString(message, field_desc, __mess->SerializeAsString() ) ;
     							break ;
     						}
     					default: 

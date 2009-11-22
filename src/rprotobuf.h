@@ -93,6 +93,7 @@ RcppExport SEXP throwException( const char*, const char*) ;
 
 /* in serialize.cpp */
 RcppExport SEXP getMessagePayload( SEXP ) ;
+RcppExport std::string getMessagePayloadAs_stdstring( SEXP ) ;
 RcppExport SEXP serializeMessageToFile( SEXP , SEXP ) ;
 RcppExport SEXP serialize_to_connection( SEXP, SEXP ) ;
 

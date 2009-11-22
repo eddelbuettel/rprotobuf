@@ -25,6 +25,15 @@ SEXP getMessagePayload( SEXP xp ){
 	return( payload ) ;
 }
 
+/**
+ * get the message payload as a string
+ */
+std::string getMessagePayloadAs_stdstring( SEXP xp){
+	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+	return message->SerializePartialAsString(); 
+}
+
+
 /** 
  * serialize a message to a file
  *
