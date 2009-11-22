@@ -8,7 +8,7 @@ PKG_LIBS=		@PKG_LIBS@
 
 pkg=			RProtoBuf
 
-all:			addressbook.pb.cc pkglib
+all:			addressbook.pb.cc protobufrpc.pb.cc pkglib
 
 addressbook.pb.cc:	../inst/proto/addressbook.proto
 			protoc --cpp_out=. --proto_path=../inst/proto $<
