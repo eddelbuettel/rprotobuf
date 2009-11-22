@@ -152,6 +152,20 @@ std::string GET_stdstring( SEXP x, int index ){
 	return "" ; // -Wall, should not happen since we only call this when we know it works
 }
 
+/**
+ * calls the R function charToRaw to convert raw into a string
+ *
+ * @param raw raw vector
+ * @return a string (STRSXP)
+ */
+/* FIXME: maybe we don't need to go back to R for this */
+SEXP rawToString( SEXP raw){
+	SEXP call = PROTECT( Rf_lang2( Rf_install("charToRaw"), raw ) ) ;
+	SEXP res = PROTECT( Rf_eval( call, R_GlobalEnv ) );
+	UNPROTECT( 2 ) ; /* res, call */
+	return res ;
+}
+
 
 /**
  * check that all the values contained in value are suitable for the 
@@ -294,10 +308,16 @@ PRINT_DEBUG_INFO( "value", value ) ;
 
 	if( field_desc->is_repeated() ){
 		// {{{ repeated fields
-		int value_size = LENGTH(value); 
-		int field_size = ref->FieldSize( *message, field_desc ) ;
+		int value_size = LENGTH(value);
+		// if the R type is RAWSXP and the cpp type is string or bytes, 
+		// then value_size is actually one because the raw vector
+		// is converted to a string
+		int field_type = field_desc->type() ;
+		if( TYPEOF(value) == RAWSXP && ( field_type == TYPE_STRING || field_type == TYPE_BYTES  ) ){
+			value_size = 1 ;
+		}
 		
-		int need_clear = 0 ;
+		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
 		/* {{{ in case of messages or enum, we have to check that all values
 		  are ok before doing anything, othewise this could leed to modify a few values 
@@ -671,21 +691,29 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			case TYPE_STRING:
     		case TYPE_BYTES:
     			{
-    				if( TYPEOF(value) == STRSXP ){ 
-    					/* in any case, fill the values up to field_size */
-    					int i = 0;
-			    		for( ; i<field_size; i++){
-			    			ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-			    		}
-			    		
-			    		/* then add some if needed */
-			    		if( value_size > field_size ){
-			    			for( ; i<value_size; i++){
-			    				ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
-			    			}
-			    		}
-    				} else{
-    					throwException( "Cannot convert to string", "ConversionException" ) ;
+    				switch( TYPEOF(value) ){
+    					case STRSXP :
+    						{ 
+    							/* in any case, fill the values up to field_size */
+    							int i = 0;
+			    				for( ; i<field_size; i++){
+			    					ref->SetRepeatedString( message, field_desc, i, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
+			    				}
+			    				
+			    				/* then add some if needed */
+			    				if( value_size > field_size ){
+			    					for( ; i<value_size; i++){
+			    						ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,i )) ) ) ;
+			    					}
+			    				}
+			    				break ;
+    						} 
+    					case RAWSXP:
+    						{
+    							ref->SetRepeatedString( message, field_desc, 0, COPYSTRING( CHAR(STRING_ELT(rawToString(value),0 )) ) ) ;
+    						}
+    					default: 
+    						throwException( "Cannot convert to string", "ConversionException" ) ;
     				}
     				
     				break ; 
@@ -968,6 +996,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case STRSXP:
     						{
     							ref->SetString(message, field_desc, COPYSTRING( CHAR(STRING_ELT(value,0 )) ) ) ;
+    							break ;
+    						}
+    					case RAWSXP:
+    						{
+    							ref->SetString(message, field_desc, COPYSTRING( CHAR(STRING_ELT( rawToString( value ) ,0 )) ) ) ;
     							break ;
     						}
     					default: 

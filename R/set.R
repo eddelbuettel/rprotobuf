@@ -10,7 +10,7 @@ setMethod( "set", "protobufMessage", function(object, field, index, values ){
 	if( inherits( values, "protobufMessage" ) ){
 		values <- list( values )
 	}
-	
+	# TODO: we need to handle R type = RAWSXP and cpp type == string or bytes
 	if( !identical( length( values ), length(index) ) ){
 		# TODO: we might want to be more flexible about that later
 		#       recycling, ...
