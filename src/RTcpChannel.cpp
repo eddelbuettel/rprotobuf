@@ -6,12 +6,38 @@ namespace rprotobuf{
 		socket_id = 0 ; 
 	}
 	
-	void RTcpChannel::connect(const char* host, int port){
+	int RTcpChannel::connect_socket(const char* host, int port){
+		SAIN sa ;
+		int opt = 1; 
 		socket_id = socket( AF_INET, SOCK_STREAM, 0 ) ;
-		/* TODO : check the results */
-		// build_sin(&sa, host, port);
-		// setsockopt(xd->sock, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt));
- 	}
+		setsockopt( socket_id , IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt));
+		if (connect(socket_id, (SA*)&sa, sizeof(sa))==-1) {
+			closesocket( socket_id ) ;
+			socket_id = -1 ;
+			Rprintf( "RTcpChannel::connect( '%s', %d) : cannot connect\n", host, port ) ;
+			return -1 ;
+		}
+		/* TODO : send a greeting message */
+		return 0 ;
+	}
+	
+	int RTcpChannel::send_(SEXP payload){
+		int size = LENGTH( payload ) ;
+		int bytesSent = 0 ;
+		int sent ;
+		Rbyte* p = RAW(payload); 
+		while( bytesSent < size ){
+			sent = send( socket_id, p, (size-bytesSent), 0 ) ;
+			if( sent < 0 ){
+				// FIXME : there was an error, do something
+				// sockerrno contains the error number
+				return -1 ;
+			}
+			bytesSent = bytesSent + sent ;
+			p = p + sent ;
+		}
+		return 0 ;
+	}
 	
 	void RTcpChannel::CallMethod(const MethodDescriptor* method,
                           RpcController* controller,
@@ -35,9 +61,15 @@ namespace rprotobuf{
     	/* TODO: we should use th io classes to directly 
     	stream the message out rather than allocating memory 
     	for the string, etc ... */
-    	std::string serialized_rpc = rpc->SerializeAsString() ;
+    	int request_size = rpc->ByteSize() ;
+    	
+    	/* allocate a raw vector */
+    	SEXP payload = PROTECT( Rf_allocVector( RAWSXP, request_size ) ) ;
+    	rpc->SerializeToArray( RAW(payload) , request_size ) ;
     	
     	/* send the message to the socket */
+    	int res = send_( payload ) ;
+    	UNPROTECT( 1 ) ; /* payload */ 
     	
     	/* read the response from the socket */
     	

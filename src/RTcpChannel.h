@@ -4,6 +4,11 @@
 #include "protobufrpc.pb.h" 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include "sisocks.h" 
+
+/* FIXME: this should be probably handled by sisocks
+          we need it for the TCP_NODELAY socket option */
+#include <netinet/tcp.h>
 
 namespace rprotobuf {
 
@@ -17,9 +22,11 @@ namespace rprotobuf {
                           Message* response,
                           Closure* done) ;
 			
-            void connect(const char* host, int port) ;
+            int connect_socket(const char* host, int port) ;
             
 		private:
+			int send_(SEXP payload) ;
+			
 			/* the socket descriptor */
 			int socket_id ;
 			
