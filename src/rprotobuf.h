@@ -50,6 +50,8 @@
 #define PROTOTYPE(desc) (Message*)MessageFactory::generated_factory()->GetPrototype( desc )->New() 
 
 #define COPYSTRING(s) s
+#define THROW_SOCKET_ERROR(message) Rf_error( "%s : %s", message, strerror(sockerrno) )
+
 
 using namespace google::protobuf::compiler ;
 using namespace google::protobuf ;
@@ -181,6 +183,11 @@ RcppExport SEXP get_method_output_prototype( SEXP) ;
 RcppExport SEXP get_method_input_prototype( SEXP) ;
 RcppExport SEXP valid_input_message( SEXP, SEXP) ;
 RcppExport SEXP valid_output_message( SEXP, SEXP) ;
+
+/* in channel.cpp */
+RcppExport SEXP getChannel( SEXP, SEXP) ; 
+RcppExport SEXP getChannelId( SEXP) ;
+RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
 
 } // namespace rprotobuf
 

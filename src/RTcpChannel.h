@@ -2,9 +2,12 @@
 #define RPROTOBUF_RTCPCHANNEL_H
 #include "rprotobuf.h"
 #include "protobufrpc.pb.h" 
+#include "SocketCopyingInputStream.h"
+
 #include <sys/types.h>
 #include <sys/socket.h>
-#include "sisocks.h" 
+
+#include "sisocks.h"
 
 /* FIXME: this should be probably handled by sisocks
           we need it for the TCP_NODELAY socket option */
@@ -23,9 +26,15 @@ namespace rprotobuf {
                           Closure* done) ;
 			
             int connect_socket(const char* host, int port) ;
+            bool is_connected() ; 
+            int getSocketId() ;
             
 		private:
 			int send_(SEXP payload) ;
+			int send_rpc(Rpc* rpc) ;
+			int read_response( Rpc* response) ;
+			void reset() ;
+			void socketError() ; 
 			
 			/* the socket descriptor */
 			int socket_id ;

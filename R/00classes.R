@@ -41,6 +41,14 @@ setClass( "protobufMessage",  representation(
    type    = "character"       # message type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
+# rpc 
+
+setClass( "RpcChannel", representation(
+	pointer = "externalptr", 
+	host    = "character", 
+	port    = "integer"
+), prototype = list( pointer = NULL, host = character(0), port = integer(0) ) )
+
 # }}}
 
 # {{{ new

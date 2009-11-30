@@ -10,14 +10,18 @@ importFrom( utils, str )
 
 exportClasses( "protobufDescriptor", "protobufMessage", 
 	"protobufFieldDescriptor", "protobufEnumDescriptor", 
-	"protobufServiceDescriptor", "protobufMethodDescriptor" )
+	"protobufServiceDescriptor", "protobufMethodDescriptor", 
+	"RpcChannel" )
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
 	"has", "clone", "merge", "read", "bytesize",
 	"length", "str", "isInitialized", 
 	"clear", "size", "size<-", "swap", 
 	"descriptor", "set", "fetch", "toString", 
-	"identical", "==", "!=", "all.equal", "add" )
+	"identical", "==", "!=", "all.equal", "add", 
+	
+	# rpc
+	"invokeLocally", "invoke")
 
 export( "P", "throw", "readProtoFiles" )
 
@@ -36,8 +40,8 @@ S3method( as.list, protobufEnumDescriptor )
 importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )
 
-
 # rpc stuff
 
-export( invokeLocally )
+# this might change name
+export( channel )
 
