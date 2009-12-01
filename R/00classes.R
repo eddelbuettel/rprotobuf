@@ -103,6 +103,12 @@ setMethod( "show", c( "protobufFieldDescriptor" ), function(object){
 setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
 	show( sprintf( "descriptor for enum '%s' of type '%s' ", object@name, object@type ) ) 
 } )
+setMethod( "show", c( "protobufServiceDescriptor" ), function(object){
+	show( sprintf( "service descriptor <%s>", object@name ) ) 
+} )
+setMethod( "show", c( "protobufFileDescriptor" ), function(object){
+	show( sprintf( "file descriptor" ) ) 
+} )
 
 # }}}
 

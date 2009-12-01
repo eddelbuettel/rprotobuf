@@ -102,5 +102,46 @@ Rprintf( "</as_list_enum_descriptor>\n" ) ;
 	
 }
 
+
+
+/**
+ * @param xp (FileDescriptor*) external pointer
+ * @return the descriptor as an R list
+ */
+SEXP as_list_file_descriptor( SEXP xp){
+	
+#ifdef RPB_DEBUG
+Rprintf( "<as_list_file_descriptor>\n" ) ;
+#endif
+	
+	FileDescriptor* desc = (FileDescriptor*) EXTPTR_PTR(xp) ;
+	
+	SEXP names = PROTECT( getFileDescriptorMemberNames(xp) ) ; 
+	int n = LENGTH(names) ;
+	int ntypes    = desc->message_type_count() ;
+	int nenums    = desc->enum_type_count() ;
+	int nserv     = desc->service_count() ;
+	
+	SEXP res = PROTECT( Rf_allocVector( VECSXP, n ) ); 
+	int i=0;
+	int j=0; 
+	for( i=0; i<ntypes; j++, i++){
+		SET_VECTOR_ELT( res, j, new_RS4_Descriptor( desc->message_type(i) ) ); 
+	}
+	for( i=0; i<nenums; j++, i++){
+		SET_VECTOR_ELT( res, j, new_RS4_EnumDescriptor( desc->enum_type(i) ) ); 
+	}
+	for( i=0; i<nserv; j++, i++){
+		SET_VECTOR_ELT( res, j, new_RS4_ServiceDescriptor( desc->service(i) ) ); 
+	}
+	Rf_setAttrib( res, Rf_install("names"), names) ;
+	UNPROTECT(2); /* res, names */
+	
+#ifdef RPB_DEBUG
+Rprintf( "</as_list_file_descriptor>\n" ) ;
+#endif
+	return res; 
+}
+
 } // namespace rprotobuf
 

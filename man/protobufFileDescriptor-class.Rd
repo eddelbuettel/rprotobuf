@@ -5,6 +5,7 @@
 \alias{as.character,protobufFileDescriptor-method}
 \alias{toString,protobufFileDescriptor-method}
 \alias{$,protobufFileDescriptor-method}
+\alias{show,protobufFileDescriptor-method} 
 
 \title{Class "protobufFileDescriptor"}
 \description{Class "protobufFileDescriptor"}
@@ -22,6 +23,7 @@ Objects are usually created using the \code{\link{fileDescriptor}} method
 		file descriptor or get a top level message, enum or service descriptor}
 		\item{toString}{\code{signature(x = "protobufFileDescriptor" )} : gets the debug string}
 		\item{as.character}{\code{signature(x = "protobufFileDescriptor" )} : gets the debug string}
+		\item{show}{\code{signature(x = "protobufFileDescriptor" )} : prints small text}
 	}
 }
 \references{ The \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#FileDescriptor} }

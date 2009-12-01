@@ -41,6 +41,8 @@ if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarN
 S3method(.DollarNames, protobufMessage )
 S3method(.DollarNames, protobufDescriptor )
 S3method(.DollarNames, protobufEnumDescriptor )
+S3method(.DollarNames, protobufFileDescriptor )
+S3method(.DollarNames, protobufFieldDescriptor )
 
 S3method( with, protobufMessage )
 S3method( within, protobufMessage)
@@ -48,6 +50,7 @@ S3method( within, protobufMessage)
 S3method( as.list, protobufMessage )
 S3method( as.list, protobufDescriptor )
 S3method( as.list, protobufEnumDescriptor )
+S3method( as.list, protobufFileDescriptor )
 
 importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )

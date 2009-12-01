@@ -71,6 +71,52 @@ SEXP getDescriptorMemberNames( SEXP xp ){
 	return( res );
 }
 
+
+
+/**
+ * returns the names of the "members" contained in the 
+ * file descriptor (message types, enum types, fields)
+ *
+ * @param xp (FileDescriptor*) external pointer
+ *
+ * @return member names, as an R character vector (STRSXP)
+ */
+SEXP getFileDescriptorMemberNames( SEXP xp ){
+	
+	/* the message descriptor */
+	FileDescriptor* desc = (FileDescriptor*)EXTPTR_PTR(xp) ;
+	
+	int ntypes  = desc->message_type_count() ;
+	int nenums  = desc->enum_type_count() ;
+	int nserv   = desc->service_count() ;
+	
+	SEXP res = PROTECT( Rf_allocVector(STRSXP, ntypes + nenums + nserv ) ) ;
+	int i=0;
+	int j=0; 
+	while( i<ntypes){
+		SET_STRING_ELT( res, j, Rf_mkChar( desc->message_type(i)->name().c_str() ) ) ;
+		i++; 
+		j++;
+	}
+	i=0; 
+	while( i<nenums){
+		SET_STRING_ELT( res, j, Rf_mkChar( desc->enum_type(i)->name().c_str() ) ) ;
+		i++; 
+		j++;
+	}
+	i = 0; 
+	while( i<nserv){
+		SET_STRING_ELT( res, j, Rf_mkChar( desc->service(i)->name().c_str() ) ) ;
+		i++; 
+		j++;
+	}
+	
+	UNPROTECT(1); /* res */
+	return( res );
+}
+
+
+
 /**
  * returns the names of the members contained in the descriptor
  * (nested types, enums, fields)

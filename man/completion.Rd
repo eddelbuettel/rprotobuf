@@ -1,4 +1,4 @@
-\name{.DollarNames.protobufMessage}
+\name{completion}
 \alias{.DollarNames.protobufMessage}
 \alias{.DollarNames.protobufDescriptor}
 \alias{.DollarNames.protobufEnumDescriptor}

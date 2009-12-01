@@ -2,6 +2,7 @@
 \alias{as.list.protobufMessage}
 \alias{as.list.protobufDescriptor}
 \alias{as.list.protobufEnumDescriptor}
+\alias{as.list.protobufFileDescriptor}
 \title{
 Grab the protocol buffer message as an R list
 }
@@ -13,6 +14,7 @@ an R list, with one item per field.
 \S3method{as.list}{protobufMessage}(x, ...)
 \S3method{as.list}{protobufDescriptor}(x, ...)
 \S3method{as.list}{protobufEnumDescriptor}(x, ...)
+\S3method{as.list}{protobufFileDescriptor}(x, ...)
 }
 \arguments{
 	\item{x}{A protocol buffer message, instance of \linkS4class{protobufMessage}, 

@@ -89,6 +89,7 @@ RcppExport double MESSAGE_GET_REPEATED_DOUBLE( Message*, FieldDescriptor*, int) 
 /* in completion.cpp */
 RcppExport SEXP getMessageFieldNames( SEXP) ;
 RcppExport SEXP getDescriptorMemberNames( SEXP) ;
+RcppExport SEXP getFileDescriptorMemberNames( SEXP) ;
 RcppExport SEXP getEnumDescriptorConstantNames( SEXP ) ;
 
 /* in exceptions.cpp */
@@ -120,7 +121,8 @@ RcppExport void CHECK_messages( FieldDescriptor*, SEXP) ;
 /* in aslist.cpp */
 RcppExport SEXP as_list_message( SEXP ) ;
 RcppExport SEXP as_list_descriptor( SEXP ); 
-RcppExport SEXP as_list_enum_descriptor( SEXP ); 
+RcppExport SEXP as_list_enum_descriptor( SEXP );
+RcppExport SEXP as_list_file_descriptor( SEXP ) ;
 
 /* in ascharacter.cpp */
 RcppExport SEXP as_character_message( SEXP );

@@ -52,7 +52,9 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 
 # {{{ protobufFileDescriptor
 .DollarNames.protobufFileDescriptor <- function(x, pattern = "" ){
-	names <- c("as.character()", "toString()" )
+	names <- c(
+		.Call( "getFileDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		"as.character()", "toString()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
