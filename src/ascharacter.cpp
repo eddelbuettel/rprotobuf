@@ -35,6 +35,23 @@ Rprintf( "</as_character_field_descriptor>\n" ) ;
 	return(res);
 }
 
+SEXP as_character_file_descriptor( SEXP xp){
+#ifdef RPB_DEBUG
+Rprintf( "<as_character_file_descriptor>\n" ) ;
+#endif
+	
+	FileDescriptor* d = (FileDescriptor*)EXTPTR_PTR(xp) ;
+	
+	SEXP res = PROTECT( Rf_mkString( d->DebugString().c_str() ) ) ;
+	UNPROTECT(1); /* res */
+	
+#ifdef RPB_DEBUG
+Rprintf( "</as_character_file_descriptor>\n" ) ;
+#endif
+	return(res);
+}
+
+
 /**
  * Get the debug string of a message
  *

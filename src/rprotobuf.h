@@ -130,6 +130,7 @@ RcppExport SEXP as_character_field_descriptor(SEXP);
 RcppExport SEXP get_value_of_enum( SEXP, SEXP); 
 RcppExport SEXP as_character_service_descriptor(SEXP);
 RcppExport SEXP as_character_method_descriptor(SEXP);
+RcppExport SEXP as_character_file_descriptor( SEXP) ;
 
 /* in update.cpp */
 RcppExport SEXP update_message( SEXP, SEXP) ;
