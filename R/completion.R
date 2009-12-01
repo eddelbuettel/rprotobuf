@@ -45,7 +45,14 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 
 # {{{ protobufFieldDescriptor
 .DollarNames.protobufFieldDescriptor <- function(x, pattern = "" ){
-	names <- c("as.character(")
+	names <- c("as.character()")
+	grep( pattern, names, value = TRUE )
+}
+# }}}
+
+# {{{ protobufFileDescriptor
+.DollarNames.protobufFileDescriptor <- function(x, pattern = "" ){
+	names <- c("as.character()", "toString()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

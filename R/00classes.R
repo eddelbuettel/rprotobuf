@@ -165,6 +165,17 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		)
 } )
 
+setMethod( "$", "protobufFileDescriptor", function(x, name ){
+	
+	switch( name, 
+		"as.character" = function() as.character(x),
+		"toString" = function(...) toString(x, ...) ,
+		
+		invisible(NULL)
+		)
+
+})
+
 setMethod("$<-", "protobufMessage", function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
 	x

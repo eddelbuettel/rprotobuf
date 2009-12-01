@@ -3,6 +3,7 @@
 \alias{.DollarNames.protobufDescriptor}
 \alias{.DollarNames.protobufEnumDescriptor}
 \alias{.DollarNames.protobufFieldDescriptor}
+\alias{.DollarNames.protobufFileDescriptor}
 \title{
 Completion support for protocol buffer messages and descriptors
 }
@@ -15,6 +16,7 @@ messages and descriptors.
 \S3method{.DollarNames}{protobufDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{protobufEnumDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{protobufFieldDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{protobufFileDescriptor}(x, pattern = "")
 }
 \arguments{
 \item{x}{message (\linkS4class{protobufMessage}) or descriptor (\linkS4class{protobufDescriptor}) }
@@ -32,6 +34,10 @@ are the names of the possible constants
 For \linkS4class{protobufDescriptor} objects, completions
 are the names of the fields, enum types and nested message types
 defined in the associated message type. 
+
+For \linkS4class{protobufFileDescriptor} objects, completions
+are the names of the top-level descriptors (message, enum or service)
+contained in the associated file, or pseudo methods.
 
 }
 \author{
