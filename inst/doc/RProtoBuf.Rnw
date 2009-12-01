@@ -384,6 +384,8 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \texttt{toString} & \ref{protobufMessage-method-toString} & character representation of a message (same as \texttt{as.character}) \\
 \texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
 \texttt{descriptor} & \ref{protobufMessage-method-descriptor} & get the descriptor of the message type of this message\\
+\texttt{fileDescriptor} & \ref{protobufMessage-method-fileDescriptor} & get the file descriptor 
+of this message's descriptor\\
 \hline
 \end{tabular}
 \end{small}
@@ -787,6 +789,20 @@ message$descriptor()
 descriptor( message )
 @
 
+\subsubsection{protobufMessage\$fileDescriptor method}
+\label{protobufMessage-method-fileDescriptor}
+
+The \texttt{fileDescriptor} method retrieves the
+file descriptor of the descriptor associated with a message. 
+See section~\ref{subsec-fileDescriptor} for more information 
+about file descriptors.
+
+<<>>=
+message <- new( tutorial.Person )
+message$fileDescriptor()
+fileDescriptor( message )
+@
+
 
 \subsection{message descriptors}
 \label{subsec-descriptor}
@@ -950,6 +966,11 @@ The \texttt{as.character} method brings the debug string of the enum type.
 <<>>=
 writeLines( as.character( tutorial.Person$PhoneType ) )
 @
+
+\subsection{file descriptors}
+\label{subsec-fileDescriptor}
+
+TODO: add content
 
 \section{Utilities}
 

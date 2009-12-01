@@ -67,20 +67,20 @@ setMethod( "$<-", "protobufMethodDescriptor", function(x, name, value ){
 
 # client side rpc
 
-channel <- function( host = "localhost", port ){
-	.Call( "getChannel", host, port, PACKAGE = "RProtoBuf" )
-}
-
-getChannelId <- function( channel ){
-	.Call( "getChannelId", channel@pointer, PACKAGE = "RProtoBuf" )
-}
-
-setGeneric( "invoke" , function(method, message, channel){
-	standardGeneric( "invoke" ) 
-} )
-setMethod( "invoke", c( method = "protobufMethodDescriptor", message = "protobufMessage", channel = "RpcChannel" ), 
-function( method, message, channel){
-	.Call( "invoke", method@pointer, message@pointer, channel@pointer, 
-		PACKAGE = "RProtoBuf" )
-} )
+# channel <- function( host = "localhost", port ){
+# 	.Call( "getChannel", host, port, PACKAGE = "RProtoBuf" )
+# }
+# 
+# getChannelId <- function( channel ){
+# 	.Call( "getChannelId", channel@pointer, PACKAGE = "RProtoBuf" )
+# }
+# 
+# setGeneric( "invoke" , function(method, message, channel){
+# 	standardGeneric( "invoke" ) 
+# } )
+# setMethod( "invoke", c( method = "protobufMethodDescriptor", message = "protobufMessage", channel = "RpcChannel" ), 
+# function( method, message, channel){
+# 	.Call( "invoke", method@pointer, message@pointer, channel@pointer, 
+# 		PACKAGE = "RProtoBuf" )
+# } )
 

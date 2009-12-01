@@ -76,6 +76,7 @@ RcppExport SEXP new_RS4_Message( const Message *, SEXP );
 RcppExport SEXP new_RS4_Message_( const Message* );
 RcppExport SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor *) ;
 RcppExport SEXP new_RS4_MethodDescriptor( const MethodDescriptor *) ;
+RcppExport SEXP new_RS4_FileDescriptor( const FileDescriptor *) ;
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
@@ -188,6 +189,11 @@ RcppExport SEXP valid_output_message( SEXP, SEXP) ;
 RcppExport SEXP getChannel( SEXP, SEXP) ; 
 RcppExport SEXP getChannelId( SEXP) ;
 RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
+
+/* in fileDescriptor.cpp */
+RcppExport SEXP get_message_file_descriptor( SEXP) ;
+RcppExport SEXP get_descriptor_file_descriptor(SEXP) ;
+
 
 } // namespace rprotobuf
 

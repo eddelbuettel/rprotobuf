@@ -8,10 +8,20 @@ export(listPeopleAsDataFrame, listPeopleAsList)
 importFrom( methods, new )
 importFrom( utils, str )
 
-exportClasses( "protobufDescriptor", "protobufMessage", 
+exportClasses(
+
+	# descriptors
+	"protobufDescriptor",  
 	"protobufFieldDescriptor", "protobufEnumDescriptor", 
 	"protobufServiceDescriptor", "protobufMethodDescriptor", 
-	"RpcChannel" )
+	"protobufFileDescriptor", 
+	
+	# message
+	"protobufMessage"
+	
+	) 
+	
+	
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update", 
 	"has", "clone", "merge", "read", "bytesize",
@@ -19,9 +29,11 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"clear", "size", "size<-", "swap", 
 	"descriptor", "set", "fetch", "toString", 
 	"identical", "==", "!=", "all.equal", "add", 
+	"fileDescriptor", 
 	
 	# rpc
-	"invokeLocally", "invoke")
+	"invokeLocally"
+	)
 
 export( "P", "throw", "readProtoFiles" )
 
@@ -39,9 +51,4 @@ S3method( as.list, protobufEnumDescriptor )
 
 importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )
-
-# rpc stuff
-
-# this might change name
-export( channel )
 

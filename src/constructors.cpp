@@ -219,7 +219,20 @@ SEXP new_RS4_MethodDescriptor( const MethodDescriptor * md ){
 	return oo; 
 }
 
-
+SEXP new_RS4_FileDescriptor( const FileDescriptor * fd ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufFileDescriptor")) );
+  	if (!Rf_inherits(oo, "protobufFileDescriptor"))
+  		throwException( "unable to create 'protobufFileDescriptor' S4 object", "CannotCreateObjectException" );
+  	
+  	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
+		R_NilValue, R_NilValue));
+  	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+  	UNPROTECT(2) ; /* oo, ptr */
+	
+	return oo; 
+}
 
 } // namespace rprotobuf
 

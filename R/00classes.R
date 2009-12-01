@@ -34,6 +34,10 @@ setClass( "protobufMethodDescriptor", representation(
 	service = "character"      # full name of the service that defines this method
 ), prototype = list( pointer = NULL, name = character(0), service = character(0) ) )
 
+setClass( "protobufFileDescriptor", representation( 
+	pointer = "externalptr"  # pointer to a google::protobuf::FileDescriptor c++ object
+), prototype = list( pointer = NULL ) )
+
 # actual objects
 
 setClass( "protobufMessage",  representation( 
@@ -43,11 +47,11 @@ setClass( "protobufMessage",  representation(
 
 # rpc 
 
-setClass( "RpcChannel", representation(
-	pointer = "externalptr", 
-	host    = "character", 
-	port    = "integer"
-), prototype = list( pointer = NULL, host = character(0), port = integer(0) ) )
+# setClass( "RpcChannel", representation(
+# 	pointer = "externalptr", 
+# 	host    = "character", 
+# 	port    = "integer"
+# ), prototype = list( pointer = NULL, host = character(0), port = integer(0) ) )
 
 # }}}
 
@@ -118,11 +122,14 @@ setMethod("$", "protobufMessage", function(x, name) {
 		"str" = function() str(x), 
 		"as.character" = function() as.character(x), 
 		"as.list" = function() as.list(x), 
-		"descriptor" = function() descriptor(x), 
 		"set" = function(...) set( x, ... ), 
 		"fetch" = function(...) fetch(x, ... ), 
 		"toString" = function(...) toString( x, ... ),
 		"add" = function(...) add( x, ...), 
+		
+		"descriptor" = function() descriptor(x), 
+		"fileDescriptor" = function() fileDescriptor(x ), 
+		
 		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
@@ -133,6 +140,7 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"new" = function( ... ) newProto( x, ... ) , 
 		"read" = function( input ) read( x, input ) ,
 		"toString" = function(...) toString(x, ...) ,
+		"fileDescriptor" = function() fileDescriptor(x ), 
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
@@ -164,7 +172,7 @@ setMethod("$<-", "protobufMessage", function(x, name, value) {
 # }}}
 
 # {{{ [[
-setMethod( "[[", "protobufMessage", function(x, i, j, ...){
+setMethod( "[[", "protobufMessage", function(x, i, j, ..., exact = TRUE){
 	
 	if( missing( i ) ){
 		stop( "`i` is required" )
@@ -184,7 +192,7 @@ setMethod( "[[", "protobufMessage", function(x, i, j, ...){
 
 # {{{ [[<-
 setReplaceMethod( "[[", "protobufMessage", 
-function(x, i, j, ..., value ){
+function(x, i, j, ..., exact = TRUE, value ){
 
 	# TODO: we might want to relax this later, i.e 
 	# allow to mutate repeated fields like this: 
