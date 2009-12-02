@@ -220,6 +220,21 @@ setMethod( "[[", "protobufMessage", function(x, i, j, ..., exact = TRUE){
 	}
 	
 } )
+
+setMethod("[[", "protobufServiceDescriptor", function(x, i, j, ..., exact = TRUE){
+	if( missing( i ) ){
+		stop( "`i` is required" )
+	}
+	if( !missing(j) ){
+		warning( "`j` is ignored" )
+	}
+	if( is.character( i ) || is.numeric( i ) ){
+		.Call( "get_service_method", x@pointer, name, PACKAGE = "RProtoBuf" )
+	} else{
+		stop( "wrong type, `i` should be a character or a number" )
+	}
+} )
+
 # }}}
 
 # {{{ [[<-

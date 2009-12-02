@@ -91,6 +91,7 @@ RcppExport SEXP getMessageFieldNames( SEXP) ;
 RcppExport SEXP getDescriptorMemberNames( SEXP) ;
 RcppExport SEXP getFileDescriptorMemberNames( SEXP) ;
 RcppExport SEXP getEnumDescriptorConstantNames( SEXP ) ;
+RcppExport SEXP getServiceDescriptorMethodNames( SEXP ) ;
 
 /* in exceptions.cpp */
 RcppExport SEXP throwException( const char*, const char*) ;
@@ -123,6 +124,7 @@ RcppExport SEXP as_list_message( SEXP ) ;
 RcppExport SEXP as_list_descriptor( SEXP ); 
 RcppExport SEXP as_list_enum_descriptor( SEXP );
 RcppExport SEXP as_list_file_descriptor( SEXP ) ;
+RcppExport SEXP as_list_service_descriptor( SEXP ); 
 
 /* in ascharacter.cpp */
 RcppExport SEXP as_character_message( SEXP );

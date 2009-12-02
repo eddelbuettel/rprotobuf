@@ -10,4 +10,7 @@ as.list.protobufEnumDescriptor <- function( x, ...){
 as.list.protobufFileDescriptor <- function( x, ...){
 	.Call( "as_list_file_descriptor", x@pointer, PACKAGE = "RProtoBuf" )
 }
+as.list.protobufServiceDescriptor <- function( x, ...){
+	.Call( "as_list_service_descriptor", x@pointer, PACKAGE = "RProtoBuf" )
+}
 

@@ -139,5 +139,35 @@ SEXP getEnumDescriptorConstantNames( SEXP xp){
 	
 }
 
+
+/**
+ * returns the names of the methods contained in the 
+ * service descriptor
+ *
+ * @param xp (ServiceDescriptor*) external pointer
+ *
+ * @return method names, as an R character vector (STRSXP)
+ */
+SEXP getServiceDescriptorMethodNames( SEXP xp ){
+	
+	/* the message descriptor */
+	ServiceDescriptor* desc = (ServiceDescriptor*)EXTPTR_PTR(xp) ;
+	
+	int nmeths  = desc->method_count() ;
+
+	SEXP res = PROTECT( Rf_allocVector(STRSXP, nmeths ) ) ;
+	int i=0;
+	int j=0; 
+	while( i<nmeths){
+		SET_STRING_ELT( res, j, Rf_mkChar( desc->method(i)->name().c_str() ) ) ;
+		i++; 
+		j++;
+	}
+	
+	UNPROTECT(1); /* res */
+	return( res );
+}
+
+
 } // namespace rprotobuf
 

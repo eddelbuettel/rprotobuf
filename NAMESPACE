@@ -54,6 +54,7 @@ S3method( as.list, protobufMessage )
 S3method( as.list, protobufDescriptor )
 S3method( as.list, protobufEnumDescriptor )
 S3method( as.list, protobufFileDescriptor )
+S3method( as.list, protobufServiceDescriptor )
 
 importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )

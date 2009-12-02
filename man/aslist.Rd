@@ -3,6 +3,7 @@
 \alias{as.list.protobufDescriptor}
 \alias{as.list.protobufEnumDescriptor}
 \alias{as.list.protobufFileDescriptor}
+\alias{as.list.protobufServiceDescriptor}
 \title{
 Grab the protocol buffer message as an R list
 }
@@ -15,6 +16,7 @@ an R list, with one item per field.
 \S3method{as.list}{protobufDescriptor}(x, ...)
 \S3method{as.list}{protobufEnumDescriptor}(x, ...)
 \S3method{as.list}{protobufFileDescriptor}(x, ...)
+\S3method{as.list}{protobufServiceDescriptor}(x, ...)
 }
 \arguments{
 	\item{x}{A protocol buffer message, instance of \linkS4class{protobufMessage}, 
@@ -25,10 +27,17 @@ an R list, with one item per field.
 For messages, a list of the content of the fields is 
 returned.
 
-For descriptors, a list containing 
+For message type descriptors, a list containing 
 nested type descriptors (\linkS4class{protobufDescriptor} objects), 
 enum type descriptors (\linkS4class{protobufEnumDescriptor} objects), 
 or field descriptors (\linkS4class{protobufFieldDescriptor} objects)
+
+For enum descriptors, ...
+
+For file descriptors, ...
+
+For service descriptors, ...
+
 }
 \author{
 Romain Francois <francoisromain@free.fr>

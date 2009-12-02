@@ -143,5 +143,36 @@ Rprintf( "</as_list_file_descriptor>\n" ) ;
 	return res; 
 }
 
+/**
+ * @param xp (ServiceDescriptor*) external pointer
+ * @return the descriptor as an R list
+ */
+SEXP as_list_service_descriptor( SEXP xp){
+	
+#ifdef RPB_DEBUG
+Rprintf( "<as_list_service_descriptor>\n" ) ;
+#endif
+	
+	ServiceDescriptor* desc = (ServiceDescriptor*) EXTPTR_PTR(xp) ;
+	
+	SEXP names = PROTECT( getServiceDescriptorMethodNames(xp) ) ; 
+	int n = LENGTH(names) ;
+	
+	SEXP res = PROTECT( Rf_allocVector( VECSXP, n ) ); 
+	int i=0;
+	for( i=0; i<n; i++){
+		SET_VECTOR_ELT( res, i, new_RS4_MethodDescriptor( desc->method(i) ) ); 
+	}
+	Rf_setAttrib( res, Rf_install("names"), names) ;
+	UNPROTECT(2); /* res, names */
+	
+#ifdef RPB_DEBUG
+Rprintf( "</as_list_service_descriptor>\n" ) ;
+#endif
+	return res; 
+}
+
+
+
 } // namespace rprotobuf
 
