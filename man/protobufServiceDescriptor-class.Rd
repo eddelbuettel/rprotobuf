@@ -4,6 +4,7 @@
 \alias{protobufServiceDescriptor-class}
 \alias{as.character,protobufServiceDescriptor-method}
 \alias{toString,protobufServiceDescriptor-method}
+\alias{show,protobufServiceDescriptor-method}
 
 \title{Class "protobufServiceDescriptor"}
 \description{R representation of Service Descriptors}
@@ -20,6 +21,7 @@ TODO
   \describe{
     \item{as.character}{\code{signature(x = "protobufServiceDescriptor")}: debug string of the service }
     \item{toString}{\code{signature(x = "protobufServiceDescriptor")}: debug string of the service}
+    \item{show}{\code{signature(x = "protobufServiceDescriptor")}: ... }
 	 }
 }
 \author{ Romain Francois <francoisromain@free.fr> }

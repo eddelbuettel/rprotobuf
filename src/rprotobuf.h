@@ -197,6 +197,9 @@ RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
 RcppExport SEXP get_message_file_descriptor( SEXP) ;
 RcppExport SEXP get_descriptor_file_descriptor(SEXP) ;
 
+/* in name.cpp */
+RcppExport SEXP name_descriptor( SEXP, SEXP ) ;
+RcppExport SEXP name_field_descriptor( SEXP, SEXP ) ;
 
 } // namespace rprotobuf
 

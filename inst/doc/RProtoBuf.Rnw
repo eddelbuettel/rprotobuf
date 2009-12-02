@@ -892,6 +892,23 @@ m <- read( tutorial.Person.PhoneNumber, tf )
 writeLines( as.character( m ) )
 @
 
+\subsubsection{The toString method}
+
+\subsubsection{The as.character method}
+
+\subsubsection{The fileDescriptor method}
+
+\subsubsection{The name method}
+
+The \texttt{name} method can be used to retrieve the name of the 
+message type associated with the descriptor. 
+
+<<>>=
+# simple name
+tutorial.Person$name()
+# name including scope
+tutorial.Person$name(full = TRUE)
+@
 
 \subsection{field descriptors}
 \label{subsec-field-descriptor}
@@ -925,6 +942,19 @@ The \texttt{as.character} method brings the debug string of the field descriptor
 <<>>=
 writeLines( as.character( tutorial.Person$PhoneNumber ) )
 @
+
+\subsubsection{toString}
+
+\texttt{toString} is an alias of \texttt{as.character}.
+
+<<>>=
+writeLines( tutorial.Person.PhoneNumber$toString() )
+@
+
+\subsubsection{name}
+
+TODO
+
 
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}

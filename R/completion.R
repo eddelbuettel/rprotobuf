@@ -29,7 +29,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	
 	names <- c( 
 		.Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"new(", "read(", "fileDescriptor()" )
+		"new(", "read(", "fileDescriptor()", "name(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
@@ -45,7 +45,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 
 # {{{ protobufFieldDescriptor
 .DollarNames.protobufFieldDescriptor <- function(x, pattern = "" ){
-	names <- c("as.character()")
+	names <- c("as.character()", "toString()", "name(")
 	grep( pattern, names, value = TRUE )
 }
 # }}}

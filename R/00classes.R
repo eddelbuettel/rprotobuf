@@ -146,7 +146,9 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"new" = function( ... ) newProto( x, ... ) , 
 		"read" = function( input ) read( x, input ) ,
 		"toString" = function(...) toString(x, ...) ,
+		"as.character" = function(...) as.character(x, ...) ,
 		"fileDescriptor" = function() fileDescriptor(x ), 
+		"name" = function(...) name(x, ... ), 
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
@@ -269,5 +271,19 @@ txt <- sprintf( '	Formal class \'protobufMessage\' [package "RProtoBuf"] with 2 
 ', object@type )
 writeLines( txt )
 } )
+# }}}
+
+# {{{ name
+setGeneric( "name", function(object, full = FALSE){
+	standardGeneric( "name" )
+})
+setMethod( "name", c( object = "protobufDescriptor" ) , 
+function(object, full = FALSE){
+	.Call( "name_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
+}) 
+setMethod( "name", c( object = "protobufFieldDescriptor" ) , 
+function(object, full = FALSE){
+	.Call( "name_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
+}) 
 # }}}
 
