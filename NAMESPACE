@@ -35,7 +35,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"invokeLocally"
 	)
 
-export( "P", "throw", "readProtoFiles" )
+export( "P", "readProtoFiles" )
 
 if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
 S3method(.DollarNames, protobufMessage )

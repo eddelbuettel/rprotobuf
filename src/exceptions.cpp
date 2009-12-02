@@ -16,12 +16,11 @@ SEXP throwException( const char* message, const char* subclass ){
 	SEXP call = PROTECT( Rf_lang3( Rf_install("throw"), m, s) ) ;
 	UNPROTECT( 2) ; /* m, s */
 	
-	/* FIXME: not sure R_GlobalEnv is right. This is similar to what rJava does */
-	Rf_eval( call, R_GlobalEnv ) ; 
+	Rf_eval( call, R_FindNamespace(Rf_mkString("RProtoBuf")) ) ; 
 	
 	/* but this is never actually called since the call eventually calls stop */
 	UNPROTECT(1); 
-	return( R_NilValue ); 
+	return( R_NilValue ); /* Wall */
 }
 
 } // namespace rprotobuf
