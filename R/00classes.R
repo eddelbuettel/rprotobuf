@@ -127,7 +127,8 @@ setMethod("$", "protobufMessage", function(x, name) {
 		"update" = function(...) update(x, ...),
 		"str" = function() str(x), 
 		"as.character" = function() as.character(x), 
-		"as.list" = function() as.list(x), 
+		"as.list" = function() as.list(x),
+		"asMessage" = function() asMessage(x), 
 		"set" = function(...) set( x, ... ), 
 		"fetch" = function(...) fetch(x, ... ), 
 		"toString" = function(...) toString( x, ... ),
@@ -147,8 +148,10 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"read" = function( input ) read( x, input ) ,
 		"toString" = function(...) toString(x, ...) ,
 		"as.character" = function(...) as.character(x, ...) ,
+		"as.list" = function(...) as.character(x, ...) ,
+		"asMessage" = function() asMessage(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
-		"name" = function(...) name(x, ... ), 
+		"name" = function(...) name(x, ... ),
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
@@ -158,6 +161,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x), 
 		"as.list"= function() as.list(x) , 
+		"asMessage" = function() asMessage(x), 
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
 		"fileDescriptor" = function() fileDescriptor(x ),
@@ -169,6 +173,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x),
+		"asMessage" = function() asMessage(x), 
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
 		"fileDescriptor" = function() fileDescriptor(x ),
@@ -180,6 +185,7 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 setMethod( "$", "protobufServiceDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x),
+		"asMessage" = function() asMessage(x), 
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
 		"fileDescriptor" = function() fileDescriptor(x ),
@@ -194,6 +200,8 @@ setMethod( "$", "protobufFileDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x),
 		"toString" = function(...) toString(x, ...) ,
+		"asMessage" = function() asMessage(x), 
+		"as.list" = function() as.list(x), 
 		
 		invisible(NULL)
 		)
@@ -333,6 +341,31 @@ function(object, full = FALSE){
 	filename <- .Call( "name_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
 	if( full ) filename else basename( filename )
 })
+# }}}
 
+
+# {{{ as
+setAs("protobufDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_Descriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
+setAs("protobufFieldDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_FieldDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
+setAs("protobufEnumDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_EnumDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
+setAs("protobufServiceDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_ServiceDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
+setAs("protobufMethodDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_MethodDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
+setAs("protobufFileDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_FileDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
+
+asMessage <- function( x, ... ){
+	as( x, "protobufMessage", ... )
+}
 # }}}
 

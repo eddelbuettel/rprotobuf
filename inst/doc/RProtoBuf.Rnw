@@ -803,7 +803,6 @@ message$fileDescriptor()
 fileDescriptor( message )
 @
 
-
 \subsection{message descriptors}
 \label{subsec-descriptor}
 
@@ -1002,7 +1001,38 @@ writeLines( as.character( tutorial.Person$PhoneType ) )
 
 TODO: add content
 
+\subsection{service descriptors}
+\label{subsec-ServiceDescriptor}
+
+TODO: add content
+
+\subsection{method descriptors}
+\label{subsec-MethodDescriptor}
+
+TODO: add content
+
+
 \section{Utilities}
+
+\subsection{coercing objects to messages}
+
+The \texttt{asMessage} function uses the standard coercion 
+mechanism of the \texttt{as} method, and so can be used as a shorthand :
+
+<<>>=
+# coerce a message type descriptor to a message
+asMessage( tutorial.Person )
+
+# coerce a enum descriptor
+asMessage( tutorial.Person.PhoneType )
+
+# coerce a field descriptor
+asMessage( tutorial.Person$email )
+
+# coerce a file descriptor 
+asMessage( fileDescriptor( tutorial.Person ) )
+
+@
 
 \subsection{completion}
 

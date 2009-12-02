@@ -13,6 +13,7 @@
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/service.h>
+#include <google/protobuf/descriptor.pb.h>
 
 #define R_NO_REMAP
 
@@ -210,6 +211,14 @@ RcppExport SEXP name_enum_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_service_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_method_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_file_descriptor( SEXP ) ;
+
+/* in as.cpp */
+RcppExport SEXP asMessage_Descriptor( SEXP ) ;
+RcppExport SEXP asMessage_FieldDescriptor( SEXP );
+RcppExport SEXP asMessage_EnumDescriptor( SEXP) ;
+RcppExport SEXP asMessage_ServiceDescriptor( SEXP ) ;         
+RcppExport SEXP asMessage_MethodDescriptor( SEXP ) ;
+RcppExport SEXP asMessage_FileDescriptor( SEXP ) ;
 
 } // namespace rprotobuf
 
