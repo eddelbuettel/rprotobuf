@@ -2,52 +2,45 @@
 
 namespace rprotobuf{
 
-	/** 
-	 * Retrieves the name, or the full name of a message descriptor
-	 *
-	 * @param xp (Descriptor*) external pointer
-	 * @param full if TRUE the full name is returned, including the scope
-	 */
-	SEXP name_descriptor( SEXP xp, SEXP full ){
-#ifdef RPB_DEBUG
-Rprintf( "<name_descriptor>\n" ) ;
-#endif
-	
+SEXP name_descriptor( SEXP xp, SEXP full ){
 	Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
 	SEXP res = PROTECT( Rf_mkString( 
 		LOGICAL(full)[0] ? d->full_name().c_str() : d->name().c_str() ) );
 	UNPROTECT(1); /* res */
-	
-#ifdef RPB_DEBUG
-Rprintf( "</name_descriptor>\n" ) ;
-#endif
-	
 	return res ;
 }
 
-	/** 
-	 * Retrieves the name, or the full name of a field descriptor
-	 *
-	 * @param xp (FieldDescriptor*) external pointer
-	 * @param full if TRUE the full name is returned, including the scope
-	 */
-	SEXP name_field_descriptor( SEXP xp, SEXP full ){
-#ifdef RPB_DEBUG
-Rprintf( "<name_field_descriptor>\n" ) ;
-#endif
-	
+SEXP name_field_descriptor( SEXP xp, SEXP full ){
 	FieldDescriptor* d = (FieldDescriptor*)EXTPTR_PTR(xp) ;
 	SEXP res = PROTECT( Rf_mkString( 
 		LOGICAL(full)[0] ? d->full_name().c_str() : d->name().c_str() ) );
 	UNPROTECT(1); /* res */
-	
-#ifdef RPB_DEBUG
-Rprintf( "</name_field_descriptor>\n" ) ;
-#endif
-	
 	return res ;
 }
 
+SEXP name_enum_descriptor( SEXP xp, SEXP full ){
+	EnumDescriptor* d = (EnumDescriptor*)EXTPTR_PTR(xp) ;
+	SEXP res = PROTECT( Rf_mkString( 
+		LOGICAL(full)[0] ? d->full_name().c_str() : d->name().c_str() ) );
+	UNPROTECT(1); /* res */
+	return res ;
+}
+
+SEXP name_service_descriptor( SEXP xp, SEXP full ){
+	ServiceDescriptor* d = (ServiceDescriptor*)EXTPTR_PTR(xp) ;
+	SEXP res = PROTECT( Rf_mkString( 
+		LOGICAL(full)[0] ? d->full_name().c_str() : d->name().c_str() ) );
+	UNPROTECT(1); /* res */
+	return res ;
+}
+
+SEXP name_method_descriptor( SEXP xp, SEXP full ){
+	MethodDescriptor* d = (MethodDescriptor*)EXTPTR_PTR(xp) ;
+	SEXP res = PROTECT( Rf_mkString( 
+		LOGICAL(full)[0] ? d->full_name().c_str() : d->name().c_str() ) );
+	UNPROTECT(1); /* res */
+	return res ;
+}
 
 
 } // namespace rprotobuf

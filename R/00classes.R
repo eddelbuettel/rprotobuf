@@ -284,6 +284,19 @@ function(object, full = FALSE){
 setMethod( "name", c( object = "protobufFieldDescriptor" ) , 
 function(object, full = FALSE){
 	.Call( "name_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
-}) 
+})
+setMethod( "name", c( object = "protobufEnumDescriptor" ) , 
+function(object, full = FALSE){
+	.Call( "name_enum_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
+})
+setMethod( "name", c( object = "protobufServiceDescriptor" ) , 
+function(object, full = FALSE){
+	.Call( "name_service_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
+})
+setMethod( "name", c( object = "protobufMethodDescriptor" ) , 
+function(object, full = FALSE){
+	.Call( "name_method_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
+})
+
 # }}}
 
