@@ -84,7 +84,7 @@ RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const Fi
 RcppExport SEXP get_message_descriptor( SEXP );
 RcppExport int MESSAGE_GET_REPEATED_INT( Message*, FieldDescriptor*, int) ;
 RcppExport double MESSAGE_GET_REPEATED_DOUBLE( Message*, FieldDescriptor*, int) ;
-
+RcppExport SEXP get_service_method( SEXP, SEXP) ; 
 
 /* in completion.cpp */
 RcppExport SEXP getMessageFieldNames( SEXP) ;

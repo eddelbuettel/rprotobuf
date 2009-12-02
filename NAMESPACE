@@ -43,6 +43,9 @@ S3method(.DollarNames, protobufDescriptor )
 S3method(.DollarNames, protobufEnumDescriptor )
 S3method(.DollarNames, protobufFileDescriptor )
 S3method(.DollarNames, protobufFieldDescriptor )
+S3method(.DollarNames, protobufServiceDescriptor )
+S3method(.DollarNames, protobufMethodDescriptor )
+
 
 S3method( with, protobufMessage )
 S3method( within, protobufMessage)

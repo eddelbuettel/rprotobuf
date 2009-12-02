@@ -51,6 +51,10 @@ setMethod( "$", "protobufMethodDescriptor", function(x, name ){
 		"implementation" = if( x@name %in% names(IMPLEMENTATIONS) ){
 			get( x@name, IMPLEMENTATIONS )
 		}, 
+		"name" = function(...) name(x, ...), 
+		"toString"  = function() toString(x) , 
+		"as.character" = function() as.character(x), 
+		
 		invisible( NULL)
 	)
 } )

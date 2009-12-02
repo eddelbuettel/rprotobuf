@@ -38,7 +38,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.protobufEnumDescriptor <- function(x, pattern = "" ){
 	
 	names <- c( 
-		.Call( "getEnumDescriptorConstantNames", x@pointer, PACKAGE = "RProtoBuf" ) )
+		.Call( "getEnumDescriptorConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		"name(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
@@ -50,11 +51,26 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
+# {{{ protobufServiceDescriptor
+.DollarNames.protobufServiceDescriptor <- function(x, pattern = "" ){
+	names <- c("as.character()", "toString()", "name(")
+	grep( pattern, names, value = TRUE )
+}
+# }}}
+
+# {{{ protobufMethodDescriptor
+.DollarNames.protobufMethodDescriptor <- function(x, pattern = "" ){
+	names <- c("as.character()", "toString()", "name(")
+	grep( pattern, names, value = TRUE )
+}
+# }}}
+
+
 # {{{ protobufFileDescriptor
 .DollarNames.protobufFileDescriptor <- function(x, pattern = "" ){
 	names <- c(
 		.Call( "getFileDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"as.character()", "toString()" )
+		"as.character()", "toString()", "name(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

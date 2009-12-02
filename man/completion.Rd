@@ -4,6 +4,8 @@
 \alias{.DollarNames.protobufEnumDescriptor}
 \alias{.DollarNames.protobufFieldDescriptor}
 \alias{.DollarNames.protobufFileDescriptor}
+\alias{.DollarNames.protobufServiceDescriptor}
+\alias{.DollarNames.protobufMethodDescriptor}
 \title{
 Completion support for protocol buffer messages and descriptors
 }
@@ -17,6 +19,8 @@ messages and descriptors.
 \S3method{.DollarNames}{protobufEnumDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{protobufFieldDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{protobufFileDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{protobufServiceDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{protobufMethodDescriptor}(x, pattern = "")
 }
 \arguments{
 \item{x}{message (\linkS4class{protobufMessage}) or descriptor (\linkS4class{protobufDescriptor}) }

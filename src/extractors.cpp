@@ -299,5 +299,60 @@ SEXP get_message_descriptor( SEXP xp){
 }
 
 
+
+/**
+ * extract a method descriptor from a service descriptor using its
+ * name or position
+ *
+ * @param pointer (ServiceDescriptor*) external pointer
+ * @param name name or position of the method
+ */
+SEXP get_service_method( SEXP pointer, SEXP name ){
+
+	/* grab the Message pointer */
+	ServiceDescriptor* desc = (ServiceDescriptor*)EXTPTR_PTR(pointer) ;
+
+	MethodDescriptor* method_desc = (MethodDescriptor*)0;
+	
+	switch( TYPEOF( name) ){
+	case STRSXP:
+		{
+			/* what we are looking for */
+			const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
+			
+			/* the method descriptor */
+			method_desc = (MethodDescriptor*)desc->FindMethodByName( what ) ;
+			
+			break ;
+		}
+	case REALSXP:
+		{
+			
+			/* the method descriptor */
+			method_desc = (MethodDescriptor*)desc->method( (int)REAL(name)[0] ) ;
+			
+			break ;
+		}
+	case INTSXP: 
+		{
+			/* the method descriptor */
+			method_desc = (MethodDescriptor*)desc->method( INTEGER(name)[0] ) ;
+			
+			break ;
+		}
+	}
+	
+	if( !method_desc ){
+		throwException( "could not get MethodDescriptor", "NoSuchMethodException" ) ;
+	}
+	
+	return new_RS4_MethodDescriptor( method_desc ); 
+	
+}
+
+
+
+
+
 } // namespace rprotobuf
 
