@@ -160,6 +160,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 		"as.list"= function() as.list(x) , 
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
+		"fileDescriptor" = function() fileDescriptor(x ),
 		
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
@@ -170,6 +171,7 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		"as.character" = function() as.character(x),
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
+		"fileDescriptor" = function() fileDescriptor(x ),
 		
 		invisible(NULL)
 		)
@@ -180,6 +182,7 @@ setMethod( "$", "protobufServiceDescriptor", function(x, name ){
 		"as.character" = function() as.character(x),
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
+		"fileDescriptor" = function() fileDescriptor(x ),
 		
 		.Call( "get_service_method", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)

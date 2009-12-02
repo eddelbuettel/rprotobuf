@@ -198,6 +198,10 @@ RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
 /* in fileDescriptor.cpp */
 RcppExport SEXP get_message_file_descriptor( SEXP) ;
 RcppExport SEXP get_descriptor_file_descriptor(SEXP) ;
+RcppExport SEXP get_enum_file_descriptor(SEXP) ;
+RcppExport SEXP get_field_file_descriptor(SEXP) ;
+RcppExport SEXP get_service_file_descriptor(SEXP) ;
+RcppExport SEXP get_method_file_descriptor(SEXP) ;
 
 /* in name.cpp */
 RcppExport SEXP name_descriptor( SEXP, SEXP ) ;
