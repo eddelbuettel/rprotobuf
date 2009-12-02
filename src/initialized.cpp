@@ -16,6 +16,11 @@ Rprintf( "<is_message_initialized>\n" ) ;
 	Message* message = GET_MESSAGE_POINTER_FROM_XP(xp) ;
 	
 	SEXP ans = PROTECT( Rf_ScalarLogical( (int) message->IsInitialized() ) );
+	if( !LOGICAL(ans)[0] ){
+		/* then find out why */
+		Rf_setAttrib( ans, Rf_install("uninitialized") , 
+			Rf_mkString( message->InitializationErrorString().c_str() ) )  ;
+	}
 	UNPROTECT(1) ; /* ans */
 	
 #ifdef RPB_DEBUG
