@@ -328,6 +328,11 @@ setMethod( "name", c( object = "protobufMethodDescriptor" ) ,
 function(object, full = FALSE){
 	.Call( "name_method_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
+setMethod( "name", c( object = "protobufFileDescriptor" ) , 
+function(object, full = FALSE){
+	filename <- .Call( "name_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	if( full ) filename else basename( filename )
+})
 
 # }}}
 

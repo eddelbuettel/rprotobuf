@@ -42,6 +42,12 @@ SEXP name_method_descriptor( SEXP xp, SEXP full ){
 	return res ;
 }
 
+SEXP name_file_descriptor( SEXP xp ){
+	FileDescriptor* d = (FileDescriptor*)EXTPTR_PTR(xp) ;
+	SEXP res = PROTECT( Rf_mkString( d->name().c_str() ) );
+	UNPROTECT(1); /* res */
+	return res ;
+}
 
 } // namespace rprotobuf
 

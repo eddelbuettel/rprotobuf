@@ -209,6 +209,7 @@ RcppExport SEXP name_field_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_enum_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_service_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_method_descriptor( SEXP, SEXP ) ;
+RcppExport SEXP name_file_descriptor( SEXP ) ;
 
 } // namespace rprotobuf
 

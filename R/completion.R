@@ -67,7 +67,6 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
-
 # {{{ protobufFileDescriptor
 .DollarNames.protobufFileDescriptor <- function(x, pattern = "" ){
 	names <- c(
