@@ -10,6 +10,7 @@
 \alias{toString,protobufDescriptor-method}
 \alias{containing_type,protobufDescriptor-method}
 \alias{field_count,protobufDescriptor-method}
+\alias{nested_type_count,protobufDescriptor-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -45,6 +46,7 @@ C++ class \code{Descriptor}}
     simple information}
     \item{containing_type}{\code{signature(object = "protobufDescriptor")} : returns a descriptor of the message type that contains this message descriptor, or \code{NULL} if this is a top-level message type.}
 	\item{field_count}{\code{signature(object = "protobufDescriptor")} : The number of fields of this message type. }
+	\item{nested_type_count}{\code{signature(object = "protobufDescriptor")} : The number of nested types of this message type. }
   }
 }
 \references{ The \code{Descriptor} c++ class }

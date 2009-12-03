@@ -137,7 +137,6 @@ setMethod("$", "protobufMessage", function(x, name) {
 		"descriptor" = function() descriptor(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
 		
-		
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
@@ -152,8 +151,10 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"asMessage" = function() asMessage(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
 		"name" = function(...) name(x, ... ),
+		
 		"containing_type" = function() containing_type(x),
-		"field_count" = function() field_count(), 
+		"field_count" = function() field_count(x), 
+		"nested_type_count" = function() nested_type_count(x),
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )

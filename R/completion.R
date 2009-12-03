@@ -30,7 +30,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	names <- c( 
 		.Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"new(", "read(", "fileDescriptor()", "name(", "fileDescriptor()", 
-		"containing_type()", "field_count()" )
+		"containing_type()", "field_count()", "nested_type_count()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

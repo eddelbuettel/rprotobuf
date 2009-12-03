@@ -7,5 +7,10 @@ namespace rprotobuf {
 		return Rf_ScalarInteger( d->field_count() ) ; 
 	}
 
+	SEXP nested_type_count__Descriptor( SEXP xp ){
+		Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
+		return Rf_ScalarInteger( d->field_count() ) ; 
+	}
+
 } // namespace rprotobuf
 

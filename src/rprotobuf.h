@@ -228,7 +228,8 @@ RcppExport SEXP containing_type__ServiceDescriptor( SEXP );
 RcppExport SEXP containing_type__MethodDescriptor( SEXP ); 
 
 /* in field_count.cpp */
-RcppExport SEXP field_count__Descriptor( SEXP ); 
+RcppExport SEXP field_count__Descriptor( SEXP );
+RcppExport SEXP nested_type_count__Descriptor( SEXP );
 
 } // namespace rprotobuf
 
