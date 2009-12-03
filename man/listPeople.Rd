@@ -35,7 +35,7 @@
   This function is a first attempt of importing binary data from
   ProtoBuf files into R.
 }
-\author{Dirk Eddelbuettel for the R package; Google for Protocal Buffers.}
+\author{Romain Francois and Dirk Eddelbuettel for the R package; Google for Protocal Buffers.}
 \examples{
   print(listPeopleAsList())
   print(listPeopleAsDataFrame())
