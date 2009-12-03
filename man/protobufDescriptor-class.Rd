@@ -8,6 +8,7 @@
 \alias{new,protobufDescriptor-method}
 \alias{show,protobufDescriptor-method}
 \alias{toString,protobufDescriptor-method}
+\alias{containing_type,protobufDescriptor-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -41,6 +42,7 @@ C++ class \code{Descriptor}}
     descriptor}
     \item{show}{\code{signature(object = "protobufDescriptor")}: 
     simple information}
+    \item{containing_type}{\code{signature(object = "protobufDescriptor")} : returns a descriptor of the message type that contains this message descriptor, or \code{NULL} if this is a top-level message type.}
 	 }
 }
 \references{ The \code{Descriptor} c++ class }

@@ -152,6 +152,7 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"asMessage" = function() asMessage(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
 		"name" = function(...) name(x, ... ),
+		"containing_type" = function() containing_type(x), 
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
@@ -165,6 +166,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
 		"fileDescriptor" = function() fileDescriptor(x ),
+		"containing_type" = function() containing_type(x), 
 		
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
@@ -177,6 +179,7 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
 		"fileDescriptor" = function() fileDescriptor(x ),
+		"containing_type" = function() containing_type(x), 
 		
 		invisible(NULL)
 		)
@@ -342,7 +345,6 @@ function(object, full = FALSE){
 	if( full ) filename else basename( filename )
 })
 # }}}
-
 
 # {{{ as
 setAs("protobufDescriptor", "protobufMessage", function(from){

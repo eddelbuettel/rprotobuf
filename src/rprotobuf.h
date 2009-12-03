@@ -220,6 +220,13 @@ RcppExport SEXP asMessage_ServiceDescriptor( SEXP ) ;
 RcppExport SEXP asMessage_MethodDescriptor( SEXP ) ;
 RcppExport SEXP asMessage_FileDescriptor( SEXP ) ;
 
+/* in containing_type.cpp */
+RcppExport SEXP containing_type__Descriptor( SEXP ); 
+RcppExport SEXP containing_type__EnumDescriptor( SEXP ); 
+RcppExport SEXP containing_type__FieldDescriptor( SEXP ); 
+RcppExport SEXP containing_type__ServiceDescriptor( SEXP ); 
+RcppExport SEXP containing_type__MethodDescriptor( SEXP ); 
+
 } // namespace rprotobuf
 
 
