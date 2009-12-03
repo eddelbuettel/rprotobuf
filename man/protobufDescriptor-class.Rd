@@ -13,6 +13,7 @@
 \alias{nested_type_count,protobufDescriptor-method}
 \alias{enum_type_count,protobufDescriptor-method}
 \alias{field,protobufDescriptor-method}
+\alias{nested_type,protobufDescriptor-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -58,11 +59,20 @@ C++ class \code{Descriptor}}
 		the tag number, with the \code{FindFieldByNumber} C++ method. 
 		If \code{name} is used, the field descriptor is retrieved by name
 		using the \code{FindFieldByName}
-		
+	}
+	\item{nested_type}{\code{signature(object = "protobufDescriptor")} : 
+			extracts a message type descriptor that is nested
+			in this descriptor. 
+			Exactly one argument of \code{index} of \code{name} has to be used. 
+			If \code{index} is used, the nested type will be retrieved
+			using its position with the \code{nested_type} method
+			of the \code{google::protobuf::Descriptor} C++ class. 
+			If \code{name} is used, the nested type will be retrieved
+			using its name, with the \code{FindNestedTypeByName} C++ method
 	}
   }
 }
-\references{ The \code{Descriptor} c++ class }
+\references{ The \code{Descriptor} c++ class. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#Descriptor} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{
 	the \code{\link{P}} function creates "protobufDescriptor" messages. 

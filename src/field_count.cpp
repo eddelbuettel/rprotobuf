@@ -41,5 +41,23 @@ namespace rprotobuf {
 		return new_RS4_FieldDescriptor( field_desc ) ;
 	}
 	
+	SEXP Descriptor_getNestedTypeByIndex( SEXP xp, SEXP index ){
+		Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
+		int i = INTEGER(index)[0] ;
+		const Descriptor* nested_desc = d->nested_type( i ) ;
+		if( !nested_desc ) return R_NilValue ;
+		return new_RS4_Descriptor( nested_desc ) ;
+	}
+	
+	SEXP Descriptor_getNestedTypeByName( SEXP xp, SEXP name ){
+		Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
+		std::string nam = CHAR( STRING_ELT(name, 0) ) ;
+		const Descriptor* nested_desc = d->FindNestedTypeByName( nam ) ;
+		if( !nested_desc ) return R_NilValue ;
+		return new_RS4_Descriptor( nested_desc ) ;
+	}
+	
+	
+	
 } // namespace rprotobuf
 
