@@ -152,7 +152,8 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"asMessage" = function() asMessage(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
 		"name" = function(...) name(x, ... ),
-		"containing_type" = function() containing_type(x), 
+		"containing_type" = function() containing_type(x),
+		"field_count" = function() field_count(), 
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )

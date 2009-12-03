@@ -29,7 +29,9 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"clear", "size", "size<-", "swap",
 	"descriptor", "set", "fetch", "toString",
 	"identical", "==", "!=", "all.equal", "add",
-	"fileDescriptor", "name", "containing_type",
+	"fileDescriptor", "name", 
+	
+	"containing_type", "field_count", 
 
 	# rpc
 	"invokeLocally"
