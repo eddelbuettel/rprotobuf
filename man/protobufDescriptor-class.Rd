@@ -11,6 +11,8 @@
 \alias{containing_type,protobufDescriptor-method}
 \alias{field_count,protobufDescriptor-method}
 \alias{nested_type_count,protobufDescriptor-method}
+\alias{enum_type_count,protobufDescriptor-method}
+\alias{field,protobufDescriptor-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -47,6 +49,17 @@ C++ class \code{Descriptor}}
     \item{containing_type}{\code{signature(object = "protobufDescriptor")} : returns a descriptor of the message type that contains this message descriptor, or \code{NULL} if this is a top-level message type.}
 	\item{field_count}{\code{signature(object = "protobufDescriptor")} : The number of fields of this message type. }
 	\item{nested_type_count}{\code{signature(object = "protobufDescriptor")} : The number of nested types of this message type. }
+	\item{enum_type_count}{\code{signature(object = "protobufDescriptor")} : The number of enum types of this message type. }
+	\item{field}{\code{signature(object = "protobufDescriptor")} : extract a field descriptor from a descriptor. 
+		Exactly one argument of \code{index}, \code{number} or \code{name} has to be used. 
+		If \code{index} is used, the field descriptor is retrieved by 
+		position, using the \code{field} method of the \code{google::protobuf::Descriptor} C++ class. 
+		If \code{number} is used, the field descriptor is retrieved using 
+		the tag number, with the \code{FindFieldByNumber} C++ method. 
+		If \code{name} is used, the field descriptor is retrieved by name
+		using the \code{FindFieldByName}
+		
+	}
   }
 }
 \references{ The \code{Descriptor} c++ class }

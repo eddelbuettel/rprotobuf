@@ -155,6 +155,8 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		"containing_type" = function() containing_type(x),
 		"field_count" = function() field_count(x), 
 		"nested_type_count" = function() nested_type_count(x),
+		"enum_type_count" = function() enum_type_count(x), 
+		"field" = function(...) field( x, ... ), 
 		
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
