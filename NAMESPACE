@@ -37,6 +37,9 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 
 	# FieldDescriptor
 	"is_extension", "number", "label", 
+	"is_required", "is_repeated", "is_optional", 
+	"has_default_value", "default_value", 
+	
 	
 	# rpc
 	"invokeLocally"

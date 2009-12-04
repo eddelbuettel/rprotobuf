@@ -23,6 +23,14 @@
 \alias{is_optional,protobufFieldDescriptor-method}
 \alias{is_repeated,protobufFieldDescriptor-method}
 
+\alias{has_default_value}
+\alias{has_default_value-methods}
+\alias{has_default_value,protobufFieldDescriptor-method}
+
+\alias{default_value}
+\alias{default_value-methods}
+\alias{default_value,protobufFieldDescriptor-method}
+
 \title{Class "protobufFieldDescriptor"}
 \description{R representation of message type field descriptor. 
 This is a thin wrapper around the C++ class \code{FieldDescriptor} }
@@ -55,6 +63,8 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
 	\item{is_required}{\code{signature(object = "protobufFieldDescriptor")} : is this field required.}
 	\item{is_optional}{\code{signature(object = "protobufFieldDescriptor")} : is this field optional.}
 	\item{is_repeated}{\code{signature(object = "protobufFieldDescriptor")} : is this field repeated.}
+	\item{has_default_value}{\code{signature(object = "protobufFieldDescriptor")} : indicates if this field has a default value.}
+	\item{default_value}{\code{signature(object = "protobufFieldDescriptor")} : the default value of this field.}
   	}
 }
 \references{ The \code{FieldDescriptor} C++ class }

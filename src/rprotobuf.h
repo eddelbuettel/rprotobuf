@@ -248,6 +248,9 @@ RcppExport SEXP FieldDescriptor_label(SEXP );
 RcppExport SEXP FieldDescriptor_is_repeated(SEXP);
 RcppExport SEXP FieldDescriptor_is_optional(SEXP);
 RcppExport SEXP FieldDescriptor_is_required(SEXP);
+RcppExport SEXP FieldDescriptor_is_has_default_value(SEXP);
+RcppExport SEXP FieldDescriptor_default_value(SEXP);
+
 
 } // namespace rprotobuf
 

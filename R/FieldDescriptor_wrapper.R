@@ -76,24 +76,39 @@ setMethod( "label", "protobufFieldDescriptor", function(object, as.string = FALS
 	if( as.string ) .LABELS[lab] else lab
 } )
 
-setGeneric( "is_repeated", function(object, as.string = FALSE ){
+setGeneric( "is_repeated", function(object ){
 	standardGeneric( "is_repeated" )
 } )
 setMethod( "is_repeated", "protobufFieldDescriptor", function(object){
 	.Call( "FieldDescriptor_is_repeated", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
-setGeneric( "is_optional", function(object, as.string = FALSE ){
+setGeneric( "is_optional", function(object){
 	standardGeneric( "is_optional" )
 } )
 setMethod( "is_optional", "protobufFieldDescriptor", function(object){
 	.Call( "FieldDescriptor_is_optional", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
-setGeneric( "is_required", function(object, as.string = FALSE ){
+setGeneric( "is_required", function(object ){
 	standardGeneric( "is_required" )
 } )
 setMethod( "is_required", "protobufFieldDescriptor", function(object){
 	.Call( "FieldDescriptor_is_required", object@pointer, PACKAGE = "RProtoBuf" )
 } )
+
+setGeneric( "has_default_value", function(object ){
+	standardGeneric( "has_default_value" )
+} )
+setMethod( "has_default_value", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_has_default_value", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
+setGeneric( "default_value", function(object ){
+	standardGeneric( "default_value" )
+} )
+setMethod( "default_value", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_default_value", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
 

@@ -196,7 +196,8 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		"is_repeated" = function() is_repeated(x), 
 		"is_required" = function() is_required(x), 
 		"is_optional" = function() is_optional(x), 
-		
+		"has_default_value" = function() has_default_value(), 
+		"default_value" = function() default_value(), 
 		
 		invisible(NULL)
 		)
