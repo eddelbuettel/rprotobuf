@@ -41,6 +41,7 @@ namespace rprotobuf {
 		return new_RS4_FieldDescriptor( field_desc ) ;
 	}
 	
+	
 	SEXP Descriptor_getNestedTypeByIndex( SEXP xp, SEXP index ){
 		Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
 		int i = INTEGER(index)[0] ;
@@ -57,6 +58,22 @@ namespace rprotobuf {
 		return new_RS4_Descriptor( nested_desc ) ;
 	}
 	
+	
+	SEXP Descriptor_getEnumTypeByIndex( SEXP xp, SEXP index ){
+		Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
+		int i = INTEGER(index)[0] ;
+		const EnumDescriptor* enum_desc = d->enum_type( i ) ;
+		if( !enum_desc ) return R_NilValue ;
+		return new_RS4_EnumDescriptor( enum_desc ) ;
+	}
+	
+	SEXP Descriptor_getEnumTypeByName( SEXP xp, SEXP name ){
+		Descriptor* d = (Descriptor*)EXTPTR_PTR(xp) ;
+		std::string nam = CHAR( STRING_ELT(name, 0) ) ;
+		const EnumDescriptor* enum_desc = d->FindEnumTypeByName( nam ) ;
+		if( !enum_desc ) return R_NilValue ;
+		return new_RS4_EnumDescriptor( enum_desc ) ;
+	}
 	
 	
 } // namespace rprotobuf

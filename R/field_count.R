@@ -68,4 +68,22 @@ setMethod( "nested_type", "protobufDescriptor", function(object, index, name ){
 	
 } )
 
+setGeneric( "enum_type", function( object, index, name ){
+	standardGeneric( "enum_type" )
+})
 
+setMethod( "enum_type", "protobufDescriptor", function(object, index, name){
+	has_index  <- !missing(index)
+	has_name   <- !missing(name)
+	if( !identical( as.integer(has_index) + as.integer(has_number) + as.integer(has_name), 1L ) ){
+		stop( "need exactly one of `index` or `name`" )
+	}
+	if( has_index ){
+		return( .Call( "Descriptor_getEnumTypeByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
+	}
+	
+	if( has_number ){
+		return( .Call( "Descriptor_EnumTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
+	}
+	
+})

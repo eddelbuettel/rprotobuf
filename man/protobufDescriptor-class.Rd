@@ -14,6 +14,7 @@
 \alias{enum_type_count,protobufDescriptor-method}
 \alias{field,protobufDescriptor-method}
 \alias{nested_type,protobufDescriptor-method}
+\alias{enum_type,protobufDescriptor-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -70,6 +71,17 @@ C++ class \code{Descriptor}}
 			If \code{name} is used, the nested type will be retrieved
 			using its name, with the \code{FindNestedTypeByName} C++ method
 	}
+	\item{enum_type}{\code{signature(object = "protobufDescriptor")} : 
+			extracts an enum type descriptor that is contained
+			in this descriptor. 
+			Exactly one argument of \code{index} of \code{name} has to be used. 
+			If \code{index} is used, the enum type will be retrieved
+			using its position with the \code{enum_type} method
+			of the \code{google::protobuf::Descriptor} C++ class. 
+			If \code{name} is used, the enum type will be retrieved
+			using its name, with the \code{FindEnumTypeByName} C++ method
+	}
+
   }
 }
 \references{ The \code{Descriptor} c++ class. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#Descriptor} }
