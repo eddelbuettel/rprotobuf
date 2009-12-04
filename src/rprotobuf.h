@@ -239,6 +239,10 @@ RcppExport SEXP Descriptor_getNestedTypeByName( SEXP, SEXP);
 RcppExport SEXP Descriptor_getEnumTypeByIndex( SEXP, SEXP);
 RcppExport SEXP Descriptor_getEnumTypeByName( SEXP, SEXP);
 
+/* in FieldDescriptor.cpp */
+RcppExport SEXP FieldDescriptor_is_extension(SEXP) ;
+
+
 } // namespace rprotobuf
 
 

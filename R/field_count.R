@@ -62,7 +62,7 @@ setMethod( "nested_type", "protobufDescriptor", function(object, index, name ){
 		return( .Call( "Descriptor_getNestedTypeByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
-	if( has_number ){
+	if( has_name ){
 		return( .Call( "Descriptor_getNestedTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
@@ -82,7 +82,7 @@ setMethod( "enum_type", "protobufDescriptor", function(object, index, name){
 		return( .Call( "Descriptor_getEnumTypeByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
-	if( has_number ){
+	if( has_name ){
 		return( .Call( "Descriptor_EnumTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
