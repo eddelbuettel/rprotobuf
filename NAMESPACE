@@ -66,3 +66,5 @@ S3method( as.list, protobufServiceDescriptor )
 importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )
 
+exportPattern( "^TYPE_" )
+

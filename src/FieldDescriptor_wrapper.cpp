@@ -12,5 +12,16 @@ namespace rprotobuf {
 		return Rf_ScalarInteger( d->number() ) ;
 	}
 	
+	SEXP FieldDescriptor_type(SEXP xp){
+		FieldDescriptor* d = (FieldDescriptor*)EXTPTR_PTR(xp) ;
+		return Rf_ScalarInteger( d->type() ) ;
+	}
+	
+	SEXP FieldDescriptor_cpp_type(SEXP xp){
+		FieldDescriptor* d = (FieldDescriptor*)EXTPTR_PTR(xp) ;
+		return Rf_ScalarInteger( d->cpp_type() ) ;
+	}
+	
+	
 } // namespace rprotobuf
 

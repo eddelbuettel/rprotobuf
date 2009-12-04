@@ -51,7 +51,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.protobufFieldDescriptor <- function(x, pattern = "" ){
 	names <- c("as.character()", "toString()", "name(", 
 	"fileDescriptor()", "containing_type()", 
-	"is_extension()", "number()" )
+	"is_extension()", "number()", "type(", "cpp_type(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

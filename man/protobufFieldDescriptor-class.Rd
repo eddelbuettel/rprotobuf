@@ -9,6 +9,8 @@
 \alias{containing_type,protobufFieldDescriptor-method}
 \alias{is_extension,protobufFieldDescriptor-method}
 \alias{number,protobufFieldDescriptor-method}
+\alias{type,protobufFieldDescriptor-method}
+\alias{cpp_type,protobufFieldDescriptor-method}
 
 \title{Class "protobufFieldDescriptor"}
 \description{R representation of message type field descriptor. 
@@ -36,7 +38,8 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
     \item{containing_type}{\code{signature(object = "protobufFieldDescriptor")} : returns a \linkS4class{protobufDescriptor} of the message type that contains this field descriptor.}
     \item{is_extension}{\code{signature(object = "protobufFieldDescriptor")} : indicates if this is an extension.}
     \item{number}{\code{signature(object = "protobufFieldDescriptor")} : gets the declared tag number of this field.}
-
+	\item{type}{\code{signature(object = "protobufFieldDescriptor")} : type of this field.}
+	\item{cpp_type}{\code{signature(object = "protobufFieldDescriptor")} : c++ type of this field.}
   	}
 }
 \references{ The \code{FieldDescriptor} C++ class }
