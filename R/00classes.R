@@ -190,8 +190,13 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		
 		"is_extension" = function() is_extension(x),
 		"number" = function() number(x),
-		"type" = function() type(x),
-		"cpp_type" = function() cpp_type(x),
+		"type" = function(...) type(x, ...),
+		"cpp_type" = function(...) cpp_type(x, ...),
+		"label" = function(...) label(x, ...),
+		"is_repeated" = function() is_repeated(x), 
+		"is_required" = function() is_required(x), 
+		"is_optional" = function() is_optional(x), 
+		
 		
 		invisible(NULL)
 		)

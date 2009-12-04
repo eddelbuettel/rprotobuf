@@ -63,4 +63,37 @@ setMethod( "cpp_type", "protobufFieldDescriptor", function(object, as.string = F
 	if( as.string ) .CPPTYPES[cpptype] else cpptype
 } )
 
+LABEL_OPTIONAL <- 1L
+LABEL_REQUIRED <- 2L
+LABEL_REPEATED <- 3L
+.LABELS <-  ls( pattern = "^LABEL_" )
+
+setGeneric( "label", function(object, as.string = FALSE ){
+	standardGeneric( "label" )
+} )
+setMethod( "label", "protobufFieldDescriptor", function(object, as.string = FALSE){
+	lab <- .Call( "FieldDescriptor_label", object@pointer, PACKAGE = "RProtoBuf" )
+	if( as.string ) .LABELS[lab] else lab
+} )
+
+setGeneric( "is_repeated", function(object, as.string = FALSE ){
+	standardGeneric( "is_repeated" )
+} )
+setMethod( "is_repeated", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_is_repeated", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
+setGeneric( "is_optional", function(object, as.string = FALSE ){
+	standardGeneric( "is_optional" )
+} )
+setMethod( "is_optional", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_is_optional", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
+setGeneric( "is_required", function(object, as.string = FALSE ){
+	standardGeneric( "is_required" )
+} )
+setMethod( "is_required", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_is_required", object@pointer, PACKAGE = "RProtoBuf" )
+} )
 

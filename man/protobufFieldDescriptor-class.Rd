@@ -11,6 +11,17 @@
 \alias{number,protobufFieldDescriptor-method}
 \alias{type,protobufFieldDescriptor-method}
 \alias{cpp_type,protobufFieldDescriptor-method}
+\alias{label,protobufFieldDescriptor-method}
+
+\alias{is_required}
+\alias{is_optional}
+\alias{is_repeated}
+\alias{is_required-methods}
+\alias{is_optional-methods}
+\alias{is_repeated-methods}
+\alias{is_required,protobufFieldDescriptor-method}
+\alias{is_optional,protobufFieldDescriptor-method}
+\alias{is_repeated,protobufFieldDescriptor-method}
 
 \title{Class "protobufFieldDescriptor"}
 \description{R representation of message type field descriptor. 
@@ -40,6 +51,10 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
     \item{number}{\code{signature(object = "protobufFieldDescriptor")} : gets the declared tag number of this field.}
 	\item{type}{\code{signature(object = "protobufFieldDescriptor")} : type of this field.}
 	\item{cpp_type}{\code{signature(object = "protobufFieldDescriptor")} : c++ type of this field.}
+	\item{label}{\code{signature(object = "protobufFieldDescriptor")} : label of this field.}
+	\item{is_required}{\code{signature(object = "protobufFieldDescriptor")} : is this field required.}
+	\item{is_optional}{\code{signature(object = "protobufFieldDescriptor")} : is this field optional.}
+	\item{is_repeated}{\code{signature(object = "protobufFieldDescriptor")} : is this field repeated.}
   	}
 }
 \references{ The \code{FieldDescriptor} C++ class }

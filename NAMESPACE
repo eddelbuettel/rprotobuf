@@ -36,7 +36,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"field", "nested_type", "enum_type", 
 
 	# FieldDescriptor
-	"is_extension", "number", 
+	"is_extension", "number", "label", 
 	
 	# rpc
 	"invokeLocally"
@@ -67,4 +67,6 @@ importFrom( "stats", "update")
 importFrom( "utils", "packageDescription" )
 
 exportPattern( "^TYPE_" )
+exportPattern( "^CPPTYPE_" )
+exportPattern( "^LABEL_" )
 
