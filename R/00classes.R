@@ -188,6 +188,9 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		"fileDescriptor" = function() fileDescriptor(x ),
 		"containing_type" = function() containing_type(x), 
 		
+		"is_extension" = function() is_extension(x),
+		"number" = function() number(x),
+		
 		invisible(NULL)
 		)
 } )

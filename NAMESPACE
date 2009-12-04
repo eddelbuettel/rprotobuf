@@ -36,7 +36,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"field", "nested_type", "enum_type", 
 
 	# FieldDescriptor
-	"is_extension", 
+	"is_extension", "number", 
 	
 	# rpc
 	"invokeLocally"

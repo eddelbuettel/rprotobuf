@@ -8,6 +8,7 @@
 \alias{toString,protobufFieldDescriptor-method}
 \alias{containing_type,protobufFieldDescriptor-method}
 \alias{is_extension,protobufFieldDescriptor-method}
+\alias{number,protobufFieldDescriptor-method}
 
 \title{Class "protobufFieldDescriptor"}
 \description{R representation of message type field descriptor. 
@@ -34,6 +35,7 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
   	\item{$}{\code{signature(x = "protobufFieldDescriptor")}: used to invoke pseudo methods }
     \item{containing_type}{\code{signature(object = "protobufFieldDescriptor")} : returns a \linkS4class{protobufDescriptor} of the message type that contains this field descriptor.}
     \item{is_extension}{\code{signature(object = "protobufFieldDescriptor")} : indicates if this is an extension.}
+    \item{number}{\code{signature(object = "protobufFieldDescriptor")} : gets the declared tag number of this field.}
 
   	}
 }
