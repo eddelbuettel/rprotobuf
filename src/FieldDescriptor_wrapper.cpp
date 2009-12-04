@@ -102,5 +102,22 @@ namespace rprotobuf {
 		return R_NilValue ;
 	}
 	
+	SEXP FieldDescriptor_message_type(SEXP xp){
+		FieldDescriptor* d = (FieldDescriptor*)EXTPTR_PTR(xp) ;
+		if( d->cpp_type() != CPPTYPE_MESSAGE ){
+			throwException( "not a message type field", "NotMessageType" ); 
+		}
+		return new_RS4_Descriptor( d->message_type() ) ;
+	}
+	
+	SEXP FieldDescriptor_enum_type(SEXP xp){
+		FieldDescriptor* d = (FieldDescriptor*)EXTPTR_PTR(xp) ;
+		if( d->cpp_type() != CPPTYPE_ENUM ){
+			throwException( "not an enum type field", "NotEnumType" ); 
+		}
+		return new_RS4_EnumDescriptor( d->enum_type() ) ;
+	}
+	
+	
 } // namespace rprotobuf
 

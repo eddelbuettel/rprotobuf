@@ -31,6 +31,15 @@
 \alias{default_value-methods}
 \alias{default_value,protobufFieldDescriptor-method}
 
+\alias{message_type}
+\alias{message_type-methods}
+\alias{message_type,protobufFieldDescriptor-method}
+
+\alias{enum_type}
+\alias{enum_type-methods}
+\alias{enum_type,protobufFieldDescriptor-method}
+
+
 \title{Class "protobufFieldDescriptor"}
 \description{R representation of message type field descriptor. 
 This is a thin wrapper around the C++ class \code{FieldDescriptor} }
@@ -65,6 +74,8 @@ Objects typically are retrieved from \linkS4class{protobufFieldDescriptor}
 	\item{is_repeated}{\code{signature(object = "protobufFieldDescriptor")} : is this field repeated.}
 	\item{has_default_value}{\code{signature(object = "protobufFieldDescriptor")} : indicates if this field has a default value.}
 	\item{default_value}{\code{signature(object = "protobufFieldDescriptor")} : the default value of this field.}
+	\item{message_type}{\code{signature(object = "protobufFieldDescriptor")} : the \linkS4class{protobufDescriptor} for the associated message type. Generates an error if this field is not a message type field.}
+	\item{enum_type}{\code{signature(object = "protobufFieldDescriptor")} : the \linkS4class{protobufEnumDescriptor} for the associated enum type.Generates an error if this field is not an enum type field }
   	}
 }
 \references{ The \code{FieldDescriptor} C++ class }

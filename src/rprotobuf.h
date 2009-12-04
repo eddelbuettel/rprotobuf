@@ -239,7 +239,7 @@ RcppExport SEXP Descriptor_getNestedTypeByName( SEXP, SEXP);
 RcppExport SEXP Descriptor_getEnumTypeByIndex( SEXP, SEXP);
 RcppExport SEXP Descriptor_getEnumTypeByName( SEXP, SEXP);
 
-/* in FieldDescriptor.cpp */
+/* in FieldDescriptor_wrapper.cpp */
 RcppExport SEXP FieldDescriptor_is_extension(SEXP) ;
 RcppExport SEXP FieldDescriptor_number(SEXP); 
 RcppExport SEXP FieldDescriptor_type(SEXP);
@@ -250,7 +250,8 @@ RcppExport SEXP FieldDescriptor_is_optional(SEXP);
 RcppExport SEXP FieldDescriptor_is_required(SEXP);
 RcppExport SEXP FieldDescriptor_is_has_default_value(SEXP);
 RcppExport SEXP FieldDescriptor_default_value(SEXP);
-
+RcppExport SEXP FieldDescriptor_message_type(SEXP);
+RcppExport SEXP FieldDescriptor_enum_type(SEXP); 
 
 } // namespace rprotobuf
 

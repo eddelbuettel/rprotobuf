@@ -52,7 +52,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	names <- c("as.character()", "toString()", "name(", 
 		"fileDescriptor()", "containing_type()", 
 		"is_extension()", "number()", "type(", "cpp_type(", "label(", 
-		"is_repeated()", "is_required()", "is_optional()"
+		"is_repeated()", "is_required()", "is_optional()", 
+		"message_type()", "enum_type()"
 	)
 	grep( pattern, names, value = TRUE )
 }

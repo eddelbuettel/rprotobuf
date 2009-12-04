@@ -112,3 +112,17 @@ setMethod( "default_value", "protobufFieldDescriptor", function(object){
 } )
 
 
+setGeneric( "message_type", function(object ){
+	standardGeneric( "message_type" )
+} )
+setMethod( "message_type", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_message_type", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
+setGeneric( "enum_type", function(object ){
+	standardGeneric( "enum_type" )
+} )
+setMethod( "enum_type", "protobufFieldDescriptor", function(object){
+	.Call( "FieldDescriptor_enum_type", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+

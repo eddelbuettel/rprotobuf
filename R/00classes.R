@@ -196,8 +196,10 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		"is_repeated" = function() is_repeated(x), 
 		"is_required" = function() is_required(x), 
 		"is_optional" = function() is_optional(x), 
-		"has_default_value" = function() has_default_value(), 
-		"default_value" = function() default_value(), 
+		"has_default_value" = function() has_default_value(x), 
+		"default_value" = function() default_value(x), 
+		"enum_type" = function() enum_type(x), 
+		"message_type" = function() message_type(x),
 		
 		invisible(NULL)
 		)
