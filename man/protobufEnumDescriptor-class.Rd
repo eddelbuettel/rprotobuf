@@ -7,6 +7,7 @@
 \alias{toString,protobufEnumDescriptor-method}
 \alias{$,protobufEnumDescriptor-method}
 \alias{containing_type,protobufEnumDescriptor-method}
+\alias{length,protobufEnumDescriptor-method}
 
 \title{Class "protobufEnumDescriptor"  }
 \description{ R representation of an enum descriptor. This 
@@ -34,6 +35,7 @@ Objects of this class are typically retrieved as members of
   	\item{$}{\code{signature(x = "protobufEnumDescriptor")}: get the 
   	number associated with the name}
   	\item{containing_type}{\code{signature(object = "protobufEnumDescriptor")} : returns a \linkS4class{protobufDescriptor} of the message type that contains this enum descriptor, or NULL if this is a top level enum descriptor.}
+  	\item{length}{\code{signature(x = "protobufEnumDescriptor")} : number of constants in this enum.}
   }
   	
 }

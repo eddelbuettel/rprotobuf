@@ -321,6 +321,9 @@ setGeneric( "length" )
 setMethod( "length", "protobufMessage", function( x ){
 	.Call( "get_message_length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
+setMethod( "length", "protobufEnumDescriptor", function( x ){
+	.call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
+} ) 
 # }}}
 
 # {{{ str

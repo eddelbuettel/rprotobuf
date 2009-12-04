@@ -253,6 +253,9 @@ RcppExport SEXP FieldDescriptor_default_value(SEXP);
 RcppExport SEXP FieldDescriptor_message_type(SEXP);
 RcppExport SEXP FieldDescriptor_enum_type(SEXP); 
 
+/* in EnumDescriptor_wrapper.cpp */
+RcppExport SEXP EnumDescriptor_length(SEXP);
+
 } // namespace rprotobuf
 
 
