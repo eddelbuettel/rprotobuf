@@ -54,7 +54,7 @@ setMethod( "nested_type", "protobufDescriptor", function(object, index, name ){
 	
 	has_index  <- !missing(index)
 	has_name   <- !missing(name)
-	if( !identical( as.integer(has_index) + as.integer(has_number) + as.integer(has_name), 1L ) ){
+	if( !identical( as.integer(has_index) + as.integer(has_name), 1L ) ){
 		stop( "need exactly one of `index` or `name`" )
 	}
 	
@@ -75,7 +75,7 @@ setGeneric( "enum_type", function( object, index, name ){
 setMethod( "enum_type", "protobufDescriptor", function(object, index, name){
 	has_index  <- !missing(index)
 	has_name   <- !missing(name)
-	if( !identical( as.integer(has_index) + as.integer(has_number) + as.integer(has_name), 1L ) ){
+	if( !identical( as.integer(has_index) + as.integer(has_name), 1L ) ){
 		stop( "need exactly one of `index` or `name`" )
 	}
 	if( has_index ){
