@@ -71,7 +71,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 
 # {{{ protobufMethodDescriptor
 .DollarNames.protobufMethodDescriptor <- function(x, pattern = "" ){
-	names <- c("as.character()", "toString()", "name(", "fileDescriptor()")
+	names <- c("as.character()", "toString()", "name(", "fileDescriptor()", 
+	"input_type()", "output_type()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

@@ -55,6 +55,8 @@ setMethod( "$", "protobufMethodDescriptor", function(x, name ){
 		"toString"  = function() toString(x) , 
 		"as.character" = function() as.character(x), 
 		"fileDescriptor" = function() fileDescriptor(x ),
+		"input_type" = function() input_type(x), 
+		"output_type" = function() output_type(x),
 		
 		invisible( NULL)
 	)
