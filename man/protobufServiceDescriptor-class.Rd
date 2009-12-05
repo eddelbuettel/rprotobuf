@@ -13,6 +13,10 @@
 \alias{method_count-methods}
 \alias{method_count,protobufServiceDescriptor-method}
 
+\alias{method}
+\alias{method-methods}
+\alias{method,protobufServiceDescriptor-method}
+
 \title{Class "protobufServiceDescriptor"}
 \description{R representation of Service Descriptors}
 \section{Objects from the Class}{
@@ -35,6 +39,7 @@ TODO
 	descriptors contained in this service descriptor}
 	\item{length}{\code{signature(x = "protobufServiceDescriptor")}: number of \linkS4class{protobufMethodDescriptor} }
 	\item{method_count}{\code{signature(x = "protobufServiceDescriptor")}: number of \linkS4class{protobufMethodDescriptor} }
+	\item{method}{\code{signature(x = "protobufServiceDescriptor")}: retrieveds a \linkS4class{protobufMethodDescriptor} }
 	}
 }
 \author{ Romain Francois <francoisromain@free.fr> }

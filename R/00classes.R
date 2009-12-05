@@ -223,6 +223,8 @@ setMethod( "$", "protobufServiceDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"name" = function(...) name(x, ...), 
 		"fileDescriptor" = function() fileDescriptor(x ),
+		"method_count" = function() method_count(x), 
+		"method" = function(...) method(x, ... ), 
 		
 		.Call( "get_service_method", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)

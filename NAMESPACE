@@ -47,7 +47,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"value_count", "value", 
 	
 	# ServiceDescriptor
-	"method_count", 
+	"method_count", "method", 
 	
 	# rpc
 	"invokeLocally"

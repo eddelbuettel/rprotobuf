@@ -63,7 +63,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.protobufServiceDescriptor <- function(x, pattern = "" ){
 	names <- c(
 		.Call( "getServiceDescriptorMethodNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"as.character()", "toString()", "name(", "fileDescriptor()")
+		"as.character()", "toString()", "name(", "fileDescriptor()", 
+		"method_count()", "method(name=", "method(index="  )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
