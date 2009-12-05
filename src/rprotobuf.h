@@ -263,6 +263,13 @@ RcppExport SEXP EnumDescriptor_getValueByIndex(SEXP, SEXP) ;
 RcppExport SEXP EnumDescriptor_getValueByNumber(SEXP, SEXP) ;
 RcppExport SEXP EnumDescriptor_getValueByName(SEXP, SEXP);
 
+/* in ServiceDescriptor_wrapper.cpp */
+RcppExport SEXP ServiceDescriptor_length(SEXP);
+RcppExport SEXP ServiceDescriptor_method_count(SEXP) ;
+RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP) ;
+RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
+
+
 } // namespace rprotobuf
 
 

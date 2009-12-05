@@ -346,6 +346,9 @@ setMethod( "length", "protobufMessage", function( x ){
 setMethod( "length", "protobufEnumDescriptor", function( x ){
 	.Call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
 } ) 
+setMethod( "length", "protobufServiceDescriptor", function( x ){
+	.Call( "ServiceDescriptor_method_count", x@pointer, PACKAGE = "RProtoBuf" )
+} ) 
 # }}}
 
 # {{{ str
