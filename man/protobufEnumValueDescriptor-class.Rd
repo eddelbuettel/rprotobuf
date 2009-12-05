@@ -6,6 +6,7 @@
 \alias{as.character,protobufEnumValueDescriptor-method}
 \alias{toString,protobufEnumValueDescriptor-method}
 \alias{$,protobufEnumValueDescriptor-method}
+\alias{enum_type,protobufEnumValueDescriptor,missing,missing-method}
 
 \title{Class "protobufEnumValueDescriptor"  }
 \description{ R representation of an enum value descriptor. This 
@@ -28,6 +29,7 @@ Objects of this class are typically retrieved with the
   	      method of the EnumDescriptor object.  }
   	\item{toString}{\code{signature(x = "protobufEnumValueDescriptor")}: same as \code{as.character} }
   	\item{$}{\code{signature(x = "protobufEnumValueDescriptor")}: invoke pseudo methods }
+  	\item{enum_type}{\code{signature(object = "protobufEnumDescriptor")} : retrieves the \linkS4class{protobufEnumDescriptor} related to this value descriptor.}
   }
   	
 }

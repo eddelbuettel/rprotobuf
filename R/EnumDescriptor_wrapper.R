@@ -34,4 +34,3 @@ setMethod( "value", "protobufEnumDescriptor", function(object, index, name, numb
 	
 } )
 
-
