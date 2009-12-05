@@ -51,6 +51,10 @@ Rprintf( "</as_character_file_descriptor>\n" ) ;
 	return(res);
 }
 
+SEXP as_character_enum_value_descriptor( SEXP xp){
+	EnumValueDescriptor* d = (EnumValueDescriptor*)EXTPTR_PTR(xp) ;
+	return Rf_mkString( d->DebugString().c_str() ) ;
+}
 
 /**
  * Get the debug string of a message

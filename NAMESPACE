@@ -14,7 +14,7 @@ exportClasses(
 	"protobufDescriptor",
 	"protobufFieldDescriptor", "protobufEnumDescriptor",
 	"protobufServiceDescriptor", "protobufMethodDescriptor",
-	"protobufFileDescriptor",
+	"protobufFileDescriptor", "protobufEnumValueDescriptor", 
 
 	# message
 	"protobufMessage"
@@ -41,6 +41,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"has_default_value", "default_value", 
 	"message_type", "enum_type", 
 	
+	# EnumDescriptor
+	"value_count", "value", 
 	
 	# rpc
 	"invokeLocally"

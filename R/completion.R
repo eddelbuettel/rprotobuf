@@ -42,7 +42,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	names <- c( 
 		.Call( "getEnumDescriptorConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"name(", "fileDescriptor()", "as.character()", "toString()", 
-		"containing_type()" )
+		"containing_type()", "length()", "value_count()", "value(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

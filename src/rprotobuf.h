@@ -78,6 +78,7 @@ RcppExport SEXP new_RS4_Message_( const Message* );
 RcppExport SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor *) ;
 RcppExport SEXP new_RS4_MethodDescriptor( const MethodDescriptor *) ;
 RcppExport SEXP new_RS4_FileDescriptor( const FileDescriptor *) ;
+RcppExport SEXP new_RS4_EnumValueDescriptor( const EnumValueDescriptor *) ;
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
@@ -136,6 +137,7 @@ RcppExport SEXP get_value_of_enum( SEXP, SEXP);
 RcppExport SEXP as_character_service_descriptor(SEXP);
 RcppExport SEXP as_character_method_descriptor(SEXP);
 RcppExport SEXP as_character_file_descriptor( SEXP) ;
+RcppExport SEXP as_character_enum_value_descriptor( SEXP) ;
 
 /* in update.cpp */
 RcppExport SEXP update_message( SEXP, SEXP) ;
@@ -219,6 +221,7 @@ RcppExport SEXP asMessage_EnumDescriptor( SEXP) ;
 RcppExport SEXP asMessage_ServiceDescriptor( SEXP ) ;         
 RcppExport SEXP asMessage_MethodDescriptor( SEXP ) ;
 RcppExport SEXP asMessage_FileDescriptor( SEXP ) ;
+RcppExport SEXP asMessage_EnumValueDescriptor( SEXP ) ;
 
 /* in containing_type.cpp */
 RcppExport SEXP containing_type__Descriptor( SEXP ); 
@@ -255,6 +258,10 @@ RcppExport SEXP FieldDescriptor_enum_type(SEXP);
 
 /* in EnumDescriptor_wrapper.cpp */
 RcppExport SEXP EnumDescriptor_length(SEXP);
+RcppExport SEXP EnumDescriptor__value_count(SEXP) ;
+RcppExport SEXP EnumDescriptor_getValueByIndex(SEXP, SEXP) ;
+RcppExport SEXP EnumDescriptor_getValueByNumber(SEXP, SEXP) ;
+RcppExport SEXP EnumDescriptor_getValueByName(SEXP, SEXP);
 
 } // namespace rprotobuf
 

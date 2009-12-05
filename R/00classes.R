@@ -38,6 +38,10 @@ setClass( "protobufFileDescriptor", representation(
 	pointer = "externalptr"  # pointer to a google::protobuf::FileDescriptor c++ object
 ), prototype = list( pointer = NULL ) )
 
+setClass( "protobufEnumValueDescriptor", representation( 
+	pointer = "externalptr"  # pointer to a google::protobuf::EnumValueDescriptor c++ object
+), prototype = list( pointer = NULL ) )
+
 # actual objects
 
 setClass( "protobufMessage",  representation( 
@@ -109,6 +113,9 @@ setMethod( "show", c( "protobufServiceDescriptor" ), function(object){
 setMethod( "show", c( "protobufFileDescriptor" ), function(object){
 	show( sprintf( "file descriptor" ) ) 
 } )
+setMethod( "show", c( "protobufEnumValueDescriptor" ), function(object){
+	show( sprintf( "enum value descriptor" ) ) 
+} )
 
 # }}}
 
@@ -175,6 +182,10 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 		"fileDescriptor" = function() fileDescriptor(x ),
 		"containing_type" = function() containing_type(x), 
 		
+		"length" = function() length(x), 
+		"value_count" = function() value_count(x), 
+		"value" = function(...) value(x, ...) , 
+		
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
@@ -217,7 +228,6 @@ setMethod( "$", "protobufServiceDescriptor", function(x, name ){
 		)
 } )
 
-
 setMethod( "$", "protobufFileDescriptor", function(x, name ){
 	
 	switch( name, 
@@ -225,6 +235,18 @@ setMethod( "$", "protobufFileDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"asMessage" = function() asMessage(x), 
 		"as.list" = function() as.list(x), 
+		
+		invisible(NULL)
+		)
+
+})
+
+setMethod( "$", "protobufEnumValueDescriptor", function(x, name ){
+	
+	switch( name, 
+		"as.character" = function() as.character(x),
+		"toString" = function(...) toString(x, ...) ,
+		"asMessage" = function() asMessage(x), 
 		
 		invisible(NULL)
 		)
@@ -322,7 +344,7 @@ setMethod( "length", "protobufMessage", function( x ){
 	.Call( "get_message_length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "length", "protobufEnumDescriptor", function( x ){
-	.call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
 } ) 
 # }}}
 
@@ -388,9 +410,16 @@ setAs("protobufMethodDescriptor", "protobufMessage", function(from){
 setAs("protobufFileDescriptor", "protobufMessage", function(from){
 	.Call( "asMessage_FileDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-
+setAs("protobufEnumValueDescriptor", "protobufMessage", function(from){
+	.Call( "asMessage_EnumValueDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+})
 asMessage <- function( x, ... ){
 	as( x, "protobufMessage", ... )
 }
 # }}}
 
+# {{{ enum_type
+setGeneric( "enum_type", function( object, index, name ){
+	standardGeneric( "enum_type" )
+})
+# }}}

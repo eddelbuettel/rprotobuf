@@ -119,10 +119,7 @@ setMethod( "message_type", "protobufFieldDescriptor", function(object){
 	.Call( "FieldDescriptor_message_type", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
-setGeneric( "enum_type", function(object ){
-	standardGeneric( "enum_type" )
-} )
-setMethod( "enum_type", "protobufFieldDescriptor", function(object){
+setMethod( "enum_type", c( object = "protobufFieldDescriptor", index = "missing", name = "missing"), function(object){
 	.Call( "FieldDescriptor_enum_type", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 

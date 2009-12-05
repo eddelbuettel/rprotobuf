@@ -41,7 +41,7 @@ setMethod( "field", "protobufDescriptor", function( object, index, number, name)
 		return( .Call( "Descriptor_getFieldByNumber", object@pointer, as.integer(number), PACKAGE = "RProtoBuf" ) )
 	}
 	
-	if( has_number ){
+	if( has_name ){
 		return( .Call( "Descriptor_getFieldByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
@@ -67,10 +67,6 @@ setMethod( "nested_type", "protobufDescriptor", function(object, index, name ){
 	}
 	
 } )
-
-setGeneric( "enum_type", function( object, index, name ){
-	standardGeneric( "enum_type" )
-})
 
 setMethod( "enum_type", "protobufDescriptor", function(object, index, name){
 	has_index  <- !missing(index)

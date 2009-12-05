@@ -9,6 +9,14 @@
 \alias{containing_type,protobufEnumDescriptor-method}
 \alias{length,protobufEnumDescriptor-method}
 
+\alias{value_count}
+\alias{value_count-methods}
+\alias{value_count,protobufEnumDescriptor-method}
+
+\alias{value}
+\alias{value-methods}
+\alias{value,protobufEnumDescriptor-method}
+
 \title{Class "protobufEnumDescriptor"  }
 \description{ R representation of an enum descriptor. This 
 is a thin wrapper around the \code{EnumDescriptor} c++ class. }
@@ -36,6 +44,19 @@ Objects of this class are typically retrieved as members of
   	number associated with the name}
   	\item{containing_type}{\code{signature(object = "protobufEnumDescriptor")} : returns a \linkS4class{protobufDescriptor} of the message type that contains this enum descriptor, or NULL if this is a top level enum descriptor.}
   	\item{length}{\code{signature(x = "protobufEnumDescriptor")} : number of constants in this enum.}
+  	\item{value_count}{\code{signature(object = "protobufEnumDescriptor")} : number of constants in this enum.}
+  	\item{value}{\code{signature(object = "protobufEnumDescriptor")} : extracts an \linkS4class{protobufEnumValueDescriptor}.
+  		Exactly one argument of \code{index}, \code{number} or \code{name} has to be 
+  		used. 
+  		If \code{index} is used, the enum value descriptor is retrieved
+  		by position, using the \code{value} method of the C++ class. 
+  		If \code{number} is used, the enum value descripror is retrieved
+  		using the value of the constant, using the \code{FindValueByNumber}
+  		C++ method. 
+  		If \code{name} is used, the enum value descriptor is retrieved
+  		using the name of the constant, using the \code{FindValueByName}
+  		C++ method.
+  	}
   }
   	
 }

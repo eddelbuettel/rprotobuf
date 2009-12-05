@@ -14,7 +14,7 @@
 \alias{enum_type_count,protobufDescriptor-method}
 \alias{field,protobufDescriptor-method}
 \alias{nested_type,protobufDescriptor-method}
-\alias{enum_type,protobufDescriptor-method}
+\alias{enum_type,protobufDescriptor,ANY,ANY-method}
 
 \title{Class "protobufDescriptor" }
 \description{ full descriptive information about a protocol buffer 

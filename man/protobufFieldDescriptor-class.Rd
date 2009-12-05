@@ -35,9 +35,7 @@
 \alias{message_type-methods}
 \alias{message_type,protobufFieldDescriptor-method}
 
-\alias{enum_type}
-\alias{enum_type-methods}
-\alias{enum_type,protobufFieldDescriptor-method}
+\alias{enum_type,protobufFieldDescriptor,missing,missing-method}
 
 
 \title{Class "protobufFieldDescriptor"}

@@ -44,4 +44,11 @@ namespace rprotobuf{
 		return( new_RS4_Message_( (Message*)message ) ) ;
 	}
 	
+	SEXP asMessage_EnumValueDescriptor( SEXP xp){
+		EnumValueDescriptor* d = (EnumValueDescriptor*)EXTPTR_PTR(xp) ;
+		EnumValueDescriptorProto* message = new EnumValueDescriptorProto() ; 
+		d->CopyTo( message ); 
+		return( new_RS4_Message_( (Message*)message ) ) ;
+	}
+	
 } // namespace rprotobuf

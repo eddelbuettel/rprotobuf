@@ -234,5 +234,22 @@ SEXP new_RS4_FileDescriptor( const FileDescriptor * fd ){
 	return oo; 
 }
 
+SEXP new_RS4_EnumValueDescriptor( const EnumValueDescriptor * fd ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufEnumValueDescriptor")) );
+  	if (!Rf_inherits(oo, "protobufEnumValueDescriptor"))
+  		throwException( "unable to create 'protobufEnumValueDescriptor' S4 object", "CannotCreateObjectException" );
+  	
+  	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
+		R_NilValue, R_NilValue));
+  	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+  	UNPROTECT(2) ; /* oo, ptr */
+	
+	return oo; 
+}
+
+
+
 } // namespace rprotobuf
 

@@ -20,6 +20,10 @@
 ._toString_protobufFileDescriptor <- function(x, ...){
 	.Call( "as_character_file_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
+._toString_protobufEnumValueDescriptor <- function(x, ...){
+	.Call( "as_character_enum_value_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+}
+
 
 setMethod( "as.character", "protobufMessage", ._toString_protobufMessage  )
 setMethod( "as.character", "protobufDescriptor", ._toString_protobufDescriptor  )
@@ -28,6 +32,7 @@ setMethod( "as.character", "protobufFieldDescriptor", ._toString_protobufFieldDe
 setMethod( "as.character", "protobufServiceDescriptor", ._toString_protobufServiceDescriptor )
 setMethod( "as.character", "protobufMethodDescriptor", ._toString_protobufMethodDescriptor )
 setMethod( "as.character", "protobufFileDescriptor", ._toString_protobufFileDescriptor )
+setMethod( "as.character", "protobufEnumValueDescriptor", ._toString_protobufEnumValueDescriptor )
 
 setGeneric( "toString" )
 setMethod( "toString", "protobufMessage", ._toString_protobufMessage  )
@@ -37,4 +42,5 @@ setMethod( "toString", "protobufFieldDescriptor", ._toString_protobufFieldDescri
 setMethod( "toString", "protobufServiceDescriptor", ._toString_protobufServiceDescriptor )
 setMethod( "toString", "protobufMethodDescriptor", ._toString_protobufMethodDescriptor )
 setMethod( "toString", "protobufFileDescriptor", ._toString_protobufFileDescriptor )
+setMethod( "toString", "protobufEnumValueDescriptor", ._toString_protobufEnumValueDescriptor )
 
