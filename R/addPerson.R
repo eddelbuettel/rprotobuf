@@ -14,3 +14,16 @@ addPerson <- function(filename, id, name, emails, phones) {
 
     invisible(resList[[1]])
 }
+
+clearPerson <- function(filename, id) {
+
+    if (missing(filename))
+        filename <- system.file("examples/AddressBookFile", package="RProtoBuf")
+
+    ## call the addPerson function with required parameters
+    resList <- .Call("clearPerson",
+                     list("filename"=filename, "id"=id),
+                     package="RProtoBuf")
+
+    invisible(resList[[1]])
+}

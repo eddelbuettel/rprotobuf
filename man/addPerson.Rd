@@ -1,12 +1,16 @@
 \name{addPerson}
 \alias{addPerson}
-\title{Add another person to the the address book example for ProtoBuf}
+\alias{clearPerson}
+\title{Add or remove another person to the the address book example for ProtoBuf}
 \description{
-  This function provides a simple examples for using
-  ProtoBuf generated accessor functions to store ProtoBuf data from R.
+  This function provides another simple example for using
+  ProtoBuf generated accessor functions to store ProtoBuf data from R in
+  the \code{addPerson} function. For completeness, \code{clearPerson}
+  also allows to remove a person given an id.
 }
 \usage{
   addPerson(filename, id, name, emails, phones)
+  clearPerson(filename, id)
 }
 \arguments{
   \item{filename}{complete path to a binary addressbook written in
@@ -39,6 +43,7 @@
 \dontrun{
   addPerson(system.file("examples/AddressBookFile", package="RProtoBuf"),
             7, "James Bond", "james@bond.com", c("home"="(123) 456-7890", "work"="(222) 333-4455"))
+  clearPerson(system.file("examples/AddressBookFile", package="RProtoBuf"), 3)
 }
 }
 
