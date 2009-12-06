@@ -89,10 +89,10 @@ namespace rprotobuf{
 		return 0 ;
 	}
 	
-	void RTcpChannel::CallMethod(const MethodDescriptor* method,
+	void RTcpChannel::CallMethod(const GPB::MethodDescriptor* method,
                           RpcController* controller,
-                          const Message* request,
-                          Message* response,
+                          const GPB::Message* request,
+                          GPB::Message* response,
                           Closure* done){
     	
     	id++ ;
