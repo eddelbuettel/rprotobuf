@@ -19,10 +19,10 @@ namespace rprotobuf {
 		public:
 			RTcpChannel() ;
 			
-			void CallMethod(const MethodDescriptor* method,
+			void CallMethod(const GPB::MethodDescriptor* method,
                           RpcController* controller,
-                          const Message* request,
-                          Message* response,
+                          const GPB::Message* request,
+                          GPB::Message* response,
                           Closure* done) ;
 			
             int connect_socket(const char* host, int port) ;
