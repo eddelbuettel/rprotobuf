@@ -20,14 +20,14 @@ Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
 	
 	RWarningErrorCollector error_collector ;
 	RSourceTree source_tree;
-	Importer importer(&source_tree, &error_collector);
+	GPB::compiler::Importer importer(&source_tree, &error_collector);
 	
 	int n = LENGTH(file) ;
 	for( int j=0; j < n; j++ ){
-		const FileDescriptor* file_desc = importer.Import( CHAR(STRING_ELT(file, j)) );
+		const GPB::FileDescriptor* file_desc = importer.Import( CHAR(STRING_ELT(file, j)) );
 	    int ntypes = file_desc->message_type_count() ;
 	    for( int i=0; i<ntypes; i++){
-	    	const Descriptor* desc = file_desc->message_type( i ) ;
+	    	const GPB::Descriptor* desc = file_desc->message_type( i ) ;
 	    	DescriptorPoolLookup::add( desc->full_name() ); 
 	    	/* should we bother recursing ? */
 	    }
@@ -57,8 +57,8 @@ PrintValue( type ) ;
 #endif
 	
 	const char * typeName = CHAR( STRING_ELT(type, 0 ) ) ;
-	const DescriptorPool * pool = DescriptorPool::generated_pool() ;
-	const Descriptor * desc = pool->FindMessageTypeByName( typeName ) ; 
+	const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
+	const GPB::Descriptor*  desc = pool->FindMessageTypeByName( typeName ) ; 
 	if( !desc ){
 		return R_NilValue ;
 	}
@@ -81,7 +81,7 @@ Rprintf( "<newProtoMessage>\n" ) ;
 	SEXP type = GET_SLOT( descriptor, Rf_install("type") ) ;
 	
 	/* the pointer to the c++ descriptor object */
-	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_S4( descriptor ); 
+	GPB::Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_S4( descriptor ); 
 	
 #ifdef RPB_DEBUG
 PRINT_DEBUG_INFO( "type", type ) ;
@@ -89,7 +89,7 @@ PRINT_DEBUG_INFO( "desc_ptr", desc_ptr ) ;
 #endif
 	
 	/* grab the Message from the factory */
-	const Message * message = MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	const GPB::Message* message = GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
@@ -110,12 +110,12 @@ Rprintf( "</newProtoMessage>\n" ) ;
 SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	
 	const char * what = CHAR( STRING_ELT( name, 0 ) ) ;
-	Descriptor * desc = (Descriptor*) EXTPTR_PTR(pointer) ;
+	GPB::Descriptor * desc = (GPB::Descriptor*) EXTPTR_PTR(pointer) ;
 	
 	// trying fields first :
 	
 	if( desc->field_count() ){
-		const FieldDescriptor * fd = desc->FindFieldByName(what) ;
+		const GPB::FieldDescriptor*  fd = desc->FindFieldByName(what) ;
 		if( fd ){
 			return( new_RS4_FieldDescriptor(fd ) ) ;
 		}
@@ -123,7 +123,7 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	
 	// now trying nested types
 	if( desc->nested_type_count() ){
-		const Descriptor* d = desc->FindNestedTypeByName(what) ;
+		const GPB::Descriptor* d = desc->FindNestedTypeByName(what) ;
 		if( d ){
 			return( new_RS4_Descriptor( d ) ) ;
 		}
@@ -131,14 +131,14 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	
 	// now for enum types
 	if( desc->enum_type_count() ){
-		const EnumDescriptor * ed = desc->FindEnumTypeByName(what) ;
+		const GPB::EnumDescriptor* ed = desc->FindEnumTypeByName(what) ;
 		if( ed ){
 			return( new_RS4_EnumDescriptor( ed ) ) ;
 		}
 	}
 	
 	
-	// TODO: extensions, services, ... (later)
+	// TODO: extensions (later)
 	
 	// give up
 	// TODO: should this be unbound instead
@@ -159,7 +159,7 @@ Rprintf( "<isMessage>\n" ) ;
 
 	if( TYPEOF(m) != S4SXP || !Rf_inherits( m, "Message") ) return _FALSE_ ;
 	
-	Message* message = (Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) );
+	GPB::Message* message = (GPB::Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) );
 	
 	const char* type = message->GetDescriptor()->full_name().c_str() ;
 	if( strcmp( type, target) ){
@@ -170,24 +170,24 @@ Rprintf( "<isMessage>\n" ) ;
 }
 
 
-FieldDescriptor* getFieldDescriptor(Message* message, SEXP name){
-	FieldDescriptor* field_desc = (FieldDescriptor*)0;
-	const Descriptor* desc = message->GetDescriptor() ;
+GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
+	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
+	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	switch( TYPEOF(name) ){
 		case STRSXP:
 			{
 				const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-				field_desc = (FieldDescriptor*)desc->FindFieldByName( what ) ;
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( what ) ;
 				break ;
 			}
 		case REALSXP: 
 			{
-				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
 				break ;
 			}
 		case INTSXP:
 			{
-				field_desc = (FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
 				break ;
 			}
 	}

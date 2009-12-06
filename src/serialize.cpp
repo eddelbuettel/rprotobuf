@@ -11,7 +11,7 @@ namespace rprotobuf{
  */
 SEXP getMessagePayload( SEXP xp ){
 	
-	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
 	
 	/* create a raw vector of the appropriate size */
 	int size = message->ByteSize() ;
@@ -28,7 +28,7 @@ SEXP getMessagePayload( SEXP xp ){
  * get the message payload as a string
  */
 std::string getMessagePayloadAs_stdstring( SEXP xp){
-	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
 	return message->SerializePartialAsString(); 
 }
 
@@ -36,12 +36,12 @@ std::string getMessagePayloadAs_stdstring( SEXP xp){
 /** 
  * serialize a message to a file
  *
- * @param xp external pointer to a Message*
+ * @param xp external pointer to a GPB::Message*
  * @param filename file name where to serialize
  */
 SEXP serializeMessageToFile( SEXP xp, SEXP filename ){
 	
-	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ); 
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ); 
 	
 	/* open the file in binary mode to write */
 	/* we make sure in the R side that filename is the full path of the file */

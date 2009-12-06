@@ -12,7 +12,7 @@
 
 namespace rprotobuf{
 
-	class SocketCopyingInputStream : public io::CopyingInputStream {
+	class SocketCopyingInputStream : public GPB::io::CopyingInputStream {
 		public:	
 			SocketCopyingInputStream( int socket_id );
 	

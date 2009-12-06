@@ -4,9 +4,9 @@
 namespace rprotobuf{
 
 	/* this is only to be called for repeated fields */
-	int MESSAGE_GET_REPEATED_INT( Message * message, FieldDescriptor* field_desc, int index ){
+	int MESSAGE_GET_REPEATED_INT( GPB::Message* message, GPB::FieldDescriptor* field_desc, int index ){
 		
-		const Reflection* ref = message->GetReflection() ; 
+		const GPB::Reflection* ref = message->GetReflection() ; 
 		
 		switch( field_desc->type() ){
 			case TYPE_INT32:
@@ -32,9 +32,9 @@ namespace rprotobuf{
 	}
 	
 	/* this is only to be called for repeated fields */
-	double MESSAGE_GET_REPEATED_DOUBLE( Message * message, FieldDescriptor* field_desc, int index ){
+	double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message* message, GPB::FieldDescriptor* field_desc, int index ){
 		
-		const Reflection* ref = message->GetReflection() ; 
+		const GPB::Reflection* ref = message->GetReflection() ; 
 		
 		switch( field_desc->type() ){
 			case TYPE_FLOAT:
@@ -68,12 +68,12 @@ PRINT_DEBUG_INFO( "name", name ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(pointer) ;
+	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(pointer) ;
 
 	/* the message descriptor */
-	const Descriptor* desc = message->GetDescriptor() ;
+	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
-	FieldDescriptor* field_desc = (FieldDescriptor*)0;
+	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
 	
 	switch( TYPEOF( name) ){
 	case STRSXP:
@@ -82,7 +82,7 @@ PRINT_DEBUG_INFO( "name", name ) ;
 			const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
 			
 			/* the field descriptor */
-			field_desc = (FieldDescriptor*)desc->FindFieldByName( what ) ;
+			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( what ) ;
 			
 			break ;
 		}
@@ -90,14 +90,14 @@ PRINT_DEBUG_INFO( "name", name ) ;
 		{
 			
 			/* the field descriptor */
-			field_desc = (FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
+			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
 			
 			break ;
 		}
 	case INTSXP: 
 		{
 			/* the field descriptor */
-			field_desc = (FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
+			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
 			
 			break ;
 		}
@@ -115,7 +115,7 @@ Rprintf( "</getMessageField>\n" ) ;
 	
 }
 
-SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const FieldDescriptor * fieldDesc ){
+SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* desc, const GPB::FieldDescriptor*  fieldDesc ){
 	
 	/* depending on the type, we need to create some regular SEXP (INTSXP) 
        or a message */
@@ -289,12 +289,12 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
 /**
  * Get the message descriptor of a Message
  * 
- * @param xp (Message*) external pointer
+ * @param xp (GPB::Message*) external pointer
  * @return the descriptor, as a Descriptor R S4 object
  */
 SEXP get_message_descriptor( SEXP xp){
 	
-	Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
 	return( new_RS4_Descriptor( message->GetDescriptor() ) ) ;
 }
 
@@ -304,15 +304,15 @@ SEXP get_message_descriptor( SEXP xp){
  * extract a method descriptor from a service descriptor using its
  * name or position
  *
- * @param pointer (ServiceDescriptor*) external pointer
+ * @param pointer (GPB::ServiceDescriptor*) external pointer
  * @param name name or position of the method
  */
 SEXP get_service_method( SEXP pointer, SEXP name ){
 
 	/* grab the Message pointer */
-	ServiceDescriptor* desc = (ServiceDescriptor*)EXTPTR_PTR(pointer) ;
+	GPB::ServiceDescriptor* desc = (GPB::ServiceDescriptor*)EXTPTR_PTR(pointer) ;
 
-	MethodDescriptor* method_desc = (MethodDescriptor*)0;
+	GPB::MethodDescriptor* method_desc = (GPB::MethodDescriptor*)0;
 	
 	switch( TYPEOF( name) ){
 	case STRSXP:
@@ -321,7 +321,7 @@ SEXP get_service_method( SEXP pointer, SEXP name ){
 			const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
 			
 			/* the method descriptor */
-			method_desc = (MethodDescriptor*)desc->FindMethodByName( what ) ;
+			method_desc = (GPB::MethodDescriptor*)desc->FindMethodByName( what ) ;
 			
 			break ;
 		}
@@ -329,14 +329,14 @@ SEXP get_service_method( SEXP pointer, SEXP name ){
 		{
 			
 			/* the method descriptor */
-			method_desc = (MethodDescriptor*)desc->method( (int)REAL(name)[0] ) ;
+			method_desc = (GPB::MethodDescriptor*)desc->method( (int)REAL(name)[0] ) ;
 			
 			break ;
 		}
 	case INTSXP: 
 		{
 			/* the method descriptor */
-			method_desc = (MethodDescriptor*)desc->method( INTEGER(name)[0] ) ;
+			method_desc = (GPB::MethodDescriptor*)desc->method( INTEGER(name)[0] ) ;
 			
 			break ;
 		}

@@ -2,9 +2,9 @@
 #define RPROTOBUF_RSourceTree_H
 
 namespace rprotobuf{
-	class RSourceTree : public SourceTree {
+	class RSourceTree : public GPB::compiler::SourceTree {
 		public:	
-			io::ZeroCopyInputStream *	Open(const string & filename) ;
+			GPB::io::ZeroCopyInputStream *	Open(const std::string & filename) ;
 		
 } ;
 

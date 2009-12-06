@@ -6,20 +6,20 @@ namespace rprotobuf {
 	/**
 	 * set the values of a repeated field
 	 *
-	 * @param xp (Message*) external pointer
+	 * @param xp (GPB::Message*) external pointer
 	 * @param field field tag number or name
 	 * @param index positions (0-based) 
 	 * @param values new values
 	 */
 	SEXP set_field_values( SEXP xp, SEXP field, SEXP index, SEXP values ){
 		
-		Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
-		FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+		GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 		if( !field_desc->is_repeated() ){
 			Rf_error( "set can only be used on repeated fields" ) ;
 		}
 		
-		const Reflection* ref = message->GetReflection(); 
+		const GPB::Reflection* ref = message->GetReflection(); 
 		
 		/* we know here that LENGTH(index) == LENGTH(values) */
 		int n = LENGTH(index) ;
@@ -110,7 +110,7 @@ namespace rprotobuf {
 	    			{
 	    				CHECK_values_for_enum( field_desc, values ) ;
 	    				
-	    				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+	    				const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
 	    				
 	    				switch( TYPEOF( values ) ){
     						case INTSXP:
@@ -131,7 +131,7 @@ namespace rprotobuf {
     								
     								for( int i=0; i<n; i++){
 	   									std::string val = CHAR( STRING_ELT( values, i) ) ;
-	    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    								const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
 	    								ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
 	    							}
 	    							
@@ -150,7 +150,7 @@ namespace rprotobuf {
     					CHECK_messages( field_desc, values ) ; 
     					
     					for( int i=0; i<n; i++){
-			    			Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( values, i) ) ; 
+			    			GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( values, i) ) ; 
 			    			ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ; ; 
 			    		}
 			    		break ;  
@@ -165,14 +165,14 @@ namespace rprotobuf {
 	/**
 	 * fetch a subset of the values of a field
 	 *
-	 * @param (Message*) external pointer
+	 * @param (GPB::Message*) external pointer
 	 * @param field name or tag number of the field
 	 * @param index 
 	 */
 	SEXP get_field_values( SEXP xp, SEXP field, SEXP index ){
 		
-		Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
-		FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+		GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 		if( !field_desc->is_repeated() ){
 			Rf_error( "fetch can only be used on repeated fields" ) ;
 		}
@@ -224,7 +224,7 @@ namespace rprotobuf {
 			case TYPE_STRING:
 	    	case TYPE_BYTES:
 	    		{
-	    			const Reflection* ref = message->GetReflection() ; 
+	    			const GPB::Reflection* ref = message->GetReflection() ; 
 	    			SEXP res = PROTECT( Rf_allocVector( STRSXP, n )  );  
     				for( int i=0; i<n; i++){
     					SET_STRING_ELT( res, i, 
@@ -236,7 +236,7 @@ namespace rprotobuf {
 	    	case TYPE_MESSAGE:
     		case TYPE_GROUP:
     			{
-	    			const Reflection* ref = message->GetReflection() ; 
+	    			const GPB::Reflection* ref = message->GetReflection() ; 
 	    			SEXP res = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
     				for( int i=0; i<n; i++){
     					SET_VECTOR_ELT( res, i, 

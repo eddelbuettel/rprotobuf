@@ -15,17 +15,17 @@ Rprintf( "<get_message_length>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = GET_MESSAGE_POINTER_FROM_XP(xp) ;
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP(xp) ;
 	
-	const Descriptor* desc = message->GetDescriptor(); 
-	const Reflection * ref = message->GetReflection() ;
+	const GPB::Descriptor* desc = message->GetDescriptor(); 
+	const GPB::Reflection * ref = message->GetReflection() ;
 	
 	int nfields = desc->field_count() ;
 	
 	int res = 0; 
 	
 	for( int i=0; i<nfields; i++){
-		const FieldDescriptor* field_desc = desc->field( i ) ;
+		const GPB::FieldDescriptor* field_desc = desc->field( i ) ;
 		if( field_desc->is_repeated() ){
 			if( ref->FieldSize( *message, field_desc ) > 0 ){
 				res++ ;

@@ -8,7 +8,7 @@ PKG_LIBS=		@PKG_LIBS@
 
 pkg=			RProtoBuf
 
-all:			addressbook.pb.cc protobufrpc.pb.cc pkglib
+all:			addressbook.pb.cc pkglib
 
 addressbook.pb.cc:	../inst/proto/addressbook.proto
 			protoc --cpp_out=. --proto_path=../inst/proto $<
@@ -16,14 +16,8 @@ addressbook.pb.cc:	../inst/proto/addressbook.proto
 addressbook.pb.o:	addressbook.pb.cc
 			$(SHLIB_CXXLD) -c $< $(CXXPICFLAGS) $(SHLIB_CXXLDFLAGS) $(PKG_CPPFLAGS) 
 
-protobufrpc.pb.cc:	../inst/proto/protobufrpc.proto
-			protoc --cpp_out=. --proto_path=../inst/proto $<
-
-protobufrpc.pb.o:	protobufrpc.pb.cc
-			$(SHLIB_CXXLD) -c $< $(CXXPICFLAGS) $(SHLIB_CXXLDFLAGS) $(PKG_CPPFLAGS) 
-
 ## The $(OBJECTS) variable is filled by R CMD ... based on all 
 ## .cpp files in this directory, but we need to add addressbook.pb.o
-pkglib:			addressbook.pb.o protobufrpc.pb.o $(OBJECTS)
+pkglib:			addressbook.pb.o $(OBJECTS)
 			$(SHLIB_CXXLD) -o $(pkg)$(DYLIB_EXT) $^ $(SHLIB_CXXLDFLAGS) $(PKG_LIBS)
 

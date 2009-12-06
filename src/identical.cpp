@@ -5,21 +5,21 @@
 
 namespace rprotobuf {
 
-	Rboolean identical_messages_( Message* m1,  Message* m2, double tol ){
-		const Descriptor* d1 = m1->GetDescriptor() ;
-		const Descriptor* d2 = m2->GetDescriptor() ;
+	Rboolean identical_messages_( GPB::Message* m1,  GPB::Message* m2, double tol ){
+		const GPB::Descriptor* d1 = m1->GetDescriptor() ;
+		const GPB::Descriptor* d2 = m2->GetDescriptor() ;
 		
 		/* first of all, check if this is the same message type */
 		if( d1 != d2 ){
 			return _FALSE_ ;
 		}
 		
-		const Reflection* ref = m2->GetReflection() ;
+		const GPB::Reflection* ref = m2->GetReflection() ;
 		
 		/* iterate field descriptors */
 		int nf = d1->field_count() ;
 		for( int i=0; i<nf; i++){
-			const FieldDescriptor* field_desc = d1->field( i ) ;
+			const GPB::FieldDescriptor* field_desc = d1->field( i ) ;
 			
 			if( field_desc->is_repeated() ){
 				
@@ -103,9 +103,9 @@ namespace rprotobuf {
 	    			case TYPE_GROUP:
 	    				{
 	    					for( int j=0; j<fs; j++){
-    							const Message *mm1 = &ref->GetRepeatedMessage( *m1, field_desc, j ) ;
-    							const Message *mm2 = &ref->GetRepeatedMessage( *m2, field_desc, j ) ;
-	    						if( !identical_messages_( (Message*)mm1, (Message*)mm2, tol ) ){
+    							const GPB::Message* mm1 = &ref->GetRepeatedMessage( *m1, field_desc, j ) ;
+    							const GPB::Message* mm2 = &ref->GetRepeatedMessage( *m2, field_desc, j ) ;
+	    						if( !identical_messages_( (GPB::Message*)mm1, (GPB::Message*)mm2, tol ) ){
 	    							return _FALSE_ ;
 	    						}
     						}
@@ -173,9 +173,9 @@ namespace rprotobuf {
 	    			case TYPE_MESSAGE:
 	    			case TYPE_GROUP:
 	    				{
-	    					const Message *mm1 = &ref->GetMessage( *m1, field_desc ) ;
-    						const Message *mm2 = &ref->GetMessage( *m2, field_desc ) ;
-	    					if( !identical_messages_( (Message*)mm1, (Message*)mm2, tol ) ){
+	    					const GPB::Message* mm1 = &ref->GetMessage( *m1, field_desc ) ;
+    						const GPB::Message* mm2 = &ref->GetMessage( *m2, field_desc ) ;
+	    					if( !identical_messages_( (GPB::Message*)mm1, (GPB::Message*)mm2, tol ) ){
 	    						return _FALSE_ ;
 	    					}
     						break ;
@@ -193,14 +193,14 @@ namespace rprotobuf {
 	}
 	
 	SEXP identical_messages( SEXP xp1, SEXP xp2){
-		Message* m1 = GET_MESSAGE_POINTER_FROM_XP( xp1 ) ;
-		Message* m2 = GET_MESSAGE_POINTER_FROM_XP( xp2 ) ;
+		GPB::Message* m1 = GET_MESSAGE_POINTER_FROM_XP( xp1 ) ;
+		GPB::Message* m2 = GET_MESSAGE_POINTER_FROM_XP( xp2 ) ;
 		return Rf_ScalarLogical( identical_messages_( m1, m2, 0.0 ) ) ;
 	}
 	
 	SEXP all_equal_messages( SEXP xp1, SEXP xp2, SEXP tol){
-		Message* m1 = GET_MESSAGE_POINTER_FROM_XP( xp1 ) ;
-		Message* m2 = GET_MESSAGE_POINTER_FROM_XP( xp2 ) ;
+		GPB::Message* m1 = GET_MESSAGE_POINTER_FROM_XP( xp1 ) ;
+		GPB::Message* m2 = GET_MESSAGE_POINTER_FROM_XP( xp2 ) ;
 		return Rf_ScalarLogical( identical_messages_( m1, m2, REAL(tol)[0] ) ) ;
 	}
 	

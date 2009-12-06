@@ -7,7 +7,7 @@ SEXP as_character_enum_descriptor( SEXP xp){
 Rprintf( "<as_character_enum_descriptor>\n" ) ;
 #endif
 	
-	EnumDescriptor* d = (EnumDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::EnumDescriptor* d = (GPB::EnumDescriptor*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString( d->DebugString().c_str() ) ) ;
 	UNPROTECT(1); /* res */
@@ -24,7 +24,7 @@ SEXP as_character_field_descriptor( SEXP xp){
 Rprintf( "<as_character_field_descriptor>\n" ) ;
 #endif
 	
-	FieldDescriptor* d = (FieldDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString( d->DebugString().c_str() ) ) ;
 	UNPROTECT(1); /* res */
@@ -40,7 +40,7 @@ SEXP as_character_file_descriptor( SEXP xp){
 Rprintf( "<as_character_file_descriptor>\n" ) ;
 #endif
 	
-	FileDescriptor* d = (FileDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::FileDescriptor* d = (GPB::FileDescriptor*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString( d->DebugString().c_str() ) ) ;
 	UNPROTECT(1); /* res */
@@ -52,7 +52,7 @@ Rprintf( "</as_character_file_descriptor>\n" ) ;
 }
 
 SEXP as_character_enum_value_descriptor( SEXP xp){
-	EnumValueDescriptor* d = (EnumValueDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::EnumValueDescriptor* d = (GPB::EnumValueDescriptor*)EXTPTR_PTR(xp) ;
 	return Rf_mkString( d->DebugString().c_str() ) ;
 }
 
@@ -64,7 +64,7 @@ SEXP as_character_enum_value_descriptor( SEXP xp){
 SEXP as_character_message( SEXP xp ){
 	
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(xp) ;
+	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString(message->DebugString().c_str() ) ) ; 
 	UNPROTECT(1); /* res */
@@ -80,7 +80,7 @@ SEXP as_character_message( SEXP xp ){
 SEXP as_character_descriptor( SEXP xp ){
 	
 	/* grab the Message pointer */
-	Descriptor* desc = (Descriptor*)EXTPTR_PTR(xp) ;
+	GPB::Descriptor* desc = (GPB::Descriptor*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
 	UNPROTECT(1); /* res */
@@ -90,12 +90,12 @@ SEXP as_character_descriptor( SEXP xp ){
 /**
  * Get the debug string of a service descriptor
  *
- * @param xp (ServiceDescriptor*) external pointer
+ * @param xp (GPB::ServiceDescriptor*) external pointer
  */
 SEXP as_character_service_descriptor( SEXP xp ){
 	
 	/* grab the Message pointer */
-	ServiceDescriptor* desc = (ServiceDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::ServiceDescriptor* desc = (GPB::ServiceDescriptor*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
 	UNPROTECT(1); /* res */
@@ -105,12 +105,12 @@ SEXP as_character_service_descriptor( SEXP xp ){
 /**
  * Get the debug string of a method descriptor
  *
- * @param xp (MethodDescriptor*) external pointer
+ * @param xp (GPB::MethodDescriptor*) external pointer
  */
 SEXP as_character_method_descriptor( SEXP xp ){
 	
 	/* grab the Message pointer */
-	MethodDescriptor* desc = (MethodDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::MethodDescriptor* desc = (GPB::MethodDescriptor*)EXTPTR_PTR(xp) ;
 	
 	SEXP res = PROTECT( Rf_mkString(desc->DebugString().c_str() ) ) ; 
 	UNPROTECT(1); /* res */
@@ -132,11 +132,11 @@ SEXP get_value_of_enum( SEXP xp, SEXP name ){
 Rprintf( "<get_value_of_enum>\n" ) ;
 #endif
 	
-	EnumDescriptor* d = (EnumDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::EnumDescriptor* d = (GPB::EnumDescriptor*)EXTPTR_PTR(xp) ;
 	
 	/* only the first one is used */
 	std::string val = CHAR( STRING_ELT( name, 0) ) ;
-	const EnumValueDescriptor* evd = d->FindValueByName(val) ;
+	const GPB::EnumValueDescriptor* evd = d->FindValueByName(val) ;
     if( !evd ){
     	/* or maybe it should just be NA */
     	throwException( "cannot get the value", "UnknownEnumValueException" ) ;

@@ -4,9 +4,9 @@ namespace rprotobuf{
 
 	SEXP message_swap_fields(SEXP xp, SEXP field, SEXP left, SEXP right ){
 		
-		Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ; 
-		FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
-		const Reflection* ref = message->GetReflection(); 
+		GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ; 
+		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+		const GPB::Reflection* ref = message->GetReflection(); 
 		if( ! field_desc->is_repeated() ){
 			Rf_error( "swap can only be used with repeated fields" ) ; 
 		}

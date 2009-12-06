@@ -41,21 +41,24 @@
 #define _TRUE_ (Rboolean)TRUE
 #define _FALSE_ (Rboolean)FALSE
 
-#define GET_MESSAGE_POINTER_FROM_XP(xp)  (Message*) EXTPTR_PTR( xp )
-#define GET_MESSAGE_POINTER_FROM_S4(m)   (Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
+#define GET_MESSAGE_POINTER_FROM_XP(xp)  (GPB::Message*) EXTPTR_PTR( xp )
+#define GET_MESSAGE_POINTER_FROM_S4(m)   (GPB::Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
-#define GET_DESCRIPTOR_POINTER_FROM_XP(xp)  (Descriptor*) EXTPTR_PTR( xp )
-#define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
+#define GET_DESCRIPTOR_POINTER_FROM_XP(xp)  (GPB::Descriptor*) EXTPTR_PTR( xp )
+#define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (GPB::Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
-#define GET_METHOD(xp)  (MethodDescriptor*) EXTPTR_PTR( xp )
-#define PROTOTYPE(desc) (Message*)MessageFactory::generated_factory()->GetPrototype( desc )->New() 
+#define GET_METHOD(xp)  (GPB::MethodDescriptor*) EXTPTR_PTR( xp )
+#define PROTOTYPE(desc) (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New() 
 
 #define COPYSTRING(s) s
 #define THROW_SOCKET_ERROR(message) Rf_error( "%s : %s", message, strerror(sockerrno) )
 
+namespace GPB = google::protobuf;
 
-using namespace google::protobuf::compiler ;
-using namespace google::protobuf ;
+#define int32 GPB::int32
+#define uint32 GPB::uint32
+#define int64 GPB::int64
+#define uint64 GPB::uint64
 
 namespace rprotobuf{
 
@@ -65,27 +68,27 @@ RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;
 RcppExport SEXP readProtoFiles( SEXP ); 
 RcppExport Rboolean isMessage( SEXP, const char* ) ;
-RcppExport FieldDescriptor* getFieldDescriptor(Message*, SEXP) ;
+RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP) ;
 RcppExport SEXP check_libprotobuf_version( SEXP ) ;
 RcppExport SEXP get_protobuf_library_version() ;
 
 /* in constructors.cpp */
-RcppExport SEXP new_RS4_Descriptor( const Descriptor * ); 
-RcppExport SEXP new_RS4_FieldDescriptor( const FieldDescriptor *); 
-RcppExport SEXP new_RS4_EnumDescriptor( const EnumDescriptor *); 
-RcppExport SEXP new_RS4_Message( const Message *, SEXP ); 
-RcppExport SEXP new_RS4_Message_( const Message* );
-RcppExport SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor *) ;
-RcppExport SEXP new_RS4_MethodDescriptor( const MethodDescriptor *) ;
-RcppExport SEXP new_RS4_FileDescriptor( const FileDescriptor *) ;
-RcppExport SEXP new_RS4_EnumValueDescriptor( const EnumValueDescriptor *) ;
+RcppExport SEXP new_RS4_Descriptor( const GPB::Descriptor*  ); 
+RcppExport SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor* ); 
+RcppExport SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor*); 
+RcppExport SEXP new_RS4_Message( const GPB::Message *, SEXP ); 
+RcppExport SEXP new_RS4_Message_( const GPB::Message* );
+RcppExport SEXP new_RS4_ServiceDescriptor( const GPB::ServiceDescriptor* ) ;
+RcppExport SEXP new_RS4_MethodDescriptor( const GPB::MethodDescriptor* ) ;
+RcppExport SEXP new_RS4_FileDescriptor( const GPB::FileDescriptor* ) ;
+RcppExport SEXP new_RS4_EnumValueDescriptor( const GPB::EnumValueDescriptor* ) ;
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
-RcppExport SEXP extractFieldAsSEXP( const Message *, const Descriptor*, const FieldDescriptor *) ;
+RcppExport SEXP extractFieldAsSEXP( const GPB::Message *, const GPB::Descriptor*, const GPB::FieldDescriptor* ) ;
 RcppExport SEXP get_message_descriptor( SEXP );
-RcppExport int MESSAGE_GET_REPEATED_INT( Message*, FieldDescriptor*, int) ;
-RcppExport double MESSAGE_GET_REPEATED_DOUBLE( Message*, FieldDescriptor*, int) ;
+RcppExport int MESSAGE_GET_REPEATED_INT( GPB::Message*, GPB::FieldDescriptor*, int) ;
+RcppExport double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message*, GPB::FieldDescriptor*, int) ;
 RcppExport SEXP get_service_method( SEXP, SEXP) ; 
 
 /* in completion.cpp */
@@ -118,8 +121,8 @@ RcppExport uint32 GET_uint32( SEXP, int) ;
 RcppExport uint64 GET_uint64( SEXP, int ) ;
 RcppExport bool GET_bool( SEXP, int) ;
 RcppExport std::string GET_stdstring( SEXP, int ) ;
-RcppExport void CHECK_values_for_enum( FieldDescriptor*, SEXP) ;
-RcppExport void CHECK_messages( FieldDescriptor*, SEXP) ;
+RcppExport void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
+RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
 
 /* in aslist.cpp */
 RcppExport SEXP as_list_message( SEXP ) ;
@@ -193,10 +196,10 @@ RcppExport SEXP get_method_input_prototype( SEXP) ;
 RcppExport SEXP valid_input_message( SEXP, SEXP) ;
 RcppExport SEXP valid_output_message( SEXP, SEXP) ;
 
-/* in channel.cpp */
-RcppExport SEXP getChannel( SEXP, SEXP) ; 
-RcppExport SEXP getChannelId( SEXP) ;
-RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
+//!! /* in channel.cpp */
+//!! RcppExport SEXP getChannel( SEXP, SEXP) ; 
+//!! RcppExport SEXP getChannelId( SEXP) ;
+//!! RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
 
 /* in fileDescriptor.cpp */
 RcppExport SEXP get_message_file_descriptor( SEXP) ;

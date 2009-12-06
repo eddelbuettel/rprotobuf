@@ -13,7 +13,7 @@ Rprintf( "<as_list_message>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-    //Message* message = (Message*)EXTPTR_PTR(xp) ;
+    //GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
 	
 	SEXP fieldNames = PROTECT( getMessageFieldNames(xp) ) ;
 	int nf = LENGTH( fieldNames ); 
@@ -42,7 +42,7 @@ SEXP as_list_descriptor( SEXP xp){
 Rprintf( "<as_list_descriptor>\n" ) ;
 #endif
 	
-	Descriptor* desc = (Descriptor*) EXTPTR_PTR(xp) ;
+	GPB::Descriptor* desc = (GPB::Descriptor*) EXTPTR_PTR(xp) ;
 	
 	SEXP names = PROTECT( getDescriptorMemberNames(xp) ) ; 
 	int n = LENGTH(names) ;
@@ -81,14 +81,14 @@ SEXP as_list_enum_descriptor( SEXP xp){
 Rprintf( "<as_list_enum_descriptor>\n" ) ;
 #endif
 
-	EnumDescriptor* d = (EnumDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::EnumDescriptor* d = (GPB::EnumDescriptor*)EXTPTR_PTR(xp) ;
 	
 	int n = d->value_count() ;
 	SEXP values = PROTECT( Rf_allocVector( INTSXP, n ) ) ;
 	SEXP names  = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
 	
 	for( int i=0; i<n; i++){
-		const EnumValueDescriptor* value_d = d->value(i) ;
+		const GPB::EnumValueDescriptor* value_d = d->value(i) ;
 		INTEGER(values)[i] = value_d->number() ;
 		SET_STRING_ELT( names, i, Rf_mkChar(value_d->name().c_str()) ) ;
 	}
@@ -105,7 +105,7 @@ Rprintf( "</as_list_enum_descriptor>\n" ) ;
 
 
 /**
- * @param xp (FileDescriptor*) external pointer
+ * @param xp (GPB::FileDescriptor*) external pointer
  * @return the descriptor as an R list
  */
 SEXP as_list_file_descriptor( SEXP xp){
@@ -114,7 +114,7 @@ SEXP as_list_file_descriptor( SEXP xp){
 Rprintf( "<as_list_file_descriptor>\n" ) ;
 #endif
 	
-	FileDescriptor* desc = (FileDescriptor*) EXTPTR_PTR(xp) ;
+	GPB::FileDescriptor* desc = (GPB::FileDescriptor*) EXTPTR_PTR(xp) ;
 	
 	SEXP names = PROTECT( getFileDescriptorMemberNames(xp) ) ; 
 	int n = LENGTH(names) ;
@@ -144,7 +144,7 @@ Rprintf( "</as_list_file_descriptor>\n" ) ;
 }
 
 /**
- * @param xp (ServiceDescriptor*) external pointer
+ * @param xp (GPB::ServiceDescriptor*) external pointer
  * @return the descriptor as an R list
  */
 SEXP as_list_service_descriptor( SEXP xp){
@@ -153,7 +153,7 @@ SEXP as_list_service_descriptor( SEXP xp){
 Rprintf( "<as_list_service_descriptor>\n" ) ;
 #endif
 	
-	ServiceDescriptor* desc = (ServiceDescriptor*) EXTPTR_PTR(xp) ;
+	GPB::ServiceDescriptor* desc = (GPB::ServiceDescriptor*) EXTPTR_PTR(xp) ;
 	
 	SEXP names = PROTECT( getServiceDescriptorMethodNames(xp) ) ; 
 	int n = LENGTH(names) ;

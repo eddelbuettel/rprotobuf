@@ -3,12 +3,12 @@
 
 namespace rprotobuf {
 
-	io::ZeroCopyInputStream * RSourceTree::Open(const string & filename){
+	GPB::io::ZeroCopyInputStream * RSourceTree::Open(const std::string & filename){
 		int file_descriptor = open(filename.c_str(), O_RDONLY);
 	  	if (file_descriptor >= 0) {
-	  	  io::FileInputStream* result = new io::FileInputStream(file_descriptor);
-	  	  result->SetCloseOnDelete(true);
-	  	  return result;
+	  		GPB::io::FileInputStream* result = new GPB::io::FileInputStream(file_descriptor);
+			result->SetCloseOnDelete(true);
+			return result;
 	  	} else {
 	  	  return NULL;
 	  	}		

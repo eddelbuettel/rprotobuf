@@ -3,8 +3,8 @@
 
 namespace rprotobuf {
 
-	void RWarningErrorCollector::AddError(const string& filename, int line, int column,
-                const string& message) {
+	void RWarningErrorCollector::AddError(const std::string& filename, int line, int column,
+		const std::string& message) {
 		
     	Rf_warning( "%s:%d:%d:%s", filename.c_str(), line+1, column+1, message.c_str() ) ;
 	}

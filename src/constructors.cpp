@@ -11,7 +11,7 @@ namespace rprotobuf{
  * @return a new "Descriptor" R object holding the 
  * descriptor as an external pointer
  */
-SEXP new_RS4_Descriptor( const Descriptor * d ){
+SEXP new_RS4_Descriptor( const GPB::Descriptor*  d ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Descriptor")) );
   	if (!Rf_inherits(oo, "Descriptor"))
@@ -37,7 +37,7 @@ SEXP new_RS4_Descriptor( const Descriptor * d ){
  *
  * @return a new "FieldDescriptor" R object
  */
-SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
+SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor*  fd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FieldDescriptor")) );
   	if (!Rf_inherits(oo, "FieldDescriptor"))
@@ -75,7 +75,7 @@ SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
  * @return a new "EnumDescriptor" holding the 
  * EnumDescriptor as an external pointer
  */
-SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
+SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor* fd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("EnumDescriptor")) );
   	if (!Rf_inherits(oo, "EnumDescriptor"))
@@ -112,7 +112,7 @@ SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
  * @return a new R S4 object of class "Message"
  * holding the Message pointer as an external pointer
  */
-SEXP new_RS4_Message( const Message* message, SEXP type ){
+SEXP new_RS4_Message( const GPB::Message* message, SEXP type ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Message")) );
   	if (!Rf_inherits(oo, "Message"))
@@ -132,7 +132,7 @@ SEXP new_RS4_Message( const Message* message, SEXP type ){
 }
 
 /* same as above, but get the type from the message */
-SEXP new_RS4_Message_( const Message* message ){
+SEXP new_RS4_Message_( const GPB::Message* message ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Message")) );
   	if (!Rf_inherits(oo, "Message"))
@@ -163,7 +163,7 @@ SEXP new_RS4_Message_( const Message* message ){
  * @return a new "ServiceDescriptor" holding the 
  * ServiceDescriptor as an external pointer
  */
-SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor * sd ){
+SEXP new_RS4_ServiceDescriptor( const GPB::ServiceDescriptor*  sd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ServiceDescriptor")) );
   	if (!Rf_inherits(oo, "ServiceDescriptor"))
@@ -193,7 +193,7 @@ SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor * sd ){
  * @return a new  holding the 
  * MethodDescriptor as an external pointer
  */
-SEXP new_RS4_MethodDescriptor( const MethodDescriptor * md ){
+SEXP new_RS4_MethodDescriptor( const GPB::MethodDescriptor*  md ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("MethodDescriptor")) );
   	if (!Rf_inherits(oo, "MethodDescriptor" ))
@@ -219,10 +219,10 @@ SEXP new_RS4_MethodDescriptor( const MethodDescriptor * md ){
 	return oo; 
 }
 
-SEXP new_RS4_FileDescriptor( const FileDescriptor * fd ){
+SEXP new_RS4_FileDescriptor( const GPB::FileDescriptor*  fd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FileDescriptor")) );
-  	if (!Rf_inherits(oo, "FileDescriptor"))
+	if (!Rf_inherits(oo, "FileDescriptor"))
   		throwException( "unable to create 'FileDescriptor' S4 object", "CannotCreateObjectException" );
   	
   	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
@@ -234,7 +234,7 @@ SEXP new_RS4_FileDescriptor( const FileDescriptor * fd ){
 	return oo; 
 }
 
-SEXP new_RS4_EnumValueDescriptor( const EnumValueDescriptor * fd ){
+SEXP new_RS4_EnumValueDescriptor( const GPB::EnumValueDescriptor*  fd ){
 	
 	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("EnumValueDescriptor")) );
   	if (!Rf_inherits(oo, "EnumValueDescriptor"))

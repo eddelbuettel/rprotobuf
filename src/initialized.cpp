@@ -13,7 +13,7 @@ Rprintf( "<is_message_initialized>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = GET_MESSAGE_POINTER_FROM_XP(xp) ;
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP(xp) ;
 	
 	SEXP ans = PROTECT( Rf_ScalarLogical( (int) message->IsInitialized() ) );
 	if( !LOGICAL(ans)[0] ){

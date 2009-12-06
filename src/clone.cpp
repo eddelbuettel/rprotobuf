@@ -15,10 +15,10 @@ Rprintf( "<clone_message>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(xp) ;
+	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
 
 	/* cloning message as sheep */
-	Message* sheep = message->New() ;
+	GPB::Message* sheep = message->New() ;
 	sheep->CopyFrom( *message );
 	
 	SEXP sheep_xp = PROTECT( new_RS4_Message_( sheep ) ) ;

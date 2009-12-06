@@ -14,20 +14,20 @@ Rprintf( "<message_has_field>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(xp) ;
+	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
 	
-	const Descriptor* desc = message->GetDescriptor(); 
+	const GPB::Descriptor* desc = message->GetDescriptor(); 
 	
 	const char* what= CHAR(STRING_ELT(name,0));
 	
-	const FieldDescriptor* field_desc = desc->FindFieldByName( what ) ;
+	const GPB::FieldDescriptor* field_desc = desc->FindFieldByName( what ) ;
 	
 	SEXP res = PROTECT( Rf_allocVector( LGLSXP, 1 ) );  
 	
 	if( !field_desc ){
 		LOGICAL(res)[0] = 0 ;
 	} else{
-		const Reflection * ref = message->GetReflection() ;
+		const GPB::Reflection * ref = message->GetReflection() ;
 		if( field_desc->is_repeated() ){
 			LOGICAL(res)[0] = ref->FieldSize( *message, field_desc ) > 0 ? 1 : 0 ;
 		} else{

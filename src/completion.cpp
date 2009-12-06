@@ -12,10 +12,10 @@ namespace rprotobuf{
 SEXP getMessageFieldNames( SEXP xp ){
 	
 	/* grab the Message pointer */
-	Message* message = (Message*)EXTPTR_PTR(xp) ;
+	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
 	
 	/* the message descriptor */
-	const Descriptor* desc = message->GetDescriptor() ;
+	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
 	int nfields = desc->field_count() ; 
 	SEXP res = PROTECT( Rf_allocVector(STRSXP, nfields) ) ;
@@ -40,7 +40,7 @@ SEXP getMessageFieldNames( SEXP xp ){
 SEXP getDescriptorMemberNames( SEXP xp ){
 	
 	/* the message descriptor */
-	Descriptor* desc = (Descriptor*)EXTPTR_PTR(xp) ;
+	GPB::Descriptor* desc = (GPB::Descriptor*)EXTPTR_PTR(xp) ;
 	
 	int nfields = desc->field_count() ;
 	int ntypes  = desc->nested_type_count() ;
@@ -77,14 +77,14 @@ SEXP getDescriptorMemberNames( SEXP xp ){
  * returns the names of the "members" contained in the 
  * file descriptor (message types, enum types, fields)
  *
- * @param xp (FileDescriptor*) external pointer
+ * @param xp (GPB::FileDescriptor*) external pointer
  *
  * @return member names, as an R character vector (STRSXP)
  */
 SEXP getFileDescriptorMemberNames( SEXP xp ){
 	
 	/* the message descriptor */
-	FileDescriptor* desc = (FileDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::FileDescriptor* desc = (GPB::FileDescriptor*)EXTPTR_PTR(xp) ;
 	
 	int ntypes  = desc->message_type_count() ;
 	int nenums  = desc->enum_type_count() ;
@@ -127,7 +127,7 @@ SEXP getFileDescriptorMemberNames( SEXP xp ){
  */
 SEXP getEnumDescriptorConstantNames( SEXP xp){
 	
-	EnumDescriptor* d = (EnumDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::EnumDescriptor* d = (GPB::EnumDescriptor*)EXTPTR_PTR(xp) ;
 	
 	int n = d->value_count() ;
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, n ) );
@@ -144,14 +144,14 @@ SEXP getEnumDescriptorConstantNames( SEXP xp){
  * returns the names of the methods contained in the 
  * service descriptor
  *
- * @param xp (ServiceDescriptor*) external pointer
+ * @param xp (GPB::ServiceDescriptor*) external pointer
  *
  * @return method names, as an R character vector (STRSXP)
  */
 SEXP getServiceDescriptorMethodNames( SEXP xp ){
 	
 	/* the message descriptor */
-	ServiceDescriptor* desc = (ServiceDescriptor*)EXTPTR_PTR(xp) ;
+	GPB::ServiceDescriptor* desc = (GPB::ServiceDescriptor*)EXTPTR_PTR(xp) ;
 	
 	int nmeths  = desc->method_count() ;
 

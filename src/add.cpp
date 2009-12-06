@@ -7,7 +7,7 @@ namespace rprotobuf{
 	/**
 	 * Add values to a repeated field
 	 *
-	 * @param xp (Message*) external pointer
+	 * @param xp (GPB::Message*) external pointer
 	 * @param field field tag number or name
 	 * @param values values to append
 	 */ 
@@ -15,9 +15,9 @@ namespace rprotobuf{
 #ifdef RPB_DEBUG
 Rprintf( "<message_add_values>\n" ) ;
 #endif		
-		Message* message = GET_MESSAGE_POINTER_FROM_XP( xp) ; 
+		GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp) ; 
 		const Reflection * ref = message->GetReflection() ;
-		FieldDescriptor* field_desc = getFieldDescriptor( message, field );
+		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
 		
 		if( values == R_NilValue || LENGTH(values) == 0 ){
 			return(R_NilValue); 
@@ -221,7 +221,7 @@ Rprintf( "<message_add_values>\n" ) ;
     				{    
     					if( TYPEOF(values) == VECSXP )  {
     						for( int i=0; i<value_size; i++){
-				    			Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( values, i) ) ; 
+				    			GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( values, i) ) ; 
 				    			/* we already know it is of the correct type because of the 
 				    			  premptive chjeck above */
 				    			
@@ -238,7 +238,7 @@ Rprintf( "<message_add_values>\n" ) ;
 				// {{{ enum
     			case TYPE_ENUM : 
     				{
-    					const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+    					const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
         	
     					switch( TYPEOF( values ) ){
     						// {{{ numbers 
@@ -260,7 +260,7 @@ Rprintf( "<message_add_values>\n" ) ;
     							{
     								for( int i=0; i<value_size; i++){
 	    								std::string val = CHAR( STRING_ELT( values, i) ) ;
-	    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    								const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
 	    								ref->AddEnum( message, field_desc, evd ) ; 
 									}
 	    							break ;

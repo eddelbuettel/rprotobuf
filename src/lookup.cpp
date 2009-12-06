@@ -35,7 +35,7 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
  	 /* first check the cache */
  	 val = _TRUE_ ;
  } else {
- 	const DescriptorPool * pool = DescriptorPool::generated_pool() ;
+ 	const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
  	if( pool->FindMessageTypeByName( name ) ||  pool->FindEnumTypeByName( name ) || pool->FindServiceByName( name ) || pool->FindMethodByName( name ) ){
  		
  		DescriptorPoolLookup::add( name ) ;
@@ -67,8 +67,8 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
 
  tb->active = _FALSE_;
  
- const DescriptorPool * pool = DescriptorPool::generated_pool() ;
- const Descriptor * desc = pool->FindMessageTypeByName( name ) ;
+ const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
+ const GPB::Descriptor*  desc = pool->FindMessageTypeByName( name ) ;
  if( desc ){
  	/* message */
  	DescriptorPoolLookup::add( name ) ;
@@ -77,7 +77,7 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
  	UNPROTECT(1); 
  	return( res ) ;
  } else {
- 	 const EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name ) ;
+ 	 const GPB::EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name ) ;
  	 if( enum_desc ){
  	 	/* enum */
  	 	DescriptorPoolLookup::add( name ) ;
@@ -86,7 +86,7 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
  		UNPROTECT(1); 
  		return( res ) ;
  	 } else{
-		const ServiceDescriptor* service_desc = pool->FindServiceByName( name ) ;
+		const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name ) ;
 		if( service_desc ){
 			DescriptorPoolLookup::add( name ) ;
 			SEXP res = PROTECT( new_RS4_ServiceDescriptor( service_desc ) ); 
@@ -94,7 +94,7 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
 			UNPROTECT(1); 
 			return( res ) ;
  	 	} else {
- 	 		const MethodDescriptor* method_desc = pool->FindMethodByName( name ); 
+ 	 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name ); 
  	 		if( method_desc ){
 				DescriptorPoolLookup::add( name ) ;
 				SEXP res = PROTECT( new_RS4_MethodDescriptor( method_desc ) ); 

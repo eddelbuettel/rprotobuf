@@ -3,7 +3,7 @@
 
 namespace rprotobuf{
 
-	class RconnectionCopyingInputStream : public io::CopyingInputStream {
+	class RconnectionCopyingInputStream : public GPB::io::CopyingInputStream {
 		public:	
 			RconnectionCopyingInputStream( int id );
 	

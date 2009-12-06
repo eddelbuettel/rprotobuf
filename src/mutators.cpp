@@ -198,9 +198,9 @@ Rboolean allAreMessages( SEXP x) {
  * @param value value to potentially fill the enum
  *
  */
-void CHECK_values_for_enum( FieldDescriptor* field_desc, SEXP value ){
+void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
 	
-	const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+	const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
     
 	int n = LENGTH(value) ;
 	
@@ -275,7 +275,7 @@ void CHECK_values_for_enum( FieldDescriptor* field_desc, SEXP value ){
 /**
  * check that the values are suitable for the field descriptor
  */
-void CHECK_messages( FieldDescriptor* field_desc, SEXP values ){
+void CHECK_messages( GPB::FieldDescriptor* field_desc, SEXP values ){
 	
 	if( TYPEOF( values ) != VECSXP ){
 		throwException( "expecting a list of messages", "ConversionException" ) ;
@@ -313,13 +313,13 @@ PRINT_DEBUG_INFO( "value", value ) ;
 #endif
 
 	/* grab the Message pointer */
-	Message* message = GET_MESSAGE_POINTER_FROM_XP(pointer) ;
+	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP(pointer) ;
 
 	/* the message descriptor */
-	// const Descriptor* desc = message->GetDescriptor() ;
+	// const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
 	/* check that we can get a file descriptor from name */
-	FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
+	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
 	
 	const Reflection * ref = message->GetReflection() ;
     
@@ -387,7 +387,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			}
     		case TYPE_ENUM : 
     			{
-    				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+    				const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
 
     				/* check first, it means we have to loop twice, but 
     				   otherwise this could have some side effects before 
@@ -749,7 +749,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							if( !Rf_inherits( value, "Message" ) ){
     								throwException( "Can only convert S4 objects of class 'Message' ", "ConversionException" ) ;
     							}
-    							Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
+    							GPB::Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
     							ref->SetRepeatedString(message, field_desc, 0, 
     								__mess->SerializeAsString() ) ;
     							break ;
@@ -762,7 +762,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							// FIXME: we should probably use SerializeToString 
     							//        as indicated in the protobuf api documentation
     							//        http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message_lite.html#MessageLite.SerializeAsString.details
-    							Message* __mess ;
+    							GPB::Message* __mess ;
     							
     							/* in any case, fill the values up to field_size */
     							int i = 0;
@@ -795,7 +795,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			{    
     				if( TYPEOF( value ) == S4SXP ) { 
     					/* we know it is a message of the correct type (tested above) */
-    					Message* mess = GET_MESSAGE_POINTER_FROM_S4( value ) ; 
+    					GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( value ) ; 
     					
     					if( field_size == 1 ) {
     						/* FIXME: we should not __copy__ the message */ 
@@ -811,7 +811,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					/* in any case, fill the values up to field_size */
     					int i = 0;
 			    		for( ; i<field_size; i++){
-			    			Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
+			    			GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
 			    			/* we already know it is of the correct type because of the 
 			    			  premptive chjeck above */
 			    			
@@ -821,7 +821,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			    		/* then add some if needed */
 			    		if( value_size > field_size ){
 			    			for( ; i<value_size; i++){
-			    				Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
+			    				GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
 			    				/* we already know it is of the correct type because of the 
 			    				  premptive chjeck above */
 			    				
@@ -838,7 +838,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			// {{{ enum
     		case TYPE_ENUM : 
     			{
-    				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+    				const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
 
     				switch( TYPEOF( value ) ){
     					// {{{ numbers 
@@ -872,7 +872,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							int i = 0;
 	    						for( ; i<field_size; i++){
 	   								std::string val = CHAR( STRING_ELT( value, i) ) ;
-	    							const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    							const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
 	    							ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
 	    						}
 	    						
@@ -880,7 +880,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    						if( value_size > field_size ){
 	    							for( ; i<value_size; i++){
 	    								std::string val = CHAR( STRING_ELT( value, i) ) ;
-	    								const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+	    								const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
 	    								ref->AddEnum( message, field_desc, evd ) ; 
 									}
 	    						}
@@ -1078,7 +1078,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							if( !Rf_inherits( value, "Message" ) ){
     								throwException( "Can only convert S4 objects of class 'Message' ", "ConversionException" ) ;
     							}
-    							Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
+    							GPB::Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
     							ref->SetString(message, field_desc, __mess->SerializeAsString() ) ;
     							break ;
     						}
@@ -1096,13 +1096,13 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_GROUP: 
     			{
     				if( TYPEOF( value ) == S4SXP && Rf_inherits( value, "Message" ) ){
-    					Message* mess = (Message*) EXTPTR_PTR( GET_SLOT( value, Rf_install("pointer") ) ) ;
+    					GPB::Message* mess = (GPB::Message*) EXTPTR_PTR( GET_SLOT( value, Rf_install("pointer") ) ) ;
     					const char* type = mess->GetDescriptor()->full_name().c_str() ;
     					const char* target = field_desc->message_type()->full_name().c_str() ; 
     					if( strcmp( type, target ) ){
     						throwException( "wrong message type", "WrongMessageException" ) ;
     					}
-    					Message* m = ref->MutableMessage( message, field_desc ) ; 
+    					GPB::Message* m = ref->MutableMessage( message, field_desc ) ; 
     					m->CopyFrom( *mess ) ;
     				} else {
     					throwException( "type mismatch, expecting a 'Message' object", "TypeMismatchException" ) ;
@@ -1114,7 +1114,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			// {{{ enum
     		case TYPE_ENUM : 
     			{
-    				const EnumDescriptor* enum_desc = field_desc->enum_type() ;
+    				const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
     				
     				switch( TYPEOF( value ) ){
     					case INTSXP:
@@ -1123,7 +1123,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case RAWSXP:
     						{
     							int val = GET_int(value, 0 ) ;
-    							const EnumValueDescriptor* evd = enum_desc->FindValueByNumber(val) ;
+    							const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByNumber(val) ;
     							if( !evd ){
     								throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
     							} else {
@@ -1134,7 +1134,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case STRSXP:
     						{
     							std::string val = CHAR( STRING_ELT( value, 0) ) ;
-    							const EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+    							const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
     							if( !evd ){
     								throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
     							} else {

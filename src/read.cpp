@@ -13,13 +13,13 @@ namespace rprotobuf{
  */
 SEXP readMessageFromFile( SEXP xp, SEXP filename ){
 	
-	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
+	GPB::Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
 	
 	/* open the file to read in binary mode */
 	int file = open( CHAR(STRING_ELT(filename, 0 )), O_RDONLY | O_BINARY);
 	
 	/* create a prototype of the message we are going to read */
-	Message * message = (Message*)MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	GPB::Message* message = (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
@@ -40,16 +40,16 @@ SEXP readMessageFromFile( SEXP xp, SEXP filename ){
  */ 
 SEXP readMessageFromConnection( SEXP xp, SEXP con ){
 	
-	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
+	GPB::Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
 	
 	int conn_id = INTEGER(con)[0] ;
 	
 	RconnectionCopyingInputStream wrapper( conn_id ) ;
-	io::CopyingInputStreamAdaptor stream( &wrapper, 1024 ) ;
-	io::CodedInputStream coded_stream(&stream ) ;
+	GPB::io::CopyingInputStreamAdaptor stream( &wrapper, 1024 ) ;
+	GPB::io::CodedInputStream coded_stream(&stream ) ;
 	
 	/* create a prototype of the message we are going to read */
-	Message * message = PROTOTYPE( desc ) ; 
+	GPB::Message* message = PROTOTYPE( desc ) ; 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
@@ -61,17 +61,17 @@ SEXP readMessageFromConnection( SEXP xp, SEXP con ){
 /**
  * read a message from its payload
  *
- * @param xp (Descriptor*) external pointer
+ * @param xp (GPB::Descriptor*) external pointer
  * @param raw the payload of the message
  */
 SEXP readMessageFromRawVector( SEXP xp, SEXP raw){
 	
-	Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
+	GPB::Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_XP( xp ); 
 	
-	io::ArrayInputStream ais( (void*)RAW(raw), LENGTH(raw) ); 
-	io::CodedInputStream stream( &ais ) ; 
+	GPB::io::ArrayInputStream ais( (void*)RAW(raw), LENGTH(raw) ); 
+	GPB::io::CodedInputStream stream( &ais ) ; 
 	
-	Message * message = PROTOTYPE( desc ) ; 
+	GPB::Message* message = PROTOTYPE( desc ) ; 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}
