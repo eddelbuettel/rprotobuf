@@ -2,22 +2,22 @@
 \docType{methods}
 \alias{clear}
 \alias{clear-methods}
-\alias{clear,protobufMessage,character-method}
-\alias{clear,protobufMessage,integer-method}
-\alias{clear,protobufMessage,missing-method}
-\alias{clear,protobufMessage,numeric-method}
-\alias{clear,protobufMessage,raw-method}
+\alias{clear,Message,character-method}
+\alias{clear,Message,integer-method}
+\alias{clear,Message,missing-method}
+\alias{clear,Message,numeric-method}
+\alias{clear,Message,raw-method}
 \title{Clear a field or all fields of the message and set them to their default values}
 \description{
 Clear one field or all fields of the message and set them to their default values
 }
 \section{Methods}{
 \describe{
-\item{\code{signature(object = "protobufMessage", field = "missing")}}{Clear all fields of the message and set them to their default values }
-\item{\code{signature(object = "protobufMessage", field = "character")}}{ Clear the field identified by its name }
-\item{\code{signature(object = "protobufMessage", field = "integer")}}{ Clear the field identified by its tag number }
-\item{\code{signature(object = "protobufMessage", field = "numeric")}}{ Clear the field identified by its tag number }
-\item{\code{signature(object = "protobufMessage", field = "raw")}}{ Clear the field identified by its tag number}
+\item{\code{signature(object = "Message", field = "missing")}}{Clear all fields of the message and set them to their default values }
+\item{\code{signature(object = "Message", field = "character")}}{ Clear the field identified by its name }
+\item{\code{signature(object = "Message", field = "integer")}}{ Clear the field identified by its tag number }
+\item{\code{signature(object = "Message", field = "numeric")}}{ Clear the field identified by its tag number }
+\item{\code{signature(object = "Message", field = "raw")}}{ Clear the field identified by its tag number}
 
 }}
 \keyword{methods}

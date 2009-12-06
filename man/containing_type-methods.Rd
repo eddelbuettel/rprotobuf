@@ -3,13 +3,13 @@
 \alias{containing_type-methods}
 \title{Gets the message type descriptor that contains a descriptor}
 \description{
-Gets a \linkS4class{protobufDescriptor} describing the message type 
+Gets a \linkS4class{Descriptor} describing the message type 
 that contains the descriptor. 
 }
 \seealso{
 The method is implemented for these classes : 
-\linkS4class{protobufDescriptor}, \linkS4class{protobufEnumDescriptor}, 
-\linkS4class{protobufFieldDescriptor}
+\linkS4class{Descriptor}, \linkS4class{EnumDescriptor}, 
+\linkS4class{FieldDescriptor}
 }
 \keyword{methods}
 

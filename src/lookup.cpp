@@ -49,7 +49,7 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
 }
 
 /**
- * Returns a new "protobufDescriptor" if there is such a message type
+ * Returns a new "Descriptor" if there is such a message type
  * in the descriptor pool. NULL otherwise
  *
  * @param name message type name (without package path)

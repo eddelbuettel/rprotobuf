@@ -3,17 +3,17 @@ setGeneric( "read", function( descriptor, input ){
 	standardGeneric( "read" )
 } )
 
-setMethod( "read", c( descriptor = "protobufDescriptor" , input = "character" ), 
+setMethod( "read", c( descriptor = "Descriptor" , input = "character" ), 
 function(descriptor, input ){
 	file <- tools:::file_path_as_absolute( input )
 	.Call( "readMessageFromFile", descriptor@pointer, file, PACKAGE = "RProtoBuf" ) 
 } )
 
-setMethod( "read", c( descriptor = "protobufDescriptor", input = "raw" ), function(descriptor, input ){
+setMethod( "read", c( descriptor = "Descriptor", input = "raw" ), function(descriptor, input ){
 	.Call( "readMessageFromRawVector", descriptor@pointer, input, PACKAGE="RProtoBuf" )
 } )
 
-setMethod( "read", c( descriptor = "protobufDescriptor" ), 
+setMethod( "read", c( descriptor = "Descriptor" ), 
 function( descriptor, input ){
 	if( !inherits( input, "connection" ) ){ 
 		stop( "can only read from connections" )

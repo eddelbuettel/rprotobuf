@@ -13,13 +13,13 @@ importFrom( "utils", "packageDescription" )
 exportClasses(
 
 	# descriptors
-	"protobufDescriptor",
-	"protobufFieldDescriptor", "protobufEnumDescriptor",
-	"protobufServiceDescriptor", "protobufMethodDescriptor",
-	"protobufFileDescriptor", "protobufEnumValueDescriptor", 
+	"Descriptor",
+	"FieldDescriptor", "EnumDescriptor",
+	"ServiceDescriptor", "MethodDescriptor",
+	"FileDescriptor", "EnumValueDescriptor", 
 
 	# message
-	"protobufMessage"
+	"Message"
 
 	)
 
@@ -59,22 +59,22 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 export( "P", "readProtoFiles", "asMessage" )
 
 if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
-S3method(.DollarNames, protobufMessage )
-S3method(.DollarNames, protobufDescriptor )
-S3method(.DollarNames, protobufEnumDescriptor )
-S3method(.DollarNames, protobufFileDescriptor )
-S3method(.DollarNames, protobufFieldDescriptor )
-S3method(.DollarNames, protobufServiceDescriptor )
-S3method(.DollarNames, protobufMethodDescriptor )
+S3method(.DollarNames, Message )
+S3method(.DollarNames, Descriptor )
+S3method(.DollarNames, EnumDescriptor )
+S3method(.DollarNames, FileDescriptor )
+S3method(.DollarNames, FieldDescriptor )
+S3method(.DollarNames, ServiceDescriptor )
+S3method(.DollarNames, MethodDescriptor )
 
-S3method( with, protobufMessage )
-S3method( within, protobufMessage)
+S3method( with, Message )
+S3method( within, Message)
 
-S3method( as.list, protobufMessage )
-S3method( as.list, protobufDescriptor )
-S3method( as.list, protobufEnumDescriptor )
-S3method( as.list, protobufFileDescriptor )
-S3method( as.list, protobufServiceDescriptor )
+S3method( as.list, Message )
+S3method( as.list, Descriptor )
+S3method( as.list, EnumDescriptor )
+S3method( as.list, FileDescriptor )
+S3method( as.list, ServiceDescriptor )
 
 # constants
 exportPattern( "^TYPE_" )

@@ -5,5 +5,5 @@ setGeneric( "has", function( object, name, ... ){
 ._has_message <- function( object, name, ...){
 	.Call( "message_has_field", object@pointer, name, PACKAGE = "RProtoBuf" )
 }
-setMethod( "has", "protobufMessage", ._has_message )
+setMethod( "has", "Message", ._has_message )
 

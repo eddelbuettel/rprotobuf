@@ -5,7 +5,7 @@
 # the payload to the connection
 
 setGeneric( "serialize" )
-setMethod( "serialize", c( object = "protobufMessage" ) , 
+setMethod( "serialize", c( object = "Message" ) , 
 	function( object, connection, ascii = FALSE, refhook = NULL){
 		
 		iscon <- inherits(connection, "connection")

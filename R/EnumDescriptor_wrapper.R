@@ -2,7 +2,7 @@
 setGeneric( "value_count", function(object ){
 	standardGeneric( "value_count" )
 } )
-setMethod( "value_count", "protobufEnumDescriptor", function(object){
+setMethod( "value_count", "EnumDescriptor", function(object){
 	.Call( "EnumDescriptor__value_count", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
@@ -10,7 +10,7 @@ setMethod( "value_count", "protobufEnumDescriptor", function(object){
 setGeneric( "value", function(object, index, name, number ){
 	standardGeneric( "value" )
 } )
-setMethod( "value", "protobufEnumDescriptor", function(object, index, name, number){
+setMethod( "value", "EnumDescriptor", function(object, index, name, number){
 	
 	has_index  <- !missing(index)
 	has_number <- !missing(number)

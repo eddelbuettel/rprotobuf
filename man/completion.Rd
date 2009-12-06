@@ -1,11 +1,11 @@
 \name{completion}
-\alias{.DollarNames.protobufMessage}
-\alias{.DollarNames.protobufDescriptor}
-\alias{.DollarNames.protobufEnumDescriptor}
-\alias{.DollarNames.protobufFieldDescriptor}
-\alias{.DollarNames.protobufFileDescriptor}
-\alias{.DollarNames.protobufServiceDescriptor}
-\alias{.DollarNames.protobufMethodDescriptor}
+\alias{.DollarNames.Message}
+\alias{.DollarNames.Descriptor}
+\alias{.DollarNames.EnumDescriptor}
+\alias{.DollarNames.FieldDescriptor}
+\alias{.DollarNames.FileDescriptor}
+\alias{.DollarNames.ServiceDescriptor}
+\alias{.DollarNames.MethodDescriptor}
 \title{
 Completion support for protocol buffer messages and descriptors
 }
@@ -14,32 +14,32 @@ These functions support completion of protocol buffer
 messages and descriptors.
 }
 \usage{
-\S3method{.DollarNames}{protobufMessage}(x, pattern = "")
-\S3method{.DollarNames}{protobufDescriptor}(x, pattern = "")
-\S3method{.DollarNames}{protobufEnumDescriptor}(x, pattern = "")
-\S3method{.DollarNames}{protobufFieldDescriptor}(x, pattern = "")
-\S3method{.DollarNames}{protobufFileDescriptor}(x, pattern = "")
-\S3method{.DollarNames}{protobufServiceDescriptor}(x, pattern = "")
-\S3method{.DollarNames}{protobufMethodDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{Message}(x, pattern = "")
+\S3method{.DollarNames}{Descriptor}(x, pattern = "")
+\S3method{.DollarNames}{EnumDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{FieldDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{FileDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{ServiceDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{MethodDescriptor}(x, pattern = "")
 }
 \arguments{
-\item{x}{message (\linkS4class{protobufMessage}) or descriptor (\linkS4class{protobufDescriptor}) }
+\item{x}{message (\linkS4class{Message}) or descriptor (\linkS4class{Descriptor}) }
 \item{pattern}{filter}
 }
 \value{
 Character vector containing potential completions. 
 
-For \linkS4class{protobufMessage} objects, completions are 
+For \linkS4class{Message} objects, completions are 
 the fields of the message and a set of pseudo methods ("has")
 
-For \linkS4class{protobufEnumDescriptor} objects, completions
+For \linkS4class{EnumDescriptor} objects, completions
 are the names of the possible constants
 
-For \linkS4class{protobufDescriptor} objects, completions
+For \linkS4class{Descriptor} objects, completions
 are the names of the fields, enum types and nested message types
 defined in the associated message type. 
 
-For \linkS4class{protobufFileDescriptor} objects, completions
+For \linkS4class{FileDescriptor} objects, completions
 are the names of the top-level descriptors (message, enum or service)
 contained in the associated file, or pseudo methods.
 

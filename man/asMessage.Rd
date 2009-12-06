@@ -4,9 +4,9 @@
 coerce an object to a protobuf message
 }
 \description{
-	coerce an object to the \linkS4class{protobufMessage} class. 
+	coerce an object to the \linkS4class{Message} class. 
 	This is a short-hand to the \link{as} method with the 
-	\code{Class} argument set to "protobufMessage"
+	\code{Class} argument set to "Message"
 }
 \usage{
 asMessage(x, ...)
@@ -16,7 +16,7 @@ asMessage(x, ...)
   \item{\dots}{Passed to \code{\link{as}} }
 }
 \value{
-	a \linkS4class{protobufMessage} object
+	a \linkS4class{Message} object
 }
 \author{
 Romain Francois <francoisromain@free.fr>

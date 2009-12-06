@@ -15,7 +15,7 @@ P(type, file)
   pool of message descriptors}
 }
 \value{
-An object of class \linkS4class{protobufDescriptor}. 
+An object of class \linkS4class{Descriptor}. 
 An error is generated otherwise.
 }
 \author{

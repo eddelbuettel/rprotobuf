@@ -1,7 +1,7 @@
 setGeneric( "method_count", function(object ){
 	standardGeneric( "method_count" )
 } )
-setMethod( "method_count", "protobufServiceDescriptor", function(object){
+setMethod( "method_count", "ServiceDescriptor", function(object){
 	.Call( "ServiceDescriptor_method_count", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
@@ -9,7 +9,7 @@ setMethod( "method_count", "protobufServiceDescriptor", function(object){
 setGeneric( "method", function(object, index, name ){
 	standardGeneric( "method" )
 } )
-setMethod( "method", "protobufServiceDescriptor", function(object, index, name){
+setMethod( "method", "ServiceDescriptor", function(object, index, name){
 	
 	has_index  <- !missing(index)
 	has_name   <- !missing(name)

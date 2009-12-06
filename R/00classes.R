@@ -2,12 +2,12 @@
 
 # {{{ class definitions 
 
-setClass( "protobufDescriptor", representation( 
+setClass( "Descriptor", representation( 
 	pointer = "externalptr",   # pointer to a google::protobuf::Descriptor c++ object
 	type = "character"         # message type
 ), prototype = list( pointer = NULL, type = character(0) ) )
 
-setClass( "protobufFieldDescriptor", representation( 
+setClass( "FieldDescriptor", representation( 
 	pointer = "externalptr" ,   # pointer to a google::protobuf::FieldDescriptor c++ object
 	name    = "character", 
 	full_name  = "character", 
@@ -15,7 +15,7 @@ setClass( "protobufFieldDescriptor", representation(
 ), prototype = list( pointer = NULL, name = character(0), 
 	full_name = character(0), type = character(0) ) ) 	
 
-setClass( "protobufEnumDescriptor", representation( 
+setClass( "EnumDescriptor", representation( 
 	pointer = "externalptr" ,  # pointer to a google::protobuf::EnumDescriptor c++ object
 	name    = "character", 
 	full_name  = "character", 
@@ -23,28 +23,28 @@ setClass( "protobufEnumDescriptor", representation(
 ), prototype = list( pointer = NULL, name = character(0), 
 	full_name = character(0), type = character(0) ) )
 
-setClass( "protobufServiceDescriptor", representation( 
+setClass( "ServiceDescriptor", representation( 
 	pointer = "externalptr",   # pointer to a google::protobuf::ServiceDescriptor c++ object
 	name = "character"         # full name of the service
 ), prototype = list( pointer = NULL, name = character(0) ) )
 
-setClass( "protobufMethodDescriptor", representation( 
+setClass( "MethodDescriptor", representation( 
 	pointer = "externalptr",   # pointer to a google::protobuf::ServiceDescriptor c++ object
 	name = "character"     ,   # full name of the service
 	service = "character"      # full name of the service that defines this method
 ), prototype = list( pointer = NULL, name = character(0), service = character(0) ) )
 
-setClass( "protobufFileDescriptor", representation( 
+setClass( "FileDescriptor", representation( 
 	pointer = "externalptr"  # pointer to a google::protobuf::FileDescriptor c++ object
 ), prototype = list( pointer = NULL ) )
 
-setClass( "protobufEnumValueDescriptor", representation( 
+setClass( "EnumValueDescriptor", representation( 
 	pointer = "externalptr"  # pointer to a google::protobuf::EnumValueDescriptor c++ object
 ), prototype = list( pointer = NULL ) )
 
 # actual objects
 
-setClass( "protobufMessage",  representation( 
+setClass( "Message",  representation( 
    pointer = "externalptr",    # pointer to sa google::protobuf::Message object
    type    = "character"       # message type (fully qualified, with package path)
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
@@ -61,7 +61,7 @@ setClass( "protobufMessage",  representation(
 
 # {{{ new
 setGeneric("new")
-setMethod("new", signature(Class="protobufDescriptor"), function(Class, ...) newProto(Class, ...))
+setMethod("new", signature(Class="Descriptor"), function(Class, ...) newProto(Class, ...))
 newProto <- function( descriptor, ... ){
 	message <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
 	update( message, ... )
@@ -95,32 +95,32 @@ P <- function( type, file ){
 # }}}
 
 # {{{ show
-setMethod( "show", c( "protobufMessage" ), function(object){
-	show( sprintf( "protobuf message of type '%s' ", object@type ) ) 
+setMethod( "show", c( "Message" ), function(object){
+	show( sprintf( " message of type '%s' ", object@type ) ) 
 } )
-setMethod( "show", c( "protobufDescriptor" ), function(object){
+setMethod( "show", c( "Descriptor" ), function(object){
 	show( sprintf( "descriptor for type '%s' ", object@type ) ) 
 } )
-setMethod( "show", c( "protobufFieldDescriptor" ), function(object){
+setMethod( "show", c( "FieldDescriptor" ), function(object){
 	show( sprintf( "descriptor for field '%s' of type '%s' ", object@name, object@type ) ) 
 } )
-setMethod( "show", c( "protobufEnumDescriptor" ), function(object){
+setMethod( "show", c( "EnumDescriptor" ), function(object){
 	show( sprintf( "descriptor for enum '%s' of type '%s' ", object@name, object@type ) ) 
 } )
-setMethod( "show", c( "protobufServiceDescriptor" ), function(object){
+setMethod( "show", c( "ServiceDescriptor" ), function(object){
 	show( sprintf( "service descriptor <%s>", object@name ) ) 
 } )
-setMethod( "show", c( "protobufFileDescriptor" ), function(object){
+setMethod( "show", c( "FileDescriptor" ), function(object){
 	show( sprintf( "file descriptor" ) ) 
 } )
-setMethod( "show", c( "protobufEnumValueDescriptor" ), function(object){
+setMethod( "show", c( "EnumValueDescriptor" ), function(object){
 	show( sprintf( "enum value descriptor" ) ) 
 } )
 
 # }}}
 
 # {{{ dollar extractors
-setMethod("$", "protobufMessage", function(x, name) {
+setMethod("$", "Message", function(x, name) {
 	
 	switch( name, 
 		"has" = function( what ) .Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" ), 
@@ -148,7 +148,7 @@ setMethod("$", "protobufMessage", function(x, name) {
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
 	} )
-setMethod("$", "protobufDescriptor", function(x, name) {
+setMethod("$", "Descriptor", function(x, name) {
 	switch( name, 
 		"new" = function( ... ) newProto( x, ... ) , 
 		"read" = function( input ) read( x, input ) ,
@@ -172,7 +172,7 @@ setMethod("$", "protobufDescriptor", function(x, name) {
 		.Call( "do_dollar_Descriptor", x@pointer, name )
 	)
 } )
-setMethod( "$", "protobufEnumDescriptor", function(x, name ){
+setMethod( "$", "EnumDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x), 
 		"as.list"= function() as.list(x) , 
@@ -190,7 +190,7 @@ setMethod( "$", "protobufEnumDescriptor", function(x, name ){
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
 } )
-setMethod( "$", "protobufFieldDescriptor", function(x, name ){
+setMethod( "$", "FieldDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x),
 		"asMessage" = function() asMessage(x), 
@@ -216,7 +216,7 @@ setMethod( "$", "protobufFieldDescriptor", function(x, name ){
 		)
 } )
 
-setMethod( "$", "protobufServiceDescriptor", function(x, name ){
+setMethod( "$", "ServiceDescriptor", function(x, name ){
 	switch( name, 
 		"as.character" = function() as.character(x),
 		"asMessage" = function() asMessage(x), 
@@ -230,7 +230,7 @@ setMethod( "$", "protobufServiceDescriptor", function(x, name ){
 		)
 } )
 
-setMethod( "$", "protobufFileDescriptor", function(x, name ){
+setMethod( "$", "FileDescriptor", function(x, name ){
 	
 	switch( name, 
 		"as.character" = function() as.character(x),
@@ -243,7 +243,7 @@ setMethod( "$", "protobufFileDescriptor", function(x, name ){
 
 })
 
-setMethod( "$", "protobufEnumValueDescriptor", function(x, name ){
+setMethod( "$", "EnumValueDescriptor", function(x, name ){
 	
 	switch( name, 
 		"as.character" = function() as.character(x),
@@ -255,14 +255,14 @@ setMethod( "$", "protobufEnumValueDescriptor", function(x, name ){
 
 })
 
-setMethod("$<-", "protobufMessage", function(x, name, value) {
+setMethod("$<-", "Message", function(x, name, value) {
 	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
 	x
 } )
 # }}}
 
 # {{{ [[
-setMethod( "[[", "protobufMessage", function(x, i, j, ..., exact = TRUE){
+setMethod( "[[", "Message", function(x, i, j, ..., exact = TRUE){
 	
 	if( missing( i ) ){
 		stop( "`i` is required" )
@@ -279,7 +279,7 @@ setMethod( "[[", "protobufMessage", function(x, i, j, ..., exact = TRUE){
 	
 } )
 
-setMethod("[[", "protobufServiceDescriptor", function(x, i, j, ..., exact = TRUE){
+setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
 	if( missing( i ) ){
 		stop( "`i` is required" )
 	}
@@ -296,7 +296,7 @@ setMethod("[[", "protobufServiceDescriptor", function(x, i, j, ..., exact = TRUE
 # }}}
 
 # {{{ [[<-
-setReplaceMethod( "[[", "protobufMessage", 
+setReplaceMethod( "[[", "Message", 
 function(x, i, j, ..., exact = TRUE, value ){
 
 	# TODO: we might want to relax this later, i.e 
@@ -323,7 +323,7 @@ function(x, i, j, ..., exact = TRUE, value ){
 
 # {{{ update
 setGeneric( "update" )
-setMethod( "update", "protobufMessage", function( object, ... ){
+setMethod( "update", "Message", function( object, ... ){
 	
 	dots <- list( ... )
 	if( !length( dots ) ){
@@ -342,13 +342,13 @@ setMethod( "update", "protobufMessage", function( object, ... ){
 
 # {{{ length
 setGeneric( "length" )
-setMethod( "length", "protobufMessage", function( x ){
+setMethod( "length", "Message", function( x ){
 	.Call( "get_message_length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
-setMethod( "length", "protobufEnumDescriptor", function( x ){
+setMethod( "length", "EnumDescriptor", function( x ){
 	.Call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
 } ) 
-setMethod( "length", "protobufServiceDescriptor", function( x ){
+setMethod( "length", "ServiceDescriptor", function( x ){
 	.Call( "ServiceDescriptor_method_count", x@pointer, PACKAGE = "RProtoBuf" )
 } ) 
 # }}}
@@ -356,8 +356,8 @@ setMethod( "length", "protobufServiceDescriptor", function( x ){
 # {{{ str
 # we need to do this otherwise it gets messed up by the length method
 setGeneric( "str" )
-setMethod( "str", "protobufMessage", function( object, ...){
-txt <- sprintf( '	Formal class \'protobufMessage\' [package "RProtoBuf"] with 2 slots
+setMethod( "str", "Message", function( object, ...){
+txt <- sprintf( '	Formal class \'Message\' [package "RProtoBuf"] with 2 slots
   ..@ pointer:<externalptr>
   ..@ type   : chr "%s"
 ', object@type )
@@ -369,27 +369,27 @@ writeLines( txt )
 setGeneric( "name", function(object, full = FALSE){
 	standardGeneric( "name" )
 })
-setMethod( "name", c( object = "protobufDescriptor" ) , 
+setMethod( "name", c( object = "Descriptor" ) , 
 function(object, full = FALSE){
 	.Call( "name_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
 }) 
-setMethod( "name", c( object = "protobufFieldDescriptor" ) , 
+setMethod( "name", c( object = "FieldDescriptor" ) , 
 function(object, full = FALSE){
 	.Call( "name_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "protobufEnumDescriptor" ) , 
+setMethod( "name", c( object = "EnumDescriptor" ) , 
 function(object, full = FALSE){
 	.Call( "name_enum_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "protobufServiceDescriptor" ) , 
+setMethod( "name", c( object = "ServiceDescriptor" ) , 
 function(object, full = FALSE){
 	.Call( "name_service_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "protobufMethodDescriptor" ) , 
+setMethod( "name", c( object = "MethodDescriptor" ) , 
 function(object, full = FALSE){
 	.Call( "name_method_descriptor", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "protobufFileDescriptor" ) , 
+setMethod( "name", c( object = "FileDescriptor" ) , 
 function(object, full = FALSE){
 	filename <- .Call( "name_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
 	if( full ) filename else basename( filename )
@@ -397,29 +397,29 @@ function(object, full = FALSE){
 # }}}
 
 # {{{ as
-setAs("protobufDescriptor", "protobufMessage", function(from){
+setAs("Descriptor", "Message", function(from){
 	.Call( "asMessage_Descriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-setAs("protobufFieldDescriptor", "protobufMessage", function(from){
+setAs("FieldDescriptor", "Message", function(from){
 	.Call( "asMessage_FieldDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-setAs("protobufEnumDescriptor", "protobufMessage", function(from){
+setAs("EnumDescriptor", "Message", function(from){
 	.Call( "asMessage_EnumDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-setAs("protobufServiceDescriptor", "protobufMessage", function(from){
+setAs("ServiceDescriptor", "Message", function(from){
 	.Call( "asMessage_ServiceDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-setAs("protobufMethodDescriptor", "protobufMessage", function(from){
+setAs("MethodDescriptor", "Message", function(from){
 	.Call( "asMessage_MethodDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-setAs("protobufFileDescriptor", "protobufMessage", function(from){
+setAs("FileDescriptor", "Message", function(from){
 	.Call( "asMessage_FileDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
-setAs("protobufEnumValueDescriptor", "protobufMessage", function(from){
+setAs("EnumValueDescriptor", "Message", function(from){
 	.Call( "asMessage_EnumValueDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
 })
 asMessage <- function( x, ... ){
-	as( x, "protobufMessage", ... )
+	as( x, "Message", ... )
 }
 # }}}
 

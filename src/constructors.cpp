@@ -3,19 +3,19 @@
 namespace rprotobuf{
 
 /**
- * Creates an R object of S4 class protobufDescriptor
+ * Creates an R object of S4 class Descriptor
  * from a google::protobuf::Descriptor pointer
  * 
  * @param d Descriptor
  * 
- * @return a new "protobufDescriptor" R object holding the 
+ * @return a new "Descriptor" R object holding the 
  * descriptor as an external pointer
  */
 SEXP new_RS4_Descriptor( const Descriptor * d ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufDescriptor"))
-  	  throwException("unable to create 'protobufDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Descriptor")) );
+  	if (!Rf_inherits(oo, "Descriptor"))
+  	  throwException("unable to create 'Descriptor' S4 object", "CannotCreateObjectException" );
   	
 	/* grab the fully qualified name of the message type */
   	SEXP name  = PROTECT( Rf_mkString( d->full_name().c_str() ) ) ; 
@@ -31,17 +31,17 @@ SEXP new_RS4_Descriptor( const Descriptor * d ){
 }
 
 /**
- * Creates an new R object of S4 class "protobufFieldDescriptor"
+ * Creates an new R object of S4 class "FieldDescriptor"
  *
  * @param fd pointer to a google::protobuf::FieldDescriptor
  *
- * @return a new "protobufFieldDescriptor" R object
+ * @return a new "FieldDescriptor" R object
  */
 SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufFieldDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufFieldDescriptor"))
-  		throwException("unable to create 'protobufFieldDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FieldDescriptor")) );
+  	if (!Rf_inherits(oo, "FieldDescriptor"))
+  		throwException("unable to create 'FieldDescriptor' S4 object", "CannotCreateObjectException" );
   	
   	/* grab the short name of the field */
 	SEXP name  = PROTECT( Rf_mkString( fd->name().c_str() ) ) ; 
@@ -68,18 +68,18 @@ SEXP new_RS4_FieldDescriptor( const FieldDescriptor * fd ){
 }
 
 /**
- * Creates a new "protobufEnumDescriptor" R S4 object
+ * Creates a new "EnumDescriptor" R S4 object
  *
  * @param fd pointer to a google::protobuf::EnumDescriptor
  *
- * @return a new "protobufEnumDescriptor" holding the 
+ * @return a new "EnumDescriptor" holding the 
  * EnumDescriptor as an external pointer
  */
 SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufEnumDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufEnumDescriptor"))
-  		throwException( "unable to create 'protobufEnumDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("EnumDescriptor")) );
+  	if (!Rf_inherits(oo, "EnumDescriptor"))
+  		throwException( "unable to create 'EnumDescriptor' S4 object", "CannotCreateObjectException" );
  
   	/* the simple name of the enum */
 	SEXP name  = PROTECT( Rf_mkString( fd->name().c_str() ) ) ; 
@@ -109,14 +109,14 @@ SEXP new_RS4_EnumDescriptor( const EnumDescriptor * fd ){
  * @param pointer to a google::protobuf::Message
  * @param type type of the message, as a STRSXP
  *
- * @return a new R S4 object of class "protobufMessage"
+ * @return a new R S4 object of class "Message"
  * holding the Message pointer as an external pointer
  */
 SEXP new_RS4_Message( const Message* message, SEXP type ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMessage")) );
-  	if (!Rf_inherits(oo, "protobufMessage"))
-  		throwException( "unable to create 'protobufMessage' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Message")) );
+  	if (!Rf_inherits(oo, "Message"))
+  		throwException( "unable to create 'Message' S4 object", "CannotCreateObjectException" );
   	
   	/* external pointer to the Message */
 	/* TODO: finalizer */
@@ -134,9 +134,9 @@ SEXP new_RS4_Message( const Message* message, SEXP type ){
 /* same as above, but get the type from the message */
 SEXP new_RS4_Message_( const Message* message ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMessage")) );
-  	if (!Rf_inherits(oo, "protobufMessage"))
-  	  throwException("unable to create 'protobufMessage' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Message")) );
+  	if (!Rf_inherits(oo, "Message"))
+  	  throwException("unable to create 'Message' S4 object", "CannotCreateObjectException" );
   	
   	/* external pointer to the Message */
 	/* TODO: finalizer */
@@ -156,18 +156,18 @@ SEXP new_RS4_Message_( const Message* message ){
 
 
 /**
- * Creates a new "protobufServiceDescriptor" R S4 object
+ * Creates a new "ServiceDescriptor" R S4 object
  *
  * @param fd pointer to a google::protobuf::ServiceDescriptor
  *
- * @return a new "protobufServiceDescriptor" holding the 
+ * @return a new "ServiceDescriptor" holding the 
  * ServiceDescriptor as an external pointer
  */
 SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor * sd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufServiceDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufServiceDescriptor"))
-  		throwException( "unable to create 'protobufServiceDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ServiceDescriptor")) );
+  	if (!Rf_inherits(oo, "ServiceDescriptor"))
+  		throwException( "unable to create 'ServiceDescriptor' S4 object", "CannotCreateObjectException" );
  
   	/* the simple name of the enum */
 	SEXP name  = PROTECT( Rf_mkString( sd->full_name().c_str() ) ) ; 
@@ -186,18 +186,18 @@ SEXP new_RS4_ServiceDescriptor( const ServiceDescriptor * sd ){
 }
 
 /**
- * Creates a new "protobufMethodDescriptor" R S4 object
+ * Creates a new MethodDescriptor R S4 object
  *
  * @param fd pointer to a google::protobuf::MethodDescriptor
  *
- * @return a new "protobufMethodDescriptor" holding the 
+ * @return a new  holding the 
  * MethodDescriptor as an external pointer
  */
 SEXP new_RS4_MethodDescriptor( const MethodDescriptor * md ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufMethodDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufMethodDescriptor"))
-  		throwException( "unable to create 'protobufMethodDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("MethodDescriptor")) );
+  	if (!Rf_inherits(oo, "MethodDescriptor" ))
+  		throwException( "unable to create 'MethodDescriptor' S4 object", "CannotCreateObjectException" );
  
   	/* the full name */
 	SEXP fname = PROTECT( Rf_mkString( md->full_name().c_str() ) ) ;
@@ -221,9 +221,9 @@ SEXP new_RS4_MethodDescriptor( const MethodDescriptor * md ){
 
 SEXP new_RS4_FileDescriptor( const FileDescriptor * fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufFileDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufFileDescriptor"))
-  		throwException( "unable to create 'protobufFileDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FileDescriptor")) );
+  	if (!Rf_inherits(oo, "FileDescriptor"))
+  		throwException( "unable to create 'FileDescriptor' S4 object", "CannotCreateObjectException" );
   	
   	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));
@@ -236,9 +236,9 @@ SEXP new_RS4_FileDescriptor( const FileDescriptor * fd ){
 
 SEXP new_RS4_EnumValueDescriptor( const EnumValueDescriptor * fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("protobufEnumValueDescriptor")) );
-  	if (!Rf_inherits(oo, "protobufEnumValueDescriptor"))
-  		throwException( "unable to create 'protobufEnumValueDescriptor' S4 object", "CannotCreateObjectException" );
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("EnumValueDescriptor")) );
+  	if (!Rf_inherits(oo, "EnumValueDescriptor"))
+  		throwException( "unable to create 'EnumValueDescriptor' S4 object", "CannotCreateObjectException" );
   	
   	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));

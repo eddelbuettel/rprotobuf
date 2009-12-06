@@ -2,9 +2,9 @@
 setGeneric( "add", function(object, field, values){
 	standardGeneric( "add" )
 } )
-setMethod( "add", "protobufMessage", function( object, field, values ){
+setMethod( "add", "Message", function( object, field, values ){
 	
-	if( is( values, "protobufMessage" ) ){
+	if( is( values, "Message" ) ){
 		values <- list( values )
 	}
 	

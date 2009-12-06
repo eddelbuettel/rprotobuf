@@ -6,7 +6,7 @@
 Gets the declared tag number of a field
 }
 \seealso{
-The method is implemented for the \linkS4class{protobufFieldDescriptor} class
+The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
 

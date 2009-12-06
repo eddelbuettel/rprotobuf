@@ -11,8 +11,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 } 
 # }}}
 
-# {{{ protobufMessage
-.DollarNames.protobufMessage <- function(x, pattern = "" ){
+# {{{ Message
+.DollarNames.Message <- function(x, pattern = "" ){
 	
 	names <- c( 
 		.Call( "getMessageFieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
@@ -24,8 +24,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
-# {{{ protobufDescriptor
-.DollarNames.protobufDescriptor <- function(x, pattern = "" ){
+# {{{ Descriptor
+.DollarNames.Descriptor <- function(x, pattern = "" ){
 	
 	names <- c( 
 		.Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
@@ -36,8 +36,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
-# {{{ protobufEnumDescriptor
-.DollarNames.protobufEnumDescriptor <- function(x, pattern = "" ){
+# {{{ EnumDescriptor
+.DollarNames.EnumDescriptor <- function(x, pattern = "" ){
 	
 	names <- c( 
 		.Call( "getEnumDescriptorConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
@@ -47,8 +47,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
-# {{{ protobufFieldDescriptor
-.DollarNames.protobufFieldDescriptor <- function(x, pattern = "" ){
+# {{{ FieldDescriptor
+.DollarNames.FieldDescriptor <- function(x, pattern = "" ){
 	names <- c("as.character()", "toString()", "name(", 
 		"fileDescriptor()", "containing_type()", 
 		"is_extension()", "number()", "type(", "cpp_type(", "label(", 
@@ -59,8 +59,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
-# {{{ protobufServiceDescriptor
-.DollarNames.protobufServiceDescriptor <- function(x, pattern = "" ){
+# {{{ ServiceDescriptor
+.DollarNames.ServiceDescriptor <- function(x, pattern = "" ){
 	names <- c(
 		.Call( "getServiceDescriptorMethodNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"as.character()", "toString()", "name(", "fileDescriptor()", 
@@ -69,16 +69,16 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 }
 # }}}
 
-# {{{ protobufMethodDescriptor
-.DollarNames.protobufMethodDescriptor <- function(x, pattern = "" ){
+# {{{ MethodDescriptor
+.DollarNames.MethodDescriptor <- function(x, pattern = "" ){
 	names <- c("as.character()", "toString()", "name(", "fileDescriptor()", 
 	"input_type()", "output_type()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
 
-# {{{ protobufFileDescriptor
-.DollarNames.protobufFileDescriptor <- function(x, pattern = "" ){
+# {{{ FileDescriptor
+.DollarNames.FileDescriptor <- function(x, pattern = "" ){
 	names <- c(
 		.Call( "getFileDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"as.character()", "toString()", "name(" )

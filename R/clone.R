@@ -7,5 +7,5 @@ setGeneric( "clone", function( object, ... ){
 	update( message, ... )
 	message
 }
-setMethod( "clone", "protobufMessage", ._clone.message )
+setMethod( "clone", "Message", ._clone.message )
 

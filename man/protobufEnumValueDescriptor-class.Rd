@@ -1,19 +1,19 @@
-\name{protobufEnumValueDescriptor-class}
+\name{EnumValueDescriptor-class}
 \Rdversion{1.1}
 \docType{class}
-\alias{protobufEnumValueDescriptor-class}
-\alias{show,protobufEnumValueDescriptor-method}
-\alias{as.character,protobufEnumValueDescriptor-method}
-\alias{toString,protobufEnumValueDescriptor-method}
-\alias{$,protobufEnumValueDescriptor-method}
-\alias{enum_type,protobufEnumValueDescriptor,missing,missing-method}
+\alias{EnumValueDescriptor-class}
+\alias{show,EnumValueDescriptor-method}
+\alias{as.character,EnumValueDescriptor-method}
+\alias{toString,EnumValueDescriptor-method}
+\alias{$,EnumValueDescriptor-method}
+\alias{enum_type,EnumValueDescriptor,missing,missing-method}
 
-\title{Class "protobufEnumValueDescriptor"  }
+\title{Class "EnumValueDescriptor"  }
 \description{ R representation of an enum value descriptor. This 
 is a thin wrapper around the \code{EnumValueDescriptor} c++ class. }
 \section{Objects from the Class}{
 Objects of this class are typically retrieved with the 
-\code{value} method of the \linkS4class{protobufEnumDescriptor} class
+\code{value} method of the \linkS4class{EnumDescriptor} class
 }
 \section{Slots}{
   \describe{
@@ -22,14 +22,14 @@ Objects of this class are typically retrieved with the
 }
 \section{Methods}{
   \describe{
-    \item{show}{\code{signature(object = "protobufEnumValueDescriptor")}: small information }
-    \item{as.character}{\code{signature(x = "protobufEnumValueDescriptor")}: 
+    \item{show}{\code{signature(object = "EnumValueDescriptor")}: small information }
+    \item{as.character}{\code{signature(x = "EnumValueDescriptor")}: 
   	  	  returns the debug string of the enum descriptor. 
   	  	  This is retrieved by a call to the \code{DebugString}
   	      method of the EnumDescriptor object.  }
-  	\item{toString}{\code{signature(x = "protobufEnumValueDescriptor")}: same as \code{as.character} }
-  	\item{$}{\code{signature(x = "protobufEnumValueDescriptor")}: invoke pseudo methods }
-  	\item{enum_type}{\code{signature(object = "protobufEnumDescriptor")} : retrieves the \linkS4class{protobufEnumDescriptor} related to this value descriptor.}
+  	\item{toString}{\code{signature(x = "EnumValueDescriptor")}: same as \code{as.character} }
+  	\item{$}{\code{signature(x = "EnumValueDescriptor")}: invoke pseudo methods }
+  	\item{enum_type}{\code{signature(object = "EnumDescriptor")} : retrieves the \linkS4class{EnumDescriptor} related to this value descriptor.}
   }
   	
 }

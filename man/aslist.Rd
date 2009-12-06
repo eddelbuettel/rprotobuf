@@ -1,9 +1,9 @@
-\name{as.list.protobufMessage}
-\alias{as.list.protobufMessage}
-\alias{as.list.protobufDescriptor}
-\alias{as.list.protobufEnumDescriptor}
-\alias{as.list.protobufFileDescriptor}
-\alias{as.list.protobufServiceDescriptor}
+\name{as.list.Message}
+\alias{as.list.Message}
+\alias{as.list.Descriptor}
+\alias{as.list.EnumDescriptor}
+\alias{as.list.FileDescriptor}
+\alias{as.list.ServiceDescriptor}
 \title{
 Grab the protocol buffer message as an R list
 }
@@ -12,15 +12,15 @@ Utility to grab the protocol buffer message as
 an R list, with one item per field. 
 }
 \usage{
-\S3method{as.list}{protobufMessage}(x, ...)
-\S3method{as.list}{protobufDescriptor}(x, ...)
-\S3method{as.list}{protobufEnumDescriptor}(x, ...)
-\S3method{as.list}{protobufFileDescriptor}(x, ...)
-\S3method{as.list}{protobufServiceDescriptor}(x, ...)
+\S3method{as.list}{Message}(x, ...)
+\S3method{as.list}{Descriptor}(x, ...)
+\S3method{as.list}{EnumDescriptor}(x, ...)
+\S3method{as.list}{FileDescriptor}(x, ...)
+\S3method{as.list}{ServiceDescriptor}(x, ...)
 }
 \arguments{
-	\item{x}{A protocol buffer message, instance of \linkS4class{protobufMessage}, 
-	or a protocol message descriptor, instance of \linkS4class{protobufDescriptor} }
+	\item{x}{A protocol buffer message, instance of \linkS4class{Message}, 
+	or a protocol message descriptor, instance of \linkS4class{Descriptor} }
 	\item{\dots}{ignored}
 }
 \value{
@@ -28,9 +28,9 @@ For messages, a list of the content of the fields is
 returned.
 
 For message type descriptors, a list containing 
-nested type descriptors (\linkS4class{protobufDescriptor} objects), 
-enum type descriptors (\linkS4class{protobufEnumDescriptor} objects), 
-or field descriptors (\linkS4class{protobufFieldDescriptor} objects)
+nested type descriptors (\linkS4class{Descriptor} objects), 
+enum type descriptors (\linkS4class{EnumDescriptor} objects), 
+or field descriptors (\linkS4class{FieldDescriptor} objects)
 
 For enum descriptors, ...
 

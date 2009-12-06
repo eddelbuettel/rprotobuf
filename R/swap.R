@@ -1,7 +1,7 @@
 setGeneric("swap", function( object, field, left, right) {
 	standardGeneric( "swap" )
 } )
-setMethod( "swap", "protobufMessage", function( object, field, left, right ){
+setMethod( "swap", "Message", function( object, field, left, right ){
 	left <- as.integer( left ) - 1L
 	right <- as.integer( right ) - 1L
 	

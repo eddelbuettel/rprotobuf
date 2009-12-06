@@ -2,19 +2,19 @@
 \docType{methods}
 \alias{read}
 \alias{read-methods}
-\alias{read,protobufDescriptor,character-method}
-\alias{read,protobufDescriptor,raw-method}
-\alias{read,protobufDescriptor,ANY-method}
+\alias{read,Descriptor,character-method}
+\alias{read,Descriptor,raw-method}
+\alias{read,Descriptor,ANY-method}
 \title{Read a protocol buffer message from a connection}
 \description{
-	Read a \linkS4class{protobufMessage} from a 
-	connection using its associated \linkS4class{protobufDescriptor}
+	Read a \linkS4class{Message} from a 
+	connection using its associated \linkS4class{Descriptor}
 }
 \section{Methods}{
 \describe{
-	\item{\code{signature(descriptor = "protobufDescriptor", input = "character")}}{ Read the message from a file }
-	\item{\code{signature(descriptor = "protobufDescriptor")}}{ Read from a binary connection.  }
-	\item{\code{signature(descriptor = "protobufDescriptor", input = "raw")}}{ Read the message from a raw vector }
+	\item{\code{signature(descriptor = "Descriptor", input = "character")}}{ Read the message from a file }
+	\item{\code{signature(descriptor = "Descriptor")}}{ Read from a binary connection.  }
+	\item{\code{signature(descriptor = "Descriptor", input = "raw")}}{ Read the message from a raw vector }
 }}
 \keyword{methods}
 \examples{

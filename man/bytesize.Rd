@@ -2,14 +2,14 @@
 \docType{methods}
 \alias{bytesize}
 \alias{bytesize-methods}
-\alias{bytesize,protobufMessage-method}
+\alias{bytesize,Message-method}
 \title{The number of bytes taken by a message }
 \description{
-The number of bytes taken by a \linkS4class{protobufMessage}
+The number of bytes taken by a \linkS4class{Message}
 }
 \section{Methods}{
 \describe{
-\item{\code{signature(object = "protobufMessage")}}{ The number of bytes the message would take when serialized }
+\item{\code{signature(object = "Message")}}{ The number of bytes the message would take when serialized }
 }}
 \keyword{methods}
 \examples{

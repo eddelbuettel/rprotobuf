@@ -1,14 +1,14 @@
 setGeneric( "field_count", function(object){
 	standardGeneric( "field_count" )
 } )
-setMethod( "field_count", "protobufDescriptor", function(object){
+setMethod( "field_count", "Descriptor", function(object){
 	.Call( "field_count__Descriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "nested_type_count", function(object){
 	standardGeneric( "nested_type_count" )
 } )
-setMethod( "nested_type_count", "protobufDescriptor", function(object){
+setMethod( "nested_type_count", "Descriptor", function(object){
 	.Call( "nested_type_count__Descriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
@@ -16,7 +16,7 @@ setMethod( "nested_type_count", "protobufDescriptor", function(object){
 setGeneric( "enum_type_count", function(object){
 	standardGeneric( "enum_type_count" )
 } )
-setMethod( "enum_type_count", "protobufDescriptor", function(object){
+setMethod( "enum_type_count", "Descriptor", function(object){
 	.Call( "enum_type_count__Descriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
@@ -24,7 +24,7 @@ setMethod( "enum_type_count", "protobufDescriptor", function(object){
 setGeneric( "field", function(object, index, number, name){
 	standardGeneric( "field" )
 } )
-setMethod( "field", "protobufDescriptor", function( object, index, number, name){
+setMethod( "field", "Descriptor", function( object, index, number, name){
 	has_index  <- !missing(index)
 	has_number <- !missing(number)
 	has_name   <- !missing(name)
@@ -50,7 +50,7 @@ setMethod( "field", "protobufDescriptor", function( object, index, number, name)
 setGeneric( "nested_type", function(object, index, name){
 	standardGeneric( "nested_type" )
 } )
-setMethod( "nested_type", "protobufDescriptor", function(object, index, name ){
+setMethod( "nested_type", "Descriptor", function(object, index, name ){
 	
 	has_index  <- !missing(index)
 	has_name   <- !missing(name)
@@ -68,7 +68,7 @@ setMethod( "nested_type", "protobufDescriptor", function(object, index, name ){
 	
 } )
 
-setMethod( "enum_type", "protobufDescriptor", function(object, index, name){
+setMethod( "enum_type", "Descriptor", function(object, index, name){
 	has_index  <- !missing(index)
 	has_name   <- !missing(name)
 	if( !identical( as.integer(has_index) + as.integer(has_name), 1L ) ){

@@ -1,28 +1,28 @@
-\name{protobufEnumDescriptor-class}
+\name{EnumDescriptor-class}
 \Rdversion{1.1}
 \docType{class}
-\alias{protobufEnumDescriptor-class}
-\alias{show,protobufEnumDescriptor-method}
-\alias{as.character,protobufEnumDescriptor-method}
-\alias{toString,protobufEnumDescriptor-method}
-\alias{$,protobufEnumDescriptor-method}
-\alias{containing_type,protobufEnumDescriptor-method}
-\alias{length,protobufEnumDescriptor-method}
+\alias{EnumDescriptor-class}
+\alias{show,EnumDescriptor-method}
+\alias{as.character,EnumDescriptor-method}
+\alias{toString,EnumDescriptor-method}
+\alias{$,EnumDescriptor-method}
+\alias{containing_type,EnumDescriptor-method}
+\alias{length,EnumDescriptor-method}
 
 \alias{value_count}
 \alias{value_count-methods}
-\alias{value_count,protobufEnumDescriptor-method}
+\alias{value_count,EnumDescriptor-method}
 
 \alias{value}
 \alias{value-methods}
-\alias{value,protobufEnumDescriptor-method}
+\alias{value,EnumDescriptor-method}
 
-\title{Class "protobufEnumDescriptor"  }
+\title{Class "EnumDescriptor"  }
 \description{ R representation of an enum descriptor. This 
 is a thin wrapper around the \code{EnumDescriptor} c++ class. }
 \section{Objects from the Class}{
 Objects of this class are typically retrieved as members of 
-\linkS4class{protobufDescriptor} objects
+\linkS4class{Descriptor} objects
 }
 \section{Slots}{
   \describe{
@@ -34,18 +34,18 @@ Objects of this class are typically retrieved as members of
 }
 \section{Methods}{
   \describe{
-    \item{show}{\code{signature(object = "protobufEnumDescriptor")}: small information }
-    \item{as.character}{\code{signature(x = "protobufEnumDescriptor")}: 
+    \item{show}{\code{signature(object = "EnumDescriptor")}: small information }
+    \item{as.character}{\code{signature(x = "EnumDescriptor")}: 
   	  	  returns the debug string of the enum descriptor. 
   	  	  This is retrieved by a call to the \code{DebugString}
   	      method of the EnumDescriptor object.  }
-  	\item{toString}{\code{signature(x = "protobufEnumDescriptor")}: same as \code{as.character} }
-  	\item{$}{\code{signature(x = "protobufEnumDescriptor")}: get the 
+  	\item{toString}{\code{signature(x = "EnumDescriptor")}: same as \code{as.character} }
+  	\item{$}{\code{signature(x = "EnumDescriptor")}: get the 
   	number associated with the name}
-  	\item{containing_type}{\code{signature(object = "protobufEnumDescriptor")} : returns a \linkS4class{protobufDescriptor} of the message type that contains this enum descriptor, or NULL if this is a top level enum descriptor.}
-  	\item{length}{\code{signature(x = "protobufEnumDescriptor")} : number of constants in this enum.}
-  	\item{value_count}{\code{signature(object = "protobufEnumDescriptor")} : number of constants in this enum.}
-  	\item{value}{\code{signature(object = "protobufEnumDescriptor")} : extracts an \linkS4class{protobufEnumValueDescriptor}.
+  	\item{containing_type}{\code{signature(object = "EnumDescriptor")} : returns a \linkS4class{Descriptor} of the message type that contains this enum descriptor, or NULL if this is a top level enum descriptor.}
+  	\item{length}{\code{signature(x = "EnumDescriptor")} : number of constants in this enum.}
+  	\item{value_count}{\code{signature(object = "EnumDescriptor")} : number of constants in this enum.}
+  	\item{value}{\code{signature(object = "EnumDescriptor")} : extracts an \linkS4class{EnumValueDescriptor}.
   		Exactly one argument of \code{index}, \code{number} or \code{name} has to be 
   		used. 
   		If \code{index} is used, the enum value descriptor is retrieved
@@ -62,7 +62,7 @@ Objects of this class are typically retrieved as members of
 }
 \references{ The \code{EnumDescriptor} C++ class }
 \author{ Romain Francois <francoisromain@free.fr> }
-\seealso{The \linkS4class{protobufDescriptor} class}
+\seealso{The \linkS4class{Descriptor} class}
 \examples{
 
 # example proto file supplied with this package

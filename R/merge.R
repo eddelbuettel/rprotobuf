@@ -1,6 +1,6 @@
 setGeneric( "merge" )
 setMethod( "merge", 
-	c( x = "protobufMessage", y = "protobufMessage" ), 
+	c( x = "Message", y = "Message" ), 
 	function( x, y , ... ){
 		if( !identical( x@type, y@type ) ){
 			throw( 

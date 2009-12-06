@@ -21,12 +21,12 @@ generateActiveBindings <- function(data){
   	env
 }
 
-with.protobufMessage <- function( data, expr, ...){
+with.Message <- function( data, expr, ...){
 	env <- generateActiveBindings(data)
   	eval( substitute( expr ), env = env )
 }
 
-within.protobufMessage <- function(data, expr, ... ){
+within.Message <- function(data, expr, ... ){
 	env <- generateActiveBindings(data)
   	eval( substitute( expr ), env = env )
   	data

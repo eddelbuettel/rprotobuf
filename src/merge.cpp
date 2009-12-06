@@ -8,7 +8,7 @@ namespace rprotobuf{
  * @param xp1 external pointer to a Message*
  * @param xp2 external pointer to a Message*
  *
- * @return a new message, as an R object of "protobufMessage" S4 class
+ * @return a new message, as an R object of "Message" S4 class
  */
 SEXP merge_message( SEXP xp1, SEXP xp2){
 

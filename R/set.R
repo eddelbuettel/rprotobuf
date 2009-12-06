@@ -1,13 +1,13 @@
 setGeneric( "set", function(object, field, index, values ){
 	standardGeneric( "set" )
 } )
-setMethod( "set", "protobufMessage", function(object, field, index, values ){
+setMethod( "set", "Message", function(object, field, index, values ){
 	
 	if( !is.numeric( index ) ){
 		stop( "index should be numbers" )
 	}
 	
-	if( inherits( values, "protobufMessage" ) ){
+	if( inherits( values, "Message" ) ){
 		values <- list( values )
 	}
 	# TODO: we need to handle R type = RAWSXP and cpp type == string or bytes
@@ -33,7 +33,7 @@ setMethod( "set", "protobufMessage", function(object, field, index, values ){
 setGeneric( "fetch", function(object, field, index ){
 	standardGeneric( "fetch" )
 } )
-setMethod( "fetch", "protobufMessage", function(object, field, index ){
+setMethod( "fetch", "Message", function(object, field, index ){
 	
 	if( !is.numeric( index ) ){
 		stop( "index should be numbers" )

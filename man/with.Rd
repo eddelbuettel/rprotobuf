@@ -1,6 +1,6 @@
-\name{with.protobufMessage}
-\alias{with.protobufMessage}
-\alias{within.protobufMessage}
+\name{with.Message}
+\alias{with.Message}
+\alias{within.Message}
 \title{
 with and within methods for protocol buffer messages
 }
@@ -9,11 +9,11 @@ Convenience wrapper that allow getting and setting
 fields of protocol buffer messages from within the object
 }
 \usage{
-\S3method{with}{protobufMessage}(data, expr, ...)
-\S3method{within}{protobufMessage}(data, expr, ...)
+\S3method{with}{Message}(data, expr, ...)
+\S3method{within}{Message}(data, expr, ...)
 }
 \arguments{
-	\item{data}{A protocol buffer message, instance of \linkS4class{protobufMessage} }
+	\item{data}{A protocol buffer message, instance of \linkS4class{Message} }
 	\item{expr}{R expression to evaluate}
 	\item{\dots}{ignored}
 }

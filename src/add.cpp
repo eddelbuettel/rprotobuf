@@ -229,7 +229,7 @@ Rprintf( "<message_add_values>\n" ) ;
 				    		}
 				    					
     					} else{
-    						throwException( "type mismatch, expecting a list of 'protobufMessage' objects", "TypeMismatchException" ) ;
+    						throwException( "type mismatch, expecting a list of 'Message' objects", "TypeMismatchException" ) ;
     					}
     					break ;
     				}

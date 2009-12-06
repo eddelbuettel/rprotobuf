@@ -1,13 +1,13 @@
 \name{merge-methods}
-\alias{merge,protobufMessage,protobufMessage-method}
+\alias{merge,Message,Message-method}
 \title{Merge two messages of the same type}
 \description{
-	Merge two \linkS4class{protobufMessage} objects
+	Merge two \linkS4class{Message} objects
 	of the same type.
 }
 \section{Methods}{
 \describe{
-	\item{\code{signature(x = "protobufMessage", y = "protobufMessage")}}{ merge two messages of the same type }
+	\item{\code{signature(x = "Message", y = "Message")}}{ merge two messages of the same type }
 }}
 \section{Errors}{
 	An error of class "IncompatibleType" is thrown if 

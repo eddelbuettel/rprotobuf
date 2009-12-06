@@ -9,7 +9,7 @@ namespace rprotobuf{
  * @param xp external pointer to a Descriptor*
  * @param filename full path of the file to read
  * 
- * @return a new "protobufMessage" S4 instance
+ * @return a new "Message" S4 instance
  */
 SEXP readMessageFromFile( SEXP xp, SEXP filename ){
 	

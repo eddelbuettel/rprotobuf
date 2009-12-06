@@ -2,14 +2,14 @@
 setGeneric( "bytesize", function(object, ...){
 	standardGeneric( "bytesize" )
 } )
-setMethod( "bytesize", "protobufMessage", function(object, ...){
+setMethod( "bytesize", "Message", function(object, ...){
 	.Call( "get_message_bytesize", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "size", function( object, field, ... ){
 	standardGeneric( "size" )
 } )
-setMethod( "size", "protobufMessage", function(object, field, ...){
+setMethod( "size", "Message", function(object, field, ...){
 	
 	if( is.character( field ) || is.numeric( field ) ){
 		.Call( "get_field_size", object@pointer, field, PACKAGE = "RProtoBuf" )
@@ -23,7 +23,7 @@ setMethod( "size", "protobufMessage", function(object, field, ...){
 setGeneric( "size<-", function( object, field, ..., value ){
 	standardGeneric( "size<-" )
 } )
-setMethod( "size<-", "protobufMessage", function(object, field, ..., value){
+setMethod( "size<-", "Message", function(object, field, ..., value){
 	
 	if( !is.numeric( value ) ){
 		stop("value should be a number")

@@ -46,7 +46,7 @@ return R_NilValue ;
  *
  * @param type message type
  *
- * @return an S4 object of class protobufDescriptor, or NULL if the type 
+ * @return an S4 object of class Descriptor, or NULL if the type 
  *  is unknown
  */
 SEXP getProtobufDescriptor( SEXP type ){
@@ -69,7 +69,7 @@ PrintValue( type ) ;
 /**
  * make a new protobuf message
  *
- * @param descriptor a "protobufDescriptor" R object
+ * @param descriptor a "Descriptor" R object
  */
 SEXP newProtoMessage( SEXP descriptor ){
 
@@ -157,7 +157,7 @@ Rboolean isMessage( SEXP m, const char* target ){
 Rprintf( "<isMessage>\n" ) ;
 #endif
 
-	if( TYPEOF(m) != S4SXP || !Rf_inherits( m, "protobufMessage") ) return _FALSE_ ;
+	if( TYPEOF(m) != S4SXP || !Rf_inherits( m, "Message") ) return _FALSE_ ;
 	
 	Message* message = (Message*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) );
 	

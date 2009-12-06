@@ -427,9 +427,9 @@ object oriented notation \verb|object$method(arguments)|.
 
 \subsection{messages}
 
-Messages are represented in R using the \texttt{protobufMessage}
+Messages are represented in R using the \texttt{Message}
 S4 class. The class contains the slots \texttt{pointer} and \texttt{type} as
-described on the table~\ref{protobufMessage-class-table} :
+described on the table~\ref{Message-class-table} :
 
 \begin{table}[h]
 \centering
@@ -445,15 +445,15 @@ described on the table~\ref{protobufMessage-class-table} :
 has its \texttt{type} slot set to \texttt{tutorial.Person} \\
 \hline
 \end{tabular}
-\caption{\label{protobufMessage-class-table}Description of slots for the \texttt{protobufMessage} S4 class}
+\caption{\label{Message-class-table}Description of slots for the \texttt{Message} S4 class}
 \end{table}
 
 Although the \texttt{RProtoBuf} package uses
 the S4 system, the \verb|@| operator is very rarely used. Fields of the
 message are retrieved or modified using the \verb|$| or \verb|[[| operators
 as seen on the previous section, and pseudo-methods can also
-be called using the \verb|$| operator. The table~\ref{protobufMessage-methods-table}
-describes the methods defined for the \texttt{protobufMessage} class :
+be called using the \verb|$| operator. The table~\ref{Message-methods-table}
+describes the methods defined for the \texttt{Message} class :
 
 \begin{table}[h]
 \centering
@@ -463,34 +463,34 @@ describes the methods defined for the \texttt{protobufMessage} class :
 \textbf{method} & \textbf{section} & \textbf{description} \\
 \hline
 \hline
-\texttt{has} & \ref{protobufMessage-method-has} & Indicates if a message has a given field.   \\
-\texttt{clone} &  \ref{protobufMessage-method-clone} & Creates a clone of the message \\
-\texttt{isInitialized} & \ref{protobufMessage-method-isInitialized} & Indicates if a message has all its required fields set\\
-\texttt{serialize} & \ref{protobufMessage-method-serialize} & serialize a message to a file or a binary connection or retrieve the message payload as a raw vector\\
-\texttt{clear} & \ref{protobufMessage-method-clear} & Clear one or several fields of a message, or the entire message\\
-\texttt{size} & \ref{protobufMessage-method-size} & The number of elements in a message field\\
-\texttt{bytesize} & \ref{protobufMessage-method-bytesize} & The number of bytes the message would take once serialized\\
+\texttt{has} & \ref{Message-method-has} & Indicates if a message has a given field.   \\
+\texttt{clone} &  \ref{Message-method-clone} & Creates a clone of the message \\
+\texttt{isInitialized} & \ref{Message-method-isInitialized} & Indicates if a message has all its required fields set\\
+\texttt{serialize} & \ref{Message-method-serialize} & serialize a message to a file or a binary connection or retrieve the message payload as a raw vector\\
+\texttt{clear} & \ref{Message-method-clear} & Clear one or several fields of a message, or the entire message\\
+\texttt{size} & \ref{Message-method-size} & The number of elements in a message field\\
+\texttt{bytesize} & \ref{Message-method-bytesize} & The number of bytes the message would take once serialized\\
 \hline
-\texttt{swap} & \ref{protobufMessage-method-swap} & swap elements of a repeated field of a message\\
-\texttt{set} & \ref{protobufMessage-method-set} & set elements of a repeated field\\
-\texttt{fetch} & \ref{protobufMessage-method-fetch} & fetch elements of a repeated field\\
-\texttt{add} & \label{protobufMessage-method-add} & add elements to a repeated field \\
+\texttt{swap} & \ref{Message-method-swap} & swap elements of a repeated field of a message\\
+\texttt{set} & \ref{Message-method-set} & set elements of a repeated field\\
+\texttt{fetch} & \ref{Message-method-fetch} & fetch elements of a repeated field\\
+\texttt{add} & \label{Message-method-add} & add elements to a repeated field \\
 \hline
-\texttt{str} & \ref{protobufMessage-method-str} & the R structure of the message\\
-\texttt{as.character} & \ref{protobufMessage-method-ascharacter} & character representation of a message\\
-\texttt{toString} & \ref{protobufMessage-method-toString} & character representation of a message (same as \texttt{as.character}) \\
-\texttt{update} & \ref{protobufMessage-method-update} & updates several fields of a message at once\\
-\texttt{descriptor} & \ref{protobufMessage-method-descriptor} & get the descriptor of the message type of this message\\
-\texttt{fileDescriptor} & \ref{protobufMessage-method-fileDescriptor} & get the file descriptor
+\texttt{str} & \ref{Message-method-str} & the R structure of the message\\
+\texttt{as.character} & \ref{Message-method-ascharacter} & character representation of a message\\
+\texttt{toString} & \ref{Message-method-toString} & character representation of a message (same as \texttt{as.character}) \\
+\texttt{update} & \ref{Message-method-update} & updates several fields of a message at once\\
+\texttt{descriptor} & \ref{Message-method-descriptor} & get the descriptor of the message type of this message\\
+\texttt{fileDescriptor} & \ref{Message-method-fileDescriptor} & get the file descriptor
 of this message's descriptor\\
 \hline
 \end{tabular}
 \end{small}
-\caption{\label{protobufMessage-methods-table}Description of slots for the \texttt{protobufMessage} S4 class}
+\caption{\label{Message-methods-table}Description of slots for the \texttt{Message} S4 class}
 \end{table}
 
 \subsubsection{Retrieve fields}
-\label{protobufMessage-method-getfield}
+\label{Message-method-getfield}
 
 The \verb|$| and \verb|[[| operators allow extraction of a field data.
 
@@ -545,7 +545,7 @@ bytes	& \texttt{character} vector & \texttt{character} vector \\
 \hline
 enum & \texttt{integer} vector & \texttt{integer} vector \\
 \hline
-message & \texttt{S4} object of class \texttt{protobufMessage} & \texttt{list} of \texttt{S4} objects of class \texttt{protobufMessage} \\
+message & \texttt{S4} object of class \texttt{Message} & \texttt{list} of \texttt{S4} objects of class \texttt{Message} \\
 \hline
 \end{tabular}
 \end{small}
@@ -553,10 +553,10 @@ message & \texttt{S4} object of class \texttt{protobufMessage} & \texttt{list} o
 \end{table}
 
 \subsubsection{Modify fields}
-\label{protobufMessage-method-setfield}
+\label{Message-method-setfield}
 
 The \verb|$<-| and \verb|[[<-| operators are implemented for
-\texttt{protobufMessage} objects to set the value of a field. The
+\texttt{Message} objects to set the value of a field. The
 R data is coerced to match the type of the message field.
 
 <<>>=
@@ -593,8 +593,8 @@ internal type & allowed R types \\
 \hline
 \texttt{enum} & \texttt{integer}, \texttt{double}, \texttt{raw}, \texttt{character} \\
 \hline
-\texttt{message}, \texttt{group} & \texttt{S4}, of class \texttt{protobufMessage} of the appropriate message type, or a \texttt{list} of
-\texttt{S4} objects of class \texttt{protobufMessage} of the appropriate message type.\\
+\texttt{message}, \texttt{group} & \texttt{S4}, of class \texttt{Message} of the appropriate message type, or a \texttt{list} of
+\texttt{S4} objects of class \texttt{Message} of the appropriate message type.\\
 \hline
 \end{tabular}
 \end{small}
@@ -602,8 +602,8 @@ internal type & allowed R types \\
 \end{table}
 
 
-\subsubsection{protobufMessage\$has method}
-\label{protobufMessage-method-has}
+\subsubsection{Message\$has method}
+\label{Message-method-has}
 
 The \texttt{has} method indicates if a field of a message is set. For
 repeated fields, the field is considered set if there is at least
@@ -620,8 +620,8 @@ message$has( "id" )
 message$has( "phone" )
 @
 
-\subsubsection{protobufMessage\$clone method}
-\label{protobufMessage-method-clone}
+\subsubsection{Message\$clone method}
+\label{Message-method-clone}
 
 The \texttt{clone} function creates a new message that is a clone
 of the message. This function is a wrapper around the methods \texttt{New}
@@ -635,8 +635,8 @@ writeLines( as.character( m1 ) )
 writeLines( as.character( m2 ) )
 @
 
-\subsubsection{protobufMessage\$isInitialized method}
-\label{protobufMessage-method-isInitialized}
+\subsubsection{Message\$isInitialized method}
+\label{Message-method-isInitialized}
 
 The \texttt{isInitialized} method quickly checks
 if all required fields have values set. This is a thin wrapper
@@ -650,8 +650,8 @@ message$id <- 2
 message$isInitialized()
 @
 
-\subsubsection{protobufMessage\$serialize method}
-\label{protobufMessage-method-serialize}
+\subsubsection{Message\$serialize method}
+\label{Message-method-serialize}
 
 The \texttt{serialize} method can be used to serialize
 the message as a sequence of bytes into a file or a binary connection.
@@ -685,8 +685,8 @@ payload of the message as a raw vector:
 message$serialize(NULL)
 @
 
-\subsubsection{protobufMessage\$clear method}
-\label{protobufMessage-method-clear}
+\subsubsection{Message\$clear method}
+\label{Message-method-clear}
 
 The \texttt{clear} method can be used to clear all fields of a
 message when used with no argument, or a given field.
@@ -706,8 +706,8 @@ The \texttt{clear} method is a thin wrapper around the
 \texttt{Clear} method of the \texttt{google::protobuf::Message} C++ class.
 
 
-\subsubsection{protobufMessage\$size method}
-\label{protobufMessage-method-size}
+\subsubsection{Message\$size method}
+\label{Message-method-size}
 
 The \texttt{size} method is used to query the number of objects
 in a repeated field of a message :
@@ -726,8 +726,8 @@ The \texttt{size} method is a thin wrapper around the \texttt{FieldSize}
 method of the \texttt{google::protobuf::Reflection} C++ class.
 
 
-\subsubsection{protobufMessage\$bytesize method}
-\label{protobufMessage-method-bytesize}
+\subsubsection{Message\$bytesize method}
+\label{Message-method-bytesize}
 
 The \texttt{bytesize} method retrieves the number of bytes the message
 would take once serialized. This is a thin wrapper around the \texttt{ByteSize}
@@ -740,8 +740,8 @@ bytesize( message )
 length( message$serialize( NULL ) )
 @
 
-\subsubsection{protobufMessage\$swap method}
-\label{protobufMessage-method-swap}
+\subsubsection{Message\$swap method}
+\label{Message-method-swap}
 
 The \texttt{swap} method can be used to swap elements
 of a repeated field.
@@ -762,8 +762,8 @@ writeLines( as.character( message$phone[[2]] ) )
 @
 
 
-\subsubsection{protobufMessage\$set method}
-\label{protobufMessage-method-set}
+\subsubsection{Message\$set method}
+\label{Message-method-set}
 
 The \texttt{set} method can be used to set values
 of a repeated field.
@@ -780,8 +780,8 @@ message$set( "phone", 1, number )
 writeLines( as.character( message ) )
 @
 
-\subsubsection{protobufMessage\$fetch method}
-\label{protobufMessage-method-fetch}
+\subsubsection{Message\$fetch method}
+\label{Message-method-fetch}
 
 The \texttt{fetch} method can be used to set values
 of a repeated field.
@@ -795,8 +795,8 @@ message <- new( tutorial.Person, name = "foo",
 message$fetch( "phone", 1 )
 @
 
-\subsubsection{protobufMessage\$add method}
-\label{protobufMessage-method-add}
+\subsubsection{Message\$add method}
+\label{Message-method-add}
 
 The \texttt{add} method can be used to add values to a repeated field.
 
@@ -808,8 +808,8 @@ message$add( "phone", phone )
 writeLines( message$toString() )
 @
 
-\subsubsection{protobufMessage\$str method}
-\label{protobufMessage-method-str}
+\subsubsection{Message\$str method}
+\label{Message-method-str}
 
 The \texttt{str} method gives the R structure of the message. This is rarely
 useful.
@@ -820,8 +820,8 @@ message$str()
 str( message )
 @
 
-\subsubsection{protobufMessage\$as.character method}
-\label{protobufMessage-method-ascharacter}
+\subsubsection{Message\$as.character method}
+\label{Message-method-ascharacter}
 
 The \texttt{as.character} method gives the debug string of the message.
 
@@ -831,8 +831,8 @@ writeLines( message$as.character() )
 writeLines( as.character( message ) )
 @
 
-\subsubsection{protobufMessage\$toString method}
-\label{protobufMessage-method-toString}
+\subsubsection{Message\$toString method}
+\label{Message-method-toString}
 
 \texttt{toString} currently is an alias to the \texttt{as.character} function.
 
@@ -843,8 +843,8 @@ writeLines( toString( message ) )
 @
 
 
-\subsubsection{protobufMessage\$as.list method}
-\label{protobufMessage-method-aslist}
+\subsubsection{Message\$as.list method}
+\label{Message-method-aslist}
 
 The \texttt{as.list} method converts the message to an named R list
 
@@ -856,10 +856,10 @@ as.list( message )
 The names of the list are the names of the declared fields of the
 message type, and the content is the same as can be extracted with
 the \verb|$| operator described in
-section~\ref{protobufMessage-method-getfield}.
+section~\ref{Message-method-getfield}.
 
-\subsubsection{protobufMessage\$update method}
-\label{protobufMessage-method-update}
+\subsubsection{Message\$update method}
+\label{Message-method-update}
 
 The \texttt{update} method can be used to update several fields
 of a message at once.
@@ -873,8 +873,8 @@ update( message,
 writeLines( message$as.character() )
 @
 
-\subsubsection{protobufMessage\$descriptor method}
-\label{protobufMessage-method-descriptor}
+\subsubsection{Message\$descriptor method}
+\label{Message-method-descriptor}
 
 The \texttt{descriptor} method retrieves the
 descriptor of a message. See section~\ref{subsec-descriptor}
@@ -886,8 +886,8 @@ message$descriptor()
 descriptor( message )
 @
 
-\subsubsection{protobufMessage\$fileDescriptor method}
-\label{protobufMessage-method-fileDescriptor}
+\subsubsection{Message\$fileDescriptor method}
+\label{Message-method-fileDescriptor}
 
 The \texttt{fileDescriptor} method retrieves the
 file descriptor of the descriptor associated with a message.
@@ -904,7 +904,7 @@ fileDescriptor( message )
 \label{subsec-descriptor}
 
 Message descriptors are represented in R with the
-\emph{protobufDescriptor} S4 class. The class contains
+\emph{Descriptor} S4 class. The class contains
 the slots \texttt{pointer} and \texttt{type} :
 
 \begin{table}[h]
@@ -920,7 +920,7 @@ the slots \texttt{pointer} and \texttt{type} :
 \texttt{type} & fully qualified path of the message type. \\
 \hline
 \end{tabular}
-\caption{\label{protobufDescriptor-class-table}Description of slots for the \texttt{protobufDescriptor} S4 class}
+\caption{\label{Descriptor-class-table}Description of slots for the \texttt{Descriptor} S4 class}
 \end{table}
 
 Similarly to messages, the \verb|$| operator can be used to extract
@@ -1009,7 +1009,7 @@ tutorial.Person$name(full = TRUE)
 \subsection{field descriptors}
 \label{subsec-field-descriptor}
 
-The class \emph{protobufFieldDescriptor} represents field
+The class \emph{FieldDescriptor} represents field
 descriptor in R. This is a wrapper S4 class around the
 \texttt{google::protobuf::FieldDescriptor} C++ class.
 
@@ -1028,7 +1028,7 @@ descriptor in R. This is a wrapper S4 class around the
 \texttt{type} & name of the message type where the field is declared \\
 \hline
 \end{tabular}
-\caption{\label{protobufFieldDescriptor-class-table}Description of slots for the \texttt{protobufFieldDescriptor} S4 class}
+\caption{\label{FieldDescriptor-class-table}Description of slots for the \texttt{FieldDescriptor} S4 class}
 \end{table}
 
 \subsubsection{as.character}
@@ -1055,7 +1055,7 @@ TODO
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}
 
-The class \emph{protobufEnumDescriptor} is an R wrapper
+The class \emph{EnumDescriptor} is an R wrapper
 class around the C++ class \texttt{google::protobuf::EnumDescriptor}.
 
 \begin{table}[h]
@@ -1073,7 +1073,7 @@ class around the C++ class \texttt{google::protobuf::EnumDescriptor}.
 \texttt{type} & name of the message type where the enum is declared \\
 \hline
 \end{tabular}
-\caption{\label{protobufEnumDescriptor-class-table}Description of slots for the \texttt{protobufEnumDescriptor} S4 class}
+\caption{\label{EnumDescriptor-class-table}Description of slots for the \texttt{EnumDescriptor} S4 class}
 \end{table}
 
 \subsubsection{as.list}
@@ -1148,7 +1148,7 @@ classes, plus :
 \subsection{with and within}
 
 The S3 generic \texttt{with} function is implemented for class
-\texttt{protobufMessage}, allowing to evaluate an R expression in
+\texttt{Message}, allowing to evaluate an R expression in
 an environment that allows to retrieve and set fields of a message
 simply using their names.
 

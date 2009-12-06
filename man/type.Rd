@@ -41,7 +41,7 @@
 Gets the type or the c++ type of a field
 }
 \seealso{
-The method is implemented for the \linkS4class{protobufFieldDescriptor} class
+The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
 

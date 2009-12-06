@@ -2,15 +2,15 @@
 \docType{methods}
 \alias{clone}
 \alias{clone-methods}
-\alias{clone,protobufMessage-method}
+\alias{clone,Message-method}
 \title{Clone protocolo buffer messages}
 \description{
 Generic "clone" function and associated 
-method for \linkS4class{protobufMessage} objects 
+method for \linkS4class{Message} objects 
 }
 \section{Methods}{
 \describe{
-	\item{\code{signature(object = "protobufMessage")}}{ clone the message }
+	\item{\code{signature(object = "Message")}}{ clone the message }
 }}
 \examples{
 # example proto file supplied with this package

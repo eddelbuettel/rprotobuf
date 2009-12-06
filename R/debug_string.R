@@ -1,46 +1,46 @@
 
-._toString_protobufMessage <- function(x, ...){
+._toString_Message <- function(x, ...){
 	.Call( "as_character_message", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufDescriptor <- function(x, ...){
+._toString_Descriptor <- function(x, ...){
 	.Call( "as_character_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufEnumDescriptor <- function(x, ...){
+._toString_EnumDescriptor <- function(x, ...){
 	.Call( "as_character_enum_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufFieldDescriptor <- function(x, ...){
+._toString_FieldDescriptor <- function(x, ...){
 	.Call( "as_character_field_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufServiceDescriptor <- function(x, ...){
+._toString_ServiceDescriptor <- function(x, ...){
 	.Call( "as_character_service_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufMethodDescriptor <- function(x, ...){
+._toString_MethodDescriptor <- function(x, ...){
 	.Call( "as_character_method_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufFileDescriptor <- function(x, ...){
+._toString_FileDescriptor <- function(x, ...){
 	.Call( "as_character_file_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
-._toString_protobufEnumValueDescriptor <- function(x, ...){
+._toString_EnumValueDescriptor <- function(x, ...){
 	.Call( "as_character_enum_value_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 
 
-setMethod( "as.character", "protobufMessage", ._toString_protobufMessage  )
-setMethod( "as.character", "protobufDescriptor", ._toString_protobufDescriptor  )
-setMethod( "as.character", "protobufEnumDescriptor", ._toString_protobufEnumDescriptor )
-setMethod( "as.character", "protobufFieldDescriptor", ._toString_protobufFieldDescriptor )
-setMethod( "as.character", "protobufServiceDescriptor", ._toString_protobufServiceDescriptor )
-setMethod( "as.character", "protobufMethodDescriptor", ._toString_protobufMethodDescriptor )
-setMethod( "as.character", "protobufFileDescriptor", ._toString_protobufFileDescriptor )
-setMethod( "as.character", "protobufEnumValueDescriptor", ._toString_protobufEnumValueDescriptor )
+setMethod( "as.character", "Message", ._toString_Message  )
+setMethod( "as.character", "Descriptor", ._toString_Descriptor  )
+setMethod( "as.character", "EnumDescriptor", ._toString_EnumDescriptor )
+setMethod( "as.character", "FieldDescriptor", ._toString_FieldDescriptor )
+setMethod( "as.character", "ServiceDescriptor", ._toString_ServiceDescriptor )
+setMethod( "as.character", "MethodDescriptor", ._toString_MethodDescriptor )
+setMethod( "as.character", "FileDescriptor", ._toString_FileDescriptor )
+setMethod( "as.character", "EnumValueDescriptor", ._toString_EnumValueDescriptor )
 
 setGeneric( "toString" )
-setMethod( "toString", "protobufMessage", ._toString_protobufMessage  )
-setMethod( "toString", "protobufDescriptor", ._toString_protobufDescriptor  )
-setMethod( "toString", "protobufEnumDescriptor", ._toString_protobufEnumDescriptor )
-setMethod( "toString", "protobufFieldDescriptor", ._toString_protobufFieldDescriptor )
-setMethod( "toString", "protobufServiceDescriptor", ._toString_protobufServiceDescriptor )
-setMethod( "toString", "protobufMethodDescriptor", ._toString_protobufMethodDescriptor )
-setMethod( "toString", "protobufFileDescriptor", ._toString_protobufFileDescriptor )
-setMethod( "toString", "protobufEnumValueDescriptor", ._toString_protobufEnumValueDescriptor )
+setMethod( "toString", "Message", ._toString_Message  )
+setMethod( "toString", "Descriptor", ._toString_Descriptor  )
+setMethod( "toString", "EnumDescriptor", ._toString_EnumDescriptor )
+setMethod( "toString", "FieldDescriptor", ._toString_FieldDescriptor )
+setMethod( "toString", "ServiceDescriptor", ._toString_ServiceDescriptor )
+setMethod( "toString", "MethodDescriptor", ._toString_MethodDescriptor )
+setMethod( "toString", "FileDescriptor", ._toString_FileDescriptor )
+setMethod( "toString", "EnumValueDescriptor", ._toString_EnumValueDescriptor )
 

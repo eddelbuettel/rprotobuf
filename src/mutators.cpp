@@ -170,7 +170,7 @@ SEXP rawToString( SEXP raw){
  * indicates if this is a list of messages
  * 
  * @param x a list (VECSXP)
- * @return TRUE if all objects are instances of protobufMessage class
+ * @return TRUE if all objects are instances of Message class
  */
 Rboolean allAreMessages( SEXP x) {
 	
@@ -183,8 +183,8 @@ Rboolean allAreMessages( SEXP x) {
 		/* not an S4 object */
 		if( TYPEOF(current) != S4SXP ) return _FALSE_ ;
 		
-		/* not a protobufMessage object */
-		if( !Rf_inherits( current, "protobufMessage" ) ) return _FALSE_ ;
+		/* not a Message object */
+		if( !Rf_inherits( current, "Message" ) ) return _FALSE_ ;
 	}
 	return _TRUE_ ;
 }
@@ -339,7 +339,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		if( field_type == TYPE_STRING || field_type == TYPE_BYTES ){
 			if( TYPEOF(value) == RAWSXP ){
 				value_size = 1 ;
-			} else if( TYPEOF(value) == S4SXP && Rf_inherits( value, "protobufMessage") ){
+			} else if( TYPEOF(value) == S4SXP && Rf_inherits( value, "Message") ){
 				value_size = 1 ; /* we will store the message payload */
 			} else if( TYPEOF(value) == VECSXP && allAreMessages( value ) ){
 				value_size = LENGTH(value) ;
@@ -746,8 +746,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case S4SXP:
     						{
     							/* check if value is a message */
-    							if( !Rf_inherits( value, "protobufMessage" ) ){
-    								throwException( "Can only convert S4 objects of class 'protobufMessage' ", "ConversionException" ) ;
+    							if( !Rf_inherits( value, "Message" ) ){
+    								throwException( "Can only convert S4 objects of class 'Message' ", "ConversionException" ) ;
     							}
     							Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
     							ref->SetRepeatedString(message, field_desc, 0, 
@@ -829,7 +829,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			    			}
 			    		}
     				} else{
-    					throwException( "type mismatch, expecting a 'protobufMessage' object or a list of them", "TypeMismatchException" ) ;
+    					throwException( "type mismatch, expecting a 'Message' object or a list of them", "TypeMismatchException" ) ;
     				}
     				break ;
     			}
@@ -1075,8 +1075,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case S4SXP:
     						{
     							/* check if value is a message */
-    							if( !Rf_inherits( value, "protobufMessage" ) ){
-    								throwException( "Can only convert S4 objects of class 'protobufMessage' ", "ConversionException" ) ;
+    							if( !Rf_inherits( value, "Message" ) ){
+    								throwException( "Can only convert S4 objects of class 'Message' ", "ConversionException" ) ;
     							}
     							Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
     							ref->SetString(message, field_desc, __mess->SerializeAsString() ) ;
@@ -1095,7 +1095,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_MESSAGE:
     		case TYPE_GROUP: 
     			{
-    				if( TYPEOF( value ) == S4SXP && Rf_inherits( value, "protobufMessage" ) ){
+    				if( TYPEOF( value ) == S4SXP && Rf_inherits( value, "Message" ) ){
     					Message* mess = (Message*) EXTPTR_PTR( GET_SLOT( value, Rf_install("pointer") ) ) ;
     					const char* type = mess->GetDescriptor()->full_name().c_str() ;
     					const char* target = field_desc->message_type()->full_name().c_str() ; 
@@ -1105,7 +1105,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					Message* m = ref->MutableMessage( message, field_desc ) ; 
     					m->CopyFrom( *mess ) ;
     				} else {
-    					throwException( "type mismatch, expecting a 'protobufMessage' object", "TypeMismatchException" ) ;
+    					throwException( "type mismatch, expecting a 'Message' object", "TypeMismatchException" ) ;
     				}
     				break ;
     			}

@@ -3,15 +3,15 @@
 
 \alias{descriptor}
 \alias{descriptor-methods}
-\alias{descriptor,protobufMessage-method}
+\alias{descriptor,Message-method}
 \title{Get the descriptor of a message}
 \description{
-	Get the \linkS4class{protobufDescriptor} associated
-	with a \linkS4class{protobufMessage}
+	Get the \linkS4class{Descriptor} associated
+	with a \linkS4class{Message}
 }
 \section{Methods}{
 \describe{
-\item{\code{signature(object = "protobufMessage")}}{ Get the descriptor of the message, as a \linkS4class{protobufDescriptor} instance }
+\item{\code{signature(object = "Message")}}{ Get the descriptor of the message, as a \linkS4class{Descriptor} instance }
 }}
 \keyword{methods}
 

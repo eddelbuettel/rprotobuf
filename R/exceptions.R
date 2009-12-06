@@ -9,7 +9,7 @@
 # this is exported at the moment, but I would prefer it not to be
 # so need to find a way to call a namespace private function from the
 # C call
-throw <- function( message = "protobuf error", class = NULL ){
+throw <- function( message = " error", class = NULL ){
 	
 	callstack <- sys.calls()
 	ncalls <- length(callstack)

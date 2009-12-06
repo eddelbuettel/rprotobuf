@@ -2,7 +2,7 @@
 \docType{methods}
 \alias{size}
 \alias{size-methods}
-\alias{size,protobufMessage-method}
+\alias{size,Message-method}
 \title{Size of a message field}
 \description{
 The number of object currently in a given field of a protocol buffer
@@ -14,7 +14,7 @@ For repeated fields, the size is the number of objects in the array.
 }
 \section{Methods}{
 \describe{
-\item{\code{signature(object = "protobufMessage")}}{Number of objects in a message field}
+\item{\code{signature(object = "Message")}}{Number of objects in a message field}
 }}
 \keyword{methods}
 

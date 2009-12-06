@@ -16,7 +16,7 @@ protocol buffer messages from R
 \details{
 \tabular{ll}{
 Package: \tab RProtoBuf\cr
-Version: \tab 0.0-4\cr
+Version: \tab 0.0-5\cr
 Date: \tab $Date$\cr
 Depends: \tab Rcpp (>= 0.6.7), methods\cr
 SystemRequirements: \tab ProtoBuf compiler (to create C++ header and source files
@@ -41,7 +41,7 @@ and has a mailing list : \url{https://lists.r-forge.r-project.org/cgi-bin/mailma
 }
 \keyword{ package }
 \seealso{
-	\linkS4class{protobufMessage} for some examples
+	\linkS4class{Message} for some examples
 }
 
 \examples{

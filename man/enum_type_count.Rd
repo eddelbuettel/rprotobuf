@@ -6,7 +6,7 @@
 The number of enum types
 }
 \seealso{
-The method is implemented for the \linkS4class{protobufDescriptor} class
+The method is implemented for the \linkS4class{Descriptor} class
 }
 \keyword{methods}
 

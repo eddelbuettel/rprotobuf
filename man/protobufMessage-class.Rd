@@ -1,24 +1,24 @@
-\name{protobufMessage-class}
+\name{Message-class}
 \Rdversion{1.1}
 \docType{class}
-\alias{protobufMessage-class}
-\alias{as.character,protobufMessage-method}
-\alias{$<-,protobufMessage-method}
-\alias{$,protobufMessage-method}
-\alias{[[,protobufMessage-method}
-\alias{[[<-,protobufMessage-method}
-\alias{serialize,protobufMessage-method}
-\alias{show,protobufMessage-method}
-\alias{update,protobufMessage-method}
-\alias{length,protobufMessage-method}
-\alias{str,protobufMessage-method}
-\alias{toString,protobufMessage-method}
-\alias{identical,protobufMessage,protobufMessage-method}
-\alias{==,protobufMessage,protobufMessage-method}
-\alias{!=,protobufMessage,protobufMessage-method}
-\alias{all.equal,protobufMessage,protobufMessage-method}
+\alias{Message-class}
+\alias{as.character,Message-method}
+\alias{$<-,Message-method}
+\alias{$,Message-method}
+\alias{[[,Message-method}
+\alias{[[<-,Message-method}
+\alias{serialize,Message-method}
+\alias{show,Message-method}
+\alias{update,Message-method}
+\alias{length,Message-method}
+\alias{str,Message-method}
+\alias{toString,Message-method}
+\alias{identical,Message,Message-method}
+\alias{==,Message,Message-method}
+\alias{!=,Message,Message-method}
+\alias{all.equal,Message,Message-method}
 
-\title{Class "protobufMessage" }
+\title{Class "Message" }
 \description{
 R representation of protocol buffer messages. This is a thin wrapper
 around the \code{Message} c++ class that holds the actual message
@@ -26,7 +26,7 @@ as an external pointer.
 }
 \section{Objects from the Class}{
 	Objects are typically created by the \code{new} function invoked 
-	on a \linkS4class{protobufDescriptor} object.
+	on a \linkS4class{Descriptor} object.
 }
 \section{Slots}{
   \describe{
@@ -36,30 +36,30 @@ as an external pointer.
 }
 \section{Methods}{
   \describe{
-    \item{as.character}{\code{signature(x = "protobufMessage")}: returns the debug string of the message. 
+    \item{as.character}{\code{signature(x = "Message")}: returns the debug string of the message. 
     	This is built from a call to the \code{DebugString} message of the \code{Message} object}
-    \item{toString}{\code{signature(x = "protobufMessage")}: same as \code{as.character} }
-    \item{$<-}{\code{signature(x = "protobufMessage")}: set the value of a field of the message. }
-    \item{$}{\code{signature(x = "protobufMessage")}: gets the value of a field. 
+    \item{toString}{\code{signature(x = "Message")}: same as \code{as.character} }
+    \item{$<-}{\code{signature(x = "Message")}: set the value of a field of the message. }
+    \item{$}{\code{signature(x = "Message")}: gets the value of a field. 
     Primitive types are brough back to R as R objects of the closest matching R type. 
-    Messages are brought back as instances of the \code{protobufMessage} class.}
-    \item{[[}{\code{signature(x = "protobufMessage")}: extracts a field identified by its name or declared tag number }
-    \item{[[<-}{\code{signature(x = "protobufMessage")}: replace the value of a field identified by its name or declared tag number }
-	\item{serialize}{\code{signature(object = "protobufMessage")}: serialize a message. If the 
+    Messages are brought back as instances of the \code{Message} class.}
+    \item{[[}{\code{signature(x = "Message")}: extracts a field identified by its name or declared tag number }
+    \item{[[<-}{\code{signature(x = "Message")}: replace the value of a field identified by its name or declared tag number }
+	\item{serialize}{\code{signature(object = "Message")}: serialize a message. If the 
     	"connection" argument is \code{NULL}, the payload of the message is returned as a raw vector, 
     	if the "connection" argument is a binary writable connection, the payload is written into the 
        connection. If "connection" is a character vector, the message is sent to 
        the file (in binary format). }
-    \item{show}{\code{signature(object = "protobufMessage")}: displays a short text about the message }
-    \item{update}{\code{signature(object = "protobufMessage")}: set several fields of the message at once }
-    \item{length}{\code{signature(x = "protobufMessage")}: The number of fields actually contained in the message. 
+    \item{show}{\code{signature(object = "Message")}: displays a short text about the message }
+    \item{update}{\code{signature(object = "Message")}: set several fields of the message at once }
+    \item{length}{\code{signature(x = "Message")}: The number of fields actually contained in the message. 
     A field counts in these two situations: the field is repeated and the field size is greater than 0, 
     the field is not repeated and the message has the field.}
-    \item{str}{\code{signature(object = "protobufMessage")}: displays the structure of the message }
-    \item{identical}{\code{signature(x = "protobufMessage", y = "protobufMessage")}: Test if two messages are exactly identical }
-    \item{==}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Same as \code{identical} }
-    \item{!=}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Negation of \code{identical} }
-    \item{all.equal}{\code{signature(e1 = "protobufMessage", e2 = "protobufMessage")}: Test near equality }
+    \item{str}{\code{signature(object = "Message")}: displays the structure of the message }
+    \item{identical}{\code{signature(x = "Message", y = "Message")}: Test if two messages are exactly identical }
+    \item{==}{\code{signature(e1 = "Message", e2 = "Message")}: Same as \code{identical} }
+    \item{!=}{\code{signature(e1 = "Message", e2 = "Message")}: Negation of \code{identical} }
+    \item{all.equal}{\code{signature(e1 = "Message", e2 = "Message")}: Test near equality }
      }
 }
 \references{ 
@@ -68,7 +68,7 @@ as an external pointer.
 }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{
-	\code{\link{P}} creates objects of class \linkS4class{protobufDescriptor} that 
+	\code{\link{P}} creates objects of class \linkS4class{Descriptor} that 
 	can be used to create messages. 
 }
 \examples{

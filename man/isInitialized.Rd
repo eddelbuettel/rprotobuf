@@ -2,16 +2,16 @@
 \docType{methods}
 \alias{isInitialized}
 \alias{isInitialized-methods}
-\alias{isInitialized,protobufMessage-method}
+\alias{isInitialized,Message-method}
 \title{Indicates if a protocol buffer message is initialized}
 \description{
-	Indicates if a \linkS4class{protobufMessage} is 
+	Indicates if a \linkS4class{Message} is 
 	initialized. A message is initialized if all its 
 	required fields are set.
 }
 \section{Methods}{
 \describe{
-\item{\code{ signature(object = "protobufMessage")}}{ is the message initialized}
+\item{\code{ signature(object = "Message")}}{ is the message initialized}
 }}
 \examples{
 message <- new( tutorial.Person, name = "" )

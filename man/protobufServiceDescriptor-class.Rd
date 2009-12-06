@@ -1,23 +1,23 @@
-\name{protobufServiceDescriptor-class}
+\name{ServiceDescriptor-class}
 \Rdversion{1.1}
 \docType{class}
-\alias{protobufServiceDescriptor-class}
-\alias{as.character,protobufServiceDescriptor-method}
-\alias{toString,protobufServiceDescriptor-method}
-\alias{show,protobufServiceDescriptor-method}
-\alias{$,protobufServiceDescriptor-method}
-\alias{[[,protobufServiceDescriptor-method}
-\alias{length,protobufServiceDescriptor-method}
+\alias{ServiceDescriptor-class}
+\alias{as.character,ServiceDescriptor-method}
+\alias{toString,ServiceDescriptor-method}
+\alias{show,ServiceDescriptor-method}
+\alias{$,ServiceDescriptor-method}
+\alias{[[,ServiceDescriptor-method}
+\alias{length,ServiceDescriptor-method}
 
 \alias{method_count}
 \alias{method_count-methods}
-\alias{method_count,protobufServiceDescriptor-method}
+\alias{method_count,ServiceDescriptor-method}
 
 \alias{method}
 \alias{method-methods}
-\alias{method,protobufServiceDescriptor-method}
+\alias{method,ServiceDescriptor-method}
 
-\title{Class "protobufServiceDescriptor"}
+\title{Class "ServiceDescriptor"}
 \description{R representation of Service Descriptors}
 \section{Objects from the Class}{
 TODO
@@ -30,16 +30,16 @@ TODO
 }
 \section{Methods}{
 \describe{
-    \item{as.character}{\code{signature(x = "protobufServiceDescriptor")}: debug string of the service }
-    \item{toString}{\code{signature(x = "protobufServiceDescriptor")}: debug string of the service}
-    \item{show}{\code{signature(x = "protobufServiceDescriptor")}: ... }
-    \item{$}{\code{signature(x = "protobufServiceDescriptor")}: invoke pseudo methods or retrieve
+    \item{as.character}{\code{signature(x = "ServiceDescriptor")}: debug string of the service }
+    \item{toString}{\code{signature(x = "ServiceDescriptor")}: debug string of the service}
+    \item{show}{\code{signature(x = "ServiceDescriptor")}: ... }
+    \item{$}{\code{signature(x = "ServiceDescriptor")}: invoke pseudo methods or retrieve
     	method descriptors contained in this service descriptor. }
-	\item{[[}{\code{signature(x = "protobufServiceDescriptor")}: extracts methods
+	\item{[[}{\code{signature(x = "ServiceDescriptor")}: extracts methods
 	descriptors contained in this service descriptor}
-	\item{length}{\code{signature(x = "protobufServiceDescriptor")}: number of \linkS4class{protobufMethodDescriptor} }
-	\item{method_count}{\code{signature(x = "protobufServiceDescriptor")}: number of \linkS4class{protobufMethodDescriptor} }
-	\item{method}{\code{signature(x = "protobufServiceDescriptor")}: retrieveds a \linkS4class{protobufMethodDescriptor} }
+	\item{length}{\code{signature(x = "ServiceDescriptor")}: number of \linkS4class{MethodDescriptor} }
+	\item{method_count}{\code{signature(x = "ServiceDescriptor")}: number of \linkS4class{MethodDescriptor} }
+	\item{method}{\code{signature(x = "ServiceDescriptor")}: retrieveds a \linkS4class{MethodDescriptor} }
 	}
 }
 \author{ Romain Francois <francoisromain@free.fr> }

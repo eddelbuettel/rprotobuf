@@ -15,7 +15,7 @@ setGeneric( "invokeLocally", function( method, message ){
 	standardGeneric( "invokeLocally" ) 
 } )
 
-setMethod( "invokeLocally", c(method = "protobufMethodDescriptor", message = "protobufMessage"), 
+setMethod( "invokeLocally", c(method = "MethodDescriptor", message = "Message"), 
 function( method, message){
 	# check that message is of correct type
 	valid <- .Call( "valid_input_message", method@pointer, message@pointer, 
@@ -45,7 +45,7 @@ function( method, message){
 } )
 
 
-setMethod( "$", "protobufMethodDescriptor", function(x, name ){
+setMethod( "$", "MethodDescriptor", function(x, name ){
 	switch( name, 
 		"invokeLocally" = function(...) invokeLocally(x, ...),
 		"implementation" = if( x@name %in% names(IMPLEMENTATIONS) ){
@@ -62,7 +62,7 @@ setMethod( "$", "protobufMethodDescriptor", function(x, name ){
 	)
 } )
 
-setMethod( "$<-", "protobufMethodDescriptor", function(x, name, value ){
+setMethod( "$<-", "MethodDescriptor", function(x, name, value ){
 	
 	if( identical( name, "implementation" ) ){
 		check_valid_implementation( x, value )
@@ -85,7 +85,7 @@ setMethod( "$<-", "protobufMethodDescriptor", function(x, name, value ){
 # setGeneric( "invoke" , function(method, message, channel){
 # 	standardGeneric( "invoke" ) 
 # } )
-# setMethod( "invoke", c( method = "protobufMethodDescriptor", message = "protobufMessage", channel = "RpcChannel" ), 
+# setMethod( "invoke", c( method = "MethodDescriptor", message = "Message", channel = "RpcChannel" ), 
 # function( method, message, channel){
 # 	.Call( "invoke", method@pointer, message@pointer, channel@pointer, 
 # 		PACKAGE = "RProtoBuf" )

@@ -290,7 +290,7 @@ SEXP extractFieldAsSEXP( const Message * message, const Descriptor* desc, const 
  * Get the message descriptor of a Message
  * 
  * @param xp (Message*) external pointer
- * @return the descriptor, as a protobufDescriptor R S4 object
+ * @return the descriptor, as a Descriptor R S4 object
  */
 SEXP get_message_descriptor( SEXP xp){
 	
