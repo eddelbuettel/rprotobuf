@@ -41,6 +41,7 @@ RcppExport SEXP clearPerson(SEXP paramSEXP) {
 	
 	// Iterates though all people in the AddressBook 
 	int n = address_book.person_size();
+	int nrm = 0;
 	for (int i = 0; i < n; i++) {
 	    tutorial::Person *person = address_book.mutable_person(i);
 	    if (id == person->id()) {
@@ -48,6 +49,7 @@ RcppExport SEXP clearPerson(SEXP paramSEXP) {
 		const GPB::FieldDescriptor* fd = address_book.GetDescriptor()->FindFieldByName( "person" ) ;
 		ref->SwapElements( &address_book, fd, i, address_book.person_size() - 1 ) ;
 		ref->RemoveLast( &address_book, fd) ;
+		nrm++;
 		break ;
 	    }
 	}
@@ -62,7 +64,7 @@ RcppExport SEXP clearPerson(SEXP paramSEXP) {
 	// Optional:  Delete all global objects allocated by libprotobuf.
 	//google::protobuf::ShutdownProtobufLibrary();
 	
-	rs.add("status", 0);
+	rs.add("status", nrm);
     
         rl = rs.getReturnList();
 

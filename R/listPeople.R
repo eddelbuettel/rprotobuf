@@ -23,6 +23,11 @@ listPeopleAsDataFrame <- function(filename, verbose=FALSE) {
                      list("filename"=filename), package="RProtoBuf")
     people <- data.frame(resList[[1]])
     numbers <- data.frame(resList[[2]])
+    nr <- data.frame(resList[[3]])
+    if (nr == 0) {
+        return(invisible(NULL))
+    }
+
     numbers$Type <- as.factor(numbers$Type)
 
     alldata <- merge(people, numbers)
@@ -39,3 +44,12 @@ listPeopleAsDataFrame <- function(filename, verbose=FALSE) {
     }
     invisible(alldata)
 }
+
+
+
+
+
+
+
+
+
