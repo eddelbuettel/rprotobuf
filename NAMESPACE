@@ -19,8 +19,10 @@ exportClasses(
 	"FileDescriptor", "EnumValueDescriptor",
 
 	# message
-	"Message"
+	"Message", 
 
+	# rpc
+	"RpcHTTP"
 	)
 
 
@@ -53,7 +55,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"input_type", "output_type",
 
 	# rpc
-	"invokeLocally"
+	"invoke"
 	)
 
 export( "P", "readProtoFiles", "asMessage" )

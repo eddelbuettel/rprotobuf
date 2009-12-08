@@ -1,7 +1,9 @@
 # :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
 
-# {{{ class definitions 
+# this has to be 
+IMPLEMENTATIONS <- new.env( parent = emptyenv() )
 
+# {{{ class definitions 
 setClass( "Descriptor", representation( 
 	pointer = "externalptr",   # pointer to a google::protobuf::Descriptor c++ object
 	type = "character"         # message type
@@ -50,6 +52,10 @@ setClass( "Message",  representation(
 ), prototype = list( pointer = NULL, type = character(0) ) ) 
 
 # rpc 
+
+setClass( "RpcHTTP", representation( 
+	host = "character", port = "integer"
+), prototype = list( host = "127.0.0.1", port = 4444L) )
 
 # setClass( "RpcChannel", representation(
 # 	pointer = "externalptr", 
@@ -148,6 +154,11 @@ setMethod("$", "Message", function(x, name) {
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
 	} )
+setMethod("$<-", "Message", function(x, name, value) {
+	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
+	x
+} )
+
 setMethod("$", "Descriptor", function(x, name) {
 	switch( name, 
 		"new" = function( ... ) newProto( x, ... ) , 
@@ -255,8 +266,30 @@ setMethod( "$", "EnumValueDescriptor", function(x, name ){
 
 })
 
-setMethod("$<-", "Message", function(x, name, value) {
-	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
+
+setMethod( "$", "MethodDescriptor", function(x, name ){
+	switch( name, 
+		"invoke" = function(...) invoke(x, ...),
+		"implementation" = if( x@name %in% names(IMPLEMENTATIONS) ){
+			get( x@name, IMPLEMENTATIONS )
+		}, 
+		"name" = function(...) name(x, ...), 
+		"toString"  = function() toString(x) , 
+		"as.character" = function() as.character(x), 
+		"fileDescriptor" = function() fileDescriptor(x ),
+		"input_type" = function() input_type(x), 
+		"output_type" = function() output_type(x),
+		
+		invisible( NULL)
+	)
+} )
+
+setMethod( "$<-", "MethodDescriptor", function(x, name, value ){
+	
+	if( identical( name, "implementation" ) ){
+		check_valid_implementation( x, value )
+		assign( x@name, value, envir = IMPLEMENTATIONS )
+	}
 	x
 } )
 # }}}
@@ -428,3 +461,4 @@ setGeneric( "enum_type", function( object, index, name ){
 	standardGeneric( "enum_type" )
 })
 # }}}
+

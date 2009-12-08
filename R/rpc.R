@@ -1,5 +1,7 @@
 
-IMPLEMENTATIONS <- new.env( parent = emptyenv() )
+setGeneric( "invoke", function( method, message, protocol){
+	standardGeneric( "invoke" )
+} )
 
 check_valid_implementation <- function( method, implementation ){
 	if( !is.function( implementation ) ){
@@ -11,12 +13,7 @@ check_valid_implementation <- function( method, implementation ){
 	invisible(NULL)
 }
 
-setGeneric( "invokeLocally", function( method, message ){
-	standardGeneric( "invokeLocally" ) 
-} )
-
-setMethod( "invokeLocally", c(method = "MethodDescriptor", message = "Message"), 
-function( method, message){
+check_valid_input_message <- function( method, message){
 	# check that message is of correct type
 	valid <- .Call( "valid_input_message", method@pointer, message@pointer, 
 		PACKAGE = "RProtoBuf" )
@@ -24,6 +21,12 @@ function( method, message){
 		expected <- .Call( "get_method_input_type", method@pointer, PACKAGE = "RProtoBuf" )@type
 		stop( sprintf( "invalid input message, expecting a message of type : %s", expected ) )
 	}
+}
+
+setMethod( "invoke", c(method = "MethodDescriptor", message = "Message", protocol = "missing" ), 
+function( method, message, protocol){
+	# check that the message is valid
+	check_valid_input_message( method, message )
 	
 	# grab the implementation
 	if( exists( method@name, envir = IMPLEMENTATIONS ) ){
@@ -44,50 +47,13 @@ function( method, message){
 	# return the message
 } )
 
-
-setMethod( "$", "MethodDescriptor", function(x, name ){
-	switch( name, 
-		"invokeLocally" = function(...) invokeLocally(x, ...),
-		"implementation" = if( x@name %in% names(IMPLEMENTATIONS) ){
-			get( x@name, IMPLEMENTATIONS )
-		}, 
-		"name" = function(...) name(x, ...), 
-		"toString"  = function() toString(x) , 
-		"as.character" = function() as.character(x), 
-		"fileDescriptor" = function() fileDescriptor(x ),
-		"input_type" = function() input_type(x), 
-		"output_type" = function() output_type(x),
-		
-		invisible( NULL)
-	)
-} )
-
-setMethod( "$<-", "MethodDescriptor", function(x, name, value ){
+setMethod( "invoke" , c( method = "MethodDescriptor", message = "Message", protocol = "RpcHTTP"), 
+function(method, message, protocol ){
+	# check that the message is valid
+	check_valid_input_message( method, message )
 	
-	if( identical( name, "implementation" ) ){
-		check_valid_implementation( x, value )
-		assign( x@name, value, envir = IMPLEMENTATIONS )
-	}
-	x
+	.Call( "invoke_method_http", method@pointer, message@pointer, 
+		protocol@host, protocol@port, PACKAGE = "RProtoBuf" )
+	
 } )
-
-
-# client side rpc
-
-# channel <- function( host = "localhost", port ){
-# 	.Call( "getChannel", host, port, PACKAGE = "RProtoBuf" )
-# }
-# 
-# getChannelId <- function( channel ){
-# 	.Call( "getChannelId", channel@pointer, PACKAGE = "RProtoBuf" )
-# }
-# 
-# setGeneric( "invoke" , function(method, message, channel){
-# 	standardGeneric( "invoke" ) 
-# } )
-# setMethod( "invoke", c( method = "MethodDescriptor", message = "Message", channel = "RpcChannel" ), 
-# function( method, message, channel){
-# 	.Call( "invoke", method@pointer, message@pointer, channel@pointer, 
-# 		PACKAGE = "RProtoBuf" )
-# } )
 
