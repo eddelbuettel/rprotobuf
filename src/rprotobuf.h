@@ -196,11 +196,6 @@ RcppExport SEXP get_method_input_prototype( SEXP) ;
 RcppExport SEXP valid_input_message( SEXP, SEXP) ;
 RcppExport SEXP valid_output_message( SEXP, SEXP) ;
 
-//!! /* in channel.cpp */
-//!! RcppExport SEXP getChannel( SEXP, SEXP) ; 
-//!! RcppExport SEXP getChannelId( SEXP) ;
-//!! RcppExport SEXP invoke( SEXP, SEXP, SEXP) ;
-
 /* in fileDescriptor.cpp */
 RcppExport SEXP get_message_file_descriptor( SEXP) ;
 RcppExport SEXP get_descriptor_file_descriptor(SEXP) ;
@@ -272,6 +267,8 @@ RcppExport SEXP ServiceDescriptor_method_count(SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 
+/* in rpc_ver_http.cpp */
+RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP) ;
 
 } // namespace rprotobuf
 
