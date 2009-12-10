@@ -35,18 +35,64 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
  	 /* first check the cache */
  	 val = _TRUE_ ;
  } else {
+ 	/* try the generated pool */
  	const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
  	if( pool->FindMessageTypeByName( name ) ||  pool->FindEnumTypeByName( name ) || pool->FindServiceByName( name ) || pool->FindMethodByName( name ) ){
- 		
  		DescriptorPoolLookup::add( name ) ;
  		val = _TRUE_ ;
- 	
+ 	} else {
+ 		/* try the runtime pool */
+ 		pool = DescriptorPoolLookup::pool() ;
+ 		if( pool->FindMessageTypeByName( name ) ||  pool->FindEnumTypeByName( name ) || pool->FindServiceByName( name ) || pool->FindMethodByName( name ) ){
+ 			DescriptorPoolLookup::add( name ) ;
+ 			val = _TRUE_ ;
+ 		}
  	}
  }
  tb->active = _TRUE_;
  
  return( val );
 }
+
+SEXP findSomething( const GPB::DescriptorPool* pool, const char * const name){
+	const GPB::Descriptor*  desc = pool->FindMessageTypeByName( name ) ;
+ 	if( desc ){
+ 		/* message */
+ 		DescriptorPoolLookup::add( name ) ;
+ 		SEXP res = PROTECT( new_RS4_Descriptor( desc ) ); 
+ 		UNPROTECT(1); 
+ 		return( res ) ;
+ 	} else {
+ 		 const GPB::EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name ) ;
+ 		 if( enum_desc ){
+ 		 	/* enum */
+ 		 	DescriptorPoolLookup::add( name ) ;
+ 		 	SEXP res = PROTECT( new_RS4_EnumDescriptor( enum_desc ) ); 
+ 			UNPROTECT(1); 
+ 			return( res ) ;
+ 		 } else{
+			const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name ) ;
+			if( service_desc ){
+				DescriptorPoolLookup::add( name ) ;
+				SEXP res = PROTECT( new_RS4_ServiceDescriptor( service_desc ) ); 
+				UNPROTECT(1); 
+				return( res ) ;
+ 		 	} else {
+ 		 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name ); 
+ 		 		if( method_desc ){
+					DescriptorPoolLookup::add( name ) ;
+					SEXP res = PROTECT( new_RS4_MethodDescriptor( method_desc ) ); 
+					UNPROTECT(1); 
+					return( res ) ;
+ 		 		} else{
+ 		 			return( R_NilValue ) ;
+ 		 		}
+ 		 	}
+ 		 }    
+ 	}
+ 
+}
+
 
 /**
  * Returns a new "Descriptor" if there is such a message type
@@ -67,49 +113,19 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
 
  tb->active = _FALSE_;
  
- const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
- const GPB::Descriptor*  desc = pool->FindMessageTypeByName( name ) ;
- if( desc ){
- 	/* message */
- 	DescriptorPoolLookup::add( name ) ;
- 	SEXP res = PROTECT( new_RS4_Descriptor( desc ) ); 
- 	tb->active = _TRUE_; 
- 	UNPROTECT(1); 
- 	return( res ) ;
- } else {
- 	 const GPB::EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name ) ;
- 	 if( enum_desc ){
- 	 	/* enum */
- 	 	DescriptorPoolLookup::add( name ) ;
- 	 	SEXP res = PROTECT( new_RS4_EnumDescriptor( enum_desc ) ); 
- 		tb->active = _TRUE_; 
- 		UNPROTECT(1); 
- 		return( res ) ;
- 	 } else{
-		const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name ) ;
-		if( service_desc ){
-			DescriptorPoolLookup::add( name ) ;
-			SEXP res = PROTECT( new_RS4_ServiceDescriptor( service_desc ) ); 
-			tb->active = _TRUE_; 
-			UNPROTECT(1); 
-			return( res ) ;
- 	 	} else {
- 	 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name ); 
- 	 		if( method_desc ){
-				DescriptorPoolLookup::add( name ) ;
-				SEXP res = PROTECT( new_RS4_MethodDescriptor( method_desc ) ); 
-				tb->active = _TRUE_; 
-				UNPROTECT(1); 
-				return( res ) ;
- 	 		} else{
- 	 			tb->active = _TRUE_;
- 	 			return( R_getUnboundValue() ) ;
- 	 		}
- 	 	}
- 	 }
- }
+ SEXP res ;
  
- return( R_getUnboundValue() ) ; // -Wall
+ /* first try the generated pool */
+ const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
+ res = findSomething( pool, name ) ;
+ if( res == R_NilValue ){
+ 	/* try the runtime pool */
+ 	pool = DescriptorPoolLookup::pool() ;
+ 	res = findSomething( pool, name ) ;
+ }
+ tb->active = _TRUE_;
+ if( res != R_NilValue ) return res ; 
+ return R_getUnboundValue() ; // -Wall
 }
 
 /**

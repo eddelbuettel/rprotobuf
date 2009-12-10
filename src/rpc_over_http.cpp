@@ -128,6 +128,8 @@ namespace rprotobuf{
 						}
 						pos += n ;
 					}
+					closesocket( socket_id ) ;
+					socket_id = -1 ;
 					
 					/* the body was read in full, we can now fill the 
 					   response message */

@@ -19,7 +19,7 @@ SEXP readMessageFromFile( SEXP xp, SEXP filename ){
 	int file = open( CHAR(STRING_ELT(filename, 0 )), O_RDONLY | O_BINARY);
 	
 	/* create a prototype of the message we are going to read */
-	GPB::Message* message = (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	GPB::Message* message = PROTOTYPE( desc ) ; 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}

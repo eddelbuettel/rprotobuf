@@ -24,19 +24,17 @@ namespace rprotobuf{
 	
 	
 	SEXP get_method_input_prototype( SEXP xp ){
-		
 		GPB::MethodDescriptor* method = GET_METHOD( xp) ;
 		const GPB::Descriptor* desc = method->input_type();
-		GPB::Message* message = (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+		GPB::Message* message = PROTOTYPE( desc ) ; 
 		return( new_RS4_Message_( message ) ) ;
 	}
 	
 	
 	SEXP get_method_output_prototype( SEXP xp ){
-		
 		GPB::MethodDescriptor* method = GET_METHOD( xp) ;
 		const GPB::Descriptor* desc = method->output_type();
-		GPB::Message* message = (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+		GPB::Message* message = PROTOTYPE( desc ) ; 
 		return( new_RS4_Message_( message ) ) ;
 	}
 	

@@ -1,44 +1,38 @@
 #include "rprotobuf.h"
-#include "RSourceTree.h"
 #include "DescriptorPoolLookup.h" 
-#include "RWarningErrorCollector.h"
 
 namespace rprotobuf{
 
+	GPB::Message* PROTOTYPE( const GPB::Descriptor* desc){
+#ifdef RPB_DEBUG
+	Rprintf( "<PROTOTYPE>\n" ) ;
+	Rprintf( "desc = %d\n", desc ) ;
+#endif
+	/* first try the runtime factory */
+	GPB::Message* m = (GPB::Message*)((GPB::DynamicMessageFactory*)DescriptorPoolLookup::factory())->GetPrototype( desc )->New() ;
+		
+#ifdef RPB_DEBUG
+		Rprintf( "generated factory = %d\n", m ) ;
+#endif		
+		if( !m ){
+			/* then the dynamic runtime factory */
+			m = (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New() ;
+#ifdef RPB_DEBUG
+		Rprintf( "runtime  factory = %d\n", m ) ;
+#endif		
+		}
+		return m ;
+	}
+	
+	
 /**
  * read a proto file and cache the message definitions it contains
  *
  * @param file proto file name
  */
 SEXP readProtoFiles( SEXP file ){
-	
-#ifdef RPB_DEBUG
-Rprintf( "<readProtoFiles>\n" ) ;
-PrintValue( file ) ;
-Rprintf( "   importer.Import( '%s' ) \n", filename ) ;
-#endif
-	
-	RWarningErrorCollector error_collector ;
-	RSourceTree source_tree;
-	GPB::compiler::Importer importer(&source_tree, &error_collector);
-	
-	int n = LENGTH(file) ;
-	for( int j=0; j < n; j++ ){
-		const GPB::FileDescriptor* file_desc = importer.Import( CHAR(STRING_ELT(file, j)) );
-	    int ntypes = file_desc->message_type_count() ;
-	    for( int i=0; i<ntypes; i++){
-	    	const GPB::Descriptor* desc = file_desc->message_type( i ) ;
-	    	DescriptorPoolLookup::add( desc->full_name() ); 
-	    	/* should we bother recursing ? */
-	    }
-	}
-	
-#ifdef RPB_DEBUG
-Rprintf( "</readProtoFiles>\n" ) ;
-#endif
-
-return R_NilValue ;
-
+	DescriptorPoolLookup::importProtoFiles( file ) ;
+	return R_NilValue ;
 }
 
 /**
@@ -53,14 +47,22 @@ SEXP getProtobufDescriptor( SEXP type ){
 
 #ifdef RPB_DEBUG
 Rprintf( "<getProtobufDescriptor>\n      type = " ) ;
-PrintValue( type ) ;
+Rf_PrintValue( type ) ;
 #endif
 	
 	const char * typeName = CHAR( STRING_ELT(type, 0 ) ) ;
+	
+	/* first try the generated pool */
 	const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
 	const GPB::Descriptor*  desc = pool->FindMessageTypeByName( typeName ) ; 
 	if( !desc ){
-		return R_NilValue ;
+		/* then try the "runtime" pool" */
+		pool = DescriptorPoolLookup::pool() ;
+		desc = pool->FindMessageTypeByName( typeName ) ;
+		if( !desc ){
+			/* unlucky */
+			return R_NilValue ;
+		}
 	}
 	
 	return( new_RS4_Descriptor( desc ) ) ;
@@ -84,12 +86,12 @@ Rprintf( "<newProtoMessage>\n" ) ;
 	GPB::Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_S4( descriptor ); 
 	
 #ifdef RPB_DEBUG
+Rprintf( "desc = %d\n", desc ) ;
 PRINT_DEBUG_INFO( "type", type ) ;
-PRINT_DEBUG_INFO( "desc_ptr", desc_ptr ) ;
 #endif
 	
 	/* grab the Message from the factory */
-	const GPB::Message* message = GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New(); 
+	const GPB::Message* message = PROTOTYPE( desc ) ; 
 	if( !message ){
 		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
 	}

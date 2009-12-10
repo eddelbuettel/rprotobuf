@@ -1,0 +1,12 @@
+package rprotobuf ;
+option java_package = "org.rproject.rprotobuf" ;
+option java_outer_classname = "HelloWorld" ;
+
+message HelloWorldRequest{}
+message HelloWorldResponse{
+	required string message = 1;
+}
+service HelloWorldService{
+	rpc HelloWorld(HelloWorldRequest) returns(HelloWorldResponse);
+}
+

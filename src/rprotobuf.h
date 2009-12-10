@@ -27,7 +27,7 @@
 
 #include <Rcpp.h>
 
-/* undefine this to quiet debug messages */
+/* uncomment for debugging */
 // #define RPB_DEBUG
 
 #define PRINT_DEBUG_INFO(name,o) \
@@ -48,7 +48,6 @@
 #define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (GPB::Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
 #define GET_METHOD(xp)  (GPB::MethodDescriptor*) EXTPTR_PTR( xp )
-#define PROTOTYPE(desc) (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype( desc )->New() 
 
 #define COPYSTRING(s) s
 #define THROW_SOCKET_ERROR(message) Rf_error( "%s : %s", message, strerror(sockerrno) )
@@ -63,6 +62,7 @@ namespace GPB = google::protobuf;
 namespace rprotobuf{
 
 /* in rprotobuf.cpp */
+GPB::Message* PROTOTYPE( const GPB::Descriptor*) ;
 RcppExport SEXP do_dollar_Descriptor( SEXP, SEXP ) ;
 RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;
