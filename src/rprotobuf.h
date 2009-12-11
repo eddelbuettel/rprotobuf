@@ -52,6 +52,8 @@
 #define COPYSTRING(s) s
 #define THROW_SOCKET_ERROR(message) Rf_error( "%s : %s", message, strerror(sockerrno) )
 
+#define XPP EXTPTR_PTR
+
 namespace GPB = google::protobuf;
 
 #define int32 GPB::int32
@@ -267,8 +269,14 @@ RcppExport SEXP ServiceDescriptor_method_count(SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 
-/* in rpc_ver_http.cpp */
+/* in rpc_over_http.cpp */
 RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
+
+/* in streams.cpp */
+RcppExport SEXP ZeroCopyInputStream_Next(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP ) ;
+RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
 
 } // namespace rprotobuf
 

@@ -58,7 +58,7 @@ int GET_int( SEXP x, int index ){
 		case RAWSXP:
 			return( (int)RAW(x)[index] ) ;
 		default:
-			throwException( "cannot cast SEXP to int32", "CastException" ) ; 
+			throwException( "cannot cast SEXP to int", "CastException" ) ; 
 	}
 	return 0 ; // -Wall, should not happen since we only call this when we know it works
 }

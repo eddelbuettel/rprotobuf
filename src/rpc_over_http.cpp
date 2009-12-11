@@ -60,7 +60,7 @@ namespace rprotobuf{
 		std::string header = "POST " ;
 		header += root ; /* we know root starts and ends with a / */
 		header += method->service()->full_name();
-		header += '?method=' ;
+		header += "?method=" ;
 		header += method->name() ;
 		header += " HTTP/1.0\r\nConnection: close\r\n\r\nContent-Type:application/x-protobuf\r\nContent-Length: " ;
 		header += buf ;

@@ -22,7 +22,10 @@ exportClasses(
 	"Message", 
 
 	# rpc
-	"RpcHTTP" 
+	"RpcHTTP", 
+	
+	# streams
+	"ZeroCopyInputStream"
 	
 	)
 
@@ -55,7 +58,11 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"input_type", "output_type",
 
 	# rpc
-	"invoke"
+	"invoke", 
+	
+	# streams
+	"Next", "ByteCount", "BackUp", "Skip"
+	
 	)
 
 export( "P", "readProtoFiles", "asMessage" )

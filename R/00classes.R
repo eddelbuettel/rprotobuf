@@ -57,6 +57,11 @@ setClass( "RpcHTTP", representation(
 	host = "character", port = "integer", root = "character" 
 ), prototype = list( host = "127.0.0.1", port = 4444L, root = "" ) )
 
+# streams
+setClass( "ZeroCopyInputStream", representation( 
+	pointer = "externalptr"
+), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
+
 # }}}
 
 # {{{ new
@@ -286,6 +291,20 @@ setMethod( "$<-", "MethodDescriptor", function(x, name, value ){
 	}
 	x
 } )
+
+setMethod( "$", "ZeroCopyInputStream", function(x, name ){
+	switch( name,
+		# ZeroCopyInputStream C++ methods
+		"Next" = function(...) Next(x, ...), 
+		"ByteCount" = function(...) ByteCount(x, ...), 
+		"Skip" = function(...) Skip(x, ...), 
+		"BackUp" = function(...) BackUp(x, ...), 
+		
+		# default
+		invisible(NULL)
+		)
+} )
+
 # }}}
 
 # {{{ [[
