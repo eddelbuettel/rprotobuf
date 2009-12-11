@@ -249,6 +249,22 @@ SEXP new_RS4_EnumValueDescriptor( const GPB::EnumValueDescriptor*  fd ){
 	return oo; 
 }
 
+SEXP new_RS4_CodedInputStream( const GPB::CodedInputStream* stream ){
+	
+	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("CodedInputStream")) );
+  	if (!Rf_inherits(oo, "CodedInputStream"))
+  		throwException( "unable to create 'CodedInputStream' S4 object", "CannotCreateObjectException" );
+  	
+  	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)stream , 
+		R_NilValue, R_NilValue));
+  	R_RegisterCFinalizerEx( ptr, CodedInputStream_Finalizer, _FALSE_ ) ;
+	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+	
+  	UNPROTECT(2) ; /* oo, ptr */
+	
+	return oo; 
+}
+
 
 
 } // namespace rprotobuf
