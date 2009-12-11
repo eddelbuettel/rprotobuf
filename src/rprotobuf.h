@@ -270,9 +270,6 @@ RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 /* in rpc_ver_http.cpp */
 RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
 
-/* in CodedInputStream_wrapper.cpp */
-void CodedInputStream_Finalizer(SEXP) ;
-
 } // namespace rprotobuf
 
 

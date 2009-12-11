@@ -22,10 +22,8 @@ exportClasses(
 	"Message", 
 
 	# rpc
-	"RpcHTTP", 
+	"RpcHTTP" 
 	
-	# streaming
-	"CodedInputStream"
 	)
 
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",

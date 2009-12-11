@@ -57,11 +57,6 @@ setClass( "RpcHTTP", representation(
 	host = "character", port = "integer", root = "character" 
 ), prototype = list( host = "127.0.0.1", port = 4444L, root = "" ) )
 
-# streams
-setClass( "CodedInputStream", representation(
-	pointer = "externalptr"
-), prototype = list( pointer = NULL ) )
-
 # }}}
 
 # {{{ new
