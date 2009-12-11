@@ -62,6 +62,10 @@ setClass( "ZeroCopyInputStream", representation(
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
 
+setClass( "ZeroCopyOutputStream", representation( 
+	pointer = "externalptr"
+), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
+
 # }}}
 
 # {{{ new
@@ -304,6 +308,19 @@ setMethod( "$", "ZeroCopyInputStream", function(x, name ){
 		invisible(NULL)
 		)
 } )
+
+setMethod( "$", "ZeroCopyOutputStream", function(x, name ){
+	switch( name,
+		# ZeroCopyInputStream C++ methods
+		"Next" = function(...) Next(x, ...), 
+		"ByteCount" = function(...) ByteCount(x, ...), 
+		"BackUp" = function(...) BackUp(x, ...), 
+		
+		# default
+		invisible(NULL)
+		)
+} )
+
 
 # }}}
 

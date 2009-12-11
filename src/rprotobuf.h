@@ -275,8 +275,11 @@ RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
 /* in streams.cpp */
 RcppExport SEXP ZeroCopyInputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
-RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP ) ;
 RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
+RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyOutputStream_ByteCount(SEXP) ;
 
 } // namespace rprotobuf
 
