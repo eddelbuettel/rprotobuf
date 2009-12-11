@@ -21,6 +21,5 @@ namespace rprotobuf{
 		return received ;
 	}
 	
-	
 }
 

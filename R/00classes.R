@@ -54,14 +54,13 @@ setClass( "Message",  representation(
 # rpc 
 
 setClass( "RpcHTTP", representation( 
-	host = "character", port = "integer"
-), prototype = list( host = "127.0.0.1", port = 4444L) )
+	host = "character", port = "integer", root = "character" 
+), prototype = list( host = "127.0.0.1", port = 4444L, root = "" ) )
 
-# setClass( "RpcChannel", representation(
-# 	pointer = "externalptr", 
-# 	host    = "character", 
-# 	port    = "integer"
-# ), prototype = list( pointer = NULL, host = character(0), port = integer(0) ) )
+# streams
+setClass( "CodedInputStream", representation(
+	pointer = "externalptr"
+), prototype = list( pointer = NULL ) )
 
 # }}}
 

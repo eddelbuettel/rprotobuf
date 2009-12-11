@@ -52,8 +52,12 @@ function(method, message, protocol ){
 	# check that the message is valid
 	check_valid_input_message( method, message )
 	
+	root <- protocol@root[1]
+	if( ! grepl( "^/", root ) ) root <- paste( "/", root, sep = "" )
+	if( ! grepl( "/$", root ) ) root <- paste( root, "/", sep = "" )
+	
 	.Call( "invoke_method_http", method@pointer, message@pointer, 
-		protocol@host, protocol@port, PACKAGE = "RProtoBuf" )
+		protocol@host, protocol@port, protocol@root, PACKAGE = "RProtoBuf" )
 	
 } )
 

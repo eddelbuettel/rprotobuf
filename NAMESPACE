@@ -22,9 +22,11 @@ exportClasses(
 	"Message", 
 
 	# rpc
-	"RpcHTTP"
+	"RpcHTTP", 
+	
+	# streaming
+	"CodedInputStream"
 	)
-
 
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update",

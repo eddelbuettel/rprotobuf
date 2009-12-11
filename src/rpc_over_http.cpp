@@ -24,13 +24,14 @@ namespace rprotobuf{
 	/**
 	 * invoke an rpc method over http
 	 */
-	SEXP invoke_method_http( SEXP method_xp, SEXP message_xp, SEXP host_xp, SEXP port_xp){
+	SEXP invoke_method_http( SEXP method_xp, SEXP message_xp, SEXP host_xp, SEXP port_xp, SEXP root_xp ){
 		
 		/* grab parameters */
 		GPB::MethodDescriptor* method = (GPB::MethodDescriptor*)EXTPTR_PTR(method_xp) ;
 		GPB::Message* input = (GPB::Message*)EXTPTR_PTR( message_xp); 
 		int port = INTEGER(port_xp)[0]; 
 		const char* host = CHAR( STRING_ELT( host_xp, 0) ) ;
+		const char* root = CHAR( STRING_ELT( root_xp, 0) ) ;
 		
 		/* setup the socket */
 		int socket_id = - 1 ;
@@ -56,11 +57,12 @@ namespace rprotobuf{
 		int input_size = input->ByteSize() ;
 		sprintf( buf, "%d", input_size ) ;
 		
-		std::string header = "POST /" ;
+		std::string header = "POST " ;
+		header += root ; /* we know root starts and ends with a / */
 		header += method->service()->full_name();
-		header += '/' ;
+		header += '?method=' ;
 		header += method->name() ;
-		header += " HTTP/1.0\r\nConnection: close\r\nContent-Length: " ;
+		header += " HTTP/1.0\r\nConnection: close\r\n\r\nContent-Type:application/x-protobuf\r\nContent-Length: " ;
 		header += buf ;
 		header += "\r\n\r\n" ;
 		

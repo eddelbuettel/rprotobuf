@@ -268,7 +268,7 @@ RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 
 /* in rpc_ver_http.cpp */
-RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP) ;
+RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
 
 } // namespace rprotobuf
 
