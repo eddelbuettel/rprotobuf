@@ -62,20 +62,27 @@ setClass( "ZeroCopyInputStream", representation(
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
 
+setClass( "ArrayInputStream", contains = "ZeroCopyInputStream" ) 
+setGeneric( "ArrayInputStream", function(payload){
+	standardGeneric( "ArrayInputStream" )
+} )
+setMethod( "ArrayInputStream", "raw", function(payload){
+	.Call( "ArrayInputStream_new", payload, PACKAGE = "RProtoBuf" )
+} )
+
 setClass( "ZeroCopyOutputStream", representation( 
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
-
 # }}}
 
 # {{{ new
-setGeneric("new")
-setMethod("new", signature(Class="Descriptor"), function(Class, ...) newProto(Class, ...))
 newProto <- function( descriptor, ... ){
 	message <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
 	update( message, ... )
 	message
 }
+setGeneric("new")
+setMethod("new", signature(Class="Descriptor"), function(Class, ...) newProto(Class, ...))
 # }}}
 
 # {{{ P

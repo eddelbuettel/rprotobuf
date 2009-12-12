@@ -1,7 +1,7 @@
 # :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
 
 # {{{ methods
-setGeneric( "Next", function(object, size ){
+setGeneric( "Next", function(object, payload){
 	standardGeneric( "Next" )
 } )
 setGeneric( "BackUp", function(object, count){
@@ -16,8 +16,8 @@ setGeneric( "Skip", function(object, count){
 # }}}
 
 # {{{ zero input stream
-setMethod( "Next", "ZeroCopyInputStream", function(object, size){
-	.Call( "ZeroCopyInputStream_Next", object@pointer, size, PACKAGE = "RProtoBuf" )
+setMethod( "Next", c( object = "ZeroCopyInputStream", payload = "missing"), function(object, payload){
+	.Call( "ZeroCopyInputStream_Next", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setMethod( "BackUp", "ZeroCopyInputStream", function(object, count){
@@ -34,8 +34,8 @@ setMethod( "Skip", "ZeroCopyInputStream", function(object, count){
 # }}}
 
 # {{{ zero copy output stream
-setMethod( "Next", c( object = "ZeroCopyOutputStream", size = "raw" ), function(object, size){
-	.Call( "ZeroCopyOutputStream_Next", object@pointer, size, PACKAGE = "RProtoBuf" )
+setMethod( "Next", c( object = "ZeroCopyOutputStream", payload = "raw" ), function(object, payload){
+	.Call( "ZeroCopyOutputStream_Next", object@pointer, payload, PACKAGE = "RProtoBuf" )
 } )
 
 setMethod( "BackUp", "ZeroCopyOutputStream", function(object, count){

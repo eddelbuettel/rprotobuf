@@ -30,6 +30,8 @@
 /* uncomment for debugging */
 // #define RPB_DEBUG
 
+#define FIN_DBG(ptr, CLAZZ) Rprintf( "RProtoBuf:: ~%s <%p>\n", CLAZZ, ptr )
+
 #define PRINT_DEBUG_INFO(name,o) \
 	Rprintf( "     %s [%d] =     ", name, TYPEOF(o) ) ; \
 	Rf_PrintValue( o ) ; \
@@ -273,13 +275,18 @@ RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
 
 /* in streams.cpp */
-RcppExport SEXP ZeroCopyInputStream_Next(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyInputStream_Next(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
+void ArrayInputStream_finalizer( SEXP );
+RcppExport SEXP ArrayInputStream_new( SEXP ) ;
+
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_ByteCount(SEXP) ;
+
+
 
 } // namespace rprotobuf
 

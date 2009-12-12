@@ -24,8 +24,11 @@ exportClasses(
 	# rpc
 	"RpcHTTP", 
 	
-	# streams
-	"ZeroCopyInputStream"
+	# virtual streams
+	"ZeroCopyInputStream", "ZeroCopyOutputStream",
+	
+	# concrete implementations
+	"ArrayInputStream"
 	
 	)
 
@@ -61,7 +64,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"invoke", 
 	
 	# streams
-	"Next", "ByteCount", "BackUp", "Skip"
+	"Next", "ByteCount", "BackUp", "Skip", 
+	"ArrayInputStream"
 	
 	)
 

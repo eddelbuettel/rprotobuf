@@ -6,7 +6,7 @@
 \alias{Skip,ZeroCopyInputStream-method}
 \alias{ByteCount,ZeroCopyInputStream-method}
 \alias{BackUp,ZeroCopyInputStream-method}
-\alias{Next,ZeroCopyInputStream,ANY-method}
+\alias{Next,ZeroCopyInputStream,missing-method}
 \alias{$,ZeroCopyInputStream-method}
 
 \title{Virtual Class "ZeroCopyInputStream" }

@@ -20,7 +20,7 @@ This is a virtual class
 }
 \section{Methods}{
 \describe{
-	\item{Next}{\code{signature(object="ZeroCopyOutputStream", size = "raw" )}: push the raw vector into the stream. Returns the number of bytes actually written.}
+	\item{Next}{\code{signature(object="ZeroCopyOutputStream", payload = "raw" )}: push the raw vector into the stream. Returns the number of bytes actually written.}
 	\item{BackUp}{\code{signature(object="ZeroCopyOutputStream")}: Backs up a number of bytes, so that the end of the last buffer returned by \code{Next} is not actually written.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyOutputStream")}: Returns the total number of bytes written since this object was created. }
 	\item{$}{\code{signature(x="ZeroCopyOutputStream")}: invokes a method}

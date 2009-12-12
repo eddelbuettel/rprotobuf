@@ -4,10 +4,12 @@
 
 namespace rprotobuf{
 	
+	// {{{ input streams
+	
 	// {{{ ZeroCopyInputStream
-	SEXP ZeroCopyInputStream_Next( SEXP xp, SEXP size){
+	SEXP ZeroCopyInputStream_Next( SEXP xp ){
 		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp) ;
-		int s = GET_int(size, 0) ;
+		int s = 0 ;
 		SEXP result = R_NilValue ; // -Wall 
 		const void* in ;
 		bool res = stream->Next( &in, &s );
@@ -44,7 +46,41 @@ namespace rprotobuf{
 		return( Rf_ScalarReal((double)stream->ByteCount())) ;
 	}
 	// }}}
+	// {{{ ArrayInputStream
+	void ArrayInputStream_finalizer(SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			GPB::io::ArrayInputStream* stream = (GPB::io::ArrayInputStream*)XPP(xp) ;
+			FIN_DBG( stream, "ArrayInputStream" ) ;
+			delete stream;
+		}
+	}
 	
+	SEXP ArrayInputStream_new( SEXP payload){
+		if( TYPEOF(payload) != RAWSXP ){
+			Rf_error( "expecting a raw vector" );  
+		}
+		
+		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ArrayInputStream")) );
+  		if (!Rf_inherits(oo, "ArrayInputStream"))
+  		  throwException("unable to create 'ArrayInputStream' S4 object", "CannotCreateObjectException" );
+  		
+		/* FIXME: should we memcpy the payload or is this fine */
+		GPB::io::ArrayInputStream* stream = 
+			new GPB::io::ArrayInputStream( RAW(payload), LENGTH(payload) );
+		/* we keep the payload protected from GC */
+		SEXP ptr = PROTECT( 
+			R_MakeExternalPtr( (void*)stream, R_NilValue, payload));
+		/* delete the stream when the xp is GC'ed*/
+		R_RegisterCFinalizerEx( ptr, ArrayInputStream_finalizer , _FALSE_ ) ;
+		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+		
+		UNPROTECT(2); /* oo, ptr */
+		return oo ;
+	}
+	// }}}
+	// }}}
+	
+	// {{{ output streams
 	// {{{ ZeroCopyOutputStream
 	SEXP ZeroCopyOutputStream_Next( SEXP xp, SEXP payload){
 		GPB::io::ZeroCopyOutputStream* stream = (GPB::io::ZeroCopyOutputStream*)XPP(xp) ;
@@ -70,7 +106,7 @@ namespace rprotobuf{
 		return R_NilValue ;
 	}
 	// }}}
-	
+	// }}}
 	
 } // namespace rprotobuf
 
