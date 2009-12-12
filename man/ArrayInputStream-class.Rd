@@ -20,7 +20,7 @@ Class \code{"\linkS4class{ZeroCopyInputStream}"}, directly.
 See \linkS4class{ZeroCopyInputStream}
 }
 \references{ The \code{ArrayInputStream} class from the protobuf 
-C++ librray. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream_impl_lite.html#ArrayInputStream} }
+C++ library. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream_impl_lite.html#ArrayInputStream} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{
 	\linkS4class{ZeroCopyInputStream} for methods
@@ -31,6 +31,10 @@ local({
 	stopifnot( identical( stream$Next(), as.raw(0:10) ) )
 	stream$BackUp( 5 )
 	stopifnot( identical( stream$Next(), as.raw(6:10) ) )
+	
+	# limiting the block size
+	stream <- ArrayInputStream( as.raw(0:10), 5 )
+	stopifnot( identical(length( stream$Next() ), 5L ) )
 })
 
 }

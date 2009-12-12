@@ -280,7 +280,7 @@ RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
 void ArrayInputStream_finalizer( SEXP );
-RcppExport SEXP ArrayInputStream_new( SEXP ) ;
+RcppExport SEXP ArrayInputStream_new( SEXP, SEXP ) ;
 
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;

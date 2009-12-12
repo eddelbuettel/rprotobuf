@@ -63,12 +63,6 @@ setClass( "ZeroCopyInputStream", representation(
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
 
 setClass( "ArrayInputStream", contains = "ZeroCopyInputStream" ) 
-setGeneric( "ArrayInputStream", function(payload){
-	standardGeneric( "ArrayInputStream" )
-} )
-setMethod( "ArrayInputStream", "raw", function(payload){
-	.Call( "ArrayInputStream_new", payload, PACKAGE = "RProtoBuf" )
-} )
 
 setClass( "ZeroCopyOutputStream", representation( 
 	pointer = "externalptr"

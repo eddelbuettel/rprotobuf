@@ -55,10 +55,12 @@ namespace rprotobuf{
 		}
 	}
 	
-	SEXP ArrayInputStream_new( SEXP payload){
+	SEXP ArrayInputStream_new( SEXP payload, SEXP block_size){
 		if( TYPEOF(payload) != RAWSXP ){
 			Rf_error( "expecting a raw vector" );  
 		}
+		
+		int bs = INTEGER(block_size)[0];
 		
 		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ArrayInputStream")) );
   		if (!Rf_inherits(oo, "ArrayInputStream"))
@@ -66,10 +68,12 @@ namespace rprotobuf{
   		
 		/* FIXME: should we memcpy the payload or is this fine */
 		GPB::io::ArrayInputStream* stream = 
-			new GPB::io::ArrayInputStream( RAW(payload), LENGTH(payload) );
+			new GPB::io::ArrayInputStream( RAW(payload), LENGTH(payload), bs ) ;
+		
 		/* we keep the payload protected from GC */
 		SEXP ptr = PROTECT( 
 			R_MakeExternalPtr( (void*)stream, R_NilValue, payload));
+		
 		/* delete the stream when the xp is GC'ed*/
 		R_RegisterCFinalizerEx( ptr, ArrayInputStream_finalizer , _FALSE_ ) ;
 		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;

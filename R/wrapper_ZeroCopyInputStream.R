@@ -46,3 +46,22 @@ setMethod( "ByteCount", "ZeroCopyOutputStream", function(object){
 	.Call( "ZeroCopyOutputStream_ByteCount", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 # }}}
+
+# {{{ ArrayInputStream
+setGeneric( "ArrayInputStream", function(payload, block_size){
+	standardGeneric( "ArrayInputStream" )
+} )
+setMethod( "ArrayInputStream", c( payload = "raw", block_size = "missing" ) , 
+function(payload, block_size){
+	.Call( "ArrayInputStream_new", payload, -1L, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "ArrayInputStream", c( payload = "raw", block_size = "integer" ) , 
+function(payload, block_size){
+	.Call( "ArrayInputStream_new", payload, block_size, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "ArrayInputStream", c( payload = "raw", block_size = "numeric" ) , 
+function(payload, block_size){
+	.Call( "ArrayInputStream_new", payload, as.integer(block_size), PACKAGE = "RProtoBuf" )
+} )
+
+# }}}
