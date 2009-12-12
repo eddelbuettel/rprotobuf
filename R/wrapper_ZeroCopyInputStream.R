@@ -21,7 +21,7 @@ setMethod( "Next", c( object = "ZeroCopyInputStream", payload = "missing"), func
 } )
 
 setMethod( "BackUp", "ZeroCopyInputStream", function(object, count){
-	.Call( "ZeroCopyInputStream_BackUp", object@pointer, count, PACKAGE = "RProtoBuf" )
+	invisible(.Call( "ZeroCopyInputStream_BackUp", object@pointer, count, PACKAGE = "RProtoBuf" ))
 } )
 
 setMethod( "ByteCount", "ZeroCopyInputStream", function(object){
@@ -29,7 +29,7 @@ setMethod( "ByteCount", "ZeroCopyInputStream", function(object){
 } )
 
 setMethod( "Skip", "ZeroCopyInputStream", function(object, count){
-	.Call( "ZeroCopyInputStream_Skip", object@pointer, count, PACKAGE = "RProtoBuf" )
+	invisible( .Call( "ZeroCopyInputStream_Skip", object@pointer, count, PACKAGE = "RProtoBuf" ) )
 } )
 # }}}
 
@@ -39,7 +39,7 @@ setMethod( "Next", c( object = "ZeroCopyOutputStream", payload = "raw" ), functi
 } )
 
 setMethod( "BackUp", "ZeroCopyOutputStream", function(object, count){
-	.Call( "ZeroCopyOutputStream_BackUp", object@pointer, count, PACKAGE = "RProtoBuf" )
+	invisible( .Call( "ZeroCopyOutputStream_BackUp", object@pointer, count, PACKAGE = "RProtoBuf" ) )
 } )
 
 setMethod( "ByteCount", "ZeroCopyOutputStream", function(object){
