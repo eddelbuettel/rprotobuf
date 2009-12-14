@@ -63,10 +63,13 @@ setClass( "ZeroCopyInputStream", representation(
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
 
 setClass( "ArrayInputStream", contains = "ZeroCopyInputStream" ) 
+setClass( "FileInputStream", contains = "ZeroCopyInputStream" ) 
 
 setClass( "ZeroCopyOutputStream", representation( 
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
+setClass( "ArrayOutputStream", contains = "ZeroCopyInputStream" ) 
+setClass( "FileOutputStream", contains = "ZeroCopyInputStream" ) 
 # }}}
 
 # {{{ new

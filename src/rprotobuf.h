@@ -63,6 +63,10 @@ namespace GPB = google::protobuf;
 #define int64 GPB::int64
 #define uint64 GPB::uint64
 
+#define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
+  		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
+
+
 namespace rprotobuf{
 
 /* in rprotobuf.cpp */
@@ -279,6 +283,7 @@ RcppExport SEXP ZeroCopyInputStream_Next(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
+
 void ArrayInputStream_finalizer( SEXP );
 RcppExport SEXP ArrayInputStream_new( SEXP, SEXP ) ;
 
@@ -287,6 +292,19 @@ RcppExport SEXP ArrayOutputStream_new( SEXP, SEXP ) ;
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_ByteCount(SEXP) ;
+
+void FileOutputStream_finalizer( SEXP ) ;
+RcppExport SEXP FileOutputStream_new( SEXP, SEXP, SEXP) ;
+RcppExport SEXP FileOutputStream_Close( SEXP) ;
+RcppExport SEXP FileOutputStream_Flush( SEXP) ;
+RcppExport SEXP FileOutputStream_GetErrno( SEXP) ;
+RcppExport SEXP FileOutputStream_SetCloseOnDelete( SEXP, SEXP ) ;
+
+void FileInputStream_finalizer( SEXP ) ;
+RcppExport SEXP FileInputStream_new( SEXP, SEXP, SEXP) ;
+RcppExport SEXP FileInputStream_Close( SEXP) ;
+RcppExport SEXP FileInputStream_GetErrno( SEXP) ;
+RcppExport SEXP FileInputStream_SetCloseOnDelete( SEXP, SEXP ) ;
 
 } // namespace rprotobuf
 

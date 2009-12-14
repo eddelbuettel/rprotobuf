@@ -1,5 +1,16 @@
 # :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
 
+# {{{ generics
+setGeneric( "flush" )
+setGeneric( "close" )
+setGeneric( "GetErrno", function(object){
+	standardGeneric( "GetErrno" )
+} )
+setGeneric( "SetCloseOnDelete", function(object, close=FALSE){
+	standardGeneric( "SetCloseOnDelete" )
+} )
+# }}}
+
 # {{{ methods
 setGeneric( "Next", function(object, payload){
 	standardGeneric( "Next" )
@@ -65,7 +76,7 @@ function(payload, block_size){
 } )
 # }}}
 
-# {{{  ArrayOutputStream constructor function
+# {{{ ArrayOutputStream constructor function
 setGeneric( "ArrayOutputStream", function(size, block_size){
 	standardGeneric( "ArrayOutputStream" )
 } )
@@ -89,3 +100,53 @@ setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "numer
 } )
 # }}}
 
+# {{{ FileInputStream
+setGeneric( "FileInputStream", function(filename, block_size = -1L, close.on.delete = FALSE ){
+	standardGeneric( "FileInputStream" )
+} )
+setMethod( "FileInputStream", signature( filename = "character", block_size = "integer", close.on.delete = "logical" ), function(filename, block_size = -1L, close.on.delete = FALSE){
+	full_filename <- tools:::file_path_as_absolute(filename)
+	.Call( "FileInputStream_new", filename, block_size, close.on.delete, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "close", "FileInputStream", function(con, ...){
+	.Call( "FileInputStream_Close", con@pointer, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "GetErrno", "FileInputStream", function(object){
+	.Call( "FileInputStream_GetErrno", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "SetCloseOnDelete", "FileInputStream", function(object, close=FALSE){
+	invisible( .Call( "FileInputStream_SetCloseOnDelete", object@pointer, isTRUE(close), PACKAGE = "RProtoBuf" ) )
+} )
+# }}}
+
+# {{{ FileOutputStream
+setGeneric( "FileOutputStream", function(filename, block_size = -1L, close.on.delete = FALSE ){
+	standardGeneric( "FileOutputStream" )
+} )
+setMethod( "FileOutputStream", signature( filename = "character", block_size = "integer", close.on.delete = "logical" ), function(filename, block_size = -1L, close.on.delete = FALSE){
+	if( !file.exists( filename ) ){
+		if( !file.exists( dirname(filename) ) ){
+			stop( "directory does not exist" )
+		}
+		file.create( filename )
+		filename <- tools:::file_path_as_absolute(filename)
+		unlink( filename )
+	} else{
+		filename <- tools:::file_path_as_absolute(filename)
+	}
+	
+	.Call( "FileOutputStream_new", filename, block_size, close.on.delete, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "flush", "FileOutputStream", function(con){
+	.Call( "FileOutputStream_Flush", con@pointer, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "close", "FileOutputStream", function(con, ...){
+	.Call( "FileOutputStream_Close", con@pointer, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "GetErrno", "FileOutputStream", function(object){
+	.Call( "FileOutputStream_GetErrno", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+setMethod( "SetCloseOnDelete", "FileOutputStream", function(object, close=FALSE){
+	invisible( .Call( "FileOutputStream_SetCloseOnDelete", object@pointer, isTRUE(close), PACKAGE = "RProtoBuf" ) )
+} )
+# }}}

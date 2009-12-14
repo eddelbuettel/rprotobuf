@@ -82,6 +82,51 @@ namespace rprotobuf{
 		return oo ;
 	}
 	// }}}
+	// {{{ FileInputStream
+	void FileInputStream_finalizer(SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp) ;
+			FIN_DBG( stream, "FileInputStream" ) ;
+			delete stream;
+		}
+	}
+	
+	SEXP FileInputStream_new( SEXP filename, SEXP block_size, SEXP close_on_delete){
+		
+		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FileInputStream")) );
+  		if (!Rf_inherits(oo, "FileInputStream"))
+  		  throwException("unable to create 'FileInputStream' S4 object", "CannotCreateObjectException" );
+  		
+  	  	int fd = open( CHAR(STRING_ELT(filename, 0 )), O_RDONLY | O_BINARY) ; 
+  	  
+		GPB::io::FileInputStream* stream = 
+			new GPB::io::FileInputStream( fd, INTEGER(block_size)[0] ) ;
+		stream->SetCloseOnDelete( LOGICAL(close_on_delete)[0] ) ;
+			
+		SEXP ptr = PROTECT( 
+			R_MakeExternalPtr( (void*)stream, R_NilValue, R_NilValue));
+		R_RegisterCFinalizerEx( ptr, FileInputStream_finalizer , _FALSE_ ) ;
+		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+		
+		UNPROTECT(2); /* oo, ptr */
+		return oo ;
+	}
+	SEXP FileInputStream_GetErrno( SEXP xp ){
+		GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp);
+		return Rf_ScalarInteger( stream->GetErrno() ) ;
+	}
+	SEXP FileInputStream_SetCloseOnDelete( SEXP xp, SEXP close ){
+		GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp);
+		stream->SetCloseOnDelete( LOGICAL(close) ) ;
+		return R_NilValue ;
+	}
+	
+	SEXP FileInputStream_Close( SEXP xp ){
+		GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp);
+		bool res = stream->Close() ;
+		return Rf_ScalarLogical( res ? _TRUE_ : _FALSE_ ) ;
+	}
+	// }}}
 	// }}}
 	
 	// {{{ output streams
@@ -139,6 +184,52 @@ namespace rprotobuf{
 		
 		UNPROTECT(2); /* oo, ptr */
 		return oo ;
+	}
+	// }}}
+	// {{{ FileOutputStream
+	void FileOutputStream_finalizer(SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			GPB::io::FileOutputStream* stream = (GPB::io::FileOutputStream*)XPP(xp) ;
+			FIN_DBG( stream, "FileOutputStream" ) ;
+			delete stream;
+		}
+	}
+	
+	SEXP FileOutputStream_new( SEXP filename, SEXP block_size, SEXP close_on_delete){
+		NEW_S4_OBJECT( "FileOutputStream" ) ;
+		int fd = open( CHAR(STRING_ELT(filename, 0 )), 
+  	  		O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666); 
+			
+		GPB::io::FileOutputStream* stream = 
+			new GPB::io::FileOutputStream( fd, INTEGER(block_size)[0] ) ;
+		stream->SetCloseOnDelete( LOGICAL(close_on_delete)[0] ) ;
+			
+		SEXP ptr = PROTECT( 
+			R_MakeExternalPtr( (void*)stream, R_NilValue, R_NilValue));
+		R_RegisterCFinalizerEx( ptr, FileOutputStream_finalizer , _FALSE_ ) ;
+		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+		
+		UNPROTECT(2); /* oo, ptr */
+		return oo ;
+	}
+	SEXP FileOutputStream_Flush( SEXP xp ){
+		GPB::io::FileOutputStream* stream = (GPB::io::FileOutputStream*)XPP(xp);
+		bool res = stream->Flush() ;
+		return Rf_ScalarLogical( res ? _TRUE_ : _FALSE_ ) ;
+	}
+	SEXP FileOutputStream_Close( SEXP xp ){
+		GPB::io::FileOutputStream* stream = (GPB::io::FileOutputStream*)XPP(xp);
+		bool res = stream->Close() ;
+		return Rf_ScalarLogical( res ? _TRUE_ : _FALSE_ ) ;
+	}
+	SEXP FileOutputStream_GetErrno( SEXP xp ){
+		GPB::io::FileOutputStream* stream = (GPB::io::FileOutputStream*)XPP(xp);
+		return Rf_ScalarInteger( stream->GetErrno() ) ;
+	}
+	SEXP FileOutputStream_SetCloseOnDelete( SEXP xp, SEXP close ){
+		GPB::io::FileOutputStream* stream = (GPB::io::FileOutputStream*)XPP(xp);
+		stream->SetCloseOnDelete( LOGICAL(close) ) ;
+		return R_NilValue ;
 	}
 	// }}}
 	// }}}
