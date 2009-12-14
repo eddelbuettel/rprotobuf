@@ -92,7 +92,7 @@ namespace rprotobuf{
 		int s = LENGTH(payload) ;
 		bool res = stream->Next( &out, &s );
 		if( !res ){
-			Rf_error( "cannot write from stream" ) ;
+			Rf_error( "cannot write to stream" ) ;
 		} 
 		memcpy( out, RAW(payload), s ) ;
 		return Rf_ScalarInteger(s) ;
@@ -108,6 +108,37 @@ namespace rprotobuf{
 		int s = GET_int(count, 0) ;
 		stream->BackUp( s ) ;
 		return R_NilValue ;
+	}
+	// }}}
+	
+	// {{{ ArrayOutputStream
+	void ArrayOutputStream_finalizer(SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			GPB::io::ArrayOutputStream* stream = (GPB::io::ArrayOutputStream*)XPP(xp) ;
+			FIN_DBG( stream, "ArrayOutputStream" ) ;
+			delete stream;
+		}
+	}
+	
+	SEXP ArrayOutputStream_new( SEXP size, SEXP block_size){
+		int s = INTEGER(size)[0]; 
+		int bs = INTEGER(block_size)[0];
+		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ArrayOutputStream")) );
+  		if (!Rf_inherits(oo, "ArrayOutputStream"))
+  		  throwException("unable to create 'ArrayOutputStream' S4 object", "CannotCreateObjectException" );
+  		
+  	  	SEXP payload = Rf_allocVector( RAWSXP, s ) ; 
+		GPB::io::ArrayOutputStream* stream = 
+			new GPB::io::ArrayOutputStream( RAW(payload), s, bs ) ;
+		/* we keep the payload protected from GC */
+		SEXP ptr = PROTECT( 
+			R_MakeExternalPtr( (void*)stream, R_NilValue, payload));
+		/* delete the stream when the xp is GC'ed*/
+		R_RegisterCFinalizerEx( ptr, ArrayOutputStream_finalizer , _FALSE_ ) ;
+		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+		
+		UNPROTECT(2); /* oo, ptr */
+		return oo ;
 	}
 	// }}}
 	// }}}

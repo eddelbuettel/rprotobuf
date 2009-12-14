@@ -65,7 +65,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	
 	# streams
 	"Next", "ByteCount", "BackUp", "Skip", 
-	"ArrayInputStream"
+	"ArrayInputStream", "ArrayOutputStream"
 	
 	)
 

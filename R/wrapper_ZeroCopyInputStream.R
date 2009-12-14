@@ -63,5 +63,29 @@ setMethod( "ArrayInputStream", c( payload = "raw", block_size = "numeric" ) ,
 function(payload, block_size){
 	.Call( "ArrayInputStream_new", payload, as.integer(block_size), PACKAGE = "RProtoBuf" )
 } )
-
 # }}}
+
+# {{{  ArrayOutputStream constructor function
+setGeneric( "ArrayOutputStream", function(size, block_size){
+	standardGeneric( "ArrayOutputStream" )
+} )
+setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "missing" ), function(size, block_size){
+	.Call( "ArrayOutputStream_new", size, -1L, PACKAGE = "RProtoBuf" ) 
+} )
+setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "integer" ), function(size, block_size){
+	.Call( "ArrayOutputStream_new", size, block_size, PACKAGE = "RProtoBuf" ) 
+} )
+setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "numeric" ), function(size, block_size){
+	.Call( "ArrayOutputStream_new", size, as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
+} )
+setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "missing" ), function(size, block_size){
+	.Call( "ArrayOutputStream_new", as.integer(size), -1L, PACKAGE = "RProtoBuf" ) 
+} )
+setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "integer" ),function(size, block_size){
+	.Call( "ArrayOutputStream_new", as.integer(size), block_size, PACKAGE = "RProtoBuf" ) 
+} )
+setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "numeric" ), function(size, block_size){
+	.Call( "ArrayOutputStream_new", as.integer(size), as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
+} )
+# }}}
+

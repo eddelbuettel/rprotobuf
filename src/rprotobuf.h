@@ -282,11 +282,11 @@ RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
 void ArrayInputStream_finalizer( SEXP );
 RcppExport SEXP ArrayInputStream_new( SEXP, SEXP ) ;
 
+void ArrayOutputStream_finalizer(SEXP) ;
+RcppExport SEXP ArrayOutputStream_new( SEXP, SEXP ) ;
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_ByteCount(SEXP) ;
-
-
 
 } // namespace rprotobuf
 
