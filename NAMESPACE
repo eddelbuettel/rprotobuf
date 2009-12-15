@@ -69,7 +69,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"Next", "ByteCount", "BackUp", "Skip", 
 	"ArrayInputStream", "ArrayOutputStream", "FileInputStream", "FileOutputStream", 
 	"GetErrno", "SetCloseOnDelete", 
-	"ConnectionInputStream", "ConnectionOutputStream"
+	"ConnectionInputStream", "ConnectionOutputStream", 
+	"ReadRaw"
 	
 	)
 

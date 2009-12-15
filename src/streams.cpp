@@ -277,5 +277,18 @@ namespace rprotobuf{
 	
 	// }}}
 	
+	// {{{ read*** functions using CodedInputStream
+	SEXP ZeroCopyInputStream_ReadRaw( SEXP xp, SEXP size){
+		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp) ;
+		int s = INTEGER(size)[0] ;
+		
+		SEXP payload = PROTECT( Rf_allocVector(RAWSXP, s) ) ;
+		GPB::io::CodedInputStream coded_stream(stream) ;
+		coded_stream.ReadRaw( RAW(payload), s ) ;
+		UNPROTECT(1) ; /* payload */
+		return payload; 
+	}
+	// }}}
+	
 } // namespace rprotobuf
 

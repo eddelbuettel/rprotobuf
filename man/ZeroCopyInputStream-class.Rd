@@ -9,6 +9,10 @@
 \alias{Next,ZeroCopyInputStream,missing-method}
 \alias{$,ZeroCopyInputStream-method}
 
+\alias{ReadRaw}
+\alias{ReadRaw-methods}
+\alias{ReadRaw,ZeroCopyInputStream,integer-method}
+
 \title{Virtual Class "ZeroCopyInputStream" }
 \description{R wrapper for the ZeroCopyInputStream c++ class}
 \section{Objects from the Class}{
@@ -25,6 +29,7 @@ This is a virtual class
 	\item{Skip}{\code{signature(object="ZeroCopyInputStream")}: skip a number of bytes}
 	\item{BackUp}{\code{signature(object="ZeroCopyInputStream")}: Backs up a number of bytes, so that the next call to \code{Next} returns data again that was already returned by the last call to \code{Next}.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyInputStream")}: Returns the total number of bytes read since this object was created. }
+	\item{ReadRaw}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: read raw bytes from the stream}
 	\item{$}{\code{signature(x="ZeroCopyInputStream")}: invokes a method}
 }
 }

@@ -309,6 +309,11 @@ RcppExport SEXP FileInputStream_SetCloseOnDelete( SEXP, SEXP ) ;
 void ConnectionInputStream_finalizer( SEXP ) ;
 RcppExport SEXP ConnectionInputStream_new( SEXP , SEXP) ;
 
+void ConnectionOutputStream_finalizer( SEXP ) ;
+RcppExport SEXP ConnectionOutputStream_new( SEXP , SEXP) ;
+
+RcppExport SEXP ZeroCopyInputStream_ReadRaw( SEXP, SEXP) ;
+
 } // namespace rprotobuf
 
 
