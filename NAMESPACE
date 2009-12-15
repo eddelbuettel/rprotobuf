@@ -29,7 +29,8 @@ exportClasses(
 	
 	# concrete implementations
 	"ArrayInputStream", "ArrayOutputStream", 
-	"FileInputStream", "FileOutputStream"
+	"FileInputStream", "FileOutputStream", 
+	"ConnectionInputStream", "ConnectionOutputStream"
 	
 	)
 
@@ -67,7 +68,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	# streams
 	"Next", "ByteCount", "BackUp", "Skip", 
 	"ArrayInputStream", "ArrayOutputStream", "FileInputStream", "FileOutputStream", 
-	"GetErrno", "SetCloseOnDelete"
+	"GetErrno", "SetCloseOnDelete", 
+	"ConnectionInputStream", "ConnectionOutputStream"
 	
 	)
 

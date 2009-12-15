@@ -150,3 +150,43 @@ setMethod( "SetCloseOnDelete", "FileOutputStream", function(object, close=FALSE)
 	invisible( .Call( "FileOutputStream_SetCloseOnDelete", object@pointer, isTRUE(close), PACKAGE = "RProtoBuf" ) )
 } )
 # }}}
+
+# {{{ ConnectionInputStream
+setGeneric( "ConnectionInputStream", function(object, ...){
+	standardGeneric( "ConnectionInputStream" )
+} )
+setMethod( "ConnectionInputStream", "connection", function(object, ...){
+	sc <- summary( object )
+	if( ! identical( sc[["can read"]], "yes") ){
+		stop( "cannot read from connection" )
+	}
+	if( ! identical( sc[["text"]], "binary" ) ){
+		stop( "not a binary connection" )
+	}
+	was_open <- isOpen( object )
+	if( ! was_open ){
+		open( object )
+	}
+	.Call( "ConnectionInputStream_new", object, was_open, PACKAGE = "RProtoBuf" )
+} )
+# }}}
+
+# {{{ ConnectionOutputStream
+setGeneric( "ConnectionOutputStream", function(object, ...){
+	standardGeneric( "ConnectionOutputStream" )
+} )
+setMethod( "ConnectionOutputStream", "connection", function(object, ...){
+	sc <- summary( object )
+	if( ! identical( sc[["can write"]], "yes") ){
+		stop( "cannot write to connection" )
+	}
+	if( ! identical( sc[["text"]], "binary" ) ){
+		stop( "not a binary connection" )
+	}
+	was_open <- isOpen( object )
+	if( ! was_open ){
+		open( object )
+	}
+	.Call( "ConnectionOutputStream_new", object, was_open, PACKAGE = "RProtoBuf" )
+} )
+# }}}

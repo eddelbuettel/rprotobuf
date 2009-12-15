@@ -1,11 +1,11 @@
 #include "rprotobuf.h"
+#include "ConnectionInputStream.h"
 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
 namespace rprotobuf{
 	
 	// {{{ input streams
-	
 	// {{{ ZeroCopyInputStream
 	SEXP ZeroCopyInputStream_Next( SEXP xp ){
 		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp) ;
@@ -90,7 +90,6 @@ namespace rprotobuf{
 			delete stream;
 		}
 	}
-	
 	SEXP FileInputStream_new( SEXP filename, SEXP block_size, SEXP close_on_delete){
 		
 		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FileInputStream")) );
@@ -127,6 +126,27 @@ namespace rprotobuf{
 		return Rf_ScalarLogical( res ? _TRUE_ : _FALSE_ ) ;
 	}
 	// }}}
+	// {{{ ConnectionInputStream
+	void ConnectionInputStream_finalizer(SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			ConnectionInputStream* stream = (ConnectionInputStream*)XPP(xp) ;
+			FIN_DBG( stream, "ConnectionInputStream" ) ;
+			delete stream;
+		}
+	}
+	SEXP ConnectionInputStream_new( SEXP con, SEXP was_open){
+		NEW_S4_OBJECT( "ConnectionInputStream" ) ;
+		ConnectionInputStream* stream = 
+			new ConnectionInputStream( con, (bool)LOGICAL(was_open)[0] ) ;
+		SEXP ptr = PROTECT( 
+			R_MakeExternalPtr( (void*)stream, R_NilValue, con) );
+		R_RegisterCFinalizerEx( ptr, ConnectionInputStream_finalizer , _FALSE_ ) ;
+		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+		
+		UNPROTECT(2); /* oo, ptr */
+		return oo ;
+	}
+	// }}}
 	// }}}
 	
 	// {{{ output streams
@@ -155,7 +175,6 @@ namespace rprotobuf{
 		return R_NilValue ;
 	}
 	// }}}
-	
 	// {{{ ArrayOutputStream
 	void ArrayOutputStream_finalizer(SEXP xp){
 		if (TYPEOF(xp)==EXTPTRSXP) {

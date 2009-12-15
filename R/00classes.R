@@ -3,7 +3,17 @@
 # this has to be 
 IMPLEMENTATIONS <- new.env( parent = emptyenv() )
 
-# {{{ class definitions 
+# {{{ class definitions
+# we need to formalize connection so that the S4 methods
+# ConnectionInputStream and ConnectionOutputStream can 
+# dispatch connections
+setOldClass( "connection" )
+
+# FIXME: there is probably another way
+# TODO: include other subclasses of connections
+setOldClass( c("file", "connection" ) )
+setOldClass( c("url", "connection" ) )
+
 setClass( "Descriptor", representation( 
 	pointer = "externalptr",   # pointer to a google::protobuf::Descriptor c++ object
 	type = "character"         # message type
@@ -61,15 +71,16 @@ setClass( "RpcHTTP", representation(
 setClass( "ZeroCopyInputStream", representation( 
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
-
 setClass( "ArrayInputStream", contains = "ZeroCopyInputStream" ) 
 setClass( "FileInputStream", contains = "ZeroCopyInputStream" ) 
+setClass( "ConnectionInputStream", contains = "ZeroCopyInputStream" )
 
 setClass( "ZeroCopyOutputStream", representation( 
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
 setClass( "ArrayOutputStream", contains = "ZeroCopyInputStream" ) 
 setClass( "FileOutputStream", contains = "ZeroCopyInputStream" ) 
+setClass( "ConnectionOutputStream", contains = "ZeroCopyOutputStream" )
 # }}}
 
 # {{{ new
