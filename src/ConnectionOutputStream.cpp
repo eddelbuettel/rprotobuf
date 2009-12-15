@@ -1,11 +1,11 @@
 #include "rprotobuf.h"
-#include "ConnectionInputStream.h"
-#include "ConnectionCopyingInputStream.h"
+#include "ConnectionOutputStream.h"
+#include "ConnectionCopyingOutputStream.h"
 
 namespace rprotobuf{
 	
-	ConnectionInputStream::ConnectionInputStream(SEXP con, bool was_open): 
-		GPB::io::CopyingInputStreamAdaptor( new ConnectionCopyingInputStream( con ) ), 
+	ConnectionOutputStream::ConnectionOutputStream(SEXP con, bool was_open): 
+		GPB::io::CopyingOutputStreamAdaptor( new ConnectionCopyingOutputStream( con ) ), 
 		con(con), 
 		was_open(was_open)
 	{
@@ -13,7 +13,7 @@ namespace rprotobuf{
 		SetOwnsCopyingStream(true) ;
 	}
 	
-	ConnectionInputStream::~ConnectionInputStream(){
+	ConnectionOutputStream::~ConnectionOutputStream(){
 		if( ! was_open ){
 			/* then we need to close it */
 			SEXP call = PROTECT( Rf_lang2( Rf_install( "close" ) , con  ) ) ;

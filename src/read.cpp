@@ -45,7 +45,7 @@ SEXP readMessageFromConnection( SEXP xp, SEXP con ){
 	int conn_id = INTEGER(con)[0] ;
 	
 	RconnectionCopyingInputStream wrapper( conn_id ) ;
-	GPB::io::CopyingInputStreamAdaptor stream( &wrapper, 1024 ) ;
+	GPB::io::CopyingInputStreamAdaptor stream( &wrapper ) ;
 	GPB::io::CodedInputStream coded_stream(&stream ) ;
 	
 	/* create a prototype of the message we are going to read */

@@ -3,18 +3,12 @@
 
 namespace rprotobuf{
 
-	class ConnectionInputStream : public GPB::io::ZeroCopyInputStream {
+	class ConnectionInputStream : public GPB::io::CopyingInputStreamAdaptor {
 		public:	
-			ConnectionInputStream( SEXP con, bool was_open );
+			ConnectionInputStream( SEXP con, bool was_open ) ;
 			~ConnectionInputStream() ;
 			
-			/* implements ZeroCopyInputStream */
-			bool Next( const void** data, int* size ) ;
-			void BackUp( int count) ;
-			bool Skip(int count);
-			int64 ByteCount() const; 
-			
-		private: 
+		private:
 			bool was_open ;
 			SEXP con ;
 } ;

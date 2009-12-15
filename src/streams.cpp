@@ -1,5 +1,6 @@
 #include "rprotobuf.h"
 #include "ConnectionInputStream.h"
+#include "ConnectionOutputStream.h"
 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
@@ -251,6 +252,29 @@ namespace rprotobuf{
 		return R_NilValue ;
 	}
 	// }}}
+	// {{{ ConnectionOutputStream
+	void ConnectionOutputStream_finalizer(SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			ConnectionOutputStream* stream = (ConnectionOutputStream*)XPP(xp) ;
+			FIN_DBG( stream, "ConnectionOutputStream" ) ;
+			delete stream;
+		}
+	}
+	SEXP ConnectionOutputStream_new( SEXP con, SEXP was_open){
+		NEW_S4_OBJECT( "ConnectionOutputStream" ) ;
+		ConnectionOutputStream* stream = 
+			new ConnectionOutputStream( con, (bool)LOGICAL(was_open)[0] ) ;
+		/* we keep the R connection protected as long as the 
+		   external pointer is kept out of GC */
+		SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)stream, R_NilValue, con) );
+		R_RegisterCFinalizerEx( ptr, ConnectionOutputStream_finalizer , _FALSE_ ) ;
+		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
+		
+		UNPROTECT(2); /* oo, ptr */
+		return oo ;
+	}
+	// }}}
+	
 	// }}}
 	
 } // namespace rprotobuf
