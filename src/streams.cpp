@@ -1,15 +1,31 @@
 #include "rprotobuf.h"
 #include "ConnectionInputStream.h"
 #include "ConnectionOutputStream.h"
+#include "ZeroCopyInputStreamWrapper.h"
+#include "ZeroCopyOutputStreamWrapper.h"
 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
+#define GET_ZCIS(xp) ( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_stream() 
+#define GET_CIS(xp) ( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_coded_stream()
+#define GET_FIS(xp) (GPB::io::FileInputStream*)( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_stream() 
+
 namespace rprotobuf{
+	
+	// {{{ finalizer
+	void ZeroCopyInputStreamWrapper_finalizer( SEXP xp){
+		if (TYPEOF(xp)==EXTPTRSXP) {
+			ZeroCopyInputStreamWrapper* stream = (ZeroCopyInputStreamWrapper*)XPP(xp) ;
+			FIN_DBG( stream, "ZeroCopyInputStreamWrapper" ) ;
+			delete stream;
+		}
+	}
+	// }}}
 	
 	// {{{ input streams
 	// {{{ ZeroCopyInputStream
 	SEXP ZeroCopyInputStream_Next( SEXP xp ){
-		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp) ;
+		GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp) ;
 		int s = 0 ;
 		SEXP result = R_NilValue ; // -Wall 
 		const void* in ;
@@ -25,7 +41,7 @@ namespace rprotobuf{
 	}
 	
 	SEXP ZeroCopyInputStream_BackUp(SEXP xp, SEXP size){
-		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp);
+		GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
 		int s = GET_int(size, 0) ;
 		if( s <= 0 ){
 			Rf_error( "can only BackUp with positive numbers" ) ;
@@ -36,26 +52,18 @@ namespace rprotobuf{
 	
 	
 	SEXP ZeroCopyInputStream_Skip(SEXP xp, SEXP size){
-		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp);
+		GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
 		int s = GET_int(size, 0) ;
 		bool res = stream->Skip(s) ;
 		return( Rf_ScalarLogical( res ? _TRUE_ : _FALSE_ ) ) ;
 	}
 	
 	SEXP ZeroCopyInputStream_ByteCount(SEXP xp){
-		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp);
+		GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
 		return( Rf_ScalarReal((double)stream->ByteCount())) ;
 	}
 	// }}}
 	// {{{ ArrayInputStream
-	void ArrayInputStream_finalizer(SEXP xp){
-		if (TYPEOF(xp)==EXTPTRSXP) {
-			GPB::io::ArrayInputStream* stream = (GPB::io::ArrayInputStream*)XPP(xp) ;
-			FIN_DBG( stream, "ArrayInputStream" ) ;
-			delete stream;
-		}
-	}
-	
 	SEXP ArrayInputStream_new( SEXP payload, SEXP block_size){
 		if( TYPEOF(payload) != RAWSXP ){
 			Rf_error( "expecting a raw vector" );  
@@ -63,19 +71,18 @@ namespace rprotobuf{
 		
 		int bs = INTEGER(block_size)[0];
 		
-		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ArrayInputStream")) );
-  		if (!Rf_inherits(oo, "ArrayInputStream"))
-  		  throwException("unable to create 'ArrayInputStream' S4 object", "CannotCreateObjectException" );
-  		
+		NEW_S4_OBJECT( "ArrayInputStream" ) ;
+		
 		GPB::io::ArrayInputStream* stream = 
 			new GPB::io::ArrayInputStream( RAW(payload), LENGTH(payload), bs ) ;
+		ZeroCopyInputStreamWrapper* wrapper = new ZeroCopyInputStreamWrapper(stream) ; 
 		
 		/* we keep the payload protected from GC */
 		SEXP ptr = PROTECT( 
-			R_MakeExternalPtr( (void*)stream, R_NilValue, payload));
+			R_MakeExternalPtr( (void*)wrapper, R_NilValue, payload));
 		
 		/* delete the stream when the xp is GC'ed*/
-		R_RegisterCFinalizerEx( ptr, ArrayInputStream_finalizer , _FALSE_ ) ;
+		R_RegisterCFinalizerEx( ptr, ZeroCopyInputStreamWrapper_finalizer , _FALSE_ ) ;
 		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
 		
 		UNPROTECT(2); /* oo, ptr */
@@ -83,64 +90,49 @@ namespace rprotobuf{
 	}
 	// }}}
 	// {{{ FileInputStream
-	void FileInputStream_finalizer(SEXP xp){
-		if (TYPEOF(xp)==EXTPTRSXP) {
-			GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp) ;
-			FIN_DBG( stream, "FileInputStream" ) ;
-			delete stream;
-		}
-	}
 	SEXP FileInputStream_new( SEXP filename, SEXP block_size, SEXP close_on_delete){
 		
-		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FileInputStream")) );
-  		if (!Rf_inherits(oo, "FileInputStream"))
-  		  throwException("unable to create 'FileInputStream' S4 object", "CannotCreateObjectException" );
-  		
-  	  	int fd = open( CHAR(STRING_ELT(filename, 0 )), O_RDONLY | O_BINARY) ; 
+		NEW_S4_OBJECT("FileInputStream") ;
+		int fd = open( CHAR(STRING_ELT(filename, 0 )), O_RDONLY | O_BINARY) ; 
   	  
 		GPB::io::FileInputStream* stream = 
 			new GPB::io::FileInputStream( fd, INTEGER(block_size)[0] ) ;
 		stream->SetCloseOnDelete( LOGICAL(close_on_delete)[0] ) ;
-			
+		ZeroCopyInputStreamWrapper* wrapper = new ZeroCopyInputStreamWrapper(stream) ;
+		
 		SEXP ptr = PROTECT( 
-			R_MakeExternalPtr( (void*)stream, R_NilValue, R_NilValue));
-		R_RegisterCFinalizerEx( ptr, FileInputStream_finalizer , _FALSE_ ) ;
+			R_MakeExternalPtr( (void*)wrapper, R_NilValue, R_NilValue));
+		R_RegisterCFinalizerEx( ptr, ZeroCopyInputStreamWrapper_finalizer , _FALSE_ ) ;
 		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
 		
 		UNPROTECT(2); /* oo, ptr */
 		return oo ;
 	}
 	SEXP FileInputStream_GetErrno( SEXP xp ){
-		GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp);
+		GPB::io::FileInputStream* stream = GET_FIS(xp);
 		return Rf_ScalarInteger( stream->GetErrno() ) ;
 	}
 	SEXP FileInputStream_SetCloseOnDelete( SEXP xp, SEXP close ){
-		GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp);
+		GPB::io::FileInputStream* stream = GET_FIS(xp);
 		stream->SetCloseOnDelete( LOGICAL(close) ) ;
 		return R_NilValue ;
 	}
 	
 	SEXP FileInputStream_Close( SEXP xp ){
-		GPB::io::FileInputStream* stream = (GPB::io::FileInputStream*)XPP(xp);
+		GPB::io::FileInputStream* stream = GET_FIS(xp);
 		bool res = stream->Close() ;
 		return Rf_ScalarLogical( res ? _TRUE_ : _FALSE_ ) ;
 	}
 	// }}}
 	// {{{ ConnectionInputStream
-	void ConnectionInputStream_finalizer(SEXP xp){
-		if (TYPEOF(xp)==EXTPTRSXP) {
-			ConnectionInputStream* stream = (ConnectionInputStream*)XPP(xp) ;
-			FIN_DBG( stream, "ConnectionInputStream" ) ;
-			delete stream;
-		}
-	}
 	SEXP ConnectionInputStream_new( SEXP con, SEXP was_open){
 		NEW_S4_OBJECT( "ConnectionInputStream" ) ;
 		ConnectionInputStream* stream = 
 			new ConnectionInputStream( con, (bool)LOGICAL(was_open)[0] ) ;
+		ZeroCopyInputStreamWrapper* wrapper = new ZeroCopyInputStreamWrapper(stream);
 		SEXP ptr = PROTECT( 
-			R_MakeExternalPtr( (void*)stream, R_NilValue, con) );
-		R_RegisterCFinalizerEx( ptr, ConnectionInputStream_finalizer , _FALSE_ ) ;
+			R_MakeExternalPtr( (void*)wrapper, R_NilValue, con) );
+		R_RegisterCFinalizerEx( ptr, ZeroCopyInputStreamWrapper_finalizer , _FALSE_ ) ;
 		SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
 		
 		UNPROTECT(2); /* oo, ptr */
@@ -276,14 +268,13 @@ namespace rprotobuf{
 	
 	// }}}
 	
-	// {{{ read*** functions using CodedInputStream
+	// {{{ Read*** functions using CodedInputStream
 	SEXP ZeroCopyInputStream_ReadRaw( SEXP xp, SEXP size){
-		GPB::io::ZeroCopyInputStream* stream = (GPB::io::ZeroCopyInputStream*)XPP(xp) ;
+		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
 		int s = INTEGER(size)[0] ;
 		
 		SEXP payload = PROTECT( Rf_allocVector(RAWSXP, s) ) ;
-		GPB::io::CodedInputStream coded_stream(stream) ;
-		coded_stream.ReadRaw( RAW(payload), s ) ;
+		coded_stream->ReadRaw( RAW(payload), s ) ;
 		UNPROTECT(1) ; /* payload */
 		return payload; 
 	}

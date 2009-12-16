@@ -279,12 +279,13 @@ RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
 
 /* in streams.cpp */
+void ZeroCopyInputStreamWrapper_finalizer( SEXP ); 
+
 RcppExport SEXP ZeroCopyInputStream_Next(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
 
-void ArrayInputStream_finalizer( SEXP );
 RcppExport SEXP ArrayInputStream_new( SEXP, SEXP ) ;
 
 void ArrayOutputStream_finalizer(SEXP) ;
@@ -300,13 +301,11 @@ RcppExport SEXP FileOutputStream_Flush( SEXP) ;
 RcppExport SEXP FileOutputStream_GetErrno( SEXP) ;
 RcppExport SEXP FileOutputStream_SetCloseOnDelete( SEXP, SEXP ) ;
 
-void FileInputStream_finalizer( SEXP ) ;
 RcppExport SEXP FileInputStream_new( SEXP, SEXP, SEXP) ;
 RcppExport SEXP FileInputStream_Close( SEXP) ;
 RcppExport SEXP FileInputStream_GetErrno( SEXP) ;
 RcppExport SEXP FileInputStream_SetCloseOnDelete( SEXP, SEXP ) ;
 
-void ConnectionInputStream_finalizer( SEXP ) ;
 RcppExport SEXP ConnectionInputStream_new( SEXP , SEXP) ;
 
 void ConnectionOutputStream_finalizer( SEXP ) ;
