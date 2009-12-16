@@ -13,3 +13,10 @@ setMethod( "ReadString", c( object="ZeroCopyInputStream", size = "integer" ), fu
 	.Call( "ZeroCopyInputStream_ReadString", object@pointer, size, PACKAGE = "RProtoBuf" )
 } )
 
+setGeneric( "ReadVarint32", function(object){
+	standardGeneric( "ReadVarint32" )
+} )
+setMethod( "ReadVarint32", c( object="ZeroCopyInputStream"), function(object){
+	.Call( "ZeroCopyInputStream_ReadVarint32", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+

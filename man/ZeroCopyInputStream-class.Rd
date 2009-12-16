@@ -17,6 +17,10 @@
 \alias{ReadString-methods}
 \alias{ReadString,ZeroCopyInputStream,integer-method}
 
+\alias{ReadVarint32}
+\alias{ReadVarint32-methods}
+\alias{ReadVarint32,ZeroCopyInputStream-method}
+
 \title{Virtual Class "ZeroCopyInputStream" }
 \description{R wrapper for the ZeroCopyInputStream c++ class}
 \section{Objects from the Class}{
@@ -29,13 +33,15 @@ This is a virtual class
 }
 \section{Methods}{
 \describe{
+	\item{$}{\code{signature(x="ZeroCopyInputStream")}: invokes a method}
 	\item{Next}{\code{signature(object="ZeroCopyInputStream")}: Get a number of bytes from the stream as a raw vector. }
 	\item{Skip}{\code{signature(object="ZeroCopyInputStream")}: skip a number of bytes}
 	\item{BackUp}{\code{signature(object="ZeroCopyInputStream")}: Backs up a number of bytes, so that the next call to \code{Next} returns data again that was already returned by the last call to \code{Next}.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyInputStream")}: Returns the total number of bytes read since this object was created. }
 	\item{ReadRaw}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: read raw bytes from the stream}
 	\item{ReadString}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: same as \code{ReadRaw} but formats the result as a string}
-	\item{$}{\code{signature(x="ZeroCopyInputStream")}: invokes a method}
+	\item{ReadVarint32}{\code{signature(object="ZeroCopyInputStream")}: Read an unsigned integer with Varint encoding, truncating to 32 bits. }
+	
 }
 }
 

@@ -281,6 +281,13 @@ namespace rprotobuf{
 		return Rf_mkString( buffer.c_str() ) ;
 	}
 	
+	SEXP ZeroCopyInputStream_ReadVarint32( SEXP xp){
+		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
+		uint32 res = 0 ;
+		coded_stream->ReadVarint32( &res ) ;
+		return Rf_ScalarInteger( res ) ;
+	}
+	
 	// }}}
 	
 } // namespace rprotobuf
