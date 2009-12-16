@@ -24,8 +24,6 @@ if( !require( "svUnit", quietly = TRUE, character.only = TRUE ) ){
 } else{
 # add unit tests here
 
-
-
 }
 @
 
