@@ -280,21 +280,22 @@ RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
 
 /* in streams.cpp */
 void ZeroCopyInputStreamWrapper_finalizer( SEXP ); 
+void ZeroCopyOutputStreamWrapper_finalizer( SEXP ); 
 
 RcppExport SEXP ZeroCopyInputStream_Next(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ByteCount(SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
+RcppExport SEXP ZeroCopyInputStream_ReadRaw( SEXP, SEXP) ;
 
 RcppExport SEXP ArrayInputStream_new( SEXP, SEXP ) ;
 
-void ArrayOutputStream_finalizer(SEXP) ;
 RcppExport SEXP ArrayOutputStream_new( SEXP, SEXP ) ;
+
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_ByteCount(SEXP) ;
 
-void FileOutputStream_finalizer( SEXP ) ;
 RcppExport SEXP FileOutputStream_new( SEXP, SEXP, SEXP) ;
 RcppExport SEXP FileOutputStream_Close( SEXP) ;
 RcppExport SEXP FileOutputStream_Flush( SEXP) ;
@@ -308,10 +309,7 @@ RcppExport SEXP FileInputStream_SetCloseOnDelete( SEXP, SEXP ) ;
 
 RcppExport SEXP ConnectionInputStream_new( SEXP , SEXP) ;
 
-void ConnectionOutputStream_finalizer( SEXP ) ;
 RcppExport SEXP ConnectionOutputStream_new( SEXP , SEXP) ;
-
-RcppExport SEXP ZeroCopyInputStream_ReadRaw( SEXP, SEXP) ;
 
 } // namespace rprotobuf
 
