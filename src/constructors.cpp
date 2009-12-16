@@ -2,6 +2,14 @@
 
 namespace rprotobuf{
 
+void Message_finalizer( SEXP xp){
+	if (TYPEOF(xp)==EXTPTRSXP) {
+		GPB::Message* message = (GPB::Message*)XPP(xp) ;
+		FIN_DBG( message, "Message" ) ;
+		delete message;
+	}
+}
+
 /**
  * Creates an R object of S4 class Descriptor
  * from a google::protobuf::Descriptor pointer
@@ -13,14 +21,17 @@ namespace rprotobuf{
  */
 SEXP new_RS4_Descriptor( const GPB::Descriptor*  d ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Descriptor")) );
-  	if (!Rf_inherits(oo, "Descriptor"))
-  	  throwException("unable to create 'Descriptor' S4 object", "CannotCreateObjectException" );
+	NEW_S4_OBJECT( "Descriptor") ;
   	
 	/* grab the fully qualified name of the message type */
   	SEXP name  = PROTECT( Rf_mkString( d->full_name().c_str() ) ) ; 
-	SEXP ptr   = PROTECT( /* TODO: finalizer */
-		R_MakeExternalPtr( (void*)d , R_NilValue, R_NilValue));
+	
+  	/* 
+  		we don't protect anything with this xp, and we do not need 
+  		a finalizer since the object belongs to the DescriptorPool
+  		it comes from
+  	*/
+  	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)d , R_NilValue, R_NilValue));
 	
 	SET_SLOT( oo, Rf_install("type"), name ) ;
 	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
@@ -39,9 +50,7 @@ SEXP new_RS4_Descriptor( const GPB::Descriptor*  d ){
  */
 SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor*  fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FieldDescriptor")) );
-  	if (!Rf_inherits(oo, "FieldDescriptor"))
-  		throwException("unable to create 'FieldDescriptor' S4 object", "CannotCreateObjectException" );
+	NEW_S4_OBJECT( "FieldDescriptor") ;
   	
   	/* grab the short name of the field */
 	SEXP name  = PROTECT( Rf_mkString( fd->name().c_str() ) ) ; 
@@ -50,7 +59,7 @@ SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor*  fd ){
 	SEXP fname = PROTECT( Rf_mkString( fd->full_name().c_str() ) ) ;
 	
 	/* hold the FieldDescriptor as an external pointer */
-	/* TODO: finalizer strategy */
+	/* no need for a finalizer, the object belongs to the DescriptorPool */
 	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));
 	
@@ -77,18 +86,16 @@ SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor*  fd ){
  */
 SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor* fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("EnumDescriptor")) );
-  	if (!Rf_inherits(oo, "EnumDescriptor"))
-  		throwException( "unable to create 'EnumDescriptor' S4 object", "CannotCreateObjectException" );
- 
-  	/* the simple name of the enum */
+	NEW_S4_OBJECT( "EnumDescriptor") ;
+  	
+	/* the simple name of the enum */
 	SEXP name  = PROTECT( Rf_mkString( fd->name().c_str() ) ) ; 
 	
 	/* the full name */
 	SEXP fname = PROTECT( Rf_mkString( fd->full_name().c_str() ) ) ;
 	
 	/* external pointer to the EnumDescriptor */
-	/* TODO: finalizer */
+	/* no need for a finalizer */
 	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));
 	
@@ -105,43 +112,15 @@ SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor* fd ){
 	return oo; 
 }
 
-/**
- * @param pointer to a google::protobuf::Message
- * @param type type of the message, as a STRSXP
- *
- * @return a new R S4 object of class "Message"
- * holding the Message pointer as an external pointer
- */
-SEXP new_RS4_Message( const GPB::Message* message, SEXP type ){
-	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Message")) );
-  	if (!Rf_inherits(oo, "Message"))
-  		throwException( "unable to create 'Message' S4 object", "CannotCreateObjectException" );
-  	
-  	/* external pointer to the Message */
-	/* TODO: finalizer */
-	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)message , 
-		R_NilValue, R_NilValue));
-	
-	SET_SLOT( oo, Rf_install("type"), type ) ;
-	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
-	
-	UNPROTECT( 2) ; /* ptr, oo */
-	return( oo ); 
-	
-}
-
 /* same as above, but get the type from the message */
 SEXP new_RS4_Message_( const GPB::Message* message ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("Message")) );
-  	if (!Rf_inherits(oo, "Message"))
-  	  throwException("unable to create 'Message' S4 object", "CannotCreateObjectException" );
+	NEW_S4_OBJECT( "Message" ) ;
   	
-  	/* external pointer to the Message */
-	/* TODO: finalizer */
+	/* external pointer to the Message */
 	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)message , 
 		R_NilValue, R_NilValue));
+	R_RegisterCFinalizerEx( ptr, Message_finalizer , _FALSE_ ) ;
 	
 	/* the message type */
 	SEXP type = PROTECT( Rf_mkString( message->GetDescriptor()->full_name().c_str() )) ;
@@ -165,15 +144,13 @@ SEXP new_RS4_Message_( const GPB::Message* message ){
  */
 SEXP new_RS4_ServiceDescriptor( const GPB::ServiceDescriptor*  sd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ServiceDescriptor")) );
-  	if (!Rf_inherits(oo, "ServiceDescriptor"))
-  		throwException( "unable to create 'ServiceDescriptor' S4 object", "CannotCreateObjectException" );
- 
-  	/* the simple name of the enum */
+	NEW_S4_OBJECT( "ServiceDescriptor" ) ;
+  	
+	/* the simple name of the enum */
 	SEXP name  = PROTECT( Rf_mkString( sd->full_name().c_str() ) ) ; 
 	
 	/* external pointer to the ServiceDescriptor */
-	/* TODO: finalizer */
+	/* no need for a finalizer */
 	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)sd , 
 		R_NilValue, R_NilValue));
 	
@@ -195,15 +172,13 @@ SEXP new_RS4_ServiceDescriptor( const GPB::ServiceDescriptor*  sd ){
  */
 SEXP new_RS4_MethodDescriptor( const GPB::MethodDescriptor*  md ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("MethodDescriptor")) );
-  	if (!Rf_inherits(oo, "MethodDescriptor" ))
-  		throwException( "unable to create 'MethodDescriptor' S4 object", "CannotCreateObjectException" );
- 
-  	/* the full name */
+	NEW_S4_OBJECT( "MethodDescriptor" ) ;
+  	
+	/* the full name */
 	SEXP fname = PROTECT( Rf_mkString( md->full_name().c_str() ) ) ;
 	
 	/* external pointer to the EnumDescriptor */
-	/* TODO: finalizer */
+	/* no need for a finalizer */
 	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)md , 
 		R_NilValue, R_NilValue));
 	
@@ -221,10 +196,9 @@ SEXP new_RS4_MethodDescriptor( const GPB::MethodDescriptor*  md ){
 
 SEXP new_RS4_FileDescriptor( const GPB::FileDescriptor*  fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("FileDescriptor")) );
-	if (!Rf_inherits(oo, "FileDescriptor"))
-  		throwException( "unable to create 'FileDescriptor' S4 object", "CannotCreateObjectException" );
+	NEW_S4_OBJECT( "FileDescriptor" ) ;
   	
+	/* no need for a finalizer */
   	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));
   	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
@@ -236,10 +210,9 @@ SEXP new_RS4_FileDescriptor( const GPB::FileDescriptor*  fd ){
 
 SEXP new_RS4_EnumValueDescriptor( const GPB::EnumValueDescriptor*  fd ){
 	
-	SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("EnumValueDescriptor")) );
-  	if (!Rf_inherits(oo, "EnumValueDescriptor"))
-  		throwException( "unable to create 'EnumValueDescriptor' S4 object", "CannotCreateObjectException" );
+	NEW_S4_OBJECT( "EnumValueDescriptor" ) ;
   	
+	/* no need for a finalizer */
   	SEXP ptr = PROTECT( R_MakeExternalPtr( (void*)fd , 
 		R_NilValue, R_NilValue));
   	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;

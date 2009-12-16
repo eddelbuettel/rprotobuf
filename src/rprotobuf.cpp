@@ -79,7 +79,7 @@ SEXP newProtoMessage( SEXP descriptor ){
 Rprintf( "<newProtoMessage>\n" ) ;
 #endif
 
-	/* the message type */
+	/* FIXME: the message type, we don't really need that*/
 	SEXP type = GET_SLOT( descriptor, Rf_install("type") ) ;
 	
 	/* the pointer to the c++ descriptor object */
@@ -99,7 +99,7 @@ PRINT_DEBUG_INFO( "type", type ) ;
 Rprintf( "</newProtoMessage>\n" ) ;
 #endif
 	
-	return( new_RS4_Message( message, type )  ) ;
+	return( new_RS4_Message_( message )  ) ;
 }
 
 /**

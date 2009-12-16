@@ -81,10 +81,10 @@ RcppExport SEXP check_libprotobuf_version( SEXP ) ;
 RcppExport SEXP get_protobuf_library_version() ;
 
 /* in constructors.cpp */
+void Message_finalizer( SEXP ) ;
 RcppExport SEXP new_RS4_Descriptor( const GPB::Descriptor*  ); 
 RcppExport SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor* ); 
 RcppExport SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor*); 
-RcppExport SEXP new_RS4_Message( const GPB::Message *, SEXP ); 
 RcppExport SEXP new_RS4_Message_( const GPB::Message* );
 RcppExport SEXP new_RS4_ServiceDescriptor( const GPB::ServiceDescriptor* ) ;
 RcppExport SEXP new_RS4_MethodDescriptor( const GPB::MethodDescriptor* ) ;
