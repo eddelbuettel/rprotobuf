@@ -25,17 +25,17 @@ C++ library. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp
 \seealso{
 	\linkS4class{ZeroCopyInputStream} for methods
 }
-\examples{
-local({
-	stream <- ArrayInputStream( as.raw(0:10) )
-	stopifnot( identical( stream$Next(), as.raw(0:10) ) )
-	stream$BackUp( 5 )
-	stopifnot( identical( stream$Next(), as.raw(6:10) ) )
-	
-	# limiting the block size
-	stream <- ArrayInputStream( as.raw(0:10), 5 )
-	stopifnot( identical(length( stream$Next() ), 5L ) )
-})
-
-}
+% \examples{
+% local({
+% 	stream <- ArrayInputStream( as.raw(0:10) )
+% 	stopifnot( identical( stream$Next(), as.raw(0:10) ) )
+% 	stream$BackUp( 5 )
+% 	stopifnot( identical( stream$Next(), as.raw(6:10) ) )
+% 	
+% 	# limiting the block size
+% 	stream <- ArrayInputStream( as.raw(0:10), 5 )
+% 	stopifnot( identical(length( stream$Next() ), 5L ) )
+% })
+% 
+% }
 \keyword{classes}

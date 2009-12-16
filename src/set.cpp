@@ -240,7 +240,7 @@ namespace rprotobuf {
 	    			SEXP res = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
     				for( int i=0; i<n; i++){
     					SET_VECTOR_ELT( res, i, 
-    						new_RS4_Message_( &ref->GetRepeatedMessage( *message, field_desc, i ) ) ) ;
+    						new_RS4_Message_( CLONE( &ref->GetRepeatedMessage( *message, field_desc, i ) ) ) ) ;
     				} 
     				UNPROTECT(1);
     				return res ;

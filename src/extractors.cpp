@@ -206,7 +206,7 @@ SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* des
     			res = PROTECT( Rf_allocVector( VECSXP, size ) ) ;
     			for( int i=0; i<size; i++){
     				SET_VECTOR_ELT( res, i, 
-    					new_RS4_Message_( &ref->GetRepeatedMessage( *message, fieldDesc, i ) ) ) ;
+    					new_RS4_Message_( CLONE( &ref->GetRepeatedMessage( *message, fieldDesc, i ) ) ) ) ;
     			}
     			break ;
     	}
@@ -276,7 +276,7 @@ SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* des
     		
     		case TYPE_MESSAGE:
     		case TYPE_GROUP:
-    			res = PROTECT( new_RS4_Message_( &ref->GetMessage( *message, fieldDesc ) ) ) ;
+    			res = PROTECT( new_RS4_Message_( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ) ;
     			break ;
     	}
     	

@@ -30,7 +30,7 @@
 /* uncomment for debugging */
 // #define RPB_DEBUG
 
-#define FIN_DBG(ptr, CLAZZ) Rprintf( "RProtoBuf:: ~%s <%p>\n", CLAZZ, ptr )
+#define FIN_DBG(ptr, CLAZZ) REprintf( "RProtoBuf::~%s <%p>\n", CLAZZ, ptr )
 
 #define PRINT_DEBUG_INFO(name,o) \
 	Rprintf( "     %s [%d] =     ", name, TYPEOF(o) ) ; \
@@ -66,11 +66,11 @@ namespace GPB = google::protobuf;
 #define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
   		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
 
-
 namespace rprotobuf{
 
 /* in rprotobuf.cpp */
 GPB::Message* PROTOTYPE( const GPB::Descriptor*) ;
+GPB::Message* CLONE(const GPB::Message*) ;
 RcppExport SEXP do_dollar_Descriptor( SEXP, SEXP ) ;
 RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;

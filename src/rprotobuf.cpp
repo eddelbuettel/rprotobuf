@@ -25,6 +25,21 @@ namespace rprotobuf{
 	}
 	
 	
+	GPB::Message* CLONE(const GPB::Message* origin){
+#ifdef RPB_DEBUG
+		Rprintf( "<CLONE>" ) ;
+#endif		
+		
+		const GPB::Descriptor* desc = origin->GetDescriptor() ;
+		GPB::Message* sheep = PROTOTYPE( desc ) ;
+		sheep->CopyFrom(*origin) ;
+
+#ifdef RPB_DEBUG
+		Rprintf( "</CLONE>" ) ;
+#endif		
+		return sheep ;
+	}
+	
 /**
  * read a proto file and cache the message definitions it contains
  *

@@ -181,12 +181,11 @@ namespace rprotobuf{
 	// }}}
 	// {{{ ArrayOutputStream
 	SEXP ArrayOutputStream_new( SEXP size, SEXP block_size){
-		int s = INTEGER(size)[0]; 
+		NEW_S4_OBJECT( "ArrayOutputStream" );
+		
+  	  	int s = INTEGER(size)[0]; 
 		int bs = INTEGER(block_size)[0];
-		SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS("ArrayOutputStream")) );
-  		if (!Rf_inherits(oo, "ArrayOutputStream"))
-  		  throwException("unable to create 'ArrayOutputStream' S4 object", "CannotCreateObjectException" );
-  		
+		
   	  	SEXP payload = Rf_allocVector( RAWSXP, s ) ; 
 		GPB::io::ArrayOutputStream* stream = 
 			new GPB::io::ArrayOutputStream( RAW(payload), s, bs ) ;
