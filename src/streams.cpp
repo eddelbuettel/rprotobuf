@@ -67,7 +67,6 @@ namespace rprotobuf{
   		if (!Rf_inherits(oo, "ArrayInputStream"))
   		  throwException("unable to create 'ArrayInputStream' S4 object", "CannotCreateObjectException" );
   		
-		/* FIXME: should we memcpy the payload or is this fine */
 		GPB::io::ArrayInputStream* stream = 
 			new GPB::io::ArrayInputStream( RAW(payload), LENGTH(payload), bs ) ;
 		
