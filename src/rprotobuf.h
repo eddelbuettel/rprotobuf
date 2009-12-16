@@ -30,7 +30,7 @@
 /* uncomment for debugging */
 // #define RPB_DEBUG
 
-#define FIN_DBG(ptr, CLAZZ) REprintf( "RProtoBuf::~%s <%p>\n", CLAZZ, ptr )
+#define FIN_DBG(ptr, CLAZZ) Rprintf( "RProtoBuf finalizing %s (%p)\n", CLAZZ, ptr )
 
 #define PRINT_DEBUG_INFO(name,o) \
 	Rprintf( "     %s [%d] =     ", name, TYPEOF(o) ) ; \
