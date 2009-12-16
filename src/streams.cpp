@@ -264,9 +264,8 @@ namespace rprotobuf{
 	SEXP ZeroCopyInputStream_ReadRaw( SEXP xp, SEXP size){
 		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
 		int s = INTEGER(size)[0] ;
-		
 		SEXP payload = PROTECT( Rf_allocVector(RAWSXP, s) ) ;
-		coded_stream->ReadRaw( RAW(payload), s ) ;
+		if( !coded_stream->ReadRaw( RAW(payload), s ) ) Rf_error("error reading raw bytes") ;
 		UNPROTECT(1) ; /* payload */
 		return payload; 
 	}
@@ -275,8 +274,7 @@ namespace rprotobuf{
 		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
 		int s = INTEGER(size)[0] ;
 		std::string buffer("") ;
-		
-		coded_stream->ReadString( &buffer, s ) ;
+		if( !coded_stream->ReadString( &buffer, s ) ) Rf_error( "error reading string" ) ;
 		
 		return Rf_mkString( buffer.c_str() ) ;
 	}
@@ -284,8 +282,22 @@ namespace rprotobuf{
 	SEXP ZeroCopyInputStream_ReadVarint32( SEXP xp){
 		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
 		uint32 res = 0 ;
-		coded_stream->ReadVarint32( &res ) ;
+		if( !coded_stream->ReadVarint32( &res ) ) Rf_error( "error reading varint32" ) ;
 		return Rf_ScalarInteger( res ) ;
+	}
+	
+	SEXP ZeroCopyInputStream_ReadLittleEndian32( SEXP xp){
+		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
+		uint32 res = 0 ;
+		if( !coded_stream->ReadVarint32( &res ) ) Rf_error( "error reading little endian int32" ) ;
+		return Rf_ScalarInteger( res ) ;
+	}
+	
+	SEXP ZeroCopyInputStream_ReadLittleEndian64( SEXP xp){
+		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
+		uint64 res = 0 ;
+		if( !coded_stream->ReadVarint64( &res ) ) Rf_error( "error reading little endian int32" ) ;
+		return Rf_ScalarReal( (double)res ) ;
 	}
 	
 	// }}}

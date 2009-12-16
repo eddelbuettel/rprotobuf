@@ -70,7 +70,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"ArrayInputStream", "ArrayOutputStream", "FileInputStream", "FileOutputStream", 
 	"GetErrno", "SetCloseOnDelete", 
 	"ConnectionInputStream", "ConnectionOutputStream", 
-	"ReadRaw", "ReadString", "ReadVarint32"
+	"ReadRaw", "ReadString", "ReadVarint32", 
+	"ReadLittleEndian32", "ReadLittleEndian64"
 	
 	)
 

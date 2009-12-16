@@ -20,3 +20,18 @@ setMethod( "ReadVarint32", c( object="ZeroCopyInputStream"), function(object){
 	.Call( "ZeroCopyInputStream_ReadVarint32", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
+setGeneric( "ReadLittleEndian32", function(object){
+	standardGeneric( "ReadLittleEndian32" )
+} )
+setMethod( "ReadLittleEndian32", c( object="ZeroCopyInputStream"), function(object){
+	.Call( "ZeroCopyInputStream_ReadLittleEndian32", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
+setGeneric( "ReadLittleEndian64", function(object){
+	standardGeneric( "ReadLittleEndian64" )
+} )
+setMethod( "ReadLittleEndian64", c( object="ZeroCopyInputStream"), function(object){
+	.Call( "ZeroCopyInputStream_ReadLittleEndian64", object@pointer, PACKAGE = "RProtoBuf" )
+} )
+
+
