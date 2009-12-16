@@ -13,6 +13,10 @@
 \alias{ReadRaw-methods}
 \alias{ReadRaw,ZeroCopyInputStream,integer-method}
 
+\alias{ReadString}
+\alias{ReadString-methods}
+\alias{ReadString,ZeroCopyInputStream,integer-method}
+
 \title{Virtual Class "ZeroCopyInputStream" }
 \description{R wrapper for the ZeroCopyInputStream c++ class}
 \section{Objects from the Class}{
@@ -30,6 +34,7 @@ This is a virtual class
 	\item{BackUp}{\code{signature(object="ZeroCopyInputStream")}: Backs up a number of bytes, so that the next call to \code{Next} returns data again that was already returned by the last call to \code{Next}.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyInputStream")}: Returns the total number of bytes read since this object was created. }
 	\item{ReadRaw}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: read raw bytes from the stream}
+	\item{ReadString}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: same as \code{ReadRaw} but formats the result as a string}
 	\item{$}{\code{signature(x="ZeroCopyInputStream")}: invokes a method}
 }
 }

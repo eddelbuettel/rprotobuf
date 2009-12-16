@@ -270,6 +270,17 @@ namespace rprotobuf{
 		UNPROTECT(1) ; /* payload */
 		return payload; 
 	}
+	
+	SEXP ZeroCopyInputStream_ReadString( SEXP xp, SEXP size){
+		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
+		int s = INTEGER(size)[0] ;
+		std::string buffer("") ;
+		
+		coded_stream->ReadString( &buffer, s ) ;
+		
+		return Rf_mkString( buffer.c_str() ) ;
+	}
+	
 	// }}}
 	
 } // namespace rprotobuf
