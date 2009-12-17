@@ -6,6 +6,8 @@
 \alias{.DollarNames.FileDescriptor}
 \alias{.DollarNames.ServiceDescriptor}
 \alias{.DollarNames.MethodDescriptor}
+\alias{.DollarNames.ZeroCopyInputStream}
+\alias{.DollarNames.ZeroCopyOutputStream}
 \title{
 Completion support for protocol buffer messages and descriptors
 }
@@ -21,6 +23,8 @@ messages and descriptors.
 \S3method{.DollarNames}{FileDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{ServiceDescriptor}(x, pattern = "")
 \S3method{.DollarNames}{MethodDescriptor}(x, pattern = "")
+\S3method{.DollarNames}{ZeroCopyInputStream}(x, pattern = "")
+\S3method{.DollarNames}{ZeroCopyOutputStream}(x, pattern = "")
 }
 \arguments{
 \item{x}{message (\linkS4class{Message}) or descriptor (\linkS4class{Descriptor}) }

@@ -41,4 +41,3 @@ setMethod( "ReadVarint64", c( object="ZeroCopyInputStream"), function(object){
 	.Call( "ZeroCopyInputStream_ReadVarint64", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
-

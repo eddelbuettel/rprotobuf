@@ -319,6 +319,14 @@ setMethod( "$", "ZeroCopyInputStream", function(x, name ){
 		"Skip" = function(...) Skip(x, ...), 
 		"BackUp" = function(...) BackUp(x, ...), 
 		
+		# CodedInputStream related
+		"ReadRaw" = function(...) ReadRaw(...), 
+		"ReadString" = function(...) ReadString(...), 
+		"ReadVarint32"= function() ReadVarint32(x),  
+		"ReadVarint64" = function() ReadVarint64(x),
+		"ReadLittleEndian32" = function() ReadLittleEndian32(x), 
+		"ReadLittleEndian64" = function() ReadLittleEndian64(x), 
+		
 		# default
 		invisible(NULL)
 		)
@@ -330,6 +338,9 @@ setMethod( "$", "ZeroCopyOutputStream", function(x, name ){
 		"Next" = function(...) Next(x, ...), 
 		"ByteCount" = function(...) ByteCount(x, ...), 
 		"BackUp" = function(...) BackUp(x, ...), 
+		
+		# CodedOutputStream related
+		"WriteRaw" = function(...) WriteRaw(x, ...), 
 		
 		# default
 		invisible(NULL)

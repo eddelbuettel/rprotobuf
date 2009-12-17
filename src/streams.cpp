@@ -306,7 +306,14 @@ namespace rprotobuf{
 		if( !coded_stream->ReadVarint64( &res ) ) Rf_error( "error reading varint64" ) ;
 		return Rf_ScalarReal( (double)res ) ;
 	}
+	// }}}
 	
+	// {{{ Write*** functions using CodedOuputStream
+	SEXP WriteRaw( SEXP xp, SEXP payload){
+		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
+		stream->WriteRaw( RAW(payload), LENGTH(payload) ) ;
+		return R_NilValue ;
+	}
 	// }}}
 	
 } // namespace rprotobuf

@@ -8,6 +8,10 @@
 \alias{Next,ZeroCopyOutputStream,raw-method}
 \alias{$,ZeroCopyOutputStream-method}
 
+\alias{WriteRaw}
+\alias{WriteRaw-methods}
+\alias{WriteRaw,ZeroCopyOutputStream,raw-method}
+
 \title{Virtual Class "ZeroCopyOutputStream" }
 \description{R wrapper for the ZeroCopyOutputStream c++ class}
 \section{Objects from the Class}{
@@ -20,10 +24,11 @@ This is a virtual class
 }
 \section{Methods}{
 \describe{
+	\item{$}{\code{signature(x="ZeroCopyOutputStream")}: invokes a method}
 	\item{Next}{\code{signature(object="ZeroCopyOutputStream", payload = "raw" )}: push the raw vector into the stream. Returns the number of bytes actually written.}
 	\item{BackUp}{\code{signature(object="ZeroCopyOutputStream")}: Backs up a number of bytes, so that the end of the last buffer returned by \code{Next} is not actually written.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyOutputStream")}: Returns the total number of bytes written since this object was created. }
-	\item{$}{\code{signature(x="ZeroCopyOutputStream")}: invokes a method}
+	\item{WriteRaw}{\code{signature(object="ZeroCopyOuputStream", payload = "raw"}: write the raw bytes to the stream}
 }
 }
 

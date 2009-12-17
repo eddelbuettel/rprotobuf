@@ -71,7 +71,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"GetErrno", "SetCloseOnDelete", 
 	"ConnectionInputStream", "ConnectionOutputStream", 
 	"ReadRaw", "ReadString", "ReadVarint32", 
-	"ReadLittleEndian32", "ReadLittleEndian64", "ReadVarint64"
+	"ReadLittleEndian32", "ReadLittleEndian64", "ReadVarint64", 
+	"WriteRaw"
 	
 	)
 
@@ -85,6 +86,8 @@ S3method(.DollarNames, FileDescriptor )
 S3method(.DollarNames, FieldDescriptor )
 S3method(.DollarNames, ServiceDescriptor )
 S3method(.DollarNames, MethodDescriptor )
+S3method(.DollarNames, ZeroCopyInputStream  )
+S3method(.DollarNames, ZeroCopyOutputStream )
 
 S3method( with, Message )
 S3method( within, Message)
