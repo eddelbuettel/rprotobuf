@@ -300,6 +300,13 @@ namespace rprotobuf{
 		return Rf_ScalarReal( (double)res ) ;
 	}
 	
+	SEXP ZeroCopyInputStream_ReadVarint64( SEXP xp){
+		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
+		uint64 res = 0 ;
+		if( !coded_stream->ReadVarint64( &res ) ) Rf_error( "error reading varint64" ) ;
+		return Rf_ScalarReal( (double)res ) ;
+	}
+	
 	// }}}
 	
 } // namespace rprotobuf

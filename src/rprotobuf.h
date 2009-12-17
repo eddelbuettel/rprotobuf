@@ -289,6 +289,7 @@ RcppExport SEXP ZeroCopyInputStream_Skip(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ReadRaw( SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ReadString( SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyInputStream_ReadVarint32( SEXP ) ;
+RcppExport SEXP ZeroCopyInputStream_ReadVarint64( SEXP ) ;
 RcppExport SEXP ZeroCopyInputStream_ReadLittleEndian32( SEXP ) ;
 RcppExport SEXP ZeroCopyInputStream_ReadLittleEndian64( SEXP ) ;
 

@@ -24,9 +24,14 @@
 \alias{ReadLittleEndian32}
 \alias{ReadLittleEndian32-methods}
 \alias{ReadLittleEndian32,ZeroCopyInputStream-method}
+
 \alias{ReadLittleEndian64}
 \alias{ReadLittleEndian64-methods}
 \alias{ReadLittleEndian64,ZeroCopyInputStream-method}
+
+\alias{ReadVarint64}
+\alias{ReadVarint64-methods}
+\alias{ReadVarint64,ZeroCopyInputStream-method}
 
 
 \title{Virtual Class "ZeroCopyInputStream" }
@@ -51,6 +56,7 @@ This is a virtual class
 	\item{ReadVarint32}{\code{signature(object="ZeroCopyInputStream")}: Read an unsigned integer with Varint encoding, truncating to 32 bits. }
 	\item{ReadLittleEndian32}{\code{signature(object="ZeroCopyInputStream")}: Read a 32-bit little-endian integer.  }
 	\item{ReadLittleEndian64}{\code{signature(object="ZeroCopyInputStream")}: Read a 64-bit little-endian integer. In R the value is stored as a \code{double} which looses some precision (no other way) }
+	\item{ReadVarint64}{\code{signature(object="ZeroCopyInputStream")}: Read a 64-bit integer with varint encoding. In R the value is stored as a \code{double} which looses some precision (no other way) }
 }
 }
 
