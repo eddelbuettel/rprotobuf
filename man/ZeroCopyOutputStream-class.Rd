@@ -12,6 +12,35 @@
 \alias{WriteRaw-methods}
 \alias{WriteRaw,ZeroCopyOutputStream,raw-method}
 
+\alias{WriteString}
+\alias{WriteString-methods}
+\alias{WriteString,ZeroCopyOutputStream,character-method}
+
+\alias{WriteLittleEndian32}
+\alias{WriteLittleEndian32-methods}
+\alias{WriteLittleEndian32,ZeroCopyOutputStream,integer-method}
+\alias{WriteLittleEndian32,ZeroCopyOutputStream,numeric-method}
+\alias{WriteLittleEndian32,ZeroCopyOutputStream,raw-method}
+
+\alias{WriteLittleEndian64}
+\alias{WriteLittleEndian64-methods}
+\alias{WriteLittleEndian64,ZeroCopyOutputStream,integer-method}
+\alias{WriteLittleEndian64,ZeroCopyOutputStream,numeric-method}
+\alias{WriteLittleEndian64,ZeroCopyOutputStream,raw-method}
+
+\alias{WriteVarint32}
+\alias{WriteVarint32-methods}
+\alias{WriteVarint32,ZeroCopyOutputStream,integer-method}
+\alias{WriteVarint32,ZeroCopyOutputStream,numeric-method}
+\alias{WriteVarint32,ZeroCopyOutputStream,raw-method}
+
+\alias{WriteVarint64}
+\alias{WriteVarint64-methods}
+\alias{WriteVarint64,ZeroCopyOutputStream,integer-method}
+\alias{WriteVarint64,ZeroCopyOutputStream,numeric-method}
+\alias{WriteVarint64,ZeroCopyOutputStream,raw-method}
+
+
 \title{Virtual Class "ZeroCopyOutputStream" }
 \description{R wrapper for the ZeroCopyOutputStream c++ class}
 \section{Objects from the Class}{

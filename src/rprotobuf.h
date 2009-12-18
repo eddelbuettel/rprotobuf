@@ -300,6 +300,13 @@ RcppExport SEXP ArrayOutputStream_new( SEXP, SEXP ) ;
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_ByteCount(SEXP) ;
+RcppExport SEXP ZeroCopyOutputStream_WriteRaw( SEXP, SEXP);
+RcppExport SEXP ZeroCopyOutputStream_WriteString( SEXP, SEXP);
+RcppExport SEXP ZeroCopyOutputStream_WriteLittleEndian32( SEXP, SEXP );
+RcppExport SEXP ZeroCopyOutputStream_WriteLittleEndian64( SEXP, SEXP );
+RcppExport SEXP ZeroCopyOutputStream_WriteVarint32( SEXP, SEXP );
+RcppExport SEXP ZeroCopyOutputStream_WriteVarint64( SEXP, SEXP );
+
 
 RcppExport SEXP FileOutputStream_new( SEXP, SEXP, SEXP) ;
 RcppExport SEXP FileOutputStream_Close( SEXP) ;

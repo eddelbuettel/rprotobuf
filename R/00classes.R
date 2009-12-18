@@ -3,6 +3,9 @@
 # this has to be 
 IMPLEMENTATIONS <- new.env( parent = emptyenv() )
 
+# invisible version of .Call
+.icall <- function(...) invisible(.Call(...))
+
 # {{{ class definitions
 # we need to formalize connection so that the S4 methods
 # ConnectionInputStream and ConnectionOutputStream can 

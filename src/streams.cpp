@@ -309,9 +309,44 @@ namespace rprotobuf{
 	// }}}
 	
 	// {{{ Write*** functions using CodedOuputStream
-	SEXP WriteRaw( SEXP xp, SEXP payload){
+	SEXP ZeroCopyOutputStream_WriteRaw( SEXP xp, SEXP payload){
 		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
 		stream->WriteRaw( RAW(payload), LENGTH(payload) ) ;
+		return R_NilValue ;
+	}
+	SEXP ZeroCopyOutputStream_WriteString( SEXP xp, SEXP payload){
+		if( LENGTH( payload ) > 1 ){
+			Rf_warning( "only the first element is used" ) ;
+		}
+		if( LENGTH( payload ) == 0 ){
+			Rf_error( "need at least one element" ) ;
+		}
+		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
+		stream->WriteString( CHAR(STRING_ELT(payload,0) ) );
+		return R_NilValue ;
+	}
+	
+	SEXP ZeroCopyOutputStream_WriteLittleEndian32( SEXP xp, SEXP payload ){
+		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
+		stream->WriteLittleEndian32( GET_int32(payload,0) );
+		return R_NilValue ;
+	}
+	
+	SEXP ZeroCopyOutputStream_WriteLittleEndian64( SEXP xp, SEXP payload ){
+		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
+		stream->WriteLittleEndian64( GET_int64(payload,0) );
+		return R_NilValue ;
+	}
+	
+	SEXP ZeroCopyOutputStream_WriteVarint32( SEXP xp, SEXP payload ){
+		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
+		stream->WriteVarint32( GET_int32(payload,0) );
+		return R_NilValue ;
+	}
+	
+	SEXP ZeroCopyOutputStream_WriteVarint64( SEXP xp, SEXP payload ){
+		GPB::io::CodedOutputStream* stream = GET_COS(xp) ;
+		stream->WriteVarint64( GET_int64(payload,0) );
 		return R_NilValue ;
 	}
 	// }}}

@@ -72,7 +72,9 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"ConnectionInputStream", "ConnectionOutputStream", 
 	"ReadRaw", "ReadString", "ReadVarint32", 
 	"ReadLittleEndian32", "ReadLittleEndian64", "ReadVarint64", 
-	"WriteRaw"
+	"WriteRaw", "WriteString", "WriteLittleEndian32", 
+	"WriteLittleEndian64", "WriteVarint32", "WriteVarint64"
+	
 	
 	)
 
