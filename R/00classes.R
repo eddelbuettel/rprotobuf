@@ -344,6 +344,11 @@ setMethod( "$", "ZeroCopyOutputStream", function(x, name ){
 		
 		# CodedOutputStream related
 		"WriteRaw" = function(...) WriteRaw(x, ...), 
+		"WriteString" = function(...) WriteString(x, ...), 
+		"WriteLittleEndian32" = function(...) WriteLittleEndian32(x,...),
+		"WriteLittleEndian64" = function(...) WriteLittleEndian64(x,...),
+		"WriteVarint32" = function(...) WriteVarint32(x, ...), 
+		"WriteVarint64" = function(...) WriteVarint64(x, ...), 
 		
 		# default
 		invisible(NULL)

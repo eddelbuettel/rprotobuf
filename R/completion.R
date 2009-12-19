@@ -99,7 +99,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 # {{{ ZeroCopyOutputStream
 .DollarNames.ZeroCopyOutputStream <- function(x, pattern = "" ){
 	names <- c("Next(", "ByteCount()", "BackUp(", 
-		"WriteRaw(" )
+		"WriteRaw(",  "WriteString(",  "WriteLittleEndian32(", 
+		"WriteLittleEndian64(", "WriteVarint32(", "WriteVarint64(" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
