@@ -27,6 +27,22 @@
 
 #include <Rcpp.h>
 
+namespace rcpp{
+	
+template <class T>
+class external_pointer {
+	public:
+  		T* getPointer();
+  		external_pointer& operator=(SEXP xp) ;
+  		
+  	private:       
+  		T* pointer ;
+  		
+};
+         
+} // namespace rcpp
+
+
 /* uncomment for debugging */
 // #define RPB_DEBUG
 
@@ -223,6 +239,10 @@ RcppExport SEXP name_file_descriptor( SEXP ) ;
 
 /* in as.cpp */
 RcppExport SEXP asMessage_Descriptor( SEXP ) ;
+
+// later
+// RcppExport SEXP asMessage_Descriptor( rcpp::external_pointer<GPB::Descriptor> ) ;
+
 RcppExport SEXP asMessage_FieldDescriptor( SEXP );
 RcppExport SEXP asMessage_EnumDescriptor( SEXP) ;
 RcppExport SEXP asMessage_ServiceDescriptor( SEXP ) ;         

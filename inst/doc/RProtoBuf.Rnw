@@ -1118,7 +1118,7 @@ mechanism of the \texttt{as} method, and so can be used as a shorthand :
 
 <<>>=
 # coerce a message type descriptor to a message
-asMessage( tutorial.Person )
+# asMessage( tutorial.Person )
 
 # coerce a enum descriptor
 asMessage( tutorial.Person.PhoneType )

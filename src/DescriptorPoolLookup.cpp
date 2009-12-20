@@ -21,22 +21,10 @@ namespace rprotobuf{
 	
 	/* this should really be in Rcpp somewhere */
 	SEXP DescriptorPoolLookup::getElements(){
-		
-		int size = elements.size() ;
-		
-		SEXP res = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-		
-		int i =0; 
-		for( std::vector<std::string>::const_iterator iter = elements.begin(); iter != elements.end(); ++iter, ++i ) {
-			SET_STRING_ELT( res, i, Rf_mkChar( iter->c_str() ) ) ;
-		}
-		
-		UNPROTECT(1) ; /* size */
-		return res ;
+		return(RcppSexp(elements).asSexp());
 	}
 	
 	std::vector<std::string> DescriptorPoolLookup::elements ;
-	
 	RWarningErrorCollector DescriptorPoolLookup::error_collector ;
 	RSourceTree DescriptorPoolLookup::source_tree ;
 	GPB::compiler::Importer DescriptorPoolLookup::importer(&source_tree, &error_collector) ;
