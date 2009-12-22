@@ -27,20 +27,34 @@
 
 #include <Rcpp.h>
 
-namespace rcpp{
-	
 template <class T>
-class external_pointer {
+class x_ptr {
 	public:
-  		T* getPointer();
-  		external_pointer& operator=(SEXP xp) ;
+  		explicit x_ptr(SEXP xp) ;
   		
-  	private:       
+  		T& operator*() const ;
+  		T* operator->() const ;
+  		
+  	private:
+  		x_ptr() ;
   		T* pointer ;
-  		
 };
-         
-} // namespace rcpp
+
+template<class T>
+x_ptr<T>::x_ptr(SEXP xp){
+	pointer = (T*)EXTPTR_PTR(xp) ;
+}
+
+template<class T>
+T& x_ptr<T>::operator*() const {
+	return *pointer ;
+}
+
+template<class T>
+T* x_ptr<T>::operator->() const {
+	return pointer ;
+}
+
 
 
 /* uncomment for debugging */
