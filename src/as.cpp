@@ -1,8 +1,8 @@
 #include "rprotobuf.h"
 
-namespace rcpp{
-	template class external_pointer<GPB::Descriptor>;
-}
+//namespace rcpp{
+//	template class external_pointer<GPB::Descriptor>;
+//}
 
 namespace rprotobuf{
 	

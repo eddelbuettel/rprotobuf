@@ -94,8 +94,10 @@ SEXP newProtoMessage( SEXP descriptor ){
 Rprintf( "<newProtoMessage>\n" ) ;
 #endif
 
+#ifdef RPB_DEBUG
 	/* FIXME: the message type, we don't really need that*/
 	SEXP type = GET_SLOT( descriptor, Rf_install("type") ) ;
+#endif
 	
 	/* the pointer to the c++ descriptor object */
 	GPB::Descriptor* desc = GET_DESCRIPTOR_POINTER_FROM_S4( descriptor ); 

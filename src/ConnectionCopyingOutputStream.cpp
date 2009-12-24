@@ -15,6 +15,7 @@ namespace rprotobuf{
 		
 		UNPROTECT(3) ; /* res, call, payload */
 		return true ;
+		res = R_NilValue; // not reached, but shuts g++ -Wall up
 	}
 	
 }

@@ -6,8 +6,8 @@ namespace rprotobuf{
 	
 	ConnectionInputStream::ConnectionInputStream(SEXP con, bool was_open): 
 		GPB::io::CopyingInputStreamAdaptor( new ConnectionCopyingInputStream( con ) ), 
-		con(con), 
-		was_open(was_open)
+		was_open(was_open),
+		con(con)
 	{
 		/* clean the wrapped stream on delete */
 		SetOwnsCopyingStream(true) ;
