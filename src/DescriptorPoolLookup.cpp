@@ -12,17 +12,7 @@ namespace rprotobuf{
 	}
 	
 	SEXP DescriptorPoolLookup::getElements(){
-		/* return(RcppSexp(elements).asSexp()); */
-		SEXP res = PROTECT( Rf_allocVector( STRSXP, elements.size() ) ) ;
-		std::set<std::string>::iterator it = elements.begin() ;
-		int i=0; 
-		while( it != elements.end() ){
-			SET_STRING_ELT( res, i, Rf_mkChar( it->c_str() ) ) ;
-			it++ ;
-			i++;
-		}
-		UNPROTECT(1) ; /* res */
-		return res ;
+		return(RcppSexp(elements).asSexp()) ;
 	}
 	
 	std::set<std::string> DescriptorPoolLookup::elements ;
