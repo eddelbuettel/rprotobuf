@@ -1,5 +1,8 @@
 
-all: RProtoBuf.pdf RProtoBuf-quickref.pdf RProtoBuf-unitTests.pdf
+all: clean RProtoBuf.pdf RProtoBuf-quickref.pdf RProtoBuf-unitTests.pdf
+
+clean:
+	rm -fr *.pdf
 
 RProtoBuf.pdf: RProtoBuf.Rnw
 	Rscript --default-packages="RProtoBuf,tools,utils" -e "Sweave( 'RProtoBuf.Rnw' ); texi2dvi( 'RProtoBuf.tex', pdf = TRUE )"

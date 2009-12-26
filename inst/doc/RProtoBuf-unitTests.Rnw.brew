@@ -36,6 +36,12 @@ errInfo <- getErrors(testData)
 \title{<%= title %>}
 
 \begin{document}
+\begin{verbatim}
+<%
+writeLines( system( sprintf( "tree %s", system.file( package = "RProtoBuf" ) ), intern = TRUE ) )
+%>
+\end{verbatim}
+
 \maketitle
 \tableofcontents
 

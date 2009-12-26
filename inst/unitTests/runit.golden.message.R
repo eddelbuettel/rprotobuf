@@ -1,8 +1,8 @@
 
 .setUp <- function(){
 	if( exists( "protobuf_unittest_import.TestAllTypes", "RProtoBuf:DescriptorPool" ) ){
-		unitest_proto_file <- system.file( "unitTests", "data", "unittest.proto", package = "RProtoBuf" )
-		readProtoFiles( file = unitest_proto_file ) 
+		unitest.proto.file <- system.file( "unitTests", "data", "unittest.proto", package = "RProtoBuf" )
+		readProtoFiles( file = unitest.proto.file ) 
 	}
 }
 
@@ -15,7 +15,7 @@ test.import <- function(){
 		msg = "exists( protobuf_unittest_import.ImportEnum ) " )
 }
 
-test.read_proto_file <- function(){
+test.readProtoFile <- function(){
 	checkTrue( exists( "protobuf_unittest.TestAllTypes", "RProtoBuf:DescriptorPool" ),  msg = "exists( protobuf_unittest_import.TestAllTypes ) " )
 	checkTrue( exists( "protobuf_unittest.TestAllTypes.NestedMessage", "RProtoBuf:DescriptorPool" ),  msg = "exists( protobuf_unittest_import.TestAllTypes.NestedMessage ) " )
 	checkTrue( exists( "protobuf_unittest.TestAllTypes.NestedEnum", "RProtoBuf:DescriptorPool" ),  msg = "exists( protobuf_unittest_import.TestAllTypes.NestedEnum ) " )
