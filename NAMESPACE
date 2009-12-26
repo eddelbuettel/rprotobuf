@@ -105,3 +105,5 @@ exportPattern( "^TYPE_" )
 exportPattern( "^CPPTYPE_" )
 exportPattern( "^LABEL_" )
 
+export( run_unit_tests )
+
