@@ -16,8 +16,7 @@ if(require("RUnit", quietly = TRUE)) {
 
   ## --- Setup ---
   pkg <- "RProtoBuf"
-  wd <- getwd()
-  
+
   require( pkg, character.only=TRUE)
 
   path <- system.file("unitTests", package = pkg)
