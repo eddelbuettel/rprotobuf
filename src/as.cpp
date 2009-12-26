@@ -1,23 +1,7 @@
 #include "rprotobuf.h"
 
-//namespace rcpp{
-//	template class external_pointer<GPB::Descriptor>;
-//}
-
 namespace rprotobuf{
-	
-	// later
-	// SEXP asMessage_Descriptor( rcpp::external_pointer<GPB::Descriptor> xp ){
-	// 	Rprintf( "xp.pointer = %p\n", xp.getPointer() ) ;
-	// 	// GPB::Descriptor* d = xp.getPointer() ;
-	// 	// Rprintf( "pointer = %d\n" , d ) ;
-	// 	return R_NilValue ;
-	// 	// GPB::Descriptor* d = xp.getPointer() ;
-	// 	// GPB::DescriptorProto* message = new GPB::DescriptorProto() ; 
-	// 	// d->CopyTo( message ); 
-	// 	// return( new_RS4_Message_( (GPB::Message*)message ) ) ;
-	// }
-	
+		
 	SEXP asMessage_Descriptor( SEXP xp){
 		GPB::Descriptor* d = (GPB::Descriptor*)EXTPTR_PTR(xp) ;
 		GPB::DescriptorProto* message = new GPB::DescriptorProto() ; 
