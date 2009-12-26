@@ -15,11 +15,10 @@
 if(require("RUnit", quietly = TRUE)) {
 
   ## --- Setup ---
-
+  pkg <- "RProtoBuf"
   wd <- getwd()
-  pkg <- sub("\\.Rcheck$", '', basename(dirname(wd)))
-
-  library(package=pkg, character.only=TRUE)
+  
+  require( pkg, character.only=TRUE)
 
   path <- system.file("unitTests", package = pkg)
 

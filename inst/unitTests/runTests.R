@@ -34,7 +34,7 @@ if(require("RUnit", quietly = TRUE)) {
         }
 
         ## Print results
-        printTextProtocol(tests)
+        # printTextProtocol(tests)
         printTextProtocol(tests, fileName=paste(pathReport, ".txt", sep=""))
         ## Print HTML version to a file
         ## printHTMLProtocol has problems on Mac OS X
