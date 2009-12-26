@@ -175,17 +175,12 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 #ifdef LOOKUP_DEBUG
  Rprintf( "  >> rProtoBufTable_objects\n" ); 
 #endif
-	
-	// FIXME: this is silly, we need to maintain the data sorted
-	//        using a dedicated C++ class
 	tb->active = _FALSE_;
-	SEXP unsorted = PROTECT( DescriptorPoolLookup::getElements() ) ; 
-	SEXP call = PROTECT( Rf_lang2( Rf_install( "sort" ), unsorted ) ) ;
-	SEXP sorted = PROTECT( Rf_eval( call, R_GlobalEnv ) );
+	SEXP objects = PROTECT( DescriptorPoolLookup::getElements() ) ; 
 	tb->active = _TRUE_;
-	UNPROTECT(3); /* sorted, call, unsorted */
+	UNPROTECT(1); /* objects */
 	
-	return( sorted ); 
+	return( objects ); 
 }
 
 SEXP newProtocolBufferLookup(){
