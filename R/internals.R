@@ -44,7 +44,8 @@ readProtoFiles <- function(
 			tools:::file_path_as_absolute(x)
 		} )
 	}
-	.Call( "readProtoFiles", files, PACKAGE = "RProtoBuf" )
+	directories <- unique( c( getwd(), dirname(files) ) )
+	.Call( "readProtoFiles", files, directories, PACKAGE = "RProtoBuf" )
 	invisible(NULL)
 }
 

@@ -3,34 +3,36 @@
 
 namespace rprotobuf{
 	
-	void DescriptorPoolLookup::add( std::string element){
-		if( !contains( element ) ){
-			elements.push_back( element ) ;
-		}
+	void DescriptorPoolLookup::add( const std::string& element){
+		elements.insert( element ); 
 	}
 	
-	bool DescriptorPoolLookup::contains( std::string element ){
-		/* should use binary_search */
-		for( std::vector<std::string>::const_iterator iter = elements.begin(); iter != elements.end(); ++iter ) {
-			if( iter->compare( element ) == 0){
-				return 1 ;
-			}
-		}
-		return 0; 
+	bool DescriptorPoolLookup::contains( const std::string& element ){
+		return elements.find( element ) != elements.end() ;
 	}
 	
-	/* this should really be in Rcpp somewhere */
 	SEXP DescriptorPoolLookup::getElements(){
-		return(RcppSexp(elements).asSexp());
+		/* return(RcppSexp(elements).asSexp()); */
+		SEXP res = PROTECT( Rf_allocVector( STRSXP, elements.size() ) ) ;
+		std::set<std::string>::iterator it = elements.begin() ;
+		int i=0; 
+		while( it != elements.end() ){
+			SET_STRING_ELT( res, i, Rf_mkChar( it->c_str() ) ) ;
+			it++ ;
+			i++;
+		}
+		UNPROTECT(1) ; /* res */
+		return res ;
 	}
 	
-	std::vector<std::string> DescriptorPoolLookup::elements ;
+	std::set<std::string> DescriptorPoolLookup::elements ;
 	RWarningErrorCollector DescriptorPoolLookup::error_collector ;
 	RSourceTree DescriptorPoolLookup::source_tree ;
 	GPB::compiler::Importer DescriptorPoolLookup::importer(&source_tree, &error_collector) ;
 	GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory(importer.pool()) ;
 	
-	void DescriptorPoolLookup::importProtoFiles(SEXP files){
+	void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs ){
+		source_tree.addDirectories( dirs ) ;
 		int n = LENGTH(files) ;
 		for( int j=0; j < n; j++ ){
 			const GPB::FileDescriptor* file_desc = importer.Import( CHAR(STRING_ELT(files, j)) );
@@ -42,6 +44,7 @@ namespace rprotobuf{
 		    	/* TODO: also add top level services */
 		    }
 		}
+		// source_tree.removeDirectories( dirs ) ;
 	}
 	
 	const GPB::DescriptorPool* DescriptorPoolLookup::pool(){

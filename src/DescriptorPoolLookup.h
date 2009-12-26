@@ -8,13 +8,13 @@ namespace rprotobuf{
 
 	class DescriptorPoolLookup {
 		public:
-			static void add( std::string element) ;
+			static void add( const std::string& element) ;
 			
-			static bool contains( std::string element) ; 
+			static bool contains( const std::string& element) ; 
 		
 			static SEXP getElements() ;
 		
-			static void importProtoFiles( SEXP files ) ;
+			static void importProtoFiles( SEXP files, SEXP cwd ) ;
 			
 			static const GPB::DescriptorPool* pool() ;
 			
@@ -22,8 +22,7 @@ namespace rprotobuf{
 			
 		private:	
 			
-			static std::vector<std::string> elements ;
-			
+			static std::set<std::string> elements ;
 			static RWarningErrorCollector error_collector ;
 			static RSourceTree source_tree ;
 			static GPB::compiler::Importer importer ;

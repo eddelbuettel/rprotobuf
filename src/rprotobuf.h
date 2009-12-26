@@ -105,7 +105,7 @@ GPB::Message* CLONE(const GPB::Message*) ;
 RcppExport SEXP do_dollar_Descriptor( SEXP, SEXP ) ;
 RcppExport SEXP newProtoMessage( SEXP) ;
 RcppExport SEXP getProtobufDescriptor( SEXP ) ;
-RcppExport SEXP readProtoFiles( SEXP ); 
+RcppExport SEXP readProtoFiles( SEXP, SEXP ); 
 RcppExport Rboolean isMessage( SEXP, const char* ) ;
 RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP) ;
 RcppExport SEXP check_libprotobuf_version( SEXP ) ;

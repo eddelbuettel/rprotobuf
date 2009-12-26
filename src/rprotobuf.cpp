@@ -45,8 +45,8 @@ namespace rprotobuf{
  *
  * @param file proto file name
  */
-SEXP readProtoFiles( SEXP file ){
-	DescriptorPoolLookup::importProtoFiles( file ) ;
+SEXP readProtoFiles( SEXP file, SEXP dirs ){
+	DescriptorPoolLookup::importProtoFiles( file, dirs ) ;
 	return R_NilValue ;
 }
 
