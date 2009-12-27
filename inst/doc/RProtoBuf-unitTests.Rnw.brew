@@ -9,11 +9,13 @@ title  <- sprintf( "RProtoBuf (%s) unit tests", rpb.version )
 
 path <- system.file( "unitTests", package = "RProtoBuf" )
 testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
-sink( "junk.txt" )
+sink( "junk.txt" )    
 testData <- runTestSuite(testSuite)
 sink()
 unlink( "junk.txt" )
 errInfo <- getErrors(testData)
+printTextProtocol( testData, file = "RProtoBuf-unitTests.txt" )
+printHTMLProtocol( testData, file = "RProtoBuf-unitTests.html" )
 %>
 
 
@@ -36,11 +38,6 @@ errInfo <- getErrors(testData)
 \title{<%= title %>}
 
 \begin{document}
-\begin{verbatim}
-<%
-writeLines( system( sprintf( "tree %s", system.file( package = "RProtoBuf" ) ), intern = TRUE ) )
-%>
-\end{verbatim}
 
 \maketitle
 \tableofcontents
