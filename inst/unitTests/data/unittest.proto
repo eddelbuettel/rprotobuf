@@ -34,6 +34,9 @@
 //
 // A proto file we will use for unit testing.
 
+// (Romain Francois) The only thing I have changed in this 
+// file is this import directive. RProtoBuf will import
+// the extra file from the directory in which this file is
 import "unittest_import.proto";
 
 // We don't put this in a package within proto2 because we need to make sure

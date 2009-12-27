@@ -56,41 +56,33 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
 
 SEXP findSomething( const GPB::DescriptorPool* pool, const char * const name){
 	const GPB::Descriptor*  desc = pool->FindMessageTypeByName( name ) ;
- 	if( desc ){
+	std::string name_string(name) ;
+	if( desc ){
  		/* message */
- 		DescriptorPoolLookup::add( name ) ;
- 		SEXP res = PROTECT( new_RS4_Descriptor( desc ) ); 
- 		UNPROTECT(1); 
- 		return( res ) ;
+ 		DescriptorPoolLookup::add( name_string ) ;
+ 		return new_RS4_Descriptor( desc ) ;
  	} else {
- 		 const GPB::EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name ) ;
+ 		 const GPB::EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name_string ) ;
  		 if( enum_desc ){
  		 	/* enum */
- 		 	DescriptorPoolLookup::add( name ) ;
- 		 	SEXP res = PROTECT( new_RS4_EnumDescriptor( enum_desc ) ); 
- 			UNPROTECT(1); 
- 			return( res ) ;
+ 		 	DescriptorPoolLookup::add( name_string ) ;
+ 		 	return new_RS4_EnumDescriptor( enum_desc ); 
  		 } else{
-			const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name ) ;
+			const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name_string ) ;
 			if( service_desc ){
-				DescriptorPoolLookup::add( name ) ;
-				SEXP res = PROTECT( new_RS4_ServiceDescriptor( service_desc ) ); 
-				UNPROTECT(1); 
-				return( res ) ;
+				DescriptorPoolLookup::add( name_string ) ;
+				return new_RS4_ServiceDescriptor( service_desc ) ;
  		 	} else {
- 		 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name ); 
+ 		 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name_string ); 
  		 		if( method_desc ){
-					DescriptorPoolLookup::add( name ) ;
-					SEXP res = PROTECT( new_RS4_MethodDescriptor( method_desc ) ); 
-					UNPROTECT(1); 
-					return( res ) ;
- 		 		} else{
- 		 			return( R_NilValue ) ;
+					DescriptorPoolLookup::add( name_string ) ;
+					return new_RS4_MethodDescriptor( method_desc ); 
  		 		}
  		 	}
- 		 }    
+ 		 }
+ 		
  	}
- 
+ 	return R_NilValue ;
 }
 
 
@@ -113,18 +105,24 @@ SEXP rProtoBufTable_get(const char * const name, Rboolean *canCache, R_ObjectTab
 
  tb->active = _FALSE_;
  
- SEXP res ;
+ SEXP res_generated ;
+ SEXP res_runtime ;
+ int np = 0 ;
  
  /* first try the generated pool */
  const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
- res = findSomething( pool, name ) ;
- if( res == R_NilValue ){
+ res_generated = PROTECT( findSomething( pool, name ) ) ;
+ np++; 
+ if( res_generated == R_NilValue ){
  	/* try the runtime pool */
  	pool = DescriptorPoolLookup::pool() ;
- 	res = findSomething( pool, name ) ;
+ 	res_runtime = PROTECT( findSomething( pool, name ) );
+ 	np++ ;
  }
  tb->active = _TRUE_;
- if( res != R_NilValue ) return res ; 
+ SEXP res = PROTECT( (np==2) ? res_runtime : res_generated ) ;
+ UNPROTECT(np+1) ;
+ if( res != R_NilValue ) return res ;
  return R_getUnboundValue() ; // -Wall
 }
 

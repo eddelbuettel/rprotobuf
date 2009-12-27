@@ -100,8 +100,13 @@ SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor* fd ){
 		R_NilValue, R_NilValue));
 	
 	/* message type where the enum is defined */
-	SEXP type  = PROTECT( Rf_mkString( fd->containing_type()->full_name().c_str() ) ) ;
-	
+	const GPB::Descriptor *type_desc = fd->containing_type() ;
+	SEXP type = R_NilValue ; 
+	if( type_desc ){
+		type = PROTECT( Rf_mkString( type_desc->full_name().c_str() ) ) ;
+	} else{
+		type = PROTECT( Rf_allocVector( STRSXP, 0 ) ) ;
+	}
 	SET_SLOT( oo, Rf_install("name"), name ) ;
 	SET_SLOT( oo, Rf_install("full_name"), fname ) ;
 	SET_SLOT( oo, Rf_install("type"), type ) ;

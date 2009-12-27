@@ -1,8 +1,9 @@
 
+# this is executed before each test function
 .setUp <- function(){
-	if( exists( "protobuf_unittest_import.TestAllTypes", "RProtoBuf:DescriptorPool" ) ){
+	if( ! exists( "protobuf_unittest_import.TestAllTypes", "RProtoBuf:DescriptorPool" ) ){
 		unitest.proto.file <- system.file( "unitTests", "data", "unittest.proto", package = "RProtoBuf" )
-		readProtoFiles( file = unitest.proto.file ) 
+		readProtoFiles( file = unitest.proto.file )
 	}
 }
 
@@ -30,15 +31,18 @@ test.readProtoFile <- function(){
 		for( type in types ){
 			checkTrue( sprintf( "%s_%s", prefix, type ) %in% fieldnames, msg = sprintf( "%s_%s in field names", prefix, type ) )
 		}
-		checkTrue( sprintf("%s_nested_message", prefix ) %in% fieldnames, msg = sprintf( "%_nested_message in field names" , prefix ) )
-		checkTrue( sprintf("%s_foreign_enum"  , prefix ) %in% fieldnames, msg = sprintf( "%_foreign_enum in field names"   , prefix ) )
-		checkTrue( sprintf("%s_import_enum"   , prefix ) %in% fieldnames, msg = sprintf( "%_import_enum in field names"    , prefix ) )
+		checkTrue( sprintf("%s_foreign_enum"  , prefix ) %in% fieldnames, msg = sprintf( "%s_foreign_enum in field names"   , prefix ) )
+		checkTrue( sprintf("%s_import_enum"   , prefix ) %in% fieldnames, msg = sprintf( "%s_import_enum in field names"    , prefix ) )
 	}
 	
 	checkTrue( exists( "protobuf_unittest.ForeignMessage", "RProtoBuf:DescriptorPool" ) ,  msg = "exists( protobuf_unittest.ForeignMessage ) " )
 	checkEquals( names(as.list(protobuf_unittest.ForeignMessage)), "c" )
 	
 	checkTrue( exists( "protobuf_unittest.ForeignEnum", "RProtoBuf:DescriptorPool" ) ,  msg = "exists( protobuf_unittest.ForeignEnum ) " )
+	foreign_enum <- as.list( protobuf_unittest.ForeignEnum )
+	checkEquals( length(foreign_enum), 3L, msg = "length( protobuf_unittest.ForeignEnum ) == 3" )
+	checkTrue( all( c("FOREIGN_FOO", "FOREIGN_BAR", "FOREIGN_BAZ") %in% names( foreign_enum ) ), msg = "expected names for enum `protobuf_unittest.ForeignEnum`" )
+	checkEquals( unname(as.list(protobuf_unittest.ForeignEnum)), 4:6, msg = "expected values for enum `protobuf_unittest.ForeignEnum`" )
 	
 }
 
