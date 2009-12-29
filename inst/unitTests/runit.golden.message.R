@@ -14,6 +14,15 @@ test.import <- function(){
 		msg = "exists( protobuf_unittest_import.ImportMessage ) " )
 	checkTrue( exists( "protobuf_unittest_import.ImportEnum", "RProtoBuf:DescriptorPool" ) , 
 		msg = "exists( protobuf_unittest_import.ImportEnum ) " )
+	checkEquals( 
+		names(as.list( protobuf_unittest_import.ImportMessage)), 
+		"d", 
+		msg = "names( protobuf_unittest_import.ImportMessage ) == 'd'" )
+	import_enum <- as.list(protobuf_unittest_import.ImportEnum )
+	checkTrue( all( c("IMPORT_FOO", "IMPORT_BAR", "IMPORT_BAZ") %in% names(import_enum) ), 
+		msg = "expected names for 'protobuf_unittest_import.ImportEnum'" )
+	checkEquals( unname(import_enum), 7:9, 
+		msg = "expected values for 'protobuf_unittest_import.ImportEnum' " )
 }
 
 test.readProtoFile <- function(){
