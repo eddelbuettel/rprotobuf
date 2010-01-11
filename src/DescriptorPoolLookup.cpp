@@ -12,7 +12,7 @@ namespace rprotobuf{
 	}
 	
 	SEXP DescriptorPoolLookup::getElements(){
-		return Rcpp::RObject(elements) ;
+		return Rcpp::wrap(elements) ;
 	}
 	
 	std::set<std::string> DescriptorPoolLookup::elements ;

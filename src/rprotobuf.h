@@ -20,41 +20,13 @@
 /* we need to read and write to connections */
 #define NEED_CONNECTION_PSTREAMS
 
-#include <R.h>
-#include <Rdefines.h>
-#include <Rinternals.h>
-#include <R_ext/Callbacks.h>
-
 #include <Rcpp.h>
 
-template <class T>
-class x_ptr {
-	public:
-  		explicit x_ptr(SEXP xp) ;
-  		
-  		T& operator*() const ;
-  		T* operator->() const ;
-  		
-  	private:
-  		x_ptr() ;
-  		T* pointer ;
-};
-
-template<class T>
-x_ptr<T>::x_ptr(SEXP xp){
-	pointer = (T*)EXTPTR_PTR(xp) ;
-}
-
-template<class T>
-T& x_ptr<T>::operator*() const {
-	return *pointer ;
-}
-
-template<class T>
-T* x_ptr<T>::operator->() const {
-	return pointer ;
-}
-
+#undef GET_NAMES
+// #include <R.h>
+#include <Rdefines.h>
+//#include <Rinternals.h>
+#include <R_ext/Callbacks.h>
 
 
 /* uncomment for debugging */
