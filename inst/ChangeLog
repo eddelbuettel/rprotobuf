@@ -1,0 +1,1341 @@
+2010-02-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/ChangeLog: added
+
+2010-02-01  Romain Francois <francoisromain@free.fr>
+
+	* [r274] /pkg/man/RProtoBuf-package.Rd: tidying up
+
+	* [r273] /pkg/inst/doc/unitTests-results:
+
+	* [r272] /pkg/inst/doc/unitTests/RProtoBuf-unitTests.R: minor
+	  cleanups for the unit test vignette (same as in Rcpp)
+
+	* [r271] /pkg/DESCRIPTION,
+	  /pkg/inst/doc/unitTests/RProtoBuf-unitTests.R: OS_type: unix (for
+	  now)
+
+	* [r270] /pkg/DESCRIPTION: version bump to 0.1-0
+
+	* [r269] /pkg/inst/doc/Makefile,
+	  /pkg/inst/doc/RProtoBuf-unitTests.R[DEL],
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw, /pkg/inst/doc/unitTests,
+	  /pkg/inst/doc/unitTests/RProtoBuf-unitTests.R: minor cleanups for
+	  the unit test vignette (same as in Rcpp)
+
+2010-01-23  Romain Francois <francoisromain@free.fr>
+
+	* [r268] /pkg/inst/doc/Makefile,
+	  /pkg/inst/doc/RProtoBuf-unitTests.R,
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw,
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw.brew[DEL]: borrow simpler
+	  unit test vignette from Rcpp
+
+2010-01-11  Romain Francois <francoisromain@free.fr>
+
+	* [r267] /pkg/DESCRIPTION, /pkg/src/DescriptorPoolLookup.cpp,
+	  /pkg/src/rprotobuf.h: adapt to Rcpp::wrap
+
+2009-12-29  Romain Francois <francoisromain@free.fr>
+
+	* [r266] /pkg/DESCRIPTION,
+	  /pkg/inst/unitTests/runit.golden.message.R,
+	  /pkg/src/DescriptorPoolLookup.cpp: adapt to recent changes in
+	  Rcpp
+
+2009-12-27  Romain Francois <francoisromain@free.fr>
+
+	* [r265] /pkg/inst/unitTests/data/unittest.proto,
+	  /pkg/inst/unitTests/runit.golden.message.R,
+	  /pkg/src/constructors.cpp, /pkg/src/lookup.cpp: enum might not
+	  have containing types, which used to bomb new_RS4_EnumDescriptor.
+	  fixed and unit tested
+
+	* [r264] /pkg/inst/doc, /pkg/inst/doc/Makefile,
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw.brew: a bug in .tearDown
+	  prevented the unit tests from working properly
+
+2009-12-26  Romain Francois <francoisromain@free.fr>
+
+	* [r263] /pkg/inst/doc/Makefile,
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw.brew,
+	  /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/inst/unitTests/runit.golden.message.R[CPY],
+	  /pkg/inst/unitTests/runit.golden_message.R[DEL]: force cleaning
+	  pdfs before vignette creation
+
+	* [r262] /pkg/src/lookup.cpp: not sorting manually anymore since
+	  std::set does it for free
+
+	* [r261] /pkg/inst/unitTests/runit.draft.R[DEL],
+	  /pkg/inst/unitTests/runit.error.R[DEL],
+	  /pkg/inst/unitTests/runit.golden_message.R: started adding some
+	  proper tests
+
+	* [r260] /pkg/DESCRIPTION, /pkg/src/DescriptorPoolLookup.cpp: using
+	  Rcpp >= 0.7.0.2
+
+	* [r259] /pkg/R/internals.R,
+	  /pkg/inst/unitTests/data/unittest.proto,
+	  /pkg/src/DescriptorPoolLookup.cpp,
+	  /pkg/src/DescriptorPoolLookup.h, /pkg/src/RSourceTree.cpp,
+	  /pkg/src/RSourceTree.h, /pkg/src/RWarningErrorCollector.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: fixed importing and
+	  use set in DescriptorPoolLookup
+
+	* [r258] /pkg/inst/doc/Makefile, /pkg/inst/unitTests/data,
+	  /pkg/inst/unitTests/data/unittest.proto,
+	  /pkg/inst/unitTests/data/unittest_import.proto: added utils as
+	  default package in vignette makefile
+
+2009-12-26  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r257] /pkg/tests/doRUnit.R: wd var no longer needed either
+
+2009-12-26  Romain Francois <francoisromain@free.fr>
+
+	* [r256] /pkg/DESCRIPTION, /pkg/NAMESPACE, /pkg/cleanup,
+	  /pkg/inst/doc/Makefile,
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw[DEL],
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw.brew,
+	  /pkg/inst/unitTests/runTests.R,
+	  /pkg/inst/unitTests/runit.draft.R,
+	  /pkg/inst/unitTests/runit.error.R, /pkg/tests/doRUnit.R: revised
+	  display of information in unit test vignette
+
+	* [r255] /pkg/NAMESPACE, /pkg/R/unit_tests.R,
+	  /pkg/inst/doc/RProtoBuf-unitTests.Rnw, /pkg/inst/unitTests,
+	  /pkg/inst/unitTests/runTests.R,
+	  /pkg/inst/unitTests/runit.draft.R, /pkg/tests,
+	  /pkg/tests/doRUnit.R: prepare for unit testing
+
+	* [r254] /pkg/DESCRIPTION, /pkg/src/as.cpp, /pkg/src/rprotobuf.h:
+	  remove the external_pointer experiment (now in package CPP)
+
+2009-12-24  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r253] /pkg/src/ConnectionCopyingOutputStream.cpp,
+	  /pkg/src/ConnectionInputStream.cpp,
+	  /pkg/src/ConnectionOutputStream.cpp, /pkg/src/as.cpp,
+	  /pkg/src/rprotobuf.cpp: as.cpp: comment out unused rcpp namespace
+	  to fix odd "does not build on amd64" issue found by Saptarshi
+	  other files: minimal tweaks to shut 'g++ -Wall' up
+
+2009-12-22  Romain Francois <francoisromain@free.fr>
+
+	* [r252] /pkg/src/rprotobuf.h: .3
+
+2009-12-20  Romain Francois <francoisromain@free.fr>
+
+	* [r251] /pkg/DESCRIPTION, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/src/DescriptorPoolLookup.cpp, /pkg/src/as.cpp,
+	  /pkg/src/rprotobuf.h: start to use Rcpp 0.7.0 features
+
+2009-12-19  Romain Francois <francoisromain@free.fr>
+
+	* [r250] /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/src/rprotobuf.h: more completion for streams, and removed
+	  debugging messages which resulted in vignette crashing
+
+2009-12-18  Romain Francois <francoisromain@free.fr>
+
+	* [r249] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/wrapper_CodedOutputStream.R,
+	  /pkg/man/ZeroCopyOutputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: added methods for ZeroCopyOutputStream
+	  (actually using CodedOutputStream)
+
+2009-12-17  Romain Francois <francoisromain@free.fr>
+
+	* [r248] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/wrapper_CodedInputStream.R,
+	  /pkg/R/wrapper_CodedOutputStream.R,
+	  /pkg/man/ZeroCopyOutputStream-class.Rd, /pkg/man/completion.Rd,
+	  /pkg/src/streams.cpp: +WriteRaw.ZeroCopyOutoutStream and added
+	  completion for ZeroCopy{In,Out}outStream
+
+	* [r247] /pkg/NAMESPACE, /pkg/R/wrapper_CodedInputStream.R,
+	  /pkg/man/ZeroCopyInputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ReadVarint64
+
+2009-12-16  Romain Francois <francoisromain@free.fr>
+
+	* [r246] /pkg/NAMESPACE, /pkg/R/wrapper_CodedInputStream.R,
+	  /pkg/man/ZeroCopyInputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ReadLittleEndian{32,64}
+
+	* [r245] /pkg/NAMESPACE, /pkg/R/wrapper_CodedInputStream.R,
+	  /pkg/man/ZeroCopyInputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ReadVarint32
+
+	* [r244] /pkg/NAMESPACE, /pkg/R/wrapper_CodedInputStream.R,
+	  /pkg/man/ZeroCopyInputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ReadString
+
+	* [r243] /pkg/src/rprotobuf.h: passing R CMD check again. solved
+	  problem related to finalization of Message*
+
+	* [r242] /pkg/inst/doc/RProtoBuf-unitTests.Rnw[DEL]:
+
+	* [r241] /pkg/inst/doc/RProtoBuf-unitTests.Rnw:
+
+	* [r240] /pkg/R/wrapper_CodedInputStream.R,
+	  /pkg/man/ArrayInputStream-class.Rd, /pkg/src/extractors.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h, /pkg/src/set.cpp,
+	  /pkg/src/streams.cpp: passing R CMD check again. solved problem
+	  related to finalization of Message*
+
+	* [r239] /pkg/src/constructors.cpp, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: finalizer for messages
+
+	* [r238] /pkg/src/rprotobuf.h, /pkg/src/streams.cpp: also use
+	  ZeroCopyOutputStreamWrapper
+
+	* [r237] /pkg/R/wrapper_CodedInputStream.R, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: using ZeroCopyInputStreamWrapper
+
+	* [r236] /pkg/src/ZeroCopyOutputStreamWrapper.cpp,
+	  /pkg/src/ZeroCopyOutputStreamWrapper.h: +
+	  ZeroCopyOutputStreamWrapper C++ class
+
+	* [r235] /pkg/src/ZeroCopyInputStreamWrapper.cpp,
+	  /pkg/src/ZeroCopyInputStreamWrapper.h, /pkg/src/streams.cpp:
+	  added ZeroCopyInputStreamWrapper that wraps together a zcis and a
+	  cis, so that there is no need to create a cis each time
+
+2009-12-15  Romain Francois <francoisromain@free.fr>
+
+	* [r234] /pkg/NAMESPACE, /pkg/man/ZeroCopyInputStream-class.Rd,
+	  /pkg/src/rprotobuf.h, /pkg/src/streams.cpp: added
+	  ReadRaw.ZeroCopyInputSytream
+
+	* [r233] /pkg/src/ConnectionCopyingInputStream.cpp,
+	  /pkg/src/ConnectionCopyingInputStream.h,
+	  /pkg/src/ConnectionCopyingOutputStream.cpp,
+	  /pkg/src/ConnectionCopyingOutputStream.h,
+	  /pkg/src/ConnectionInputStream.cpp,
+	  /pkg/src/ConnectionInputStream.h,
+	  /pkg/src/ConnectionOutputStream.cpp,
+	  /pkg/src/ConnectionOutputStream.h, /pkg/src/read.cpp,
+	  /pkg/src/streams.cpp: rework Connection{In,Out}putStream
+
+	* [r232] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/wrapper_ZeroCopyInputStream.R,
+	  /pkg/man/ConnectionInputStream-class.Rd,
+	  /pkg/man/ConnectionInputStream-methods.Rd,
+	  /pkg/man/ConnectionOutputStream-class.Rd,
+	  /pkg/man/ConnectionOutputStream-methods.Rd,
+	  /pkg/src/ConnectionInputStream.cpp,
+	  /pkg/src/ConnectionInputStream.h, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: added (R side of and not yet functional,
+	  but hey) Connection{In,Out}putStream classes and methods
+
+2009-12-14  Romain Francois <francoisromain@free.fr>
+
+	* [r231] /pkg/man/Descriptor-class.Rd[CPY],
+	  /pkg/man/EnumDescriptor-class.Rd[CPY],
+	  /pkg/man/EnumValueDescriptor-class.Rd[CPY],
+	  /pkg/man/FieldDescriptor-class.Rd[CPY],
+	  /pkg/man/FileDescriptor-class.Rd[CPY],
+	  /pkg/man/Message-class.Rd[CPY],
+	  /pkg/man/MethodDescriptor-class.Rd[CPY],
+	  /pkg/man/ServiceDescriptor-class.Rd[CPY],
+	  /pkg/man/protobufDescriptor-class.Rd[DEL],
+	  /pkg/man/protobufEnumDescriptor-class.Rd[DEL],
+	  /pkg/man/protobufEnumValueDescriptor-class.Rd[DEL],
+	  /pkg/man/protobufFieldDescriptor-class.Rd[DEL],
+	  /pkg/man/protobufFileDescriptor-class.Rd[DEL],
+	  /pkg/man/protobufMessage-class.Rd[DEL],
+	  /pkg/man/protobufMethodDescriptor-class.Rd[DEL],
+	  /pkg/man/protobufServiceDescriptor-class.Rd[DEL]: remove the
+	  'protobuf' prefix of Rd file names
+
+	* [r230] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/wrapper_ZeroCopyInputStream.R,
+	  /pkg/man/FileInputStream-class.Rd,
+	  /pkg/man/FileInputStream-methods.Rd,
+	  /pkg/man/FileOutputStream-class.Rd,
+	  /pkg/man/FileOutputStream-methods.Rd,
+	  /pkg/man/GetErrno-methods.Rd,
+	  /pkg/man/SetCloseOnDelete-methods.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +File{In,Out}putStream classes and methods
+
+	* [r229] /pkg/NAMESPACE, /pkg/R/wrapper_ZeroCopyInputStream.R,
+	  /pkg/man/ArrayOutputStream-class.Rd,
+	  /pkg/man/ArrayOutputStream-methods.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ArrayOutputStream class and constructor
+	  method
+
+2009-12-12  Romain Francois <francoisromain@free.fr>
+
+	* [r228] /pkg/R/wrapper_ZeroCopyInputStream.R: added some
+	  invisible's
+
+	* [r227] /pkg/R/00classes.R, /pkg/R/wrapper_ZeroCopyInputStream.R,
+	  /pkg/man/ArrayInputStream-class.Rd,
+	  /pkg/man/ArrayInputStream-methods.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: allow block size for ArrayInputStream
+
+	* [r226] /java/src/org/rproject/rprotobuf/ProtobufHttpServer.java,
+	  /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/wrapper_ZeroCopyInputStream.R,
+	  /pkg/man/ArrayInputStream-class.Rd,
+	  /pkg/man/ArrayInputStream-methods.Rd,
+	  /pkg/man/ZeroCopyInputStream-class.Rd,
+	  /pkg/man/ZeroCopyOutputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ArrayInputStream class
+
+2009-12-11  Romain Francois <francoisromain@free.fr>
+
+	* [r225] /pkg/R/00classes.R, /pkg/R/wrapper_ZeroCopyInputStream.R,
+	  /pkg/man/ZeroCopyInputStream-class.Rd,
+	  /pkg/man/ZeroCopyOutputStream-class.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/streams.cpp: +ZeroCopyOutputStream S4 class
+
+	* [r224] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/wrapper_ZeroCopyInputStream.R, /pkg/man/BackUp-methods.Rd,
+	  /pkg/man/ByteCount-methods.Rd, /pkg/man/Next-methods.Rd,
+	  /pkg/man/Skip-methods.Rd, /pkg/man/ZeroCopyInputStream-class.Rd,
+	  /pkg/src/mutators.cpp, /pkg/src/rpc_over_http.cpp,
+	  /pkg/src/rprotobuf.h, /pkg/src/streams.cpp: +ZeroCopyInputStream
+	  S4 class
+
+	* [r223] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/man/CodedInputStream-class.Rd[DEL],
+	  /pkg/src/CodedInputStream_wrapper.cpp[DEL],
+	  /pkg/src/constructors.cpp, /pkg/src/rprotobuf.h: changed my mind,
+	  don't want to expose CodedInputStream (yet)
+
+	* [r222] /pkg/src/CodedInputStream_wrapper.cpp,
+	  /pkg/src/constructors.cpp, /pkg/src/rprotobuf.h: added
+	  constructor and finalizer for CodedInputStream
+
+	* [r221] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/rpc.R,
+	  /pkg/man/CodedInputStream-class.Rd, /pkg/man/RpcHTTP-class.Rd,
+	  /pkg/src/SocketCopyingInputStream.cpp,
+	  /pkg/src/rpc_over_http.cpp, /pkg/src/rprotobuf.h: added
+	  RpcHTTP@root slot, and CodedInputStream class
+
+2009-12-10  Romain Francois <francoisromain@free.fr>
+
+	* [r220] /pkg/inst/proto/helloworld.proto,
+	  /pkg/src/DescriptorPoolLookup.cpp,
+	  /pkg/src/DescriptorPoolLookup.h, /pkg/src/lookup.cpp,
+	  /pkg/src/methods.cpp, /pkg/src/read.cpp,
+	  /pkg/src/rpc_over_http.cpp, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: now using runtime descriptors correctly
+
+	* [r219] /java/build.xml, /java/proto/helloworld.proto,
+	  /java/src/org/rproject/rprotobuf/HelloWorldInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufHandler.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodPool.java: added
+	  hello world example
+
+	* [r218] /java/src/org/rproject/rprotobuf/EchoInvoker.java,
+	  /java/src/org/rproject/rprotobuf/MethodImplementation.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodPool.java: added
+	  annotation (not used yet)
+
+	* [r217] /java/build.xml, /java/proto,
+	  /java/proto/addressbook.proto,
+	  /java/src/org/rproject/rprotobuf/EchoInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodPool.java: more
+	  generic java code
+
+2009-12-09  Romain Francois <francoisromain@free.fr>
+
+	* [r216] /java/start.sh: added convenience start script for the
+	  java server
+
+	* [r215] /java/src/org/rproject/rprotobuf/ProtobufMethodPool.java:
+	  more flexible java server code
+
+	* [r214] /java/README, /java/build.xml, /java/lib,
+	  /java/lib/protobuf-java-2.2.0.jar,
+	  /java/src/org/rproject/rprotobuf/EchoInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufHandler.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodPool.java,
+	  /pkg/inst/proto/addressbook.proto: more flexible java server code
+
+	* [r213] /java/README,
+	  /java/src/org/rproject/rprotobuf/ProtobufHandler.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufHttpServer.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodInvoker.java,
+	  /java/src/org/rproject/rprotobuf/ProtobufMethodPool.java,
+	  /pkg/src/rpc_over_http.cpp: functional rpc over http R client and
+	  java server
+
+2009-12-08  Romain Francois <francoisromain@free.fr>
+
+	* [r212] /pkg/src/channel.cpp[DEL], /pkg/src/rpc_over_http.cpp,
+	  /pkg/src/rprotobuf.h: started to work on rpc over http
+
+	* [r211] /java, /java/build.properties, /java/build.xml, /java/src,
+	  /java/src/org, /java/src/org/rproject,
+	  /java/src/org/rproject/rprotobuf,
+	  /java/src/org/rproject/rprotobuf/ProtobufHttpServer.java: added
+	  dummy java rpc over http server
+
+	* [r210] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/rpc.R,
+	  /pkg/man/RpcHTTP-class.Rd, /pkg/man/invokeLocally.Rd: added
+	  invoke, removed invokeLocally, added RpcHTTP class to represent
+	  the rpc over http protocol
+
+2009-12-08  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r209] /pkg/R/listPeople.R, /pkg/src/clear_person_R.cpp,
+	  /pkg/src/list_people_R.cpp: minor robustification against empty
+	  addressbook file
+
+2009-12-06  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r208] /pkg/NAMESPACE, /pkg/R/addPerson.R, /pkg/man/addPerson.Rd,
+	  /pkg/src/clear_person_R.cpp: added clearPerson() support with
+	  kudos to Romain as usual :)
+
+2009-12-06  Romain Francois <francoisromain@free.fr>
+
+	* [r207] /pkg/inst/proto/protobufrpc.proto[DEL]: not using
+	  protobuf-rpc anymore
+
+	* [r206] /pkg/src/DescriptorPoolLookup.cpp,
+	  /pkg/src/EnumDescriptor_wrapper.cpp,
+	  /pkg/src/FieldDescriptor_wrapper.cpp, /pkg/src/Makevars.in,
+	  /pkg/src/RSourceTree.cpp, /pkg/src/RSourceTree.h,
+	  /pkg/src/RWarningErrorCollector.cpp,
+	  /pkg/src/RWarningErrorCollector.h,
+	  /pkg/src/RconnectionCopyingInputStream.h,
+	  /pkg/src/ServiceDescriptor_wrapper.cpp,
+	  /pkg/src/SocketCopyingInputStream.h, /pkg/src/add.cpp,
+	  /pkg/src/as.cpp, /pkg/src/ascharacter.cpp, /pkg/src/aslist.cpp,
+	  /pkg/src/channel.cpp, /pkg/src/clear.cpp, /pkg/src/clone.cpp,
+	  /pkg/src/completion.cpp, /pkg/src/constructors.cpp,
+	  /pkg/src/containing_type.cpp, /pkg/src/extractors.cpp,
+	  /pkg/src/field_count.cpp, /pkg/src/fileDescriptor.cpp,
+	  /pkg/src/has.cpp, /pkg/src/identical.cpp,
+	  /pkg/src/initialized.cpp, /pkg/src/length.cpp,
+	  /pkg/src/lookup.cpp, /pkg/src/merge.cpp, /pkg/src/methods.cpp,
+	  /pkg/src/mutators.cpp, /pkg/src/name.cpp, /pkg/src/read.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h,
+	  /pkg/src/serialize.cpp, /pkg/src/set.cpp, /pkg/src/size.cpp,
+	  /pkg/src/swap.cpp: not using using
+
+	* [r205] /pkg/src/RTcpChannel.cpp[DEL]: removing
+
+	* [r204] /pkg/src/RTcpChannel.h[DEL]: removing
+
+	* [r203] /pkg/src/RTcpChannel.cpp: ùù
+
+	* [r202] /pkg/src/RTcpChannel.h: ùù
+
+	* [r201] /pkg/DESCRIPTION, /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/EnumDescriptor_wrapper.R,
+	  /pkg/R/EnumValueDescriptor_wrapper.R,
+	  /pkg/R/FieldDescriptor_wrapper.R,
+	  /pkg/R/MethodDescriptor_wrapper.R,
+	  /pkg/R/ServiceDescriptor_wrapper.R, /pkg/R/add.R,
+	  /pkg/R/aslist.R, /pkg/R/clear.R, /pkg/R/clone.R,
+	  /pkg/R/completion.R, /pkg/R/containing_type.R,
+	  /pkg/R/debug_string.R, /pkg/R/descriptor.R, /pkg/R/exceptions.R,
+	  /pkg/R/field_count.R, /pkg/R/has.R, /pkg/R/identical.R,
+	  /pkg/R/initialized.R, /pkg/R/merge.R, /pkg/R/read.R,
+	  /pkg/R/rpc.R, /pkg/R/serialize.R, /pkg/R/set.R, /pkg/R/size.R,
+	  /pkg/R/swap.R, /pkg/R/with.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/P.Rd, /pkg/man/RProtoBuf-package.Rd, /pkg/man/add.Rd,
+	  /pkg/man/asMessage.Rd, /pkg/man/aslist.Rd, /pkg/man/bytesize.Rd,
+	  /pkg/man/clear.Rd, /pkg/man/clone.Rd, /pkg/man/completion.Rd,
+	  /pkg/man/containing_type-methods.Rd, /pkg/man/descriptor.Rd,
+	  /pkg/man/enum_type.Rd, /pkg/man/enum_type_count.Rd,
+	  /pkg/man/fetch.Rd, /pkg/man/field.Rd, /pkg/man/field_count.Rd,
+	  /pkg/man/fileDescriptor.Rd, /pkg/man/has.Rd,
+	  /pkg/man/invokeLocally.Rd, /pkg/man/isInitialized.Rd,
+	  /pkg/man/is_extension.Rd, /pkg/man/label.Rd, /pkg/man/merge.Rd,
+	  /pkg/man/name.Rd, /pkg/man/nested_type.Rd,
+	  /pkg/man/nested_type_count.Rd, /pkg/man/number.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd,
+	  /pkg/man/protobufEnumDescriptor-class.Rd,
+	  /pkg/man/protobufEnumValueDescriptor-class.Rd,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/man/protobufFileDescriptor-class.Rd,
+	  /pkg/man/protobufMessage-class.Rd,
+	  /pkg/man/protobufMethodDescriptor-class.Rd,
+	  /pkg/man/protobufServiceDescriptor-class.Rd, /pkg/man/read.Rd,
+	  /pkg/man/set.Rd, /pkg/man/size.Rd, /pkg/man/sizegets.Rd,
+	  /pkg/man/swap.Rd, /pkg/man/type.Rd, /pkg/man/with.Rd,
+	  /pkg/src/add.cpp, /pkg/src/constructors.cpp,
+	  /pkg/src/extractors.cpp, /pkg/src/lookup.cpp, /pkg/src/merge.cpp,
+	  /pkg/src/mutators.cpp, /pkg/src/read.cpp, /pkg/src/rprotobuf.cpp:
+	  removing the protobuf prefix of the S4 classes
+
+2009-12-05  Romain Francois <francoisromain@free.fr>
+
+	* [r200] /pkg/NAMESPACE, /pkg/R/MethodDescriptor_wrapper.R,
+	  /pkg/R/completion.R, /pkg/R/rpc.R,
+	  /pkg/man/protobufMethodDescriptor-class.Rd: +
+	  {in,out}put_type.MethodDescriptor
+
+	* [r199] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/ServiceDescriptor_wrapper.R, /pkg/R/completion.R,
+	  /pkg/man/protobufServiceDescriptor-class.Rd: +
+	  method.ServiceDescriptor
+
+	* [r198] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/EnumValueDescriptor_wrapper.R,
+	  /pkg/R/ServiceDescriptor_wrapper.R,
+	  /pkg/man/protobufServiceDescriptor-class.Rd,
+	  /pkg/src/ServiceDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h:
+	  added some methods for ServiceDescriptor
+
+	* [r197] /pkg/R/EnumDescriptor_wrapper.R,
+	  /pkg/man/protobufEnumValueDescriptor-class.Rd: added
+	  EnumValueDescriptor class
+
+	* [r196] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/EnumDescriptor_wrapper.R,
+	  /pkg/R/FieldDescriptor_wrapper.R, /pkg/R/completion.R,
+	  /pkg/R/debug_string.R, /pkg/R/field_count.R,
+	  /pkg/man/protobufDescriptor-class.Rd,
+	  /pkg/man/protobufEnumDescriptor-class.Rd,
+	  /pkg/man/protobufEnumValueDescriptor-class.Rd,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/src/EnumDescriptor_wrapper.cpp, /pkg/src/as.cpp,
+	  /pkg/src/ascharacter.cpp, /pkg/src/constructors.cpp,
+	  /pkg/src/rprotobuf.h: added EnumValueDescriptor class
+
+2009-12-05  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r195] /pkg/inst/doc/RProtoBuf.Rnw: added some stuff near the
+	  beginning about 'static' use which motivates the dynamic use
+	  nicely some spit and polish for intro as well
+
+2009-12-04  Romain Francois <francoisromain@free.fr>
+
+	* [r194] /pkg/R/00classes.R,
+	  /pkg/man/protobufEnumDescriptor-class.Rd,
+	  /pkg/src/EnumDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h:
+	  +length.protobufEnumDescriptor
+
+	* [r193] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/FieldDescriptor_wrapper.R, /pkg/R/completion.R,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/src/FieldDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h:
+	  +{message,enum}_type.FieldDescriptor
+
+	* [r192] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/FieldDescriptor_wrapper.R,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/src/FieldDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h: +
+	  {has_default_value,default_value}.FieldDescriptor~
+
+	* [r191] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/FieldDescriptor_wrapper.R, /pkg/R/completion.R,
+	  /pkg/man/label.Rd, /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/src/FieldDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h:
+	  +{label,is_repeated,is_required,is_optional}.FieldDescriptor
+
+	* [r190] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/FieldDescriptor_wrapper.R, /pkg/R/completion.R,
+	  /pkg/man/protobufFieldDescriptor-class.Rd, /pkg/man/type.Rd,
+	  /pkg/src/FieldDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h:
+	  +{type.cpp_type}.FieldDescriptor
+
+	* [r189] /pkg/src/FieldDescriptor_wrapper.cpp,
+	  /pkg/src/rprotobuf.h: +number.FieldDescriptor
+
+	* [r188] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/FieldDescriptor_wrapper.R, /pkg/R/completion.R,
+	  /pkg/man/number.Rd, /pkg/man/protobufFieldDescriptor-class.Rd:
+	  +number.FieldDescriptor
+
+	* [r187] /pkg/TODO: updated TODO
+
+	* [r186] /pkg/R/field_count.R: minor fix
+
+	* [r185] /pkg/NAMESPACE, /pkg/R/FieldDescriptor_wrapper.R,
+	  /pkg/R/field_count.R, /pkg/man/is_extension.Rd,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/src/FieldDescriptor_wrapper.cpp, /pkg/src/rprotobuf.h: +
+	  is_extension.FieldDescriptor
+
+	* [r184] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/field_count.R, /pkg/man/enum_type.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd, /pkg/src/field_count.cpp,
+	  /pkg/src/rprotobuf.h: + enum_type.Descriptor method
+
+2009-12-03  Romain Francois <francoisromain@free.fr>
+
+	* [r183] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/field_count.R, /pkg/man/nested_type.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd, /pkg/src/field_count.cpp,
+	  /pkg/src/rprotobuf.h: +nested_type.Descriptor method
+
+	* [r182] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/field_count.R, /pkg/man/enum_type_count.Rd,
+	  /pkg/man/field.Rd, /pkg/man/protobufDescriptor-class.Rd,
+	  /pkg/src/field_count.cpp, /pkg/src/rprotobuf.h: added
+	  field.Descriptor method
+
+	* [r181] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/field_count.R, /pkg/man/nested_type_count.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd, /pkg/src/field_count.cpp,
+	  /pkg/src/rprotobuf.h: nested_type_count.protobufDescriptor
+
+	* [r180] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/field_count.R, /pkg/man/field_count.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd, /pkg/src/field_count.cpp,
+	  /pkg/src/rprotobuf.h: + field_count.protobufDescriptor method
+
+	* [r179] /pkg/DESCRIPTION: added BugReports description field
+
+	* [r178] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/containing_type.R, /pkg/man/containing_type-methods.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd,
+	  /pkg/man/protobufEnumDescriptor-class.Rd,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/src/containing_type.cpp, /pkg/src/rprotobuf.h: added
+	  containing_type.protobuf{Descriptor,FieldDescriptor,EnumDescriptor}
+
+2009-12-03  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r177] /pkg/NAMESPACE, /pkg/R/addPerson.R, /pkg/man/addPerson.Rd,
+	  /pkg/man/listPeople.Rd, /pkg/src/add_person_R.cpp: added simple
+	  addPerson() R function, manual page and C++ implementation
+
+2009-12-02  Romain Francois <francoisromain@free.fr>
+
+	* [r176] /pkg/src/initialized.cpp: isInitialized gains the names of
+	  the fields that are not initialized
+
+	* [r175] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/inst/doc/RProtoBuf.Rnw, /pkg/man/asMessage.Rd,
+	  /pkg/src/as.cpp, /pkg/src/rprotobuf.h: added asMessage function
+
+	* [r174] /pkg/NAMESPACE, /pkg/man/throw.Rd[DEL],
+	  /pkg/src/exceptions.cpp: throw not exported anymore
+
+	* [r173] /pkg/man/protobufFileDescriptor-class.Rd: added
+	  name.protobufFileDescriptor
+
+	* [r172] /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/src/name.cpp, /pkg/src/rprotobuf.h: added more
+	  fileDescriptor methods
+
+	* [r171] /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/descriptor.R, /pkg/R/rpc.R, /pkg/man/fileDescriptor.Rd,
+	  /pkg/src/fileDescriptor.cpp, /pkg/src/rprotobuf.h: added more
+	  fileDescriptor methods
+
+	* [r170] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/aslist.R,
+	  /pkg/man/aslist.Rd, /pkg/man/protobufServiceDescriptor-class.Rd,
+	  /pkg/src/aslist.cpp, /pkg/src/completion.cpp,
+	  /pkg/src/rprotobuf.h: added as.list.protobufServiceDescriptor
+
+	* [r169] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/rpc.R, /pkg/man/completion.Rd,
+	  /pkg/man/protobufServiceDescriptor-class.Rd,
+	  /pkg/src/extractors.cpp, /pkg/src/rprotobuf.h: misc
+
+	* [r168] /pkg/R/00classes.R, /pkg/man/name.Rd, /pkg/src/name.cpp,
+	  /pkg/src/rprotobuf.h: more name methods
+
+	* [r167] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/inst/doc/RProtoBuf.Rnw, /pkg/man/name.Rd,
+	  /pkg/man/protobufServiceDescriptor-class.Rd, /pkg/src/name.cpp,
+	  /pkg/src/rprotobuf.h: added name method and implementations for
+	  Decriptor and FieldDescriptor
+
+2009-12-01  Romain Francois <francoisromain@free.fr>
+
+	* [r166] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/aslist.R,
+	  /pkg/R/completion.R, /pkg/man/aslist.Rd, /pkg/man/completion.Rd,
+	  /pkg/man/protobufFileDescriptor-class.Rd, /pkg/src/aslist.cpp,
+	  /pkg/src/completion.cpp, /pkg/src/rprotobuf.h: added
+	  as.list.protobufFileDescriptor
+
+	* [r165] /pkg/R/debug_string.R, /pkg/src/ascharacter.cpp,
+	  /pkg/src/rprotobuf.h: completion, toString, as.character for
+	  protobufFileDescriptor
+
+	* [r164] /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/man/completion.Rd, /pkg/man/protobufFileDescriptor-class.Rd:
+	  completion, toString, as.character for protobufFileDescriptor
+
+	* [r163] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/descriptor.R, /pkg/R/rpc.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/fileDescriptor.Rd,
+	  /pkg/man/protobufFileDescriptor-class.Rd,
+	  /pkg/src/constructors.cpp, /pkg/src/fileDescriptor.cpp,
+	  /pkg/src/rprotobuf.h: added protobufFileDescriptor S4 class +
+	  fileDescriptor method
+
+2009-11-30  Romain Francois <francoisromain@free.fr>
+
+	* [r162] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/rpc.R,
+	  /pkg/src/RTcpChannel.cpp, /pkg/src/RTcpChannel.h,
+	  /pkg/src/SocketCopyingInputStream.cpp,
+	  /pkg/src/SocketCopyingInputStream.h, /pkg/src/channel.cpp,
+	  /pkg/src/rprotobuf.h: playing with sockets
+
+2009-11-23  Romain Francois <francoisromain@free.fr>
+
+	* [r161] /www/index.php: update the page
+
+2009-11-22  Romain Francois <francoisromain@free.fr>
+
+	* [r160] /pkg/src/RTcpChannel.cpp, /pkg/src/RTcpChannel.h:
+
+	* [r159] /pkg/src/sisocks.h: added sisocks.h header from Rserve
+
+	* [r158] /pkg/src/Makevars.in, /pkg/src/RTcpChannel.cpp,
+	  /pkg/src/RTcpChannel.h: slowly putting things in place for rpc
+	  (inspired from the protobuf-rpc project)
+
+	* [r157] /pkg/src/serialize.cpp: discovered the SerializeToArray
+	  method, simplify code
+
+	* [r156] /pkg/src/mutators.cpp, /pkg/src/rprotobuf.h,
+	  /pkg/src/serialize.cpp: allow messages as input of string and
+	  bytes fields
+
+	* [r155] /pkg/inst/proto/protobufrpc.proto, /pkg/src: added proto
+	  file from protobufrpc project
+
+	* [r154] /pkg/R/set.R, /pkg/src/Makevars.in, /pkg/src/mutators.cpp:
+	  allow raw vector as input of string or bytes fields
+
+2009-11-21  Romain Francois <francoisromain@free.fr>
+
+	* [r153] /www/index.php: start to make the project page
+
+	* [r152] /pkg/DESCRIPTION: suggesting svUnit (unit tests)
+
+	* [r151] /pkg/inst/doc, /pkg/inst/doc/RProtoBuf-unitTests.Rnw:
+	  added (empty) unit test vignette
+
+	* [r150] /pkg/inst/doc/RProtoBuf.Rnw: update the main vignette to
+	  show reading from payload
+
+	* [r149] /pkg/R/read.R, /pkg/R/serialize.R, /pkg/man/read.Rd,
+	  /pkg/src/read.cpp, /pkg/src/rprotobuf.h: reading messages from
+	  raw vector (payload)
+
+	* [r148] /pkg/NEWS, /pkg/R/read.R: open the connection at start on
+	  read
+
+2009-11-18  Romain Francois <francoisromain@free.fr>
+
+	* [r147] /pkg/inst/proto/addressbook.proto: for the quickref
+	  vignette in one page
+
+2009-11-18  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r146] /pkg/cleanup: also remove temp files for quickref vignette
+
+2009-11-17  Romain Francois <francoisromain@free.fr>
+
+	* [r145] /pkg/src/mutators.cpp, /pkg/src/size.cpp,
+	  /pkg/src/swap.cpp: removed the conditional compiling for protobuf
+	  2.1
+
+	* [r144] /pkg/man/invokeLocally.Rd,
+	  /pkg/man/protobufMethodDescriptor-class.Rd,
+	  /pkg/man/protobufServiceDescriptor-class.Rd: pleasing R CMD check
+
+2009-11-16  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r143] /pkg/configure, /pkg/configure.in: further improvements to
+	  configure via pkg-config
+
+	* [r142] /pkg/cleanup: let cleanup nuke a few LaTeX files
+
+2009-11-16  Romain Francois <francoisromain@free.fr>
+
+	* [r141] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/debug_string.R,
+	  /pkg/R/rpc.R, /pkg/TODO, /pkg/inst/proto/addressbook.proto,
+	  /pkg/man/protobufMethodDescriptor-class.Rd,
+	  /pkg/man/protobufServiceDescriptor-class.Rd,
+	  /pkg/src/ascharacter.cpp, /pkg/src/constructors.cpp,
+	  /pkg/src/lookup.cpp, /pkg/src/methods.cpp, /pkg/src/read.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: starting to play
+	  with (local) rpc services
+
+2009-11-16  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r140] /pkg/configure: updated configure
+
+	* [r139] /pkg/DESCRIPTION, /pkg/configure.in: updated configure.in
+	  to use pkg-config updated DESCRIPTON
+
+2009-11-16  Romain Francois <francoisromain@free.fr>
+
+	* [r138] /pkg/inst/doc:
+
+	* [r137] /pkg/inst/doc/RProtoBuf-quickref.Rnw: added quick ref
+	  vignette
+
+	* [r136] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/add.R,
+	  /pkg/R/completion.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/add.Rd, /pkg/src/add.cpp, /pkg/src/mutators.cpp,
+	  /pkg/src/rprotobuf.h: added add method to add values to a
+	  repeated field
+
+2009-11-14  Romain Francois <francoisromain@free.fr>
+
+	* [r135] /pkg/NAMESPACE, /pkg/R/identical.R,
+	  /pkg/inst/doc/RProtoBuf.Rnw, /pkg/man/protobufMessage-class.Rd,
+	  /pkg/src/identical.cpp, /pkg/src/rprotobuf.h: added all.equal
+
+	* [r134] /pkg/DESCRIPTION, /pkg/man/RProtoBuf-package.Rd: updated
+	  DESCRIPTION and package help page
+
+	* [r133] /pkg/R/identical.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/protobufMessage-class.Rd: added == and !=
+
+	* [r132] /pkg/NAMESPACE, /pkg/R/identical.R,
+	  /pkg/inst/doc/RProtoBuf.Rnw, /pkg/man/protobufMessage-class.Rd,
+	  /pkg/src/identical.cpp, /pkg/src/rprotobuf.h: added identical
+	  method to compare two messages
+
+	* [r131] /pkg/inst/doc/RProtoBuf.Rnw: some more vignette content
+
+2009-11-13  Romain Francois <francoisromain@free.fr>
+
+	* [r130] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/debug_string.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/protobufDescriptor-class.Rd,
+	  /pkg/man/protobufEnumDescriptor-class.Rd,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/man/protobufMessage-class.Rd: added toString as an alias to
+	  as.character
+
+	* [r129] /pkg/inst/doc/RProtoBuf.Rnw: some more vignette content
+
+	* [r128] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/set.R,
+	  /pkg/inst/doc/RProtoBuf.Rnw, /pkg/man/fetch.Rd,
+	  /pkg/src/extractors.cpp, /pkg/src/rprotobuf.h, /pkg/src/set.cpp:
+	  added fetch method
+
+	* [r127] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/set.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/completion.Rd, /pkg/man/set.Rd, /pkg/src/mutators.cpp,
+	  /pkg/src/rprotobuf.h: added set method
+
+2009-11-13  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r126] /pkg/inst/doc/RProtoBuf.Rnw: a few more updates
+
+	* [r125] /pkg/inst/doc/RProtoBuf.Rnw: few small updates and tweaks
+
+	* [r124] /pkg/DESCRIPTION: updated DESCRIPTION
+
+2009-11-12  Romain Francois <francoisromain@free.fr>
+
+	* [r123] /pkg/inst/doc/RProtoBuf.Rnw: some more vignette content
+
+	* [r122] /pkg/R/00classes.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/protobufFieldDescriptor-class.Rd, /pkg/src/rprotobuf.h:
+	  added $ for protobufFieldDescriptor (for completeness)
+
+	* [r121] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/descriptor.R, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/man/descriptor.Rd, /pkg/src/extractors.cpp: added descriptor
+	  method
+
+	* [r120] /pkg/R/internals.R, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: added (unexported) function
+	  getProtobufLibVersion
+
+	* [r119] /pkg/src/mutators.cpp: use the correct version for the
+	  test #if GOOGLE_PROTOBUF_VERSION < 200200
+
+	* [r118] /pkg/src/mutators.cpp: use the correct version for the
+	  test #if GOOGLE_PROTOBUF_VERSION < 200200
+
+	* [r117] /pkg/inst/doc/RProtoBuf.Rnw: no hardcoding Sweave location
+
+	* [r116] /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/inst/doc/RProtoBuf.Rnw: some more vignette content
+
+2009-11-12  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r115] /pkg/src/mutators.cpp: make -Wall happy by commenting out
+	  one var, and providing more switch targets
+
+2009-11-12  Romain Francois <francoisromain@free.fr>
+
+	* [r114] /pkg/inst/doc/RProtoBuf.Rnw: some more vignette content
+
+	* [r113] /pkg/inst/doc/RProtoBuf.Rnw, /pkg/src/size.cpp,
+	  /pkg/src/swap.cpp: correct swaping messages with 2.1 libproto
+
+	* [r112] /pkg/R/00classes.R, /pkg/R/completion.R, /pkg/R/swap.R,
+	  /pkg/demo/addressbook.R, /pkg/inst/doc/RProtoBuf.Rnw: make swap
+	  use 1-based indexing
+
+	* [r111] /pkg/R/00classes.R, /pkg/inst/doc/RProtoBuf.Rnw: some more
+	  content on the vignette
+
+	* [r110] /pkg/src/rprotobuf.cpp: added some code to control which
+	  version of the libprotobuf we require (currently 2.1, but will be
+	  2.2 soon)
+
+	* [r109] /pkg/DESCRIPTION, /pkg/NAMESPACE, /pkg/R/zzz.R,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: added some code to
+	  control which version of the libprotobuf we require (currently
+	  2.1, but will be 2.2 soon)
+
+	* [r108] /pkg/inst/doc, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/src/mutators.cpp, /pkg/src/size.cpp, /pkg/src/swap.cpp:
+	  added some conditional compiling to make it work with libprotobuf
+	  < 2.2
+
+2009-11-11  Romain Francois <francoisromain@free.fr>
+
+	* [r107] /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/inst/proto/addressbook.proto: some more content for the
+	  vignette
+
+	* [r106] /pkg/inst/doc/RProtoBuf.tex[DEL]: removed tex file
+
+	* [r105] /pkg/inst/doc, /pkg/inst/doc/RProtoBuf.Rnw,
+	  /pkg/inst/doc/RProtoBuf.tex, /pkg/inst/proto/addressbook.proto:
+	  started vignette
+
+	* [r104] /pkg/DESCRIPTION: Rcpp >= 0.6.8
+
+2009-11-10  Romain Francois <francoisromain@free.fr>
+
+	* [r103] /pkg/R/swap.R, /pkg/demo/addressbook.R: some more code in
+	  demo
+
+	* [r102] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/swap.R, /pkg/man/swap.Rd, /pkg/src/clear.cpp,
+	  /pkg/src/rprotobuf.h, /pkg/src/swap.cpp: added swap
+
+	* [r101] /pkg/R/00classes.R, /pkg/R/clear.R, /pkg/R/completion.R,
+	  /pkg/man/clear.Rd, /pkg/src/clear.cpp, /pkg/src/rprotobuf.h,
+	  /pkg/src/size.cpp: added field argument to clear
+
+	* [r100] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/size.R,
+	  /pkg/man/size.Rd, /pkg/man/sizegets.Rd, /pkg/src/rprotobuf.h,
+	  /pkg/src/size.cpp: + size<-
+
+	* [r99] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/size.R,
+	  /pkg/man/size.Rd, /pkg/src/mutators.cpp, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h, /pkg/src/size.cpp: added size method
+
+	* [r98] /pkg/src/mutators.cpp: minot tweaks
+
+	* [r97] /pkg/src/mutators.cpp: fail mutation before resizing
+
+	* [r96] /pkg/src/mutators.cpp, /pkg/src/rprotobuf.h: nicer and more
+	  efficient mutator code (discovered Reflection->RemoveLast method)
+
+	* [r95] /pkg/R/00classes.R: using a switch in $
+
+	* [r94] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/clear.R,
+	  /pkg/man/clear.Rd, /pkg/src/aslist.cpp, /pkg/src/clear.cpp,
+	  /pkg/src/mutators.cpp, /pkg/src/rprotobuf.h: added clear method
+
+	* [r93] /pkg/src/RWarningErrorCollector.cpp,
+	  /pkg/src/RWarningErrorCollector.h, /pkg/src/rprotobuf.cpp:
+	  properly implement MultiFileErrorCollector to send an R warning
+	  instead of printing stuff to cout
+
+	* [r92] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/man/protobufMessage-class.Rd, /pkg/src/extractors.cpp,
+	  /pkg/src/mutators.cpp: added [[ and [[<- methods for messages
+	  using the declared tag number
+
+2009-11-09  Romain Francois <francoisromain@free.fr>
+
+	* [r91] /pkg/src/DescriptorPoolLookup.cpp,
+	  /pkg/src/DescriptorPoolLookup.h, /pkg/src/lookup.cpp,
+	  /pkg/src/rprotobuf.cpp: maintain list of currently known types in
+	  attached DescriptorPool
+
+2009-11-09  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r90] /pkg/src/list_people_R.cpp: remove RcppList implementation
+	  which we now get from Rcpp (>= 0.6.7)
+
+2009-11-09  Romain Francois <francoisromain@free.fr>
+
+	* [r89] /pkg/src/rprotobuf.cpp: using RSourceTree instead of
+	  DiskSourceTree
+
+	* [r88] /pkg/src/RSourceTree.cpp, /pkg/src/RSourceTree.h: adding a
+	  simple SourceTree implementation
+
+	* [r87] /pkg/DESCRIPTION, /pkg/man/RProtoBuf-package.Rd: required
+	  Rcpp >= 0.6.7
+
+	* [r86] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/initialized.R, /pkg/man/isInitialized.Rd,
+	  /pkg/man/protobufMessage-class.Rd, /pkg/src/initialized.cpp,
+	  /pkg/src/rprotobuf.h: added isInitialized method
+
+	* [r85] /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/man/protobufMessage-class.Rd, /pkg/src/length.cpp,
+	  /pkg/src/rprotobuf.h: added length method for messages
+
+	* [r84] /pkg/R/internals.R: minor
+
+	* [r83] /pkg/NAMESPACE, /pkg/R/size.R, /pkg/demo/io.R,
+	  /pkg/man/RProtoBuf-package.Rd, /pkg/man/bytesize.Rd,
+	  /pkg/src/rprotobuf.h, /pkg/src/size.cpp: added bytesize method
+
+	* [r82] /pkg/TODO, /pkg/demo/00Index, /pkg/demo/addressbook.R,
+	  /pkg/demo/io.R, /pkg/src/RconnectionCopyingInputStream.cpp: added
+	  io demo showing how to use binary connections to read and write
+	  messages
+
+2009-11-08  Romain Francois <francoisromain@free.fr>
+
+	* [r81] /pkg/src/RconnectionCopyingInputStream.cpp: minor doc
+	  tweaks
+
+	* [r80] /pkg/src/RconnectionCopyingInputStream.cpp,
+	  /pkg/src/RconnectionCopyingInputStream.h: factoring out
+	  getReadBinCall
+
+	* [r79] /pkg/src/RconnectionCopyingInputStream.cpp: minor doc
+	  tweaks
+
+	* [r78] /pkg/R/read.R, /pkg/src/RconnectionCopyingInputStream.cpp,
+	  /pkg/src/RconnectionCopyingInputStream.h, /pkg/src/read.cpp,
+	  /pkg/src/rprotobuf.h: reading from binary connections
+
+	* [r77] /pkg/R/read.R, /pkg/R/serialize.R, /pkg/man/read.Rd,
+	  /pkg/src/read.cpp, /pkg/src/serialize.cpp: silence R CMD check
+
+2009-11-08  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r76] /pkg/man/protobufMessage-class.Rd: small correction to tail
+	  of example
+
+	* [r75] /pkg/src/rprotobuf.h: make it work with version 2.1 of
+	  ProtoBuf
+
+2009-11-08  Romain Francois <francoisromain@free.fr>
+
+	* [r74] /pkg/man/protobufMessage-class.Rd: minor doc tweaks
+
+	* [r73] /pkg/R/serialize.R, /pkg/man/protobufMessage-class.Rd:
+	  minor doc tweaks
+
+	* [r72] /pkg/R/serialize.R, /pkg/src/rprotobuf.h,
+	  /pkg/src/serialize.cpp: workaround for serializing to binary
+	  connections
+
+	* [r71] /pkg/R/serialize.R, /pkg/src/connections.h,
+	  /pkg/src/read.cpp, /pkg/src/rprotobuf.h, /pkg/src/serialize.cpp:
+	  use partial on serialize and parse to allow message lacking
+	  required fields
+
+2009-11-07  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r70] /pkg/DESCRIPTION: finally set Date svn property on this to
+	  have the Date filled in automatically
+
+2009-11-06  Romain Francois <francoisromain@free.fr>
+
+	* [r69] /pkg/R/serialize.R, /pkg/man/protobufMessage-class.Rd,
+	  /pkg/src/read.cpp, /pkg/src/rprotobuf.h, /pkg/src/serialize.cpp:
+	  serialize message to a file
+
+	* [r68] /pkg/man/read.Rd: mention the read pseudi method
+
+	* [r67] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/completion.R,
+	  /pkg/R/read.R, /pkg/man/read.Rd, /pkg/src/read.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: reading messages
+	  from files
+
+2009-11-05  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r66] /pkg/src/Makevars.in: simplification in that we no longer
+	  need to list all .cpp files as dependants
+
+2009-11-05  Romain Francois <francoisromain@free.fr>
+
+	* [r65] /pkg/TODO: added services to the TODO list
+
+	* [r64] /pkg/DESCRIPTION: added more urls and a MailingList field
+
+2009-11-05  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r63] /pkg/demo/00Index: make 'R CMD check' happy
+
+	* [r62] /pkg/src/Makevars.in: adjusted Makevars.in for
+	  addressbook.proto in inst/proto/
+
+	* [r61] /pkg/inst/proto/addressbook.proto[CPY],
+	  /pkg/src/addressbook.proto[DEL]: moved addressbook.proto from
+	  src/ to inst/proto/
+
+	* [r60] /pkg/inst/examples/addressbook.proto[DEL],
+	  /pkg/inst/proto/addressbook.proto[DEL]: removed two extra
+	  addressbook.proto files
+
+2009-11-05  Romain Francois <francoisromain@free.fr>
+
+	* [r59] /pkg/NAMESPACE, /pkg/R/merge.R, /pkg/demo/00Index,
+	  /pkg/man/merge.Rd, /pkg/src/Makevars.in, /pkg/src/merge.cpp,
+	  /pkg/src/rprotobuf.h: + merge
+
+	* [r58] /pkg/R/clone.R: added clone
+
+2009-11-04  Romain Francois <francoisromain@free.fr>
+
+	* [r57] /pkg/demo, /pkg/demo/addressbook.R: added demo file
+
+2009-11-04  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r56] /pkg/src/aslist.cpp, /pkg/src/mutators.cpp,
+	  /pkg/src/update.cpp: commented-out two unused variables and
+	  init'ed another, all to make 'g++ -Wall'
+
+2009-11-04  Romain Francois <francoisromain@free.fr>
+
+	* [r55] /pkg/TODO: added TODO
+
+	* [r54] /pkg/DESCRIPTION, /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/R/aslist.R, /pkg/R/completion.R, /pkg/R/debug_string.R,
+	  /pkg/R/has.R, /pkg/R/with.R, /pkg/man/P.Rd,
+	  /pkg/man/RProtoBuf-package.Rd, /pkg/man/aslist.Rd,
+	  /pkg/man/clone.Rd, /pkg/man/completion.Rd, /pkg/man/has.Rd,
+	  /pkg/man/protobufDescriptor-class.Rd,
+	  /pkg/man/protobufEnumDescriptor-class.Rd,
+	  /pkg/man/protobufFieldDescriptor-class.Rd,
+	  /pkg/man/protobufMessage-class.Rd, /pkg/man/with.Rd,
+	  /pkg/src/Makevars.in, /pkg/src/ascharacter.cpp,
+	  /pkg/src/aslist.cpp, /pkg/src/clone.cpp, /pkg/src/completion.cpp,
+	  /pkg/src/connections.h, /pkg/src/constructors.cpp,
+	  /pkg/src/exceptions.cpp, /pkg/src/extractors.cpp,
+	  /pkg/src/has.cpp, /pkg/src/lookup.cpp, /pkg/src/mutators.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h,
+	  /pkg/src/serialize.cpp, /pkg/src/update.cpp: lots of updates.
+	  fully working mutators
+
+2009-11-02  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r53] /pkg/src/completion.cpp, /pkg/src/constructors.cpp,
+	  /pkg/src/exceptions.cpp, /pkg/src/extractors.cpp,
+	  /pkg/src/lookup.cpp, /pkg/src/mutators.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h,
+	  /pkg/src/serialize.cpp: switch from four namespace to just one
+
+	* [r52] /pkg/src/extractors.cpp: add default initialisation for
+	  SEXP to keep g++ -Wall happy
+
+2009-11-02  Romain Francois <francoisromain@free.fr>
+
+	* [r51] /pkg/src/Makevars.in, /pkg/src/constructors.cpp,
+	  /pkg/src/mutators.cpp, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: minimal implementation of mutators (only
+	  non-repeated fields atm)
+
+	* [r50] /pkg/R/zzz.R, /pkg/src/lookup.cpp, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: enable lookup mechanism (using full path
+	  for now)
+
+2009-11-01  Romain Francois <francoisromain@free.fr>
+
+	* [r49] /pkg/R/zzz.R: added readProtoFiles to simplify importing of
+	  proto definitions from package
+
+	* [r48] /pkg/NAMESPACE, /pkg/R/internals.R, /pkg/R/zzz.R,
+	  /pkg/inst/proto, /pkg/inst/proto/addressbook.proto,
+	  /pkg/man/readProtoFiles.Rd: added readProtoFiles to simplify
+	  importing of proto definitions from packages
+
+2009-10-31  Romain Francois <francoisromain@free.fr>
+
+	* [r47] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/man/throw.Rd:
+	  +Rd.throw
+
+	* [r46] /pkg/man/protobufFieldDescriptor-class.Rd:
+	  +Rd.protobufFieldDescriptor
+
+	* [r45] /pkg/man/protobufEnumDescriptor-class.Rd: added Rd for
+	  protobufEnumDescriptor
+
+	* [r44] /pkg/R/00classes.R, /pkg/man/protobufDescriptor-class.Rd:
+	  added protobufDescriptor type
+
+	* [r43] /pkg/man/protobufMessage-class.Rd: added Rd for
+	  protobufMessage class
+
+	* [r42] /pkg/NAMESPACE, /pkg/R/debug_string.R, /pkg/man/P.Rd,
+	  /pkg/man/listPeople.Rd, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: added Rd for P, implement as.character for
+	  protobufMessage and protobufDescriptor
+
+	* [r41] /pkg/src/constructors.cpp, /pkg/src/rprotobuf.cpp: minor
+	  fixes
+
+	* [r40] /pkg/NAMESPACE, /pkg/R/serialize.R, /pkg/src/Makevars.in,
+	  /pkg/src/rprotobuf.h, /pkg/src/serialize.cpp: hooks for serialize
+	  method for protobufMessage
+
+	* [r39] /pkg/NAMESPACE, /pkg/R/exceptions.R, /pkg/src/Makevars.in,
+	  /pkg/src/exceptions.cpp, /pkg/src/extractors.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: start playing with
+	  Exception handling, we need to call throwException instead of
+	  Rf_error in the c code
+
+2009-10-30  Romain Francois <francoisromain@free.fr>
+
+	* [r38] /pkg/R/exceptions.R, /pkg/src/extractors.cpp: extracting
+	  repeated fields, for now repeated messages are just returned as
+	  list of 'protobufMessage' objects
+
+	* [r37] /pkg/NAMESPACE, /pkg/R/completion.R, /pkg/src/Makevars.in,
+	  /pkg/src/completion.cpp, /pkg/src/constructors.cpp,
+	  /pkg/src/extractors.cpp, /pkg/src/rprotobuf.h: implemented
+	  completions for Messages (giving field names) and Descriptors
+	  (fields, enums and nested types)
+
+	* [r36] /pkg/src/constructors.cpp, /pkg/src/extractors.cpp,
+	  /pkg/src/fieldtypes.h, /pkg/src/rprotobuf.h: implement extraction
+	  of (almost) all types from messages with $ (missing ENUM type)
+
+	* [r35] /pkg/R/00classes.R, /pkg/src/Makevars.in,
+	  /pkg/src/extractors.cpp, /pkg/src/fieldtypes.h,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: prepare the field
+	  extraction
+
+	* [r34] /pkg/R/00classes.R, /pkg/src/constructors.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: implement
+	  new.protobufMessage that generates a new mutable Message using
+	  the generated Message factory
+
+	* [r33] /pkg/src/constructors.cpp: some more doc in
+	  constructors.cpp
+
+	* [r32] /pkg/R/internals.R, /pkg/src/constructors.cpp,
+	  /pkg/src/lookup.cpp, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: use R_NO_REMAP and Rf_ prefixes to avoid
+	  name clashes (install, error, ...)
+
+2009-10-29  Romain Francois <francoisromain@free.fr>
+
+	* [r31] /pkg/R/00classes.R, /pkg/R/internals.R,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: removed hard coded
+	  path
+
+	* [r30] /pkg/R/00classes.R, /pkg/src/constructors.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: added enum types to
+	  $.Descriptor
+
+	* [r29] /pkg/R/00classes.R: added $ extraction of nested types or
+	  fields by name
+
+	* [r28] /pkg/R/00classes.R, /pkg/src/constructors.cpp: added $
+	  extraction of nested types or fields by name
+
+	* [r27] /pkg/src/Makevars.in, /pkg/src/constructors.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: added $ extraction
+	  of nested types or fields by name
+
+	* [r26] /pkg/R/00classes.R, /pkg/src/rprotobuf.cpp: grab the
+	  descriptor from the pool in getProtobufDescriptor
+
+2009-10-29  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r25] /pkg/src/lookup.cpp: add two simple return() statements to
+	  make 'g++ -Wall' happy
+
+2009-10-29  Romain Francois <francoisromain@free.fr>
+
+	* [r24] /pkg/NAMESPACE, /pkg/R/00classes.R, /pkg/R/internals.R,
+	  /pkg/src/rprotobuf.cpp: grab the descriptor from the pool in
+	  getProtobufDescriptor
+
+	* [r23] /pkg/R/00classes.R, /pkg/R/internals.R,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: collect information
+	  about a proto file
+
+	* [r22] /pkg/src/lookup.cpp, /pkg/src/rprotobuf.h: objects returns
+	  character(0) instead of NULL, more consistent with attach(
+	  new.env() )
+
+	* [r21] /pkg/R/lookup.R, /pkg/src/Makevars.in, /pkg/src/lookup.cpp,
+	  /pkg/src/rprotobuf.cpp, /pkg/src/rprotobuf.h: added skeleton for
+	  lookup mechanism
+
+	* [r20] /pkg/DESCRIPTION, /pkg/NAMESPACE, /pkg/R/00classes.R,
+	  /pkg/src/Makevars.in, /pkg/src/rprotobuf.cpp,
+	  /pkg/src/rprotobuf.h: skeleton for R S4 classes representing
+	  proto messages as external pointers
+
+2009-10-27  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r19] /pkg/src/Makevars.in: add CXXPICFLAGS which is needed on
+	  amd64
+
+	* [r18] /pkg/src/list_people_R.cpp: corrected listPeopleAsList()
+	  for special case of person 3 with no phones
+
+	* [r17] /pkg/src/Makevars.in: support configure and automated build
+	  of all pieces incl conversion from proto file to header and
+	  source and then object
+
+	* [r16] /pkg/src/list_people_R.cpp: suppress one more set of g++
+	  warning, align function names
+
+	* [r15] /pkg/cleanup: add more cleanup targets
+
+	* [r14] /pkg/R/listPeople.R: align function names with C++ source
+
+	* [r13] /pkg/configure, /pkg/configure.in: added configure support
+
+	* [r12] /pkg/src/Makevars[DEL], /pkg/src/Makevars.in[CPY]: moved to
+	  Makevars.in and configure, also re-create header and source from
+	  proto
+
+	* [r11] /pkg/src/addressbook.pb.cc[DEL],
+	  /pkg/src/addressbook.pb.h[DEL]: removed as they are now recreated
+
+	* [r10] /pkg/configure.in: beginnings of a configure script, not
+	  yet ready
+
+	* [r9] /pkg/NAMESPACE: added (nested) list support
+
+	* [r8] /pkg/man/listPeople.Rd: documented (nested) list support
+
+	* [r7] /pkg/R/listPeople.R: added (nested) list support
+
+	* [r6] /pkg/src/list_people_R.cpp: add support for R lists,
+	  possibly nested this was a good test for Rcpp and should get
+	  folded into Rcpp
+
+	* [r5] /pkg/src/addressbook.pb.cc, /pkg/src/addressbook.pb.h:
+	  rebuild with Ubuntu protoc -- probably need to farm this out to a
+	  proper Makefile or Makevar target
+
+2009-10-22  Dirk Eddelbuettel <edd@debian.org>
+
+	* [r4] /pkg/src/list_people_R.cpp: add support for case of no phone
+	  entry
+
+	* [r3] /pkg/src/Makevars: add -lpthread to PKG_LIBS
+
+	* [r2] /pkg/DESCRIPTION, /pkg/NAMESPACE, /pkg/R,
+	  /pkg/R/listPeople.R, /pkg/README, /pkg/cleanup, /pkg/inst,
+	  /pkg/inst/examples, /pkg/inst/examples/AddressBookFile,
+	  /pkg/inst/examples/addressbook.proto, /pkg/man,
+	  /pkg/man/listPeople.Rd, /pkg/src, /pkg/src/Makevars,
+	  /pkg/src/addressbook.pb.cc, /pkg/src/addressbook.pb.h,
+	  /pkg/src/addressbook.proto, /pkg/src/list_people_R.cpp: A very
+	  basic first proof of concept package reading a binary protobuf
+	  file
+
+2009-05-28  Stefan Theussl <stefan.theussl@wu.ac.at>
+
+	* [r1] /README, /pkg, /www, /www/index.php: R-Forge: updated
+	  repository structure
+
