@@ -1,6 +1,11 @@
 pkg <- "RProtoBuf"
 
 path <- system.file("unitTests", package = pkg)
+if( file.exists( "unitTests-results" ) ){
+	unlink( "unitTests-results", recursive = TRUE )
+}
+dir.create( "unitTests-results" )
+
 testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
 tests <- runTestSuite(testSuite)
 printHTMLProtocol(tests, fileName= sprintf( "unitTests-results/%s-unitTests.html" , pkg ) )
