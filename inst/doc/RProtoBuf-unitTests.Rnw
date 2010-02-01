@@ -9,8 +9,13 @@
 \begin{document}
 \maketitle
 
-<<echo=FALSE>>=
-writeLines( readLines( "RProtoBuf-unitTests.txt" ) )
+\begin{verbatim}
+<<echo=FALSE,results=tex>>=
+results <- "unitTests-results/RProtoBuf-unitTests.txt"
+if( file.exists( results ) ){
+	writeLines( readLines( results ) )
+}
 @
+\end{verbatim}
 
 \end{document}
