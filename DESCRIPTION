@@ -1,5 +1,5 @@
 Package: RProtoBuf
-Version: 0.0-6
+Version: 0.1-0
 Date: $Date$
 Author: Romain Francois <francoisromain@free.fr> and Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Romain and Dirk <rprotobuf-yada@lists.r-forge.r-project.org>
@@ -8,7 +8,7 @@ Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
  of its internal RPC protocols and file formats.  
 Depends: R (>= 2.10.0), Rcpp (>= 0.7.2), methods
-Suggests: RUnit, brew
+Suggests: RUnit
 SystemRequirements: Protocol Buffer compiler (to create C++ header and source files
  from .proto descriptions) and library (version 2.2.0 or later)
 License: GPL-2
