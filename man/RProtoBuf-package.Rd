@@ -16,15 +16,13 @@ protocol buffer messages from R
 \details{
 \tabular{ll}{
 Package: \tab RProtoBuf\cr
-Version: \tab 0.0-5\cr
+Version: \tab 0.1-0\cr
 Date: \tab $Date$\cr
-Depends: \tab Rcpp (>= 0.6.7), methods\cr
+Depends: \tab Rcpp (>= 0.7.2), methods\cr
 SystemRequirements: \tab ProtoBuf compiler (to create C++ header and source files
 from .proto descriptions) and library\cr
 License: \tab GPL-2\cr
 URL: \tab http://code.google.com/p/protobuf/\cr
-Packaged: \tab 2009-11-02 20:55:25 UTC; romain\cr
-Built: \tab R 2.11.0; i686-pc-linux-gnu; 2009-11-02 20:55:29 UTC; unix\cr
 }
 }
 
