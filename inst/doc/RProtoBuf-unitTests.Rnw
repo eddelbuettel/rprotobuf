@@ -1,5 +1,5 @@
 \documentclass[10pt]{article}
-%\VignetteIndexEntry{Rcpp-unitTests}
+%\VignetteIndexEntry{RProtoBuf-unitTests}
 \usepackage{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
