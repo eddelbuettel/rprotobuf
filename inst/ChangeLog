@@ -1,8 +1,15 @@
+2010-02-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure.in: More rigorous checks for ProtoBuf headers, library,
+	  mininal version as well as availability of pkg-config.
+
 2010-02-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/ChangeLog: added
 
 2010-02-01  Romain Francois <francoisromain@free.fr>
+
+	* Release 0.1-0
 
 	* [r274] /pkg/man/RProtoBuf-package.Rd: tidying up
 

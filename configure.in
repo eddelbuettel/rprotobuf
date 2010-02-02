@@ -4,16 +4,83 @@
 #
 # $Id$
 
-# require at least autoconf 2.50
-AC_PREREQ(2.50)
+# require at least autoconf 2.65
+AC_PREREQ(2.65)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT(RProtoBuf, 0.1)
+AC_INIT([RProtoBuf],[0.1])
 
 # We are using C++
 AC_LANG(C++)
 AC_REQUIRE_CPP
+AC_PROG_CC
 AC_PROG_CXX
+## simpler alternative to test below:  AC_PATH_PROG(PROTOC, protoc)
+
+AC_DEFUN([AC_PROG_PKGCONFIG], [AC_CHECK_PROG(PKGCONFIG,pkg-config,yes)])
+AC_PROG_PKGCONFIG
+
+## use pkg-config for ProtoBuf settings
+##
+protobuf_cxxflags=`pkg-config --cflags protobuf`
+protobuf_libs=`pkg-config --libs protobuf`
+    
+## look for protoc, the ProtoBuf compiler
+AC_DEFUN([AC_PROG_PROTOC], [AC_CHECK_PROG(PROTOC,protoc,yes)])
+AC_PROG_PROTOC
+if test x"${PROTOC}" == x"no" ; then
+    echo "
+  Your installation does not appear to have protoc installed.
+
+  Please make sure that you have a working and complete ProtoBuf installation.
+"
+    exit 1
+fi
+
+## look for protobuf headers -- now use pkg-config which even does minimum version
+##
+## next two lines break witha autoconf 2.65 :-/
+#PROTOBUF_VERSION="2.2.0"
+#PKG_CHECK_MODULES(ProtoBuf, protobuf >= 2.2.0, , AC_MSG_ERROR(Protobuf version 2.2.0 required))
+
+## check for header and ability to link
+## first for headers Debian has in libprotobuf-dev
+AC_CHECK_HEADER(google/protobuf/stubs/common.h,,
+                [AC_MSG_ERROR([ERROR: ProtoBuf headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])])
+## second for headers Debian has in libprotoc-dev
+AC_CHECK_HEADER(google/protobuf/compiler/code_generator.h,,
+                [AC_MSG_ERROR([ERROR: ProtoBuf compiler headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])])
+## third check the lib itself
+pb_savedlibs="$LIBS"
+LIBS="$LIBS -lprotoc -lprotobuf -lpthread"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <google/protobuf/text_format.h>
+			          #include <google/protobuf/compiler/command_line_interface.h>]], 
+				[[google::protobuf::TextFormat::Printer foo;
+				  google::protobuf::compiler::CommandLineInterface bar;]])],
+				[],
+				[AC_MSG_ERROR([ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS.])])
+LIBS="$pb_savedlibs"
+
+## also check for minimum version
+AC_MSG_CHECKING([if ProtoBuf version >= 2.2.0])
+AC_RUN_IFELSE([AC_LANG_SOURCE([[
+#include <google/protobuf/stubs/common.h>
+int main() {
+   if (GOOGLE_PROTOBUF_VERSION >= 2001000) {
+        exit (0);
+   } else {
+        exit(1);
+   }
+}
+]])],
+[pb_version_ok=yes],
+[pb_version_ok=no],
+[pb_version_ok=yes])
+if test x"${pb_version_ok}" == x"no"; then
+  AC_MSG_ERROR([Need ProtoBuf version >= 2.2.0])
+else
+  AC_MSG_RESULT([yes])
+fi
 
 AC_DEFUN([AC_PROG_R], [AC_CHECK_PROG(R,R,yes)])
 AC_PROG_R
@@ -42,30 +109,9 @@ else
     exit 1
 fi
 
-## look for protobuf headers -- now use pkg-config which even does minimum version
-##
-PROTOBUF_VERSION="2.2.0"
-PKG_CHECK_MODULES(ProtoBuf, protobuf >= $PROTOBUF_VERSION, , AC_MSG_ERROR(Protobuf version $PROTOBUF_VERSION required))
-
-## use pkg-config for ProtoBuf settings
-##
-protobuf_cxxflags=`pkg-config --cflags protobuf`
-protobuf_libs=`pkg-config --libs protobuf`
-    
-## look for protoc, the ProtoBuf compiler
-AC_DEFUN([AC_PROG_PROTOC], [AC_CHECK_PROG(PROTOC,protoc,yes)])
-AC_PROG_PROTOC
-if test x"${PROTOC}" == x"no" ; then
-    echo "
-  Your installation does not appear to have protoc installed.
-
-  Please make sure that you have a working and complete ProtoBuf installation.
-"
-    exit 1
-fi
-
 ## now use all these
 AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} $rcpp_cxxflags $protobuf_cxxflags"])
 AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags $protobuf_libs"])
-AC_OUTPUT(src/Makevars)
+AC_CONFIG_FILES([src/Makevars])
+AC_OUTPUT
 echo "Completed configuration and ready to build."
