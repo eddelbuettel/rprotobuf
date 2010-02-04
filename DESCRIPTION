@@ -12,7 +12,7 @@ Suggests: RUnit
 SystemRequirements: Protocol Buffer compiler (to create C++ header and source files
  from .proto descriptions) and library (version 2.2.0 or later)
 License: GPL-2
-URL: http://r-forge.r-project.org/projects/rprotobuf/, http://code.google.com/p/protobuf/
+URL: http://r-forge.r-project.org/projects/rprotobuf/, http://romainfrancois.blog.free.fr/index.php?category/R-package/RProtoBuf
 MinimumLibProtoVersion: 2002000
 BugReports: http://r-forge.r-project.org/tracker/index.php?group_id=576&atid=2338
 OS_type: unix
