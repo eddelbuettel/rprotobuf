@@ -13,22 +13,19 @@ Rprintf( "<as_list_message>\n" ) ;
 #endif
 
 	/* grab the Message pointer */
-    //GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
-	
-	SEXP fieldNames = PROTECT( getMessageFieldNames(xp) ) ;
-	int nf = LENGTH( fieldNames ); 
-	SEXP val = PROTECT( Rf_allocVector(VECSXP, LENGTH(fieldNames) ) ) ; 
+	Rcpp::XPtr<GPB::Message> message(xp) ;
+    
+	Rcpp::CharacterVector fieldNames = getMessageFieldNames_(message) ;
+	int nf = fieldNames.size() ;
+	Rcpp::List val( nf ) ;
 	for( int i=0; i<nf; i++){
-		/* TODO: do not do mkString(char(string_elt))) */
-		SET_VECTOR_ELT( val, i, getMessageField( xp, Rf_mkString(CHAR(STRING_ELT(fieldNames, i)) )) ) ; 
+		val[i] = getMessageField( xp, Rf_mkString(CHAR(STRING_ELT(fieldNames, i)) )) ; 
 	}
-	Rf_setAttrib( val, Rf_install("names"), fieldNames) ;
-	UNPROTECT(2); /* val, fieldNames */
+	val.names() = fieldNames ;
 	
 #ifdef RPB_DEBUG
 Rprintf( "</as_list_message>\n" ) ;
 #endif
-
 	return val ;
 }
 

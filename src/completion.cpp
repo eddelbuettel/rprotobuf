@@ -10,23 +10,21 @@ namespace rprotobuf{
  * @return field names, as an R character vector (STRSXP)
  */
 SEXP getMessageFieldNames( SEXP xp ){
-	
-	/* grab the Message pointer */
-	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(xp) ;
+	Rcpp::XPtr<GPB::Message> message(xp); 
+	return getMessageFieldNames(message);
+}	
+
+SEXP getMessageFieldNames_( const Rcpp::XPtr<GPB::Message>& message ){
 	
 	/* the message descriptor */
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
 	int nfields = desc->field_count() ; 
-	SEXP res = PROTECT( Rf_allocVector(STRSXP, nfields) ) ;
-	int i=0; 
-	while( i<nfields){
-		SET_STRING_ELT( res, i, Rf_mkChar( desc->field(i)->name().c_str() ) ) ;
-		i++;
+	Rcpp::CharacterVector res(nfields) ;
+	for(int i=0; i<nfields; i++){
+		res[i] = desc->field(i)->name() ;
 	}
-	UNPROTECT(1); 
 	return( res );
-	
 }
 
 /**

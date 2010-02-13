@@ -124,6 +124,7 @@ RcppExport SEXP get_service_method( SEXP, SEXP) ;
 
 /* in completion.cpp */
 RcppExport SEXP getMessageFieldNames( SEXP) ;
+RcppExport SEXP getMessageFieldNames_(const Rcpp::XPtr<GPB::Message>& message) ;
 RcppExport SEXP getDescriptorMemberNames( SEXP) ;
 RcppExport SEXP getFileDescriptorMemberNames( SEXP) ;
 RcppExport SEXP getEnumDescriptorConstantNames( SEXP ) ;
