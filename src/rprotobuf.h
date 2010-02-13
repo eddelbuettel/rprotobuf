@@ -22,10 +22,7 @@
 
 #include <Rcpp.h>
 
-#undef GET_NAMES
-// #include <R.h>
 #include <Rdefines.h>
-//#include <Rinternals.h>
 #include <R_ext/Callbacks.h>
 
 
@@ -61,15 +58,38 @@
 
 namespace GPB = google::protobuf;
 
-#define int32 GPB::int32
-#define uint32 GPB::uint32
-#define int64 GPB::int64
-#define uint64 GPB::uint64
 
 #define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
   		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
 
 namespace rprotobuf{
+
+typedef GPB::int32  int32  ;
+typedef GPB::uint32 uint32 ;
+typedef GPB::int64  int64  ;
+typedef GPB::uint64 uint64 ;
+
+} // namespace rprotobuf
+
+namespace Rcpp{
+namespace traits{
+
+/* helping Rcpp::wrap */
+
+template<> struct r_type_traits<GPB::int64> { typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits<GPB::uint64>{ typedef r_type_primitive_tag r_category ; } ;
+
+template<> struct r_type_traits< std::pair<std::string,GPB::int64> > { typedef r_type_pairstring_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<std::string,GPB::uint64> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
+
+template<> struct r_sexptype_traits<GPB::int64>{ enum{ rtype = REALSXP } ; } ;
+template<> struct r_sexptype_traits<GPB::uint64>{ enum{ rtype = REALSXP } ; } ;
+
+} // traits
+} // Rcpp
+	
+
+namespace rprotobuf {
 
 /* in rprotobuf.cpp */
 GPB::Message* PROTOTYPE( const GPB::Descriptor*) ;
@@ -82,7 +102,7 @@ RcppExport Rboolean isMessage( SEXP, const char* ) ;
 RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP) ;
 RcppExport SEXP check_libprotobuf_version( SEXP ) ;
 RcppExport SEXP get_protobuf_library_version() ;
-
+                                                                                    
 /* in constructors.cpp */
 void Message_finalizer( SEXP ) ;
 RcppExport SEXP new_RS4_Descriptor( const GPB::Descriptor*  ); 

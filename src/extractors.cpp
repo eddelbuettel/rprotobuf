@@ -135,7 +135,6 @@ SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* des
     			res = PROTECT( Rf_allocVector( INTSXP, size ) ); 
     			for( int i=0; i<size; i++){
     				INTEGER(res)[i] = (int) ref->GetRepeatedInt32( *message, fieldDesc, i ) ;
-    				i++ ;
     			}
     			break ;
     		

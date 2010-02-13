@@ -7,3 +7,4 @@ rm -f config.* src/Makedeps src/Makevars \
     inst/doc/RProtoBuf*.out inst/doc/RProtoBuf*.tex \
     inst/doc/RProtoBuf*.toc 
 rm -rf inst/doc/auto
+
