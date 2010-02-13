@@ -2,8 +2,7 @@
 all: clean RProtoBuf-unitTests.pdf RProtoBuf.pdf RProtoBuf-quickref.pdf
 
 clean:
-	touch RProtoBuf-unitTests.pdf
-	rm -fr RProtoBuf-unitTests.pdf
+	rm -fr *.pdf
 
 RProtoBuf-unitTests.pdf: unitTests/RProtoBuf-unitTests.R
 	Rscript --default-packages="RProtoBuf,Rcpp,brew,RUnit,tools,utils" unitTests/RProtoBuf-unitTests.R
