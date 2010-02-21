@@ -14,7 +14,7 @@ readProtoFiles( package = "RProtoBuf" )
 # descriptor for the Person message type, and then update the message
 # with fields
 romain <- update( new( tutorial.Person ), 
-	email = "francoisromain@free.fr", 
+	email = "romain@r-enthusiasts.com", 
 	id = 1, 
 	name = "Romain Francois", 
 	phone = new( tutorial.Person.PhoneNumber , number = "+33(0)...", type = "MOBILE" )
@@ -30,17 +30,9 @@ dirk <- new( tutorial.Person,
 dirk$phone <- list( 
 	new( tutorial.Person.PhoneNumber , number = "+01...", type = "MOBILE" ), 
 	new( tutorial.Person.PhoneNumber , number = "+01...", type = "HOME" ) )
-	
-# with/within style
-saptarshi <- within( new(tutorial.Person), {
-	id <- 3
-	name <- "Saptarshi Guha"
-	email <- "saptarshi.guha@gmail.com" 
-} )
 
 # build the address book
-book <- new( tutorial.AddressBook, 
-	person = list( romain, dirk, saptarshi ) )
+book <- new( tutorial.AddressBook, person = list( romain, dirk ) )
 
 # debug string. This is not what is transferred in the wire
 writeLines( as.character( book ) )
