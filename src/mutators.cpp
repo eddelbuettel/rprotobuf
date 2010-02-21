@@ -331,6 +331,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 
 	if( field_desc->is_repeated() ){
 		// {{{ repeated fields
+		
+		// {{{ preliminary checks
 		int value_size = LENGTH(value);
 		// if the R type is RAWSXP and the cpp type is string or bytes, 
 		// then value_size is actually one because the raw vector
@@ -347,6 +349,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 				throwException( "cannot convert to string", "ConversionException" ) ;
 			}
 		}
+		// }}}
 		
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
@@ -903,163 +906,27 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		// }}}
 	} else {
 		// {{{ non repeated fields
-		switch( field_desc->type() ){
-			// {{{ int32
-    		case TYPE_INT32:
-    		case TYPE_SINT32:
-    		case TYPE_SFIXED32:
-    			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetInt32(message, field_desc, GET_int32( value, 0 ) ); 
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to int32", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;   
-    			}
-			// }}}
-    		
-			// {{{ int64
-			case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-    			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetInt64(message, field_desc, GET_int64( value, 0 ) ) ;
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;
-    			}
-    			// }}}	
-    			
-    		// {{{ uint32
-    		case TYPE_UINT32:
-    		case TYPE_FIXED32:
-    			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetUInt32(message, field_desc, GET_uint32( value, 0) ) ;
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to uint32", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;   
-    			}
-			// }}}
+		switch( GPB::FieldDescriptor::TypeToCppType( field_desc->type() ) ){
+			// {{{ simple cases using macro expansion
+#undef HANDLE_SINGLE_FIELD
+#define HANDLE_SINGLE_FIELD( CPPTYPE, CAMEL, TYPE )						\
+case CPPTYPE :																\
+	{																		\
+		ref->Set##CAMEL( message, field_desc, Rcpp::as<TYPE>(value) ) ;	\
+		break ;   															\
+	}
+HANDLE_SINGLE_FIELD( CPPTYPE_INT32, Int32, GPB::int32) ;
+HANDLE_SINGLE_FIELD( CPPTYPE_INT64, Int64, GPB::int64) ;
+HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32, GPB::uint32) ;
+HANDLE_SINGLE_FIELD( CPPTYPE_UINT64, UInt64, GPB::uint64) ;
+HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
+HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
+HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
+#undef HANDLE_SINGLE_FIELD
+// }}}  
      		
-			// {{{ uint64
-    		case TYPE_UINT64:
-    		case TYPE_FIXED64:
-    			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetUInt64(message, field_desc, GET_int64( value, 0) ) ;
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;   
-    			}
-			// }}}
-  
-			// {{{ double
-    		case TYPE_DOUBLE:
-    			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetDouble(message, field_desc, GET_double(value, 0) ) ;
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to double", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;   
-    			}
-			// }}}	
-    			
-			// {{{ float
-    		case TYPE_FLOAT:
-    			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetFloat(message, field_desc, GET_float(value, 0) ) ;
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to float", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;   
-    			}
-			// }}}	
-    		
-			// {{{ bool
-			case TYPE_BOOL:
-   			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:
-    						{
-    							ref->SetBool(message, field_desc, GET_bool(value, 0) ) ;
-    							break ;
-    						}
-    					default: 
-    						{
-    							throwException( "Cannot convert to float", "ConversionException" ) ; 
-    						}
-    				}
-    				break ;   
-    			}
-			// }}}
-			
-     		// {{{ string
-			case TYPE_STRING:
-    		case TYPE_BYTES:
+			// {{{ string
+			case CPPTYPE_STRING:
     			{
     				switch( TYPEOF( value ) ){
     					case STRSXP:
@@ -1092,8 +959,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			// }}}
     		
 			// {{{ message
-    		case TYPE_MESSAGE:
-    		case TYPE_GROUP: 
+    		case CPPTYPE_MESSAGE:
     			{
     				if( TYPEOF( value ) == S4SXP && Rf_inherits( value, "Message" ) ){
     					GPB::Message* mess = (GPB::Message*) EXTPTR_PTR( GET_SLOT( value, Rf_install("pointer") ) ) ;
@@ -1112,7 +978,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     			// }}}
     		
 			// {{{ enum
-    		case TYPE_ENUM : 
+    		case CPPTYPE_ENUM : 
     			{
     				const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
     				
@@ -1122,7 +988,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case LGLSXP:
     					case RAWSXP:
     						{
-    							int val = GET_int(value, 0 ) ;
+    							int val = Rcpp::as<int>(value) ;
     							const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByNumber(val) ;
     							if( !evd ){
     								throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
@@ -1133,7 +999,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						}
     					case STRSXP:
     						{
-    							std::string val = CHAR( STRING_ELT( value, 0) ) ;
+    							std::string val = Rcpp::as<std::string>( value ) ;
     							const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
     							if( !evd ){
     								throwException( "wrong value for enum", "WrongEnumValueException" ) ; 
@@ -1150,7 +1016,6 @@ PRINT_DEBUG_INFO( "value", value ) ;
     				
     			}
 			// }}}
-    			
     	}
     	// }}}
 	}
