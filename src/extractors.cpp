@@ -1,5 +1,6 @@
 #include "rprotobuf.h"
 #include "fieldtypes.h"
+#include "Rcppsupport.h"
 
 namespace rprotobuf{
 
@@ -124,98 +125,27 @@ SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* des
        
     if( fieldDesc->is_repeated() ){
     	
-    	SEXP res = R_NilValue;
-    	
-    	int size = ref->FieldSize(*message, fieldDesc ); 
-    	switch( fieldDesc->type() ){
+    	switch( GPB::FieldDescriptor::TypeToCppType(fieldDesc->type()) ){
+
+#define HANDLE_REPEATED_FIELD(TYPE,DATATYPE) \
+	case TYPE : \
+		return Rcpp::wrap( RepeatedFieldImporter<DATATYPE>(ref, *message, fieldDesc) ) ; \
+
+		HANDLE_REPEATED_FIELD(CPPTYPE_INT32, GPB::int32) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_INT64, GPB::int64) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_UINT32 , GPB::uint32) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_UINT64 , GPB::uint64) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_DOUBLE, double) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_FLOAT, float) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_BOOL, bool) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_ENUM, enum_field ) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_STRING, std::string ) ;
+    		HANDLE_REPEATED_FIELD(CPPTYPE_MESSAGE, message_field ) ;
     		
-    		case TYPE_INT32:
-    		case TYPE_SINT32:
-    		case TYPE_SFIXED32:
-    			res = PROTECT( Rf_allocVector( INTSXP, size ) ); 
-    			for( int i=0; i<size; i++){
-    				INTEGER(res)[i] = (int) ref->GetRepeatedInt32( *message, fieldDesc, i ) ;
-    			}
-    			break ;
-    		
-    		case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-    			res = PROTECT( Rf_allocVector( INTSXP, size )) ; 
-    			for( int i=0; i<size; i++){
-    				INTEGER(res)[i] = (int) ref->GetRepeatedInt64( *message, fieldDesc, i ) ;
-    			}
-    			break ;
-    		
-    		case TYPE_UINT32:
-    		case TYPE_FIXED32:
-    			res = PROTECT( Rf_allocVector( INTSXP, size )) ; 
-    			for( int i=0; i<size; i++){
-    				INTEGER(res)[i] = (int) ref->GetRepeatedUInt32( *message, fieldDesc, i) ;
-    			}
-    			break ;
-    		
-    		case TYPE_UINT64:
-    		case TYPE_FIXED64:
-    			res = PROTECT( Rf_allocVector( INTSXP, size )) ; 
-    			for( int i=0; i<size; i++){
-    				INTEGER(res)[i] = (int) ref->GetRepeatedUInt64( *message, fieldDesc, i ) ;
-    			}
-    			break ;
- 
-    		case TYPE_DOUBLE:
-    			res = PROTECT( Rf_allocVector( REALSXP, size )) ; 
-    			for( int i=0; i<size; i++){
-    				REAL(res)[i] = (double) ref->GetRepeatedDouble( *message, fieldDesc, i ) ;
-    			}
-    			break ;
-    		
-    		case TYPE_FLOAT:
-    			res = PROTECT( Rf_allocVector( REALSXP, size )) ; 
-    			for( int i=0; i<size; i++){
-    				REAL(res)[i] = (double) ref->GetRepeatedFloat( *message, fieldDesc, i ) ;
-    			}
-    			break ;
-    			
-    		case TYPE_BOOL:
-    			res = PROTECT( Rf_allocVector( LGLSXP, size ) );
-    			for( int i=0; i<size; i++){
-    				LOGICAL(res)[i] = ref->GetRepeatedBool( *message, fieldDesc, i ) ? 1 : 0;
-    			}
-    			break ;
-    		
-    		case TYPE_ENUM : 
-    			res = PROTECT( Rf_allocVector( INTSXP, size )  ); 
-    			for( int i=0; i<size; i++){
-    				INTEGER(res)[i] = ref->GetRepeatedEnum( *message, fieldDesc, i )->number() ;
-    			}
-    			break ;	
-    			
-    		
-    		case TYPE_STRING:
-    		case TYPE_BYTES:
-    			res = PROTECT( Rf_allocVector( STRSXP, size )  );  
-    			for( int i=0; i<size; i++){
-    				SET_STRING_ELT( res, i, Rf_mkChar( ref->GetRepeatedString( *message, fieldDesc, i ).c_str() ) ) ;
-    			}
-    			break ;
-    		
-    		case TYPE_MESSAGE:
-    		case TYPE_GROUP:
-    			res = PROTECT( Rf_allocVector( VECSXP, size ) ) ;
-    			for( int i=0; i<size; i++){
-    				SET_VECTOR_ELT( res, i, 
-    					new_RS4_Message_( CLONE( &ref->GetRepeatedMessage( *message, fieldDesc, i ) ) ) ) ;
-    			}
-    			break ;
     	}
     	
-    	UNPROTECT(1); /* res */
-    	return( res ); 
-     	
-    	
     } else {
- 
+    	    
     	
     	SEXP res = R_NilValue;
     	
