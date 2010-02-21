@@ -106,6 +106,6 @@ private:
 	const GPB::FieldDescriptor* field ;	
 } ;
 
-}
+} // namespace rprotobuf
 
 #endif

@@ -35,11 +35,34 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/service.h>
 #include <google/protobuf/descriptor.pb.h>
+namespace GPB = google::protobuf;
 
 #define R_NO_REMAP
 
 /* we need to read and write to connections */
 #define NEED_CONNECTION_PSTREAMS
+
+#include <RcppCommon.h>
+namespace Rcpp{
+namespace traits{
+
+template<> struct r_type_traits<GPB::int64> { typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits<GPB::uint64>{ typedef r_type_primitive_tag r_category ; } ;
+
+template<> struct r_type_traits< std::pair<std::string,GPB::int64> > { typedef r_type_pairstring_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<std::string,GPB::uint64> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
+
+template<> struct r_sexptype_traits<GPB::int64>{ enum{ rtype = REALSXP } ; } ;
+template<> struct r_sexptype_traits<GPB::uint64>{ enum{ rtype = REALSXP } ; } ;
+
+template<> struct wrap_type_traits<GPB::int64>{ typedef wrap_type_primitive_tag wrap_category ; } ;
+template<> struct wrap_type_traits<GPB::uint64>{ typedef wrap_type_primitive_tag wrap_category ; } ;
+
+} // traits
+// template<> SEXP wrap( const GPB::EnumValueDescriptor& object){
+// 	return wrap( object.number() ) ;
+// }
+} // Rcpp
 
 #include <Rcpp.h>
 
@@ -77,9 +100,6 @@
 
 #define XPP EXTPTR_PTR
 
-namespace GPB = google::protobuf;
-
-
 #define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
   		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
 
@@ -91,24 +111,6 @@ typedef GPB::int64  int64  ;
 typedef GPB::uint64 uint64 ;
 
 } // namespace rprotobuf
-
-namespace Rcpp{
-namespace traits{
-
-/* helping Rcpp::wrap */
-
-template<> struct r_type_traits<GPB::int64> { typedef r_type_primitive_tag r_category ; } ;
-template<> struct r_type_traits<GPB::uint64>{ typedef r_type_primitive_tag r_category ; } ;
-
-template<> struct r_type_traits< std::pair<std::string,GPB::int64> > { typedef r_type_pairstring_primitive_tag r_category ; } ;
-template<> struct r_type_traits< std::pair<std::string,GPB::uint64> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
-
-template<> struct r_sexptype_traits<GPB::int64>{ enum{ rtype = REALSXP } ; } ;
-template<> struct r_sexptype_traits<GPB::uint64>{ enum{ rtype = REALSXP } ; } ;
-
-} // traits
-} // Rcpp
-	
 
 namespace rprotobuf {
 
@@ -137,7 +139,7 @@ RcppExport SEXP new_RS4_EnumValueDescriptor( const GPB::EnumValueDescriptor* ) ;
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
-RcppExport SEXP extractFieldAsSEXP( const GPB::Message *, const GPB::Descriptor*, const GPB::FieldDescriptor* ) ;
+RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB::Descriptor*, const GPB::FieldDescriptor* ) ;
 RcppExport SEXP get_message_descriptor( SEXP );
 RcppExport int MESSAGE_GET_REPEATED_INT( GPB::Message*, GPB::FieldDescriptor*, int) ;
 RcppExport double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message*, GPB::FieldDescriptor*, int) ;

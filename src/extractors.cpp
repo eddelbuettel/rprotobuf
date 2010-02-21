@@ -69,12 +69,12 @@ PRINT_DEBUG_INFO( "name", name ) ;
 #endif
 
 	/* grab the Message pointer */
-	GPB::Message* message = (GPB::Message*)EXTPTR_PTR(pointer) ;
+	Rcpp::XPtr<GPB::Message> message(pointer) ;
 
 	/* the message descriptor */
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
-	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
+	GPB::FieldDescriptor* field_desc = static_cast<GPB::FieldDescriptor*>(0);
 	
 	switch( TYPEOF( name) ){
 	case STRSXP:
@@ -91,7 +91,7 @@ PRINT_DEBUG_INFO( "name", name ) ;
 		{
 			
 			/* the field descriptor */
-			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
+			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( static_cast<int>( REAL(name)[0] ) ) ;
 			
 			break ;
 		}
@@ -116,17 +116,15 @@ Rprintf( "</getMessageField>\n" ) ;
 	
 }
 
-SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* desc, const GPB::FieldDescriptor*  fieldDesc ){
-	
-	/* depending on the type, we need to create some regular SEXP (INTSXP) 
-       or a message */
-	
+SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message, const GPB::Descriptor* desc, const GPB::FieldDescriptor*  fieldDesc ){
+
     const Reflection * ref = message->GetReflection() ;
        
     if( fieldDesc->is_repeated() ){
     	
     	switch( GPB::FieldDescriptor::TypeToCppType(fieldDesc->type()) ){
 
+#undef HANDLE_REPEATED_FIELD
 #define HANDLE_REPEATED_FIELD(TYPE,DATATYPE) \
 	case TYPE : \
 		return Rcpp::wrap( RepeatedFieldImporter<DATATYPE>(ref, *message, fieldDesc) ) ; \
@@ -141,78 +139,38 @@ SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* des
     		HANDLE_REPEATED_FIELD(CPPTYPE_ENUM, enum_field ) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_STRING, std::string ) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_MESSAGE, message_field ) ;
-    		
+#undef HANDLE_REPEATED_FIELD
+
     	}
     	
     } else {
-    	    
     	
-    	SEXP res = R_NilValue;
-    	
-    	switch( fieldDesc->type() ){
+    	switch( GPB::FieldDescriptor::TypeToCppType(fieldDesc->type()) ){
+
+#undef HANDLE_SINGLE_FIELD
+#define HANDLE_SINGLE_FIELD(CPPTYPE,SUFFIX) 					\
+		case CPPTYPE: 									\
+			return Rcpp::wrap( ref->Get##SUFFIX(*message, fieldDesc ) ) ;
+
+		HANDLE_SINGLE_FIELD( CPPTYPE_INT32,  Int32 ); 
+		HANDLE_SINGLE_FIELD( CPPTYPE_INT64,  Int64 );
+		HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32 ); 
+		HANDLE_SINGLE_FIELD( CPPTYPE_UINT64, UInt64 );
+		HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double );
+		HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float );
+		HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool );
+		HANDLE_SINGLE_FIELD( CPPTYPE_STRING, String );
+#undef HANDLE_SINGLE_FIELD
+
+		case CPPTYPE_ENUM : 
+    			return Rcpp::wrap( ref->GetEnum( *message, fieldDesc )->number() ) ;
     		
-    		case TYPE_INT32:
-    		case TYPE_SINT32:
-    		case TYPE_SFIXED32:
-    			res = PROTECT( Rf_allocVector( INTSXP, 1 ) ); 
-    			INTEGER(res)[0] = (int) ref->GetInt32( *message, fieldDesc ) ;
-    			break ;
-    		
-    		case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-    			res = PROTECT( Rf_allocVector( INTSXP, 1 )) ; 
-    			INTEGER(res)[0] = (int) ref->GetInt64( *message, fieldDesc ) ;
-    			break ;
-    		
-    		case TYPE_UINT32:
-    		case TYPE_FIXED32:
-    			res = PROTECT( Rf_allocVector( INTSXP, 1 ) ) ; 
-    			INTEGER(res)[0] = (int) ref->GetUInt32( *message, fieldDesc ) ;
-    			break ;
-    		
-    		case TYPE_UINT64:
-    		case TYPE_FIXED64:
-    			res = PROTECT( Rf_allocVector( INTSXP, 1 )  ); 
-    			INTEGER(res)[0] = (int) ref->GetUInt64( *message, fieldDesc ) ;
-    			break ;
- 
-    		case TYPE_DOUBLE:
-    			res = PROTECT( Rf_allocVector( REALSXP, 1 ) ) ;
-    			REAL(res)[0] = (double) ref->GetDouble( *message, fieldDesc ) ;
-    			break ;
-    		
-    		case TYPE_FLOAT:
-    			res = PROTECT( Rf_allocVector( REALSXP, 1 ) ) ;
-    			REAL(res)[0] = (double) ref->GetFloat( *message, fieldDesc ) ;
-    			break ;
-    			
-    		case TYPE_BOOL:
-    			res = PROTECT( Rf_allocVector( LGLSXP, 1 ) );
-    			LOGICAL(res)[0] = ref->GetBool( *message, fieldDesc ) ? 1 : 0;
-    			break ;
-    		
-    		case TYPE_ENUM : 
-    			res = PROTECT( Rf_allocVector( INTSXP, 1 )  ); 
-    			INTEGER(res)[0] = ref->GetEnum( *message, fieldDesc )->number() ;
-    			break ;	
-    			
-    		
-    		case TYPE_STRING:
-    		case TYPE_BYTES:
-    			res = PROTECT( Rf_mkString( ref->GetString( *message, fieldDesc ).c_str() ) ) ;
-    			break ;
-    		
-    		case TYPE_MESSAGE:
-    		case TYPE_GROUP:
-    			res = PROTECT( new_RS4_Message_( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ) ;
+    		case CPPTYPE_MESSAGE:
+    			return new_RS4_Message_( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ;
     			break ;
     	}
-    	
-    	UNPROTECT(1); /* res */
-    	return( res ); 
-     	
     }
+    return R_NilValue ; /* -Wall */
 }
 
 /**
@@ -222,11 +180,9 @@ SEXP extractFieldAsSEXP( const GPB::Message* message, const GPB::Descriptor* des
  * @return the descriptor, as a Descriptor R S4 object
  */
 SEXP get_message_descriptor( SEXP xp){
-	
-	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( xp ) ;
+	Rcpp::XPtr<GPB::Message> message(xp) ;
 	return( new_RS4_Descriptor( message->GetDescriptor() ) ) ;
 }
-
 
 
 /**
@@ -239,9 +195,9 @@ SEXP get_message_descriptor( SEXP xp){
 SEXP get_service_method( SEXP pointer, SEXP name ){
 
 	/* grab the Message pointer */
-	GPB::ServiceDescriptor* desc = (GPB::ServiceDescriptor*)EXTPTR_PTR(pointer) ;
+	Rcpp::XPtr<GPB::ServiceDescriptor> desc(pointer) ;
 
-	GPB::MethodDescriptor* method_desc = (GPB::MethodDescriptor*)0;
+	GPB::MethodDescriptor* method_desc = static_cast<GPB::MethodDescriptor*>(0);
 	
 	switch( TYPEOF( name) ){
 	case STRSXP:
@@ -278,10 +234,6 @@ SEXP get_service_method( SEXP pointer, SEXP name ){
 	return new_RS4_MethodDescriptor( method_desc ); 
 	
 }
-
-
-
-
 
 } // namespace rprotobuf
 
