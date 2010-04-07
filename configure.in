@@ -4,8 +4,8 @@
 #
 # $Id$
 
-# require at least autoconf 2.65
-AC_PREREQ(2.65)
+# require at least autoconf 2.61
+AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
 AC_INIT([RProtoBuf],[0.1])
@@ -96,8 +96,6 @@ CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 AC_DEFUN([AC_PROG_RSCRIPT], [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
 AC_PROG_RSCRIPT
 if test x"${RSCRIPT}" == x"yes" ; then
-    ## Rcpp compile flag providing header directory containing Rcpp.h
-    rcpp_cxxflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::CxxFlags()'`
     ## link flag providing libary as well as path to library, and optionally rpath
     rcpp_ldflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::LdFlags()'`
 else
@@ -110,7 +108,7 @@ else
 fi
 
 ## now use all these
-AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} $rcpp_cxxflags $protobuf_cxxflags"])
+AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} $protobuf_cxxflags"])
 AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags $protobuf_libs"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT

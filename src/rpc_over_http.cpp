@@ -62,7 +62,7 @@ namespace rprotobuf{
 		header += method->service()->full_name();
 		header += "?method=" ;
 		header += method->name() ;
-		header += " HTTP/1.0\r\nConnection: close\r\n\r\nContent-Type:application/x-protobuf\r\nContent-Length: " ;
+		header += " HTTP/1.0\r\nConnection: close\r\nHost: 127.0.0.1\r\nContent-Type:application/x-protobuf\r\nContent-Length: " ;
 		header += buf ;
 		header += "\r\n\r\n" ;
 		
@@ -77,6 +77,7 @@ namespace rprotobuf{
 			sent = send( socket_id, p, (total-total_sent), 0 ) ;
 			total_sent = total_sent + sent ;
 			DBG(Rprintf( "headers : sent %d bytes\n", total_sent )) ;  
+			DBG(Rprintf( "%s\n", header.c_str() )) ;  
 			p = p + sent ;
 		}
 		
