@@ -1,12 +1,12 @@
 
 RProtoBuf.http.handler <- function(path, query, body) { 
-
-	if( !all( c("service", "method" ) ) %in% names(query) ){
+	
+	if( !all( c("service", "method" ) %in% names(query) ) ){
 		stop( "need service and method " )
 	}
 	service <- query[["service"]]
 	method  <- query[["method"]]
-	
+	  
 	m <- get( 
 		sprintf( "%s.%s", service, method ), 
 		as.environment( "RProtoBuf:DescriptorPool" )
