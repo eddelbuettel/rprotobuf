@@ -2,9 +2,6 @@
 ## Package has dynamic library
 useDynLib(RProtoBuf)
 
-## And some functions
-export(listPeopleAsDataFrame, listPeopleAsList, addPerson, clearPerson)
-
 importFrom( methods, new )
 importFrom( utils, str )
 importFrom( "stats", "update")
