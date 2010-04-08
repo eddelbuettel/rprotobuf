@@ -4353,56 +4353,19 @@ fi
 
 
 ## third check the lib itself
-pb_savedlibs="$LIBS"
-LIBS="$LIBS -lprotoc -lprotobuf -lpthread"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <google/protobuf/text_format.h>
-			          #include <google/protobuf/compiler/command_line_interface.h>
-int
-main ()
-{
-google::protobuf::TextFormat::Printer foo;
-				  google::protobuf::compiler::CommandLineInterface bar;
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_cxx_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext &&
-       $as_test_x conftest$ac_exeext; then
-  :
-else
-  echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	{ { echo "$as_me:$LINENO: error: ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS." >&5
-echo "$as_me: error: ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS="$pb_savedlibs"
+#pb_savedlibs="$LIBS"
+# LIBS="$LIBS -lprotoc -lprotobuf -lpthread"
+LIBS="$LIBS $protobuf_libs"
+## CXXFLAGS="$CXXFLAGS $protobuf_cxxflags"
+## AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+## 	#include <google/protobuf/text_format.h>
+## 	#include <google/protobuf/compiler/command_line_interface.h>
+## 	]], [[
+## 	google::protobuf::TextFormat::Printer foo;
+## 	google::protobuf::compiler::CommandLineInterface bar;
+## 	]]
+## 	)],[],[AC_MSG_ERROR([ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS.])])
+#LIBS="$pb_savedlibs"
 
 ## also check for minimum version
 { echo "$as_me:$LINENO: checking if ProtoBuf version >= 2.2.0" >&5

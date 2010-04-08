@@ -6,18 +6,3 @@
 PKG_CPPFLAGS=		@PKG_CPPFLAGS@
 PKG_LIBS=		@PKG_LIBS@
 
-pkg=			RProtoBuf
-
-all:			addressbook.pb.cc pkglib
-
-addressbook.pb.cc:	../inst/proto/addressbook.proto
-			protoc --cpp_out=. --proto_path=../inst/proto $<
-
-addressbook.pb.o:	addressbook.pb.cc
-			$(CXX) -c $< $(CXXPICFLAGS) $(SHLIB_CXXLDFLAGS) $(PKG_CPPFLAGS) 
-
-## The $(OBJECTS) variable is filled by R CMD ... based on all 
-## .cpp files in this directory, but we need to add addressbook.pb.o
-pkglib:			addressbook.pb.o $(OBJECTS)
-			$(SHLIB_CXXLD) -o $(SHLIB) $^ $(SHLIB_CXXLDFLAGS) $(PKG_LIBS)
-

@@ -62,7 +62,7 @@ namespace rprotobuf{
 		header += method->service()->full_name();
 		header += "?method=" ;
 		header += method->name() ;
-		header += " HTTP/1.0\r\nConnection: close\r\nHost: 127.0.0.1\r\nContent-Type:application/x-protobuf\r\nContent-Length: " ;
+		header += " HTTP/1.0\r\nConnection: close\r\nHost:\r\nContent-Type:application/x-protobuf\r\nContent-Length: " ;
 		header += buf ;
 		header += "\r\n\r\n" ;
 		

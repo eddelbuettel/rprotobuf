@@ -51,15 +51,20 @@ AC_CHECK_HEADER(google/protobuf/stubs/common.h,,
 AC_CHECK_HEADER(google/protobuf/compiler/code_generator.h,,
                 [AC_MSG_ERROR([ERROR: ProtoBuf compiler headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])])
 ## third check the lib itself
-pb_savedlibs="$LIBS"
-LIBS="$LIBS -lprotoc -lprotobuf -lpthread"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <google/protobuf/text_format.h>
-			          #include <google/protobuf/compiler/command_line_interface.h>]], 
-				[[google::protobuf::TextFormat::Printer foo;
-				  google::protobuf::compiler::CommandLineInterface bar;]])],
-				[],
-				[AC_MSG_ERROR([ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS.])])
-LIBS="$pb_savedlibs"
+#pb_savedlibs="$LIBS"
+# LIBS="$LIBS -lprotoc -lprotobuf -lpthread"
+LIBS="$LIBS $protobuf_libs"
+
+## [Romain] this does not work for me just now, ignoring
+## AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+## 	#include <google/protobuf/text_format.h>
+## 	#include <google/protobuf/compiler/command_line_interface.h>
+## 	]], [[
+## 	google::protobuf::TextFormat::Printer foo;
+## 	google::protobuf::compiler::CommandLineInterface bar;
+## 	]]
+## 	)],[],[AC_MSG_ERROR([ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS.])])
+#LIBS="$pb_savedlibs"
 
 ## also check for minimum version
 AC_MSG_CHECKING([if ProtoBuf version >= 2.2.0])
