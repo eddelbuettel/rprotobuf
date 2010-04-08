@@ -33,7 +33,7 @@ function( method, message, protocol){
 		impl <- get( method@name, envir = IMPLEMENTATIONS )
 		check_valid_implementation( method, impl )
 		result <- impl( message )
-		valid <- .Call( "valid_output_message", method@pointer, message@pointer, 
+		valid <- .Call( "valid_output_message", method@pointer, result@pointer, 
 			PACKAGE = "RProtoBuf" )
 		if( !valid ){
 			stop( "invalid method output" )
@@ -56,8 +56,18 @@ function(method, message, protocol ){
 	if( ! grepl( "^/", root ) ) root <- paste( "/", root, sep = "" )
 	if( ! grepl( "/$", root ) ) root <- paste( root, "/", sep = "" )
 	
-	.Call( "invoke_method_http", method@pointer, message@pointer, 
-		protocol@host, protocol@port, protocol@root, PACKAGE = "RProtoBuf" )
-	
+	url <- sprintf( "http://%s:%d%s?service=%s&method=%s", 
+		protocol@host, protocol@port, root, method@service, method$name() )
+	    
+	reader <- basicTextGatherer()
+	header <- c( "Content-Type" = "application/x-protobuf", 
+		"Accept" = "application/x-protobuf" )
+	curlPerform( 
+		url = url, 
+		httpheader = header, 
+		postfields = serialize(message, NULL) , 
+		writefunction = reader$update )
+	response <- charToRaw( reader$value() )
+	read( method$output_type(), response )	
 } )
 

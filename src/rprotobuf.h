@@ -322,9 +322,6 @@ RcppExport SEXP ServiceDescriptor_method_count(SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP) ;
 
-/* in rpc_over_http.cpp */
-RcppExport SEXP invoke_method_http( SEXP, SEXP, SEXP, SEXP, SEXP) ;
-
 /* in streams.cpp */
 void ZeroCopyInputStreamWrapper_finalizer( SEXP ); 
 void ZeroCopyOutputStreamWrapper_finalizer( SEXP ); 
