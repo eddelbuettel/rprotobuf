@@ -21,12 +21,12 @@ setMethod( "serialize", c( object = "Message" ) ,
 			} else{
 				file <- tools:::file_path_as_absolute(connection)
 			}
-			.Call( "serializeMessageToFile", object@pointer, file, PACKAGE = "RProtoBuf" )
+			.Call( "Message__serialize_to_file", object@pointer, file, PACKAGE = "RProtoBuf" )
 			invisible( NULL)
 		} else if( iscon || isnull ) {
 			
 			# first grab the payload as a raw vector, 
-			payload <- .Call( "getMessagePayload", object@pointer, PACKAGE = "RProtoBuf" )
+			payload <- .Call( "Message__get_payload", object@pointer, PACKAGE = "RProtoBuf" )
 			if( isnull ){
 				# just return it if the connection is NULL
 				payload
