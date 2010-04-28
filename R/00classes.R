@@ -153,6 +153,8 @@ setMethod("$", "Message", function(x, name) {
 		"has" = function( ... )      .Call( "Message__has_field"     , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),    
+		"descriptor" = function()    .Call("Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ), 
+		
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x), 
 		"swap" = function(...) swap(x,...),
@@ -169,7 +171,6 @@ setMethod("$", "Message", function(x, name) {
 		"serialize" = function(...) serialize( x, ... ),
 		"clear" = function(...) clear( x, ... ), 
 		
-		"descriptor" = function() descriptor(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
 		
 		# default

@@ -149,5 +149,17 @@ RCPP_FUNCTION_1(int, Message__length, Rcpp::XPtr<GPB::Message> message){
 }
 
 
+/**
+ * Get the message descriptor of a Message
+ * 
+ * @param xp (GPB::Message*) external pointer
+ * @return the descriptor, as a Descriptor R S4 object
+ */
+RCPP_FUNCTION_1(S4_Descriptor, Message__descriptor, Rcpp::XPtr<GPB::Message> message ){
+	return( message->GetDescriptor() ) ;
+}
+
+
+
 }
 

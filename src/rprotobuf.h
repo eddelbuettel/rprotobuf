@@ -270,7 +270,6 @@ RcppExport SEXP new_RS4_EnumValueDescriptor( const GPB::EnumValueDescriptor* ) ;
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
 RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB::Descriptor*, const GPB::FieldDescriptor* ) ;
-RcppExport SEXP get_message_descriptor( SEXP );
 RcppExport int MESSAGE_GET_REPEATED_INT( GPB::Message*, GPB::FieldDescriptor*, int) ;
 RcppExport double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message*, GPB::FieldDescriptor*, int) ;
 RcppExport SEXP get_service_method( SEXP, SEXP) ; 

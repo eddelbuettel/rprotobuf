@@ -3,7 +3,7 @@ setGeneric( "descriptor", function(object, ...){
 	standardGeneric( "descriptor" )
 } )
 setMethod( "descriptor", "Message", function(object, ...){
-	.Call( "get_message_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Message__descriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "fileDescriptor", function(object, ...){

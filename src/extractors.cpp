@@ -174,18 +174,6 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message, const GPB::Des
 }
 
 /**
- * Get the message descriptor of a Message
- * 
- * @param xp (GPB::Message*) external pointer
- * @return the descriptor, as a Descriptor R S4 object
- */
-SEXP get_message_descriptor( SEXP xp){
-	Rcpp::XPtr<GPB::Message> message(xp) ;
-	return( new_RS4_Descriptor( message->GetDescriptor() ) ) ;
-}
-
-
-/**
  * extract a method descriptor from a service descriptor using its
  * name or position
  *
