@@ -43,26 +43,13 @@ namespace GPB = google::protobuf;
 #define NEED_CONNECTION_PSTREAMS
 
 #include <RcppCommon.h>
-namespace Rcpp{
-namespace traits{
 
-template<> struct r_type_traits<GPB::int64> { typedef r_type_primitive_tag r_category ; } ;
-template<> struct r_type_traits<GPB::uint64>{ typedef r_type_primitive_tag r_category ; } ;
+RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Label)
+RCPP_ENUM_TRAITS(GPB::FieldDescriptor::CppType)
+RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
-template<> struct r_type_traits< std::pair<std::string,GPB::int64> > { typedef r_type_pairstring_primitive_tag r_category ; } ;
-template<> struct r_type_traits< std::pair<std::string,GPB::uint64> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
-
-template<> struct r_sexptype_traits<GPB::int64>{ enum{ rtype = REALSXP } ; } ;
-template<> struct r_sexptype_traits<GPB::uint64>{ enum{ rtype = REALSXP } ; } ;
-
-template<> struct wrap_type_traits<GPB::int64>{ typedef wrap_type_primitive_tag wrap_category ; } ;
-template<> struct wrap_type_traits<GPB::uint64>{ typedef wrap_type_primitive_tag wrap_category ; } ;
-
-} // traits
-// template<> SEXP wrap( const GPB::EnumValueDescriptor& object){
-// 	return wrap( object.number() ) ;
-// }
-} // Rcpp
+RCPP_TRAITS(GPB::int64,REALSXP)
+RCPP_TRAITS(GPB::uint64,REALSXP)
 
 #include <Rcpp.h>
 
@@ -72,6 +59,15 @@ template<> struct wrap_type_traits<GPB::uint64>{ typedef wrap_type_primitive_tag
 
 /* uncomment for debugging */
 // #define RPB_DEBUG
+
+#ifdef RPB_DEBUG
+#define RPB_DEBUG_BEGIN(__WHAT__) Rprintf( "<" #__WHAT__ ">\n" ) ;
+#define RPB_DEBUG_END(__WHAT__) Rprintf( "</" #__WHAT__ ">\n" ) ;
+#else 
+#define RPB_DEBUG_BEGIN(__WHAT__)
+#define RPB_DEBUG_END(__WHAT__)
+
+#endif
 
 #define FIN_DBG(ptr, CLAZZ) 
 // #define FIN_DBG(ptr, CLAZZ) Rprintf( "RProtoBuf finalizing %s (%p)\n", CLAZZ, ptr )
@@ -114,6 +110,140 @@ typedef GPB::uint64 uint64 ;
 
 namespace rprotobuf {
 
+	class S4_EnumValueDescriptor : public Rcpp::S4 {
+	public:
+		S4_EnumValueDescriptor( const GPB::EnumValueDescriptor* d) : S4("EnumValueDescriptor"){
+		
+			if( d ){
+				slot( "pointer" ) = Rcpp::XPtr<GPB::EnumValueDescriptor>( 
+					const_cast<GPB::EnumValueDescriptor*>(d), false) ;
+			} else{
+				setSEXP( R_NilValue ); 
+			}
+		}
+		
+		S4_EnumValueDescriptor( const S4_EnumValueDescriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_EnumValueDescriptor& operator=( const S4_EnumValueDescriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+		
+	} ;
+	
+	
+	class S4_Descriptor : public Rcpp::S4 {
+	public:
+		S4_Descriptor( const GPB::Descriptor* d) : S4( "Descriptor" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::Descriptor>( 
+				const_cast<GPB::Descriptor*>(d), false) ;
+			slot( "type" )    = d->full_name() ;
+		}
+		
+		S4_Descriptor( const S4_Descriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_Descriptor& operator=( const S4_Descriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+	
+	class S4_FieldDescriptor : public Rcpp::S4 {
+	public:
+		S4_FieldDescriptor( const GPB::FieldDescriptor* d) : S4( "FieldDescriptor" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::FieldDescriptor>( 
+				const_cast<GPB::FieldDescriptor*>(d), false) ;
+			slot( "name" )      = d->name() ;
+			slot( "full_name" ) = d->full_name() ;
+			slot( "type" )      = d->containing_type()->full_name() ;
+		}
+		
+		S4_FieldDescriptor( const S4_FieldDescriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_FieldDescriptor& operator=( const S4_FieldDescriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+	
+
+	class S4_ServiceDescriptor : public Rcpp::S4 {
+	public:
+		S4_ServiceDescriptor( const GPB::ServiceDescriptor* d) : S4( "ServiceDescriptor" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::ServiceDescriptor>( 
+				const_cast<GPB::ServiceDescriptor*>(d), false) ;
+		}
+		
+		S4_ServiceDescriptor( const S4_ServiceDescriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_ServiceDescriptor& operator=( const S4_ServiceDescriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+	
+	class S4_MethodDescriptor : public Rcpp::S4 {
+	public:
+		S4_MethodDescriptor( const GPB::MethodDescriptor* d) : S4( "MethodDescriptor" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::MethodDescriptor>( 
+				const_cast<GPB::MethodDescriptor*>(d), false) ;
+		}
+		
+		S4_MethodDescriptor( const S4_MethodDescriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_MethodDescriptor& operator=( const S4_MethodDescriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+	
+	class S4_EnumDescriptor : public Rcpp::S4 {
+	public:
+		S4_EnumDescriptor( const GPB::EnumDescriptor* d) : S4( "EnumDescriptor" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::EnumDescriptor>( 
+				const_cast<GPB::EnumDescriptor*>(d), false) ;
+			slot( "name" )     = d->name() ;
+			slot( "full_name") = d->full_name() ;
+			const GPB::Descriptor *type_desc = d->containing_type() ;
+			if( type_desc ){
+				slot( "type" ) = type_desc->full_name()  ;
+			} else{
+				slot( "type" ) = Rcpp::StringVector( (size_t)0) ;
+			}
+			
+		}
+		
+		S4_EnumDescriptor( const S4_EnumDescriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_EnumDescriptor& operator=( const S4_EnumDescriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+
+	class S4_Message : public Rcpp::S4 {
+	public:
+		S4_Message( const GPB::Message* d) : S4( "Message" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::Message>( 
+				const_cast<GPB::Message*>(d), true) ;
+			slot( "type" ) = d->GetDescriptor()->full_name() ;
+		}
+		
+		S4_Message( const S4_Message& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_Message& operator=( const S4_Message& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+	
 /* in rprotobuf.cpp */
 GPB::Message* PROTOTYPE( const GPB::Descriptor*) ;
 GPB::Message* CLONE(const GPB::Message*) ;
@@ -156,12 +286,6 @@ RcppExport SEXP getServiceDescriptorMethodNames( SEXP ) ;
 /* in exceptions.cpp */
 RcppExport SEXP throwException( const char*, const char*) ;
 
-/* in serialize.cpp */
-RcppExport SEXP getMessagePayload( SEXP ) ;
-RcppExport std::string getMessagePayloadAs_stdstring( SEXP ) ;
-RcppExport SEXP serializeMessageToFile( SEXP , SEXP ) ;
-RcppExport SEXP serialize_to_connection( SEXP, SEXP ) ;
-
 /* in lookup.cpp */
 RcppExport SEXP newProtocolBufferLookup() ;
 
@@ -186,26 +310,6 @@ RcppExport SEXP as_list_enum_descriptor( SEXP );
 RcppExport SEXP as_list_file_descriptor( SEXP ) ;
 RcppExport SEXP as_list_service_descriptor( SEXP ); 
 
-/* in ascharacter.cpp */
-RcppExport SEXP as_character_message( SEXP );
-RcppExport SEXP as_character_descriptor( SEXP ); 
-RcppExport SEXP as_character_enum_descriptor( SEXP ); 
-RcppExport SEXP as_character_field_descriptor(SEXP);
-RcppExport SEXP get_value_of_enum( SEXP, SEXP); 
-RcppExport SEXP as_character_service_descriptor(SEXP);
-RcppExport SEXP as_character_method_descriptor(SEXP);
-RcppExport SEXP as_character_file_descriptor( SEXP) ;
-RcppExport SEXP as_character_enum_value_descriptor( SEXP) ;
-
-/* in update.cpp */
-RcppExport SEXP update_message( SEXP, SEXP) ;
-
-/* in has.cpp */
-RcppExport SEXP message_has_field( SEXP, SEXP ); 
-
-/* in clone.cpp */
-RcppExport SEXP clone_message( SEXP ) ;
-
 /* in merge.cpp */
 RcppExport SEXP merge_message( SEXP, SEXP ); 
 
@@ -222,11 +326,7 @@ RcppExport SEXP set_field_size(SEXP, SEXP, SEXP);
 /* in length.cpp */
 RcppExport SEXP get_message_length( SEXP ) ;
 
-/* in initialized.cpp */
-RcppExport SEXP is_message_initialized( SEXP ) ;
-
 /* in clear.cpp */
-RcppExport SEXP clear_message( SEXP ) ;
 RcppExport SEXP clear_message_field( SEXP, SEXP ) ;
 
 /* in swap.cpp */
@@ -243,14 +343,6 @@ RcppExport SEXP all_equal_messages( SEXP, SEXP, SEXP) ;
 /* in add.cpp */
 RcppExport SEXP message_add_values( SEXP, SEXP, SEXP);
 
-/* in methods.cpp */
-RcppExport SEXP get_method_output_type( SEXP) ;
-RcppExport SEXP get_method_input_type( SEXP) ;
-RcppExport SEXP get_method_output_prototype( SEXP) ;
-RcppExport SEXP get_method_input_prototype( SEXP) ;
-RcppExport SEXP valid_input_message( SEXP, SEXP) ;
-RcppExport SEXP valid_output_message( SEXP, SEXP) ;
-
 /* in fileDescriptor.cpp */
 RcppExport SEXP get_message_file_descriptor( SEXP) ;
 RcppExport SEXP get_descriptor_file_descriptor(SEXP) ;
@@ -266,15 +358,6 @@ RcppExport SEXP name_enum_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_service_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_method_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_file_descriptor( SEXP ) ;
-
-/* in as.cpp */
-RcppExport SEXP asMessage_Descriptor( SEXP ) ;
-RcppExport SEXP asMessage_FieldDescriptor( SEXP );
-RcppExport SEXP asMessage_EnumDescriptor( SEXP) ;
-RcppExport SEXP asMessage_ServiceDescriptor( SEXP ) ;         
-RcppExport SEXP asMessage_MethodDescriptor( SEXP ) ;
-RcppExport SEXP asMessage_FileDescriptor( SEXP ) ;
-RcppExport SEXP asMessage_EnumValueDescriptor( SEXP ) ;
 
 /* in containing_type.cpp */
 RcppExport SEXP containing_type__Descriptor( SEXP ); 
@@ -294,27 +377,6 @@ RcppExport SEXP Descriptor_getNestedTypeByIndex( SEXP, SEXP) ;
 RcppExport SEXP Descriptor_getNestedTypeByName( SEXP, SEXP); 
 RcppExport SEXP Descriptor_getEnumTypeByIndex( SEXP, SEXP);
 RcppExport SEXP Descriptor_getEnumTypeByName( SEXP, SEXP);
-
-/* in FieldDescriptor_wrapper.cpp */
-RcppExport SEXP FieldDescriptor_is_extension(SEXP) ;
-RcppExport SEXP FieldDescriptor_number(SEXP); 
-RcppExport SEXP FieldDescriptor_type(SEXP);
-RcppExport SEXP FieldDescriptor_cpp_type(SEXP);
-RcppExport SEXP FieldDescriptor_label(SEXP );
-RcppExport SEXP FieldDescriptor_is_repeated(SEXP);
-RcppExport SEXP FieldDescriptor_is_optional(SEXP);
-RcppExport SEXP FieldDescriptor_is_required(SEXP);
-RcppExport SEXP FieldDescriptor_is_has_default_value(SEXP);
-RcppExport SEXP FieldDescriptor_default_value(SEXP);
-RcppExport SEXP FieldDescriptor_message_type(SEXP);
-RcppExport SEXP FieldDescriptor_enum_type(SEXP); 
-
-/* in EnumDescriptor_wrapper.cpp */
-RcppExport SEXP EnumDescriptor_length(SEXP);
-RcppExport SEXP EnumDescriptor__value_count(SEXP) ;
-RcppExport SEXP EnumDescriptor_getValueByIndex(SEXP, SEXP) ;
-RcppExport SEXP EnumDescriptor_getValueByNumber(SEXP, SEXP) ;
-RcppExport SEXP EnumDescriptor_getValueByName(SEXP, SEXP);
 
 /* in ServiceDescriptor_wrapper.cpp */
 RcppExport SEXP ServiceDescriptor_length(SEXP);

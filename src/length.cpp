@@ -9,14 +9,10 @@ namespace rprotobuf{
  *
  * @param xp external pointer to the Message
  */
-SEXP get_message_length( SEXP xp ){
-#ifdef RPB_DEBUG
-Rprintf( "<get_message_length>\n" ) ;
-#endif
+RCPP_FUNCTION_1(int, get_message_length, Rcpp::XPtr<GPB::Message> message){
 
-	/* grab the Message pointer */
-	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP(xp) ;
-	
+RPB_DEBUG_BEGIN(get_message_length)
+
 	const GPB::Descriptor* desc = message->GetDescriptor(); 
 	const GPB::Reflection * ref = message->GetReflection() ;
 	
@@ -37,14 +33,9 @@ Rprintf( "<get_message_length>\n" ) ;
 		}
 	}
 	
-	SEXP ans = PROTECT( Rf_ScalarInteger( res ) ); 
-	UNPROTECT(1); /* ans */
+RPB_DEBUG_END(get_message_length)
 	
-#ifdef RPB_DEBUG
-Rprintf( "</get_message_length>\n" ) ;
-#endif
-	
-	return ans ;
+	return res ;
 
 }
 

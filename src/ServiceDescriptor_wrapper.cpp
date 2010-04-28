@@ -2,30 +2,10 @@
 
 namespace rprotobuf{
 
-	SEXP ServiceDescriptor_length(SEXP xp){
-		GPB::ServiceDescriptor* d = (GPB::ServiceDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->method_count() ) ;
-	}
+	RCPP_XP_METHOD_0(ServiceDescriptor_length,GPB::ServiceDescriptor, method_count )
+	RCPP_XP_METHOD_0(ServiceDescriptor_method_count,GPB::ServiceDescriptor, method_count )
 	
-	SEXP ServiceDescriptor_method_count(SEXP xp){
-		GPB::ServiceDescriptor* d = (GPB::ServiceDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->method_count() ) ;
-	}
-	
-	SEXP ServiceDescriptor_getMethodByIndex(SEXP xp, SEXP index){
-		GPB::ServiceDescriptor* d = (GPB::ServiceDescriptor*)EXTPTR_PTR(xp) ;
-		int i = INTEGER(index)[0] ;
-		const GPB::MethodDescriptor* md = d->method(i); 
-		if( !md ) return R_NilValue ;
-		return new_RS4_MethodDescriptor( md ); 
-	}
-	
-	SEXP ServiceDescriptor_getMethodByName(SEXP xp, SEXP name){
-		GPB::ServiceDescriptor* d = (GPB::ServiceDescriptor*)EXTPTR_PTR(xp) ;
-		std::string nam = CHAR( STRING_ELT(name, 0) ) ;
-		const GPB::MethodDescriptor* md = d->FindMethodByName(nam); 
-		if( !md ) return R_NilValue ;
-		return new_RS4_MethodDescriptor( md );
-	}
+	RCPP_XP_METHOD_CAST_1(ServiceDescriptor_getMethodByIndex , GPB::ServiceDescriptor , method          , S4_MethodDescriptor ) 
+	RCPP_XP_METHOD_CAST_1(ServiceDescriptor_getMethodByName  , GPB::ServiceDescriptor , FindMethodByName, S4_MethodDescriptor ) 
 	
 } // namespace rprotobuf

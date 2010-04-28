@@ -150,9 +150,9 @@ setMethod( "show", c( "EnumValueDescriptor" ), function(object){
 setMethod("$", "Message", function(x, name) {
 	
 	switch( name, 
-		"has" = function( what ) .Call( "message_has_field", x@pointer, what, PACKAGE = "RProtoBuf" ), 
-		"clone" = function( ... ) ._clone.message( x, ... ), 
-		"isInitialized" = function() isInitialized( x ), 
+		"has" = function( ... )      .Call( "Message__has_field"     , x@pointer, ..., PACKAGE = "RProtoBuf"), 
+		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"), 
+		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),    
 		"serialize" = function(...) serialize( x, ... ),
 		"clear" = function(...) clear( x, ... ), 
 		"size"  = function(field, ...) size(x, field, ... ),

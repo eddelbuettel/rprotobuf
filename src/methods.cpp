@@ -2,58 +2,30 @@
 
 namespace rprotobuf{
 
-	/**
-	 * Get the descriptor for the input type of a method
-	 */
-	SEXP get_method_input_type( SEXP xp ){
-		
-		GPB::MethodDescriptor* method = GET_METHOD( xp) ;
-		return new_RS4_Descriptor(method->input_type() );
-		
+	
+	RCPP_FUNCTION_1( S4_Descriptor, get_method_input_type , Rcpp::XPtr<GPB::MethodDescriptor> method){
+		return method->input_type() ;
+	}
+	RCPP_FUNCTION_1( S4_Descriptor, get_method_output_type, Rcpp::XPtr<GPB::MethodDescriptor> method){
+		return method->output_type() ;
 	}
 	
-	/**
-	 * Get the descriptor for the input type of a method
-	 */
-	SEXP get_method_output_type( SEXP xp ){
-		
-		GPB::MethodDescriptor* method = GET_METHOD( xp) ;
-		return new_RS4_Descriptor(method->output_type() );
-		
-	}
-	
-	
-	SEXP get_method_input_prototype( SEXP xp ){
-		GPB::MethodDescriptor* method = GET_METHOD( xp) ;
+	RCPP_FUNCTION_1( S4_Message, get_method_input_prototype, Rcpp::XPtr<GPB::MethodDescriptor> method ){
 		const GPB::Descriptor* desc = method->input_type();
-		GPB::Message* message = PROTOTYPE( desc ) ; 
-		return( new_RS4_Message_( message ) ) ;
+		return S4_Message( PROTOTYPE( desc ) ) ;
 	}
 	
-	
-	SEXP get_method_output_prototype( SEXP xp ){
-		GPB::MethodDescriptor* method = GET_METHOD( xp) ;
+	RCPP_FUNCTION_1( S4_Message, get_method_output_prototype, Rcpp::XPtr<GPB::MethodDescriptor> method ){
 		const GPB::Descriptor* desc = method->output_type();
-		GPB::Message* message = PROTOTYPE( desc ) ; 
-		return( new_RS4_Message_( message ) ) ;
+		return S4_Message( PROTOTYPE( desc ) ) ;
 	}
 	
-
-	
-	SEXP valid_input_message( SEXP method_xp, SEXP message_xp ){
-		
-		GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( message_xp ); 
-		GPB::MethodDescriptor* method = GET_METHOD( method_xp ) ;
-		
-		return Rf_ScalarLogical( message->GetDescriptor() == method->input_type() ? _TRUE_ : FALSE );
+	RCPP_FUNCTION_2(bool, valid_input_message, Rcpp::XPtr<GPB::MethodDescriptor> method, Rcpp::XPtr<GPB::Message> message){
+		return message->GetDescriptor() == method->input_type() ;
 	}
 	
-	SEXP valid_output_message( SEXP method_xp, SEXP message_xp ){
-		
-		GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP( message_xp ); 
-		GPB::MethodDescriptor* method = GET_METHOD( method_xp ) ;
-		
-		return Rf_ScalarLogical( message->GetDescriptor() == method->output_type() ? _TRUE_ : FALSE );
+	RCPP_FUNCTION_2(bool, valid_output_message, Rcpp::XPtr<GPB::MethodDescriptor> method, Rcpp::XPtr<GPB::Message> message){
+		return message->GetDescriptor() == method->output_type() ;
 	}
 	
 } // namespace rprotobuf

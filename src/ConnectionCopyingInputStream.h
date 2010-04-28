@@ -17,6 +17,8 @@ namespace rprotobuf{
 				care of GC here
 			*/
 			SEXP con ;
+			
+			Rcpp::Function readBin ;
 } ;
 
 } // namespace rprotobuf

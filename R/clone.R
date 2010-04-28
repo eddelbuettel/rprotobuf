@@ -3,7 +3,7 @@ setGeneric( "clone", function( object, ... ){
 	standardGeneric( "clone" )
 } )
 ._clone.message <- function( object, ... ){
-	message <- .Call( "clone_message", object@pointer )
+	message <- .Call( "Message__clone", object@pointer )
 	update( message, ... )
 	message
 }

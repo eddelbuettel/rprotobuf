@@ -3,7 +3,8 @@
 
 namespace rprotobuf{
 	
-	ConnectionCopyingInputStream::ConnectionCopyingInputStream(SEXP con) : con(con){}
+	ConnectionCopyingInputStream::ConnectionCopyingInputStream(SEXP con) : 
+		con(con), readBin("readBin") {}
 	
 	/** 
 	 * call readBin to read size bytes from R
@@ -15,15 +16,10 @@ namespace rprotobuf{
 	 */
 	int	ConnectionCopyingInputStream::Read(void * buffer, int size){
 		
-		/* we need to take care of error handling */
-		SEXP what = PROTECT( Rf_allocVector(RAWSXP, 0) ) ;
-		SEXP n    = PROTECT( Rf_ScalarInteger( size ) );
-		SEXP call = PROTECT( Rf_lang4( Rf_install( "readBin" ), con, what, n) ) ; 
-		SEXP res  = PROTECT( Rf_eval( call, R_GlobalEnv ) ); 
-		int len = LENGTH( res ) ;
-		memcpy( buffer, RAW(res), len ) ;
-		UNPROTECT( 4 ) ; /* res, call, n, what */ 
-		return len ;
+		/* TODO: error handling */
+		Rcpp::RawVector res = readBin( con, Rcpp::RawVector( (size_t)0 ), size ) ;
+		memcpy( buffer, res.begin() , res.size() ) ;
+		return res.size() ;
 	}
 	
 	

@@ -3,97 +3,39 @@
 
 namespace rprotobuf {
 
-	SEXP FieldDescriptor_is_extension(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarLogical( d->is_extension() ) ;
-	}
+	RCPP_XP_METHOD_0( FieldDescriptor_is_extension      , GPB::FieldDescriptor, is_extension)  
+	RCPP_XP_METHOD_0( FieldDescriptor_number            , GPB::FieldDescriptor, number)  
+	RCPP_XP_METHOD_0( FieldDescriptor_type              , GPB::FieldDescriptor, type )  
+	RCPP_XP_METHOD_0( FieldDescriptor_cpp_type          , GPB::FieldDescriptor, cpp_type )  
+	RCPP_XP_METHOD_0( FieldDescriptor_label             , GPB::FieldDescriptor, label )  
+	RCPP_XP_METHOD_0( FieldDescriptor_is_repeated       , GPB::FieldDescriptor, is_repeated )  
+	RCPP_XP_METHOD_0( FieldDescriptor_is_optional       , GPB::FieldDescriptor, is_optional )  
+	RCPP_XP_METHOD_0( FieldDescriptor_is_required       , GPB::FieldDescriptor, is_required )  
+	RCPP_XP_METHOD_0( FieldDescriptor_has_default_value , GPB::FieldDescriptor, has_default_value )  
 	
-	SEXP FieldDescriptor_number(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->number() ) ;
+
+#define RPB_HANDLE_CASE(__CPP__,__LC__)                           \
+case CPPTYPE_##__CPP__:                                           \
+	{                                                             \
+		return Rcpp::wrap( d->default_value_##__LC__() );         \
+		break ;                                                   \
 	}
-	
-	SEXP FieldDescriptor_type(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->type() ) ;
-	}
-	
-	SEXP FieldDescriptor_cpp_type(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->cpp_type() ) ;
-	}
-	
-	SEXP FieldDescriptor_label(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->label() ) ;
-	}
-	
-	SEXP FieldDescriptor_is_repeated(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarLogical( d->is_repeated() ) ;
-	}
-	
-	SEXP FieldDescriptor_is_optional(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->is_optional() ) ;
-	}
-	
-	SEXP FieldDescriptor_is_required(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarInteger( d->is_required() ) ;
-	}
-	
-	SEXP FieldDescriptor_has_default_value(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
-		return Rf_ScalarLogical( d->has_default_value() ) ;
-	}
-	
-	SEXP FieldDescriptor_default_value(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
+
+	RCPP_FUNCTION_1( SEXP, FieldDescriptor_default_value , Rcpp::XPtr<GPB::FieldDescriptor> d ){
 		switch( d->cpp_type() ){
-			case CPPTYPE_INT32:
-				{
-					return Rf_ScalarInteger( (int)d->default_value_int32() ) ;
-					break ;
-				}
-			case CPPTYPE_INT64:
-				{
-					return Rf_ScalarInteger( (int)d->default_value_int64() ) ;
-					break ;
-				}
-			case CPPTYPE_UINT32:
-				{
-					return Rf_ScalarInteger( (int)d->default_value_uint32() ) ;
-					break ;
-				}
-			case CPPTYPE_UINT64:
-				{
-					return Rf_ScalarInteger( (int)d->default_value_uint64() ) ;
-					break ;
-				}
-			case CPPTYPE_DOUBLE:
-				{
-					return Rf_ScalarReal( (double)d->default_value_double() ) ;
-					break ;
-				}
-			case CPPTYPE_FLOAT:
-				{
-					return Rf_ScalarReal( (double)d->default_value_float() ) ;
-					break ;
-				}
-			case CPPTYPE_BOOL:
-				{
-					return Rf_ScalarLogical(d->default_value_bool() ) ;
-					break ;
-				}
+			
+			RPB_HANDLE_CASE(INT32,int32)
+			RPB_HANDLE_CASE(INT64,int64)
+			RPB_HANDLE_CASE(UINT32,uint32)
+			RPB_HANDLE_CASE(UINT64,uint64)
+			RPB_HANDLE_CASE(DOUBLE,double)
+			RPB_HANDLE_CASE(FLOAT,float)
+			RPB_HANDLE_CASE(BOOL,bool)
+			RPB_HANDLE_CASE(STRING,string)
+
 			case CPPTYPE_ENUM:
 				{
 					return Rf_ScalarInteger( d->default_value_enum()->number() ) ;
-					break ;
-				}
-			case CPPTYPE_STRING:
-				{
-					return Rf_mkString( d->default_value_string().c_str() ) ;
 					break ;
 				}
 			default: 
@@ -102,22 +44,21 @@ namespace rprotobuf {
 		return R_NilValue ;
 	}
 	
-	SEXP FieldDescriptor_message_type(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
+	RCPP_FUNCTION_1(S4_Descriptor, FieldDescriptor_message_type, Rcpp::XPtr<GPB::FieldDescriptor> d){
 		if( d->cpp_type() != CPPTYPE_MESSAGE ){
-			throwException( "not a message type field", "NotMessageType" ); 
+			throw Rcpp::not_compatible( "not a message type field" )  ;
 		}
-		return new_RS4_Descriptor( d->message_type() ) ;
+		return S4_Descriptor( d->message_type() ) ;
 	}
 	
-	SEXP FieldDescriptor_enum_type(SEXP xp){
-		GPB::FieldDescriptor* d = (GPB::FieldDescriptor*)EXTPTR_PTR(xp) ;
+	RCPP_FUNCTION_1(S4_EnumDescriptor, FieldDescriptor_enum_type, Rcpp::XPtr<GPB::FieldDescriptor> d){
 		if( d->cpp_type() != CPPTYPE_ENUM ){
 			throwException( "not an enum type field", "NotEnumType" ); 
 		}
-		return new_RS4_EnumDescriptor( d->enum_type() ) ;
+		return S4_EnumDescriptor( d->enum_type() ) ;
 	}
 	
+#undef RPB_HANDLE_CASE
 	
 } // namespace rprotobuf
 

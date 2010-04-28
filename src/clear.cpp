@@ -2,16 +2,7 @@
 
 namespace rprotobuf{
 
-	/** 
-	 * clear a message
-	 * 
-	 * @param xp external pointer to the message
-	 */
-	SEXP clear_message( SEXP xp ){
-		GPB::Message* m = GET_MESSAGE_POINTER_FROM_XP( xp ) ; 
-		m->Clear() ;
-		return( R_NilValue ); 
-	}
+	RCPP_XP_METHOD_VOID_0(clear_message, GPB::Message, Clear )
 	
 	/**
 	 * Clear a field of a message

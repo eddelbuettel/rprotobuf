@@ -17,7 +17,8 @@ namespace rprotobuf{
 				care of GC here
 			*/
 			SEXP con ;
-			/* SEXP getWriteBinCall(int size) ; */
+			
+			Rcpp::Function writeBin ;
 } ;
 
 } // namespace rprotobuf
