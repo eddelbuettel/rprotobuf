@@ -3,22 +3,6 @@
 namespace rprotobuf{
 
 /**
- * @param xp external pointer to a Message
- * @return the message as an R list
- */
-RCPP_FUNCTION_1( Rcpp::List, as_list_message, Rcpp::XPtr<GPB::Message> message ){
-    
-	Rcpp::CharacterVector fieldNames = getMessageFieldNames_(message) ;
-	int nf = fieldNames.size() ;
-	Rcpp::List val( nf ) ;
-	for( int i=0; i<nf; i++){
-		val[i] = getMessageField( message, Rcpp::CharacterVector::create( fieldNames[i] ) ) ; 
-	}
-	val.names() = fieldNames ;
-	return val ;
-}
-
-/**
  * @param xp external pointer to a Descriptor
  * @return the descriptor as an R list
  */

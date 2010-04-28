@@ -153,8 +153,6 @@ setMethod("$", "Message", function(x, name) {
 		"has" = function( ... )      .Call( "Message__has_field"     , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),    
-		"serialize" = function(...) serialize( x, ... ),
-		"clear" = function(...) clear( x, ... ), 
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x), 
 		"swap" = function(...) swap(x,...),
@@ -167,6 +165,9 @@ setMethod("$", "Message", function(x, name) {
 		"fetch" = function(...) fetch(x, ... ), 
 		"toString" = function(...) toString( x, ... ),
 		"add" = function(...) add( x, ...), 
+		
+		"serialize" = function(...) serialize( x, ... ),
+		"clear" = function(...) clear( x, ... ), 
 		
 		"descriptor" = function() descriptor(x), 
 		"fileDescriptor" = function() fileDescriptor(x ), 
@@ -440,7 +441,7 @@ setMethod( "update", "Message", function( object, ... ){
 # {{{ length
 setGeneric( "length" )
 setMethod( "length", "Message", function( x ){
-	.Call( "get_message_length", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Message__length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "length", "EnumDescriptor", function( x ){
 	.Call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )

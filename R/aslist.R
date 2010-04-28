@@ -1,5 +1,5 @@
 as.list.Message <- function( x, ...){
-	.Call( "as_list_message", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Message__as_list", x@pointer, PACKAGE = "RProtoBuf" )
 }
 as.list.Descriptor <- function(x, ...){
 	.Call( "as_list_descriptor", x@pointer, PACKAGE = "RProtoBuf" )

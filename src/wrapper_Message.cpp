@@ -87,6 +87,67 @@ RCPP_FUNCTION_1( Rcpp::RawVector, Message__get_payload, Rcpp::XPtr<GPB::Message>
 	return( payload ) ;
 }
 
+RCPP_XP_METHOD_VOID_0(Message__clear, GPB::Message, Clear )
+
+/**
+ * Clear a field of a message
+ *
+ * @param xp (GPB::Message*) external pointer
+ * @param field name or tag of the field
+ */
+RCPP_FUNCTION_VOID_1(Message__clear_field, Rcpp::XPtr<GPB::Message> m, SEXP field ){
+	GPB::FieldDescriptor* field_desc = getFieldDescriptor( m, field ) ;
+	const GPB::Reflection* ref = m->GetReflection(); 
+	ref->ClearField( m, field_desc ) ;
+}
+
+
+/**
+ * @param xp external pointer to a Message
+ * @return the message as an R list
+ */
+RCPP_FUNCTION_1( Rcpp::List, Message__as_list, Rcpp::XPtr<GPB::Message> message ){
+    
+	Rcpp::CharacterVector fieldNames = getMessageFieldNames_(message) ;
+	int nf = fieldNames.size() ;
+	Rcpp::List val( nf ) ;
+	for( int i=0; i<nf; i++){
+		val[i] = getMessageField( message, Rcpp::CharacterVector::create( fieldNames[i] ) ) ; 
+	}
+	val.names() = fieldNames ;
+	return val ;
+}
+
+/**
+ * The number of fields the message has. A field counts in these two situations :
+ * - it is repeated and the array size is greater than 0
+ * - it is not repeated and the message has it
+ *
+ * @param xp external pointer to the Message
+ */
+RCPP_FUNCTION_1(int, Message__length, Rcpp::XPtr<GPB::Message> message){
+	const GPB::Descriptor* desc = message->GetDescriptor(); 
+	const GPB::Reflection * ref = message->GetReflection() ;
+	
+	int nfields = desc->field_count() ;
+	
+	int res = 0; 
+	
+	for( int i=0; i<nfields; i++){
+		const GPB::FieldDescriptor* field_desc = desc->field( i ) ;
+		if( field_desc->is_repeated() ){
+			if( ref->FieldSize( *message, field_desc ) > 0 ){
+				res++ ;
+			}
+		} else{
+			if( ref->HasField( *message, field_desc ) ){
+				res++ ;
+			}
+		}
+	}
+	return res ;
+}
+
 
 }
 

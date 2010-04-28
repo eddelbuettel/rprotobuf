@@ -2,7 +2,7 @@ setGeneric( "clear", function(object, field, ...){
 	standardGeneric( "clear" )
 } )
 setMethod( "clear", signature( "Message", "missing" ), function(object, field, ...){
-	.Call( "clear_message", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Message__clear", object@pointer, PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 

@@ -304,7 +304,6 @@ RcppExport void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
 RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
 
 /* in aslist.cpp */
-RcppExport SEXP as_list_message( SEXP ) ;
 RcppExport SEXP as_list_descriptor( SEXP ); 
 RcppExport SEXP as_list_enum_descriptor( SEXP );
 RcppExport SEXP as_list_file_descriptor( SEXP ) ;
@@ -322,12 +321,6 @@ RcppExport SEXP readMessageFromRawVector( SEXP, SEXP );
 RcppExport SEXP get_message_bytesize( SEXP ) ;
 RcppExport SEXP get_field_size(SEXP, SEXP);
 RcppExport SEXP set_field_size(SEXP, SEXP, SEXP);
-
-/* in length.cpp */
-RcppExport SEXP get_message_length( SEXP ) ;
-
-/* in clear.cpp */
-RcppExport SEXP clear_message_field( SEXP, SEXP ) ;
 
 /* in swap.cpp */
 RcppExport SEXP message_swap_fields(SEXP, SEXP, SEXP, SEXP) ;
