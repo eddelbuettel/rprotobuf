@@ -2,14 +2,14 @@ setGeneric( "field_count", function(object){
 	standardGeneric( "field_count" )
 } )
 setMethod( "field_count", "Descriptor", function(object){
-	.Call( "field_count__Descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Descriptor__field_count", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "nested_type_count", function(object){
 	standardGeneric( "nested_type_count" )
 } )
 setMethod( "nested_type_count", "Descriptor", function(object){
-	.Call( "nested_type_count__Descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Descriptor__nested_type_count", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 
@@ -17,7 +17,7 @@ setGeneric( "enum_type_count", function(object){
 	standardGeneric( "enum_type_count" )
 } )
 setMethod( "enum_type_count", "Descriptor", function(object){
-	.Call( "enum_type_count__Descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Descriptor__enum_type_count", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 
@@ -34,15 +34,15 @@ setMethod( "field", "Descriptor", function( object, index, number, name){
 	}
 	
 	if( has_index ){
-		return( .Call( "Descriptor_getFieldByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__field", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_number ){
-		return( .Call( "Descriptor_getFieldByNumber", object@pointer, as.integer(number), PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__FindFieldByNumber", object@pointer, as.integer(number), PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_name ){
-		return( .Call( "Descriptor_getFieldByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__FindFieldByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
 } )
@@ -59,11 +59,11 @@ setMethod( "nested_type", "Descriptor", function(object, index, name ){
 	}
 	
 	if( has_index ){
-		return( .Call( "Descriptor_getNestedTypeByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__nested_type", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_name ){
-		return( .Call( "Descriptor_getNestedTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__FindNestedTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
 } )
@@ -75,11 +75,11 @@ setMethod( "enum_type", "Descriptor", function(object, index, name){
 		stop( "need exactly one of `index` or `name`" )
 	}
 	if( has_index ){
-		return( .Call( "Descriptor_getEnumTypeByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__enum_type", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_name ){
-		return( .Call( "Descriptor_EnumTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
+		return( .Call( "Descriptor__FindEnumTypeByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
 })

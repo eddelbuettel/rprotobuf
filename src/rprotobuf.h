@@ -338,19 +338,7 @@ RcppExport SEXP name_service_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_method_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_file_descriptor( SEXP ) ;
 
-/* in field_count.cpp */
-RcppExport SEXP field_count__Descriptor( SEXP );
-RcppExport SEXP nested_type_count__Descriptor( SEXP );
-RcppExport SEXP enum_type_count__Descriptor( SEXP );
-RcppExport SEXP Descriptor_getFieldByIndex( SEXP, SEXP) ;
-RcppExport SEXP Descriptor_getFieldByNumber( SEXP, SEXP ) ;
-RcppExport SEXP Descriptor_getFieldByName(SEXP, SEXP) ;
-RcppExport SEXP Descriptor_getNestedTypeByIndex( SEXP, SEXP) ;
-RcppExport SEXP Descriptor_getNestedTypeByName( SEXP, SEXP); 
-RcppExport SEXP Descriptor_getEnumTypeByIndex( SEXP, SEXP);
-RcppExport SEXP Descriptor_getEnumTypeByName( SEXP, SEXP);
-
-/* in ServiceDescriptor_wrapper.cpp */
+/* in wrapper_ServiceDescriptor.cpp */
 RcppExport SEXP ServiceDescriptor_length(SEXP);
 RcppExport SEXP ServiceDescriptor_method_count(SEXP) ;
 RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP) ;

@@ -6,7 +6,12 @@ namespace rprotobuf{
 #define METHOD(__NAME__) RCPP_PP_CAT(Descriptor__,__NAME__)	
 
 RCPP_XP_METHOD_0( METHOD(as_character), GPB::Descriptor          , DebugString)
+RCPP_XP_METHOD_0( METHOD(field_count), GPB::Descriptor, field_count )
+RCPP_XP_METHOD_0( METHOD(nested_type_count), GPB::Descriptor, nested_type_count )
+RCPP_XP_METHOD_0( METHOD(enum_type_count), GPB::Descriptor, enum_type_count )
+
 RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type, RS4_Descriptor )
+
 
 /**
  * @param xp external pointer to a Descriptor
@@ -42,6 +47,35 @@ RCPP_FUNCTION_1(S4_Message, METHOD(as_Message) , Rcpp::XPtr<GPB::Descriptor> d )
 	d->CopyTo( message ); 
 	return message  ;
 }
+
+RCPP_FUNCTION_2( S4_FieldDescriptor, METHOD(field), Rcpp::XPtr<GPB::Descriptor> d, int i){
+	return d->field( i ) ;
+}
+
+RCPP_FUNCTION_2( S4_FieldDescriptor, METHOD(FindFieldByNumber), Rcpp::XPtr<GPB::Descriptor> d, int num){
+	return d->FindFieldByNumber( num ) ;
+}
+
+RCPP_FUNCTION_2( S4_FieldDescriptor, METHOD(FindFieldByName), Rcpp::XPtr<GPB::Descriptor> d, std::string nam ){
+	return d->FindFieldByName( nam ) ;
+}
+
+RCPP_FUNCTION_2( S4_Descriptor, METHOD(nested_type), Rcpp::XPtr<GPB::Descriptor> d, int i){
+	return d->nested_type( i ) ;
+}
+
+RCPP_FUNCTION_2( S4_Descriptor, METHOD(FindNestedTypeByName), Rcpp::XPtr<GPB::Descriptor> d, std::string nam){
+	return d->FindNestedTypeByName( nam ) ;
+}
+
+RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, int i){
+	return d->enum_type( i ) ;
+}
+
+RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, std::string name){
+	return d->FindEnumTypeByName( i ) ;
+}
+
 
 #undef METHOD
 
