@@ -11,6 +11,6 @@ as.list.FileDescriptor <- function( x, ...){
 	.Call( "as_list_file_descriptor", x@pointer, PACKAGE = "RProtoBuf" )
 }
 as.list.ServiceDescriptor <- function( x, ...){
-	.Call( "as_list_service_descriptor", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "ServiceDescriptor__as_list", x@pointer, PACKAGE = "RProtoBuf" )
 }
 

@@ -153,7 +153,7 @@ setMethod("$", "Message", function(x, name) {
 		"has" = function( ... )      .Call( "Message__has_field"     , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),    
-		"descriptor" = function()    .Call("Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ), 
+		"descriptor" = function()    .Call( "Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ), 
 		
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x), 
@@ -497,19 +497,19 @@ function(object, full = FALSE){
 
 # {{{ as
 setAs("Descriptor", "Message", function(from){
-	.Call( "asMessage_Descriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Descriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("FieldDescriptor", "Message", function(from){
-	.Call( "asMessage_FieldDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("EnumDescriptor", "Message", function(from){
-	.Call( "asMessage_EnumDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "EnumDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("ServiceDescriptor", "Message", function(from){
-	.Call( "asMessage_ServiceDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "ServiceDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("MethodDescriptor", "Message", function(from){
-	.Call( "asMessage_MethodDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "MethodDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("FileDescriptor", "Message", function(from){
 	.Call( "asMessage_FileDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
