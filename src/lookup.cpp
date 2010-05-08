@@ -60,23 +60,23 @@ SEXP findSomething( const GPB::DescriptorPool* pool, const char * const name){
 	if( desc ){
  		/* message */
  		DescriptorPoolLookup::add( name_string ) ;
- 		return new_RS4_Descriptor( desc ) ;
+ 		return S4_Descriptor( desc ) ;
  	} else {
  		 const GPB::EnumDescriptor* enum_desc = pool->FindEnumTypeByName( name_string ) ;
  		 if( enum_desc ){
  		 	/* enum */
  		 	DescriptorPoolLookup::add( name_string ) ;
- 		 	return new_RS4_EnumDescriptor( enum_desc ); 
+ 		 	return S4_EnumDescriptor( enum_desc ); 
  		 } else{
 			const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name_string ) ;
 			if( service_desc ){
 				DescriptorPoolLookup::add( name_string ) ;
-				return new_RS4_ServiceDescriptor( service_desc ) ;
+				return S4_ServiceDescriptor( service_desc ) ;
  		 	} else {
  		 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name_string ); 
  		 		if( method_desc ){
 					DescriptorPoolLookup::add( name_string ) ;
-					return new_RS4_MethodDescriptor( method_desc ); 
+					return S4_MethodDescriptor( method_desc ); 
  		 		}
  		 	}
  		 }

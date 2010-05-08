@@ -219,7 +219,7 @@ SEXP get_service_method( SEXP pointer, SEXP name ){
 		throwException( "could not get MethodDescriptor", "NoSuchMethodException" ) ;
 	}
 	
-	return new_RS4_MethodDescriptor( method_desc ); 
+	return S4_MethodDescriptor( method_desc ); 
 	
 }
 

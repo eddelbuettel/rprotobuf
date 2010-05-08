@@ -80,7 +80,7 @@ Rf_PrintValue( type ) ;
 		}
 	}
 	
-	return( new_RS4_Descriptor( desc ) ) ;
+	return( RS4_Descriptor( desc ) ) ;
 }
 
 /**
@@ -133,7 +133,7 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	if( desc->field_count() ){
 		const GPB::FieldDescriptor*  fd = desc->FindFieldByName(what) ;
 		if( fd ){
-			return( new_RS4_FieldDescriptor(fd ) ) ;
+			return( RS4_FieldDescriptor(fd ) ) ;
 		}
 	}
 	
@@ -141,7 +141,7 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	if( desc->nested_type_count() ){
 		const GPB::Descriptor* d = desc->FindNestedTypeByName(what) ;
 		if( d ){
-			return( new_RS4_Descriptor( d ) ) ;
+			return( S4_Descriptor( d ) ) ;
 		}
 	}
 	
@@ -149,7 +149,7 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	if( desc->enum_type_count() ){
 		const GPB::EnumDescriptor* ed = desc->FindEnumTypeByName(what) ;
 		if( ed ){
-			return( new_RS4_EnumDescriptor( ed ) ) ;
+			return( S4_EnumDescriptor( ed ) ) ;
 		}
 	}
 	
