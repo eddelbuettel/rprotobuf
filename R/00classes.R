@@ -512,10 +512,10 @@ setAs("MethodDescriptor", "Message", function(from){
 	.Call( "MethodDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("FileDescriptor", "Message", function(from){
-	.Call( "asMessage_FileDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FileDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 setAs("EnumValueDescriptor", "Message", function(from){
-	.Call( "asMessage_EnumValueDescriptor", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "EnumValueDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
 })
 asMessage <- function( x, ... ){
 	as( x, "Message", ... )

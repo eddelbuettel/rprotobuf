@@ -6,6 +6,7 @@ namespace rprotobuf {
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(FieldDescriptor__,__NAME__)	
 
+	RCPP_XP_METHOD_0( METHOD(as_character)      , GPB::FieldDescriptor, DebugString)
 	RCPP_XP_METHOD_0( METHOD(is_extension)      , GPB::FieldDescriptor, is_extension)  
 	RCPP_XP_METHOD_0( METHOD(number)            , GPB::FieldDescriptor, number)  
 	RCPP_XP_METHOD_0( METHOD(type)              , GPB::FieldDescriptor, type )  

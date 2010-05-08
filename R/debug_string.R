@@ -1,27 +1,27 @@
 
 ._toString_Message <- function(x, ...){
-	.Call( "as_character_message", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_Descriptor <- function(x, ...){
-	.Call( "as_character_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "Descriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_EnumDescriptor <- function(x, ...){
-	.Call( "as_character_enum_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "EnumDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_FieldDescriptor <- function(x, ...){
-	.Call( "as_character_field_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "FieldDescripor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_ServiceDescriptor <- function(x, ...){
-	.Call( "as_character_service_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "ServiceDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_MethodDescriptor <- function(x, ...){
-	.Call( "as_character_method_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "MethodDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_FileDescriptor <- function(x, ...){
-	.Call( "as_character_file_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "FileDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_EnumValueDescriptor <- function(x, ...){
-	.Call( "as_character_enum_value_descriptor", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "EnumValueDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 
 

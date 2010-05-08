@@ -7,6 +7,7 @@ namespace rprotobuf{
 	
 	RCPP_XP_METHOD_0( METHOD(length),GPB::ServiceDescriptor, method_count )
 	RCPP_XP_METHOD_0( METHOD(method_count),GPB::ServiceDescriptor, method_count )
+	RCPP_XP_METHOD_0( METHOD(as_character)    , GPB::ServiceDescriptor   , DebugString)
 	
 	RCPP_XP_METHOD_CAST_1( METHOD(getMethodByIndex) , GPB::ServiceDescriptor , method          , S4_MethodDescriptor ) 
 	RCPP_XP_METHOD_CAST_1( METHOD(getMethodByName)  , GPB::ServiceDescriptor , FindMethodByName, S4_MethodDescriptor ) 
