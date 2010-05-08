@@ -59,6 +59,14 @@ RCPP_FUNCTION_1( Rcpp::IntegerVector, METHOD(as_list), Rcpp::XPtr<GPB::EnumDescr
 	return values; 
 }
 
+RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getConstantNames), Rcpp::XPtr<GPB::EnumDescriptor> d){
+	int n = d->value_count() ;
+	Rcpp::CharacterVector res( n) ;
+	for( int i=0; i<n; i++){
+		res[i] = d->value(i)->name() ;
+	}
+	return names ;
+}
 
 #undef METHOD
 

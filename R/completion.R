@@ -40,7 +40,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.EnumDescriptor <- function(x, pattern = "" ){
 	
 	names <- c( 
-		.Call( "getEnumDescriptorConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		.Call( "EnumDescriptor__getConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"name(", "fileDescriptor()", "as.character()", "toString()", 
 		"containing_type()", "length()", "value_count()", "value(" )
 	grep( pattern, names, value = TRUE )
@@ -62,7 +62,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 # {{{ ServiceDescriptor
 .DollarNames.ServiceDescriptor <- function(x, pattern = "" ){
 	names <- c(
-		.Call( "getServiceDescriptorMethodNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		.Call( "ServiceDescriptor__getMethodNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"as.character()", "toString()", "name(", "fileDescriptor()", 
 		"method_count()", "method(name=", "method(index="  )
 	grep( pattern, names, value = TRUE )
@@ -80,7 +80,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 # {{{ FileDescriptor
 .DollarNames.FileDescriptor <- function(x, pattern = "" ){
 	names <- c(
-		.Call( "getFileDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		.Call( "FileDescriptor__getMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"as.character()", "toString()", "name(" )
 	grep( pattern, names, value = TRUE )
 }
