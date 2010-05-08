@@ -300,11 +300,6 @@ RcppExport std::string GET_stdstring( SEXP, int ) ;
 RcppExport void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
 RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
 
-/* in aslist.cpp */
-RcppExport SEXP as_list_descriptor( SEXP ); 
-RcppExport SEXP as_list_enum_descriptor( SEXP );
-RcppExport SEXP as_list_file_descriptor( SEXP ) ;
-
 /* in merge.cpp */
 RcppExport SEXP merge_message( SEXP, SEXP ); 
 

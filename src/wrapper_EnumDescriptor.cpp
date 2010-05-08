@@ -38,6 +38,24 @@ RCPP_FUNCTION_2(int,get_value_of_enum,
 	return evd->number(); 
 }
 
+/**
+ * @param xp external pointer to a Descriptor
+ * @return the descriptor as an R list
+ */
+RCPP_FUNCTION_1( Rcpp::IntegerVector, METHOD(as_list), Rcpp::XPtr<GPB::EnumDescriptor> d ){
+	
+	int n = d->value_count() ;
+	Rcpp::IntegerVector values(n) ;
+	Rcpp::CharacterVector names(n) ;
+	
+	for( int i=0; i<n; i++){
+		const GPB::EnumValueDescriptor* value_d = d->value(i) ;
+		values[i] = value_d->number() ;
+		names[i]  = value_d->name() ;
+	}
+	values.names() = names ;
+	return values; 
+}
 
 
 #undef METHOD
