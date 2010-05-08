@@ -308,9 +308,6 @@ RcppExport SEXP readMessageFromFile( SEXP, SEXP ) ;
 RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ;
 RcppExport SEXP readMessageFromRawVector( SEXP, SEXP );
 
-/* in size.cpp */
-RcppExport SEXP set_field_size(SEXP, SEXP, SEXP);
-
 /* in swap.cpp */
 RcppExport SEXP message_swap_fields(SEXP, SEXP, SEXP, SEXP) ;
 
@@ -340,13 +337,6 @@ RcppExport SEXP name_enum_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_service_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_method_descriptor( SEXP, SEXP ) ;
 RcppExport SEXP name_file_descriptor( SEXP ) ;
-
-/* in containing_type.cpp */
-RcppExport SEXP containing_type__Descriptor( SEXP ); 
-RcppExport SEXP containing_type__EnumDescriptor( SEXP ); 
-RcppExport SEXP containing_type__FieldDescriptor( SEXP ); 
-RcppExport SEXP containing_type__ServiceDescriptor( SEXP ); 
-RcppExport SEXP containing_type__MethodDescriptor( SEXP ); 
 
 /* in field_count.cpp */
 RcppExport SEXP field_count__Descriptor( SEXP );

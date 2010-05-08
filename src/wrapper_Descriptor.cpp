@@ -5,7 +5,8 @@ namespace rprotobuf{
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(Descriptor__,__NAME__)	
 
-RCPP_XP_METHOD_0( METHOD(as_character), GPB::Descriptor          , DebugString) ;
+RCPP_XP_METHOD_0( METHOD(as_character), GPB::Descriptor          , DebugString)
+RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type, RS4_Descriptor )
 
 /**
  * @param xp external pointer to a Descriptor
@@ -41,7 +42,6 @@ RCPP_FUNCTION_1(S4_Message, METHOD(as_Message) , Rcpp::XPtr<GPB::Descriptor> d )
 	d->CopyTo( message ); 
 	return message  ;
 }
-
 
 #undef METHOD
 

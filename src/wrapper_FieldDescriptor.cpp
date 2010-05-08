@@ -16,8 +16,9 @@ namespace rprotobuf {
 	RCPP_XP_METHOD_0( METHOD(is_optional)       , GPB::FieldDescriptor, is_optional )  
 	RCPP_XP_METHOD_0( METHOD(is_required)       , GPB::FieldDescriptor, is_required )  
 	RCPP_XP_METHOD_0( METHOD(has_default_value) , GPB::FieldDescriptor, has_default_value )  
-	
 
+	RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::FieldDescriptor, containing_type, RS4_Descriptor )
+	
 #define RPB_HANDLE_CASE(__CPP__,__LC__)                           \
 case CPPTYPE_##__CPP__:                                           \
 	{                                                             \
