@@ -2,14 +2,6 @@
 
 namespace rprotobuf{
 
-void Message_finalizer( SEXP xp){
-	if (TYPEOF(xp)==EXTPTRSXP) {
-		GPB::Message* message = (GPB::Message*)XPP(xp) ;
-		FIN_DBG( message, "Message" ) ;
-		delete message;
-	}
-}
-
 /**
  * Creates an R object of S4 class Descriptor
  * from a google::protobuf::Descriptor pointer
@@ -116,28 +108,6 @@ SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor* fd ){
 	
 	return oo; 
 }
-
-/* same as above, but get the type from the message */
-SEXP new_RS4_Message_( const GPB::Message* message ){
-	
-	NEW_S4_OBJECT( "Message" ) ;
-  	
-	/* external pointer to the Message */
-	SEXP ptr   = PROTECT( R_MakeExternalPtr( (void*)message , 
-		R_NilValue, R_NilValue));
-	R_RegisterCFinalizerEx( ptr, Message_finalizer , _FALSE_ ) ;
-	
-	/* the message type */
-	SEXP type = PROTECT( Rf_mkString( message->GetDescriptor()->full_name().c_str() )) ;
-	
-	SET_SLOT( oo, Rf_install("type"), type ) ;
-	SET_SLOT( oo, Rf_install("pointer"), ptr ) ;
-	
-	UNPROTECT( 3) ; /* ptr, oo, type */
-	return( oo ); 
-	
-}
-
 
 /**
  * Creates a new "ServiceDescriptor" R S4 object

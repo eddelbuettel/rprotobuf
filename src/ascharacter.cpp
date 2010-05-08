@@ -6,7 +6,6 @@ RCPP_XP_METHOD_0(as_character_enum_descriptor       , GPB::EnumDescriptor      ,
 RCPP_XP_METHOD_0(as_character_field_descriptor      , GPB::FieldDescriptor     , DebugString) ;
 RCPP_XP_METHOD_0(as_character_file_descriptor       , GPB::FileDescriptor      , DebugString) ;
 RCPP_XP_METHOD_0(as_character_enum_value_descriptor , GPB::EnumValueDescriptor , DebugString) ;
-RCPP_XP_METHOD_0(as_character_message               , GPB::Message             , DebugString) ;
 RCPP_XP_METHOD_0(as_character_descriptor            , GPB::Descriptor          , DebugString) ;
 RCPP_XP_METHOD_0(as_character_service_descriptor    , GPB::ServiceDescriptor   , DebugString) ;
 RCPP_XP_METHOD_0(as_character_method_descriptor     , GPB::MethodDescriptor    , DebugString) ;

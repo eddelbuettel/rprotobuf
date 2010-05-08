@@ -213,7 +213,7 @@ namespace rprotobuf {
 			if( type_desc ){
 				slot( "type" ) = type_desc->full_name()  ;
 			} else{
-				slot( "type" ) = Rcpp::StringVector( (size_t)0) ;
+				slot( "type" ) = Rcpp::StringVector(0) ;
 			}
 			
 		}
@@ -257,11 +257,9 @@ RcppExport SEXP check_libprotobuf_version( SEXP ) ;
 RcppExport SEXP get_protobuf_library_version() ;
                                                                                     
 /* in constructors.cpp */
-void Message_finalizer( SEXP ) ;
 RcppExport SEXP new_RS4_Descriptor( const GPB::Descriptor*  ); 
 RcppExport SEXP new_RS4_FieldDescriptor( const GPB::FieldDescriptor* ); 
 RcppExport SEXP new_RS4_EnumDescriptor( const GPB::EnumDescriptor*); 
-RcppExport SEXP new_RS4_Message_( const GPB::Message* );
 RcppExport SEXP new_RS4_ServiceDescriptor( const GPB::ServiceDescriptor* ) ;
 RcppExport SEXP new_RS4_MethodDescriptor( const GPB::MethodDescriptor* ) ;
 RcppExport SEXP new_RS4_FileDescriptor( const GPB::FileDescriptor* ) ;
@@ -306,7 +304,6 @@ RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
 RcppExport SEXP as_list_descriptor( SEXP ); 
 RcppExport SEXP as_list_enum_descriptor( SEXP );
 RcppExport SEXP as_list_file_descriptor( SEXP ) ;
-RcppExport SEXP as_list_service_descriptor( SEXP ); 
 
 /* in merge.cpp */
 RcppExport SEXP merge_message( SEXP, SEXP ); 
@@ -317,8 +314,6 @@ RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ;
 RcppExport SEXP readMessageFromRawVector( SEXP, SEXP );
 
 /* in size.cpp */
-RcppExport SEXP get_message_bytesize( SEXP ) ;
-RcppExport SEXP get_field_size(SEXP, SEXP);
 RcppExport SEXP set_field_size(SEXP, SEXP, SEXP);
 
 /* in swap.cpp */
