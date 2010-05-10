@@ -15,7 +15,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.Message <- function(x, pattern = "" ){
 	
 	names <- c( 
-		.Call( "getMessageFieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
+		.Call( "Message__fieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
 		"has(", "clone()", "clone(", "isInitialized()", "serialize(", 
 		"clear()", "clear(", "size(", "bytesize()", 
 		"swap(", "str()", "as.character()", "update(", "as.list()", 
@@ -28,7 +28,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.Descriptor <- function(x, pattern = "" ){
 	
 	names <- c( 
-		.Call( "getDescriptorMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
+		.Call( "Descriptor__getMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"new(", "read(", "fileDescriptor()", "name(", "fileDescriptor()", 
 		"containing_type()", "field_count()", "nested_type_count()", "enum_type_count", 
 		"field(", "nested_type(", "enum_type(" )

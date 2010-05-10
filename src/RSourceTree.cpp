@@ -3,9 +3,7 @@
 
 namespace rprotobuf {
 
-	RSourceTree::RSourceTree(){
-		std::set<std::string> directories ;
-	}
+	RSourceTree::RSourceTree() : directories() {}
 	
 	GPB::io::ZeroCopyInputStream * RSourceTree::Open(const std::string & filename){
 		/* first, try to open the file as it is */

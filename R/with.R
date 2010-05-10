@@ -3,7 +3,7 @@
 generateActiveBindings <- function(data){
 	env <- new.env( parent = environment() )
 	xp <- data@pointer
-	names <- .Call( "getMessageFieldNames", xp, PACKAGE = "RProtoBuf" ) 
+	names <- .Call( "Message__fieldNames", xp, PACKAGE = "RProtoBuf" ) 
 	
 	if( !is.null(names) && length(names) ){
 		lapply( names, function(x ){

@@ -253,20 +253,10 @@ RcppExport SEXP getProtobufDescriptor( SEXP ) ;
 RcppExport SEXP readProtoFiles( SEXP, SEXP ); 
 RcppExport Rboolean isMessage( SEXP, const char* ) ;
 RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP) ;
-RcppExport SEXP check_libprotobuf_version( SEXP ) ;
-RcppExport SEXP get_protobuf_library_version() ;
-                                                                                    
+
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
 RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB::Descriptor*, const GPB::FieldDescriptor* ) ;
-RcppExport int MESSAGE_GET_REPEATED_INT( GPB::Message*, GPB::FieldDescriptor*, int) ;
-RcppExport double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message*, GPB::FieldDescriptor*, int) ;
-RcppExport SEXP get_service_method( SEXP, SEXP) ; 
-
-/* in completion.cpp */
-RcppExport SEXP getMessageFieldNames( SEXP) ;
-RcppExport SEXP getMessageFieldNames_(const Rcpp::XPtr<GPB::Message>& message) ;
-RcppExport SEXP getDescriptorMemberNames( SEXP) ;
 
 /* in exceptions.cpp */
 RcppExport SEXP throwException( const char*, const char*) ;
@@ -287,44 +277,6 @@ RcppExport bool GET_bool( SEXP, int) ;
 RcppExport std::string GET_stdstring( SEXP, int ) ;
 RcppExport void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
 RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
-
-/* in merge.cpp */
-RcppExport SEXP merge_message( SEXP, SEXP ); 
-
-/* in read.cpp */
-RcppExport SEXP readMessageFromFile( SEXP, SEXP ) ;
-RcppExport SEXP readMessageFromConnection( SEXP, SEXP ) ;
-RcppExport SEXP readMessageFromRawVector( SEXP, SEXP );
-
-/* in swap.cpp */
-RcppExport SEXP message_swap_fields(SEXP, SEXP, SEXP, SEXP) ;
-
-/* in set.cpp */
-RcppExport SEXP set_field_values( SEXP, SEXP, SEXP, SEXP ) ;
-RcppExport SEXP get_field_values( SEXP, SEXP, SEXP) ;
-
-/* in identical.cpp */
-RcppExport SEXP identical_messages( SEXP, SEXP) ;
-RcppExport SEXP all_equal_messages( SEXP, SEXP, SEXP) ;
-
-/* in add.cpp */
-RcppExport SEXP message_add_values( SEXP, SEXP, SEXP);
-
-/* in fileDescriptor.cpp */
-RcppExport SEXP get_message_file_descriptor( SEXP) ;
-RcppExport SEXP get_descriptor_file_descriptor(SEXP) ;
-RcppExport SEXP get_enum_file_descriptor(SEXP) ;
-RcppExport SEXP get_field_file_descriptor(SEXP) ;
-RcppExport SEXP get_service_file_descriptor(SEXP) ;
-RcppExport SEXP get_method_file_descriptor(SEXP) ;
-
-/* in name.cpp */
-RcppExport SEXP name_descriptor( SEXP, SEXP ) ;
-RcppExport SEXP name_field_descriptor( SEXP, SEXP ) ;
-RcppExport SEXP name_enum_descriptor( SEXP, SEXP ) ;
-RcppExport SEXP name_service_descriptor( SEXP, SEXP ) ;
-RcppExport SEXP name_method_descriptor( SEXP, SEXP ) ;
-RcppExport SEXP name_file_descriptor( SEXP ) ;
 
 /* in wrapper_ServiceDescriptor.cpp */
 RcppExport SEXP ServiceDescriptor_length(SEXP);

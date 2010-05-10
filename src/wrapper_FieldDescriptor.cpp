@@ -69,6 +69,17 @@ case CPPTYPE_##__CPP__:                                           \
 		return message ;
 	}
 	
+	RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::FieldDescriptor> desc){
+		return S4_FileDescriptor( desc->file() ); 
+	}
+
+	RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::FieldDescriptor> d, bool full){
+		return full ? d->full_name() : d->name() ;
+	}
+	
+	
+}
+
 	
 #undef RPB_HANDLE_CASE
 #undef METHOD

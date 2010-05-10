@@ -2,6 +2,8 @@
 
 namespace rprotobuf{
 
+/* FIXME: this has got to disappear */	
+	
 /**
  * create a call to throw an evaluate it
  *

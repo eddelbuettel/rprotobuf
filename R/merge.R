@@ -8,7 +8,7 @@ setMethod( "merge",
 				"IncompatibleType" )
 		}
 		
-		message <- .Call( "merge_message", x@pointer, y@pointer )
+		message <- .Call( "Message__merge", x@pointer, y@pointer )
 		message
 } )
 

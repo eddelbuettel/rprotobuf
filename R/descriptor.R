@@ -10,21 +10,21 @@ setGeneric( "fileDescriptor", function(object, ...){
 	standardGeneric( "fileDescriptor" )
 } )
 setMethod( "fileDescriptor", "Message", function(object, ...){
-	.Call( "get_message_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Message__fileDescriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "fileDescriptor", "Descriptor", function(object, ...){
-	.Call( "get_descriptor_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "Descriptor__fileDescriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "fileDescriptor", "EnumDescriptor", function(object, ...){
-	.Call( "get_enum_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "EnumDescriptor__fileDescriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "fileDescriptor", "FieldDescriptor", function(object, ...){
-	.Call( "get_field_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__fileDescriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "fileDescriptor", "ServiceDescriptor", function(object, ...){
-	.Call( "get_service_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "ServiceDescriptor__fileDescriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "fileDescriptor", "MethodDescriptor", function(object, ...){
-	.Call( "get_method_file_descriptor", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "MethodDescriptor__fileDescriptor", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 

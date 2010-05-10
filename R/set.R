@@ -22,7 +22,7 @@ setMethod( "set", "Message", function(object, field, index, values ){
 		stop( sprintf( "index should only contain values between 1 and %d", fsize )  ) 
 	}
 	
-	.Call( "set_field_values", object@pointer, 
+	.Call( "Message__set_field_values", object@pointer, 
 		field, index - 1L , values, 
 		PACKAGE = "RProtoBuf" )
 		
@@ -42,7 +42,7 @@ setMethod( "fetch", "Message", function(object, field, index ){
 	if( any( index > fsize ) || any( index < 1) ){
 		stop( sprintf( "index should only contain values between 1 and %d", fsize )  ) 
 	}
-	.Call( "get_field_values", object@pointer, 
+	.Call( "Message__get_field_values", object@pointer, 
 		field, index - 1L , PACKAGE = "RProtoBuf" )
 } )
 

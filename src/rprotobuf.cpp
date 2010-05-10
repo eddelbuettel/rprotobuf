@@ -215,16 +215,14 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 	return field_desc ;
 }
 
-SEXP check_libprotobuf_version( SEXP minversion ){
-
-	if( GOOGLE_PROTOBUF_VERSION < INTEGER(minversion)[0] ){
-		Rf_error( "The protobuf library you are using is too old for this package, please upgrade" ) ;
+RCPP_FUNCTION_VOID_1( check_libprotobuf_version, int minversion ){
+	if( GOOGLE_PROTOBUF_VERSION < minversion ){
+		throw std::range_error( "The protobuf library you are using is too old for this package, please upgrade" ) ;
 	}
-	return( R_NilValue ) ;
 }
 
-SEXP get_protobuf_library_version(){
-	return( Rf_ScalarInteger( GOOGLE_PROTOBUF_VERSION ) );
+RCPP_FUNCTION_0(int, get_protobuf_library_version){
+	return GOOGLE_PROTOBUF_VERSION;
 }
 
 } // namespace rprotobuf

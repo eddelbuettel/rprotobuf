@@ -8,7 +8,7 @@ setMethod( "swap", "Message", function( object, field, left, right ){
 	if( length(left) != length(right) ){
 		stop( "left and right should have the same length" )
 	}
-	.Call( "message_swap_fields", object@pointer, field, left, right, 
+	.Call( "Message__swap_fields", object@pointer, field, left, right, 
 		PACKAGE = "RProtoBuf" ) 
 	invisible( object )
 } )

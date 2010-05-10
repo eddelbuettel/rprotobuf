@@ -3,52 +3,6 @@
 #include "Rcppsupport.h"
 
 namespace rprotobuf{
-
-	/* this is only to be called for repeated fields */
-	int MESSAGE_GET_REPEATED_INT( GPB::Message* message, GPB::FieldDescriptor* field_desc, int index ){
-		
-		const GPB::Reflection* ref = message->GetReflection() ; 
-		
-		switch( field_desc->type() ){
-			case TYPE_INT32:
-    		case TYPE_SINT32:
-    		case TYPE_SFIXED32:
-    			return (int) ref->GetRepeatedInt32( *message, field_desc, index ) ;
-    		case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-    			return (int) ref->GetRepeatedInt64( *message, field_desc, index ) ;
-    		case TYPE_UINT32:
-    		case TYPE_FIXED32:
-    			return (int) ref->GetRepeatedUInt32( *message, field_desc, index ) ;
-    		case TYPE_UINT64:
-    		case TYPE_FIXED64:
-    			return (int) ref->GetRepeatedUInt64( *message, field_desc, index ) ;
-    		case TYPE_ENUM:
-    			return ref->GetRepeatedEnum( *message, field_desc, index )->number() ;
-    		default:
-    			throwException( "cannot cast to int", "CastException" ) ; 
-		}
-		return 0 ; // -Wall
-	}
-	
-	/* this is only to be called for repeated fields */
-	double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message* message, GPB::FieldDescriptor* field_desc, int index ){
-		
-		const GPB::Reflection* ref = message->GetReflection() ; 
-		
-		switch( field_desc->type() ){
-			case TYPE_FLOAT:
-    			return (double) ref->GetRepeatedFloat( *message, field_desc, index ) ;
-    		case TYPE_DOUBLE:
-    			return (double) ref->GetRepeatedDouble( *message, field_desc, index ) ;
-    		default:
-    			throwException( "cannot cast to double", "CastException" ) ; 
-		}
-		return 0 ; // -Wall
-	}
-	
-	
 	
 /**
  * extract a field from a message
@@ -166,61 +120,11 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message, const GPB::Des
     			return Rcpp::wrap( ref->GetEnum( *message, fieldDesc )->number() ) ;
     		
     		case CPPTYPE_MESSAGE:
-    			return new_RS4_Message_( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ;
+    			return S4_Message_( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ;
     			break ;
     	}
     }
     return R_NilValue ; /* -Wall */
-}
-
-/**
- * extract a method descriptor from a service descriptor using its
- * name or position
- *
- * @param pointer (GPB::ServiceDescriptor*) external pointer
- * @param name name or position of the method
- */
-SEXP get_service_method( SEXP pointer, SEXP name ){
-
-	/* grab the Message pointer */
-	Rcpp::XPtr<GPB::ServiceDescriptor> desc(pointer) ;
-
-	GPB::MethodDescriptor* method_desc = static_cast<GPB::MethodDescriptor*>(0);
-	
-	switch( TYPEOF( name) ){
-	case STRSXP:
-		{
-			/* what we are looking for */
-			const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-			
-			/* the method descriptor */
-			method_desc = (GPB::MethodDescriptor*)desc->FindMethodByName( what ) ;
-			
-			break ;
-		}
-	case REALSXP:
-		{
-			
-			/* the method descriptor */
-			method_desc = (GPB::MethodDescriptor*)desc->method( (int)REAL(name)[0] ) ;
-			
-			break ;
-		}
-	case INTSXP: 
-		{
-			/* the method descriptor */
-			method_desc = (GPB::MethodDescriptor*)desc->method( INTEGER(name)[0] ) ;
-			
-			break ;
-		}
-	}
-	
-	if( !method_desc ){
-		throwException( "could not get MethodDescriptor", "NoSuchMethodException" ) ;
-	}
-	
-	return S4_MethodDescriptor( method_desc ); 
-	
 }
 
 } // namespace rprotobuf

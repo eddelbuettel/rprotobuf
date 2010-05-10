@@ -46,7 +46,64 @@ namespace rprotobuf{
 		return message ;
 	}
 	
+	RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::ServiceDescriptor> desc){
+		return S4_FileDescriptor( desc->file() ); 
+	}
 	
+	RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::ServiceDescriptor> d, bool full){
+		return full ? d->full_name() : d->name() ;
+	}
+	
+
+/**
+ * extract a method descriptor from a service descriptor using its
+ * name or position
+ *
+ * @param pointer (GPB::ServiceDescriptor*) external pointer
+ * @param name name or position of the method
+ */
+SEXP get_service_method( SEXP pointer, SEXP name ){
+
+	/* grab the Message pointer */
+	Rcpp::XPtr<GPB::ServiceDescriptor> desc(pointer) ;
+
+	GPB::MethodDescriptor* method_desc = static_cast<GPB::MethodDescriptor*>(0);
+	
+	switch( TYPEOF( name) ){
+	case STRSXP:
+		{
+			/* what we are looking for */
+			const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
+			
+			/* the method descriptor */
+			method_desc = (GPB::MethodDescriptor*)desc->FindMethodByName( what ) ;
+			
+			break ;
+		}
+	case REALSXP:
+		{
+			
+			/* the method descriptor */
+			method_desc = (GPB::MethodDescriptor*)desc->method( (int)REAL(name)[0] ) ;
+			
+			break ;
+		}
+	case INTSXP: 
+		{
+			/* the method descriptor */
+			method_desc = (GPB::MethodDescriptor*)desc->method( INTEGER(name)[0] ) ;
+			
+			break ;
+		}
+	}
+	
+	if( !method_desc ){
+		throwException( "could not get MethodDescriptor", "NoSuchMethodException" ) ;
+	}
+	
+	return S4_MethodDescriptor( method_desc ); 
+	
+}
 
 #undef METHOD
 

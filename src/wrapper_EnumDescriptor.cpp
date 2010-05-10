@@ -68,6 +68,14 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getConstantNames), Rcpp::XPtr<GPB
 	return names ;
 }
 
+RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::EnumDescriptor> desc){
+	return S4_FileDescriptor( desc->file() ); 
+}
+
+RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::EnumDescriptor> d, bool full){
+	return full ? d->full_name() : d->name() ;
+}
+
 #undef METHOD
 
 } // namespace rprotobuf

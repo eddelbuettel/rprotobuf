@@ -73,6 +73,9 @@ RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::FileDescriptor> de
 	return res; 
 }
 
+RCPP_FUNCTION_1( std::string, METHOD(name), Rcpp::XPtr<GPB::EnumDescriptor> d ){
+	return d->full_name() ;
+}
 
 #undef METHOD
 
