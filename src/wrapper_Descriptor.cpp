@@ -106,9 +106,10 @@ RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descripto
 	return d->enum_type( i ) ;
 }
 
-RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, std::string name){
-	return d->FindEnumTypeByName( i ) ;
-}
+// FIXME: two methods cant have the same name
+// RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, std::string name){
+// 	return d->FindEnumTypeByName( i ) ;
+// }
 
 RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Descriptor> desc){
 	return S4_FileDescriptor( desc->file() ); 

@@ -20,13 +20,13 @@ namespace rprotobuf{
 		Rcpp::Language call( "readBin", connection_id, Rcpp::RawVector(0), size ) ;
 		Rcpp::RawVector res ;
 		try{
-			res = call.run(); 
+			res = call.eval(); 
 		}  catch( ... ){
 			return 0 ;
 		}
 		
 		int len = res.size() ;
-		memcpy( buffer, res.begin(), lenlen) ;
+		memcpy( buffer, res.begin(), len) ;
 		return len ;
 	}
 	

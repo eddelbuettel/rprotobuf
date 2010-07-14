@@ -98,8 +98,6 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
 #define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
   		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
-
-#include "S4_classes.h"  		
   		
 namespace rprotobuf{
 
@@ -191,7 +189,48 @@ RcppExport SEXP ConnectionOutputStream_new( SEXP , SEXP) ;
 
 RcppExport SEXP new_RS4_Message_( const GPB::Message* message );
 
+
+	/**
+	 * simple class that wraps together a ZeroCopyOutputStream 
+	 * and its associated CodedOutputStream. Since we don't expose
+	 * CodedOutputStream at the R level, this allows to keep only one such 
+	 * object with each ZeroCopyOutputStream
+	 */
+	class ZeroCopyOutputStreamWrapper {
+		public:	                                    
+			ZeroCopyOutputStreamWrapper( GPB::io::ZeroCopyOutputStream* stream );
+			~ZeroCopyOutputStreamWrapper() ;
+			
+			GPB::io::ZeroCopyOutputStream* get_stream(); 
+			GPB::io::CodedOutputStream* get_coded_stream() ; 
+			
+		private: 
+			GPB::io::ZeroCopyOutputStream* stream ;
+			GPB::io::CodedOutputStream* coded_stream ;
+} ;
+
+	/**
+	 * simple class that wraps together a ZeroCopyInputStream 
+	 * and its associated CodedInputStream. Since we don't expose
+	 * CodedInputStream at the R level, this allows to keep only one such 
+	 * object with each zero copy input stream
+	 */
+	class ZeroCopyInputStreamWrapper {
+		public:	
+			ZeroCopyInputStreamWrapper( GPB::io::ZeroCopyInputStream* stream );
+			~ZeroCopyInputStreamWrapper() ;
+			
+			GPB::io::ZeroCopyInputStream* get_stream(); 
+			GPB::io::CodedInputStream* get_coded_stream() ; 
+			
+		private: 
+			GPB::io::ZeroCopyInputStream* stream ;
+			GPB::io::CodedInputStream* coded_stream ;
+	} ;
+
+
 } // namespace rprotobuf
 
+#include "S4_classes.h"  		
 
 #endif

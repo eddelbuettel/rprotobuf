@@ -1,4 +1,4 @@
-#include "ZeroCopyOutputStreamWrapper.h"
+#include "rprotobuf.h"
 
 namespace rprotobuf{
 	

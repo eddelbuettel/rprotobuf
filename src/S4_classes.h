@@ -168,8 +168,7 @@ namespace rprotobuf {
 				new GPB::io::ArrayOutputStream( payload.begin(), size, block_size ) ;
 		
 			Rcpp::XPtr<ZeroCopyOutputStreamWrapper> wrapper( 
-				new ZeroCopyOutputStreamWrapper(stream), true  ) ;
-			SETCDR( wrapper, payload ); /* TODO: update the API of Rcpp::XPtr */
+				new ZeroCopyOutputStreamWrapper(stream), true, R_NilValue, payload ) ;
 			slot( "pointer" ) = wrapper ;
 		}
 		
@@ -188,12 +187,11 @@ namespace rprotobuf {
 		S4_ArrayInputStream( Rcpp::RawVector payload, int block_size ) : S4( "ArrayInputStream" ){
 			GPB::io::ArrayInputStream* stream = 
 				new GPB::io::ArrayInputStream( payload.begin(), payload.size() , block_size ) ;
-			Rcpp::XPtr<ZeroCopyInputStreamWrapper> wrapper( 
-				new ZeroCopyInputStreamWrapper(stream), true ) ;
-			SETCDR( wrapper, payload ) ; /* TODO: update the API of Rcpp::XPtr */
+			Rcpp::XPtr<rprotobuf::ZeroCopyInputStreamWrapper> wrapper( 
+				new ZeroCopyInputStreamWrapper(stream), true, R_NilValue, payload ) ;
 			slot("pointer") = wrapper ;
 		}
-	}
+	} ;
 	
 	
 	
