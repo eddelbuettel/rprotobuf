@@ -12,7 +12,7 @@ namespace rprotobuf{
 		if( !res ){
 			throw std::range_error( "cannot read from stream" ) ;
 		} else{
-			result.assign( reinterpret_cast<Rbyte*>(in), reinterpret_cast<Rbyte*>(in) + s ) ;
+			result.assign( reinterpret_cast<const Rbyte*>(in), reinterpret_cast<const Rbyte*>(in) + s ) ;
 		}
 		return result ;
 	}

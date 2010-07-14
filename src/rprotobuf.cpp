@@ -113,7 +113,7 @@ PRINT_DEBUG_INFO( "type", type ) ;
 Rprintf( "</newProtoMessage>\n" ) ;
 #endif
 	
-	return( new_RS4_Message_( message )  ) ;
+	return( S4_Message( message )  ) ;
 }
 
 /**

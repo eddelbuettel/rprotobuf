@@ -3,22 +3,31 @@
 namespace rprotobuf{
 
 #undef METHOD
-#define METHOD(__NAME__) RCPP_PP_CAT(Descriptor__,__NAME__)	
+#define METHOD(__NAME__) RCPP_PP_CAT(EnumDescriptor__,__NAME__)	
 
 	RCPP_XP_METHOD_0(METHOD(as_character), GPB::EnumDescriptor      , DebugString) ;
 	RCPP_XP_METHOD_0(METHOD(length)      ,GPB::EnumDescriptor,value_count)
 	RCPP_XP_METHOD_0(METHOD(value_count) ,GPB::EnumDescriptor,value_count)
 	
-	RCPP_XP_METHOD_CAST_0(METHOD(containing_type), GPB::EnumDescriptor, containing_type, RS4_Descriptor )
+	RCPP_FUNCTION_1(S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::EnumDescriptor> d ){
+		return S4_Descriptor( d->containing_type() ) ;
+	}
 
-	RCPP_XP_METHOD_CAST_1(METHOD(getValueByIndex) , GPB::EnumDescriptor , value            , S4_EnumValueDescriptor ) 
-	RCPP_XP_METHOD_CAST_1(METHOD(getValueByNumber), GPB::EnumDescriptor , FindValueByNumber, S4_EnumValueDescriptor )
-	RCPP_XP_METHOD_CAST_1(METHOD(getValueByName)  , GPB::EnumDescriptor , FindValueByName  , S4_EnumValueDescriptor )
+	RCPP_FUNCTION_2( S4_EnumValueDescriptor, METHOD(getValueByIndex) , Rcpp::XPtr<GPB::EnumDescriptor> d, int index){
+		return S4_EnumValueDescriptor( d->value(index) ) ;
+	}
+	
+	RCPP_FUNCTION_2( S4_EnumValueDescriptor, METHOD(getValueByNumber), Rcpp::XPtr<GPB::EnumDescriptor> d, int i ){
+		return S4_EnumValueDescriptor( d->FindValueByNumber(i)  ) ;                  
+	}
+	RCPP_FUNCTION_2( S4_EnumValueDescriptor, METHOD(getValueByName)  ,  Rcpp::XPtr<GPB::EnumDescriptor> d , std::string name ){
+		return S4_EnumValueDescriptor( d->FindValueByName(name) ) ;
+	}
 
-	RCPP_FUNCTION_1(S4_EnumDescriptor, METHOD(as_Message), Rcpp::XPtr<GPB::EnumDescriptor> d ){
+	RCPP_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::EnumDescriptor> d ){
 		GPB::EnumDescriptorProto* message = new GPB::EnumDescriptorProto() ; 
 		d->CopyTo( message ); 
-		return message ;
+		return S4_Message(message) ;
 	}
 	
 /**
@@ -65,7 +74,7 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getConstantNames), Rcpp::XPtr<GPB
 	for( int i=0; i<n; i++){
 		res[i] = d->value(i)->name() ;
 	}
-	return names ;
+	return res ;
 }
 
 RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::EnumDescriptor> desc){

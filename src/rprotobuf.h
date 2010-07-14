@@ -187,9 +187,6 @@ RcppExport SEXP ConnectionInputStream_new( SEXP , SEXP) ;
 
 RcppExport SEXP ConnectionOutputStream_new( SEXP , SEXP) ;
 
-RcppExport SEXP new_RS4_Message_( const GPB::Message* message );
-
-
 	/**
 	 * simple class that wraps together a ZeroCopyOutputStream 
 	 * and its associated CodedOutputStream. Since we don't expose
@@ -231,6 +228,15 @@ RcppExport SEXP new_RS4_Message_( const GPB::Message* message );
 
 } // namespace rprotobuf
 
-#include "S4_classes.h"  		
+#include "S4_classes.h"
+#include "RconnectionCopyingInputStream.h"
+
+#define GET_ZCIS(xp) ( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_stream() 
+#define GET_CIS(xp) ( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_coded_stream()
+#define GET_FIS(xp) (GPB::io::FileInputStream*)( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_stream() 
+
+#define GET_ZCOS(xp) ( (ZeroCopyOutputStreamWrapper*)XPP(xp) )->get_stream() 
+#define GET_COS(xp) ( (ZeroCopyOutputStreamWrapper*)XPP(xp) )->get_coded_stream() 
+#define GET_FOS(xp) (GPB::io::FileOutputStream*)( (ZeroCopyOutputStreamWrapper*)XPP(xp) )->get_stream() 
 
 #endif

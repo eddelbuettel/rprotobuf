@@ -17,7 +17,9 @@ namespace rprotobuf {
 	RCPP_XP_METHOD_0( METHOD(is_required)       , GPB::FieldDescriptor, is_required )  
 	RCPP_XP_METHOD_0( METHOD(has_default_value) , GPB::FieldDescriptor, has_default_value )  
 
-	RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::FieldDescriptor, containing_type, RS4_Descriptor )
+	RCPP_FUNCTION_1( S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
+		return S4_Descriptor( d->containing_type() ) ;
+	}
 	
 #define RPB_HANDLE_CASE(__CPP__,__LC__)                           \
 case CPPTYPE_##__CPP__:                                           \
@@ -63,10 +65,10 @@ case CPPTYPE_##__CPP__:                                           \
 		return S4_EnumDescriptor( d->enum_type() ) ;
 	}
 
-	RCPP_FUNCTION_1(S4_FieldDescriptor, METHOD(as_Message), Rcpp::XPtr<GPB::FieldDescriptor> d ){
+	RCPP_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::FieldDescriptor> d ){
 		GPB::FieldDescriptorProto* message = new GPB::FieldDescriptorProto() ; 
 		d->CopyTo( message ); 
-		return message ;
+		return S4_Message( message ) ;
 	}
 	
 	RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::FieldDescriptor> desc){
@@ -77,9 +79,6 @@ case CPPTYPE_##__CPP__:                                           \
 		return full ? d->full_name() : d->name() ;
 	}
 	
-	
-}
-
 	
 #undef RPB_HANDLE_CASE
 #undef METHOD

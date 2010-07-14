@@ -57,16 +57,6 @@ namespace rprotobuf{
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(Message__,__NAME__)
 
-/* same as above, but get the type from the message */
-SEXP new_RS4_Message_( const GPB::Message* message ){
-	
-	Rcpp::S4 oo( "Message" ) ;
-	Rcpp::XPtr<GPB::Message> xp(message, true ) ;
-	oo.slot("pointer") = xp ;
-	oo.slot("type"   ) = message->GetDescriptor()->full_name() ;
-	return oo ;
-}
-
 /**
  * clone a message
  *
@@ -413,7 +403,6 @@ RCPP_FUNCTION_VOID_3( METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, 
     			}
 		}
 	}
-	return R_NilValue ;
 }
 
 /**
@@ -621,11 +610,11 @@ bool identical_messages_( GPB::Message* m1,  GPB::Message* m2, double tol ){
 	
 }
 
-RCPP_FUNCTION_2( bool, identical_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m1){
+RCPP_FUNCTION_2( bool, identical_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2){
 	return identical_messages_( m1, m2, 0.0 ) ;
 }
 
-RCPP_FUNCTION_3( bool, all_equal_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m1, double tol){
+RCPP_FUNCTION_3( bool, all_equal_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2, double tol){
 	return identical_messages_( m1, m2, tol ) ;
 }
 
@@ -669,7 +658,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
 		
 		if( values == R_NilValue || LENGTH(values) == 0 ){
-			return(R_NilValue); 
+			return ; 
 		}
 		
 		if( field_desc->is_repeated() ){
@@ -945,7 +934,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 	 * @param field name or tag number of the field
 	 * @param index 
 	 */
-	 RCPP_FUNCTION_3( SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message>, SEXP field, Rcpp::IntegerVector index ){
+	 RCPP_FUNCTION_3( SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index ){
 		
 		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 		if( !field_desc->is_repeated() ){
@@ -1145,8 +1134,9 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
     						case STRSXP:
     							{
     								Rcpp::CharacterVector vals( values );
+    								std::string val ;
     								for( int i=0; i<n; i++){
-	   									std::string val = vals[i] ;
+	   									val = vals[i] ;
 	    								const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
 	    								ref->SetRepeatedEnum( message, field_desc, i, evd ) ; 
 	    							}

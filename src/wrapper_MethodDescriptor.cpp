@@ -7,10 +7,10 @@ namespace rprotobuf{
 
 RCPP_XP_METHOD_0( METHOD(as_character)     , GPB::MethodDescriptor    , DebugString)
 
-RCPP_FUNCTION_1(S4_MethodDescriptor, METHOD(as_Message), Rcpp::XPtr<GPB::MethodDescriptor> d ){
+RCPP_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::MethodDescriptor> d ){
 	GPB::MethodDescriptorProto* message = new GPB::MethodDescriptorProto() ; 
 	d->CopyTo( message ); 
-	return message ;
+	return S4_Message( message ) ;
 }
 	
 RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::MethodDescriptor> desc){

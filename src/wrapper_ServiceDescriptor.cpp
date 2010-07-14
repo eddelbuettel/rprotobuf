@@ -40,10 +40,10 @@ namespace rprotobuf{
 		return res; 
 	}
 
-	RCPP_FUNCTION_1(S4_ServiceDescriptor, METHOD(as_Message), Rcpp::XPtr<GPB::ServiceDescriptor> d ){
+	RCPP_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::ServiceDescriptor> d ){
 		GPB::ServiceDescriptorProto* message = new GPB::ServiceDescriptorProto() ; 
 		d->CopyTo( message ); 
-		return message ;
+		return S4_Message( message ) ;
 	}
 	
 	RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::ServiceDescriptor> desc){

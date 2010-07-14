@@ -98,7 +98,7 @@ public:
 		return ref->FieldSize( message, field ) ;
 	}
 	inline SEXP wrap(int i) const {
-		return new_RS4_Message_( CLONE( &ref->GetRepeatedMessage( message, field, i ) ) ) ;
+		return S4_Message( CLONE( &ref->GetRepeatedMessage( message, field, i ) ) ) ;
 	}
 private:
 	const GPB::Reflection* ref ;

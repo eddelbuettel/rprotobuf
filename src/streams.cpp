@@ -6,16 +6,15 @@
 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
-#define GET_ZCIS(xp) ( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_stream() 
-#define GET_CIS(xp) ( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_coded_stream()
-#define GET_FIS(xp) (GPB::io::FileInputStream*)( (ZeroCopyInputStreamWrapper*)XPP(xp) )->get_stream() 
-
-#define GET_ZCOS(xp) ( (ZeroCopyOutputStreamWrapper*)XPP(xp) )->get_stream() 
-#define GET_COS(xp) ( (ZeroCopyOutputStreamWrapper*)XPP(xp) )->get_coded_stream() 
-#define GET_FOS(xp) (GPB::io::FileOutputStream*)( (ZeroCopyOutputStreamWrapper*)XPP(xp) )->get_stream() 
-
-
 namespace rprotobuf{
+
+	void ZeroCopyInputStreamWrapper_finalizer( SEXP xp){
+		delete (ZeroCopyInputStreamWrapper*)XPP(xp) ;
+	}
+	void ZeroCopyOutputStreamWrapper_finalizer( SEXP xp){
+		delete (ZeroCopyOutputStreamWrapper*)XPP(xp) ;	
+	}
+
 	
 	// {{{ input streams
 	

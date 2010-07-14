@@ -64,6 +64,24 @@ namespace rprotobuf {
 		}
 	} ;
 	
+	class S4_FileDescriptor : public Rcpp::S4 {
+	public:
+		S4_FileDescriptor( const GPB::FileDescriptor* d) : S4( "FileDescriptor" ){
+			slot( "pointer" ) = Rcpp::XPtr<GPB::FileDescriptor>( 
+				const_cast<GPB::FileDescriptor*>(d), false) ;
+			// slot( "type" )    = d->full_name() ;
+		}
+		
+		S4_FileDescriptor( const S4_FileDescriptor& other) : S4(){
+			setSEXP( other.asSexp() );
+		}
+		S4_FileDescriptor& operator=( const S4_FileDescriptor& other){
+			setSEXP( other.asSexp() );
+			return *this ;
+		}
+	} ;
+	
+	
 	class S4_FieldDescriptor : public Rcpp::S4 {
 	public:
 		S4_FieldDescriptor( const GPB::FieldDescriptor* d) : S4( "FieldDescriptor" ){
