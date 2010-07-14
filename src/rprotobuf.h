@@ -329,6 +329,8 @@ RcppExport SEXP ConnectionInputStream_new( SEXP , SEXP) ;
 
 RcppExport SEXP ConnectionOutputStream_new( SEXP , SEXP) ;
 
+RcppExport SEXP new_RS4_Message_( const GPB::Message* message );
+
 } // namespace rprotobuf
 
 

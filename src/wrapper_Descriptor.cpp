@@ -10,7 +10,7 @@ RCPP_XP_METHOD_0( METHOD(field_count), GPB::Descriptor, field_count )
 RCPP_XP_METHOD_0( METHOD(nested_type_count), GPB::Descriptor, nested_type_count )
 RCPP_XP_METHOD_0( METHOD(enum_type_count), GPB::Descriptor, enum_type_count )
 
-RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type, RS4_Descriptor )
+RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type, S4_Descriptor )
 
 
 /**
@@ -21,7 +21,7 @@ RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type
  *
  * @return member names, as an R character vector (STRSXP)
  */
-RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::Decriptor> desc ){
+RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::Descriptor> desc ){
 	
 	int nfields = desc->field_count() ;
 	int ntypes  = desc->nested_type_count() ;
@@ -29,13 +29,13 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::
 	
 	Rcpp::CharacterVector res(nfields + ntypes + nenums ) ;
 	int j=0; 
-	for(i=0; i<nfields; i++, j++){
+	for (int i=0; i<nfields; i++, j++){
 		res[j] = desc->field(i)->name() ;
 	}
-	for(i=0;i<ntypes; i++, j++){
+	for (int i=0;i<ntypes; i++, j++){
 		res[j] = desc->nested_type(i)->name() ;
 	}
-	for( i=0; i<nenums; i++, j++){
+	for (int i=0; i<nenums; i++, j++){
 		res[j] = desc->enum_type(i)->name();
 	}
 	return( res );
@@ -67,7 +67,7 @@ RCPP_FUNCTION_1( Rcpp::List, METHOD(as_lis), Rcpp::XPtr<GPB::Descriptor> desc ){
 		names[j] = d->name() ;
 	}
 	for( i=0; i<nenums; j++, i++){
-		const EnumDescriptor* ed = desc->enum_type(i) ;
+		const GPB::EnumDescriptor* ed = desc->enum_type(i) ;
 		res[j] = S4_EnumDescriptor( ed );
 		names[j] = ed->name() ;
 	}

@@ -80,7 +80,7 @@ Rf_PrintValue( type ) ;
 		}
 	}
 	
-	return( RS4_Descriptor( desc ) ) ;
+	return( S4_Descriptor( desc ) ) ;
 }
 
 /**
@@ -133,7 +133,7 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 	if( desc->field_count() ){
 		const GPB::FieldDescriptor*  fd = desc->FindFieldByName(what) ;
 		if( fd ){
-			return( RS4_FieldDescriptor(fd ) ) ;
+			return( S4_FieldDescriptor(fd ) ) ;
 		}
 	}
 	

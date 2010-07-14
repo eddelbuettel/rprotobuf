@@ -120,7 +120,7 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message, const GPB::Des
     			return Rcpp::wrap( ref->GetEnum( *message, fieldDesc )->number() ) ;
     		
     		case CPPTYPE_MESSAGE:
-    			return S4_Message_( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ;
+    			return S4_Message( CLONE( &ref->GetMessage( *message, fieldDesc ) ) ) ;
     			break ;
     	}
     }
