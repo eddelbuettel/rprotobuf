@@ -64,15 +64,15 @@ setGeneric( "ArrayInputStream", function(payload, block_size){
 } )
 setMethod( "ArrayInputStream", c( payload = "raw", block_size = "missing" ) , 
 function(payload, block_size){
-	.Call( "ArrayInputStream_new", payload, -1L, PACKAGE = "RProtoBuf" )
+	.Call( "ArrayInputStream__new", payload, -1L, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayInputStream", c( payload = "raw", block_size = "integer" ) , 
 function(payload, block_size){
-	.Call( "ArrayInputStream_new", payload, block_size, PACKAGE = "RProtoBuf" )
+	.Call( "ArrayInputStream__new", payload, block_size, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayInputStream", c( payload = "raw", block_size = "numeric" ) , 
 function(payload, block_size){
-	.Call( "ArrayInputStream_new", payload, as.integer(block_size), PACKAGE = "RProtoBuf" )
+	.Call( "ArrayInputStream__new", payload, as.integer(block_size), PACKAGE = "RProtoBuf" )
 } )
 # }}}
 
@@ -81,22 +81,22 @@ setGeneric( "ArrayOutputStream", function(size, block_size){
 	standardGeneric( "ArrayOutputStream" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "missing" ), function(size, block_size){
-	.Call( "ArrayOutputStream_new", size, -1L, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", size, -1L, PACKAGE = "RProtoBuf" ) 
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "integer" ), function(size, block_size){
-	.Call( "ArrayOutputStream_new", size, block_size, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", size, block_size, PACKAGE = "RProtoBuf" ) 
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "numeric" ), function(size, block_size){
-	.Call( "ArrayOutputStream_new", size, as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", size, as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "missing" ), function(size, block_size){
-	.Call( "ArrayOutputStream_new", as.integer(size), -1L, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", as.integer(size), -1L, PACKAGE = "RProtoBuf" ) 
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "integer" ),function(size, block_size){
-	.Call( "ArrayOutputStream_new", as.integer(size), block_size, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", as.integer(size), block_size, PACKAGE = "RProtoBuf" ) 
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "numeric" ), function(size, block_size){
-	.Call( "ArrayOutputStream_new", as.integer(size), as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", as.integer(size), as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
 } )
 # }}}
 

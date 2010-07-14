@@ -99,150 +99,14 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
   		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
 
+#include "S4_classes.h"  		
+  		
 namespace rprotobuf{
 
 typedef GPB::int32  int32  ;
 typedef GPB::uint32 uint32 ;
 typedef GPB::int64  int64  ;
 typedef GPB::uint64 uint64 ;
-
-} // namespace rprotobuf
-
-namespace rprotobuf {
-
-	class S4_EnumValueDescriptor : public Rcpp::S4 {
-	public:
-		S4_EnumValueDescriptor( const GPB::EnumValueDescriptor* d) : S4("EnumValueDescriptor"){
-		
-			if( d ){
-				slot( "pointer" ) = Rcpp::XPtr<GPB::EnumValueDescriptor>( 
-					const_cast<GPB::EnumValueDescriptor*>(d), false) ;
-			} else{
-				setSEXP( R_NilValue ); 
-			}
-		}
-		
-		S4_EnumValueDescriptor( const S4_EnumValueDescriptor& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_EnumValueDescriptor& operator=( const S4_EnumValueDescriptor& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-		
-	} ;
-	
-	
-	class S4_Descriptor : public Rcpp::S4 {
-	public:
-		S4_Descriptor( const GPB::Descriptor* d) : S4( "Descriptor" ){
-			slot( "pointer" ) = Rcpp::XPtr<GPB::Descriptor>( 
-				const_cast<GPB::Descriptor*>(d), false) ;
-			slot( "type" )    = d->full_name() ;
-		}
-		
-		S4_Descriptor( const S4_Descriptor& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_Descriptor& operator=( const S4_Descriptor& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-	} ;
-	
-	class S4_FieldDescriptor : public Rcpp::S4 {
-	public:
-		S4_FieldDescriptor( const GPB::FieldDescriptor* d) : S4( "FieldDescriptor" ){
-			slot( "pointer" ) = Rcpp::XPtr<GPB::FieldDescriptor>( 
-				const_cast<GPB::FieldDescriptor*>(d), false) ;
-			slot( "name" )      = d->name() ;
-			slot( "full_name" ) = d->full_name() ;
-			slot( "type" )      = d->containing_type()->full_name() ;
-		}
-		
-		S4_FieldDescriptor( const S4_FieldDescriptor& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_FieldDescriptor& operator=( const S4_FieldDescriptor& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-	} ;
-	
-
-	class S4_ServiceDescriptor : public Rcpp::S4 {
-	public:
-		S4_ServiceDescriptor( const GPB::ServiceDescriptor* d) : S4( "ServiceDescriptor" ){
-			slot( "pointer" ) = Rcpp::XPtr<GPB::ServiceDescriptor>( 
-				const_cast<GPB::ServiceDescriptor*>(d), false) ;
-		}
-		
-		S4_ServiceDescriptor( const S4_ServiceDescriptor& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_ServiceDescriptor& operator=( const S4_ServiceDescriptor& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-	} ;
-	
-	class S4_MethodDescriptor : public Rcpp::S4 {
-	public:
-		S4_MethodDescriptor( const GPB::MethodDescriptor* d) : S4( "MethodDescriptor" ){
-			slot( "pointer" ) = Rcpp::XPtr<GPB::MethodDescriptor>( 
-				const_cast<GPB::MethodDescriptor*>(d), false) ;
-		}
-		
-		S4_MethodDescriptor( const S4_MethodDescriptor& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_MethodDescriptor& operator=( const S4_MethodDescriptor& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-	} ;
-	
-	class S4_EnumDescriptor : public Rcpp::S4 {
-	public:
-		S4_EnumDescriptor( const GPB::EnumDescriptor* d) : S4( "EnumDescriptor" ){
-			slot( "pointer" ) = Rcpp::XPtr<GPB::EnumDescriptor>( 
-				const_cast<GPB::EnumDescriptor*>(d), false) ;
-			slot( "name" )     = d->name() ;
-			slot( "full_name") = d->full_name() ;
-			const GPB::Descriptor *type_desc = d->containing_type() ;
-			if( type_desc ){
-				slot( "type" ) = type_desc->full_name()  ;
-			} else{
-				slot( "type" ) = Rcpp::StringVector(0) ;
-			}
-			
-		}
-		
-		S4_EnumDescriptor( const S4_EnumDescriptor& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_EnumDescriptor& operator=( const S4_EnumDescriptor& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-	} ;
-
-	class S4_Message : public Rcpp::S4 {
-	public:
-		S4_Message( const GPB::Message* d) : S4( "Message" ){
-			slot( "pointer" ) = Rcpp::XPtr<GPB::Message>( 
-				const_cast<GPB::Message*>(d), true) ;
-			slot( "type" ) = d->GetDescriptor()->full_name() ;
-		}
-		
-		S4_Message( const S4_Message& other) : S4(){
-			setSEXP( other.asSexp() );
-		}
-		S4_Message& operator=( const S4_Message& other){
-			setSEXP( other.asSexp() );
-			return *this ;
-		}
-	} ;
 	
 /* in rprotobuf.cpp */
 GPB::Message* PROTOTYPE( const GPB::Descriptor*) ;
@@ -298,10 +162,6 @@ RcppExport SEXP ZeroCopyInputStream_ReadVarint32( SEXP ) ;
 RcppExport SEXP ZeroCopyInputStream_ReadVarint64( SEXP ) ;
 RcppExport SEXP ZeroCopyInputStream_ReadLittleEndian32( SEXP ) ;
 RcppExport SEXP ZeroCopyInputStream_ReadLittleEndian64( SEXP ) ;
-
-RcppExport SEXP ArrayInputStream_new( SEXP, SEXP ) ;
-
-RcppExport SEXP ArrayOutputStream_new( SEXP, SEXP ) ;
 
 RcppExport SEXP ZeroCopyOutputStream_Next(SEXP, SEXP) ;
 RcppExport SEXP ZeroCopyOutputStream_BackUp(SEXP, SEXP) ;
