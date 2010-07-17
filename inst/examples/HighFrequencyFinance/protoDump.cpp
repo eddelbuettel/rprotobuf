@@ -13,9 +13,8 @@ std::string formatTimestamp(const double ts) {
     // m_us is fractional (micro)secs is diff. between (fractional) m_d and m_tm
     unsigned int us = static_cast<int>( round( (ts - tt) * 1.0e6 ) );	
 
-    char buf[32], usec[16];
+    char buf[32], txt[32];
     strftime(buf, 31, "%Y-%m-%d %H:%M:%S", &tm);
-	char txt[32];
     snprintf(txt, 31, "%s.%.06d", buf, us);
     return std::string(txt);
 }
