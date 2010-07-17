@@ -38,12 +38,11 @@ betterUse <- function(verbose=TRUE, file = "trades.pb") {
     x <- read( TradeData.Trades, "trades.pb")
     xl <- lapply( x$fill, as.list )
 
-    df <- data.frame(timestamp = sapply( xl, "[[", "timestamp" ),
+    df <- data.frame(timestamp = as.POSIXct( sapply( xl, "[[", "timestamp" ), origin="1970-01-01"),
                      symbol    = sapply( xl, "[[", "symbol" ),
                      price     = sapply( xl, "[[", "price" ),
                      size      = sapply( xl, "[[", "size" )
                      )
-    df[,1] <- as.POSIXct(df[,1], origin="1970-01-01")
     if (verbose) print(summary(df))
     invisible(df)
 }
