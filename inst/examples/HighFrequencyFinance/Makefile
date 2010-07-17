@@ -18,5 +18,9 @@ protoLoadForR.so:	protoLoadForR.cpp TradeData.pb.cc
 			PKG_CXXFLAGS="$(CPPFLAGS) $(RCPPINC)" PKG_LIBS="$(LDLIBS) $(RCPPLIB)" \
 				R CMD SHLIB protoLoadForR.cpp TradeData.pb.cc
 
+protoModule.so:		protoModule.cpp TradeData.pb.cc
+			PKG_CXXFLAGS="$(CPPFLAGS) $(RCPPINC)" PKG_LIBS="$(LDLIBS) $(RCPPLIB)" \
+				R CMD SHLIB protoModule.cpp TradeData.pb.cc
+
 TradeData.pb.cc:	TradeData.proto
 			protoc --cpp_out=. TradeData.proto

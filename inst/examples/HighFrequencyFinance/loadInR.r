@@ -71,20 +71,19 @@ moduled <- function(file="trades.pb") {
     suppressMessages(library(Rcpp))
 
     stopifnot(file.exists(file))
-    dyn.load("trade.mod.so")
+    dll <- dyn.load("protoModule.so")
 
-    yada <- new("Module")
-    NAMESPACE <- environment()
-    unlockBinding("yada", NAMESPACE)
-    assign("yada", Module("yada"), NAMESPACE)
-    ##yada <- Module("yada", PACKAGE=NULL)
-    ##print( yada$nbfills("trades.pb") )
+    yada <- Module("yada", dll)
+    yada$init("trades.pb")
+    print( yada$nbfills() )
     invisible(NULL)
 }
 
 suppressMessages(library(RProtoBuf))
 suppressMessages(library(rbenchmark))
 
+moduled()
+q()
 dyn.load("protoLoadForR.so")
 
 print(benchmark(basicRuse = basicUse(FALSE),
