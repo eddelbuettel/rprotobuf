@@ -67,8 +67,6 @@ preAlloc <- function(verbose=TRUE) {
 }
 
 compiled <- function(verbose=FALSE, file="trades.pb") {
-    suppressMessages(library(utils))
-    suppressMessages(library(Rcpp))
 
     stopifnot(file.exists(file))
 
@@ -79,31 +77,38 @@ compiled <- function(verbose=FALSE, file="trades.pb") {
     invisible(df)
 }
 
-moduled <- function(file="trades.pb") {
-    suppressMessages(library(utils))
-    suppressMessages(library(Rcpp))
+moduled <- function(verbose=FALSE, file="trades.pb", dll) {
 
     stopifnot(file.exists(file))
-    dll <- dyn.load("protoModule.so")
 
-    yada <- Module("yada", dll)
-    yada$init("trades.pb")
-    print( yada$numberOfFills() )
-    invisible(NULL)
+    dll <- dyn.load("protoModule.so")
+    trds <- Module("trades", dll)
+    td <- new( trds$Trades )
+    td$init(file)
+    #n <- td$numberOfFills()
+    df <- NULL #td$getData()
+
+    if (verbose) print(summary(df))
+
+    invisible(df)
 }
 
 suppressMessages(library(stats))
 suppressMessages(library(RProtoBuf))
+suppressMessages(library(utils))
+suppressMessages(library(Rcpp))
 suppressMessages(library(rbenchmark))
-
-moduled(); q()
 
 dyn.load("protoLoadForR.so")
 
-print(benchmark(basicUse  = basicUse(FALSE),
+#print(summary(moduled())); q()
+
+
+print(benchmark(compiled  = compiled(FALSE),
+                #moduled   = moduled(FALSE),
+                basicUse  = basicUse(FALSE),
                 betterUs  = betterUse(FALSE),
                 preAlloc  = preAlloc(FALSE),
-                compiled  = compiled(FALSE),
                 order = "elapsed",
                 columns = c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
                 replications  = 3))
