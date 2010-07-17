@@ -33,16 +33,16 @@ profiledUse <- function() {
     invisible(df)
 }
 
-betterUse <- function( file = "trades.pb" ){
-    readProtoFiles("trade.proto")
-    x <- read( trade.Trades, file )
+betterUse <- function(verbose=TRUE, file = "trades.pb") {
+    readProtoFiles("TradeData.proto")
+    x <- read( TradeData.Trades, "trades.pb")
     xl <- lapply( x$fill, as.list )
 
-     df <- data.frame(timestamp = sapply( xl, "[[", "timestamp" ),
-                      symbol    = sapply( xl, "[[", "symbol" ),
-                      price     = sapply( xl, "[[", "price" ),
-                      size      = sapply( xl, "[[", "size" )
-                      )
+    df <- data.frame(timestamp = sapply( xl, "[[", "timestamp" ),
+                     symbol    = sapply( xl, "[[", "symbol" ),
+                     price     = sapply( xl, "[[", "price" ),
+                     size      = sapply( xl, "[[", "size" )
+                     )
     df[,1] <- as.POSIXct(df[,1], origin="1970-01-01")
     if (verbose) print(summary(df))
     invisible(df)
@@ -93,19 +93,20 @@ moduled <- function(file="trades.pb") {
     invisible(NULL)
 }
 
+suppressMessages(library(stats))
 suppressMessages(library(RProtoBuf))
 suppressMessages(library(rbenchmark))
 
 #moduled()
-#q()
+
 dyn.load("protoLoadForR.so")
 
 print(benchmark(basicUse  = basicUse(FALSE),
-                betterUs  = basicUse(FALSE),
+                betterUs  = betterUse(FALSE),
                 preAlloc  = preAlloc(FALSE),
                 compiled  = compiled(FALSE),
                 order = "elapsed",
                 columns = c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
-                replications  = 1))
+                replications  = 3))
 
 
