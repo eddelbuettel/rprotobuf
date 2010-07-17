@@ -88,7 +88,7 @@ moduled <- function(file="trades.pb") {
 
     yada <- Module("yada", dll)
     yada$init("trades.pb")
-    print( yada$nbfills() )
+    print( yada$numberOfFills() )
     invisible(NULL)
 }
 
@@ -96,7 +96,7 @@ suppressMessages(library(stats))
 suppressMessages(library(RProtoBuf))
 suppressMessages(library(rbenchmark))
 
-#moduled()
+moduled(); q()
 
 dyn.load("protoLoadForR.so")
 

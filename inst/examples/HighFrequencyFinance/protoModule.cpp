@@ -5,33 +5,33 @@
 #include <Rcpp.h>
 #include <fstream>
 
-static TradeData::Trades tr;
+class TradeModule : public TradeData::Trades 
+{
+private:
+    TradeData::Trades tr;
+public:
+	int init(const char *pbfile) {
+		std::fstream fs(pbfile, std::ios::in | std::ios::binary);
 
-int init(const char *pbfile) {
-	std::fstream fs(pbfile, std::ios::in | std::ios::binary);
-
-	if (!tr.ParseFromIstream(&fs)) {
-		std::cerr << "Trouble parsing..." << std::cout;
-		return -1;
+		if (!tr.ParseFromIstream(&fs)) {
+			std::cerr << "Trouble parsing..." << std::cout;
+			return -1;
+		}
+		return 0;
 	}
-	return 0;
-}
-	
-int nbfills(void) {
-	int n = tr.fill_size();
-	return n;
-}
+
+	int numberOfFills(void) {
+		return tr.fill_size();
+	}
+};
 
 RCPP_MODULE(yada){
 	using namespace Rcpp ;
 	                  
-	class_<TradeData::Trades>( "Trades" )
-		.method( "fill_size", &TradeData::Trades::fill_size )
+	class_<TradeModule>( "Trades" )
+		.method( "init",          &TradeModule::init )
+		.method( "numberOfFills", &TradeModule::numberOfFills )
 		;
 	
-	function( "init",    &init);
-	function( "nbfills", &nbfills);
-
-	// Hmpf. So how do I return the data.frame via Modules?
 }                     
 
