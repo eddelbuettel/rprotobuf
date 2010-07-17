@@ -1,0 +1,8 @@
+
+This is an entirely cooked-up example resembling some of the data you might
+encounter looking at trades on a tick-by-tick basis.  
+
+It provides a good example for why ProtoBuffers rocks: they are concise, they
+are fast, they are extensible --- and they can be hooked up to several
+languages with C++, Java and Python supported by Google, and others by
+third-party projects such as this providing R.
