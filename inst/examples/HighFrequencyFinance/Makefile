@@ -8,7 +8,7 @@ LDLIBS=			-L/usr/lib -lprotobuf -lprotoc -lpthread
 RCPPINC=		$(shell Rscript -e 'Rcpp:::CxxFlags()')
 RCPPLIB=		$(shell Rscript -e 'Rcpp:::LdFlags()')
 
-TARGETS=		protoCreate protoDump protoLoadForR.so protoModule.so TradeData.pb.cc
+TARGETS=		protoCreate protoDump protoModule.so TradeData.pb.cc
 
 all:			$(TARGETS)
 
@@ -18,9 +18,9 @@ protoCreate:		protoCreate.cpp TradeData.pb.cc
 protoDump:		protoDump.cpp TradeData.pb.cc
 			$(CXX) $(CXXFLAGS) $^ -o $@ $(LDLIBS)
 
-protoLoadForR.so:	protoLoadForR.cpp TradeData.pb.cc
-			PKG_CXXFLAGS="$(CXXFLAGS) $(RCPPINC)" PKG_LIBS="$(LDLIBS) $(RCPPLIB)" \
-				R CMD SHLIB $^
+#protoLoadForR.so:	protoLoadForR.cpp TradeData.pb.cc
+#			PKG_CXXFLAGS="$(CXXFLAGS) $(RCPPINC)" PKG_LIBS="$(LDLIBS) $(RCPPLIB)" \
+#				R CMD SHLIB $^
 
 protoModule.so:		protoModule.cpp TradeData.pb.cc
 			PKG_CXXFLAGS="$(CXXFLAGS) $(RCPPINC)" PKG_LIBS="$(LDLIBS) $(RCPPLIB)" \

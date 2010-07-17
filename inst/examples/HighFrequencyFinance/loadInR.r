@@ -81,12 +81,11 @@ moduled <- function(verbose=FALSE, file="trades.pb", dll) {
 
     stopifnot(file.exists(file))
 
-    dll <- dyn.load("protoModule.so")
     trds <- Module("trades", dll)
     td <- new( trds$Trades )
     td$init(file)
-    #n <- td$numberOfFills()
-    df <- NULL #td$getData()
+    print(n <- td$numberOfFills())
+    df <- td$getData()
 
     if (verbose) print(summary(df))
 
@@ -99,9 +98,13 @@ suppressMessages(library(utils))
 suppressMessages(library(Rcpp))
 suppressMessages(library(rbenchmark))
 
-dyn.load("protoLoadForR.so")
+dll <- dyn.load("protoModule.so")
 
-#print(summary(moduled())); q()
+print(summary(moduled()));
+print(summary(moduled()));
+q()
+
+
 
 
 print(benchmark(compiled  = compiled(FALSE),
