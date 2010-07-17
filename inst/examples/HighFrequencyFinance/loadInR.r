@@ -8,7 +8,7 @@ basicUse <- function(verbose=TRUE) {
     df <- do.call(rbind, lapply(as.list(xl$fill), function(.) as.data.frame(as.list(.))))
     df[,1] <- as.POSIXct(df[,1], origin="1970-01-01")
     if (verbose) print(summary(df))
-    invisible(NULL)
+    invisible(df)
 }
 
 timedUse <- function() {
@@ -19,7 +19,7 @@ timedUse <- function() {
     print(summary(df))
 
     print(rbind(a1, a2, a3, a4))
-    invisible(NULL)
+    invisible(df)
 }
 
 profiledUse <- function() {
@@ -30,9 +30,23 @@ profiledUse <- function() {
     df <- do.call(rbind, lapply(as.list(xl$fill), function(.) as.data.frame(as.list(.))))
     print(summary(df))
     Rprof(NULL)
-    invisible(NULL)
+    invisible(df)
 }
 
+betterUse <- function( file = "trades.pb" ){
+    readProtoFiles("trade.proto")
+    x <- read( trade.Trades, file )
+    xl <- lapply( x$fill, as.list )
+
+     df <- data.frame(timestamp = sapply( xl, "[[", "timestamp" ),
+                      symbol    = sapply( xl, "[[", "symbol" ),
+                      price     = sapply( xl, "[[", "price" ),
+                      size      = sapply( xl, "[[", "size" )
+                      )
+    df[,1] <- as.POSIXct(df[,1], origin="1970-01-01")
+    if (verbose) print(summary(df))
+    invisible(df)
+}
 
 preAlloc <- function(verbose=TRUE) {
     readProtoFiles("TradeData.proto")
@@ -50,7 +64,7 @@ preAlloc <- function(verbose=TRUE) {
     }
     df[,1] <- as.POSIXct(df[,1], origin="1970-01-01")
     if (verbose) print(summary(df))
-    invisible(NULL)
+    invisible(df)
 }
 
 compiled <- function(verbose=FALSE, file="trades.pb") {
@@ -63,7 +77,7 @@ compiled <- function(verbose=FALSE, file="trades.pb") {
 
     if (verbose) print(summary(df))
 
-    invisible(NULL)
+    invisible(df)
 }
 
 moduled <- function(file="trades.pb") {
@@ -82,19 +96,16 @@ moduled <- function(file="trades.pb") {
 suppressMessages(library(RProtoBuf))
 suppressMessages(library(rbenchmark))
 
-moduled()
-q()
+#moduled()
+#q()
 dyn.load("protoLoadForR.so")
 
-print(benchmark(basicRuse = basicUse(FALSE),
+print(benchmark(basicUse  = basicUse(FALSE),
+                betterUs  = basicUse(FALSE),
                 preAlloc  = preAlloc(FALSE),
                 compiled  = compiled(FALSE),
                 order = "elapsed",
                 columns = c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
                 replications  = 1))
 
-#basicUse()
-#preAlloc()
-#inlined("trades-20100715-152816.pb")
-#moduled("trades.pb")
 
