@@ -100,9 +100,9 @@ suppressMessages(library(rbenchmark))
 
 dll <- dyn.load("protoModule.so")
 
-print(summary(moduled()));
-print(summary(moduled()));
-q()
+#print(summary(moduled()));
+#print(summary(moduled()));
+#q()
 
 
 
