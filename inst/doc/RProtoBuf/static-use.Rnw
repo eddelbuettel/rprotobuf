@@ -60,7 +60,7 @@ application programs \texttt{add\_person.cc} and \texttt{list\_people.cc}.
 The former adds a new record to an address book defined by the \texttt{proto}
 file shown above, and the latter prints the contents of all records in the
 address book.
-
+                      
 
 \subsection{Simple R accessors for the address book example}
 
