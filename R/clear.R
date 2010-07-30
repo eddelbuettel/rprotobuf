@@ -7,22 +7,22 @@ setMethod( "clear", signature( "Message", "missing" ), function(object, field, .
 } )
 
 setMethod( "clear", signature( "Message", "character" ), function(object, field, ...){
-	.Call( "clear_message_field", object@pointer, field, PACKAGE = "RProtoBuf" )
+	.Call( "Message__clear_field", object@pointer, field, PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 
 setMethod( "clear", signature( "Message", "integer" ), function(object, field, ...){
-	.Call( "clear_message_field", object@pointer, field, PACKAGE = "RProtoBuf" )
+	.Call( "Message__clear_field", object@pointer, field, PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 
 setMethod( "clear", signature( "Message", "numeric" ), function(object, field, ...){
-	.Call( "clear_message_field", object@pointer, as.integer(field), PACKAGE = "RProtoBuf" )
+	.Call( "Message__clear_field", object@pointer, as.integer(field), PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 
 setMethod( "clear", signature( "Message", "raw" ), function(object, field, ...){
-	.Call( "clear_message_field", object@pointer, as.integer(field), PACKAGE = "RProtoBuf" )
+	.Call( "Message__clear_field", object@pointer, as.integer(field), PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 

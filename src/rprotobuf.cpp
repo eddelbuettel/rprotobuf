@@ -200,14 +200,10 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR( STRING_ELT(name, 0 ) ) ) ;
 				break ;
 			}
-		case REALSXP: 
-			{
-				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( static_cast<int>( REAL(name)[0] ) ) ;
-				break ;
-			}
+		case REALSXP:
 		case INTSXP:
 			{
-				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( Rcpp::as<int>( name ) ) ;
 				break ;
 			}
 	}

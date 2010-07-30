@@ -1,3 +1,7 @@
+2010-07-30  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/* : correct many small errors so that the vignette builds again 
+
 2010-02-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* configure.in: More rigorous checks for ProtoBuf headers, library,

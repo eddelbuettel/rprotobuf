@@ -8,7 +8,7 @@ setMethod( "add", "Message", function( object, field, values ){
 		values <- list( values )
 	}
 	
-	.Call( "message_add_values", object@pointer, field, values, PACKAGE = "RProtoBuf" )
+	.Call( "Message__add_values", object@pointer, field, values, PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 
