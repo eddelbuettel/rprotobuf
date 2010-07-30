@@ -28,39 +28,7 @@ PRINT_DEBUG_INFO( "name", name ) ;
 	/* the message descriptor */
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
-	GPB::FieldDescriptor* field_desc = static_cast<GPB::FieldDescriptor*>(0);
-	
-	switch( TYPEOF( name) ){
-	case STRSXP:
-		{
-			/* what we are looking for */
-			const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-			
-			/* the field descriptor */
-			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( what ) ;
-			
-			break ;
-		}
-	case REALSXP:
-		{
-			
-			/* the field descriptor */
-			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( static_cast<int>( REAL(name)[0] ) ) ;
-			
-			break ;
-		}
-	case INTSXP: 
-		{
-			/* the field descriptor */
-			field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( INTEGER(name)[0] ) ;
-			
-			break ;
-		}
-	}
-	
-	if( !field_desc ){
-		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
-	}
+	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, name ) ;
 	
 #ifdef RPB_DEBUG
 Rprintf( "</getMessageField>\n" ) ;

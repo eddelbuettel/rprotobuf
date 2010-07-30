@@ -105,9 +105,10 @@ args( readProtoFiles )
 Using the \texttt{file} argument, one can specify one or several file
 paths that ought to be proto files.
 
-<<>>=
+<<>>=     
 proto.dir <- system.file( "proto", package = "RProtoBuf" )
 proto.file <- file.path( proto.dir, "addressbook.proto" )
+<<eval=FALSE>>=     
 readProtoFiles( proto.file )
 @
 
@@ -117,6 +118,7 @@ ignored if the \texttt{file} is supplied, all files matching the
 
 <<>>=
 dir( proto.dir, pattern = "\\.proto$", full.names = TRUE )
+<<eval=FALSE>>=
 readProtoFiles( dir = proto.dir )
 @
 
@@ -127,7 +129,7 @@ files that are located in the \texttt{proto} sub-directory of the given
 package. A typical use for this argument is in the \texttt{.onLoad}
 function of a package.
 
-<<>>=
+<<eval=FALSE>>=
 readProtoFiles( package = "RProtoBuf" )
 @
 

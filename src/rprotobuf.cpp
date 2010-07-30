@@ -190,15 +190,19 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	switch( TYPEOF(name) ){
+		case CHARSXP:
+			{
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR(name) ) ;
+				break ;	
+			}
 		case STRSXP:
 			{
-				const char * what = CHAR( STRING_ELT(name, 0 ) ) ;
-				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( what ) ;
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR( STRING_ELT(name, 0 ) ) ) ;
 				break ;
 			}
 		case REALSXP: 
 			{
-				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( (int)REAL(name)[0] ) ;
+				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber( static_cast<int>( REAL(name)[0] ) ) ;
 				break ;
 			}
 		case INTSXP:
@@ -207,11 +211,9 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 				break ;
 			}
 	}
-	
 	if( !field_desc ){
 		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
 	}
-	
 	return field_desc ;
 }
 

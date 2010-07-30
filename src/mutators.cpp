@@ -1029,9 +1029,7 @@ Rprintf( "</setMessageField>\n" ) ;
 }
 
 RCPP_FUNCTION_VOID_2( update_message, Rcpp::XPtr<GPB::Message> message, Rcpp::List list ){
-
 	Rcpp::CharacterVector names = list.attr( "names" ) ;
-	
 	int n = list.size() ;
 	for( int i=0; i<n; i++){
 		setMessageField( message, names[i], list[i] ); 
