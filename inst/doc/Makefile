@@ -7,10 +7,13 @@ clean:
 RProtoBuf-unitTests.pdf: unitTests/RProtoBuf-unitTests.R
 	Rscript --default-packages="RProtoBuf,Rcpp,brew,RUnit,tools,utils" unitTests/RProtoBuf-unitTests.R
 
-RProtoBuf.pdf: RProtoBuf.Rnw.in
-	cp RProtoBuf.Rnw.in RProtoBuf.Rnw
+RProtoBuf.pdf: RProtoBuf/RProtoBuf.Rnw
+	rm RProtoBuf.Rnw
+	cp RProtoBuf/RProtoBuf.Rnw RProtoBuf.Rnw
 	Rscript -e "require( 'highlight' ); require('tools'); Sweave('RProtoBuf.Rnw', driver = HighlightWeaveLatex() ) ; texi2dvi('RProtoBuf.tex', pdf = TRUE, clean = TRUE)"
 	rm -fr RProtoBuf.tex
+	rm -fr RProtoBuf.Rnw
+	cp RProtoBuf/RProtoBuf-fake.Rnw
 
 RProtoBuf-quickref.pdf: RProtoBuf-quickref.Rnw.in
 	cp RProtoBuf-quickref.Rnw.in RProtoBuf-quickref.Rnw
