@@ -239,7 +239,7 @@ function to read messages from files, raw vector (the message payload)
 and arbitrary binary connections.
 
 <<>>=
-read
+args( read )
 @
 
 
