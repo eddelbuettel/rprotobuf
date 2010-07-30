@@ -8,6 +8,7 @@
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+// @@protoc_insertion_point(includes)
 
 namespace TradeData {
 
@@ -127,14 +128,16 @@ const int Fill::kPriceFieldNumber;
 const int Fill::kSizeFieldNumber;
 #endif  // !_MSC_VER
 
-Fill::Fill() {
+Fill::Fill()
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void Fill::InitAsDefaultInstance() {
 }
 
-Fill::Fill(const Fill& from) {
+Fill::Fill(const Fill& from)
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -160,6 +163,11 @@ void Fill::SharedDtor() {
   }
 }
 
+void Fill::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
 const ::google::protobuf::Descriptor* Fill::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return Fill_descriptor_;
@@ -198,57 +206,64 @@ bool Fill::MergePartialFromCodedStream(
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required double timestamp = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) !=
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &timestamp_)));
+          _set_bit(0);
+        } else {
           goto handle_uninterpreted;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::ReadDouble(
-              input, &timestamp_));
-        _set_bit(0);
         if (input->ExpectTag(18)) goto parse_symbol;
         break;
       }
       
       // required string symbol = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) !=
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_symbol:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_symbol()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->symbol().data(), this->symbol().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
           goto handle_uninterpreted;
         }
-       parse_symbol:
-        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-              input, this->mutable_symbol()));
-        ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-          this->symbol().data(), this->symbol().length(),
-          ::google::protobuf::internal::WireFormat::PARSE);
         if (input->ExpectTag(25)) goto parse_price;
         break;
       }
       
       // required double price = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) !=
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+         parse_price:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &price_)));
+          _set_bit(2);
+        } else {
           goto handle_uninterpreted;
         }
-       parse_price:
-        DO_(::google::protobuf::internal::WireFormatLite::ReadDouble(
-              input, &price_));
-        _set_bit(2);
         if (input->ExpectTag(32)) goto parse_size;
         break;
       }
       
       // required int32 size = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) !=
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_size:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &size_)));
+          _set_bit(3);
+        } else {
           goto handle_uninterpreted;
         }
-       parse_size:
-        DO_(::google::protobuf::internal::WireFormatLite::ReadInt32(
-              input, &size_));
-        _set_bit(3);
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -271,12 +286,6 @@ bool Fill::MergePartialFromCodedStream(
 
 void Fill::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  ::google::protobuf::uint8* raw_buffer = output->GetDirectBufferForNBytesAndAdvance(_cached_size_);
-  if (raw_buffer != NULL) {
-    Fill::SerializeWithCachedSizesToArray(raw_buffer);
-    return;
-  }
-  
   // required double timestamp = 1;
   if (_has_bit(0)) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->timestamp(), output);
@@ -375,7 +384,9 @@ int Fill::ByteSize() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         unknown_fields());
   }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -455,14 +466,16 @@ void Fill::Swap(Fill* other) {
 const int Trades::kFillFieldNumber;
 #endif  // !_MSC_VER
 
-Trades::Trades() {
+Trades::Trades()
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void Trades::InitAsDefaultInstance() {
 }
 
-Trades::Trades(const Trades& from) {
+Trades::Trades(const Trades& from)
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -481,6 +494,11 @@ void Trades::SharedDtor() {
   }
 }
 
+void Trades::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
 const ::google::protobuf::Descriptor* Trades::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return Trades_descriptor_;
@@ -510,13 +528,14 @@ bool Trades::MergePartialFromCodedStream(
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .TradeData.Fill fill = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) !=
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_fill:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_fill()));
+        } else {
           goto handle_uninterpreted;
         }
-       parse_fill:
-        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, add_fill()));
         if (input->ExpectTag(10)) goto parse_fill;
         if (input->ExpectAtEnd()) return true;
         break;
@@ -540,15 +559,9 @@ bool Trades::MergePartialFromCodedStream(
 
 void Trades::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  ::google::protobuf::uint8* raw_buffer = output->GetDirectBufferForNBytesAndAdvance(_cached_size_);
-  if (raw_buffer != NULL) {
-    Trades::SerializeWithCachedSizesToArray(raw_buffer);
-    return;
-  }
-  
   // repeated .TradeData.Fill fill = 1;
   for (int i = 0; i < this->fill_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageNoVirtual(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->fill(i), output);
   }
   
@@ -590,7 +603,9 @@ int Trades::ByteSize() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         unknown_fields());
   }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -650,4 +665,8 @@ void Trades::Swap(Trades* other) {
 }
 
 
+// @@protoc_insertion_point(namespace_scope)
+
 }  // namespace TradeData
+
+// @@protoc_insertion_point(global_scope)

@@ -45,7 +45,7 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::
  * @param xp external pointer to a Descriptor
  * @return the descriptor as an R list
  */
-RCPP_FUNCTION_1( Rcpp::List, METHOD(as_lis), Rcpp::XPtr<GPB::Descriptor> desc ){
+RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc ){
 	
 	int nfields = desc->field_count() ;
 	int ntypes  = desc->nested_type_count() ;
