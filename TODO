@@ -1,7 +1,14 @@
-* finalizers
-* http-powered rpc implementation
-* extensions
-* unit testing
-* what to do when unload the package
-* useR abstract
-* useR presentation
+
+    o   finalizers
+
+    o   http-powered rpc implementation [maybe]
+
+    o   extensions
+
+    o   unit testing [ongoing]
+
+    o   what to do when unload the package
+
+    o   useR abstract [done]
+
+    o   useR presentation [done]

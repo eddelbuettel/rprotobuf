@@ -1,6 +1,14 @@
+2010-08-12  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/*: restore R CMD check
+
+2010-08-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.addressbook.R: start of new unit tests
+
 2010-07-30  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/* : correct many small errors so that the vignette builds again 
+	* src/*: correct many small errors so that the vignette builds again
 
 2010-02-02  Dirk Eddelbuettel  <edd@debian.org>
 
