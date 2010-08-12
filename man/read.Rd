@@ -19,7 +19,7 @@
 \keyword{methods}
 \examples{
 # example file that contains a "tutorial.AddressBook" message
-book <- system.file( "examples", "AddressBookFile", package = "RProtoBuf" )
+book <- system.file( "examples", "addressbook.pb", package = "RProtoBuf" )
 
 # read the message
 message <- read( tutorial.AddressBook, book )
