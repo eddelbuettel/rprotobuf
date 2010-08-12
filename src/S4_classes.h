@@ -166,7 +166,6 @@ namespace rprotobuf {
 				const_cast<GPB::Message*>(d), true) ;
 			slot( "type" ) = d->GetDescriptor()->full_name() ;
 		}
-		
 		S4_Message( const S4_Message& other) : S4(){
 			setSEXP( other.asSexp() );
 		}

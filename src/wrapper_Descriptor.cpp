@@ -145,8 +145,10 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromConnection), Rcpp::XPtr<GPB::
 	if( !message ){
 		throw std::range_error( "could not call factory->GetPrototype(desc)->New()" ) ; 
 	}
+	message->ParsePartialFromCodedStream( &coded_stream) ;
 	
-	return( S4_Message( message ) ) ;
+	S4_Message res( message ) ;
+	return res ;
 }
 
 RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::Descriptor> desc, Rcpp::RawVector raw){

@@ -42,9 +42,9 @@ close( f )
 payload <- readBin( book, raw(0), 5000 )
 message3 <- tutorial.AddressBook$read( payload )
 
-% \dontshow{
-% stopifnot( identical( message, message2) )
-% stopifnot( identical( message, message3) )
-% }
+\dontshow{
+stopifnot( identical( message, message2) )
+stopifnot( identical( message, message3) )
+}
 
 }
