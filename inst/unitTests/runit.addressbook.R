@@ -17,6 +17,10 @@ test.size <- function() {
 test.personOne <- function() {
     checkEquals(book$person[[1]]$name,              "Romain Francois",   msg="First person name")
     checkEquals(book$person[[2]]$name,              "Dirk Eddelbuettel", msg="First person name")
+    checkEquals(book$person[[1]]$id,                1,   		 msg="First person id")
+    checkEquals(book$person[[2]]$id,                2,			 msg="First person id")
+    checkEquals(book$person[[1]]$email,    "romain@r-enthusiasts.com",   msg="First person email")
+    checkEquals(book$person[[2]]$email,             "edd@debian.org",    msg="Second person email")
     checkEquals(length(book$person[[1]]$phone),     1,                   msg="First person phones")
     checkEquals(length(book$person[[2]]$phone),     2,                   msg="Second person phones")
     checkEquals(book$person[[1]]$phone[[1]]$number, "+33(0)...",         msg="First person phone number")
