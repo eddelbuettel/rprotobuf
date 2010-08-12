@@ -3,9 +3,8 @@
 
 namespace rprotobuf{
 	
-	RconnectionCopyingInputStream::RconnectionCopyingInputStream(int id){
-		connection_id = id ;
-	}
+	RconnectionCopyingInputStream::RconnectionCopyingInputStream(int id) : 
+		connection_id(id){}
 	
 	/** 
 	 * call readBin to read size bytes from R
@@ -24,9 +23,8 @@ namespace rprotobuf{
 		}  catch( ... ){
 			return 0 ;
 		}
-		
 		int len = res.size() ;
-		memcpy( buffer, res.begin(), len) ;
+		memcpy( buffer, reinterpret_cast<const void*>(res.begin()), len) ;
 		return len ;
 	}
 	

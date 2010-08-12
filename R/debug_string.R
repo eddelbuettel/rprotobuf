@@ -9,7 +9,7 @@
 	.Call( "EnumDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_FieldDescriptor <- function(x, ...){
-	.Call( "FieldDescripor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "FieldDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
 }
 ._toString_ServiceDescriptor <- function(x, ...){
 	.Call( "ServiceDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
