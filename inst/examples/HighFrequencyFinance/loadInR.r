@@ -84,7 +84,7 @@ moduled <- function(verbose=FALSE, file="trades.pb", dll) {
     trds <- Module("trades", dll)
     td <- new( trds$Trades )
     td$init(file)
-    print(n <- td$numberOfFills())
+    #print(n <- td$numberOfFills())
     df <- td$getData()
 
     if (verbose) print(summary(df))
@@ -100,15 +100,14 @@ suppressMessages(library(rbenchmark))
 
 dll <- dyn.load("protoModule.so")
 
-#print(summary(moduled()));
-#print(summary(moduled()));
-#q()
+## uncomment next line to see a crash when running twice !
+#moduled(TRUE); moduled(TRUE); q()
 
 
 
 
 print(benchmark(compiled  = compiled(FALSE),
-                #moduled   = moduled(FALSE),
+                #moduled   = moduled(FALSE),   ## uncomment and crash
                 basicUse  = basicUse(FALSE),
                 betterUs  = betterUse(FALSE),
                 preAlloc  = preAlloc(FALSE),
