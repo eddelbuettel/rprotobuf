@@ -100,19 +100,13 @@ suppressMessages(library(rbenchmark))
 
 dll <- dyn.load("protoModule.so")
 
-## uncomment next line to see a crash when running twice !
-#moduled(TRUE); moduled(TRUE); q()
-
-
-
-
 print(benchmark(compiled  = compiled(FALSE),
-                #moduled   = moduled(FALSE),   ## uncomment and crash
+                moduled   = moduled(FALSE),
                 basicUse  = basicUse(FALSE),
                 betterUs  = betterUse(FALSE),
                 preAlloc  = preAlloc(FALSE),
                 order = "elapsed",
                 columns = c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
-                replications  = 3))
+                replications  = 5))
 
 
