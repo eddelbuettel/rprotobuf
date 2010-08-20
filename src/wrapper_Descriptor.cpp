@@ -163,7 +163,13 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::D
 	message->MergePartialFromCodedStream( &stream ) ;
 	return( S4_Message( message ) ) ;
 }
-	
+
+RCPP_FUNCTION_2( S4_Message, METHOD(readASCII_FromString), Rcpp::XPtr<GPB::Descriptor> desc, std::string input){
+	GPB::Message* message = PROTOTYPE( desc ) ; 
+	GPB::TextFormat::ParseFromString( input, message ) ;
+	return( S4_Message( message ) ) ;
+}
+
 #undef METHOD
 
 } // namespace rprotobuf

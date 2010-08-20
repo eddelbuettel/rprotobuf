@@ -33,7 +33,7 @@ exportClasses(
 
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update",
-	"has", "clone", "merge", "read", "bytesize",
+	"has", "clone", "merge", "read", "readASCII", "bytesize",
 	"length", "str", "isInitialized",
 	"clear", "size", "size<-", "swap",
 	"descriptor", "set", "fetch", "toString",

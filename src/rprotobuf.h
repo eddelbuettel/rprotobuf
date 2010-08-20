@@ -35,6 +35,7 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/service.h>
 #include <google/protobuf/descriptor.pb.h>
+#include <google/protobuf/text_format.h>
 namespace GPB = google::protobuf;
 
 #define R_NO_REMAP
