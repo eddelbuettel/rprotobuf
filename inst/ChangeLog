@@ -1,3 +1,7 @@
+2010-09-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.2.0
+
 2010-08-12  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/*: restore R CMD check
