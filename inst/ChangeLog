@@ -2,6 +2,10 @@
 
 	* DESCRIPTION: Release 0.2.0
 
+2010-09-10  Romain Francois <romain@r-enthusiasts.com>
+
+	* man/readASCII.Rd: Rd documentation for readASCII
+
 2010-08-12  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/*: restore R CMD check
