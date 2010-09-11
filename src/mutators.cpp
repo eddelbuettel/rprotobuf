@@ -240,9 +240,9 @@ void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
     	case STRSXP:
     		{
     			int nenums = enum_desc->value_count() ;
-    			char* possibles [ nenums ] ;
+    			std::vector<std::string> possibles( nenums ) ;
     			for( int i=0; i< nenums; i++){
-    				possibles[i] = (char*)enum_desc->value(i)->name().c_str() ; 
+    				possibles[i] = enum_desc->value(i)->name() ; 
     			}
     			
     			/* loop around the numbers to see if they are in the possibles */
@@ -251,7 +251,7 @@ void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
     				int ok = 0; 
     				/* FIXME: there is probably something more efficient */
     				for( int j=0; j<nenums; j++){
-    					if( !strcmp( val, possibles[j]) ){
+    					if( ! possibles[j].compare( val) ){
     						ok = 1; 
     						break ; 
     					}
@@ -406,7 +406,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case RAWSXP:
     						{
     							int nenums = enum_desc->value_count() ;
-    							int possibles [ nenums ] ;
+    							std::vector<int> possibles(nenums) ;
     							for( int i=0; i< nenums; i++){
     								possibles[i] = enum_desc->value(i)->number(); 
     							}
@@ -434,9 +434,9 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case STRSXP:
     						{
     							int nenums = enum_desc->value_count() ;
-    							char* possibles [ nenums ] ;
+    							std::vector<std::string> possibles(nenums) ;
     							for( int i=0; i< nenums; i++){
-    								possibles[i] = (char*)enum_desc->value(i)->name().c_str() ; 
+    								possibles[i] = enum_desc->value(i)->name() ; 
     							}
     							
     							/* loop around the numbers to see if they are in the possibles */
@@ -445,7 +445,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     								int ok = 0; 
     								/* FIXME: there is probably something more efficient */
     								for( int j=0; j<nenums; j++){
-    									if( !strcmp( val, possibles[j]) ){
+    									if( !possibles[j].compare(val) ){
     										ok = 1; 
     										break ; 
     									}
