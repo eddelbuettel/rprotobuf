@@ -30,4 +30,4 @@ TradeData.pb.cc:	TradeData.proto
 			protoc --cpp_out=. $^
 
 clean:
-			$(RM) $(TARGETS) TradeData.pb.h *.o
+			@$(RM) $(TARGETS) TradeData.pb.h *.o

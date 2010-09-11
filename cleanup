@@ -2,6 +2,7 @@
 
 rm -f config.* src/Makedeps src/Makevars \
     src/addressbook.pb.cc src/addressbook.pb.h \
+    src/protobufrpc.pb.cc src/protobufrpc.pb.h \
     src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~ \
     inst/doc/RProtoBuf*.aux inst/doc/RProtoBuf*.log \
     inst/doc/RProtoBuf*.out inst/doc/RProtoBuf*.tex \
