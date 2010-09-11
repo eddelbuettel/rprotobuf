@@ -212,7 +212,7 @@ void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
     	case RAWSXP:
     		{
     			int nenums = enum_desc->value_count() ;
-    			int possibles [ nenums ] ;
+    			std::vector<int> possibles( nenums ) ;
     			for( int i=0; i< nenums; i++){
     				possibles[i] = enum_desc->value(i)->number(); 
     			}
