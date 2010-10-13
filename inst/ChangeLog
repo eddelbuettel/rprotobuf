@@ -1,3 +1,8 @@
+2010-10-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/*: applied patch by Koert Kuipers to support raw bytes
+	* inst/unitTests/runit.bytes.R: also added unit test by Koert
+
 2010-09-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.2.0

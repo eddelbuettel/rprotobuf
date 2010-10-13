@@ -840,7 +840,6 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 				
      			// {{{ string
 				case TYPE_STRING:
-    			case TYPE_BYTES:
     				{
     					if( TYPEOF(values) == STRSXP ){ 
     						for( int i=0 ; i<value_size; i++){
@@ -848,6 +847,22 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 				    		}
     					} else{
     						throwException( "Cannot convert to string", "ConversionException" ) ;
+    					}
+    					break ; 
+    				}
+				// }}}
+
+     			// {{{ bytes
+    			case TYPE_BYTES:
+    				{
+						if( TYPEOF(values) == RAWSXP ){
+							ref->AddString( message, field_desc, GET_bytes(values,0 )) ;
+						} else if( TYPEOF(values) == VECSXP ){ 
+							for( int i=0 ; i<value_size; i++) {
+								ref->AddString( message, field_desc, GET_bytes(values,i )) ;
+				    		}
+    					} else{
+    						throwException( "Cannot convert to bytes", "ConversionException" ) ;
     					}
     					break ; 
     				}
@@ -983,12 +998,21 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 					return res; 
 				}
 			case TYPE_STRING:
-	    	case TYPE_BYTES:
 	    		{
 	    			const GPB::Reflection* ref = message->GetReflection() ; 
 	    			Rcpp::CharacterVector res(n) ;
 	    			for( int i=0; i<n; i++){
 	    				res[i] = ref->GetRepeatedString( *message, field_desc, index[i] ) ;
+    				}
+    			    return res ;
+	    		}
+	    	case TYPE_BYTES:
+	    		{
+	    			const GPB::Reflection* ref = message->GetReflection() ; 
+	    			Rcpp::List res(n) ;
+	    			for( int i=0; i<n; i++){
+						std::string s = ref->GetRepeatedString( *message, field_desc, index[i] );
+	    				res[i] = std::vector<Rbyte>(s.begin(), s.end());
     				}
     			    return res ;
 	    		}
@@ -1101,13 +1125,22 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 						break ;
 					}
 				case TYPE_STRING:
-	    		case TYPE_BYTES:
 	    			{
 	    				
 	    				for( int i=0; i<n; i++){
 							ref->SetRepeatedString( message, field_desc, 
 								index[i], 
 								GET_stdstring( values, i ) ) ;
+						}
+						break ;
+	    			}
+	    		case TYPE_BYTES:
+	    			{
+	    				
+	    				for( int i=0; i<n; i++){
+							ref->SetRepeatedString( message, field_desc, 
+								index[i], 
+								GET_bytes( values, i ) ) ;
 						}
 						break ;
 	    			}

@@ -1,0 +1,8 @@
+option optimize_for = SPEED;
+option java_outer_classname = "BytesProto";
+
+message TestBytes {
+  required bytes req = 1;
+  optional bytes opt = 2  [default = "hello world"];
+  repeated bytes rep = 3;
+}

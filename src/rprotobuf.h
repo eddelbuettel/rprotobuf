@@ -59,7 +59,7 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
 
 /* uncomment for debugging */
-// #define RPB_DEBUG
+#define RPB_DEBUG
 
 #ifdef RPB_DEBUG
 #define RPB_DEBUG_BEGIN(__WHAT__) Rprintf( "<" #__WHAT__ ">\n" ) ;
@@ -138,6 +138,7 @@ RcppExport uint32 GET_uint32( SEXP, int) ;
 RcppExport uint64 GET_uint64( SEXP, int ) ;
 RcppExport bool GET_bool( SEXP, int) ;
 RcppExport std::string GET_stdstring( SEXP, int ) ;
+RcppExport std::string GET_bytes( SEXP, int ) ;
 RcppExport void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
 RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
 

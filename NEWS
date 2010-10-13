@@ -1,3 +1,7 @@
+0.2.1   TBD
+
+   o 	Support for raw bytes added thanks to a patch by Koert Kuipers
+
 0.2.0   2010-09-10
 
    o 	Second release with numerous internal changes made possible by

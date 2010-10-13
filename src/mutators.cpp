@@ -152,18 +152,24 @@ std::string GET_stdstring( SEXP x, int index ){
 	return "" ; // -Wall, should not happen since we only call this when we know it works
 }
 
-/**
- * calls the R function charToRaw to convert raw into a string
- *
- * @param raw raw vector
- * @return a string (STRSXP)
- */
-/* FIXME: maybe we don't need to go back to R for this */
-SEXP rawToString( SEXP raw){
-	SEXP call = PROTECT( Rf_lang2( Rf_install("charToRaw"), raw ) ) ;
-	SEXP res = PROTECT( Rf_eval( call, R_GlobalEnv ) );
-	UNPROTECT( 2 ) ; /* res, call */
-	return res ;
+std::string GET_bytes( SEXP x, int index ){
+	switch( TYPEOF(x)) {
+		case RAWSXP:
+			if (index == 0) {
+				return(std::string((const char *) RAW(x), (size_t) LENGTH(x)));
+			} else {
+				throwException( "cannot cast SEXP to bytes", "CastException" ) ;
+			}
+		case VECSXP:
+			if (TYPEOF(VECTOR_ELT(x, index)) == RAWSXP) {
+				return(std::string((const char *) RAW(VECTOR_ELT(x, index)), (size_t) LENGTH(VECTOR_ELT(x, index))));
+			} else {
+				throwException( "cannot cast SEXP to bytes", "CastException" ) ;
+			}
+		default:
+			throwException( "cannot cast SEXP to bytes", "CastException" ) ;
+	}
+	return "" ; // -Wall, should not happen since we only call this when we know it works
 }
 
 /**
@@ -189,6 +195,25 @@ Rboolean allAreMessages( SEXP x) {
 	return _TRUE_ ;
 }
 
+/**
+ * indicates if this is a list of raws
+ * 
+ * @param x a list (VECSXP)
+ * @return TRUE if all objects are instances of RAWSXP
+ */
+Rboolean allAreRaws( SEXP x) {
+		
+	if( TYPEOF(x) != VECSXP ) return _FALSE_ ;
+	
+	int n = LENGTH(x) ;
+	SEXP current ;
+	for( int i=0; i<n; i++){
+		current = VECTOR_ELT( x, i) ;
+		/* not a RAWSXP */
+		if( TYPEOF(current) != RAWSXP ) return _FALSE_ ;
+	}
+	return _TRUE_ ;
+}
 
 /**
  * check that all the values contained in value are suitable for the 
@@ -345,7 +370,9 @@ PRINT_DEBUG_INFO( "value", value ) ;
 				value_size = 1 ; /* we will store the message payload */
 			} else if( TYPEOF(value) == VECSXP && allAreMessages( value ) ){
 				value_size = LENGTH(value) ;
-			} else{
+			} else if( TYPEOF(value) == VECSXP && allAreRaws( value ) ){
+				value_size = LENGTH(value) ;
+			} else {
 				throwException( "cannot convert to string", "ConversionException" ) ;
 			}
 		}
@@ -744,8 +771,20 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						} 
     					case RAWSXP:
     						{
-    							ref->SetRepeatedString( message, field_desc, 0, COPYSTRING( CHAR(STRING_ELT(rawToString(value),0 )) ) ) ;
-    						}
+    							/* in any case, fill the values up to field_size */
+								int i = 0;
+								for ( ; i<field_size; i++) {
+									ref->SetRepeatedString( message, field_desc, i, GET_bytes(value, 0)) ;
+								}
+								
+								/* then add some if needed */
+								if( value_size > field_size ){
+									for( ; i<value_size; i++) {
+										ref->AddString( message, field_desc, GET_bytes(value, 0)) ;
+									}
+								}
+								break;
+							}
     					case S4SXP:
     						{
     							/* check if value is a message */
@@ -759,28 +798,43 @@ PRINT_DEBUG_INFO( "value", value ) ;
     						}
     					case VECSXP:
     						{
-    							// we know it is a list of messages because it 
+    							// we know it is a list of messages or raws because it 
     							// has been tested above
-    							
-    							// FIXME: we should probably use SerializeToString 
-    							//        as indicated in the protobuf api documentation
-    							//        http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message_lite.html#MessageLite.SerializeAsString.details
-    							GPB::Message* __mess ;
-    							
-    							/* in any case, fill the values up to field_size */
-    							int i = 0;
-			    				for( ; i<field_size; i++){
-			    					__mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i ) ); 
-			    					ref->SetRepeatedString( message, field_desc, i, __mess->SerializeAsString() ) ;
-			    				}
-			    				
-			    				/* then add some if needed */
-			    				if( value_size > field_size ){
-			    					for( ; i<value_size; i++){
-			    						__mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i ) ); 
-			    						ref->AddString( message, field_desc, __mess->SerializeAsString() ) ;
-			    					}
-			    				}
+						        if (LENGTH(value) > 0 && TYPEOF(VECTOR_ELT(value, 0)) == RAWSXP ) {
+									/* in any case, fill the values up to field_size */
+									int i = 0;
+									for( ; i<field_size; i++) {
+										ref->SetRepeatedString( message, field_desc, i, GET_bytes(value,i )) ;
+									}
+									
+									/* then add some if needed */
+									if( value_size > field_size ) {
+										for( ; i<value_size; i++){
+											ref->AddString( message, field_desc, GET_bytes(value,i )) ;
+										}
+									}
+								} else {
+									// FIXME: we should probably use SerializeToString 
+									//        as indicated in the protobuf api documentation
+									//        http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message_lite.html#MessageLite.SerializeAsString.details
+									GPB::Message* __mess ;
+									
+									/* in any case, fill the values up to field_size */
+									int i = 0;
+									for( ; i<field_size; i++){
+										__mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i ) ); 
+										ref->SetRepeatedString( message, field_desc, i, __mess->SerializeAsString() ) ;
+									}
+									
+									/* then add some if needed */
+									if( value_size > field_size ){
+										for( ; i<value_size; i++){
+											__mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i ) ); 
+											ref->AddString( message, field_desc, __mess->SerializeAsString() ) ;
+										}
+									}
+									
+								}
 			    				break ;
     							
     						}
@@ -936,7 +990,7 @@ HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
     						}
     					case RAWSXP:
     						{
-    							ref->SetString(message, field_desc, COPYSTRING( CHAR(STRING_ELT( rawToString( value ) ,0 )) ) ) ;
+    							ref->SetString(message, field_desc,  GET_bytes(value, 0)) ;
     							break ;
     						}
     					case S4SXP:
