@@ -5,14 +5,17 @@
 
 # this is executed before each test function
 .setUp <- function() {
+    #addressbook.proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
+    #readProtoFiles( file = addressbook.proto.file )
     file <- system.file( "examples", "addressbook.pb", package = "RProtoBuf" )
-    book <- read( tutorial.AddressBook, file )
+    book <<- read( tutorial.AddressBook, file )
 }
 
 test.size <- function() {
     checkEquals(book$size("person"),        2,   msg="Number of persons")
     checkEquals(bytesize(book),             125, msg="Bytes in book")
     checkEquals(bytesize(book$person[[1]]), 60,  msg="Bytes of first person message")
+}
 
 test.personOne <- function() {
     checkEquals(book$person[[1]]$name,              "Romain Francois",   msg="First person name")
