@@ -59,7 +59,7 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
 
 /* uncomment for debugging */
-#define RPB_DEBUG
+// #define RPB_DEBUG
 
 #ifdef RPB_DEBUG
 #define RPB_DEBUG_BEGIN(__WHAT__) Rprintf( "<" #__WHAT__ ">\n" ) ;
