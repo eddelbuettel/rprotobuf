@@ -193,15 +193,15 @@ namespace rprotobuf{
 	SEXP ZeroCopyInputStream_ReadLittleEndian64( SEXP xp){
 		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
 		uint64 res = 0 ;
-		if( !coded_stream->ReadVarint64( &res ) ) Rf_error( "error reading little endian int64" ) ;
-		return Rcpp::int64::LongVector<uint64_t>( res ) ;
+		if( !coded_stream->ReadVarint64( &res ) ) Rf_error( "error reading little endian int32" ) ;
+		return Rf_ScalarReal( (double)res ) ;
 	}
 	
 	SEXP ZeroCopyInputStream_ReadVarint64( SEXP xp){
 		GPB::io::CodedInputStream* coded_stream = GET_CIS(xp) ;
 		uint64 res = 0 ;
 		if( !coded_stream->ReadVarint64( &res ) ) Rf_error( "error reading varint64" ) ;
-		return Rcpp::int64::LongVector<uint64_t>( res ) ;
+		return Rf_ScalarReal( (double)res ) ;
 	}
 #endif
 	// }}}

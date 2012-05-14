@@ -50,6 +50,9 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Label)
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::CppType)
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
+//RCPP_TRAITS(GPB::int64,REALSXP)
+//RCPP_TRAITS(GPB::uint64,REALSXP)
+
 #include <Rcpp.h>
 
 #include <Rdefines.h>

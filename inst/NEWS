@@ -1,12 +1,10 @@
-0.2.4   future
+0.2.4   2012-05-xx
 
-   o    changes to handle int64, etc ... fields better. Based on the new
-        int64 package and related changes in Rcpp. This work has been
-        sponsored by the Google Open Source Programs Office
+    o   Suppport g++-4.7 and stricter #include file checking by adding unistd
 
 0.2.3   2011-04-12
 
-   o 	Protect UINT64 and INT64 with '#ifdef RCPP_HAS_LONG_LONG' which
+    o 	Protect UINT64 and INT64 with '#ifdef RCPP_HAS_LONG_LONG' which
         itself is valid with either g++ <= 4.4, or newer versions if the 
 	-std=c++0x is used
 

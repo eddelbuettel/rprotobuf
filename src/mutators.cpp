@@ -20,7 +20,6 @@
 
 #include "rprotobuf.h" 
 #include "fieldtypes.h" 
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
 namespace rprotobuf{
 
@@ -100,6 +99,23 @@ int32 GET_int32( SEXP x, int index ){
 	return (int32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
+
+int64 GET_int64( SEXP x, int index ){
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (int64)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (int64)REAL(x)[index] );
+		case LGLSXP:
+			return( (int64)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (int64)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to int64", "CastException" ) ; 
+	}
+	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
 uint32 GET_uint32( SEXP x, int index ){
 	switch( TYPEOF(x) ){
 		case INTSXP: 
@@ -115,7 +131,6 @@ uint32 GET_uint32( SEXP x, int index ){
 	}
 	return (uint32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
-
 
 int64 GET_int64( SEXP x, int index ){
 #ifdef RCPP_HAS_INT64
@@ -140,7 +155,6 @@ int64 GET_int64( SEXP x, int index ){
 #endif
 	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
 }
-
 
 
 uint64 GET_uint64( SEXP x, int index ){
@@ -633,19 +647,12 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    							for( ; i<field_size; i++){
 	    								ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
 	    							}
-	    							
-	    							/* then add some if needed */
-	    							if( value_size > field_size ){
-	    								for( ; i<value_size; i++){
-	    									ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
-	    								}
-	    							}
-    								break ;
-    							}
-                    	
-    						default: 
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    					} 
+	    						}
+    							break ;
+    						}
+
+    					default: 
+    						throwException( "Cannot convert to int64", "ConversionException" ) ; 
 #ifdef RCPP_HAS_INT64
     				}
 #endif
@@ -719,18 +726,11 @@ PRINT_DEBUG_INFO( "value", value ) ;
 									for( ; i<field_size; i++){
 	    								ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
 	    							}
-	    							
-	    							/* then add some if needed */
-	    							if( value_size > field_size ){
-	    								for( ; i<value_size; i++){
-	    									ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
-	    								}
-	    							}
-    								break ;
-    							}
-    						default: 
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    					}
+	    						}
+    							break ;
+    						}
+    					default: 
+    						throwException( "Cannot convert to int64", "ConversionException" ) ; 
 #ifdef RCPP_HAS_INT64
     				}
 #endif
