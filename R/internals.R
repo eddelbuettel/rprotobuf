@@ -11,8 +11,9 @@
 #' @return invisible(NULL)
 readProtoFiles <- function( 
 	files, 
-	dir, 
-	package = "RProtoBuf"
+	dir,
+	package = "RProtoBuf",
+	pattern = "\\.proto$"
 	){
 	
 	if( missing( files ) ){
@@ -26,7 +27,7 @@ readProtoFiles <- function(
 				}
 			}
 		}
-		files <- list.files( dir, pattern = "\\.proto$", full.names = TRUE ) 
+		files <- list.files( dir, pattern = pattern, full.names = TRUE ) 
 	} else {
 		if( !is.character( files )  ){
 			stop( "'file' should be a character vector" )

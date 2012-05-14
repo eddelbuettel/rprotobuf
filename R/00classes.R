@@ -54,8 +54,10 @@ setClass( "FileDescriptor", representation(
 ), prototype = list( pointer = NULL ) )
 
 setClass( "EnumValueDescriptor", representation( 
-	pointer = "externalptr"  # pointer to a google::protobuf::EnumValueDescriptor c++ object
-), prototype = list( pointer = NULL ) )
+	pointer = "externalptr",  # pointer to a google::protobuf::EnumValueDescriptor c++ object
+	name    = "character", 
+	full_name  = "character"
+), prototype = list( pointer = NULL, name = character(0), full_name = character(0) ) )
 
 # actual objects
 
@@ -284,6 +286,7 @@ setMethod( "$", "EnumValueDescriptor", function(x, name ){
 		"as.character" = function() as.character(x),
 		"toString" = function(...) toString(x, ...) ,
 		"asMessage" = function() asMessage(x), 
+		"name" = function(...) name(x, ... ),
 		
 		invisible(NULL)
 		)
@@ -480,6 +483,10 @@ function(object, full = FALSE){
 setMethod( "name", c( object = "EnumDescriptor" ) , 
 function(object, full = FALSE){
 	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+})
+setMethod( "name", c( object = "EnumValueDescriptor" ) , 
+function(object, full = FALSE){
+	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "" )
 })
 setMethod( "name", c( object = "ServiceDescriptor" ) , 
 function(object, full = FALSE){

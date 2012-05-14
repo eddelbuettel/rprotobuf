@@ -1,3 +1,24 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+//
+// DescriptorPoolLookup.cpp: R/C++ interface class library
+//
+// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+//
+// This file is part of RProtoBuf.
+//
+// RProtoBuf is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// RProtoBuf is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with RProtoBuf.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "rprotobuf.h"
 #include "DescriptorPoolLookup.h"
 
@@ -26,6 +47,11 @@ namespace rprotobuf{
 		int n = LENGTH(files) ;
 		for( int j=0; j < n; j++ ){
 			const GPB::FileDescriptor* file_desc = importer.Import( CHAR(STRING_ELT(files, j)) );
+			if (!file_desc) {
+				Rf_error("Could not load proto file '%s'\n",
+					 CHAR(STRING_ELT(files, j)));
+				continue;
+			}
 		    int ntypes = file_desc->message_type_count() ;
 		    for( int i=0; i<ntypes; i++){
 		    	const GPB::Descriptor* desc = file_desc->message_type( i ) ;

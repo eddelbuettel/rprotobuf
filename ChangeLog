@@ -1,3 +1,88 @@
+2012-04-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/zzz.R: Add 'lib.loc=libname' to packageDescription() call as
+	requested by Brian Ripley
+
+2012-03-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Applied another patch by Murray:
+	  - src/mutators.cpp: Deal with case of repeated strings
+	  - inst/unitTests/runit.golden.message.R: test for this case
+
+2011-07-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Applied another patch by Murray:
+	  - src/wrapper_Descriptor.cpp: Add missing readASCIIFromConnection
+  	    C++ function that was called in read.R but not defined.
+	  - R/read.R: Remove an _ in the readASCII C++ functions to match the
+	    naming convention of the other nearby functions.
+          - man/readASCII.Rd: Add examples of ascii export/import of messages.
+	  - inst/unitTests/runit.addressbook.R: Add tests of ascii
+	    export/import of messages.
+
+2011-07-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/wrapper_FileDescriptor.cpp (rprotobuf): Applied patch by Murray
+	to correct a cut & paste error in variable name
+
+2011-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.2.3
+
+2011-04-10  Dirk Eddelbuettel  <edd@dexter>
+
+	* src/extractors.cpp: Protect UINT64 and INT64 inside of #ifdef test
+	for RCPP_HAS_LONG_LONG_TYPES which we now need for g++ 4.5 or later
+	* src/mutators.cpp: Idem
+	* wrapper_FieldDescriptor.cpp: Idem
+
+2011-04-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Makefile: Call R and Rscript relative to R_HOME/bin
+
+2011-04-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Makefile: Do not call clean in all target
+
+2011-01-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/with.R: Use envir= argument to eval()
+
+2011-01-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.2.2
+
+	* inst/THANKS: Added new file to say Thanks!
+
+2011-01-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Applied another patch by Murray Stokely providing:
+	   - R/internals.R: generalise readProtoFiles() adding 'pattern' arg
+	   - man/readProtoFiles.Rd: documenting new 'pattern' argument
+	   - src/DescriptorPoolLookup.cpp: enhanced error message
+	   - inst/unitTests/runit.golden.message.R: new unit test for
+	     repeated fields fixed (which was issue addressed earlier)
+	   - inst/runit.import.R: new unit test for non-existing file
+
+2011-01-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Applied patch by Murray Stokely providing all the following:
+	   - src/S4_classes.h: new 'name' and 'full_name' slots
+	   - R/00classes.R: idem
+	   - R/wrapper_EnumDescriptor.R: fix typo now permitting function call
+	   - src/wrapper_EnumDescriptor.cpp: add a bounds check
+	   - src/wrapper_EnumValueDescriptor.cpp: add a new name method
+	   - inst/unitTests/runit.enums.R: add new unit test
+
+	* man/EnumValueDescriptor-class.Rd: Add documentation for name
+	and full_name
+
+2010-10-20  Dirk Eddelbuettel  <deddelbuettel@wolve.com>
+
+	* inst/doc/Makefile: do not remove the pdf in 'clean'
+
+	* inst/unitTests/runit.addressbook.R: stick 'book' into global env.
+
 2010-10-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.2.1

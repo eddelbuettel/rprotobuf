@@ -9,5 +9,8 @@ rm -f config.* src/Makedeps src/Makevars \
     inst/doc/RProtoBuf*.toc 
 rm -rf inst/doc/auto
 
+[ -d inst/doc ] && ( cd  inst/doc && make clean )
+
+
 [ -d inst/examples/HighFrequencyFinance ] && \
     ( cd  inst/examples/HighFrequencyFinance && make clean )

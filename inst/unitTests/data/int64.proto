@@ -1,0 +1,7 @@
+
+message TestInt64 {
+  required int64 a = 1;
+  required uint64 b = 2;
+  repeated int64 c = 3 ;
+  repeated uint64 d = 4 ;
+}

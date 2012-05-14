@@ -35,7 +35,7 @@ setGeneric( "readASCII", function( descriptor, input ){
 
 setMethod( "readASCII", c( descriptor = "Descriptor" , input = "character" ), 
 function(descriptor, input ){
-	.Call( "Descriptor__readASCII_FromString", descriptor@pointer, input, PACKAGE = "RProtoBuf" ) 
+	.Call( "Descriptor__readASCIIFromString", descriptor@pointer, input, PACKAGE = "RProtoBuf" ) 
 } )
 
 setMethod( "readASCII", c( descriptor = "Descriptor" ), 
@@ -46,8 +46,7 @@ function( descriptor, input ){
 	sc <- summary( input )
 	wasopen <- identical( sc[["opened"]], "opened" )
 	if( !wasopen ) open( input )
-	message <- .Call( "Descriptor__readASCII_FromConnection", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
+	message <- .Call( "Descriptor__readASCIIFromConnection", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
 	if( !wasopen ) close( input )
 	message
 } )
-

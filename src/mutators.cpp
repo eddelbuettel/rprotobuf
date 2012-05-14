@@ -1,3 +1,23 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
+//
+// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+//
+// This file is part of RProtoBuf.
+//
+// RProtoBuf is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// RProtoBuf is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with RProtoBuf.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "rprotobuf.h" 
 #include "fieldtypes.h" 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
@@ -80,23 +100,6 @@ int32 GET_int32( SEXP x, int index ){
 	return (int32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
-
-int64 GET_int64( SEXP x, int index ){
-	switch( TYPEOF(x) ){
-		case INTSXP: 
-			return( (int64)INTEGER(x)[index] );
-		case REALSXP: 
-			return( (int64)REAL(x)[index] );
-		case LGLSXP:
-			return( (int64)LOGICAL(x)[index] );
-		case RAWSXP:
-			return( (int64)RAW(x)[index] ) ;
-		default:
-			throwException( "cannot cast SEXP to int64", "CastException" ) ; 
-	}
-	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
-}
-
 uint32 GET_uint32( SEXP x, int index ){
 	switch( TYPEOF(x) ){
 		case INTSXP: 
@@ -113,19 +116,54 @@ uint32 GET_uint32( SEXP x, int index ){
 	return (uint32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
-uint64 GET_uint64( SEXP x, int index ){
-	switch( TYPEOF(x) ){
-		case INTSXP: 
-			return( (uint64)INTEGER(x)[index] );
-		case REALSXP: 
-			return( (uint64)REAL(x)[index] );
-		case LGLSXP:
-			return( (uint64)LOGICAL(x)[index] );
-		case RAWSXP:
-			return( (uint64)RAW(x)[index] ) ;
-		default:
-			throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
+
+int64 GET_int64( SEXP x, int index ){
+#ifdef RCPP_HAS_INT64
+	if( Rf_inherits(x, "int64" ) ){
+		return Rcpp::int64::LongVector<int64_t>(x).get(index) ;
+	} else {
+#endif
+		switch( TYPEOF(x) ){
+			case INTSXP: 
+				return( (int64)INTEGER(x)[index] );
+			case REALSXP: 
+				return( (int64)REAL(x)[index] );
+			case LGLSXP:
+				return( (int64)LOGICAL(x)[index] );
+			case RAWSXP:
+				return( (int64)RAW(x)[index] ) ;
+			default:
+				throwException( "cannot cast SEXP to int64", "CastException" ) ; 
+		} 
+#ifdef RCPP_HAS_INT64
 	}
+#endif
+	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
+}
+
+
+
+uint64 GET_uint64( SEXP x, int index ){
+#ifdef RCPP_HAS_INT64
+	if( Rf_inherits( x, "uint64" ) ){
+		 return Rcpp::int64::LongVector<uint64_t>(x).get(index) ;
+	} else {
+#endif
+		switch( TYPEOF(x) ){
+			case INTSXP: 
+				return( (uint64)INTEGER(x)[index] );
+			case REALSXP: 
+				return( (uint64)REAL(x)[index] );
+			case LGLSXP:
+				return( (uint64)LOGICAL(x)[index] );
+			case RAWSXP:
+				return( (uint64)RAW(x)[index] ) ;
+			default:
+				throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
+		}
+#ifdef RCPP_HAS_INT64
+	}
+#endif
 	return (uint64)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
@@ -366,6 +404,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		if( field_type == TYPE_STRING || field_type == TYPE_BYTES ){
 			if( TYPEOF(value) == RAWSXP ){
 				value_size = 1 ;
+            } else if( TYPEOF(value) == STRSXP ){
+                value_size = LENGTH(value);
 			} else if( TYPEOF(value) == S4SXP && Rf_inherits( value, "Message") ){
 				value_size = 1 ; /* we will store the message payload */
 			} else if( TYPEOF(value) == VECSXP && allAreMessages( value ) ){
@@ -563,31 +603,52 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_SINT64:
     		case TYPE_SFIXED64:
     			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:	
-    						{
-    							int i = 0;
-
-	    						/* in any case, fill the values up to field_size */
-	    						for( ; i<field_size; i++){
-	    							ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
-	    						}
-	    						
-	    						/* then add some if needed */
-	    						if( value_size > field_size ){
-	    							for( ; i<value_size; i++){
-	    								ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
+#ifdef RCPP_HAS_INT64
+    				if( Rf_inherits( value, "int64") ){
+    					Rcpp::int64::LongVector<int64_t> data_int64(value) ;
+    					
+    					int i = 0 ;
+    					/* in any case, fill the values up to field_size */
+	    				for( ; i<field_size; i++){
+	    					ref->SetRepeatedInt64( message, field_desc, i, data_int64.get(i) ) ;
+	    				}
+	    				
+	    				/* then add some if needed */
+	    				if( value_size > field_size ){
+	    					for( ; i<value_size; i++){
+	    						ref->AddInt64( message, field_desc, data_int64.get(i) ) ;
+	    					}
+	    				}
+    				} else {
+#endif
+    					switch( TYPEOF( value ) ){ 
+    						case INTSXP:
+    						case REALSXP:
+    						case LGLSXP:
+    						case RAWSXP:	
+    							{
+    								int i = 0;
+                    	
+	    							/* in any case, fill the values up to field_size */
+	    							for( ; i<field_size; i++){
+	    								ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
 	    							}
-	    						}
-    							break ;
-    						}
-
-    					default: 
-    						throwException( "Cannot convert to int64", "ConversionException" ) ; 
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
+	    								}
+	    							}
+    								break ;
+    							}
+                    	
+    						default: 
+    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
+    					} 
+#ifdef RCPP_HAS_INT64
     				}
+#endif
     				break ;
     			}
     			// }}}	
@@ -627,30 +688,52 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_UINT64:
     		case TYPE_FIXED64:
     			{
-    				switch( TYPEOF( value ) ){
-	   					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:	
-    						{
-    							
-    							int i = 0;
-	    						/* in any case, fill the values up to field_size */
-								for( ; i<field_size; i++){
-	    							ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
-	    						}
-	    						
-	    						/* then add some if needed */
-	    						if( value_size > field_size ){
-	    							for( ; i<value_size; i++){
-	    								ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
+#ifdef RCPP_HAS_INT64
+    				if( Rf_inherits( value, "uint64" ) ){
+    					int i = 0 ;
+    					Rcpp::int64::LongVector<uint64_t> data_uint64(value) ;
+    					
+    					/* in any case, fill the values up to field_size */
+						for( ; i<field_size; i++){
+	    					ref->SetRepeatedUInt64( message, field_desc, i, data_uint64.get(i) ) ;
+	    				}
+	    				
+	    				/* then add some if needed */
+	    				if( value_size > field_size ){
+	    					for( ; i<value_size; i++){
+	    						ref->AddUInt64( message, field_desc, data_uint64.get(i) ) ;
+	    					}
+	    				}
+    					
+    				} else {
+#endif
+    					switch( TYPEOF( value ) ){
+	   						case INTSXP:
+    						case REALSXP:
+    						case LGLSXP:
+    						case RAWSXP:	
+    							{
+    								
+    								int i = 0;
+	    							/* in any case, fill the values up to field_size */
+									for( ; i<field_size; i++){
+	    								ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
 	    							}
-	    						}
-    							break ;
-    						}
-    					default: 
-    						throwException( "Cannot convert to int64", "ConversionException" ) ; 
+	    							
+	    							/* then add some if needed */
+	    							if( value_size > field_size ){
+	    								for( ; i<value_size; i++){
+	    									ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
+	    								}
+	    							}
+    								break ;
+    							}
+    						default: 
+    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
+    					}
+#ifdef RCPP_HAS_INT64
     				}
+#endif
     				break ;   
     			}
 			// }}}
@@ -964,23 +1047,26 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			// {{{ simple cases using macro expansion
 #undef HANDLE_SINGLE_FIELD
 #define HANDLE_SINGLE_FIELD( CPPTYPE, CAMEL, TYPE )						\
-case CPPTYPE :																\
-	{																		\
-		ref->Set##CAMEL( message, field_desc, Rcpp::as<TYPE>(value) ) ;	\
-		break ;   															\
-	}
-HANDLE_SINGLE_FIELD( CPPTYPE_INT32, Int32, GPB::int32) ;
-HANDLE_SINGLE_FIELD( CPPTYPE_INT64, Int64, GPB::int64) ;
-HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32, GPB::uint32) ;
-HANDLE_SINGLE_FIELD( CPPTYPE_UINT64, UInt64, GPB::uint64) ;
-HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
-HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
-HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
+			case CPPTYPE :												\
+				{														\
+					ref->Set##CAMEL( message, field_desc, Rcpp::as<TYPE>(value) ) ;	\
+					break ;												\
+				}
+
+			HANDLE_SINGLE_FIELD( CPPTYPE_INT32, Int32, GPB::int32) ;
+			HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32, GPB::uint32) ;
+			HANDLE_SINGLE_FIELD( CPPTYPE_INT64, Int64, GPB::int64) ;
+			HANDLE_SINGLE_FIELD( CPPTYPE_UINT64, UInt64, GPB::uint64) ;
+			HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
+			HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
+			HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
 #undef HANDLE_SINGLE_FIELD
+			default:
+				throwException("Unsupported type", "ConversionException");
 // }}}  
      		
 			// {{{ string
-			case CPPTYPE_STRING:
+		    case CPPTYPE_STRING:
     			{
     				switch( TYPEOF( value ) ){
     					case STRSXP:
@@ -1013,7 +1099,7 @@ HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
 			// }}}
     		
 			// {{{ message
-    		case CPPTYPE_MESSAGE:
+		case CPPTYPE_MESSAGE:
     			{
     				if( TYPEOF( value ) == S4SXP && Rf_inherits( value, "Message" ) ){
     					GPB::Message* mess = (GPB::Message*) EXTPTR_PTR( GET_SLOT( value, Rf_install("pointer") ) ) ;
@@ -1032,7 +1118,7 @@ HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
     			// }}}
     		
 			// {{{ enum
-    		case CPPTYPE_ENUM : 
+		case CPPTYPE_ENUM : 
     			{
     				const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
     				
@@ -1091,4 +1177,3 @@ RCPP_FUNCTION_VOID_2( update_message, Rcpp::XPtr<GPB::Message> message, Rcpp::Li
 }
 
 } // namespace rprotobuf
-

@@ -164,9 +164,22 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::D
 	return( S4_Message( message ) ) ;
 }
 
-RCPP_FUNCTION_2( S4_Message, METHOD(readASCII_FromString), Rcpp::XPtr<GPB::Descriptor> desc, std::string input){
+RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc, std::string input){
 	GPB::Message* message = PROTOTYPE( desc ) ; 
 	GPB::TextFormat::ParseFromString( input, message ) ;
+	return( S4_Message( message ) ) ;
+}
+
+RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc, int conn_id){
+	RconnectionCopyingInputStream wrapper( conn_id ) ;
+	GPB::io::CopyingInputStreamAdaptor stream( &wrapper ) ;
+
+	/* create a prototype of the message we are going to read */
+	GPB::Message* message = PROTOTYPE( desc ) ;
+	if( !message ){
+		throw std::range_error( "could not call factory->GetPrototype(desc)->New()" ) ; 
+	}
+	GPB::TextFormat::Parse( &stream, message ) ;
 	return( S4_Message( message ) ) ;
 }
 

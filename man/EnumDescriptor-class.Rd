@@ -36,27 +36,27 @@ Objects of this class are typically retrieved as members of
   \describe{
     \item{show}{\code{signature(object = "EnumDescriptor")}: small information }
     \item{as.character}{\code{signature(x = "EnumDescriptor")}: 
-  	  	  returns the debug string of the enum descriptor. 
-  	  	  This is retrieved by a call to the \code{DebugString}
-  	      method of the EnumDescriptor object.  }
-  	\item{toString}{\code{signature(x = "EnumDescriptor")}: same as \code{as.character} }
-  	\item{$}{\code{signature(x = "EnumDescriptor")}: get the 
-  	number associated with the name}
-  	\item{containing_type}{\code{signature(object = "EnumDescriptor")} : returns a \linkS4class{Descriptor} of the message type that contains this enum descriptor, or NULL if this is a top level enum descriptor.}
-  	\item{length}{\code{signature(x = "EnumDescriptor")} : number of constants in this enum.}
-  	\item{value_count}{\code{signature(object = "EnumDescriptor")} : number of constants in this enum.}
-  	\item{value}{\code{signature(object = "EnumDescriptor")} : extracts an \linkS4class{EnumValueDescriptor}.
-  		Exactly one argument of \code{index}, \code{number} or \code{name} has to be 
-  		used. 
-  		If \code{index} is used, the enum value descriptor is retrieved
-  		by position, using the \code{value} method of the C++ class. 
-  		If \code{number} is used, the enum value descripror is retrieved
-  		using the value of the constant, using the \code{FindValueByNumber}
-  		C++ method. 
-  		If \code{name} is used, the enum value descriptor is retrieved
-  		using the name of the constant, using the \code{FindValueByName}
-  		C++ method.
-  	}
+      returns the debug string of the enum descriptor. 
+      This is retrieved by a call to the \code{DebugString}
+      method of the EnumDescriptor object.  }
+    \item{toString}{\code{signature(x = "EnumDescriptor")}: same as \code{as.character} }
+    \item{$}{\code{signature(x = "EnumDescriptor")}: get the 
+      number associated with the name}
+    \item{containing_type}{\code{signature(object = "EnumDescriptor")} : returns a \linkS4class{Descriptor} of the message type that contains this enum descriptor, or NULL if this is a top level enum descriptor.}
+    \item{length}{\code{signature(x = "EnumDescriptor")} : number of constants in this enum.}
+    \item{value_count}{\code{signature(object = "EnumDescriptor")} : number of constants in this enum.}
+    \item{value}{\code{signature(object = "EnumDescriptor")} : extracts an \linkS4class{EnumValueDescriptor}.
+      Exactly one argument of \code{index}, \code{number} or \code{name} has to be 
+      used. 
+      If \code{index} is used, the enum value descriptor is retrieved
+      by position, using the \code{value} method of the C++ class. 
+      If \code{number} is used, the enum value descripror is retrieved
+      using the value of the constant, using the \code{FindValueByNumber}
+      C++ method. 
+      If \code{name} is used, the enum value descriptor is retrieved
+      using the name of the constant, using the \code{FindValueByName}
+      C++ method.
+    }
   }
   	
 }

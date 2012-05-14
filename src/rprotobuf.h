@@ -2,7 +2,7 @@
 //
 // rprotobuf.h: R/C++ interface class library
 //
-// Copyright (C) 2009 - 2010 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of RProtoBuf.
 //
@@ -22,6 +22,7 @@
 #ifndef RPROTOBUF_H
 #define RPROTOBUF_H
 
+#include <unistd.h>	       // g++-4.7 wants this
 /* should we check this is available */
 #include <fcntl.h>
 /* FIXME: need to include some header file instead of this define */
@@ -48,9 +49,6 @@ namespace GPB = google::protobuf;
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Label)
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::CppType)
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
-
-//RCPP_TRAITS(GPB::int64,REALSXP)
-//RCPP_TRAITS(GPB::uint64,REALSXP)
 
 #include <Rcpp.h>
 

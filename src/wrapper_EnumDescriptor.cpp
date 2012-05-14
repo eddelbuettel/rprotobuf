@@ -1,3 +1,24 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+//
+// wrapper_EnumDescriptor.cpp: R/C++ interface class library
+//
+// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+//
+// This file is part of RProtoBuf.
+//
+// RProtoBuf is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// RProtoBuf is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with RProtoBuf.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "rprotobuf.h"
 
 namespace rprotobuf{
@@ -14,7 +35,11 @@ namespace rprotobuf{
 	}
 
 	RCPP_FUNCTION_2( S4_EnumValueDescriptor, METHOD(getValueByIndex) , Rcpp::XPtr<GPB::EnumDescriptor> d, int index){
+		if ((index >= 0) && (index < d->value_count())) {
 		return S4_EnumValueDescriptor( d->value(index) ) ;
+		} else {
+			return S4_EnumValueDescriptor(NULL);
+		}
 	}
 	
 	RCPP_FUNCTION_2( S4_EnumValueDescriptor, METHOD(getValueByNumber), Rcpp::XPtr<GPB::EnumDescriptor> d, int i ){

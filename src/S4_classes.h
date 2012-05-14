@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// rprotobuf.h: R/C++ interface class library
+// S4_classes.h: R/C++ interface class library
 //
-// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of RProtoBuf.
 //
@@ -31,6 +31,8 @@ namespace rprotobuf {
 			if( d ){
 				slot( "pointer" ) = Rcpp::XPtr<GPB::EnumValueDescriptor>( 
 					const_cast<GPB::EnumValueDescriptor*>(d), false) ;
+                                slot( "name" )     = d->name() ;
+                                slot( "full_name") = d->full_name() ;
 			} else{
 				setSEXP( R_NilValue ); 
 			}

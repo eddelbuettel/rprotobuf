@@ -9,7 +9,7 @@ is then used by the \code{P} function to resolve
 message type names.
 }
 \usage{
-readProtoFiles(files, dir, package = "RProtoBuf")
+readProtoFiles(files, dir, package = "RProtoBuf", pattern = "\\\\.proto$")
 }
 \arguments{
   \item{files}{Proto files}
@@ -19,6 +19,7 @@ readProtoFiles(files, dir, package = "RProtoBuf")
   \item{package}{R package name. If \code{files} and \code{dir} are
   missing, "proto" files in the "proto" directory of the 
   package tree are imported.}
+  \item{pattern}{A filename pattern to match proto files.}
 }
 \value{
 \code{NULL}, invisibly. 

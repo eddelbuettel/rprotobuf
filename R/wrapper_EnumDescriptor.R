@@ -21,15 +21,15 @@ setMethod( "value", "EnumDescriptor", function(object, index, name, number){
 	}
 	
 	if( has_index ){
-		return( .Call( "EnumDescriptor_getValueByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
+		return( .Call( "EnumDescriptor__getValueByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_number ){
-		return( .Call( "EnumDescriptor_getValueByNumber", object@pointer, as.integer(number), PACKAGE = "RProtoBuf" ) )
+		return( .Call( "EnumDescriptor__getValueByNumber", object@pointer, as.integer(number), PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_name ){
-		return( .Call( "EnumDescriptor_getValueByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
+		return( .Call( "EnumDescriptor__getValueByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	
 } )

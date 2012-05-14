@@ -20,4 +20,21 @@ Read the message directly from the character string
 }
 }}
 \keyword{methods}
+\examples{
+# example file that contains a "tutorial.AddressBook" message
+book <- system.file( "examples", "addressbook.pb", package = "RProtoBuf" )
 
+# read the message
+message <- read( tutorial.AddressBook, book )
+
+# Output in text format to a temporary file
+out.file <- tempfile()
+writeLines( as.character(message), file(out.file))
+
+# Verify we can read back in the message from a text file.
+message2 <- readASCII( tutorial.AddressBook, file(out.file, "rb"))
+
+\dontshow{
+stopifnot( identical( message, message2) )
+}
+}
