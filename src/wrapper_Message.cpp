@@ -713,29 +713,17 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
     			case TYPE_SINT64:
     			case TYPE_SFIXED64:
     				{
-#ifdef RCPP_HAS_INT64
-    					if( Rf_inherits( values, "int64" ) ){
-    					    Rcpp::int64::LongVector<int64_t> data(values) ;
-    					    for( int i=0; i<value_size; i++){
-    					        ref->AddInt64( message, field_desc, data.get(i) ) ;
-	    				   	}
-	    				   	
-    					} else {
-#endif
-    					    switch( TYPEOF( values ) ){
-    					   	   case INTSXP:
-    					   	   case REALSXP:
-    					   	   case LGLSXP:
-    					   	   case RAWSXP:	
-    					   	       for( int i=0; i<value_size; i++){
-    					   	           ref->AddInt64( message, field_desc, GET_int64(values,i) ) ;
-	    				   	       }
-	    				   	   default: 
-    					   	   	throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    					   }
-#ifdef RCPP_HAS_INT64
+    					switch( TYPEOF( values ) ){
+    						case INTSXP:
+    						case REALSXP:
+    						case LGLSXP:
+    						case RAWSXP:	
+    							for( int i=0; i<value_size; i++){
+	    							ref->AddInt64( message, field_desc, GET_int64(values,i) ) ;
+	    						}
+	    					default: 
+    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
     					}
-#endif
     					break ;
     				}
     				// }}}	
@@ -766,32 +754,20 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
     			case TYPE_UINT64:
     			case TYPE_FIXED64:
     				{
-#ifdef RCPP_HAS_INT64
-    					if(Rf_inherits(values, "uint64" )){
-    					    Rcpp::int64::LongVector<uint64_t> data(values) ;
-    					    for( int i=0; i<value_size; i++){
-	    				    	ref->AddUInt64( message, field_desc, data.get(i) ) ;
-	    				    }
-	    				    
-    					} else {
-#endif
-    					    switch( TYPEOF( values ) ){
-	   					    	case INTSXP:
-    					    	case REALSXP:
-    					    	case LGLSXP:
-    					    	case RAWSXP:	
-    					    		{
-    					    			for( int i=0; i<value_size; i++){
-	    				    				ref->AddUInt64( message, field_desc, GET_uint64(values,i) ) ;
-	    				    			}
-	    				    			break ;
-    					    		}
-    					    	default: 
-    					    		throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    					    }
-#ifdef RCPP_HAS_INT64
+    					switch( TYPEOF( values ) ){
+	   						case INTSXP:
+    						case REALSXP:
+    						case LGLSXP:
+    						case RAWSXP:	
+    							{
+    								for( int i=0; i<value_size; i++){
+	    								ref->AddUInt64( message, field_desc, GET_uint64(values,i) ) ;
+	    							}
+	    							break ;
+    							}
+    						default: 
+    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
     					}
-#endif
     					break ;   
     				}
 				// }}}
@@ -1002,37 +978,8 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 					}
 					return res; 
 				}
-		case TYPE_ENUM:
-		        {
-		           Rcpp::IntegerVector res(n) ;
-	    			for( int i=0; i<n; i++){
-						res[i] = (int)ref->GetRepeatedEnum( *message, field_desc, index[i] )->number() ;
-					}
-					return res;
-		        }
-#ifdef RCPP_HAS_INT64
-		case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-    		    {
-    		        Rcpp::int64::LongVector<int64_t> res(n) ;
-    		        for( int i=0; i<n; i++){
-    		          res.set(i, ref->GetRepeatedInt64( *message, field_desc, index[i] ) ) ;  
-    		        }
-    		        return res ;
-    		    }
-		case TYPE_FIXED64:
-	    	case TYPE_UINT64:
-	    	    {
-	    	        Rcpp::int64::LongVector<uint64_t> res(n) ;
-    		        for( int i=0; i<n; i++){
-    		          res.set(i, ref->GetRepeatedUInt64( *message, field_desc, index[i] ) ) ;  
-    		        }
-    		        return res ;
-	    	    }
-#endif			
-		case TYPE_DOUBLE:
-		case TYPE_FLOAT:
+			case TYPE_DOUBLE:
+		    case TYPE_FLOAT:
 				{
 					Rcpp::NumericVector res(n) ;
 					for( int i=0; i<n; i++){
@@ -1041,7 +988,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 					}
 					return res; 
 				}
-		case TYPE_BOOL:
+			case TYPE_BOOL:
 				{
 					Rcpp::LogicalVector res(n) ;
 	    			for( int i=0; i<n; i++){
@@ -1050,7 +997,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 					}
 					return res; 
 				}
-		case TYPE_STRING:
+			case TYPE_STRING:
 	    		{
 	    			const GPB::Reflection* ref = message->GetReflection() ; 
 	    			Rcpp::CharacterVector res(n) ;
@@ -1118,8 +1065,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 						}
 						break ;
 					}
-#ifdef RCPP_HAS_INT64
-		        case TYPE_INT64:
+				case TYPE_INT64:
     			case TYPE_SINT64:
     			case TYPE_SFIXED64:
 					{	
@@ -1130,7 +1076,6 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 						}
 						break ;
 					}
-#endif
 	    		case TYPE_UINT32:
 	    		case TYPE_FIXED32:
 	    			{
@@ -1141,7 +1086,6 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 						}
 						break ;
 	    			}
-#ifdef RCPP_HAS_INT64
 	    		case TYPE_UINT64:
 	    		case TYPE_FIXED64:
 	    			{
@@ -1152,7 +1096,6 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 						}
 						break ;
 					}
-#endif
 				case TYPE_DOUBLE:
 		    		{
 		    			for( int i=0; i<n; i++){

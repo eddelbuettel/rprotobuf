@@ -132,52 +132,19 @@ uint32 GET_uint32( SEXP x, int index ){
 	return (uint32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
-int64 GET_int64( SEXP x, int index ){
-#ifdef RCPP_HAS_INT64
-	if( Rf_inherits(x, "int64" ) ){
-		return Rcpp::int64::LongVector<int64_t>(x).get(index) ;
-	} else {
-#endif
-		switch( TYPEOF(x) ){
-			case INTSXP: 
-				return( (int64)INTEGER(x)[index] );
-			case REALSXP: 
-				return( (int64)REAL(x)[index] );
-			case LGLSXP:
-				return( (int64)LOGICAL(x)[index] );
-			case RAWSXP:
-				return( (int64)RAW(x)[index] ) ;
-			default:
-				throwException( "cannot cast SEXP to int64", "CastException" ) ; 
-		} 
-#ifdef RCPP_HAS_INT64
-	}
-#endif
-	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
-}
-
-
 uint64 GET_uint64( SEXP x, int index ){
-#ifdef RCPP_HAS_INT64
-	if( Rf_inherits( x, "uint64" ) ){
-		 return Rcpp::int64::LongVector<uint64_t>(x).get(index) ;
-	} else {
-#endif
-		switch( TYPEOF(x) ){
-			case INTSXP: 
-				return( (uint64)INTEGER(x)[index] );
-			case REALSXP: 
-				return( (uint64)REAL(x)[index] );
-			case LGLSXP:
-				return( (uint64)LOGICAL(x)[index] );
-			case RAWSXP:
-				return( (uint64)RAW(x)[index] ) ;
-			default:
-				throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
-		}
-#ifdef RCPP_HAS_INT64
+	switch( TYPEOF(x) ){
+		case INTSXP: 
+			return( (uint64)INTEGER(x)[index] );
+		case REALSXP: 
+			return( (uint64)REAL(x)[index] );
+		case LGLSXP:
+			return( (uint64)LOGICAL(x)[index] );
+		case RAWSXP:
+			return( (uint64)RAW(x)[index] ) ;
+		default:
+			throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
 	}
-#endif
 	return (uint64)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
@@ -617,35 +584,23 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_SINT64:
     		case TYPE_SFIXED64:
     			{
-#ifdef RCPP_HAS_INT64
-    				if( Rf_inherits( value, "int64") ){
-    					Rcpp::int64::LongVector<int64_t> data_int64(value) ;
-    					
-    					int i = 0 ;
-    					/* in any case, fill the values up to field_size */
-	    				for( ; i<field_size; i++){
-	    					ref->SetRepeatedInt64( message, field_desc, i, data_int64.get(i) ) ;
-	    				}
-	    				
-	    				/* then add some if needed */
-	    				if( value_size > field_size ){
-	    					for( ; i<value_size; i++){
-	    						ref->AddInt64( message, field_desc, data_int64.get(i) ) ;
-	    					}
-	    				}
-    				} else {
-#endif
-    					switch( TYPEOF( value ) ){ 
-    						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								int i = 0;
-                    	
-	    							/* in any case, fill the values up to field_size */
-	    							for( ; i<field_size; i++){
-	    								ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
+    				switch( TYPEOF( value ) ){
+    					case INTSXP:
+    					case REALSXP:
+    					case LGLSXP:
+    					case RAWSXP:	
+    						{
+    							int i = 0;
+
+	    						/* in any case, fill the values up to field_size */
+	    						for( ; i<field_size; i++){
+	    							ref->SetRepeatedInt64( message, field_desc, i, GET_int64(value,i) ) ;
+	    						}
+	    						
+	    						/* then add some if needed */
+	    						if( value_size > field_size ){
+	    							for( ; i<value_size; i++){
+	    								ref->AddInt64( message, field_desc, GET_int64(value,i) ) ;
 	    							}
 	    						}
     							break ;
@@ -653,9 +608,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 
     					default: 
     						throwException( "Cannot convert to int64", "ConversionException" ) ; 
-#ifdef RCPP_HAS_INT64
     				}
-#endif
     				break ;
     			}
     			// }}}	
@@ -695,45 +648,30 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_UINT64:
     		case TYPE_FIXED64:
     			{
-#ifdef RCPP_HAS_INT64
-    				if( Rf_inherits( value, "uint64" ) ){
-    					int i = 0 ;
-    					Rcpp::int64::LongVector<uint64_t> data_uint64(value) ;
-    					
-    					/* in any case, fill the values up to field_size */
-						for( ; i<field_size; i++){
-	    					ref->SetRepeatedUInt64( message, field_desc, i, data_uint64.get(i) ) ;
-	    				}
-	    				
-	    				/* then add some if needed */
-	    				if( value_size > field_size ){
-	    					for( ; i<value_size; i++){
-	    						ref->AddUInt64( message, field_desc, data_uint64.get(i) ) ;
-	    					}
-	    				}
-    					
-    				} else {
-#endif
-    					switch( TYPEOF( value ) ){
-	   						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								
-    								int i = 0;
-	    							/* in any case, fill the values up to field_size */
-									for( ; i<field_size; i++){
-	    								ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
+    				switch( TYPEOF( value ) ){
+	   					case INTSXP:
+    					case REALSXP:
+    					case LGLSXP:
+    					case RAWSXP:	
+    						{
+    							
+    							int i = 0;
+	    						/* in any case, fill the values up to field_size */
+								for( ; i<field_size; i++){
+	    							ref->SetRepeatedUInt64( message, field_desc, i, GET_uint64(value,i) ) ;
+	    						}
+	    						
+	    						/* then add some if needed */
+	    						if( value_size > field_size ){
+	    							for( ; i<value_size; i++){
+	    								ref->AddUInt64( message, field_desc, GET_uint64(value,i) ) ;
 	    							}
 	    						}
     							break ;
     						}
     					default: 
     						throwException( "Cannot convert to int64", "ConversionException" ) ; 
-#ifdef RCPP_HAS_INT64
     				}
-#endif
     				break ;   
     			}
 			// }}}
@@ -1055,8 +993,10 @@ PRINT_DEBUG_INFO( "value", value ) ;
 
 			HANDLE_SINGLE_FIELD( CPPTYPE_INT32, Int32, GPB::int32) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32, GPB::uint32) ;
+#ifdef RCPP_HAS_LONG_LONG_TYPES
 			HANDLE_SINGLE_FIELD( CPPTYPE_INT64, Int64, GPB::int64) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_UINT64, UInt64, GPB::uint64) ;
+#endif
 			HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
