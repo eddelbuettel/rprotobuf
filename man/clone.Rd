@@ -13,6 +13,7 @@ method for \linkS4class{Message} objects
 	\item{\code{signature(object = "Message")}}{ clone the message }
 }}
 \examples{
+\dontrun{
 # example proto file supplied with this package
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
@@ -31,7 +32,7 @@ newsheep <- clone( sheep, id = 3 )
 # this can also be used as a pseudo method
 sheep$clone()
 sheep$clone( id = 3 )
-	
+}	
 }
 \keyword{methods}
 

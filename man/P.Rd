@@ -22,8 +22,10 @@ An error is generated otherwise.
 Romain Francois <francoisromain@free.fr>
 }
 \examples{
+\dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 Person <- P( "tutorial.Person", file = proto.file )
 as.character( Person )
+}
 }
 \keyword{ interface }

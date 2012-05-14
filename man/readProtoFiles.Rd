@@ -31,6 +31,7 @@ Romain Francois <francoisromain@free.fr>
 	\code{\link{P}}
 }
 \examples{
+\dontrun{
 # from a package
 readProtoFiles( package = "RProtoBuf" )
 
@@ -41,7 +42,7 @@ readProtoFiles( dir = proto.dir )
 # set of files
 proto.files <- list.files( proto.dir, full.names = TRUE )
 readProtoFiles( proto.files )
-
+}
 }
 \keyword{ programming }
 

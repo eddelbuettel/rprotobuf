@@ -82,6 +82,7 @@ Objects typically are retrieved from \linkS4class{FieldDescriptor}
 	\linkS4class{Descriptor}
 }
 \examples{
+\dontrun{
 # example proto file supplied with this package
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
@@ -96,6 +97,6 @@ as.character( Person$email )
 
 # or as a pseudo method
 Person$email$as.character()
-
+}
 }
 \keyword{classes}

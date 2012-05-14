@@ -90,7 +90,7 @@ C++ class \code{Descriptor}}
 	the \code{\link{P}} function creates "Descriptor" messages. 
 }
 \examples{
-
+\dontrun{
 # example proto file supplied with this package
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
@@ -108,6 +108,6 @@ Person$email
 
 # use this descriptor to create a message
 new( Person )
-
+}
 }
 \keyword{classes}

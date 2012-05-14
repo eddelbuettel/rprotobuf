@@ -64,7 +64,7 @@ Objects of this class are typically retrieved as members of
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{The \linkS4class{Descriptor} class}
 \examples{
-
+\dontrun{
 # example proto file supplied with this package
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
@@ -73,6 +73,6 @@ Person <- P( "tutorial.Person", file = proto.file )
 
 # enum type
 Person$PhoneType
-
+}
 }
 \keyword{classes}

@@ -72,7 +72,7 @@ as an external pointer.
 	can be used to create messages. 
 }
 \examples{
-
+\dontrun{
 # example proto file supplied with this package
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
@@ -128,6 +128,6 @@ serialize( book, NULL )
 m <- tutorial.AddressBook$read( tf )
 writeLines( as.character( m ) )
 sapply( m$person, function(p) p$name )
-
+}
 }
 \keyword{classes}
