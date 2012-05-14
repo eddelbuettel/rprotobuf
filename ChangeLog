@@ -1,3 +1,14 @@
+2012-05-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/lookup.R: comment-out unlockBinding() which R CMD check does not
+	like as it turns out that we do not need it here anyway
+
+2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/rprotobuf.h: Added '#include <unistd.h>' to make g++-4.7 happy
+
+	* src/*: Reversed out SVN revisions 426 to 434 related to int64
+
 2012-04-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/zzz.R: Add 'lib.loc=libname' to packageDescription() call as
