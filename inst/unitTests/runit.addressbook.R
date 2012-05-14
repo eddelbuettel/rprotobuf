@@ -37,5 +37,5 @@ test.ascii <- function() {
 
     # Verify we can read back in the message from a text file.
     book2 <- readASCII( tutorial.AddressBook, file(out.file, "rb"))
-    checkEquals(book, book2)
+    checkEquals(as.character(book), as.character(book2) )
 }

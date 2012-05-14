@@ -7,7 +7,7 @@ Title: R Interface to the Protocol Buffers API
 Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
  of its internal RPC protocols and file formats.  
-Depends: R (>= 2.11.0), RCurl, Rcpp (>= 0.9.7), int64, methods
+Depends: R (>= 2.11.0), RCurl, Rcpp (>= 0.9.6), methods
 LinkingTo: Rcpp
 Suggests: RUnit, highlight
 SystemRequirements: Protocol Buffer compiler (to create C++ header and source files

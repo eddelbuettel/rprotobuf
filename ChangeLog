@@ -3,6 +3,12 @@
 	* R/lookup.R: comment-out unlockBinding() which R CMD check does not
 	like as it turns out that we do not need it here anyway
 
+	* inst/unitTests/runit.addressbook.R (test.ascii): Small correction
+	by converting to character before comparing
+
+	* DESCRIPTION: Remove Depends: on int64 which is no longer used,
+	lower Depends: on Rcpp to 0.9.6 which should be sufficient
+
 2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/rprotobuf.h: Added '#include <unistd.h>' to make g++-4.7 happy
