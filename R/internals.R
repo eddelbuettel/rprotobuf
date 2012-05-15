@@ -9,11 +9,11 @@
 #' @param package if specified, proto files are imported from the "proto" directory
 #'                of the package
 #' @return invisible(NULL)
-readProtoFiles <- function(
-	files,
-	dir,
-	package = "RProtoBuf",
-	pattern = "\\.proto$"
+readProtoFiles <- function(files,
+                           dir,
+                           package = "RProtoBuf",
+                           pattern = "\\.proto$",
+                           lib.loc = NULL
 	){
 
 	if( missing( files ) ){
@@ -21,7 +21,7 @@ readProtoFiles <- function(
 			if( missing(package) ){
 				dir <- getwd()
 			} else {
-				dir <- system.file( "proto", package = package )
+				dir <- system.file( "proto", package = package, lib.loc = lib.loc )
 				if( !file.exists( dir ) ){
 					stop( sprintf("package '%s' does not have a 'proto' directory", package) )
 				}

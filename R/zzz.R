@@ -3,7 +3,7 @@
     minversion <- packageDescription(pkgname, lib.loc=libname)$MinimumLibProtoVersion
     minversion <- as.integer( gsub( "[[:space:]]+", "", minversion ) )
     .Call( "check_libprotobuf_version", minversion, PACKAGE = "RProtoBuf" )
-    readProtoFiles( package = pkgname )
+    readProtoFiles( package=pkgname, lib.loc=libname )
     attachDescriptorPool( pos = length(search()) )
 
     if( exists( ".httpd.handlers.env", asNamespace( "tools" ) ) ){

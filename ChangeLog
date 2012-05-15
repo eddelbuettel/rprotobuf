@@ -2,6 +2,10 @@
 
  	* DESCRIPTION: Release 0.2.4
 
+	* R/zzz.R (.onLoad): pass lib.loc=libname to readProtoFiles
+	* R/internals.R (readProtoFiles): use lib.loc argument
+	* man/readProtoFiles.Rd: Document new lib.loc argument
+
 2012-05-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/lookup.R: comment-out unlockBinding() which R CMD check does not
