@@ -1,6 +1,13 @@
-0.2.4   2012-05-xx
+0.2.4   2012-05-15
+
+    o   Applied several patches kindly supplied by Murray Stokely to
+         - properly work with repeated strings 
+	 - correct C++ function naming in a few instances
+	 - add an example of ascii export/import of messages
 
     o   Suppport g++-4.7 and stricter #include file checking by adding unistd
+
+    o   Made small improvements to the startup code
 
 0.2.3   2011-04-12
 
