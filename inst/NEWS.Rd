@@ -10,6 +10,8 @@
       also add new unit test for this
       \item test a a protocol buffer for missing required fields before
       serializing it, also add a unit test
+      \item add a small stylistic fix and examples to the 'add.Rd'
+      manual page 
     }
     \item Moved inst/doc/ to vignettes/ per newer CRAN Policy
   }

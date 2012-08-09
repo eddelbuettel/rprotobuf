@@ -11,6 +11,9 @@
 	protocol buffers (with missing required fields)
 	* inst/unitTests/runit.serialize.R: Added tests for this
 
+	* /man/add.Rd: Add patch by Murray for stylistic improvement and
+	added examples
+	
 	* inst/NEWS.Rd: Converted NEWS file to .Rd format
 
 	* DESCRIPTION: Changed Maintainer: to single person per CRAN Policy
