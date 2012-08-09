@@ -1,3 +1,11 @@
+2012-08-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Applied two more patches by Murray:
+	  - R/wrapper_FielDescriptor.R: correct more '_' and '__' mismatches 
+	  - man/*: update manual pages for style, add examples
+	  - src/mutators.cpp: add tests for NA in boolean vectors
+	  - inst/unitTests/runit.golden.message.R: add unit test
+
 2012-08-08  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION: Release 0.2.5

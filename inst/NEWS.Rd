@@ -2,6 +2,18 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in version 0.2.6 (2012-xx-yy)}{
+  \itemize{
+    \item Applied two more patches by Murray to
+    \itemize{
+      \item correct '_' and '__' mismatches in wrapper calls
+      \item update a few manual pages for style, and add examples
+      \item add tests for NA values in boolean vectors 
+      \item add a unit test for this new check
+    }
+  }
+}
+
 \section{Changes in version 0.2.5 (2012-08-08)}{
   \itemize{
     \item Applied patches by Murray to
