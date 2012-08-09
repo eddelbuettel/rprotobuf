@@ -25,6 +25,6 @@ test <- new(protobuf_unittest.TestAllTypes)
 test$size("optional_int32")
 
 test$add("repeated_int32", 1:10)
-test$size("test$repeated_int32")
+test$size("repeated_int32")
 }
 \keyword{methods}
