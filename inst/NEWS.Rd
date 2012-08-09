@@ -1,46 +1,64 @@
-0.2.4   2012-05-15
+\name{NEWS}
+\title{News for Package \pkg{RProtoBuf}}
+\newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-    o   Applied several patches kindly supplied by Murray Stokely to
-         - properly work with repeated strings 
-	 - correct C++ function naming in a few instances
-	 - add an example of ascii export/import of messages
-
-    o   Suppport g++-4.7 and stricter #include file checking by adding unistd
-
-    o   Made small improvements to the startup code
-
-0.2.3   2011-04-12
-
-    o 	Protect UINT64 and INT64 with '#ifdef RCPP_HAS_LONG_LONG' which
-        itself is valid with either g++ <= 4.4, or newer versions if the 
-	-std=c++0x is used
-
-    o   The documentation Makefile now uses the $R_HOME environment variable
-
-    o   The documentation Makefile no longer calls clean in the all target
-
-0.2.2   2011-01-11
-
-   o 	Applied two patches by Murray Stokely which 
-         - correct a typo preventing some functions from being called, 
-         - add bounds checking in call to google protobuf library, 
-         - add a new name method 
-         - add a tiny unit test for the above
-	 - add more graceful error handling
-	 - add support for import patterns other than .proto$, 
-	 - add simple reading file that does not exist (exception) test
-	 - add simple repeated field unit test
-
-0.2.1   2010-10-18
-
-   o 	Support for raw bytes added thanks to a patch by Koert Kuipers
-
-0.2.0   2010-09-10
-
-   o 	Second release with numerous internal changes made possible by
-        changes in Rcpp
-
-0.1-0	2010-02-01
-
-   o 	Initial CRAN release
+\section{Changes in version 0.2.5 (2012-08-08)}{
+  \itemize{
+    \item Applied patch by Murray to correctly deal with nested Protocol
+    Buffer definitions, and also added new unit test for this
+  }
+}
+\section{Changes in version 0.2.4 (2012-05-15)}{
+  \itemize{
+    \item Applied several patches kindly supplied by Murray Stokely to
+    \itemize{
+      \item properly work with repeated strings 
+      \item correct C++ function naming in a few instances
+      \item add an example of ascii export/import of messages
+    }
+    \item Suppport g++-4.7 and stricter #include file checking by adding unistd
+    \item Made small improvements to the startup code
+  }
+}
+\section{Changes in version 0.2.3 (2011-04-12)}{
+  \itemize{
+    \item Protect UINT64 and INT64 with '#ifdef RCPP_HAS_LONG_LONG' which
+    itself is valid with either g++ <= 4.4, or newer versions if the 
+    -std=c++0x is used
+    \item The documentation Makefile now uses the $R_HOME environment variable
+    \item The documentation Makefile no longer calls clean in the all
+    target
+  }
+}
+\section{Changes in version 0.2.2 (2011-01-11)}{
+  \itemize{
+    \item Applied two patches by Murray Stokely which
+    \itemize{
+      \item correct a typo preventing some functions from being called, 
+      \item add bounds checking in call to google protobuf library, 
+      \item add a new name method 
+      \item add a tiny unit test for the above
+      \item add more graceful error handling
+      \item add support for import patterns other than .proto$, 
+      \item add simple reading file that does not exist (exception) test
+      \item add simple repeated field unit test
+    }
+  }
+}
+\section{Changes in version 0.2.1 (2010-10-18)}{
+  \itemize{
+    \item Support for raw bytes added thanks to a patch by Koert Kuipers
+  }
+}
+\section{Changes in version 0.2.0 (2010-09-10)}{
+  \itemize{
+    \item Second release with numerous internal changes made possible by
+    changes in Rcpp
+  }
+}
+\section{Changes in version 0.1-0 (2010-02-01)}{
+  \itemize{
+    \item Initial CRAN release
+  }
+}
 
