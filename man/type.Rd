@@ -36,12 +36,11 @@
 \alias{CPPTYPE_STRING}
 \alias{CPPTYPE_MESSAGE}
 
-\title{Gets the type or the c++ type of a field}
+\title{Gets the type or the C++ type of a field}
 \description{
-Gets the type or the c++ type of a field
+Gets the type or the C++ type of a field
 }
 \seealso{
 The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
-

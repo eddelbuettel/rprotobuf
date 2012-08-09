@@ -3,14 +3,14 @@ setGeneric( "is_extension", function(object){
 	standardGeneric("is_extension")
 } )
 setMethod( "is_extension", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_is_extension", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__is_extension", object@pointer, PACKAGE = "RProtoBuf" )
 })
 
 setGeneric( "number", function(object){
 	standardGeneric( "number" )
 } )
 setMethod( "number", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_number", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__number", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 TYPE_DOUBLE   <- 1L
@@ -38,7 +38,7 @@ setGeneric( "type", function(object, as.string = FALSE){
 	standardGeneric( "type" )
 } )
 setMethod( "type", "FieldDescriptor", function(object, as.string = FALSE){
-	type <- .Call( "FieldDescriptor_type", object@pointer, PACKAGE = "RProtoBuf" )
+	type <- .Call( "FieldDescriptor__type", object@pointer, PACKAGE = "RProtoBuf" )
 	if( as.string ) .TYPES[type] else type
 } )
 
@@ -59,7 +59,7 @@ setGeneric( "cpp_type", function(object, as.string = FALSE ){
 	standardGeneric( "cpp_type" )
 } )
 setMethod( "cpp_type", "FieldDescriptor", function(object, as.string = FALSE){
-	cpptype <- .Call( "FieldDescriptor_cpp_type", object@pointer, PACKAGE = "RProtoBuf" )
+	cpptype <- .Call( "FieldDescriptor__cpp_type", object@pointer, PACKAGE = "RProtoBuf" )
 	if( as.string ) .CPPTYPES[cpptype] else cpptype
 } )
 
@@ -72,7 +72,7 @@ setGeneric( "label", function(object, as.string = FALSE ){
 	standardGeneric( "label" )
 } )
 setMethod( "label", "FieldDescriptor", function(object, as.string = FALSE){
-	lab <- .Call( "FieldDescriptor_label", object@pointer, PACKAGE = "RProtoBuf" )
+	lab <- .Call( "FieldDescriptor__label", object@pointer, PACKAGE = "RProtoBuf" )
 	if( as.string ) .LABELS[lab] else lab
 } )
 
@@ -80,35 +80,35 @@ setGeneric( "is_repeated", function(object ){
 	standardGeneric( "is_repeated" )
 } )
 setMethod( "is_repeated", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_is_repeated", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__is_repeated", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "is_optional", function(object){
 	standardGeneric( "is_optional" )
 } )
 setMethod( "is_optional", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_is_optional", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__is_optional", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "is_required", function(object ){
 	standardGeneric( "is_required" )
 } )
 setMethod( "is_required", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_is_required", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__is_required", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "has_default_value", function(object ){
 	standardGeneric( "has_default_value" )
 } )
 setMethod( "has_default_value", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_has_default_value", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__has_default_value", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setGeneric( "default_value", function(object ){
 	standardGeneric( "default_value" )
 } )
 setMethod( "default_value", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_default_value", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__default_value", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 
@@ -116,10 +116,9 @@ setGeneric( "message_type", function(object ){
 	standardGeneric( "message_type" )
 } )
 setMethod( "message_type", "FieldDescriptor", function(object){
-	.Call( "FieldDescriptor_message_type", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__message_type", object@pointer, PACKAGE = "RProtoBuf" )
 } )
 
 setMethod( "enum_type", c( object = "FieldDescriptor", index = "missing", name = "missing"), function(object){
-	.Call( "FieldDescriptor_enum_type", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "FieldDescriptor__enum_type", object@pointer, PACKAGE = "RProtoBuf" )
 } )
-

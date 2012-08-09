@@ -97,6 +97,15 @@ as.character( Person$email )
 
 # or as a pseudo method
 Person$email$as.character()
+
+Person$email$is_required()
+Person$email$is_optional()
+Person$email$is_repeated()
+
+Person$email$has_default_value()
+Person$email$default_value()
+
+Person$email$is_extension()
 }
 }
 \keyword{classes}

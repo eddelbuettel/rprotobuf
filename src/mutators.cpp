@@ -151,10 +151,22 @@ uint64 GET_uint64( SEXP x, int index ){
 bool GET_bool( SEXP x, int index ){
 	switch( TYPEOF(x) ){
 		case INTSXP: 
+            if (INTEGER(x)[index] == R_NaInt) {
+                throwException( "NA boolean values not supported by RProtoBuf",
+                                "CastException" ) ;
+            }
 			return( (bool)INTEGER(x)[index] );
 		case REALSXP: 
+            if (REAL(x)[index] == R_NaReal) {
+                throwException( "NA boolean values not supported by RProtoBuf",
+                                "CastException" ) ;
+            }
 			return( (bool)REAL(x)[index] );
 		case LGLSXP:
+            if (LOGICAL(x)[index] == NA_LOGICAL) {
+                throwException( "NA boolean values not supported by RProtoBuf",
+                                "CastException" ) ;
+            }
 			return( (bool)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (bool)RAW(x)[index] ) ;

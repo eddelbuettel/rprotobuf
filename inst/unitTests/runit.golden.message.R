@@ -60,9 +60,18 @@ test.repeatedFields <- function(){
 	test <- new(protobuf_unittest.TestAllTypes)
 	test$add("repeated_int32", c(1:5))
 	checkEquals(test$repeated_int32, c(1:5))
+}
 
-        # Prior to RProtoBuf v0.2.5, this was not handled properly.
-        test.2 <- new(protobuf_unittest.TestAllTypes,
-                      repeated_string=c("foo", "bar"))
-        checkEquals(test.2$repeated_string, c("foo", "bar"))
+test.repeated.bools <- function() {
+	test <- new(protobuf_unittest.TestAllTypes)
+        test$add("repeated_bool", c(TRUE, FALSE))
+        checkEquals(test$repeated_bool, c(TRUE, FALSE))
+
+        test$add("repeated_bool", as.integer(c(TRUE, FALSE)))
+        test$add("repeated_bool", as.numeric(c(TRUE, FALSE)))
+
+        checkEquals(test$repeated_bool, rep(c(TRUE, FALSE), 3))
+
+        # Verify that we don't silently cast NA into TRUE or FALSE.
+        checkException(test$add("repeated_bool"), c(TRUE, FALSE, NA))
 }
