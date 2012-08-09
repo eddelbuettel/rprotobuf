@@ -5,9 +5,9 @@ pdfclean:
 	rm -fr *.pdf
 
 clean:
-	rm -f RProtoBuf-intro.Rnw RProtoBuf-intro.tex RProtoBuf-intro.aux RProtoBuf-intro.log RProtoBuf-intro.out
-	rm -f RProtoBuf-quickref.tex RProtoBuf-quickref.Rnw RProtoBuf-quickref.aux RProtoBuf-quickref.log RProtoBuf-quickref.out
-	rm -f RProtoBuf-unitTests.texRProtoBuf-unitTests.Rnw RProtoBuf-unitTests.aux RProtoBuf-unitTests.log RProtoBuf-unitTests.out
+	rm -f  RProtoBuf-intro.tex RProtoBuf-intro.aux RProtoBuf-intro.log RProtoBuf-intro.out
+	rm -f RProtoBuf-quickref.tex RProtoBuf-quickref.aux RProtoBuf-quickref.log RProtoBuf-quickref.out
+	rm -f RProtoBuf-unitTests.tex RProtoBuf-unitTests.aux RProtoBuf-unitTests.log RProtoBuf-unitTests.out
 	rm -rf auto/
 
 setvars:
