@@ -4,8 +4,14 @@
 
 \section{Changes in version 0.2.5 (2012-08-08)}{
   \itemize{
-    \item Applied patch by Murray to correctly deal with nested Protocol
-    Buffer definitions, and also added new unit test for this
+    \item Applied patches by Murray to
+    \itemize{
+      \item correctly deal with nested Protocol Buffer definitions, and
+      also add new unit test for this
+      \item test a a protocol buffer for missing required fields before
+      serializing it, also add a unit test
+    }
+    \item Moved inst/doc/ to vignettes/ per newer CRAN Policy
   }
 }
 \section{Changes in version 0.2.4 (2012-05-15)}{

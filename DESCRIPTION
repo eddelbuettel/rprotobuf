@@ -1,5 +1,5 @@
 Package: RProtoBuf
-Version: 0.2.4.1
+Version: 0.2.5
 Date: $Date$
 Author: Romain Francois <romain@r-enthusiasts.com> and Dirk Eddelbuettel <edd@debian.org>
 Maintainer: Dirk Eddelbuettel <edd@debian.org>

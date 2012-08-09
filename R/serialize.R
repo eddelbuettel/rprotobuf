@@ -7,7 +7,7 @@
 setGeneric( "serialize" )
 setMethod( "serialize", c( object = "Message" ) , 
 	function( object, connection, ascii = FALSE, refhook = NULL){
-		
+                stopifnot(object$isInitialized())
 		iscon <- inherits(connection, "connection")
 		isnull <- is.null( connection )
 		
@@ -42,4 +42,3 @@ setMethod( "serialize", c( object = "Message" ) ,
 		}
 	}
 )
-

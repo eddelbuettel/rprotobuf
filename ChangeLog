@@ -7,10 +7,16 @@
 	* inst/unitTests/runit.nested.R: Added test from Murray
 	* inst/unitTests/data/nested.proto: Nested protbuf def from Murray
 
+	* R/serialize.R: Added patch by Murray to not serialize uninitalized
+	protocol buffers (with missing required fields)
+	* inst/unitTests/runit.serialize.R: Added tests for this
+
 	* inst/NEWS.Rd: Converted NEWS file to .Rd format
 
-	* DESCRIPTION: changed Maintainer: to single person per CRAN Policy
-	
+	* DESCRIPTION: Changed Maintainer: to single person per CRAN Policy
+
+	* vignettes/: Moved from inst/doc/ per CRAN Policy
+
 2012-05-15  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION: Release 0.2.4
