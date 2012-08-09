@@ -1,0 +1,6 @@
+message NestedInner {
+  required int32 x = 1;
+}
+message NestedOuter {
+  required NestedInner b = 1;
+}
