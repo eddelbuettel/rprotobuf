@@ -1,13 +1,14 @@
 
-all: RProtoBuf-unitTests.pdf RProtoBuf.pdf RProtoBuf-quickref.pdf
+all: 	RProtoBuf-unitTests.pdf RProtoBuf-intro.pdf RProtoBuf-quickref.pdf
 
 pdfclean:
 	rm -fr *.pdf
 
 clean:
-	rm -f RProtoBuf.tex RProtoBuf.aux RProtoBuf.logRProtoBuf.out
+	rm -f RProtoBuf-intro.Rnw RProtoBuf-intro.tex RProtoBuf-intro.aux RProtoBuf-intro.log RProtoBuf-intro.out
 	rm -f RProtoBuf-quickref.tex RProtoBuf-quickref.Rnw RProtoBuf-quickref.aux RProtoBuf-quickref.log RProtoBuf-quickref.out
 	rm -f RProtoBuf-unitTests.texRProtoBuf-unitTests.Rnw RProtoBuf-unitTests.aux RProtoBuf-unitTests.log RProtoBuf-unitTests.out
+	rm -rf auto/
 
 setvars:
 ifeq (${R_HOME},)
@@ -19,10 +20,10 @@ RSCRIPT=$(R_HOME)/bin/Rscript
 RProtoBuf-unitTests.pdf: unitTests/RProtoBuf-unitTests.R
 	$(RSCRIPT) --default-packages="RProtoBuf,Rcpp,brew,RUnit,tools,utils" unitTests/RProtoBuf-unitTests.R
 
-RProtoBuf.pdf: RProtoBuf/RProtoBuf.Rnw
-	cp -f RProtoBuf/RProtoBuf.Rnw RProtoBuf.Rnw
-	$(RSCRIPT) -e "require( 'highlight' ); require('tools'); Sweave('RProtoBuf.Rnw', driver = HighlightWeaveLatex() ) ; texi2dvi('RProtoBuf.tex', pdf = TRUE, clean = TRUE)"
-	cp -f RProtoBuf/RProtoBuf-fake.Rnw RProtoBuf.Rnw
+RProtoBuf-intro.pdf: RProtoBuf/RProtoBuf.Rnw
+	cp -f RProtoBuf/RProtoBuf.Rnw RProtoBuf-intro.Rnw
+	$(RSCRIPT) -e "require( 'highlight' ); require('tools'); Sweave('RProtoBuf-intro.Rnw', driver = HighlightWeaveLatex() ) ; texi2dvi('RProtoBuf-intro.tex', pdf = TRUE, clean = TRUE)"
+	cp -f RProtoBuf/RProtoBuf-fake.Rnw RProtoBuf-intro.Rnw
 
 RProtoBuf-quickref.pdf: RProtoBuf-quickref/RProtoBuf-quickref.Rnw
 	touch RProtoBuf-quickref.Rnw

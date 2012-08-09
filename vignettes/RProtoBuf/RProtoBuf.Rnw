@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-%\VignetteIndexEntry{RProtoBuf}
+%\VignetteIndexEntry{RProtoBuf-intro}
 
 \usepackage{url}
 \usepackage[colorlinks]{hyperref}
@@ -105,10 +105,10 @@ args( readProtoFiles )
 Using the \texttt{file} argument, one can specify one or several file
 paths that ought to be proto files.
 
-<<>>=     
+<<>>=
 proto.dir <- system.file( "proto", package = "RProtoBuf" )
 proto.file <- file.path( proto.dir, "addressbook.proto" )
-<<eval=FALSE>>=     
+<<eval=FALSE>>=
 readProtoFiles( proto.file )
 @
 
@@ -1124,7 +1124,7 @@ serializing any R object as a message, based on a single catch-all
 \url{http://ml.stat.purdue.edu/rhipe/doc/html/ProtoBuffers.html}
 
 Protocol buffers have a mechanism for remote procedure calls (rpc)
-that is not yet used by \texttt{RProtoBuf}, but we plan to
+that is not yet used by \texttt{RProtoBuf}, but we may one day
 take advantage of this by writing a protocol buffer message R server,
 and client code as well, probably based on the functionality
 of the \texttt{Rserve} package.
