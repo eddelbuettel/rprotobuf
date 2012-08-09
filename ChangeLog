@@ -1,3 +1,16 @@
+2012-08-08  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION: Release 0.2.5
+
+	* src/mutators.cpp: Applied patch by Murray to correctly deal with
+	nested protocol buffer definitions
+	* inst/unitTests/runit.nested.R: Added test from Murray
+	* inst/unitTests/data/nested.proto: Nested protbuf def from Murray
+
+	* inst/NEWS.Rd: Converted NEWS file to .Rd format
+
+	* DESCRIPTION: changed Maintainer: to single person per CRAN Policy
+	
 2012-05-15  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION: Release 0.2.4

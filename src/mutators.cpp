@@ -367,7 +367,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	
 	const Reflection * ref = message->GetReflection() ;
     
-	if( value == R_NilValue || LENGTH(value) == 0 ){
+	if( value == R_NilValue || (Rf_isVector(value) && LENGTH(value) == 0 )) {
 		ref->ClearField( message, field_desc ); 
 		return R_NilValue ;
 	}
