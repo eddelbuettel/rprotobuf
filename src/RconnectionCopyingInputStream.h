@@ -8,9 +8,11 @@ namespace rprotobuf{
 			RconnectionCopyingInputStream( int id );
 	
 			int Read(void * buffer, int size) ;
+			bool Failure() { return(failure); }
 	
 		private: 
 			int connection_id ;
+			bool failure;
 } ;
 
 } // namespace rprotobuf

@@ -35,7 +35,27 @@ test.ascii <- function() {
     out.file <- tempfile()
     writeLines( as.character(book), file(out.file))
 
-    # Verify we can read back in the message from a text file.
+    # Verify that we can read back in the message from a text file.
     book2 <- readASCII( tutorial.AddressBook, file(out.file, "rb"))
     checkEquals(as.character(book), as.character(book2) )
+
+    # Verify that we can read in messages from unopened connections.
+    book3 <- readASCII( tutorial.AddressBook, file(out.file))
+    checkEquals(as.character(book), as.character(book3) )
+
+    # Verify that we get an exception if we try to read from a text connection.
+    # (better than silently getting an empty proto.)
+    book4 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rt"))
+
+    # Verify that we get an exception if the file is not readable.
+    old.mode <- file.info(out.file)[["mode"]])
+    Sys.chmod(out.file, "0000")
+    book5 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rb")))
+    # Set the permissions back to ensure the file is cleaned up properly.
+    Sys.chmod(out.file, old.mode)
+
+    # Verify that we get an exception if the file is not parseable.
+    out.file2 <- tempfile()
+    writeLines("jibberish", file(out.file2))
+    book6 <- checkException( readASCII( tutorial.AddressBook, file(out.file2)))
 }

@@ -32,14 +32,17 @@ TYPE_SFIXED64 <- 16L
 TYPE_SINT32   <- 17L
 TYPE_SINT64   <- 18L
 
-.TYPES <- ls( pattern = "^TYPE_" )
-
 setGeneric( "type", function(object, as.string = FALSE){
 	standardGeneric( "type" )
 } )
 setMethod( "type", "FieldDescriptor", function(object, as.string = FALSE){
 	type <- .Call( "FieldDescriptor__type", object@pointer, PACKAGE = "RProtoBuf" )
-	if( as.string ) .TYPES[type] else type
+	if( as.string ) {
+                .TYPES <- sapply(ls( "package:RProtoBuf", pattern="^TYPE_" ), get)
+                names(which(.TYPES == type))
+        } else {
+                type
+        }
 } )
 
 
@@ -53,27 +56,35 @@ CPPTYPE_BOOL <- 7L
 CPPTYPE_ENUM <- 8L
 CPPTYPE_STRING <- 9L
 CPPTYPE_MESSAGE <- 10L
-.CPPTYPES <- ls( pattern = "^CPPTYPE_" )
 
 setGeneric( "cpp_type", function(object, as.string = FALSE ){
 	standardGeneric( "cpp_type" )
 } )
 setMethod( "cpp_type", "FieldDescriptor", function(object, as.string = FALSE){
 	cpptype <- .Call( "FieldDescriptor__cpp_type", object@pointer, PACKAGE = "RProtoBuf" )
-	if( as.string ) .CPPTYPES[cpptype] else cpptype
+	if( as.string ) {
+                .CPPTYPES <- sapply(ls( "package:RProtoBuf", pattern="^CPPTYPE_" ), get)
+                names(which(.CPPTYPES == cpptype))
+        } else {
+                cpptype
+        }
 } )
 
 LABEL_OPTIONAL <- 1L
 LABEL_REQUIRED <- 2L
 LABEL_REPEATED <- 3L
-.LABELS <-  ls( pattern = "^LABEL_" )
 
 setGeneric( "label", function(object, as.string = FALSE ){
 	standardGeneric( "label" )
 } )
 setMethod( "label", "FieldDescriptor", function(object, as.string = FALSE){
 	lab <- .Call( "FieldDescriptor__label", object@pointer, PACKAGE = "RProtoBuf" )
-	if( as.string ) .LABELS[lab] else lab
+	if( as.string ) {
+                .LABELS <- sapply(ls( "package:RProtoBuf", pattern="^LABEL_" ), get)
+                names(which(.LABELS == lab))
+        } else {
+                lab
+        }
 } )
 
 setGeneric( "is_repeated", function(object ){

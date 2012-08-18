@@ -18,9 +18,9 @@ function( descriptor, input ){
 	if( !inherits( input, "connection" ) ){ 
 		stop( "can only read from connections" )
 	}
-	sc <- summary( input )
-	wasopen <- identical( sc[["opened"]], "opened" )
-	if( !wasopen ) open( input )
+	wasopen <- identical( summary(input)[["opened"]], "opened" )
+	if( !wasopen ) open( input, "rb")
+        stopifnot(summary(input)[["text"]] == "binary")
 	message <- .Call( "Descriptor__readMessageFromConnection", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
 	if( !wasopen ) close( input )
 	message
@@ -43,9 +43,9 @@ function( descriptor, input ){
 	if( !inherits( input, "connection" ) ){ 
 		stop( "can only read from connections" )
 	}
-	sc <- summary( input )
-	wasopen <- identical( sc[["opened"]], "opened" )
-	if( !wasopen ) open( input )
+	wasopen <- identical( summary(input)[["opened"]], "opened" )
+	if( !wasopen ) open( input, "rb" )
+        stopifnot(summary(input)[["text"]] == "binary")
 	message <- .Call( "Descriptor__readASCIIFromConnection", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
 	if( !wasopen ) close( input )
 	message

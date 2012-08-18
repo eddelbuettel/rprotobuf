@@ -40,7 +40,19 @@
 \description{
 Gets the type or the C++ type of a field
 }
+\arguments{
+  \item{object}{A \linkS4class{FieldDescriptor} object.}
+  \item{as.string}{If true, print a string representation of the type.}
+}
 \seealso{
 The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
+\examples{
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
+Person <- P( "tutorial.Person", file = proto.file )
+type(Person$id)
+type(Person$id, as.string=TRUE)
+cpp_type(Person$email)
+cpp_type(Person$email, TRUE)
+}

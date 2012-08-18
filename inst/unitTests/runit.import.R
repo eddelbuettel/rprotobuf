@@ -15,6 +15,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 test.import <- function() {
-  # Verify we get a graceful errorr ather than segfault.
+  # Verify that we get a graceful error rather than a segfault.
   checkException(readProtoFiles("/etc/hosts"))
 }

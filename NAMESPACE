@@ -48,7 +48,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"is_extension", "number", "label",
 	"is_required", "is_repeated", "is_optional",
 	"has_default_value", "default_value",
-	"message_type", "enum_type",
+	"message_type", "enum_type", "type", "cpp_type",
 
 	# EnumDescriptor
 	"value_count", "value",
@@ -103,4 +103,3 @@ exportPattern( "^CPPTYPE_" )
 exportPattern( "^LABEL_" )
 
 # export( run_unit_tests )
-

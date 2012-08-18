@@ -179,8 +179,14 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::De
 	if( !message ){
 		throw std::range_error( "could not call factory->GetPrototype(desc)->New()" ) ; 
 	}
-	GPB::TextFormat::Parse( &stream, message ) ;
-	return( S4_Message( message ) ) ;
+        if (!GPB::TextFormat::Parse( &stream, message ) ) {
+		throw std::range_error("Could not parse ASCII protocol buffer.");
+        } else {
+                if (wrapper.Failure()) {
+			throw std::range_error("Could not read ASCII protocol buffer.");
+                }
+                return( S4_Message( message ) );
+        }
 }
 
 #undef METHOD

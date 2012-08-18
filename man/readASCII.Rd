@@ -31,8 +31,11 @@ message <- read( tutorial.AddressBook, book )
 out.file <- tempfile()
 writeLines( as.character(message), file(out.file))
 
-# Verify we can read back in the message from a text file.
+# Verify that we can read back in the message from a text file.
 message2 <- readASCII( tutorial.AddressBook, file(out.file, "rb"))
+
+# Verify that we can read back in the message from an unopened file.
+message3 <- readASCII( tutorial.AddressBook, file(out.file))
 
 \dontshow{
 stopifnot( identical( message, message2) )
