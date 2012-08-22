@@ -4,11 +4,13 @@
 
 \section{Changes in version 0.2.6 (2012-xx-yy)}{
   \itemize{
-    \item Applied two more patches by Murray to
+    \item Applied three more patches by Murray to
     \itemize{
       \item correct '_' and '__' mismatches in wrapper calls
       \item update a few manual pages for style, and add examples
-      \item add tests for NA values in boolean vectors 
+      \item fix a bug where NAs were silently treated as TRUE for logical/bool types
+      \item fix a bug that caused crashes when adding vectors to optional fields
+      \item fix bugs in readASCII that returned empty protocol buffers when the file or connection could not be opened
       \item add a unit test for this new check
     }
   }
@@ -81,4 +83,3 @@
     \item Initial CRAN release
   }
 }
-
