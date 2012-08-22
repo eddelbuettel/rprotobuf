@@ -993,6 +993,9 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		// }}}
 	} else {
 		// {{{ non repeated fields
+		if (Rf_isVector(value) && LENGTH(value) > 1) {
+			throwException( "cannot set non-repeated field to vector of length > 1", "CastException" ) ;
+		}
 		switch( GPB::FieldDescriptor::TypeToCppType( field_desc->type() ) ){
 			// {{{ simple cases using macro expansion
 #undef HANDLE_SINGLE_FIELD

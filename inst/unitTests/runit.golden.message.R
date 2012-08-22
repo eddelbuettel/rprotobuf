@@ -75,3 +75,9 @@ test.repeated.bools <- function() {
         # Verify that we don't silently cast NA into TRUE or FALSE.
         checkException(test$add("repeated_bool"), c(TRUE, FALSE, NA))
 }
+
+# Versions of RProtoBuf <= 0.2.5 would terminate the R instance with unhandled Rcpp exceptions.
+test.invalidAssignments <- function(){
+	test <- new(protobuf_unittest.TestAllTypes)
+	checkException(test$optional_int32 <- 1:10)
+}
