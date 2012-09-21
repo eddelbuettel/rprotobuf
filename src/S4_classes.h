@@ -54,7 +54,11 @@ namespace rprotobuf {
 		S4_Descriptor( const GPB::Descriptor* d) : S4( "Descriptor" ){
 			slot( "pointer" ) = Rcpp::XPtr<GPB::Descriptor>( 
 				const_cast<GPB::Descriptor*>(d), false) ;
-			slot( "type" )    = d->full_name() ;
+			if (!d) {
+				slot( "type" ) = Rcpp::StringVector(0) ;
+			} else {
+				slot( "type" ) = d->full_name() ;
+			}
 		}
 		
 		S4_Descriptor( const S4_Descriptor& other) : S4(){
@@ -141,15 +145,18 @@ namespace rprotobuf {
 		S4_EnumDescriptor( const GPB::EnumDescriptor* d) : S4( "EnumDescriptor" ){
 			slot( "pointer" ) = Rcpp::XPtr<GPB::EnumDescriptor>( 
 				const_cast<GPB::EnumDescriptor*>(d), false) ;
-			slot( "name" )     = d->name() ;
-			slot( "full_name") = d->full_name() ;
-			const GPB::Descriptor *type_desc = d->containing_type() ;
-			if( type_desc ){
-				slot( "type" ) = type_desc->full_name()  ;
-			} else{
-				slot( "type" ) = Rcpp::StringVector(0) ;
+			slot( "type" ) = Rcpp::StringVector(0) ;
+			if (d) {
+				slot( "name" )	   = d->name() ;
+				slot( "full_name") = d->full_name() ;
+				const GPB::Descriptor *type_desc = d->containing_type() ;
+				if( type_desc ){
+					slot( "type" ) = type_desc->full_name()	 ;
+				}
+			} else {
+				slot( "name" )	   = Rcpp::StringVector(0) ;
+				slot( "full_name") = Rcpp::StringVector(0) ;
 			}
-			
 		}
 		
 		S4_EnumDescriptor( const S4_EnumDescriptor& other) : S4(){

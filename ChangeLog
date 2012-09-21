@@ -1,3 +1,17 @@
+2012-09-21  Murray Stokely  <murray@FreeBSD.org>
+
+	* Fix a bug causing segfaults in containing_type().
+	* R/containing_type.R: Return NULL instead of invalid descriptors
+	when there is no containing type for an object.
+	* src/S4_classes.h: Check for NULL pointers in the contructors for
+	S4_Descriptor and S4_EnumDescriptor as these methods are called on
+	the return value of e.g. containing_type() in the protobuf API
+	without checking the return alue.
+	* man/containing_type-methods.Rd: Add examples section showing
+	cases where there is and is not a containing_type.
+	* inst/unitTests/runit.FieldDescriptor.R
+	(test.FieldDescriptor.class): Add tests for the above.
+
 2012-08-21  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/mutators.cpp: Add better input checking when setting an

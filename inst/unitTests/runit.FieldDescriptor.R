@@ -55,4 +55,10 @@ test.FieldDescriptor.class <- function() {
 
   # Return the class of a message field
   checkTrue(inherits(message_type(Person$phone), "Descriptor"))
+
+  # Containing type of a field is the message descriptor
+  checkTrue(inherits(Person$id$containing_type(), "Descriptor"))
+
+  # No containing type for the top-level message descriptor.
+  checkTrue(is.null(Person$containing_type()))
 }

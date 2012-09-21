@@ -11,5 +11,11 @@ The method is implemented for these classes :
 \linkS4class{Descriptor}, \linkS4class{EnumDescriptor}, 
 \linkS4class{FieldDescriptor}
 }
-\keyword{methods}
+\examples{
+# Containing type of a field is the message descriptor
+tutorial.Person$id$containing_type()
 
+# No containing type for the top-level message descriptor.
+tutorial.Person$containing_type()
+}
+\keyword{methods}
