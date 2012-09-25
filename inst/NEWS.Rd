@@ -4,14 +4,15 @@
 
 \section{Changes in version 0.2.6 (2012-xx-yy)}{
   \itemize{
-    \item Applied three more patches by Murray to
+    \item Applied several more patches by Murray to
     \itemize{
       \item correct '_' and '__' mismatches in wrapper calls
       \item update a few manual pages for style, and add examples
       \item fix a bug where NAs were silently treated as TRUE for logical/bool types
       \item fix a bug that caused crashes when adding vectors to optional fields
       \item fix bugs in readASCII that returned empty protocol buffers when the file or connection could not be opened
-      \item add a unit test for this new check
+      \item distinguish between non-existant and not-set fieldswith has() by returning NULL in the former case.
+      \item add unit tests for all of the above.
     }
   }
 }

@@ -72,7 +72,22 @@ RCPP_FUNCTION_1( S4_Message, METHOD(clone) , Rcpp::XPtr<GPB::Message> message ){
 }
 
 /**
- * TRUE if the message has the field name
+ * TRUE if the message has the specified field name.
+ * FALSE otherwise.
+ *
+ *
+ * @param xp external pointer to the Message
+ * @param name name of the field
+ */
+RCPP_FUNCTION_2(bool, METHOD(field_exists), Rcpp::XPtr<GPB::Message> message, std::string name ){
+	const GPB::Descriptor* desc = message->GetDescriptor(); 
+	const GPB::FieldDescriptor* field_desc = desc->FindFieldByName( name ) ;
+	return (field_desc != NULL);
+}
+
+/**
+ * TRUE if the message has the field name and it is populated.
+ * FALSE otherwise.
  *
  * @param xp external pointer to the Message
  * @param name name of the field
@@ -1203,4 +1218,3 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 	#undef METHOD
 
 }
-

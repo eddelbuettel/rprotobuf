@@ -81,3 +81,14 @@ test.invalidAssignments <- function(){
 	test <- new(protobuf_unittest.TestAllTypes)
 	checkException(test$optional_int32 <- 1:10)
 }
+
+# Versions of RProtoBuf <= 0.2.5 did not distinguish between non-existant
+# and not-set fields with has().
+test.has <- function(){
+	test <- new(protobuf_unittest.TestAllTypes)
+	test$add("repeated_int32", c(1:5))
+	checkTrue( has(test, "repeated_int32"))
+	checkTrue( test$has("repeated_int32"))
+	checkTrue( is.null(test$has("nonexistant")))
+	checkTrue( !test$has("optional_int32"))
+}

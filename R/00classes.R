@@ -152,7 +152,7 @@ setMethod( "show", c( "EnumValueDescriptor" ), function(object){
 setMethod("$", "Message", function(x, name) {
 	
 	switch( name, 
-		"has" = function( ... )      .Call( "Message__has_field"     , x@pointer, ..., PACKAGE = "RProtoBuf"), 
+		"has" = function( ... ) has(x, ...),
 		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"), 
 		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),    
 		"descriptor" = function()    .Call( "Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ), 
@@ -535,4 +535,3 @@ setGeneric( "enum_type", function( object, index, name ){
 	standardGeneric( "enum_type" )
 })
 # }}}
-

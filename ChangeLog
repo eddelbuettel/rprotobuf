@@ -1,3 +1,12 @@
+2012-09-24  Murray Stokely  <mstokely@google.com>
+
+	* R/has.R: Distinguish between non-existant and not-set fields in
+	  a message by returning NULL in the former case.
+	* R/00classes.R: Idem
+	* src/wrapper_Message.cpp (rprotobuf): Idem
+	* inst/unitTests/runit.golden.message.R (test.has): Add test.
+	* man/has.Rd: Add example of the above.
+
 2012-09-21  Murray Stokely  <murray@FreeBSD.org>
 
 	* Fix a bug causing segfaults in containing_type().
