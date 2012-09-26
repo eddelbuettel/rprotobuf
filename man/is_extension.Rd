@@ -3,14 +3,16 @@
 \alias{is_extension-methods}
 \title{Indicates if a field descriptor is an extension}
 \description{
-Indicates if a field descriptor is an extension
+  Indicates if a field descriptor is an extension
 }
 \seealso{
-The method is implemented for the \linkS4class{FieldDescriptor} class
+  The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
 \examples{
+\dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 Person <- P( "tutorial.Person", file = proto.file )
 is_extension(Person$id)
+}
 }

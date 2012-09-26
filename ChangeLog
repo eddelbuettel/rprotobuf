@@ -1,3 +1,11 @@
+2012-09-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/is_extension.Rd: Use \dontrun on examples as we cannot reload
+	the same proto file twice
+	* man/label.Rd: Idem
+	* man/number.Rd: Idem
+	* man/type.Rd: Idem
+
 2012-09-24  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/has.R: Distinguish between non-existant and not-set fields in

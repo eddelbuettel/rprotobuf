@@ -49,10 +49,12 @@ The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
 \examples{
+\dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 Person <- P( "tutorial.Person", file = proto.file )
 type(Person$id)
 type(Person$id, as.string=TRUE)
 cpp_type(Person$email)
 cpp_type(Person$email, TRUE)
+}
 }

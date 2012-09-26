@@ -20,6 +20,7 @@ The method is implemented for the \linkS4class{FieldDescriptor} class
 }
 \keyword{methods}
 \examples{
+\dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 Person <- P( "tutorial.Person", file = proto.file )
 label(Person$id)
@@ -31,4 +32,5 @@ label(Person$phone, TRUE)
 LABEL_OPTIONAL
 LABEL_REQUIRED
 LABEL_REPEATED
+}
 }
