@@ -1,4 +1,4 @@
-2012-09-24  Murray Stokely  <mstokely@google.com>
+2012-09-24  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/has.R: Distinguish between non-existant and not-set fields in
 	  a message by returning NULL in the former case.
