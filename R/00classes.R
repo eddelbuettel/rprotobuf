@@ -1,6 +1,6 @@
 # :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1:
 
-# this has to be 
+# this has to be
 IMPLEMENTATIONS <- new.env( parent = emptyenv() )
 
 # invisible version of .Call
@@ -8,7 +8,7 @@ IMPLEMENTATIONS <- new.env( parent = emptyenv() )
 
 # {{{ class definitions
 # we need to formalize connection so that the S4 methods
-# ConnectionInputStream and ConnectionOutputStream can 
+# ConnectionInputStream and ConnectionOutputStream can
 # dispatch connections
 setOldClass( "connection" )
 
@@ -17,74 +17,74 @@ setOldClass( "connection" )
 setOldClass( c("file", "connection" ) )
 setOldClass( c("url", "connection" ) )
 
-setClass( "Descriptor", representation( 
+setClass( "Descriptor", representation(
 	pointer = "externalptr",   # pointer to a google::protobuf::Descriptor c++ object
 	type = "character"         # message type
 ), prototype = list( pointer = NULL, type = character(0) ) )
 
-setClass( "FieldDescriptor", representation( 
+setClass( "FieldDescriptor", representation(
 	pointer = "externalptr" ,   # pointer to a google::protobuf::FieldDescriptor c++ object
-	name    = "character", 
-	full_name  = "character", 
+	name    = "character",
+	full_name  = "character",
 	type    = "character"
-), prototype = list( pointer = NULL, name = character(0), 
-	full_name = character(0), type = character(0) ) ) 	
-
-setClass( "EnumDescriptor", representation( 
-	pointer = "externalptr" ,  # pointer to a google::protobuf::EnumDescriptor c++ object
-	name    = "character", 
-	full_name  = "character", 
-	type    = "character"
-), prototype = list( pointer = NULL, name = character(0), 
+), prototype = list( pointer = NULL, name = character(0),
 	full_name = character(0), type = character(0) ) )
 
-setClass( "ServiceDescriptor", representation( 
+setClass( "EnumDescriptor", representation(
+	pointer = "externalptr" ,  # pointer to a google::protobuf::EnumDescriptor c++ object
+	name    = "character",
+	full_name  = "character",
+	type    = "character"
+), prototype = list( pointer = NULL, name = character(0),
+	full_name = character(0), type = character(0) ) )
+
+setClass( "ServiceDescriptor", representation(
 	pointer = "externalptr",   # pointer to a google::protobuf::ServiceDescriptor c++ object
 	name = "character"         # full name of the service
 ), prototype = list( pointer = NULL, name = character(0) ) )
 
-setClass( "MethodDescriptor", representation( 
+setClass( "MethodDescriptor", representation(
 	pointer = "externalptr",   # pointer to a google::protobuf::ServiceDescriptor c++ object
 	name = "character"     ,   # full name of the service
 	service = "character"      # full name of the service that defines this method
 ), prototype = list( pointer = NULL, name = character(0), service = character(0) ) )
 
-setClass( "FileDescriptor", representation( 
+setClass( "FileDescriptor", representation(
 	pointer = "externalptr"  # pointer to a google::protobuf::FileDescriptor c++ object
 ), prototype = list( pointer = NULL ) )
 
-setClass( "EnumValueDescriptor", representation( 
+setClass( "EnumValueDescriptor", representation(
 	pointer = "externalptr",  # pointer to a google::protobuf::EnumValueDescriptor c++ object
-	name    = "character", 
+	name    = "character",
 	full_name  = "character"
 ), prototype = list( pointer = NULL, name = character(0), full_name = character(0) ) )
 
 # actual objects
 
-setClass( "Message",  representation( 
+setClass( "Message",  representation(
    pointer = "externalptr",    # pointer to sa google::protobuf::Message object
    type    = "character"       # message type (fully qualified, with package path)
-), prototype = list( pointer = NULL, type = character(0) ) ) 
+), prototype = list( pointer = NULL, type = character(0) ) )
 
-# rpc 
+# rpc
 
-setClass( "RpcHTTP", representation( 
-	host = "character", port = "integer", root = "character" 
+setClass( "RpcHTTP", representation(
+	host = "character", port = "integer", root = "character"
 ), prototype = list( host = "127.0.0.1", port = 4444L, root = "" ) )
 
 # streams
-setClass( "ZeroCopyInputStream", representation( 
+setClass( "ZeroCopyInputStream", representation(
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
-setClass( "ArrayInputStream", contains = "ZeroCopyInputStream" ) 
-setClass( "FileInputStream", contains = "ZeroCopyInputStream" ) 
+setClass( "ArrayInputStream", contains = "ZeroCopyInputStream" )
+setClass( "FileInputStream", contains = "ZeroCopyInputStream" )
 setClass( "ConnectionInputStream", contains = "ZeroCopyInputStream" )
 
-setClass( "ZeroCopyOutputStream", representation( 
+setClass( "ZeroCopyOutputStream", representation(
 	pointer = "externalptr"
 ), prototype = list( pointer = NULL ), contains = "VIRTUAL" )
-setClass( "ArrayOutputStream", contains = "ZeroCopyInputStream" ) 
-setClass( "FileOutputStream", contains = "ZeroCopyInputStream" ) 
+setClass( "ArrayOutputStream", contains = "ZeroCopyInputStream" )
+setClass( "FileOutputStream", contains = "ZeroCopyInputStream" )
 setClass( "ConnectionOutputStream", contains = "ZeroCopyOutputStream" )
 # }}}
 
@@ -100,81 +100,81 @@ setMethod("new", signature(Class="Descriptor"), function(Class, ...) newProto(Cl
 
 # {{{ P
 P <- function( type, file ){
-	
+
 	if( !missing(file) ){
-		readProtoFiles( file ) 
+		readProtoFiles( file )
 	}
 	if( missing( type ) ){
 		stop( "'type' is required" )
 	}
 	if( !is.character(type) ){
-		stop( "'type' is not a character vector" ) 
+		stop( "'type' is not a character vector" )
 	}
 	if( length(type) != 1L){
 		stop( "'type' should have exactly one element" )
 	}
-	
-	desc <- .Call( "getProtobufDescriptor", type, 
-		PACKAGE = "RProtoBuf" ) 
+
+	desc <- .Call( "getProtobufDescriptor", type,
+		PACKAGE = "RProtoBuf" )
 	if( is.null( desc ) ){
 		stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
 	}
-	desc 
+	desc
 }
 # }}}
 
 # {{{ show
 setMethod( "show", c( "Message" ), function(object){
-	show( sprintf( " message of type '%s' ", object@type ) ) 
+	show( sprintf( " message of type '%s' ", object@type ) )
 } )
 setMethod( "show", c( "Descriptor" ), function(object){
-	show( sprintf( "descriptor for type '%s' ", object@type ) ) 
+	show( sprintf( "descriptor for type '%s' ", object@type ) )
 } )
 setMethod( "show", c( "FieldDescriptor" ), function(object){
-	show( sprintf( "descriptor for field '%s' of type '%s' ", object@name, object@type ) ) 
+	show( sprintf( "descriptor for field '%s' of type '%s' ", object@name, object@type ) )
 } )
 setMethod( "show", c( "EnumDescriptor" ), function(object){
-	show( sprintf( "descriptor for enum '%s' of type '%s' ", object@name, object@type ) ) 
+	show( sprintf( "descriptor for enum '%s' of type '%s' ", object@name, object@type ) )
 } )
 setMethod( "show", c( "ServiceDescriptor" ), function(object){
-	show( sprintf( "service descriptor <%s>", object@name ) ) 
+	show( sprintf( "service descriptor <%s>", object@name ) )
 } )
 setMethod( "show", c( "FileDescriptor" ), function(object){
-	show( sprintf( "file descriptor" ) ) 
+	show( sprintf( "file descriptor" ) )
 } )
 setMethod( "show", c( "EnumValueDescriptor" ), function(object){
-	show( sprintf( "enum value descriptor" ) ) 
+	show( sprintf( "enum value descriptor" ) )
 } )
 
 # }}}
 
 # {{{ dollar extractors
 setMethod("$", "Message", function(x, name) {
-	
-	switch( name, 
+
+	switch( name,
 		"has" = function( ... ) has(x, ...),
-		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"), 
-		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),    
-		"descriptor" = function()    .Call( "Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ), 
-		
+		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"),
+		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),
+		"descriptor" = function()    .Call( "Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ),
+
 		"size"  = function(field, ...) size(x, field, ... ),
-		"bytesize" = function() bytesize(x), 
+		"bytesize" = function() bytesize(x),
 		"swap" = function(...) swap(x,...),
 		"update" = function(...) update(x, ...),
-		"str" = function() str(x), 
-		"as.character" = function() as.character(x), 
+		"str" = function() str(x),
+		"as.character" = function() as.character(x),
 		"as.list" = function() as.list(x),
-		"asMessage" = function() asMessage(x), 
-		"set" = function(...) set( x, ... ), 
-		"fetch" = function(...) fetch(x, ... ), 
+		"asMessage" = function() asMessage(x),
+		"set" = function(...) set( x, ... ),
+		"fetch" = function(...) fetch(x, ... ),
 		"toString" = function(...) toString( x, ... ),
-		"add" = function(...) add( x, ...), 
-		
+		"add" = function(...) add( x, ...),
+
 		"serialize" = function(...) serialize( x, ... ),
-		"clear" = function(...) clear( x, ... ), 
-		
-		"fileDescriptor" = function() fileDescriptor(x ), 
-		
+		"clear" = function(...) clear( x, ... ),
+
+		"fileDescriptor" = function() fileDescriptor(x ),
+
 		# default
 		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
@@ -185,109 +185,109 @@ setMethod("$<-", "Message", function(x, name, value) {
 } )
 
 setMethod("$", "Descriptor", function(x, name) {
-	switch( name, 
-		"new" = function( ... ) newProto( x, ... ) , 
+	switch( name,
+		"new" = function( ... ) newProto( x, ... ) ,
 		"read" = function( input ) read( x, input ) ,
-		"readASCII" = function( input ) readASCII( x, input ), 
+		"readASCII" = function( input ) readASCII( x, input ),
 		"toString" = function(...) toString(x, ...) ,
 		"as.character" = function(...) as.character(x, ...) ,
 		"as.list" = function(...) as.character(x, ...) ,
-		"asMessage" = function() asMessage(x), 
-		"fileDescriptor" = function() fileDescriptor(x ), 
+		"asMessage" = function() asMessage(x),
+		"fileDescriptor" = function() fileDescriptor(x ),
 		"name" = function(...) name(x, ... ),
-		
+
 		"containing_type" = function() containing_type(x),
-		"field_count" = function() field_count(x), 
+		"field_count" = function() field_count(x),
 		"nested_type_count" = function() nested_type_count(x),
-		"enum_type_count" = function() enum_type_count(x), 
-		"field" = function(...) field( x, ... ), 
+		"enum_type_count" = function() enum_type_count(x),
+		"field" = function(...) field( x, ... ),
 		"nested_type" = function(...) nested_type( x, ...),
 		"enum_type" = function(...) enum_type( x, ...),
-		
-		
+
+
 		# default
 		.Call( "do_dollar_Descriptor", x@pointer, name )
 	)
 } )
 setMethod( "$", "EnumDescriptor", function(x, name ){
-	switch( name, 
-		"as.character" = function() as.character(x), 
-		"as.list"= function() as.list(x) , 
-		"asMessage" = function() asMessage(x), 
+	switch( name,
+		"as.character" = function() as.character(x),
+		"as.list"= function() as.list(x) ,
+		"asMessage" = function() asMessage(x),
 		"toString" = function(...) toString(x, ...) ,
-		"name" = function(...) name(x, ...), 
+		"name" = function(...) name(x, ...),
 		"fileDescriptor" = function() fileDescriptor(x ),
-		"containing_type" = function() containing_type(x), 
-		
-		"length" = function() length(x), 
-		"value_count" = function() value_count(x), 
-		"value" = function(...) value(x, ...) , 
-		
+		"containing_type" = function() containing_type(x),
+
+		"length" = function() length(x),
+		"value_count" = function() value_count(x),
+		"value" = function(...) value(x, ...) ,
+
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
 } )
 setMethod( "$", "FieldDescriptor", function(x, name ){
-	switch( name, 
+	switch( name,
 		"as.character" = function() as.character(x),
-		"asMessage" = function() asMessage(x), 
+		"asMessage" = function() asMessage(x),
 		"toString" = function(...) toString(x, ...) ,
-		"name" = function(...) name(x, ...), 
+		"name" = function(...) name(x, ...),
 		"fileDescriptor" = function() fileDescriptor(x ),
-		"containing_type" = function() containing_type(x), 
-		
+		"containing_type" = function() containing_type(x),
+
 		"is_extension" = function() is_extension(x),
 		"number" = function() number(x),
 		"type" = function(...) type(x, ...),
 		"cpp_type" = function(...) cpp_type(x, ...),
 		"label" = function(...) label(x, ...),
-		"is_repeated" = function() is_repeated(x), 
-		"is_required" = function() is_required(x), 
-		"is_optional" = function() is_optional(x), 
-		"has_default_value" = function() has_default_value(x), 
-		"default_value" = function() default_value(x), 
-		"enum_type" = function() enum_type(x), 
+		"is_repeated" = function() is_repeated(x),
+		"is_required" = function() is_required(x),
+		"is_optional" = function() is_optional(x),
+		"has_default_value" = function() has_default_value(x),
+		"default_value" = function() default_value(x),
+		"enum_type" = function() enum_type(x),
 		"message_type" = function() message_type(x),
-		
+
 		invisible(NULL)
 		)
 } )
 
 setMethod( "$", "ServiceDescriptor", function(x, name ){
-	switch( name, 
+	switch( name,
 		"as.character" = function() as.character(x),
-		"asMessage" = function() asMessage(x), 
+		"asMessage" = function() asMessage(x),
 		"toString" = function(...) toString(x, ...) ,
-		"name" = function(...) name(x, ...), 
+		"name" = function(...) name(x, ...),
 		"fileDescriptor" = function() fileDescriptor(x ),
-		"method_count" = function() method_count(x), 
-		"method" = function(...) method(x, ... ), 
-		
+		"method_count" = function() method_count(x),
+		"method" = function(...) method(x, ... ),
+
 		.Call( "ServiceDescriptor__method", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
 } )
 
 setMethod( "$", "FileDescriptor", function(x, name ){
-	
-	switch( name, 
+
+	switch( name,
 		"as.character" = function() as.character(x),
 		"toString" = function(...) toString(x, ...) ,
-		"asMessage" = function() asMessage(x), 
-		"as.list" = function() as.list(x), 
-		
+		"asMessage" = function() asMessage(x),
+		"as.list" = function() as.list(x),
+
 		invisible(NULL)
 		)
 
 })
 
 setMethod( "$", "EnumValueDescriptor", function(x, name ){
-	
-	switch( name, 
+
+	switch( name,
 		"as.character" = function() as.character(x),
 		"toString" = function(...) toString(x, ...) ,
-		"asMessage" = function() asMessage(x), 
+		"asMessage" = function() asMessage(x),
 		"name" = function(...) name(x, ... ),
-		
+
 		invisible(NULL)
 		)
 
@@ -295,24 +295,24 @@ setMethod( "$", "EnumValueDescriptor", function(x, name ){
 
 
 setMethod( "$", "MethodDescriptor", function(x, name ){
-	switch( name, 
+	switch( name,
 		"invoke" = function(...) invoke(x, ...),
 		"implementation" = if( x@name %in% names(IMPLEMENTATIONS) ){
 			get( x@name, IMPLEMENTATIONS )
-		}, 
-		"name" = function(...) name(x, ...), 
-		"toString"  = function() toString(x) , 
-		"as.character" = function() as.character(x), 
+		},
+		"name" = function(...) name(x, ...),
+		"toString"  = function() toString(x) ,
+		"as.character" = function() as.character(x),
 		"fileDescriptor" = function() fileDescriptor(x ),
-		"input_type" = function() input_type(x), 
+		"input_type" = function() input_type(x),
 		"output_type" = function() output_type(x),
-		
+
 		invisible( NULL)
 	)
 } )
 
 setMethod( "$<-", "MethodDescriptor", function(x, name, value ){
-	
+
 	if( identical( name, "implementation" ) ){
 		check_valid_implementation( x, value )
 		assign( x@name, value, envir = IMPLEMENTATIONS )
@@ -323,19 +323,19 @@ setMethod( "$<-", "MethodDescriptor", function(x, name, value ){
 setMethod( "$", "ZeroCopyInputStream", function(x, name ){
 	switch( name,
 		# ZeroCopyInputStream C++ methods
-		"Next" = function(...) Next(x, ...), 
-		"ByteCount" = function(...) ByteCount(x, ...), 
-		"Skip" = function(...) Skip(x, ...), 
-		"BackUp" = function(...) BackUp(x, ...), 
-		
+		"Next" = function(...) Next(x, ...),
+		"ByteCount" = function(...) ByteCount(x, ...),
+		"Skip" = function(...) Skip(x, ...),
+		"BackUp" = function(...) BackUp(x, ...),
+
 		# CodedInputStream related
-		"ReadRaw" = function(...) ReadRaw(...), 
-		"ReadString" = function(...) ReadString(...), 
-		"ReadVarint32"= function() ReadVarint32(x),  
+		"ReadRaw" = function(...) ReadRaw(...),
+		"ReadString" = function(...) ReadString(...),
+		"ReadVarint32"= function() ReadVarint32(x),
 		"ReadVarint64" = function() ReadVarint64(x),
-		"ReadLittleEndian32" = function() ReadLittleEndian32(x), 
-		"ReadLittleEndian64" = function() ReadLittleEndian64(x), 
-		
+		"ReadLittleEndian32" = function() ReadLittleEndian32(x),
+		"ReadLittleEndian64" = function() ReadLittleEndian64(x),
+
 		# default
 		invisible(NULL)
 		)
@@ -344,18 +344,18 @@ setMethod( "$", "ZeroCopyInputStream", function(x, name ){
 setMethod( "$", "ZeroCopyOutputStream", function(x, name ){
 	switch( name,
 		# ZeroCopyInputStream C++ methods
-		"Next" = function(...) Next(x, ...), 
-		"ByteCount" = function(...) ByteCount(x, ...), 
-		"BackUp" = function(...) BackUp(x, ...), 
-		
+		"Next" = function(...) Next(x, ...),
+		"ByteCount" = function(...) ByteCount(x, ...),
+		"BackUp" = function(...) BackUp(x, ...),
+
 		# CodedOutputStream related
-		"WriteRaw" = function(...) WriteRaw(x, ...), 
-		"WriteString" = function(...) WriteString(x, ...), 
+		"WriteRaw" = function(...) WriteRaw(x, ...),
+		"WriteString" = function(...) WriteString(x, ...),
 		"WriteLittleEndian32" = function(...) WriteLittleEndian32(x,...),
 		"WriteLittleEndian64" = function(...) WriteLittleEndian64(x,...),
-		"WriteVarint32" = function(...) WriteVarint32(x, ...), 
-		"WriteVarint64" = function(...) WriteVarint64(x, ...), 
-		
+		"WriteVarint32" = function(...) WriteVarint32(x, ...),
+		"WriteVarint64" = function(...) WriteVarint64(x, ...),
+
 		# default
 		invisible(NULL)
 		)
@@ -366,20 +366,20 @@ setMethod( "$", "ZeroCopyOutputStream", function(x, name ){
 
 # {{{ [[
 setMethod( "[[", "Message", function(x, i, j, ..., exact = TRUE){
-	
+
 	if( missing( i ) ){
 		stop( "`i` is required" )
 	}
 	if( !missing(j) ){
 		warning( "`j` is ignored" )
 	}
-	
+
 	if( is.character( i ) || is.numeric( i ) ){
 		.Call( "getMessageField", x@pointer, i, PACKAGE = "RProtoBuf" )
 	} else {
 		stop( "wrong type, `i` should be a character or a number" )
 	}
-	
+
 } )
 
 setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
@@ -399,27 +399,27 @@ setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
 # }}}
 
 # {{{ [[<-
-setReplaceMethod( "[[", "Message", 
+setReplaceMethod( "[[", "Message",
 function(x, i, j, ..., exact = TRUE, value ){
 
-	# TODO: we might want to relax this later, i.e 
-	# allow to mutate repeated fields like this: 
+	# TODO: we might want to relax this later, i.e
+	# allow to mutate repeated fields like this:
 	# x[[ "field", 1:2 ]] <- 1:2
-	
+
 	if( missing( i ) ){
 		stop( "`i` is required" )
 	}
 	if( !missing(j) ){
 		warning( "`j` is ignored" )
 	}
-	
+
 	if( is.character( i ) || is.numeric( i ) ){
 		.Call( "setMessageField", x@pointer, i, value, PACKAGE = "RProtoBuf" )
 	} else {
 		stop( "wrong type, `i` should be a character or a number" )
 	}
 	x
-	
+
 } )
 
 # }}}
@@ -427,7 +427,7 @@ function(x, i, j, ..., exact = TRUE, value ){
 # {{{ update
 setGeneric( "update" )
 setMethod( "update", "Message", function( object, ... ){
-	
+
 	dots <- list( ... )
 	if( !length( dots ) ){
 		return( object )
@@ -439,7 +439,7 @@ setMethod( "update", "Message", function( object, ... ){
 	}
 	.Call( "update_message", object@pointer, named )
 	object
-	
+
 } )
 # }}}
 
@@ -450,10 +450,10 @@ setMethod( "length", "Message", function( x ){
 } )
 setMethod( "length", "EnumDescriptor", function( x ){
 	.Call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
-} ) 
+} )
 setMethod( "length", "ServiceDescriptor", function( x ){
 	.Call( "ServiceDescriptor_method_count", x@pointer, PACKAGE = "RProtoBuf" )
-} ) 
+} )
 # }}}
 
 # {{{ str
@@ -472,31 +472,31 @@ writeLines( txt )
 setGeneric( "name", function(object, full = FALSE){
 	standardGeneric( "name" )
 })
-setMethod( "name", c( object = "Descriptor" ) , 
+setMethod( "name", c( object = "Descriptor" ) ,
 function(object, full = FALSE){
 	.Call( "Descriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
-}) 
-setMethod( "name", c( object = "FieldDescriptor" ) , 
+})
+setMethod( "name", c( object = "FieldDescriptor" ) ,
 function(object, full = FALSE){
 	.Call( "FieldDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "EnumDescriptor" ) , 
+setMethod( "name", c( object = "EnumDescriptor" ) ,
 function(object, full = FALSE){
 	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "EnumValueDescriptor" ) , 
+setMethod( "name", c( object = "EnumValueDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "" )
+	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "ServiceDescriptor" ) , 
+setMethod( "name", c( object = "ServiceDescriptor" ) ,
 function(object, full = FALSE){
 	.Call( "ServiceDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "MethodDescriptor" ) , 
+setMethod( "name", c( object = "MethodDescriptor" ) ,
 function(object, full = FALSE){
 	.Call( "MethodDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
 })
-setMethod( "name", c( object = "FileDescriptor" ) , 
+setMethod( "name", c( object = "FileDescriptor" ) ,
 function(object, full = FALSE){
 	filename <- .Call( "FileDescriptor__name", object@pointer, PACKAGE = "RProtoBuf" )
 	if( full ) filename else basename( filename )
