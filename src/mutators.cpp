@@ -257,7 +257,7 @@ Rboolean allAreRaws( SEXP x) {
 void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
 	
 	const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
-    
+	// N.B. n undefined if TYPEOF(value) not a vector, but we catch that below.
 	int n = LENGTH(value) ;
 	
     switch( TYPEOF( value ) ){
@@ -389,7 +389,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		// {{{ repeated fields
 		
 		// {{{ preliminary checks
-		int value_size = LENGTH(value);
+		int value_size = Rf_isVector(value) ? LENGTH(value) : 1;
 		// if the R type is RAWSXP and the cpp type is string or bytes, 
 		// then value_size is actually one because the raw vector
 		// is converted to a string
@@ -410,7 +410,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 			}
 		}
 		// }}}
-		
+		// The number of elements already in the repeated field.
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
 		/* {{{ in case of messages or enum, we have to check that all values

@@ -1,3 +1,12 @@
+2012-10-03  Murray Stokely  <murray@FreeBSD.org>
+
+	* src/mutators.cpp (rprotobuf): Fix bug where LENGTH() is used on
+	  non-vectors when setting a repeated message field to a single
+	  Message object.  This caused non-deterministic behavior after
+	  memory was read from a random location.
+	* inst/unitTests/runit.golden.message.R (test.repeatedFields): Add
+	  tests for this case.
+
 2012-09-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/is_extension.Rd: Use \dontrun on examples as we cannot reload

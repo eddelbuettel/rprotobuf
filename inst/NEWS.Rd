@@ -11,7 +11,9 @@
       \item fix a bug where NAs were silently treated as TRUE for logical/bool types
       \item fix a bug that caused crashes when adding vectors to optional fields
       \item fix bugs in readASCII that returned empty protocol buffers when the file or connection could not be opened
-      \item distinguish between non-existant and not-set fieldswith has() by returning NULL in the former case.
+      \item distinguish between non-existant and not-set fieldswith
+      has() by returning NULL in the former case.
+      \item fix a bug that caused non-deterministic behavior when setting a repeated message field in a protobuf to a single Message.
       \item add unit tests for all of the above.
     }
   }

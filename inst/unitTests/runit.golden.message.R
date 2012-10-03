@@ -60,6 +60,26 @@ test.repeatedFields <- function(){
 	test <- new(protobuf_unittest.TestAllTypes)
 	test$add("repeated_int32", c(1:5))
 	checkEquals(test$repeated_int32, c(1:5))
+
+	test$repeated_int32 <- 1
+	checkEquals(test$repeated_int32, 1)
+
+        # Prior to RProtoBuf v0.2.5, this was not handled properly.
+        test.2 <- new(protobuf_unittest.TestAllTypes,
+                      repeated_string=c("foo", "bar"))
+        checkEquals(test.2$repeated_string, c("foo", "bar"))
+
+        # Versions of RProtoBuf <= 0.2.5 had non-deterministic behavior due to a
+        # memory management bug when setting a repeated field to a
+        # non-vector type (e.g. a Message).
+	test$repeated_foreign_message <- list(new(protobuf_unittest.ForeignMessage,
+						  c = 1),
+					      new(protobuf_unittest.ForeignMessage,
+						  c = 2))
+	checkEquals(length(test$repeated_foreign_message), 2)
+	test$repeated_foreign_message <- new(protobuf_unittest.ForeignMessage,
+					     c = 3)
+	checkEquals(length(test$repeated_foreign_message), 1)
 }
 
 test.repeated.bools <- function() {
