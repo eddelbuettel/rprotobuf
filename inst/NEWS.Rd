@@ -2,7 +2,7 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in version 0.2.6 (2012-xx-yy)}{
+\section{Changes in version 0.2.6 (2012-10-04)}{
   \itemize{
     \item Applied several more patches by Murray to
     \itemize{
@@ -16,6 +16,9 @@
       \item fix a bug that caused non-deterministic behavior when setting a repeated message field in a protobuf to a single Message.
       \item add unit tests for all of the above.
     }
+    \item Added Murray to Authors: field in DESCRIPTION
+    \item Removed old and unconvincing example on RProtoBuf for storage
+    and serialization in an imagined HighFrequencyFinance context 
   }
 }
 
