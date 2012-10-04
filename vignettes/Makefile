@@ -3,7 +3,7 @@
 all: 	RProtoBuf-unitTests.pdf RProtoBuf-quickref.pdf
 
 ## 'real all'
-pdfall: ProtoBuf-unitTests.pdf RProtoBuf-intro.pdf RProtoBuf-quickref.pdf
+pdfall: RProtoBuf-unitTests.pdf RProtoBuf-intro.pdf RProtoBuf-quickref.pdf
 
 pdfclean:
 	rm -fr *.pdf
