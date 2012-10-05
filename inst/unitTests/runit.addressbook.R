@@ -45,10 +45,10 @@ test.ascii <- function() {
 
     # Verify that we get an exception if we try to read from a text connection.
     # (better than silently getting an empty proto.)
-    book4 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rt"))
+    book4 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rt")))
 
     # Verify that we get an exception if the file is not readable.
-    old.mode <- file.info(out.file)[["mode"]])
+    old.mode <- file.info(out.file)[["mode"]]
     Sys.chmod(out.file, "0000")
     book5 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rb")))
     # Set the permissions back to ensure the file is cleaned up properly.
