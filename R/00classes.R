@@ -50,8 +50,10 @@ setClass( "MethodDescriptor", representation(
 ), prototype = list( pointer = NULL, name = character(0), service = character(0) ) )
 
 setClass( "FileDescriptor", representation(
-	pointer = "externalptr"  # pointer to a google::protobuf::FileDescriptor c++ object
-), prototype = list( pointer = NULL ) )
+	pointer = "externalptr",  # pointer to a google::protobuf::FileDescriptor c++ object
+	filename = "character",	  # filename
+	package = "character"     # the package
+), prototype = list( pointer = NULL, filename = character(0), package = character(0) ) )
 
 setClass( "EnumValueDescriptor", representation(
 	pointer = "externalptr",  # pointer to a google::protobuf::EnumValueDescriptor c++ object
@@ -125,7 +127,8 @@ P <- function( type, file ){
 
 # {{{ show
 setMethod( "show", c( "Message" ), function(object){
-	show( sprintf( " message of type '%s' ", object@type ) )
+  show( sprintf( "message of type '%s' with %d field%s set", object@type,
+                length(object), if (length(object) == 1) "" else "s" ))
 } )
 setMethod( "show", c( "Descriptor" ), function(object){
 	show( sprintf( "descriptor for type '%s' ", object@type ) )
@@ -140,7 +143,8 @@ setMethod( "show", c( "ServiceDescriptor" ), function(object){
 	show( sprintf( "service descriptor <%s>", object@name ) )
 } )
 setMethod( "show", c( "FileDescriptor" ), function(object){
-	show( sprintf( "file descriptor" ) )
+	show( sprintf( "file descriptor for package %s (%s)", object@package,
+                      object@filename) )
 } )
 setMethod( "show", c( "EnumValueDescriptor" ), function(object){
 	show( sprintf( "enum value descriptor" ) )
@@ -274,7 +278,8 @@ setMethod( "$", "FileDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"asMessage" = function() asMessage(x),
 		"as.list" = function() as.list(x),
-
+		"name" = function() x@filename,
+		"package" = function() x@package,
 		invisible(NULL)
 		)
 

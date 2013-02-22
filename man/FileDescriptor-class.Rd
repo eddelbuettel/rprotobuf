@@ -16,6 +16,8 @@ Objects are usually created using the \code{\link{fileDescriptor}} method
 \section{Slots}{
   \describe{
   	  \item{\code{pointer}:}{external pointer to a \code{google::protobuf::FileDescriptor} C++ object }
+	  \item{\code{package}:}{the package name defined in the file, e.g. 'tutorial'.}
+	  \item{\code{filename}:}{the filename of this FileDescriptor}
   }
 }
 \section{Methods}{
@@ -31,4 +33,18 @@ Objects are usually created using the \code{\link{fileDescriptor}} method
 \references{ The \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#FileDescriptor} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \keyword{classes}
+\seealso{
+	\linkS4class{Descriptor}
+}
+\examples{
+\dontrun{
+# example proto file supplied with this package
+desc <- P("tutorial.Person")
+person <- new(desc)
 
+person$fileDescriptor()
+name(person$fileDescriptor())
+# [1] "addressbook.proto"
+as.character(person$fileDescriptor())
+}
+}

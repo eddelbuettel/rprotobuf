@@ -1,3 +1,17 @@
+2013-02-21  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/00classes.R: add filename and package slots to FileDescriptor
+	  S4 class and provide more user-friendly show() methods for
+	  Messages and FileDescriptors that provide more context about the
+	  contained data.
+	* src/S4_classes.h: populate package and filename slots when a
+	  FileDescriptor is created based on fields from the underlying
+	  C++ object.
+	* inst/unitTests/runit.addressbook.R: add a basic test for
+	  FileDescriptors.
+	* man/FileDescriptor-class.Rd: document the new slots in
+	  FileDescriptor and add examples.
+
 2012-10-03  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/mutators.cpp (rprotobuf): Fix bug where LENGTH() is used on

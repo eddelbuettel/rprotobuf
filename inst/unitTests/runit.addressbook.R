@@ -16,6 +16,10 @@ test.size <- function() {
     checkEquals(bytesize(book$person[[1]]), 60,  msg="Bytes of first person message")
 }
 
+test.fileDescriptor <- function() {
+    checkEquals(name(book$fileDescriptor()), "addressbook.proto")
+}
+
 test.personOne <- function() {
     checkEquals(book$person[[1]]$name,              "Romain Francois",   msg="First person name")
     checkEquals(book$person[[2]]$name,              "Dirk Eddelbuettel", msg="First person name")
