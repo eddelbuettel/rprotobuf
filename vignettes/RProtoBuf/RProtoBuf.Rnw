@@ -723,7 +723,6 @@ writeLines( message$toString() )
 writeLines( toString( message ) )
 @
 
-
 \subsubsection{Message\$as.list method}
 \label{Message-method-aslist}
 
@@ -871,9 +870,32 @@ writeLines( as.character( m ) )
 
 \subsubsection{The toString method}
 
+\texttt{toString} currently is an alias to the \texttt{as.character} function. 
+
+
 \subsubsection{The as.character method}
 
+\texttt{as.character} prints the text representation of the descriptor
+as it would be specified in the \texttt{.proto} file.
+
+<<>>=
+desc <- tutorial.Person
+writeLines( desc$toString() )
+writeLines( toString( desc ) )
+writeLines( as.character(tutorial.Person) )
+@
+
 \subsubsection{The fileDescriptor method}
+
+The \texttt{fileDescriptor} method retrieves the
+file descriptor of the descriptor.  See section~\ref{subsec-fileDescriptor} for more information
+about file descriptors.
+
+<<>>=
+desc <- tutorial.Person
+desc$fileDescriptor()
+fileDescriptor( desc )
+@
 
 \subsubsection{The name method}
 
@@ -977,7 +999,80 @@ writeLines( as.character( tutorial.Person$PhoneType ) )
 \subsection{file descriptors}
 \label{subsec-fileDescriptor}
 
-TODO: add content
+File descriptors describe a whole \texttt{.proto} file and are represented in R with the
+\emph{FileDescriptor} S4 class. The class contains
+the slots \texttt{pointer}, \texttt{filename}, and \texttt{package} :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{slot} & \textbf{description} \\
+\hline
+\texttt{pointer} & external pointer to the \texttt{FileDescriptor} object of the C++ proto library. Documentation for the
+\texttt{FileDescriptor} class is available from the protocol buffer project page:
+\url{http://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor.html#FileDescriptor} \\
+\hline
+\texttt{filename} & fully qualified pathname of the \texttt{.proto} file.\\
+\hline
+\texttt{package} & package name defined in this \texttt{.proto} file.\\
+\hline
+\end{tabular}
+\caption{\label{FileDescriptor-class-table}Description of slots for the \texttt{FileDescriptor} S4 class}
+\end{table}
+
+Similarly to messages, the \verb|$| operator can be used to extract
+information from the file descriptor, or invoke pseuso-methods.
+
+\subsubsection{as.character}
+
+The \texttt{as.character} method brings the debug string of the enum type.
+
+<<>>=
+writeLines( as.character(fileDescriptor(tutorial.Person)) )
+@
+
+\subsubsection{toString}
+
+\texttt{toString} is an alias of \texttt{as.character}.
+
+<<>>=
+writeLines( fileDescriptor(tutorial.Person)$toString() )
+@
+
+\subsubsection{asMessage}
+
+The \texttt{asMessage} method returns a protocol buffer message representation of the file descriptor.
+
+<<>>=
+asMessage(tutorial.Person$fileDescriptor())
+writeLines( as.character(asMessage(tutorial.Person$fileDescriptor())) )
+@
+
+\subsubsection{as.list}
+
+The \texttt{as.list} method creates a named R list that contains the descriptors defined in this file descriptor.
+
+<<>>=
+as.list( tutorial.Person$fileDescriptor() )
+@
+
+\subsubsection{name}
+
+The \texttt{name} method can be used to retrieve the file name associated with the
+file descriptor.
+
+<<>>=
+name( tutorial.Person$fileDescriptor() )
+tutorial.Person$fileDescriptor()$name()
+@
+\subsubsection{package}
+
+The \texttt{package} method can be used to retrieve the package scope associated with this file descriptor.
+
+<<>>=
+tutorial.Person$fileDescriptor()$package()
+@
 
 \subsection{service descriptors}
 \label{subsec-ServiceDescriptor}
@@ -988,8 +1083,6 @@ TODO: add content
 \label{subsec-MethodDescriptor}
 
 TODO: add content
-
-
 \section{Utilities}
 
 \subsection{coercing objects to messages}
