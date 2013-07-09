@@ -38,6 +38,10 @@ RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::EnumValueDescriptor>
 	return full ? d->full_name() : d->name() ;
 }
 
+RCPP_FUNCTION_1( int, METHOD(number), Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
+        return d->number() ;
+}
+
 #undef METHOD
 
 } // namespace rprotobuf

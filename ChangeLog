@@ -1,3 +1,18 @@
+2013-07-08  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/has.R: add a has method for EnumDescriptor objects to return a
+	  logical indicating if the named constant exists or not.
+	* R/00classes.R: fix a typo that prevented the length method from
+	  working properly for EnumDescriptor objects.  Use this
+	  functionality to add the number of constants in the show method
+	  for EnumDescriptors.
+	* R/wrapper_EnumValueDescriptor.R: add a number method to return
+	  the numeric value of this enum constant.
+	* man/has.Rd: Add example of the above.
+	* man/number.Rd: Add example of the above.
+	* man/EnumDescriptor-class.Rd: Add example of the above.
+	* man/EnumValueDescriptor-class.Rd: Add example of the above.
+
 2013-02-21  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/00classes.R: add filename and package slots to FileDescriptor

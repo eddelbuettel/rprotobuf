@@ -6,9 +6,6 @@ setMethod( "is_extension", "FieldDescriptor", function(object){
 	.Call( "FieldDescriptor__is_extension", object@pointer, PACKAGE = "RProtoBuf" )
 })
 
-setGeneric( "number", function(object){
-	standardGeneric( "number" )
-} )
 setMethod( "number", "FieldDescriptor", function(object){
 	.Call( "FieldDescriptor__number", object@pointer, PACKAGE = "RProtoBuf" )
 } )

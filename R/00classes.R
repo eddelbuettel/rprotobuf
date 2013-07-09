@@ -70,8 +70,8 @@ setClass( "Message",  representation(
 
 # rpc
 
-setClass( "RpcHTTP", representation(
-	host = "character", port = "integer", root = "character"
+setClass( "RpcHTTP", representation( 
+	host = "character", port = "integer", root = "character" 
 ), prototype = list( host = "127.0.0.1", port = 4444L, root = "" ) )
 
 # streams
@@ -137,7 +137,7 @@ setMethod( "show", c( "FieldDescriptor" ), function(object){
 	show( sprintf( "descriptor for field '%s' of type '%s' ", object@name, object@type ) )
 } )
 setMethod( "show", c( "EnumDescriptor" ), function(object){
-	show( sprintf( "descriptor for enum '%s' of type '%s' ", object@name, object@type ) )
+	show( sprintf( "descriptor for enum '%s' of type '%s' with %d values", object@name, object@type, value_count(object) ) )
 } )
 setMethod( "show", c( "ServiceDescriptor" ), function(object){
 	show( sprintf( "service descriptor <%s>", object@name ) )
@@ -222,11 +222,10 @@ setMethod( "$", "EnumDescriptor", function(x, name ){
 		"name" = function(...) name(x, ...),
 		"fileDescriptor" = function() fileDescriptor(x ),
 		"containing_type" = function() containing_type(x),
-
 		"length" = function() length(x),
 		"value_count" = function() value_count(x),
 		"value" = function(...) value(x, ...) ,
-
+                "has" = function(name) .Call( "has_enum_name", x@pointer, name, package = "RProtoBuf"),
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)
@@ -278,11 +277,10 @@ setMethod( "$", "FileDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"asMessage" = function() asMessage(x),
 		"as.list" = function() as.list(x),
-		"name" = function() x@filename,
-		"package" = function() x@package,
+      		"name" = function() x@filename,
+       		"package" = function() x@package,
 		invisible(NULL)
 		)
-
 })
 
 setMethod( "$", "EnumValueDescriptor", function(x, name ){
@@ -292,7 +290,7 @@ setMethod( "$", "EnumValueDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"asMessage" = function() asMessage(x),
 		"name" = function(...) name(x, ... ),
-
+		"number" = function() number(x),
 		invisible(NULL)
 		)
 
@@ -454,7 +452,7 @@ setMethod( "length", "Message", function( x ){
 	.Call( "Message__length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "length", "EnumDescriptor", function( x ){
-	.Call( "EnumDescriptor_length", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( "EnumDescriptor__length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "length", "ServiceDescriptor", function( x ){
 	.Call( "ServiceDescriptor_method_count", x@pointer, PACKAGE = "RProtoBuf" )

@@ -75,6 +75,19 @@ RCPP_FUNCTION_2(int,get_value_of_enum,
 }
 
 /**
+ * Does enum have value named 'name'?
+ *
+ * @param xp external pointer to an EnumDescriptor
+ * @param name the name of the enum
+ * @return logical
+ */
+RCPP_FUNCTION_2(bool,has_enum_name,
+                Rcpp::XPtr<GPB::EnumDescriptor> d, std::string name){
+       const GPB::EnumValueDescriptor* evd = d->FindValueByName(name) ;
+       return ( ! (evd == NULL));
+}
+
+/**
  * @param xp external pointer to a Descriptor
  * @return the descriptor as an R list
  */

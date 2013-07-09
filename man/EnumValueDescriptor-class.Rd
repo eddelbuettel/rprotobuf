@@ -7,6 +7,7 @@
 \alias{toString,EnumValueDescriptor-method}
 \alias{$,EnumValueDescriptor-method}
 \alias{name,EnumValueDescriptor-method}
+\alias{number,EnumValueDescriptor-method}
 \alias{enum_type,EnumValueDescriptor,missing,missing-method}
 
 \title{Class "EnumValueDescriptor"  }
@@ -26,15 +27,19 @@
 \section{Methods}{
   \describe{
     \item{show}{\code{signature(object = "EnumValueDescriptor")}: small information }
-    \item{as.character}{\code{signature(x = "EnumValueDescriptor")}: 
-      returns the debug string of the enum descriptor. 
+    \item{as.character}{\code{signature(x = "EnumValueDescriptor")}:
+      returns the debug string of the enum descriptor.
       This is retrieved by a call to the \code{DebugString}
       method of the EnumDescriptor object.  }
     \item{toString}{\code{signature(x = "EnumValueDescriptor")}: same as \code{as.character} }
-    \item{$}{\code{signature(x = "EnumValueDescriptor")}: invoke pseudo methods }
+    \item{$}{\code{signature(x = "EnumValueDescriptor")}: invoke pseudo
+      methods }
+    \item{number}{\code{signature(object = "EnumValueDescriptor")}:
+      return the numeric value of this enum constant.}
+    % TODO(mstokely): This next one is broken.
     \item{enum_type}{\code{signature(object = "EnumDescriptor")} : retrieves the \linkS4class{EnumDescriptor} related to this value descriptor.}
   }
-  	
+
 }
 \references{ The \code{EnumValueDescriptor} C++ class. 
   \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#EnumValueDescriptor} }
