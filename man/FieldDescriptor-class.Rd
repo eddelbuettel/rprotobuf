@@ -106,6 +106,50 @@ Person$email$has_default_value()
 Person$email$default_value()
 
 Person$email$is_extension()
+
+# Get the default values
+has_default_value(Person$id)
+has_default_value(Person$email)
+has_default_value(Person$phone)
+default_value(Person$id)
+default_value(Person$email)
+default_value(Person$phone)
+
+# Get the types of field descriptors
+type(Person$id)
+type(Person$id, as.string=TRUE)
+cpp_type(Person$email)
+cpp_type(Person$email, TRUE)
+
+# Get the label of a field descriptor
+label(Person$id)
+label(Person$email)
+label(Person$phone)
+label(Person$id, TRUE)
+label(Person$email, TRUE)
+label(Person$phone, TRUE)
+LABEL_OPTIONAL
+LABEL_REQUIRED
+LABEL_REPEATED
+
+# Test if a field is optional
+is_optional(Person$id)
+is_optional(Person$email)
+is_optional(Person$phone)
+
+# Test if a field is repeated
+is_repeated(Person$id)
+is_repeated(Person$email)
+is_repeated(Person$phone)
+
+# Test if a field is required
+is_required(Person$id)
+is_required(Person$email)
+is_required(Person$phone)
+
+# Return the class of a message field
+message_type(Person$phone)
+
 }
 }
 \keyword{classes}
