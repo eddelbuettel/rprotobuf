@@ -1,3 +1,24 @@
+2013-07-10  Murray Stokely  <murray@FreeBSD.org>
+
+	* man/aslist.Rd: Document behavior for enum and file descriptors
+	  and be more sparing with \dontrun in examples.
+	* man/EnumDescriptor-class.Rd: Be more sparing with \dontrun in
+	  examples so we run more test code.
+	* man/add.Rd: Idem
+	* man/clone.Rd: Idem
+	* man/Descriptor-class.Rd: Idem
+	* man/FieldDescriptor-class.Rd: Idem
+	* man/FileDescriptor-class.Rd: Idem
+	* man/is_extension.Rd: Idem
+	* man/label.Rd: Idem
+	* man/Message-class.Rd: Idem
+	* man/number.Rd: Idem
+	* man/P.Rd: Idem
+	* man/readProtoFiles.Rd: Idem
+	* man/type.Rd: Idem
+	* man/with.Rd: Idem
+	* man/RProtoBuf-package.Rd: Idem
+
 2013-07-08  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/has.R: add a has method for EnumDescriptor objects to return a
