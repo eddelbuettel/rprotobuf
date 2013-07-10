@@ -84,7 +84,7 @@ RCPP_FUNCTION_2(int,get_value_of_enum,
 RCPP_FUNCTION_2(bool,has_enum_name,
                 Rcpp::XPtr<GPB::EnumDescriptor> d, std::string name){
        const GPB::EnumValueDescriptor* evd = d->FindValueByName(name) ;
-       return ( ! (evd == NULL));
+       return (evd != NULL);
 }
 
 /**
