@@ -52,9 +52,10 @@ The method is implemented for the \linkS4class{FieldDescriptor} class
 \dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{Person <- P( "tutorial.Person" )}
 type(Person$id)
 type(Person$id, as.string=TRUE)
 cpp_type(Person$email)
 cpp_type(Person$email, TRUE)
-}
 }

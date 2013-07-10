@@ -37,7 +37,6 @@ Objects are usually created using the \code{\link{fileDescriptor}} method
 	\linkS4class{Descriptor}
 }
 \examples{
-\dontrun{
 # example proto file supplied with this package
 desc <- P("tutorial.Person")
 person <- new(desc)
@@ -46,5 +45,4 @@ person$fileDescriptor()
 name(person$fileDescriptor())
 # [1] "addressbook.proto"
 as.character(person$fileDescriptor())
-}
 }

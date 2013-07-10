@@ -93,9 +93,10 @@ C++ class \code{Descriptor}}
 \dontrun{
 # example proto file supplied with this package
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
-
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{Person <- P( "tutorial.Person" ) }
 
 # enum type
 Person$PhoneType
@@ -108,6 +109,5 @@ Person$email
 
 # use this descriptor to create a message
 new( Person )
-}
 }
 \keyword{classes}

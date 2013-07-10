@@ -15,10 +15,12 @@ method for \linkS4class{Message} objects
 \examples{
 \dontrun{
 # example proto file supplied with this package
-proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{Person <- P("tutorial.Person")}
 
 # creating a prototype message from the descriptor
 sheep <- new( Person, email = "francoisromain@free.fr", id = 2 )
@@ -32,7 +34,6 @@ newsheep <- clone( sheep, id = 3 )
 # this can also be used as a pseudo method
 sheep$clone()
 sheep$clone( id = 3 )
-}	
 }
 \keyword{methods}
 

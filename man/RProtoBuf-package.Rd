@@ -45,7 +45,7 @@ and has a mailing list : \url{https://lists.r-forge.r-project.org/cgi-bin/mailma
 \examples{
 \dontrun{
 # an example proto file
-system.file( "proto", "AddressBook.proto", package = "RProtoBuf" )
+system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 
 # create a message of type AddressBook, defined in the example proto file
 demo( "addressbook", package = "RProtoBuf" )

@@ -78,6 +78,9 @@ proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{ Person <- P("tutorial.Person") }
+
 PhoneNumber <- P( "tutorial.Person.PhoneNumber" )
 
 # creating a prototype message from the descriptor
@@ -128,6 +131,5 @@ serialize( book, NULL )
 m <- tutorial.AddressBook$read( tf )
 writeLines( as.character( m ) )
 sapply( m$person, function(p) p$name )
-}
 }
 \keyword{classes}

@@ -25,7 +25,9 @@ Romain Francois <francoisromain@free.fr>
 \dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 Person <- P( "tutorial.Person", file = proto.file )
-as.character( Person )
 }
+\dontshow{ Person <- P("tutorial.Person") }
+
+as.character( Person )
 }
 \keyword{ interface }

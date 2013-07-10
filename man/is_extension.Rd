@@ -10,9 +10,6 @@
 }
 \keyword{methods}
 \examples{
-\dontrun{
-proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
-Person <- P( "tutorial.Person", file = proto.file )
+Person <- P( "tutorial.Person" )
 is_extension(Person$id)
-}
 }

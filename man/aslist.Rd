@@ -32,9 +32,10 @@ nested type descriptors (\linkS4class{Descriptor} objects),
 enum type descriptors (\linkS4class{EnumDescriptor} objects), 
 or field descriptors (\linkS4class{FieldDescriptor} objects)
 
-For enum descriptors, ...
+For enum descriptors, a named list of the enumerated values.
 
-For file descriptors, ...
+For file descriptors, a named list of descriptors defined in the
+specified file descriptor.
 
 For service descriptors, ...
 
@@ -43,13 +44,10 @@ For service descriptors, ...
 Romain Francois <francoisromain@free.fr>
 }
 \examples{
-\dontrun{
-proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
-Person <- P( "tutorial.Person", file = proto.file )
+Person <- P( "tutorial.Person" )
 romain <- new( Person, email = "francoisromain@free.fr", id = 1 )
 as.list( romain )
 as.list( Person )
 as.list( Person$PhoneType)
-}
 }
 \keyword{ programming }

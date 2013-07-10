@@ -36,10 +36,11 @@ Romain Francois <francoisromain@free.fr>
 \dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{Person <- P( "tutorial.Person") }
 romain <- within( new( Person ), {
 	email <- "francoisromain@free.fr"
 	id <- 10L
 } )
-}
 }
 \keyword{ classes }

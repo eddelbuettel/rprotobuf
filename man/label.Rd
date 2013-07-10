@@ -23,6 +23,9 @@ The method is implemented for the \linkS4class{FieldDescriptor} class
 \dontrun{
 proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{ Person <- P("tutorial.Person") }
+
 label(Person$id)
 label(Person$email)
 label(Person$phone)
@@ -32,5 +35,4 @@ label(Person$phone, TRUE)
 LABEL_OPTIONAL
 LABEL_REQUIRED
 LABEL_REPEATED
-}
 }

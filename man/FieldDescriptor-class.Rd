@@ -88,6 +88,8 @@ proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
+}
+\dontshow{Person <- P("tutorial.Person") }
 
 # field descriptor object
 Person$email
@@ -149,7 +151,5 @@ is_required(Person$phone)
 
 # Return the class of a message field
 message_type(Person$phone)
-
-}
 }
 \keyword{classes}

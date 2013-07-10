@@ -73,7 +73,8 @@ proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
-
+}
+\dontshow{Person <- P("tutorial.Person") }
 # enum type
 Person$PhoneType
 
@@ -83,7 +84,6 @@ has(Person$PhoneType, "WORK")
 
 has(Person$PhoneType, "FOOBAR")
 
-length(protobuf_unittest.TestAllTypes$NestedEnum)
-}
+length(Person$PhoneType)
 }
 \keyword{classes}
