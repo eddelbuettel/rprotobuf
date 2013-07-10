@@ -1,14 +1,16 @@
+Current TODO list:
 
-    o   finalizers
+1. Extensions [have patch, Kenton didn't like it, it wasn't quite right]
+2. Unit testing [ongoing]
+3. More as.Message methods [have patch, needs cleanup]
+4. Replace usage of RCPP_FUNCTION_* macros with Rcpp Modules or Attributes.
+5. Clean up formatting / whitespace.
+6. Add more documentation / examples.
 
+Older stuff
+
+    o   finalizers [murray: what is needed here?]
     o   http-powered rpc implementation [maybe]
-
-    o   extensions
-
-    o   unit testing [ongoing]
-
     o   what to do when unload the package
-
     o   useR abstract [done]
-
     o   useR presentation [done]
