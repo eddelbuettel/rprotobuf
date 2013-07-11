@@ -91,6 +91,9 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define GET_DESCRIPTOR_POINTER_FROM_XP(xp)  (GPB::Descriptor*) EXTPTR_PTR( xp )
 #define GET_DESCRIPTOR_POINTER_FROM_S4(m)   (GPB::Descriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
+#define GET_FIELD_DESCRIPTOR_POINTER_FROM_XP(xp)  (GPB::FieldDescriptor*) EXTPTR_PTR( xp )
+#define GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(m)   (GPB::FieldDescriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
+
 #define GET_METHOD(xp)  (GPB::MethodDescriptor*) EXTPTR_PTR( xp )
 
 #define COPYSTRING(s) s

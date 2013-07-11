@@ -19,7 +19,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		"has(", "clone()", "clone(", "isInitialized()", "serialize(", 
 		"clear()", "clear(", "size(", "bytesize()", 
 		"swap(", "str()", "as.character()", "update(", "as.list()", 
-		"descriptor()", "set(", "toString(", "add(", "fileDescriptor()" )
+                "setExtension(", "getExtension(",
+                "descriptor()", "set(", "toString(", "add(", "fileDescriptor()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}

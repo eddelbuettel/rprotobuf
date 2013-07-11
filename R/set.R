@@ -1,3 +1,6 @@
+## TODO(mstokely): Set and fetch are undocumented in Message-class.Rd
+## And untested.  Are they usful?
+
 setGeneric( "set", function(object, field, index, values ){
 	standardGeneric( "set" )
 } )

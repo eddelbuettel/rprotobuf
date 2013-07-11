@@ -1,3 +1,21 @@
+2013-07-11  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/extensions.R: Implement getExtension, setExtension methods.
+	* src/extensions.cpp: Implement getExtension, setExtension.
+	* R/set.R: Add a TODO noting these functions are undocumented.
+	* R/00classes.R: Add setExtension, getExtension extractors for
+	  message objects.
+	* R/completion.R: Add setExtension, getExtension.
+	* NAMESPACE: Add setExtension, getExtension.
+	* src/DescriptorPoolLookup.cpp: Add top-level
+	  extensions to descriptor pool.
+	* src/rprotobuf.h: Add helper function for getting field
+	  descriptor objects.
+	* src/wrapper_FileDescriptor.cpp: Add support for
+	  extensions to getMemberNames and as_list
+	* src/lookup.cpp: Add support for looking up extensions.
+	* inst/unitTests/runit.extensions.R: Add basic test for the above.
+
 2013-07-10  Murray Stokely  <murray@FreeBSD.org>
 
 	* man/aslist.Rd: Document behavior for enum and file descriptors

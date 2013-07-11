@@ -1,6 +1,6 @@
 Current TODO list:
 
-1. Extensions [have patch, Kenton didn't like it, it wasn't quite right]
+1. Finish extensions support [enums, messages, nested, more tests]
 2. Unit testing [ongoing]
 3. More as.Message methods [have patch, needs cleanup]
 4. Replace usage of RCPP_FUNCTION_* macros with Rcpp Modules or Attributes.

@@ -169,6 +169,8 @@ setMethod("$", "Message", function(x, name) {
 		"as.character" = function() as.character(x),
 		"as.list" = function() as.list(x),
 		"asMessage" = function() asMessage(x),
+		"setExtension" = function(field, values, ...) setExtension(x, field, values, ...),
+		"getExtension" = function(field, ...) getExtension(x, field, ...),
 		"set" = function(...) set( x, ... ),
 		"fetch" = function(...) fetch(x, ... ),
 		"toString" = function(...) toString( x, ... ),

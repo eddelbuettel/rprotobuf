@@ -18,8 +18,9 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::
 	int ntypes  = desc->message_type_count() ;
 	int nenums  = desc->enum_type_count() ;
 	int nserv   = desc->service_count() ;
+	int nexts   = desc->extension_count() ;
 	
-	Rcpp::CharacterVector res( ntypes + nenums + nserv ) ;
+	Rcpp::CharacterVector res( ntypes + nenums + nserv + nexts ) ;
 	int i=0;
 	int j=0; 
 	while( i<ntypes){
@@ -39,6 +40,12 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::
 		i++; 
 		j++;
 	}
+	i = 0; 
+	while( i<nexts){
+		res[j] = desc->extension(i)->name() ;
+		i++;
+		j++;
+	}
 	return res ;
 	
 }
@@ -51,7 +58,8 @@ RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::FileDescriptor> de
 	int ntypes    = desc->message_type_count() ;
 	int nenums    = desc->enum_type_count() ;
 	int nserv     = desc->service_count() ;
-	int n = ntypes + nenums + nserv ;
+	int nexts     = desc->extension_count() ;
+	int n = ntypes + nenums + nserv + nexts;
 	
 	Rcpp::CharacterVector names(n) ; 
 	Rcpp::List res( n ); 
@@ -68,6 +76,11 @@ RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::FileDescriptor> de
 	for( i=0; i<nserv; j++, i++){
 		res[j] = S4_ServiceDescriptor( desc->service(i) );
 		names[j] = desc->service(i)->name() ;
+	}
+	for( i=0; i<nexts; j++, i++){
+		res[j] = S4_FieldDescriptor( desc->extension(i) );
+		// always use full names for extensions
+		names[j] = desc->extension(i)->full_name() ;
 	}
 	res.names() = names ;
 	return res; 

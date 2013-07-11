@@ -37,13 +37,21 @@ Rboolean rProtoBufTable_exists(const char * const name, Rboolean *canCache, R_Ob
  } else {
  	/* try the generated pool */
  	const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
- 	if( pool->FindMessageTypeByName( name ) ||  pool->FindEnumTypeByName( name ) || pool->FindServiceByName( name ) || pool->FindMethodByName( name ) ){
- 		DescriptorPoolLookup::add( name ) ;
- 		val = _TRUE_ ;
- 	} else {
- 		/* try the runtime pool */
- 		pool = DescriptorPoolLookup::pool() ;
- 		if( pool->FindMessageTypeByName( name ) ||  pool->FindEnumTypeByName( name ) || pool->FindServiceByName( name ) || pool->FindMethodByName( name ) ){
+	if( pool->FindMessageTypeByName( name ) ||
+	    pool->FindEnumTypeByName( name ) ||
+	    pool->FindServiceByName( name ) ||
+	    pool->FindMethodByName( name ) ||
+	    pool->FindExtensionByName( name )){
+		DescriptorPoolLookup::add( name ) ;
+		val = _TRUE_ ;
+	} else {
+		/* try the runtime pool */
+		pool = DescriptorPoolLookup::pool() ;
+		if( pool->FindMessageTypeByName( name ) ||
+		    pool->FindEnumTypeByName( name ) ||
+		    pool->FindServiceByName( name ) ||
+		    pool->FindMethodByName( name ) ||
+		    pool->FindExtensionByName( name )){
  			DescriptorPoolLookup::add( name ) ;
  			val = _TRUE_ ;
  		}
@@ -67,20 +75,28 @@ SEXP findSomething( const GPB::DescriptorPool* pool, const char * const name){
  		 	/* enum */
  		 	DescriptorPoolLookup::add( name_string ) ;
  		 	return S4_EnumDescriptor( enum_desc ); 
+
  		 } else{
-			const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name_string ) ;
-			if( service_desc ){
+			const GPB::FieldDescriptor* extension_desc =
+				pool->FindExtensionByName( name_string ) ;
+			if( extension_desc ){
+				/* extension */
 				DescriptorPoolLookup::add( name_string ) ;
-				return S4_ServiceDescriptor( service_desc ) ;
- 		 	} else {
- 		 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name_string ); 
- 		 		if( method_desc ){
+				return S4_FieldDescriptor( extension_desc ) ;
+                        } else{
+				const GPB::ServiceDescriptor* service_desc = pool->FindServiceByName( name_string ) ;
+				if( service_desc ){
 					DescriptorPoolLookup::add( name_string ) ;
-					return S4_MethodDescriptor( method_desc ); 
- 		 		}
- 		 	}
- 		 }
- 		
+					return S4_ServiceDescriptor( service_desc ) ;
+	 		 	} else {
+			 		const GPB::MethodDescriptor* method_desc = pool->FindMethodByName( name_string ); 
+			 		if( method_desc ){
+						DescriptorPoolLookup::add( name_string ) ;
+						return S4_MethodDescriptor( method_desc ); 
+			 		}
+				}
+			}
+		 }
  	}
  	return R_NilValue ;
 }

@@ -57,7 +57,13 @@ namespace rprotobuf{
 		    	const GPB::Descriptor* desc = file_desc->message_type( i ) ;
 		    	add( desc->full_name() ); 
 		    	/* should we bother recursing ? */
-		    	/* TODO: also add top level services */
+		    	/* TODO(mstokely): add top level enums and services? */
+		    }
+		    // add top level extensions!
+		    int nexts = file_desc->extension_count() ;
+		    for( int i=0; i<nexts; i++){
+			const GPB::FieldDescriptor* field_desc = file_desc->extension( i ) ;
+			add( field_desc->full_name() );
 		    }
 		}
 		// source_tree.removeDirectories( dirs ) ;

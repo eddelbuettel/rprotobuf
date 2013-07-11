@@ -39,8 +39,9 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"descriptor", "set", "fetch", "toString",
 	"identical", "==", "!=", "all.equal", "add",
 	"fileDescriptor", "name", "flush", "close", 
+        "setExtension", "getExtension",
 
-	"containing_type",
+        "containing_type",
 	"field_count", "nested_type_count", "enum_type_count",
 	"field", "nested_type", "enum_type",
 
