@@ -224,8 +224,8 @@ setMethod( "$", "EnumDescriptor", function(x, name ){
 		"containing_type" = function() containing_type(x),
 		"length" = function() length(x),
 		"value_count" = function() value_count(x),
-		"value" = function(...) value(x, ...) ,
-                "has" = function(name) .Call( "has_enum_name", x@pointer, name, package = "RProtoBuf"),
+		"value" = function(...) value(x, ...),
+                "has" = function(name, ...) has(x, name, ...),
 		# default
 		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
 		)

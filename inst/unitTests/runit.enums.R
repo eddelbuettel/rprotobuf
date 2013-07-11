@@ -20,6 +20,10 @@ test.enums <- function() {
   checkEquals(name(value(ProtoFormat$PhoneType, index=1)), "MOBILE")
   checkEquals(name(value(ProtoFormat$PhoneType, index=2)), "HOME")
 
+  checkEquals(length(ProtoFormat$PhoneType), 3)
+  checkTrue(has(ProtoFormat$PhoneType, "WORK"))
+  checkTrue(!has(ProtoFormat$PhoneType, "NONEXISTANT"))
+
   # Verify that invalid indices are returned as NULL.
   checkTrue(is.null(value(ProtoFormat$PhoneType, index=900)))
 }
