@@ -45,20 +45,18 @@ PRINT_DEBUG_INFO( "name", name ) ;
 	/* grab the Message pointer */
 	Rcpp::XPtr<GPB::Message> message(pointer) ;
 
-	/* the message descriptor */
-	const GPB::Descriptor* desc = message->GetDescriptor() ;
-	
 	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, name ) ;
 	
 #ifdef RPB_DEBUG
 Rprintf( "</getMessageField>\n" ) ;
 #endif
 
-	return( extractFieldAsSEXP(message, desc, field_desc) ) ;
+	return( extractFieldAsSEXP(message, field_desc) ) ;
 	
 }
 
-SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message, const GPB::Descriptor* desc, const GPB::FieldDescriptor*  fieldDesc ){
+SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
+						 const GPB::FieldDescriptor*  fieldDesc ){
 
     const Reflection * ref = message->GetReflection() ;
        

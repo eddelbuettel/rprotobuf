@@ -23,19 +23,8 @@ setGeneric( "setExtension", function(object, field, values){
 setMethod( "setExtension", "Message", function( object, field, values ){
 	stopifnot(is_extension(field))
 
-	if( is( values, "Message" ) ){
-		values <- list( values )
-	}
-
-        if (is_repeated(field)) {
-            .Call( "setExtensionRepeatedField", object@pointer, field, values,
-                  PACKAGE = "RProtoBuf" )
-        } else {
-            ## this check only makes sense for vector types.
-            stopifnot(length(values) == 1)
-            .Call( "setExtensionField", object@pointer, field, values,
-                  PACKAGE = "RProtoBuf" )
-        }
+        .Call( "setMessageField", object@pointer, field, values,
+              PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 
@@ -44,11 +33,6 @@ setGeneric( "getExtension", function(object, field){
 	standardGeneric( "getExtension" )
 } )
 setMethod( "getExtension", "Message", function( object, field){
-	if (is_repeated(field)) {
-		.Call( "getExtensionRepeated", object@pointer, field,
-		      PACKAGE = "RProtoBuf" )
-	} else {
-		.Call( "getExtension", object@pointer, field,
-		      PACKAGE = "RProtoBuf" )
-	}
+        .Call( "getExtension", object@pointer, field,
+              PACKAGE = "RProtoBuf" )
 } )

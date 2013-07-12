@@ -55,6 +55,10 @@ as an external pointer.
     \item{length}{\code{signature(x = "Message")}: The number of fields actually contained in the message. 
     A field counts in these two situations: the field is repeated and the field size is greater than 0, 
     the field is not repeated and the message has the field.}
+    \item{setExtension}{\code{signature(object = "Message")}: set an
+      extension field of the Message.}
+    \item{getExtension}{\code{signature(object = "Message")}: get the
+      value of an extension field of the Message.}
     \item{str}{\code{signature(object = "Message")}: displays the structure of the message }
     \item{identical}{\code{signature(x = "Message", y = "Message")}: Test if two messages are exactly identical }
     \item{==}{\code{signature(e1 = "Message", e2 = "Message")}: Same as \code{identical} }

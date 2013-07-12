@@ -190,6 +190,15 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	switch( TYPEOF(name) ){
+		case S4SXP:
+		  {
+		    if (Rf_inherits( name, "FieldDescriptor") ){
+		      field_desc = GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(name);
+		    } else {
+		      throwException( "S4 class is not a FieldDescriptor", "NoSuchFieldException" ) ;
+		    }
+		    break ;
+		  }
 		case CHARSXP:
 			{
 				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR(name) ) ;

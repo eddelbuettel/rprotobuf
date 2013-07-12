@@ -94,6 +94,9 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define GET_FIELD_DESCRIPTOR_POINTER_FROM_XP(xp)  (GPB::FieldDescriptor*) EXTPTR_PTR( xp )
 #define GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(m)   (GPB::FieldDescriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
 
+#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_XP(xp)  (GPB::EnumValueDescriptor*) EXTPTR_PTR( xp )
+#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_S4(m)   (GPB::EnumValueDescriptor*) EXTPTR_PTR( GET_SLOT( m, Rf_install("pointer") ) )
+
 #define GET_METHOD(xp)  (GPB::MethodDescriptor*) EXTPTR_PTR( xp )
 
 #define COPYSTRING(s) s
@@ -123,7 +126,7 @@ RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP) ;
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
-RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB::Descriptor*, const GPB::FieldDescriptor* ) ;
+RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB::FieldDescriptor* ) ;
 
 /* in exceptions.cpp */
 RcppExport SEXP throwException( const char*, const char*) ;

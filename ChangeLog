@@ -1,3 +1,18 @@
+2013-07-12  Murray Stokely  <murray@FreeBSD.org>
+
+	* src/extensions.cpp: Replace custom extractor and mutator with
+	  call to existing functions in mutators.cpp and extractors.cpp that
+	  can be used for extensions and any other field type.
+	* src/extensions.R: Idem
+	* vignettes/RProtoBuf/RProtoBuf.Rnw: Document getExtension,
+	  setExtension methods.
+	* man/Message-class.Rd: Idem
+	* src/rprotobuf.h: Remove unused desc argument to
+	  extractFieldAsSEXP.
+	* src/extractors.cpp: Idem
+	* inst/unitTests/runit.extensions.R: Add additional tests for
+	  nested enum and message type extensions.
+
 2013-07-11  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/extensions.R: Implement getExtension, setExtension methods.

@@ -353,7 +353,7 @@ void CHECK_messages( GPB::FieldDescriptor* field_desc, SEXP values ){
  * set a message field to a new value
  *
  * @param pointer external pointer to a message
- * @param name name of the field
+ * @param name name of the field, or an S4 FieldDescriptor object.
  * @param value new value for the field
  *
  * @return allways NULL, the message is modified by reference

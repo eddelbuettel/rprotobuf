@@ -179,10 +179,21 @@ p[[ 2 ]] <- 3
 p[[ "email" ]]
 @
 
+% TODO(mstokely): Document extensions here.
+% There are none in addressbook.proto though.
+
 \subsection{Display messages}
 
-For debugging purposes, protocol buffer messages
-implement the \texttt{as.character} method:
+Protocol buffer messages and descriptors implement \texttt{show}
+methods that provide basic information about the message :
+
+<<>>=
+p
+@
+
+For additional information, such as for debugging purposes,
+the \texttt{as.character} method provides a more complete ASCII
+representation of the contents of a message.
 
 <<>>=
 writeLines( as.character( p ) )
@@ -355,7 +366,9 @@ describes the methods defined for the \texttt{Message} class :
 \texttt{swap} & \ref{Message-method-swap} & swap elements of a repeated field of a message\\
 \texttt{set} & \ref{Message-method-set} & set elements of a repeated field\\
 \texttt{fetch} & \ref{Message-method-fetch} & fetch elements of a repeated field\\
-\texttt{add} & \label{Message-method-add} & add elements to a repeated field \\
+\texttt{setExtension} & \ref{Message-method-setExtension} & set an extension of a message\\
+\texttt{getExtension} & \ref{Message-method-getExtension} & get the value of an extension of a message\\
+\texttt{add} & \ref{Message-method-add} & add elements to a repeated field \\
 \hline
 \texttt{str} & \ref{Message-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{Message-method-ascharacter} & character representation of a message\\
@@ -664,7 +677,7 @@ writeLines( as.character( message ) )
 \subsubsection{Message\$fetch method}
 \label{Message-method-fetch}
 
-The \texttt{fetch} method can be used to set values
+The \texttt{fetch} method can be used to get values
 of a repeated field.
 
 <<keep.source=T>>=
@@ -674,6 +687,37 @@ message <- new( tutorial.Person, name = "foo",
 		new( tutorial.Person.PhoneNumber, number = "+33(0)###", type = "MOBILE"  )
 		) )
 message$fetch( "phone", 1 )
+@
+
+\subsubsection{Message\$setExtension method}
+\label{Message-method-setExtension}
+
+The \texttt{setExtension} method can be used to get values
+of a repeated field.
+
+<<keep.source=T>>=
+if (!exists("protobuf_unittest.TestAllTypes",
+            "RProtoBuf:DescriptorPool")) {
+    unittest.proto.file <- system.file("unitTests", "data",
+                                       "unittest.proto",
+                                       package="RProtoBuf")
+    readProtoFiles(file=unittest.proto.file)
+}
+
+## Test setting a singular extensions.
+test <- new(protobuf_unittest.TestAllExtensions)
+test$setExtension(protobuf_unittest.optional_int32_extension,
+                  as.integer(1))
+@ 
+
+\subsubsection{Message\$getExtension method}
+\label{Message-method-getExtension}
+
+The \texttt{getExtension} method can be used to get values
+of an extension.
+
+<<keep.source=T>>=
+test$getExtension(protobuf_unittest.optional_int32_extension)
 @
 
 \subsubsection{Message\$add method}
@@ -952,8 +996,15 @@ writeLines( tutorial.Person.PhoneNumber$toString() )
 
 \subsubsection{name}
 
-TODO
+The \texttt{name} method can be used to retrieve the name of the
+field descriptor.
 
+<<>>=
+# simple name.
+name( tutorial.Person$id )
+# name including scope.
+name( tutorial.Person$id, full=TRUE )
+@
 
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}
@@ -1117,6 +1168,7 @@ classes, plus :
 \item field names for messages
 \item field names, enum types, nested types for message type descriptors
 \item names for enum descriptors
+\item names for top-level extensions
 \end{itemize}
 
 \subsection{with and within}

@@ -44,4 +44,25 @@ test.extension <- function() {
     checkEquals(test$getExtension(protobuf_unittest.repeated_int32_extension),
                 1:10)
 
+    ## Test nested extensions.
+    test$setExtension(protobuf_unittest.TestNestedExtension.test, "foo")
+    checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
+                                  "foo")
+
+    ## Test setting and getting enums.
+    # This works now
+    test$setExtension(protobuf_unittest.optional_nested_enum_extension,
+                      protobuf_unittest.TestAllTypes.NestedEnum$BAR)
+
+    # Test that we get an error printed to terminal (not a real stop error)
+    # not a crash for invalid enum:
+    # TODO(mstokely): Make this a stop() error.
+    test$setExtension(protobuf_unittest.optional_nested_enum_extension,
+                      9)
+    
+    ## Test nested message extensions.
+    tmp <- new( protobuf_unittest.TestAllTypes.NestedMessage )
+    tmp$bb <- 3
+    test$setExtension(protobuf_unittest.optional_nested_message_extension, tmp)
+    checkEquals(test$getExtension(protobuf_unittest.optional_nested_message_extension)$bb, 3)
 }
