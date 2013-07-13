@@ -17,6 +17,10 @@
 \alias{==,Message,Message-method}
 \alias{!=,Message,Message-method}
 \alias{all.equal,Message,Message-method}
+\alias{getExtension,Message-method}
+\alias{setExtension,Message-method}
+\alias{getExtension}
+\alias{setExtension}
 
 \title{Class "Message" }
 \description{

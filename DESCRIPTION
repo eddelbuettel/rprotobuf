@@ -1,5 +1,5 @@
 Package: RProtoBuf
-Version: 0.2.6
+Version: 0.2.6.1
 Date: $Date$
 Author: Romain Francois, Dirk Eddelbuettel and Murray Stokely
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
@@ -14,6 +14,5 @@ SystemRequirements: Protocol Buffer compiler (to create C++ header and source fi
  from .proto descriptions) and library (version 2.2.0 or later)
 License: GPL-2
 URL: http://r-forge.r-project.org/projects/rprotobuf/, http://romainfrancois.blog.free.fr/index.php?category/R-package/RProtoBuf, http://dirk.eddelbuettel.com/blog/code/rprotobuf/
-MinimumLibProtoVersion: 2002000
 BugReports: http://r-forge.r-project.org/tracker/index.php?group_id=576&atid=2338
 OS_type: unix

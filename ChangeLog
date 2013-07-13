@@ -1,3 +1,14 @@
+2013-07-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/Message-class.Rd: Added \alias entries for getExtension and
+	setExtension
+	* DESCRIPTION: Incremented Version to separate current test builds
+	from previous release
+	* DESCRIPTION: Removed 'MinimumLibProtoVersion: 2002000' which we
+	no longer need as that version of Protocol Buffers was released a
+	rather long time ago
+	* R/zzz.R: Check for minimal version is now commented-out
+
 2013-07-12  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/extensions.cpp: Replace custom extractor and mutator with
