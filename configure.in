@@ -15,6 +15,7 @@ AC_LANG(C++)
 AC_REQUIRE_CPP
 AC_PROG_CC
 AC_PROG_CXX
+
 ## simpler alternative to test below:  AC_PATH_PROG(PROTOC, protoc)
 
 AC_DEFUN([AC_PROG_PKGCONFIG], [AC_CHECK_PROG(PKGCONFIG,pkg-config,yes)])
@@ -24,7 +25,11 @@ AC_PROG_PKGCONFIG
 ##
 protobuf_cxxflags=`pkg-config --cflags protobuf`
 protobuf_libs=`pkg-config --libs protobuf`
-    
+
+## And make sure these flags are used for the tests below.
+CPPFLAGS="${protobuf_cxxflags} ${CPPFLAGS}"
+CXXFLAGS="${protobuf_cxxflags} ${CXXFLAGS}"
+
 ## look for protoc, the ProtoBuf compiler
 AC_DEFUN([AC_PROG_PROTOC], [AC_CHECK_PROG(PROTOC,protoc,yes)])
 AC_PROG_PROTOC
