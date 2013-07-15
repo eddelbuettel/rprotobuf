@@ -1,3 +1,9 @@
+2013-07-13  Murray Stokely  <murray@FreeBSD.org>
+
+	* inst/NEWS.Rd: Summarize new features since the last CRAN release
+          last year.
+	* DESCRIPTION: Increment version to 0.3.
+
 2013-07-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/Message-class.Rd: Added \alias entries for getExtension and
