@@ -7,10 +7,10 @@
     \item Added support for Protocol Buffer extensions through the new
       getExtension and setExtension methods for Message objects, and added
       top-level extensions to the descriptor pool.
-    \item Added more user-friendly show() methods for Messages,
+    \item Added more user-friendly \code{show()} methods for Messages,
       Descriptors, and other RProtoBuf objects.  A common source of
       confusion on the mailing lists is to confuse Messages and
-      Descriptors.  The new show() methods succinctly display more
+      Descriptors.  The new \code{show()} methods succinctly display more
       information about e.g. the number of set fields in a message to
       make it a little clearer to users what type of object they are
       working with.
@@ -22,7 +22,6 @@
    \item Improved documentation and unit tests.
   }
 }
-
 
 \section{Changes in RProtoBuf version 0.2.6 (2012-10-04)}{
   \itemize{
