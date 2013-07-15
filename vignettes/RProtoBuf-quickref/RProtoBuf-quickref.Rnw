@@ -23,7 +23,7 @@ rpb.version <- packageDescription( "RProtoBuf" )$Version
 @
 % closing $ needed here
 
-\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
+\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel \and Murray Stokely}
 \title{RProtoBuf \Sexpr{rpb.version}: Quick Reference Guide}
 
 \begin{document}
@@ -50,7 +50,7 @@ readProtoFiles( package = AnRPackage )
 
 <<keep.source=T>>=
 message <- new( tutorial.Person, id = 0,
-	name = "Romain Francois", 
+	name = "Romain Francois",
 	email = "francoisromain@free.fr" )
 @
 
@@ -77,7 +77,7 @@ message$serialize( NULL )
 tutorial.Person$read( tf1 )
 # from a connection
 con <- file( tf2, open = "rb" )
-tutorial.Person$read( con ) 
+tutorial.Person$read( con )
 <<echo=F,print=F>>=
 close( con )
 @

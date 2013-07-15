@@ -15,7 +15,7 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 % closing $ needed here
 
 
-\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
+\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel \and Murray Stokely}
 \title{RProtoBuf: An R API for Protocol Buffers}
 \date{Version \Sexpr{rpb.version} as of \Sexpr{prettyDate}}
 \begin{document}
@@ -708,7 +708,7 @@ if (!exists("protobuf_unittest.TestAllTypes",
 test <- new(protobuf_unittest.TestAllExtensions)
 test$setExtension(protobuf_unittest.optional_int32_extension,
                   as.integer(1))
-@ 
+@
 
 \subsubsection{Message\$getExtension method}
 \label{Message-method-getExtension}
@@ -914,7 +914,7 @@ writeLines( as.character( m ) )
 
 \subsubsection{The toString method}
 
-\texttt{toString} currently is an alias to the \texttt{as.character} function. 
+\texttt{toString} currently is an alias to the \texttt{as.character} function.
 
 
 \subsubsection{The as.character method}
