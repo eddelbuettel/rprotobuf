@@ -1,3 +1,12 @@
+2013-07-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.extensions.R (test.extension): Comment-out
+	test for setExtension against enum, at least for now
+
+	* vignettes/RProtoBuf/RProtoBuf.Rnw: Added Murray to Authors, at last
+	* vignettes/RProtoBuf-unitTests.Rnw: Idem
+	* vignettes/RProtoBuf-quickref/RProtoBuf-quickref.Rnw: Idem
+
 2013-07-13  Murray Stokely  <murray@FreeBSD.org>
 
 	* inst/NEWS.Rd: Summarize new features since the last CRAN release
