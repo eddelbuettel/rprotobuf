@@ -83,6 +83,39 @@ Rf_PrintValue( type ) ;
 	return( S4_Descriptor( desc ) ) ;
 }
 
+
+/**
+ * get the descriptor associated with an extension
+ *
+ * @param type message type
+ *
+ * @return an S4 object of class FieldDescriptor, or NULL if the type
+ *  is unknown
+ */
+SEXP getExtensionDescriptor( SEXP type ){
+#ifdef RPB_DEBUG
+Rprintf( "<getExtensionDescriptor>\n      type = " ) ;
+Rf_PrintValue( type ) ;
+#endif
+	
+	const char * typeName = CHAR( STRING_ELT(type, 0 ) ) ;
+	
+	/* first try the generated pool */
+	const GPB::DescriptorPool*  pool = GPB::DescriptorPool::generated_pool() ;
+	const GPB::FieldDescriptor*  desc = pool->FindExtensionByName( typeName ) ; 
+	if( !desc ){
+		/* then try the "runtime" pool" */
+		pool = DescriptorPoolLookup::pool() ;
+		desc = pool->FindExtensionByName( typeName ) ;
+		if( !desc ){
+			/* unlucky */
+			return R_NilValue ;
+		}
+	}
+	
+	return( S4_FieldDescriptor( desc ) ) ;
+}
+
 /**
  * make a new protobuf message
  *
@@ -233,4 +266,3 @@ RCPP_FUNCTION_0(int, get_protobuf_library_version){
 }
 
 } // namespace rprotobuf
-
