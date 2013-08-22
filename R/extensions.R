@@ -21,10 +21,14 @@ setGeneric( "setExtension", function(object, field, values){
 } )
 
 setMethod( "setExtension", "Message", function( object, field, values ){
-	stopifnot(is_extension(field))
-
-        .Call( "setMessageField", object@pointer, field, values,
-              PACKAGE = "RProtoBuf" )
+	if (!inherits(field, "FieldDescriptor")) {
+		stop("setExtension requires a FieldDescriptor")
+	}
+	if (!is_extension(field)) {
+		stop(paste(name(field), "is not an extension FieldDescriptor."))
+	}
+	.Call( "setMessageField", object@pointer, field, values,
+	      PACKAGE = "RProtoBuf" )
 	invisible( object )
 } )
 
@@ -33,6 +37,12 @@ setGeneric( "getExtension", function(object, field){
 	standardGeneric( "getExtension" )
 } )
 setMethod( "getExtension", "Message", function( object, field){
+	if (!inherits(field, "FieldDescriptor")) {
+		stop("getExtension requires a FieldDescriptor")
+	}
+	if (!is_extension(field)) {
+		stop(paste(name(field), "is not an extension FieldDescriptor."))
+	}
         .Call( "getExtension", object@pointer, field,
               PACKAGE = "RProtoBuf" )
 } )

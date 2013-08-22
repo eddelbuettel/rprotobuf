@@ -1,10 +1,12 @@
 2013-08-21  Murray Stokely  <murray@FreeBSD.org>
 
+	* R/extensions.R: Add checks to ensure that a valid extension
+	  FieldDescriptor is passed to getExtension and setExtension.
 	* inst/unitTests/runit.int64.R (test.int64): Add a test
 	  illustrating how RProtoBuf is broken in handling 64-bit integers
 	  (commented out for now).
 	* man/P.Rd: Document behavior for extensions.
-	* inst/unitTests/runit.extensions.R (test.extension): Add another test.
+	* inst/unitTests/runit.extensions.R (test.extension): Add more tests.
 	* src/wrapper_Message.cpp (rprotobuf): Add function for returning
 	  the number of extensions set in this message, to improve show() output.
 	* src/rprotobuf.cpp (rprotobuf): Add support for looking up

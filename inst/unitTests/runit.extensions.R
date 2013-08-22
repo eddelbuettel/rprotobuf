@@ -26,6 +26,10 @@ test.extension <- function() {
     checkTrue(inherits(protobuf_unittest.optional_uint32_extension,
                        "FieldDescriptor"))
 
+    # Verify we can pull in other extensions with P()
+    checkTrue(inherits(P("protobuf_unittest.optional_uint32_extension"),
+                       "FieldDescriptor"))
+
     ## Test setting and getting singular extensions.
     test <- new(protobuf_unittest.TestAllExtensions)
     test$setExtension(protobuf_unittest.optional_int32_extension,
@@ -45,6 +49,8 @@ test.extension <- function() {
                 1:10)
 
     ## Test nested extensions.
+    checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
+                NULL)
     test$setExtension(protobuf_unittest.TestNestedExtension.test, "foo")
     checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
                                   "foo")
@@ -54,22 +60,19 @@ test.extension <- function() {
     test$setExtension(protobuf_unittest.optional_nested_enum_extension,
                       protobuf_unittest.TestAllTypes.NestedEnum$BAR)
 
-    # Test that we get an error printed to terminal (not a real stop error)
-    # not a crash for invalid enum:
-    # TODO(mstokely): Make this a stop() error.
+    # This causes an Rcpp exception, but not an R stop error as of my
+    # version of Rcpp, so we can't checkError unfortunately, but we
+    # can at least make sure it doesn't crash R.
     # TODO(edd): Commented out now
     # test$setExtension(protobuf_unittest.optional_nested_enum_extension, 9)
-
-    ## Test nested extensions
-    checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
-                NULL)
-    test$setExtension(protobuf_unittest.TestNestedExtension.test, "Hello World")
-    checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
-                "Hello World")
 
     ## Test nested message extensions.
     tmp <- new( protobuf_unittest.TestAllTypes.NestedMessage )
     tmp$bb <- 3
     test$setExtension(protobuf_unittest.optional_nested_message_extension, tmp)
     checkEquals(test$getExtension(protobuf_unittest.optional_nested_message_extension)$bb, 3)
+
+    ## Check that we do something sensible if invalid field descriptors are passed
+    checkException(test$getExtension(protobuf_unittest.TestAllExtensions))
+    checkException(test$setExtension(protobuf_unittest.TestAllExtensions, 3))
 }
