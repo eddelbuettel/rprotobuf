@@ -224,6 +224,23 @@ RCPP_FUNCTION_1(int, METHOD(length), Rcpp::XPtr<GPB::Message> message){
 	return res ;
 }
 
+/**
+ * The number of extensions the message has.
+ *
+ * @param xp external pointer to the Message
+ */
+RCPP_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message){
+	const GPB::Reflection * ref = message->GetReflection() ;
+	int nexts = 0;
+	vector<const FieldDescriptor*> fields;
+	ref->ListFields(*message, &fields);
+	for (int i = 0; i < fields.size(); i++) {
+	  if (fields[i]->is_extension()) {
+	    nexts++;
+	  }
+	}
+	return nexts ;
+}
 
 /**
  * Get the message descriptor of a Message

@@ -60,6 +60,13 @@ test.extension <- function() {
     # TODO(edd): Commented out now
     # test$setExtension(protobuf_unittest.optional_nested_enum_extension, 9)
 
+    ## Test nested extensions
+    checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
+                NULL)
+    test$setExtension(protobuf_unittest.TestNestedExtension.test, "Hello World")
+    checkEquals(test$getExtension(protobuf_unittest.TestNestedExtension.test),
+                "Hello World")
+
     ## Test nested message extensions.
     tmp <- new( protobuf_unittest.TestAllTypes.NestedMessage )
     tmp$bb <- 3

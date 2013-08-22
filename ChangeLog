@@ -1,3 +1,14 @@
+2013-08-21  Murray Stokely  <murray@FreeBSD.org>
+
+	* man/P.Rd: Document behavior for extensions.
+	* inst/unitTests/runit.extensions.R (test.extension): Add another test.
+	* src/wrapper_Message.cpp (rprotobuf): Add function for returning
+	  the number of extensions set in this message, to improve show() output.
+	* src/rprotobuf.cpp (rprotobuf): Add support for looking up
+	  extensions by name and returning FieldDescriptors.
+	* R/00classes.R (P): Add support for returning extension
+	  descriptors.
+
 2013-07-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.extensions.R (test.extension): Comment-out

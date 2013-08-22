@@ -119,7 +119,11 @@ P <- function( type, file ){
 	desc <- .Call( "getProtobufDescriptor", type,
 		PACKAGE = "RProtoBuf" )
 	if( is.null( desc ) ){
-		stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
+		# See if it is an extension
+		desc <- .Call("getExtensionDescriptor", type, PACKAGE="RProtoBuf")
+		if (is.null(desc)) {
+			stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
+		}
 	}
 	desc
 }
@@ -127,8 +131,13 @@ P <- function( type, file ){
 
 # {{{ show
 setMethod( "show", c( "Message" ), function(object){
-  show( sprintf( "message of type '%s' with %d field%s set", object@type,
-                length(object), if (length(object) == 1) "" else "s" ))
+  tmp <- sprintf( "message of type '%s' with %d field%s set", object@type,
+                 length(object), if (length(object) == 1) "" else "s" )
+  nexts <- .Call("Message__num_extensions", object@pointer, PACKAGE="RProtoBuf")
+  if (nexts > 0) {
+    tmp <- paste(tmp, sprintf("and %d extension%s", nexts, if (nexts == 1) "" else "s"))
+  }
+  show(tmp)
 } )
 setMethod( "show", c( "Descriptor" ), function(object){
 	show( sprintf( "descriptor for type '%s' ", object@type ) )
