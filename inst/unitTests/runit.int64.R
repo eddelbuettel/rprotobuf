@@ -24,7 +24,8 @@ test.int64 <- function() {
     }
 
     a <- protobuf_unittest.TestAllTypes$readASCII(
-           system.file("unitTests", "data", "int64.ascii", package="RProtoBuf"))
+           file(system.file("unitTests", "data", "int64.ascii",
+                            package="RProtoBuf")))
 
     # Uncomment when RProtoBuf / Rcpp are unbroken with respect to 64-bit ints.
     # checkEquals(length(unique(a$repeated_int64)), 2)
