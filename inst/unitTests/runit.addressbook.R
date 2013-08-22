@@ -62,4 +62,8 @@ test.ascii <- function() {
     out.file2 <- tempfile()
     writeLines("jibberish", file(out.file2))
     book6 <- checkException( readASCII( tutorial.AddressBook, file(out.file2)))
+
+    # Verify that we get an exception if we forget the file() and thus treat the
+    # path as a protobuf string.
+    checkException( readASCII( tutorial.AddressBook, out.file2))
 }

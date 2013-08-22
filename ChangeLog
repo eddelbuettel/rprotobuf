@@ -1,5 +1,9 @@
 2013-08-21  Murray Stokely  <murray@FreeBSD.org>
 
+	* inst/unitTests/runit.addressbook.R (test.ascii): Add more tests.
+	* src/wrapper_Descriptor.cpp (rprotobuf): Add better error
+	  handling for readASCII of text strings rather than returning
+	  an empty proto.
 	* R/extensions.R: Add checks to ensure that a valid extension
 	  FieldDescriptor is passed to getExtension and setExtension.
 	* inst/unitTests/runit.int64.R (test.int64): Add a test

@@ -166,8 +166,11 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::D
 
 RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc, std::string input){
 	GPB::Message* message = PROTOTYPE( desc ) ; 
-	GPB::TextFormat::ParseFromString( input, message ) ;
-	return( S4_Message( message ) ) ;
+	if (GPB::TextFormat::ParseFromString( input, message ) ) {
+		return( S4_Message( message ) ) ;
+	} else {
+		throw std::range_error("Could not parse ASCII protocol buffer from text string.");
+	}
 }
 
 RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc, int conn_id){
