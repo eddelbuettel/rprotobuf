@@ -110,6 +110,16 @@ int64 GET_int64( SEXP x, int index ){
 			return( (int64)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (int64)RAW(x)[index] ) ;
+		case STRSXP: {
+			const string int64str = CHAR(STRING_ELT(x, index));
+			std::stringstream ss(int64str);
+			int64 ret;
+			if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+				throwException("Provided STRSXP cannot be cast to int64",
+							   "CastException");
+			}
+			return ret;
+		}
 		default:
 			throwException( "cannot cast SEXP to int64", "CastException" ) ; 
 	}
@@ -136,12 +146,22 @@ uint64 GET_uint64( SEXP x, int index ){
 	switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (uint64)INTEGER(x)[index] );
-		case REALSXP: 
+		case REALSXP:
 			return( (uint64)REAL(x)[index] );
 		case LGLSXP:
 			return( (uint64)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (uint64)RAW(x)[index] ) ;
+		case STRSXP: {
+			const string int64str = CHAR(STRING_ELT(x, index));
+			std::stringstream ss(int64str);
+			uint64 ret;
+			if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+				throwException(" Provided STRSXP cannot be cast to uint64",
+							   "CastException");
+			}
+			return ret;
+		}
 		default:
 			throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
 	}
@@ -596,11 +616,12 @@ PRINT_DEBUG_INFO( "value", value ) ;
     		case TYPE_SINT64:
     		case TYPE_SFIXED64:
     			{
-    				switch( TYPEOF( value ) ){
-    					case INTSXP:
-    					case REALSXP:
-    					case LGLSXP:
-    					case RAWSXP:	
+					switch( TYPEOF( value ) ){
+						case INTSXP:
+						case REALSXP:
+						case LGLSXP:
+						case RAWSXP:
+						case STRSXP: // For int64, we support chars.
     						{
     							int i = 0;
 
@@ -664,7 +685,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	   					case INTSXP:
     					case REALSXP:
     					case LGLSXP:
-    					case RAWSXP:	
+    					case RAWSXP:
+						case STRSXP: // For int64, we support chars.
     						{
     							
     							int i = 0;

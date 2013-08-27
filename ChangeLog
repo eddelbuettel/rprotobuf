@@ -1,3 +1,13 @@
+2013-08-27  Murray Stokely  <murray@FreeBSD.org>
+
+	* src/mutators.cpp (rprotobuf): Add support for setting int64
+	  fields as R character vectors that are converted to int64 or
+	  uint64 C++ types with std::stringstream.  This allows the user
+	  to get around the lack of 64-bit integer support in R when working
+	  interactively with RProtoBufs where a large precision number or
+	  identifier needs to be stored.
+
+
 2013-08-21  Murray Stokely  <murray@FreeBSD.org>
 
 	* inst/unitTests/runit.addressbook.R (test.ascii): Add more tests.
