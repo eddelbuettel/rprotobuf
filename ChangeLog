@@ -6,7 +6,7 @@
 	  to get around the lack of 64-bit integer support in R when working
 	  interactively with RProtoBufs where a large precision number or
 	  identifier needs to be stored.
-
+	* inst/unitTests/runit.int64.R: Add tests for the above.
 
 2013-08-21  Murray Stokely  <murray@FreeBSD.org>
 
