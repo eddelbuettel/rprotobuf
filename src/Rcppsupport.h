@@ -32,6 +32,52 @@ namespace rprotobuf{
 struct enum_field{} ;
 struct message_field{} ;
 
+class Int64AsStringRepeatedFieldImporter {
+public:
+    // Probably want to convert to strings here.
+    typedef string r_import_type;
+    Int64AsStringRepeatedFieldImporter(const GPB::Reflection* ref_ ,
+                                       const GPB::Message& message_,
+                                       const GPB::FieldDescriptor* field_):
+            ref(ref_), message(message_), field(field_){}
+    inline int size() const {
+        return ref->FieldSize( message, field ) ;
+    }
+    inline string get(int i) const {
+        stringstream stream;
+        int64 val = ref->GetRepeatedInt64(message, field, i) ;
+        stream << val;
+        return stream.str();
+    }
+  private:
+    const GPB::Reflection* ref ;
+    const GPB::Message& message ;
+    const GPB::FieldDescriptor* field ;
+};
+
+class UInt64AsStringRepeatedFieldImporter {
+public:
+    // Probably want to convert to strings here.
+    typedef string r_import_type;
+    UInt64AsStringRepeatedFieldImporter(const GPB::Reflection* ref_ ,
+                                        const GPB::Message& message_,
+                                        const GPB::FieldDescriptor* field_):
+            ref(ref_), message(message_), field(field_){}
+    inline int size() const {
+        return ref->FieldSize( message, field ) ;
+    }
+    inline string get(int i) const {
+        stringstream stream;
+        uint64 val = ref->GetRepeatedUInt64(message, field, i) ;
+        stream << val;
+        return stream.str();
+    }
+  private:
+    const GPB::Reflection* ref ;
+    const GPB::Message& message ;
+    const GPB::FieldDescriptor* field ;
+};
+
 template <typename T> class RepeatedFieldImporter{} ;
 
 #undef GENERATE__FIELD__IMPORTER__DECL

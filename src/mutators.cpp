@@ -1030,13 +1030,56 @@ PRINT_DEBUG_INFO( "value", value ) ;
 
 			HANDLE_SINGLE_FIELD( CPPTYPE_INT32, Int32, GPB::int32) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32, GPB::uint32) ;
-#ifdef RCPP_HAS_LONG_LONG_TYPES
-			HANDLE_SINGLE_FIELD( CPPTYPE_INT64, Int64, GPB::int64) ;
-			HANDLE_SINGLE_FIELD( CPPTYPE_UINT64, UInt64, GPB::uint64) ;
-#endif
 			HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+			case CPPTYPE_INT64 :
+				{
+					// TODO(mstokely) Rcpp::as<int64> of a STRSEXP
+					// should just work for strings representing
+					// int64s.
+					if (TYPEOF(value) == STRSXP) {
+						const string int64str = COPYSTRING(CHAR(
+							STRING_ELT(value, 0)));
+						std::stringstream ss(int64str);
+                        GPB::int64 ret;
+						if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+							throwException(
+								"Provided STRSXP cannot be cast to int64",
+								"CastException");
+						}
+						ref->SetInt64(message, field_desc, ret);
+						break ;
+					} else {
+						ref->SetInt64( message, field_desc, Rcpp::as<GPB::int64>(value));
+						break;
+					}
+				}
+			case CPPTYPE_UINT64 :
+				{
+					// TODO(mstokely) Rcpp::as<int64> of a STRSEXP
+					// should just work for strings representing
+					// int64s.
+					if (TYPEOF(value) == STRSXP) {
+						const string int64str = COPYSTRING(CHAR(
+							STRING_ELT(value, 0)));
+						std::stringstream ss(int64str);
+                        GPB::uint64 ret;
+						if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+							throwException(
+								"Provided STRSXP cannot be cast to uint64",
+								"CastException");
+						}
+						ref->SetUInt64(message, field_desc, ret);
+						break ;
+					} else {
+						ref->SetUInt64(message, field_desc,
+									   Rcpp::as<GPB::uint64>(value));
+						break;
+					}
+				}
+#endif
 #undef HANDLE_SINGLE_FIELD
 			default:
 				throwException("Unsupported type", "ConversionException");

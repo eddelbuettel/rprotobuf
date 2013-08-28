@@ -1,5 +1,13 @@
 2013-08-27  Murray Stokely  <murray@FreeBSD.org>
 
+	* src/extractors.cpp (rprotobuf): Add support for a new
+	  option("int64AsString") that controls whether extractors for
+	  64-bit integer fields return character strings or use Rcpp's
+	  default wrap type which coerces to numeric, possibly losing
+	  precision.
+	* R/zzz.R (.onLoad): Initialize options("int64AsString" = FALSE).
+	* src/Rcppsupport.h (rprotobuf): Add RepeatedFieldImporter classes
+	  for int64 and uint64 that return strings instead of int64s.
 	* src/mutators.cpp (rprotobuf): Add support for setting int64
 	  fields as R character vectors that are converted to int64 or
 	  uint64 C++ types with std::stringstream.  This allows the user

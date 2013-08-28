@@ -28,8 +28,14 @@ test.int64 <- function() {
     # Verify we can set character strings of large 64-bit ints
     a$repeated_int64 <- c("9007199254740992", "9007199254740993")
     checkEquals(length(a$repeated_int64), 2)
-    # Verify we can set any garbage string to an int64.
+    # Verify we can't set any garbage string to a repeated int64.
     checkException(a$repeated_int64 <-c("invalid", "invalid"))
+
+    a$optional_int64 <- 1
+    a$optional_int64 <- "2"
+    checkEquals(a$optional_int64, 2)
+    # Verify we can't set any garbage string to an optional int64.
+    checkException(a$optional_int64 <- "invalid")
 
     a <- protobuf_unittest.TestAllTypes$readASCII(
            file(system.file("unitTests", "data", "int64.ascii",
@@ -37,8 +43,10 @@ test.int64 <- function() {
     # And can read them in OK from an ASCII file.
     checkEquals(length(a$repeated_int64), 2)
 
-    # TODO(mstokely): But the accessors still silently cast to double
-    # which removes uniqueness.  Fix this.
-    # Uncomment when RProtoBuf / Rcpp are unbroken with respect to 64-bit ints.
-    # checkEquals(length(unique(a$repeated_int64)), 2)
+    # By default, when they are read as numerics, only 1 unique value
+    checkEquals(length(unique(a$repeated_int64)), 1)
+
+    options("int64AsString" = TRUE)
+    # But we can see they are different if we treat them as strings.
+    checkEquals(length(unique(a$repeated_int64)), 2)
 }
