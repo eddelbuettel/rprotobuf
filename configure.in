@@ -9,12 +9,18 @@ AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
 AC_INIT([RProtoBuf],[0.1])
+m4_include([m4-ax_cxx_compile_stdcxx_0x.m4])
 
 # We are using C++
 AC_LANG(C++)
 AC_REQUIRE_CPP
 AC_PROG_CC
 AC_PROG_CXX
+
+# If we can support std=c++0x we should pass flags to do so (this will
+# enable better int64 support) but we shouldn't cause the build to
+# fail if we can't do this.
+AC_CXX_COMPILE_STDCXX_0X
 
 ## simpler alternative to test below:  AC_PATH_PROG(PROTOC, protoc)
 
@@ -102,6 +108,11 @@ if test -z "${R_HOME}"; then
 fi
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 
+# We need this to get some limited int64 support with Rcpp.
+if test "x$ax_cv_cxx_compile_cxx0x_cxx" = "xyes" ; then
+   CXXFLAGS="$CXXFLAGS -std=c++0x"
+fi
+
 ## look for Rscript, but use the one found via R_HOME to allow for multiple installations
 AC_DEFUN([AC_PROG_RSCRIPT], [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
 AC_PROG_RSCRIPT
@@ -118,7 +129,7 @@ else
 fi
 
 ## now use all these
-AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} $protobuf_cxxflags"])
+AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} $protobuf_cxxflags"])
 AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags $protobuf_libs"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
