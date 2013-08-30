@@ -99,6 +99,17 @@ int32 GET_int32( SEXP x, int index ){
 	return (int32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
+template<typename ValueType>
+ValueType Int64FromString(const string value) {
+    std::stringstream ss(value);
+    ValueType ret;
+    if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+        string message = "Provided character value '" + value +
+                "' cannot be cast to 64-bit integer.";
+        throwException(message.c_str(), "CastException");
+    }
+    return ret;
+}
 
 int64 GET_int64( SEXP x, int index ){
 	switch( TYPEOF(x) ){
@@ -110,16 +121,8 @@ int64 GET_int64( SEXP x, int index ){
 			return( (int64)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (int64)RAW(x)[index] ) ;
-		case STRSXP: {
-			const string int64str = CHAR(STRING_ELT(x, index));
-			std::stringstream ss(int64str);
-			int64 ret;
-			if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
-				throwException("Provided STRSXP cannot be cast to int64",
-							   "CastException");
-			}
-			return ret;
-		}
+		case STRSXP:
+            return Int64FromString<int64>(CHAR(STRING_ELT(x, index)));
 		default:
 			throwException( "cannot cast SEXP to int64", "CastException" ) ; 
 	}
@@ -152,16 +155,8 @@ uint64 GET_uint64( SEXP x, int index ){
 			return( (uint64)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (uint64)RAW(x)[index] ) ;
-		case STRSXP: {
-			const string int64str = CHAR(STRING_ELT(x, index));
-			std::stringstream ss(int64str);
-			uint64 ret;
-			if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
-				throwException(" Provided STRSXP cannot be cast to uint64",
-							   "CastException");
-			}
-			return ret;
-		}
+		case STRSXP:
+            return Int64FromString<uint64>(CHAR(STRING_ELT(x, index)));
 		default:
 			throwException( "cannot cast SEXP to uint64", "CastException" ) ; 
 	}
@@ -1042,14 +1037,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 					if (TYPEOF(value) == STRSXP) {
 						const string int64str = COPYSTRING(CHAR(
 							STRING_ELT(value, 0)));
-						std::stringstream ss(int64str);
-                        GPB::int64 ret;
-						if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
-							throwException(
-								"Provided STRSXP cannot be cast to int64",
-								"CastException");
-						}
-						ref->SetInt64(message, field_desc, ret);
+                        ref->SetInt64(message, field_desc,
+                                      Int64FromString<GPB::int64>(int64str));
 						break ;
 					} else {
 						ref->SetInt64( message, field_desc, Rcpp::as<GPB::int64>(value));
@@ -1064,14 +1053,8 @@ PRINT_DEBUG_INFO( "value", value ) ;
 					if (TYPEOF(value) == STRSXP) {
 						const string int64str = COPYSTRING(CHAR(
 							STRING_ELT(value, 0)));
-						std::stringstream ss(int64str);
-                        GPB::uint64 ret;
-						if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
-							throwException(
-								"Provided STRSXP cannot be cast to uint64",
-								"CastException");
-						}
-						ref->SetUInt64(message, field_desc, ret);
+                        ref->SetUInt64(message, field_desc,
+                                       Int64FromString<GPB::uint64>(int64str));
 						break ;
 					} else {
 						ref->SetUInt64(message, field_desc,

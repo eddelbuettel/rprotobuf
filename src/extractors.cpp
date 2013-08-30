@@ -24,47 +24,29 @@
 
 namespace rprotobuf{
 
-SEXP kInt64AsStringOptionName = Rf_install("int64AsString");
+const char * kIntStringOptionName = "RProtoBuf.int64AsString";
+bool UseStringsForInt64() {
+    static const SEXP option_name = Rf_install(kIntStringOptionName);
+    return (Rf_asLogical(Rf_GetOption1(option_name)));
+}
 
 // Rcpp::wrap silently coerces 64-bit integers to numerics
 // which drop precision for values between 2^53 - 2^64.
 // So, if an option is set, we return as a character string.
-// TODO(mstokely): Do more of this in Rcpp.
-SEXP PreciseRInt64Type(int64 val) {
-	if (Rf_asLogical(Rf_GetOption1(kInt64AsStringOptionName))) {
-		std::stringstream ss;
-		if ((ss << val).fail()) {
-			// This should not happen, its a bug in the code.
-			throwException(
-				"Error converting int64 to STRSXP, unset int64AsString option.",
-				"ConversionException");
+template<typename ValueType>
+SEXP Int64AsSEXP(ValueType value) {
+    if (UseStringsForInt64()) {
+        std::stringstream ss;
+        if ((ss << value).fail()) {
+            // This should not happen, its a bug in the code.
+            string message = string("Error converting int64 to string, unset ") +
+                    kIntStringOptionName + " option.";
+            throwException(message.c_str(), "ConversionException");
 		}
-		// Rcpp::wrap of the string returns vector of single characters.
-		// So we must create this vector first to wrap.
-		std::vector<string> retlist;
-		retlist.push_back(ss.str());
-		return Rcpp::wrap(retlist);
-	} else {
-		return Rcpp::wrap(val);
-	}
-}
-
-SEXP PreciseRUInt64Type(uint64 val) {
-	if (Rf_asLogical(Rf_GetOption1(kInt64AsStringOptionName))) {
-		std::stringstream ss;
-		if ((ss << val).fail()) {
-			// This should not happen, its a bug in the code.
-			throwException(
-				"Error converting uint64 to STRSXP, unset int64AsString option.",
-				"ConversionException");
-		}
-		// Wrap the string version of this int64.
-		std::vector<string> retlist;
-		retlist.push_back(ss.str());
-		return Rcpp::wrap(retlist);
-	} else {
-		return Rcpp::wrap(val);
-	}
+        return Rcpp::CharacterVector(ss.str());
+    } else {
+        return Rcpp::wrap(value);
+    }
 }
 
 /**
@@ -123,7 +105,7 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
             // We can't handle these the same way, because Rcpp::wrap silently
             // casts int64s to doubles which may cause us to lose precision.
             case CPPTYPE_INT64:
-                if (Rf_asLogical(Rf_GetOption1(kInt64AsStringOptionName))) {
+                if (UseStringsForInt64()) {
                     return Rcpp::wrap(
                         Int64AsStringRepeatedFieldImporter(ref, *message,
                                                            fieldDesc));
@@ -132,7 +114,7 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
                         RepeatedFieldImporter<int64>(ref, *message, fieldDesc));
                 }
             case CPPTYPE_UINT64:
-                if (Rf_asLogical(Rf_GetOption1(kInt64AsStringOptionName))) {
+                if (UseStringsForInt64()) {
                     return Rcpp::wrap(
                         UInt64AsStringRepeatedFieldImporter(ref, *message,
                                                             fieldDesc));
@@ -180,9 +162,9 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
         // Handle these types separately since Rcpp::wrap doesn't
         // do the right thing.
         case CPPTYPE_INT64:
-            return PreciseRInt64Type(ref->GetInt64(*message, fieldDesc));
+            return Int64AsSEXP<int64>(ref->GetInt64(*message, fieldDesc));
         case CPPTYPE_UINT64:
-            return PreciseRUInt64Type(ref->GetUInt64(*message, fieldDesc));
+            return Int64AsSEXP<uint64>(ref->GetUInt64(*message, fieldDesc));
 #endif
 #undef HANDLE_SINGLE_FIELD
 

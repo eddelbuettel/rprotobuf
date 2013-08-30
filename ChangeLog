@@ -1,3 +1,12 @@
+2013-08-29  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/zzz.R (.onLoad): Rename option controlling int64 handling with
+	  package name prefix.
+	* inst/unitTests/runit.int64.R (test.int64): Idem
+	* src/extractors.cpp (rprotobuf): Add templated function to reduce
+	  code duplication in last changelist.
+	* src/mutators.cpp (rprotobuf): Idem
+
 2013-08-27  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/extractors.cpp (rprotobuf): Add support for a new

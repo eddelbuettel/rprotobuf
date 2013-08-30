@@ -46,7 +46,7 @@ test.int64 <- function() {
     # By default, when they are read as numerics, only 1 unique value
     checkEquals(length(unique(a$repeated_int64)), 1)
 
-    options("int64AsString" = TRUE)
+    options("RProtoBuf.int64AsString" = TRUE)
     # But we can see they are different if we treat them as strings.
     checkEquals(length(unique(a$repeated_int64)), 2)
 }
