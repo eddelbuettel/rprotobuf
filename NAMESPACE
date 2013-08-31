@@ -2,10 +2,11 @@
 ## Package has dynamic library
 useDynLib(RProtoBuf)
 
-importFrom( methods, new )
-importFrom( utils, str )
-importFrom( "stats", "update")
-importFrom( "utils", "packageDescription" )
+importFrom(methods, new)
+importFrom(utils, str, packageDescription)
+importFrom(stats, update)
+importFrom(tools, file_path_as_absolute)
+importFrom(RCurl, basicTextGatherer, curlPerform)
 
 exportClasses(
 
@@ -16,19 +17,19 @@ exportClasses(
 	"FileDescriptor", "EnumValueDescriptor",
 
 	# message
-	"Message", 
+	"Message",
 
 	# rpc
-	"RpcHTTP", 
-	
+	"RpcHTTP",
+
 	# virtual streams
 	"ZeroCopyInputStream", "ZeroCopyOutputStream",
-	
+
 	# concrete implementations
-	"ArrayInputStream", "ArrayOutputStream", 
-	"FileInputStream", "FileOutputStream", 
+	"ArrayInputStream", "ArrayOutputStream",
+	"FileInputStream", "FileOutputStream",
 	"ConnectionInputStream", "ConnectionOutputStream"
-	
+
 	)
 
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
@@ -38,7 +39,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"clear", "size", "size<-", "swap",
 	"descriptor", "set", "fetch", "toString",
 	"identical", "==", "!=", "all.equal", "add",
-	"fileDescriptor", "name", "flush", "close", 
+	"fileDescriptor", "name", "flush", "close",
         "setExtension", "getExtension",
 
         "containing_type",
@@ -61,19 +62,19 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"input_type", "output_type",
 
 	# rpc
-	"invoke", 
-	
+	"invoke",
+
 	# streams
-	"Next", "ByteCount", "BackUp", "Skip", 
-	"ArrayInputStream", "ArrayOutputStream", "FileInputStream", "FileOutputStream", 
-	"GetErrno", "SetCloseOnDelete", 
-	"ConnectionInputStream", "ConnectionOutputStream", 
-	"ReadRaw", "ReadString", "ReadVarint32", 
-	"ReadLittleEndian32", "ReadLittleEndian64", "ReadVarint64", 
-	"WriteRaw", "WriteString", "WriteLittleEndian32", 
+	"Next", "ByteCount", "BackUp", "Skip",
+	"ArrayInputStream", "ArrayOutputStream", "FileInputStream", "FileOutputStream",
+	"GetErrno", "SetCloseOnDelete",
+	"ConnectionInputStream", "ConnectionOutputStream",
+	"ReadRaw", "ReadString", "ReadVarint32",
+	"ReadLittleEndian32", "ReadLittleEndian64", "ReadVarint64",
+	"WriteRaw", "WriteString", "WriteLittleEndian32",
 	"WriteLittleEndian64", "WriteVarint32", "WriteVarint64"
-	
-	
+
+
 	)
 
 export( "P", "readProtoFiles", "asMessage" )

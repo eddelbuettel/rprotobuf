@@ -62,15 +62,15 @@ setMethod( "ByteCount", "ZeroCopyOutputStream", function(object){
 setGeneric( "ArrayInputStream", function(payload, block_size){
 	standardGeneric( "ArrayInputStream" )
 } )
-setMethod( "ArrayInputStream", c( payload = "raw", block_size = "missing" ) , 
+setMethod( "ArrayInputStream", c( payload = "raw", block_size = "missing" ) ,
 function(payload, block_size){
 	.Call( "ArrayInputStream__new", payload, -1L, PACKAGE = "RProtoBuf" )
 } )
-setMethod( "ArrayInputStream", c( payload = "raw", block_size = "integer" ) , 
+setMethod( "ArrayInputStream", c( payload = "raw", block_size = "integer" ) ,
 function(payload, block_size){
 	.Call( "ArrayInputStream__new", payload, block_size, PACKAGE = "RProtoBuf" )
 } )
-setMethod( "ArrayInputStream", c( payload = "raw", block_size = "numeric" ) , 
+setMethod( "ArrayInputStream", c( payload = "raw", block_size = "numeric" ) ,
 function(payload, block_size){
 	.Call( "ArrayInputStream__new", payload, as.integer(block_size), PACKAGE = "RProtoBuf" )
 } )
@@ -81,22 +81,22 @@ setGeneric( "ArrayOutputStream", function(size, block_size){
 	standardGeneric( "ArrayOutputStream" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "missing" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", size, -1L, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", size, -1L, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "integer" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", size, block_size, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", size, block_size, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "numeric" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", size, as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", size, as.integer(block_size) , PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "missing" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", as.integer(size), -1L, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", as.integer(size), -1L, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "integer" ),function(size, block_size){
-	.Call( "ArrayOutputStream__new", as.integer(size), block_size, PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", as.integer(size), block_size, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "numeric" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", as.integer(size), as.integer(block_size) , PACKAGE = "RProtoBuf" ) 
+	.Call( "ArrayOutputStream__new", as.integer(size), as.integer(block_size) , PACKAGE = "RProtoBuf" )
 } )
 # }}}
 
@@ -105,7 +105,7 @@ setGeneric( "FileInputStream", function(filename, block_size = -1L, close.on.del
 	standardGeneric( "FileInputStream" )
 } )
 setMethod( "FileInputStream", signature( filename = "character", block_size = "integer", close.on.delete = "logical" ), function(filename, block_size = -1L, close.on.delete = FALSE){
-	full_filename <- tools:::file_path_as_absolute(filename)
+	full_filename <- file_path_as_absolute(filename)
 	.Call( "FileInputStream_new", filename, block_size, close.on.delete, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "close", "FileInputStream", function(con, ...){
@@ -129,12 +129,12 @@ setMethod( "FileOutputStream", signature( filename = "character", block_size = "
 			stop( "directory does not exist" )
 		}
 		file.create( filename )
-		filename <- tools:::file_path_as_absolute(filename)
+		filename <- file_path_as_absolute(filename)
 		unlink( filename )
 	} else{
-		filename <- tools:::file_path_as_absolute(filename)
+		filename <- file_path_as_absolute(filename)
 	}
-	
+
 	.Call( "FileOutputStream_new", filename, block_size, close.on.delete, PACKAGE = "RProtoBuf" )
 } )
 setMethod( "flush", "FileOutputStream", function(con){

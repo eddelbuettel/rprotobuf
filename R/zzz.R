@@ -6,8 +6,8 @@
     readProtoFiles( package=pkgname, lib.loc=libname )
     attachDescriptorPool( pos = length(search()) )
     options("RProtoBuf.int64AsString" = FALSE)
-    if( exists( ".httpd.handlers.env", asNamespace( "tools" ) ) ){
-        e <- tools:::.httpd.handlers.env
-        e[["RProtoBuf"]] <- RProtoBuf.http.handler
-    }
+    #if( exists( ".httpd.handlers.env", asNamespace( "tools" ) ) ){
+    #    e <- tools:::.httpd.handlers.env
+    #    e[["RProtoBuf"]] <- RProtoBuf.http.handler
+    #}
 }

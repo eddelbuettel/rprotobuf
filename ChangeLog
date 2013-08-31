@@ -1,3 +1,10 @@
+2013-08-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* NAMESPACE: Import 'file_path_as_absolute' from package tools, and
+	  the two functions needed from the RCurl package
+	* R/*R: Updated several files which no longer need 'tools:::' prefix 
+	* DESCRIPTION: Updated Depends: and Imports accordingly
+
 2013-08-29  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/zzz.R (.onLoad): Rename option controlling int64 handling with

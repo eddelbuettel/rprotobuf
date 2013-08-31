@@ -41,9 +41,7 @@ readProtoFiles <- function(files,
 		# TODO: we need to pass the full path of the file
 		#       or create a mapping from the current working directory
 		#       in the DiskSourceTree
-		files <- sapply( files[ex], function(x){
-			tools:::file_path_as_absolute(x)
-		} )
+		files <- sapply(files[ex], function(x) file_path_as_absolute(x) )
 	}
 	directories <- unique( c( getwd(), dirname(files) ) )
 	.Call( "readProtoFiles", files, directories, PACKAGE = "RProtoBuf" )
