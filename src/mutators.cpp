@@ -100,7 +100,7 @@ int32 GET_int32( SEXP x, int index ){
 }
 
 template<typename ValueType>
-ValueType Int64FromString(const string value) {
+ValueType Int64FromString(const string &value) {
     std::stringstream ss(value);
     ValueType ret;
     if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
