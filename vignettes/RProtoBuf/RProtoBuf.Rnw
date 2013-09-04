@@ -157,7 +157,7 @@ p <- new( tutorial.Person, name = "Romain", id = 1 )
 
 \subsection{Access and modify fields of a message}
 
-Once the message created, its fields can be quiered
+Once the message is created, its fields can be queried
 and modified using the dollar operator of R, making protocol
 buffer messages seem like lists.
 
@@ -178,6 +178,10 @@ p[["name"]] <- "Romain Francois"
 p[[ 2 ]] <- 3
 p[[ "email" ]]
 @
+
+Protocol buffers include a 64-bit integer type, but R lacks native
+64-bit integer support.  A workaround is available and described in
+Section~\ref{sec:int64} for working with large integer values.
 
 % TODO(mstokely): Document extensions here.
 % There are none in addressbook.proto though.
@@ -1259,15 +1263,87 @@ it asks to our package if it knows the binding "foo", this is then
 implemented by the \texttt{RProtoBuf} package by calling an internal
 method of the \texttt{protobuf} C++ library.
 
-\section{Plans for future releases}
+\section{64-bit integer issues}
+\label{sec:int64}
+
+R does not have native 64-bit integer support.  Instead, R treats
+large integers as doubles which have limited precision.  For example,
+it loses the ability to distinguish some distinct integers:
+
+<<>>=
+2^53 == (2^53 + 1)
+@
+
+Protocol Buffers are frequently used to pass data between different
+systems, however, and most other systems these days have support for
+64-bit integers.  To work around this, RProtoBuf allows users to get
+and set 64-bit integer types by treating them as characters.
+
+<<echo=FALSE,print=FALSE>>=
+if (!exists("protobuf_unittest.TestAllTypes",
+            "RProtoBuf:DescriptorPool")) {
+    unittest.proto.file <- system.file("unitTests", "data",
+                                       "unittest.proto",
+                                       package="RProtoBuf")
+    readProtoFiles(file=unittest.proto.file)
+}
+@
+
+If we try to set an int64 field in R to double values, we lose
+precision:
+
+<<>>=
+test <- new(protobuf_unittest.TestAllTypes)
+test$repeated_int64 <- c(2^53, 2^53+1)
+length(unique(test$repeated_int64))
+@
+
+However, we can specify the values as character strings so that the
+C++ library on which RProtoBuf is based can store a true 64-bit
+integer representation of the data.
+
+<<>>=
+test$repeated_int64 <- c("9007199254740992", "9007199254740993")
+@
+
+When reading the value back into R, numeric types are returned by
+default, but when the full precision is required a character value
+will be returned if the \texttt{RProtoBuf.int64AsString} option is set
+to \texttt{TRUE}.
+
+<<>>=
+options("RProtoBuf.int64AsString" = FALSE)
+test$repeated_int64
+length(unique(test$repeated_int64))
+options("RProtoBuf.int64AsString" = TRUE)
+test$repeated_int64
+length(unique(test$repeated_int64))
+@
+
+<<echo=FALSE,print=FALSE>>=
+options("RProtoBuf.int64AsString" = FALSE)
+@ 
+
+\section{Other approaches}
 
 Saptarshi Guha wrote another package that deals with integration
 of protocol buffer messages with R, taking a different angle :
 serializing any R object as a message, based on a single catch-all
-\texttt{proto} file. We plan to integrate this functionality into
-\texttt{RProtoBuf}. Saptarshi's package is available at
-\url{http://ml.stat.purdue.edu/rhipe/doc/html/ProtoBuffers.html}
+\texttt{proto} file.  Saptarshi's package is available at
+\url{http://ml.stat.purdue.edu/rhipe/doc/html/ProtoBuffers.html}.
 
+Jeroen Ooms took a similar approach influenced by Saptarshi in his
+\texttt{RProtoBufUtils} package.  Unlike Saptarshi's package,
+RProtoBufUtils depends on RProtoBuf for underlying message operations.
+This package is available at
+\url{https://github.com/jeroenooms/RProtoBufUtils}.
+
+% Phillip Yelland wrote another implementation, currently proprietary,
+% that has significant speed advantages when querying fields from a
+% large number of protocol buffers, but is less user friendly for the
+% basic cases documented here.
+
+\section{Plans for future releases}
 Protocol buffers have a mechanism for remote procedure calls (rpc)
 that is not yet used by \texttt{RProtoBuf}, but we may one day
 take advantage of this by writing a protocol buffer message R server,
@@ -1293,4 +1369,3 @@ to Duncan for this amazing feature.
 
 
 \end{document}
-

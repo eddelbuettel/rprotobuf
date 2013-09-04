@@ -1,3 +1,10 @@
+2013-09-03  Murray Stokely  <murray@FreeBSD.org>
+
+	* vignettes/RProtoBuf/RProtoBuf.Rnw: Add a new section on 64-bit
+	  issues, document the RProtoBuf.int64AsString option, break out the
+	  'other approaches' section from the 'future work', and fix a few
+	  typos.
+
 2013-08-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* NAMESPACE: Import 'file_path_as_absolute' from package tools, and
