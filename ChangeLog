@@ -1,5 +1,6 @@
 2013-09-03  Murray Stokely  <murray@FreeBSD.org>
 
+	* inst/NEWS.Rd: Summarize changes since the last release.
 	* vignettes/RProtoBuf/RProtoBuf.Rnw: Add a new section on 64-bit
 	  issues, document the RProtoBuf.int64AsString option, break out the
 	  'other approaches' section from the 'future work', and fix a few
