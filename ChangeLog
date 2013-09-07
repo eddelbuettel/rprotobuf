@@ -1,3 +1,9 @@
+2013-09-06  Murray Stokely  <murray@FreeBSD.org>
+
+	* src/rprotobuf.cpp (rprotobuf): Include the name of the field
+	  that could not be found in exceptions in getFieldDescriptor
+	  (errors from update / new, etc.).
+
 2013-09-03  Murray Stokely  <murray@FreeBSD.org>
 
 	* inst/NEWS.Rd: Summarize changes since the last release.

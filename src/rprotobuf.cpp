@@ -222,6 +222,7 @@ Rprintf( "<isMessage>\n" ) ;
 GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
+	std::string error_message = "could not get FieldDescriptor for field";
 	switch( TYPEOF(name) ){
 		case S4SXP:
 		  {
@@ -235,11 +236,13 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 		case CHARSXP:
 			{
 				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR(name) ) ;
-				break ;	
+				error_message += string(" '") + CHAR(name) + "'";
+				break ;
 			}
 		case STRSXP:
 			{
 				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR( STRING_ELT(name, 0 ) ) ) ;
+				error_message += string(" '") + CHAR( STRING_ELT(name, 0 )) + "'";
 				break ;
 			}
 		case REALSXP:
@@ -250,7 +253,7 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 			}
 	}
 	if( !field_desc ){
-		throwException( "could not get FieldDescriptor for field", "NoSuchFieldException" ) ;
+		throwException( error_message.c_str(), "NoSuchFieldException" ) ;
 	}
 	return field_desc ;
 }
