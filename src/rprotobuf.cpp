@@ -236,13 +236,13 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 		case CHARSXP:
 			{
 				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR(name) ) ;
-				error_message += string(" '") + CHAR(name) + "'";
+				error_message = error_message + " '" + CHAR(name) + "'";
 				break ;
 			}
 		case STRSXP:
 			{
 				field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName( CHAR( STRING_ELT(name, 0 ) ) ) ;
-				error_message += string(" '") + CHAR( STRING_ELT(name, 0 )) + "'";
+				error_message = error_message + " '" + CHAR( STRING_ELT(name, 0 )) + "'";
 				break ;
 			}
 		case REALSXP:
