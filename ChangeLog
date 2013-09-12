@@ -1,3 +1,9 @@
+2013-09-11  Murray Stokely  <mstokely@FreeBSD.org>
+
+	* configure.in: If pkg-config is not available add -lprotobuf to
+	  PKG_LIBS.  This makes it easier to install on MacOS X 10.8, for
+	  example.
+
 2013-09-06  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/rprotobuf.cpp (rprotobuf): Include the name of the field

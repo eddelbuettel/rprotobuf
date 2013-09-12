@@ -29,8 +29,14 @@ AC_PROG_PKGCONFIG
 
 ## use pkg-config for ProtoBuf settings
 ##
-protobuf_cxxflags=`pkg-config --cflags protobuf`
-protobuf_libs=`pkg-config --libs protobuf`
+if test x"${PKGCONFIG}" == x"yes"; then
+  protobuf_cxxflags=`pkg-config --cflags protobuf`
+  protobuf_libs=`pkg-config --libs protobuf`
+else
+  # Add a reasonable default of -lprotobuf if we don't have pkg-config
+  protobuf_cxxflags=""
+  protobuf_libs="-lprotobuf"
+fi
 
 ## And make sure these flags are used for the tests below.
 CPPFLAGS="${protobuf_cxxflags} ${CPPFLAGS}"
