@@ -589,6 +589,7 @@ ac_includes_default="\
 
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+R_HOME
 PKG_LIBS
 PKG_CPPFLAGS
 RSCRIPT
@@ -3678,15 +3679,18 @@ fi
 
 ## use pkg-config for ProtoBuf settings
 ##
-# First, set a reasonable default of -lprotobuf if we don't have pkg-config
-protobuf_cxxflags=""
-protobuf_libs="-lprotobuf"
-
 if test x"${PKGCONFIG}" == x"yes"; then
   if pkg-config --exists protobuf; then
     protobuf_cxxflags=`pkg-config --cflags protobuf`
     protobuf_libs=`pkg-config --libs protobuf`
+  else
+    protobuf_cxxflags=""
+    protobuf_libs="-lprotobuf"
   fi
+else
+  # Add a reasonable default of -lprotobuf if we don't have pkg-config
+  protobuf_cxxflags=""
+  protobuf_libs="-lprotobuf"
 fi
 
 ## And make sure these flags are used for the tests below.
@@ -4184,7 +4188,9 @@ PKG_CPPFLAGS="${PKG_CPPFLAGS} ${CXXFLAGS} $protobuf_cxxflags"
 
 PKG_LIBS="${PKG_LIBS} $rcpp_ldflags $protobuf_libs"
 
-ac_config_files="$ac_config_files src/Makevars"
+R_HOME="${R_HOME}"
+
+ac_config_files="$ac_config_files src/Makevars vignettes/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -4881,6 +4887,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "src/Makevars") CONFIG_FILES="$CONFIG_FILES src/Makevars" ;;
+    "vignettes/Makefile") CONFIG_FILES="$CONFIG_FILES vignettes/Makefile" ;;
 
   *) as_fn_error "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

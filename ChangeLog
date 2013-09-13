@@ -1,3 +1,9 @@
+2013-09-13  Murray Stokely  <murray@FreeBSD.org>
+
+	* vignettes/Makefile.in: Update configure to output R_HOME to the
+	  vignette makefile so we can avoid the use of a non-portable GNU
+	  makefile extension here.
+
 2013-09-12  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/RcppMacros.h: Add Rcpp compatibility macros

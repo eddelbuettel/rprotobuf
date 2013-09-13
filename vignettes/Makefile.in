@@ -15,9 +15,7 @@ clean:
 	rm -rf auto/
 
 setvars:
-ifeq (${R_HOME},)
-R_HOME=	$(shell R RHOME)
-endif
+R_HOME=	@R_HOME@
 RPROG=	$(R_HOME)/bin/R
 RSCRIPT=$(R_HOME)/bin/Rscript
 
