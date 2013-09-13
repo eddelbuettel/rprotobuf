@@ -6,12 +6,12 @@ namespace rprotobuf{
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(Descriptor__,__NAME__)	
 
-RCPP_XP_METHOD_0( METHOD(as_character), GPB::Descriptor          , DebugString)
-RCPP_XP_METHOD_0( METHOD(field_count), GPB::Descriptor, field_count )
-RCPP_XP_METHOD_0( METHOD(nested_type_count), GPB::Descriptor, nested_type_count )
-RCPP_XP_METHOD_0( METHOD(enum_type_count), GPB::Descriptor, enum_type_count )
+RPB_XP_METHOD_0( METHOD(as_character), GPB::Descriptor          , DebugString)
+RPB_XP_METHOD_0( METHOD(field_count), GPB::Descriptor, field_count )
+RPB_XP_METHOD_0( METHOD(nested_type_count), GPB::Descriptor, nested_type_count )
+RPB_XP_METHOD_0( METHOD(enum_type_count), GPB::Descriptor, enum_type_count )
 
-RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type, S4_Descriptor )
+RPB_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type, S4_Descriptor )
 
 
 /**

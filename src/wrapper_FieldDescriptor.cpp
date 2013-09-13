@@ -27,16 +27,16 @@ namespace rprotobuf {
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(FieldDescriptor__,__NAME__)	
 
-	RCPP_XP_METHOD_0( METHOD(as_character)      , GPB::FieldDescriptor, DebugString)
-	RCPP_XP_METHOD_0( METHOD(is_extension)      , GPB::FieldDescriptor, is_extension)  
-	RCPP_XP_METHOD_0( METHOD(number)            , GPB::FieldDescriptor, number)  
-	RCPP_XP_METHOD_0( METHOD(type)              , GPB::FieldDescriptor, type )  
-	RCPP_XP_METHOD_0( METHOD(cpp_type)          , GPB::FieldDescriptor, cpp_type )  
-	RCPP_XP_METHOD_0( METHOD(label)             , GPB::FieldDescriptor, label )  
-	RCPP_XP_METHOD_0( METHOD(is_repeated)       , GPB::FieldDescriptor, is_repeated )  
-	RCPP_XP_METHOD_0( METHOD(is_optional)       , GPB::FieldDescriptor, is_optional )  
-	RCPP_XP_METHOD_0( METHOD(is_required)       , GPB::FieldDescriptor, is_required )  
-	RCPP_XP_METHOD_0( METHOD(has_default_value) , GPB::FieldDescriptor, has_default_value )  
+	RPB_XP_METHOD_0( METHOD(as_character)      , GPB::FieldDescriptor, DebugString)
+	RPB_XP_METHOD_0( METHOD(is_extension)      , GPB::FieldDescriptor, is_extension)  
+	RPB_XP_METHOD_0( METHOD(number)            , GPB::FieldDescriptor, number)  
+	RPB_XP_METHOD_0( METHOD(type)              , GPB::FieldDescriptor, type )  
+	RPB_XP_METHOD_0( METHOD(cpp_type)          , GPB::FieldDescriptor, cpp_type )  
+	RPB_XP_METHOD_0( METHOD(label)             , GPB::FieldDescriptor, label )  
+	RPB_XP_METHOD_0( METHOD(is_repeated)       , GPB::FieldDescriptor, is_repeated )  
+	RPB_XP_METHOD_0( METHOD(is_optional)       , GPB::FieldDescriptor, is_optional )  
+	RPB_XP_METHOD_0( METHOD(is_required)       , GPB::FieldDescriptor, is_required )  
+	RPB_XP_METHOD_0( METHOD(has_default_value) , GPB::FieldDescriptor, has_default_value )  
 
 	RPB_FUNCTION_1( S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
 		return S4_Descriptor( d->containing_type() ) ;

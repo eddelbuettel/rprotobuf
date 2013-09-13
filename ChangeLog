@@ -1,3 +1,9 @@
+2013-09-12  Murray Stokely  <murray@FreeBSD.org>
+
+	* src/RcppMacros.h: Add Rcpp compatibility macros
+	  which are simplified versions of the now deprecated ones from
+	  Rcpp.
+
 2013-09-11  Murray Stokely  <mstokely@FreeBSD.org>
 
 	* configure.in: If pkg-config is not available add -lprotobuf to

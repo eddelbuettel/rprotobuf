@@ -6,12 +6,12 @@ namespace rprotobuf{
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(ServiceDescriptor__,__NAME__)	
 	
-	RCPP_XP_METHOD_0( METHOD(length),GPB::ServiceDescriptor, method_count )
-	RCPP_XP_METHOD_0( METHOD(method_count),GPB::ServiceDescriptor, method_count )
-	RCPP_XP_METHOD_0( METHOD(as_character)    , GPB::ServiceDescriptor   , DebugString)
+	RPB_XP_METHOD_0( METHOD(length),GPB::ServiceDescriptor, method_count )
+	RPB_XP_METHOD_0( METHOD(method_count),GPB::ServiceDescriptor, method_count )
+	RPB_XP_METHOD_0( METHOD(as_character)    , GPB::ServiceDescriptor   , DebugString)
 	
-	RCPP_XP_METHOD_CAST_1( METHOD(getMethodByIndex) , GPB::ServiceDescriptor , method          , S4_MethodDescriptor ) 
-	RCPP_XP_METHOD_CAST_1( METHOD(getMethodByName)  , GPB::ServiceDescriptor , FindMethodByName, S4_MethodDescriptor ) 
+	RPB_XP_METHOD_CAST_1( METHOD(getMethodByIndex) , GPB::ServiceDescriptor , method          , S4_MethodDescriptor ) 
+	RPB_XP_METHOD_CAST_1( METHOD(getMethodByName)  , GPB::ServiceDescriptor , FindMethodByName, S4_MethodDescriptor ) 
 
 	RPB_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMethodNames), Rcpp::XPtr<GPB::ServiceDescriptor> desc){
 		int nmeths  = desc->method_count() ;

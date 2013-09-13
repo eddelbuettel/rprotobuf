@@ -158,7 +158,7 @@ RPB_FUNCTION_1( Rcpp::RawVector, METHOD(get_payload), Rcpp::XPtr<GPB::Message> m
 	return( payload ) ;
 }
 
-RCPP_XP_METHOD_VOID_0(METHOD(clear), GPB::Message, Clear )
+RPB_XP_METHOD_VOID_0(METHOD(clear), GPB::Message, Clear )
 
 /**
  * Clear a field of a message
@@ -253,8 +253,8 @@ RPB_FUNCTION_1(S4_Descriptor, METHOD(descriptor), Rcpp::XPtr<GPB::Message> messa
 	return( message->GetDescriptor() ) ;
 }
 
-RCPP_XP_METHOD_0( METHOD(as_character) , GPB::Message, DebugString) 
-RCPP_XP_METHOD_0( METHOD(bytesize), GPB::Message, ByteSize )
+RPB_XP_METHOD_0( METHOD(as_character) , GPB::Message, DebugString) 
+RPB_XP_METHOD_0( METHOD(bytesize), GPB::Message, ByteSize )
 
 RPB_FUNCTION_2( int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP field  ){
 	

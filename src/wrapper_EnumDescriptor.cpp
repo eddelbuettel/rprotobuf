@@ -27,9 +27,9 @@ namespace rprotobuf{
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(EnumDescriptor__,__NAME__)	
 
-	RCPP_XP_METHOD_0(METHOD(as_character), GPB::EnumDescriptor      , DebugString) ;
-	RCPP_XP_METHOD_0(METHOD(length)      ,GPB::EnumDescriptor,value_count)
-	RCPP_XP_METHOD_0(METHOD(value_count) ,GPB::EnumDescriptor,value_count)
+	RPB_XP_METHOD_0(METHOD(as_character), GPB::EnumDescriptor      , DebugString) ;
+	RPB_XP_METHOD_0(METHOD(length)      ,GPB::EnumDescriptor,value_count)
+	RPB_XP_METHOD_0(METHOD(value_count) ,GPB::EnumDescriptor,value_count)
 	
 	RPB_FUNCTION_1(S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::EnumDescriptor> d ){
 		return S4_Descriptor( d->containing_type() ) ;

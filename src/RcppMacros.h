@@ -136,4 +136,36 @@ END_RCPP                                            \
 }                                                   \
 void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3)
 
+#define RPB_XP_METHOD_0(__NAME__,__CLASS__,__METHOD__ )   \
+extern "C" SEXP __NAME__( SEXP xp  ){                     \
+BEGIN_RCPP                                                \
+        ::Rcpp::XPtr< __CLASS__ > ptr(xp) ;               \
+        return ::Rcpp::wrap( ptr->__METHOD__(  ) ) ;      \
+END_RCPP                                                  \
+}
+
+#define RPB_XP_METHOD_VOID_0(__NAME__,__CLASS__,__METHOD__)    \
+extern "C" SEXP __NAME__( SEXP xp  ){                          \
+BEGIN_RCPP                                                     \
+::Rcpp::XPtr< __CLASS__ > ptr(xp) ;                            \
+ptr->__METHOD__(  ) ;                                          \
+END_RCPP                                                       \
+}
+
+#define RPB_XP_METHOD_CAST_0(__NAME__,__CLASS__,__METHOD__,__CAST__)  \
+extern "C" SEXP __NAME__( SEXP xp  ){                                 \
+BEGIN_RCPP                                                            \
+        ::Rcpp::XPtr< __CLASS__ > ptr(xp) ;                           \
+        return ::Rcpp::wrap( __CAST__( ptr->__METHOD__(  ) ) ) ;      \
+END_RCPP                                                              \
+}
+
+#define RPB_XP_METHOD_CAST_1(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0 ){                       \
+BEGIN_RCPP                                                            \
+        ::Rcpp::XPtr< __CLASS__ > ptr(xp) ;                           \
+        return ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ) ) ) ) ; \
+END_RCPP                                                              \
+}
+
 #endif

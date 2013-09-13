@@ -6,7 +6,7 @@ namespace rprotobuf{
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(MethodDescriptor__,__NAME__)
 
-RCPP_XP_METHOD_0( METHOD(as_character)     , GPB::MethodDescriptor    , DebugString)
+RPB_XP_METHOD_0( METHOD(as_character)     , GPB::MethodDescriptor    , DebugString)
 
 RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::MethodDescriptor> d ){
 	GPB::MethodDescriptorProto* message = new GPB::MethodDescriptorProto() ; 
