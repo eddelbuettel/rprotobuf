@@ -3,7 +3,7 @@
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
 % TODO(edd): Update date and version number.
-\section{Changes in RProtoBuf version 0.3.1 (2013-09-XX)}{
+\section{Changes in RProtoBuf version 0.3.1 (2013-09-13)}{
   \itemize{
     \item Added support for setting and getting 64-bit integer types as
       character strings of decimal integers to work around R's lack of

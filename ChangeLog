@@ -1,3 +1,7 @@
+2013-09-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Release 0.3.1
+
 2013-09-13  Murray Stokely  <murray@FreeBSD.org>
 
 	* vignettes/Makefile.in: Update configure to output R_HOME to the
@@ -34,7 +38,7 @@
 
 	* NAMESPACE: Import 'file_path_as_absolute' from package tools, and
 	  the two functions needed from the RCurl package
-	* R/*R: Updated several files which no longer need 'tools:::' prefix 
+	* R/*R: Updated several files which no longer need 'tools:::' prefix
 	* DESCRIPTION: Updated Depends: and Imports accordingly
 
 2013-08-29  Murray Stokely  <murray@FreeBSD.org>
