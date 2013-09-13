@@ -1,5 +1,6 @@
 #include "rprotobuf.h"
 #include "DescriptorPoolLookup.h" 
+#include "RcppMacros.h"
 
 namespace rprotobuf{
 
@@ -258,13 +259,13 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 	return field_desc ;
 }
 
-RCPP_FUNCTION_VOID_1( check_libprotobuf_version, int minversion ){
+RPB_FUNCTION_VOID_1( check_libprotobuf_version, int minversion ){
 	if( GOOGLE_PROTOBUF_VERSION < minversion ){
 		throw std::range_error( "The protobuf library you are using is too old for this package, please upgrade" ) ;
 	}
 }
 
-RCPP_FUNCTION_0(int, get_protobuf_library_version){
+RPB_FUNCTION_0(int, get_protobuf_library_version){
 	return GOOGLE_PROTOBUF_VERSION;
 }
 

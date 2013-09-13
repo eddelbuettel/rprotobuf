@@ -1,5 +1,6 @@
 #include "rprotobuf.h"
 #include "fieldtypes.h"
+#include "RcppMacros.h"
 
 #define SAME(x,y,tol) ( (tol==0.0 && x == y ) ||  ( ( (x-y)*(x-y) < tol*tol ) ? 1 : 0 ) ) 
 
@@ -63,7 +64,7 @@ namespace rprotobuf{
  * @param xp external pointer to a message
  * @return a new message, clone of the input message
  */
-RCPP_FUNCTION_1( S4_Message, METHOD(clone) , Rcpp::XPtr<GPB::Message> message ){
+RPB_FUNCTION_1( S4_Message, METHOD(clone) , Rcpp::XPtr<GPB::Message> message ){
 	/* cloning message as sheep */
 	GPB::Message* sheep = message->New() ;
 	sheep->CopyFrom( *message );
@@ -79,7 +80,7 @@ RCPP_FUNCTION_1( S4_Message, METHOD(clone) , Rcpp::XPtr<GPB::Message> message ){
  * @param xp external pointer to the Message
  * @param name name of the field
  */
-RCPP_FUNCTION_2(bool, METHOD(field_exists), Rcpp::XPtr<GPB::Message> message, std::string name ){
+RPB_FUNCTION_2(bool, METHOD(field_exists), Rcpp::XPtr<GPB::Message> message, std::string name ){
 	const GPB::Descriptor* desc = message->GetDescriptor(); 
 	const GPB::FieldDescriptor* field_desc = desc->FindFieldByName( name ) ;
 	return (field_desc != NULL);
@@ -92,7 +93,7 @@ RCPP_FUNCTION_2(bool, METHOD(field_exists), Rcpp::XPtr<GPB::Message> message, st
  * @param xp external pointer to the Message
  * @param name name of the field
  */
-RCPP_FUNCTION_2(bool, METHOD(has_field), Rcpp::XPtr<GPB::Message> message, std::string name ){
+RPB_FUNCTION_2(bool, METHOD(has_field), Rcpp::XPtr<GPB::Message> message, std::string name ){
 
 	const GPB::Descriptor* desc = message->GetDescriptor(); 
 	const GPB::FieldDescriptor* field_desc = desc->FindFieldByName( name ) ;
@@ -115,7 +116,7 @@ RCPP_FUNCTION_2(bool, METHOD(has_field), Rcpp::XPtr<GPB::Message> message, std::
  *
  * @param xp external pointer to the Message
  */
-RCPP_FUNCTION_1( bool, METHOD(is_initialized), Rcpp::XPtr<GPB::Message> message){
+RPB_FUNCTION_1( bool, METHOD(is_initialized), Rcpp::XPtr<GPB::Message> message){
 	return message->IsInitialized() ;
 }
 
@@ -126,7 +127,7 @@ RCPP_FUNCTION_1( bool, METHOD(is_initialized), Rcpp::XPtr<GPB::Message> message)
  * @param xp external pointer to a GPB::Message*
  * @param filename file name where to serialize
  */
-RCPP_FUNCTION_VOID_2( METHOD(serialize_to_file) , Rcpp::XPtr<GPB::Message> message, const char* filename){
+RPB_FUNCTION_VOID_2( METHOD(serialize_to_file) , Rcpp::XPtr<GPB::Message> message, const char* filename){
 	
 	/* open the file in binary mode to write */
 	/* we make sure in the R side that filename is the full path of the file */
@@ -145,7 +146,7 @@ RCPP_FUNCTION_VOID_2( METHOD(serialize_to_file) , Rcpp::XPtr<GPB::Message> messa
  *
  * @param xp xternal pointer to the message
  */
-RCPP_FUNCTION_1( Rcpp::RawVector, METHOD(get_payload), Rcpp::XPtr<GPB::Message> message ){
+RPB_FUNCTION_1( Rcpp::RawVector, METHOD(get_payload), Rcpp::XPtr<GPB::Message> message ){
 
 	/* create a raw vector of the appropriate size */
 	int size = message->ByteSize() ;
@@ -165,7 +166,7 @@ RCPP_XP_METHOD_VOID_0(METHOD(clear), GPB::Message, Clear )
  * @param xp (GPB::Message*) external pointer
  * @param field name or tag of the field
  */
-RCPP_FUNCTION_VOID_2(METHOD(clear_field), Rcpp::XPtr<GPB::Message> m, SEXP field ){
+RPB_FUNCTION_VOID_2(METHOD(clear_field), Rcpp::XPtr<GPB::Message> m, SEXP field ){
 	GPB::FieldDescriptor* field_desc = getFieldDescriptor( m, field ) ;
 	const GPB::Reflection* ref = m->GetReflection(); 
 	ref->ClearField( m, field_desc ) ;
@@ -176,7 +177,7 @@ RCPP_FUNCTION_VOID_2(METHOD(clear_field), Rcpp::XPtr<GPB::Message> m, SEXP field
  * @param xp external pointer to a Message
  * @return the message as an R list
  */
-RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Message> message ){
+RPB_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Message> message ){
     
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	int nf = desc->field_count() ;
@@ -201,7 +202,7 @@ RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Message> message )
  *
  * @param xp external pointer to the Message
  */
-RCPP_FUNCTION_1(int, METHOD(length), Rcpp::XPtr<GPB::Message> message){
+RPB_FUNCTION_1(int, METHOD(length), Rcpp::XPtr<GPB::Message> message){
 	const GPB::Descriptor* desc = message->GetDescriptor(); 
 	const GPB::Reflection * ref = message->GetReflection() ;
 	
@@ -229,7 +230,7 @@ RCPP_FUNCTION_1(int, METHOD(length), Rcpp::XPtr<GPB::Message> message){
  *
  * @param xp external pointer to the Message
  */
-RCPP_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message){
+RPB_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message){
 	const GPB::Reflection * ref = message->GetReflection() ;
 	int nexts = 0;
 	vector<const FieldDescriptor*> fields;
@@ -248,14 +249,14 @@ RCPP_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message){
  * @param xp (GPB::Message*) external pointer
  * @return the descriptor, as a Descriptor R S4 object
  */
-RCPP_FUNCTION_1(S4_Descriptor, METHOD(descriptor), Rcpp::XPtr<GPB::Message> message ){
+RPB_FUNCTION_1(S4_Descriptor, METHOD(descriptor), Rcpp::XPtr<GPB::Message> message ){
 	return( message->GetDescriptor() ) ;
 }
 
 RCPP_XP_METHOD_0( METHOD(as_character) , GPB::Message, DebugString) 
 RCPP_XP_METHOD_0( METHOD(bytesize), GPB::Message, ByteSize )
 
-RCPP_FUNCTION_2( int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP field  ){
+RPB_FUNCTION_2( int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP field  ){
 	
 	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 	
@@ -268,12 +269,12 @@ RCPP_FUNCTION_2( int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP
 	return res ;
 }
 
-RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Message> message ){
+RPB_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Message> message ){
 	return S4_FileDescriptor( message->GetDescriptor()->file() ) ; 
 }
 
 
-RCPP_FUNCTION_VOID_3( METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SEXP field, int target){
+RPB_FUNCTION_VOID_3( METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SEXP field, int target){
 	
 	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 	const GPB::Reflection* ref = message->GetReflection() ;
@@ -444,7 +445,7 @@ RCPP_FUNCTION_VOID_3( METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, 
  *
  * @return field names, as an R character vector (STRSXP)
  */
-RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Message> message){
+RPB_FUNCTION_1( Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Message> message){
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	
 	int nfields = desc->field_count() ; 
@@ -642,15 +643,15 @@ bool identical_messages_( GPB::Message* m1,  GPB::Message* m2, double tol ){
 	
 }
 
-RCPP_FUNCTION_2( bool, identical_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2){
+RPB_FUNCTION_2( bool, identical_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2){
 	return identical_messages_( m1, m2, 0.0 ) ;
 }
 
-RCPP_FUNCTION_3( bool, all_equal_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2, double tol){
+RPB_FUNCTION_3( bool, all_equal_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2, double tol){
 	return identical_messages_( m1, m2, tol ) ;
 }
 
-RCPP_FUNCTION_VOID_4( METHOD(swap), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector left, Rcpp::IntegerVector right){
+RPB_FUNCTION_VOID_4( METHOD(swap), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector left, Rcpp::IntegerVector right){
 	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 	const GPB::Reflection* ref = message->GetReflection(); 
 	if( ! field_desc->is_repeated() ){
@@ -670,7 +671,7 @@ RCPP_FUNCTION_VOID_4( METHOD(swap), Rcpp::XPtr<GPB::Message> message, SEXP field
  *
  * @return a new message, as an R object of "Message" S4 class
  */
-RCPP_FUNCTION_2( S4_Message, METHOD(merge), Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2){
+RPB_FUNCTION_2( S4_Message, METHOD(merge), Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2){
 	GPB::Message* merged = m1->New() ; 
 	merged->MergeFrom( *m1 ) ; 
 	merged->MergeFrom( *m2 ); 
@@ -685,7 +686,7 @@ RCPP_FUNCTION_2( S4_Message, METHOD(merge), Rcpp::XPtr<GPB::Message> m1, Rcpp::X
  * @param field field tag number or name
  * @param values values to append
  */ 
-RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP field, SEXP values){
+RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP field, SEXP values){
 		const Reflection * ref = message->GetReflection() ;
 		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
 		
@@ -981,7 +982,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 	 * @param field name or tag number of the field
 	 * @param index 
 	 */
-	 RCPP_FUNCTION_3( SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index ){
+	 RPB_FUNCTION_3( SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index ){
 		
 		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 		if( !field_desc->is_repeated() ){
@@ -1073,7 +1074,7 @@ RCPP_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP
 	 * @param index positions (0-based) 
 	 * @param values new values
 	 */
-	RCPP_FUNCTION_VOID_4( METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index, SEXP values ){
+	RPB_FUNCTION_VOID_4( METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index, SEXP values ){
 		
 		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 		if( !field_desc->is_repeated() ){

@@ -1,4 +1,5 @@
 #include "rprotobuf.h"
+#include "RcppMacros.h"
 
 namespace rprotobuf{
 
@@ -12,7 +13,7 @@ namespace rprotobuf{
 	RCPP_XP_METHOD_CAST_1( METHOD(getMethodByIndex) , GPB::ServiceDescriptor , method          , S4_MethodDescriptor ) 
 	RCPP_XP_METHOD_CAST_1( METHOD(getMethodByName)  , GPB::ServiceDescriptor , FindMethodByName, S4_MethodDescriptor ) 
 
-	RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMethodNames), Rcpp::XPtr<GPB::ServiceDescriptor> desc){
+	RPB_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMethodNames), Rcpp::XPtr<GPB::ServiceDescriptor> desc){
 		int nmeths  = desc->method_count() ;
 		Rcpp::CharacterVector res( nmeths );
 		
@@ -26,7 +27,7 @@ namespace rprotobuf{
 	 * @param xp (GPB::ServiceDescriptor*) external pointer
 	 * @return the descriptor as an R list
 	 */
-	RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::ServiceDescriptor> desc ){
+	RPB_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::ServiceDescriptor> desc ){
 		int n = desc->method_count() ;
 		
 		Rcpp::CharacterVector names(n) ; 
@@ -40,17 +41,17 @@ namespace rprotobuf{
 		return res; 
 	}
 
-	RCPP_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::ServiceDescriptor> d ){
+	RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::ServiceDescriptor> d ){
 		GPB::ServiceDescriptorProto* message = new GPB::ServiceDescriptorProto() ; 
 		d->CopyTo( message ); 
 		return S4_Message( message ) ;
 	}
 	
-	RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::ServiceDescriptor> desc){
+	RPB_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::ServiceDescriptor> desc){
 		return S4_FileDescriptor( desc->file() ); 
 	}
 	
-	RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::ServiceDescriptor> d, bool full){
+	RPB_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::ServiceDescriptor> d, bool full){
 		return full ? d->full_name() : d->name() ;
 	}
 	

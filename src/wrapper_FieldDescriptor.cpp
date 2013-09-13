@@ -20,6 +20,7 @@
 
 #include "rprotobuf.h"
 #include "fieldtypes.h"
+#include "RcppMacros.h"
 
 namespace rprotobuf {
 
@@ -37,7 +38,7 @@ namespace rprotobuf {
 	RCPP_XP_METHOD_0( METHOD(is_required)       , GPB::FieldDescriptor, is_required )  
 	RCPP_XP_METHOD_0( METHOD(has_default_value) , GPB::FieldDescriptor, has_default_value )  
 
-	RCPP_FUNCTION_1( S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
+	RPB_FUNCTION_1( S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
 		return S4_Descriptor( d->containing_type() ) ;
 	}
 	
@@ -48,7 +49,7 @@ case CPPTYPE_##__CPP__:                                           \
 		break ;                                                   \
 	}
 
-	RCPP_FUNCTION_1( SEXP, METHOD(default_value) , Rcpp::XPtr<GPB::FieldDescriptor> d ){
+	RPB_FUNCTION_1( SEXP, METHOD(default_value) , Rcpp::XPtr<GPB::FieldDescriptor> d ){
 		switch( d->cpp_type() ){
 			
 			RPB_HANDLE_CASE(INT32,int32)
@@ -73,31 +74,31 @@ case CPPTYPE_##__CPP__:                                           \
 		return R_NilValue ;
 	}
 	
-	RCPP_FUNCTION_1(S4_Descriptor, METHOD(message_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
+	RPB_FUNCTION_1(S4_Descriptor, METHOD(message_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
 		if( d->cpp_type() != CPPTYPE_MESSAGE ){
 			throw Rcpp::not_compatible( "not a message type field" )  ;
 		}
 		return S4_Descriptor( d->message_type() ) ;
 	}
 	
-	RCPP_FUNCTION_1(S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
+	RPB_FUNCTION_1(S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
 		if( d->cpp_type() != CPPTYPE_ENUM ){
 			throwException( "not an enum type field", "NotEnumType" ); 
 		}
 		return S4_EnumDescriptor( d->enum_type() ) ;
 	}
 
-	RCPP_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::FieldDescriptor> d ){
+	RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::FieldDescriptor> d ){
 		GPB::FieldDescriptorProto* message = new GPB::FieldDescriptorProto() ; 
 		d->CopyTo( message ); 
 		return S4_Message( message ) ;
 	}
 	
-	RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::FieldDescriptor> desc){
+	RPB_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::FieldDescriptor> desc){
 		return S4_FileDescriptor( desc->file() ); 
 	}
 
-	RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::FieldDescriptor> d, bool full){
+	RPB_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::FieldDescriptor> d, bool full){
 		return full ? d->full_name() : d->name() ;
 	}
 	
@@ -107,4 +108,3 @@ case CPPTYPE_##__CPP__:                                           \
 
 
 } // namespace rprotobuf
-

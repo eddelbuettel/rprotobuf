@@ -1,4 +1,5 @@
 #include "rprotobuf.h"
+#include "RcppMacros.h"
 
 namespace rprotobuf{
 
@@ -21,7 +22,7 @@ RCPP_XP_METHOD_CAST_0( METHOD(containing_type), GPB::Descriptor, containing_type
  *
  * @return member names, as an R character vector (STRSXP)
  */
-RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::Descriptor> desc ){
+RPB_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::Descriptor> desc ){
 	
 	int nfields = desc->field_count() ;
 	int ntypes  = desc->nested_type_count() ;
@@ -45,7 +46,7 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::
  * @param xp external pointer to a Descriptor
  * @return the descriptor as an R list
  */
-RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc ){
+RPB_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc ){
 	
 	int nfields = desc->field_count() ;
 	int ntypes  = desc->nested_type_count() ;
@@ -76,50 +77,50 @@ RCPP_FUNCTION_1( Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc )
 	return res; 
 }
 
-RCPP_FUNCTION_1(S4_Message, METHOD(as_Message) , Rcpp::XPtr<GPB::Descriptor> d ){
+RPB_FUNCTION_1(S4_Message, METHOD(as_Message) , Rcpp::XPtr<GPB::Descriptor> d ){
 	GPB::DescriptorProto* message = new GPB::DescriptorProto() ; 
 	d->CopyTo( message ); 
 	return message  ;
 }
 
-RCPP_FUNCTION_2( S4_FieldDescriptor, METHOD(field), Rcpp::XPtr<GPB::Descriptor> d, int i){
+RPB_FUNCTION_2( S4_FieldDescriptor, METHOD(field), Rcpp::XPtr<GPB::Descriptor> d, int i){
 	return d->field( i ) ;
 }
 
-RCPP_FUNCTION_2( S4_FieldDescriptor, METHOD(FindFieldByNumber), Rcpp::XPtr<GPB::Descriptor> d, int num){
+RPB_FUNCTION_2( S4_FieldDescriptor, METHOD(FindFieldByNumber), Rcpp::XPtr<GPB::Descriptor> d, int num){
 	return d->FindFieldByNumber( num ) ;
 }
 
-RCPP_FUNCTION_2( S4_FieldDescriptor, METHOD(FindFieldByName), Rcpp::XPtr<GPB::Descriptor> d, std::string nam ){
+RPB_FUNCTION_2( S4_FieldDescriptor, METHOD(FindFieldByName), Rcpp::XPtr<GPB::Descriptor> d, std::string nam ){
 	return d->FindFieldByName( nam ) ;
 }
 
-RCPP_FUNCTION_2( S4_Descriptor, METHOD(nested_type), Rcpp::XPtr<GPB::Descriptor> d, int i){
+RPB_FUNCTION_2( S4_Descriptor, METHOD(nested_type), Rcpp::XPtr<GPB::Descriptor> d, int i){
 	return d->nested_type( i ) ;
 }
 
-RCPP_FUNCTION_2( S4_Descriptor, METHOD(FindNestedTypeByName), Rcpp::XPtr<GPB::Descriptor> d, std::string nam){
+RPB_FUNCTION_2( S4_Descriptor, METHOD(FindNestedTypeByName), Rcpp::XPtr<GPB::Descriptor> d, std::string nam){
 	return d->FindNestedTypeByName( nam ) ;
 }
 
-RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, int i){
+RPB_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, int i){
 	return d->enum_type( i ) ;
 }
 
 // FIXME: two methods cant have the same name
-// RCPP_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, std::string name){
+// RPB_FUNCTION_2( S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, std::string name){
 // 	return d->FindEnumTypeByName( i ) ;
 // }
 
-RCPP_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Descriptor> desc){
+RPB_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Descriptor> desc){
 	return S4_FileDescriptor( desc->file() ); 
 }
 
-RCPP_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::Descriptor> d, bool full){
+RPB_FUNCTION_2( std::string, METHOD(name), Rcpp::XPtr<GPB::Descriptor> d, bool full){
 	return full ? d->full_name() : d->name() ;
 }
 
-RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromFile), Rcpp::XPtr<GPB::Descriptor> desc, std::string filename ){
+RPB_FUNCTION_2( S4_Message, METHOD(readMessageFromFile), Rcpp::XPtr<GPB::Descriptor> desc, std::string filename ){
 	/* open the file to read in binary mode */
 	int file = open( filename.c_str() , O_RDONLY | O_BINARY);
 	
@@ -135,7 +136,7 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromFile), Rcpp::XPtr<GPB::Descri
 	return( S4_Message( message ) ) ;
 }
 
-RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromConnection), Rcpp::XPtr<GPB::Descriptor> desc, int conn_id ){
+RPB_FUNCTION_2( S4_Message, METHOD(readMessageFromConnection), Rcpp::XPtr<GPB::Descriptor> desc, int conn_id ){
 	RconnectionCopyingInputStream wrapper( conn_id ) ;
 	GPB::io::CopyingInputStreamAdaptor stream( &wrapper ) ;
 	GPB::io::CodedInputStream coded_stream(&stream ) ;
@@ -151,7 +152,7 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromConnection), Rcpp::XPtr<GPB::
 	return res ;
 }
 
-RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::Descriptor> desc, Rcpp::RawVector raw){
+RPB_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::Descriptor> desc, Rcpp::RawVector raw){
 	GPB::io::ArrayInputStream ais( (void*)raw.begin(), raw.size() ); 
 	GPB::io::CodedInputStream stream( &ais ) ; 
 	
@@ -164,7 +165,7 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::D
 	return( S4_Message( message ) ) ;
 }
 
-RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc, std::string input){
+RPB_FUNCTION_2( S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc, std::string input){
 	GPB::Message* message = PROTOTYPE( desc ) ; 
 	if (GPB::TextFormat::ParseFromString( input, message ) ) {
 		return( S4_Message( message ) ) ;
@@ -173,7 +174,7 @@ RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descri
 	}
 }
 
-RCPP_FUNCTION_2( S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc, int conn_id){
+RPB_FUNCTION_2( S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc, int conn_id){
 	RconnectionCopyingInputStream wrapper( conn_id ) ;
 	GPB::io::CopyingInputStreamAdaptor stream( &wrapper ) ;
 
