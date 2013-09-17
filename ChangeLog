@@ -1,3 +1,14 @@
+2013-09-16  Murray Stokely  <murray@FreeBSD.org>
+
+	* DESCRIPTION (Version): Increment to 0.3.1.1.
+	* R/00classes.R: Improve show method for EnumValueDescriptor and
+	  add enum_type to '$' dispatch.
+	* man/EnumValueDescriptor-class.Rd: Add examples and document
+	  missing methods.
+	* src/wrapper_EnumValueDescriptor.cpp (rprotobuf): Add missing
+	  enum_type method.
+	* inst/unitTests/runit.enums.R (test.enums): Add more tests.
+
 2013-09-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Release 0.3.1

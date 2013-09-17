@@ -156,7 +156,7 @@ setMethod( "show", c( "FileDescriptor" ), function(object){
                       object@filename) )
 } )
 setMethod( "show", c( "EnumValueDescriptor" ), function(object){
-	show( sprintf( "enum value descriptor" ) )
+	show( sprintf( "enum value descriptor %s", object@full_name) )
 } )
 
 # }}}
@@ -302,7 +302,8 @@ setMethod( "$", "EnumValueDescriptor", function(x, name ){
 		"asMessage" = function() asMessage(x),
 		"name" = function(...) name(x, ... ),
 		"number" = function() number(x),
-		invisible(NULL)
+		"enum_type" = function(...) enum_type( x, ...),
+               invisible(NULL)
 		)
 
 })

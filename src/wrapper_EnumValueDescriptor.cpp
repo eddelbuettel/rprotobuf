@@ -43,6 +43,10 @@ RPB_FUNCTION_1( int, METHOD(number), Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
         return d->number() ;
 }
 
+RPB_FUNCTION_1(S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::EnumValueDescriptor> d ){
+	return S4_EnumDescriptor( d->type());
+}
+
 #undef METHOD
 
 } // namespace rprotobuf

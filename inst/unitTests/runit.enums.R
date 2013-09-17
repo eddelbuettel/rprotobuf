@@ -17,8 +17,25 @@
 test.enums <- function() {
   ProtoFormat <- P("tutorial.Person")
 
+  # value(..) returns an EnumValueDescriptor object
+
   checkEquals(name(value(ProtoFormat$PhoneType, index=1)), "MOBILE")
+  checkEquals(name(value(ProtoFormat$PhoneType, index=1), TRUE),
+              "tutorial.Person.MOBILE")
+  checkEquals(number(value(ProtoFormat$PhoneType, index=1)), 0)
+  checkTrue(inherits(enum_type(value(ProtoFormat$PhoneType, index=1)),
+                     "EnumDescriptor"))
+  checkTrue(inherits(asMessage(value(ProtoFormat$PhoneType, index=1)),
+                     "Message"))
+  
+  # Now check the '$' interfaces
+  checkEquals(name(value(ProtoFormat$PhoneType, index=1)),
+              value(ProtoFormat$PhoneType, index=1)$name())
+  checkEquals(number(value(ProtoFormat$PhoneType, index=1)),
+              value(ProtoFormat$PhoneType, index=1)$number())
+  
   checkEquals(name(value(ProtoFormat$PhoneType, index=2)), "HOME")
+
 
   checkEquals(length(ProtoFormat$PhoneType), 3)
   checkTrue(has(ProtoFormat$PhoneType, "WORK"))
