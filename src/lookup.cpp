@@ -175,7 +175,6 @@ SEXP rProtoBufTable_assign(const char * const name, SEXP value, R_ObjectTable *t
 #ifdef LOOKUP_DEBUG
  Rprintf( "  >> rProtoBufTable_assign( %s ) \n", name ); 
 #endif
-    Rf_error("can't assign to protocol buffer descriptor pool");
  	return(R_NilValue); // make -Wall happy
 }
 

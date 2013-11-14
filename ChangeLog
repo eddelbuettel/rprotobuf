@@ -1,3 +1,11 @@
+2013-10-23  Murray Stokely  <murray@FreeBSD.org>
+
+	* src/lookup.cpp (rprotobuf): Remove stop() error in object table
+	  assignment as this was causing errors with the '<<-' operator in
+	  any code using RProtoBuf.
+	* inst/unitTests/runit.import.R (test.assign.in.global): Add a
+	  test for the above.
+
 2013-09-16  Murray Stokely  <murray@FreeBSD.org>
 
 	* DESCRIPTION (Version): Increment to 0.3.1.1.

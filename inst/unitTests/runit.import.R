@@ -18,3 +18,8 @@ test.import <- function() {
   # Verify that we get a graceful error rather than a segfault.
   checkException(readProtoFiles("/etc/hosts"))
 }
+
+test.assign.in.global <- function() {
+  xx.undef <<- 3
+  checkEquals(xx.undef, 3)
+}
