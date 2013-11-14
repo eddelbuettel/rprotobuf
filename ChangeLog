@@ -1,3 +1,10 @@
+2013-11-13  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/extensions.R: Give a user friendly error message if someone tries
+	  to set an extension to a message of the wrong type instead of
+	  causing a C++ check failure that terminates your R session.
+	* inst/unitTests/runit.extensions.R (test.extension): Add test.
+
 2013-10-23  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/lookup.cpp (rprotobuf): Remove stop() error in object table

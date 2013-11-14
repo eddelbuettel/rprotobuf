@@ -75,4 +75,8 @@ test.extension <- function() {
     ## Check that we do something sensible if invalid field descriptors are passed
     checkException(test$getExtension(protobuf_unittest.TestAllExtensions))
     checkException(test$setExtension(protobuf_unittest.TestAllExtensions, 3))
+
+    ## Check that we don't CHECK fail in C++, but instead give a reasonable
+    ## error message if incorrect extensions types are provided.
+    checkException(test$getExtension(protobuf_unittest.my_extension_string))
 }

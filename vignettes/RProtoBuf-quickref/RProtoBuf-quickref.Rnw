@@ -1,6 +1,7 @@
 \documentclass[10pt,twocolumn,a4paper]{article}
 %\VignetteIndexEntry{RProtoBuf-quickref}
 
+
 \setlength{\hoffset}{-0.8in}
 \setlength{\voffset}{-0.8in}
 
