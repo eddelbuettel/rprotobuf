@@ -25,9 +25,6 @@
 
 namespace rprotobuf {
 
-// TODO add num_extensions to wrapper_Message.cpp and show this also
-// in show().
-
 RcppExport SEXP getExtension( SEXP pointer, SEXP sfielddesc){
         /* grab the Message pointer */
 	Rcpp::XPtr<GPB::Message> message(pointer) ;
