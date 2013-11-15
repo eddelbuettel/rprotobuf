@@ -56,9 +56,16 @@ test.extension <- function() {
                                   "foo")
 
     ## Test setting and getting enums.
-    # This works now
     test$setExtension(protobuf_unittest.optional_nested_enum_extension,
                       protobuf_unittest.TestAllTypes.NestedEnum$BAR)
+
+    ## Test foreign message extensions
+    foo <- new(protobuf_unittest.ForeignMessage)
+    foo$c <- 3
+    test$setExtension(protobuf_unittest.optional_foreign_message_extension,
+		      foo)
+    checkEquals(test$getExtension(protobuf_unittest.optional_foreign_message_extension)$c,
+		3)
 
     # This causes an Rcpp exception, but not an R stop error as of my
     # version of Rcpp, so we can't checkError unfortunately, but we
