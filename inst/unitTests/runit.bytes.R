@@ -18,4 +18,9 @@ test.all <- function() {
     checkEquals(rawToChar(test1$req), "abc")
     checkEquals(rawToChar(test1$opt), "hello world")
     checkEquals(test1$rep, list(charToRaw("def"), raw(10), charToRaw("ghi")))
+
+    # Test raw(10) can be set to a single req field.
+    test$req <- raw(10)
+    checkEquals(length(test$req), 10)
+    checkTrue(all(blob$content == raw(10)))
 }

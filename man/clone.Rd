@@ -3,7 +3,7 @@
 \alias{clone}
 \alias{clone-methods}
 \alias{clone,Message-method}
-\title{Clone protocolo buffer messages}
+\title{Clone protocol buffer messages}
 \description{
 Generic "clone" function and associated 
 method for \linkS4class{Message} objects 

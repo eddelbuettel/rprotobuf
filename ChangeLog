@@ -1,3 +1,9 @@
+2013-12-14  Murray Stokely  <murray@FreeBSD.org>
+
+	* inst/unitTests/runit.bytes.R (test.all): Verify raw(10) can be
+	  set to required bytes fields to verify correct behavior for use
+	  case mentioned on rprotobuf-yada list.
+
 2013-11-13  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/extensions.R: Give a user friendly error message if someone tries
