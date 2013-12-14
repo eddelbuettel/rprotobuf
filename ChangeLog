@@ -1,5 +1,8 @@
 2013-12-14  Murray Stokely  <murray@FreeBSD.org>
 
+	* src/mutators.cpp (rprotobuf): Fix a bug which incorrectly
+	  prevented users from setting raw non-repeated fields under some
+	  circumstances.
 	* inst/unitTests/runit.bytes.R (test.all): Verify raw(10) can be
 	  set to required bytes fields to verify correct behavior for use
 	  case mentioned on rprotobuf-yada list.

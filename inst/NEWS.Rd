@@ -2,7 +2,20 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-% TODO(edd): Update date and version number.
+\section{Changes in RProtoBuf version 0.3.2 (2013-12-15)}{
+  \itemize{
+    \item Fixed a bug that erroneously prevented users from setting raw
+    byte fields in protocol buffers under certain circumstances.
+    \item Give a user friendly error message when seting an extension to
+    a message of the wrong type instead of causing a C++ check failure
+    that terminates the Rsession.
+    \item Change object table lookup slightly to allow users to use the
+    '<<-' operator in code using RProtoBuf without hitting a stop() error
+    in the lookup routine.
+    \item Improve documentation and tests for all of the above.
+  }
+}
+
 \section{Changes in RProtoBuf version 0.3.1 (2013-09-13)}{
   \itemize{
     \item Added support for setting and getting 64-bit integer types as

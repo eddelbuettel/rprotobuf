@@ -9,6 +9,8 @@
 test.all <- function() {
     test <- new(TestBytes, req = "abc", rep = list(charToRaw("def"), raw(10)))
     checkEquals(rawToChar(test$req), "abc")
+    test$req <- charToRaw("abc")
+    checkEquals(rawToChar(test$req), "abc")
     checkEquals(rawToChar(test$opt), "hello world")
     checkEquals(test$rep, list(charToRaw("def"), raw(10)))
     test$rep[[3]]=charToRaw("ghi")

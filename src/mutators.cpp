@@ -401,31 +401,32 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	}
 	// }}}
 
+	// {{{ preliminary checks
+	int value_size = Rf_isVector(value) ? LENGTH(value) : 1;
+	// if the R type is RAWSXP and the cpp type is string or bytes, 
+	// then value_size is actually one because the raw vector
+	// is converted to a string
+	int field_type = field_desc->type() ;
+	if( field_type == TYPE_STRING || field_type == TYPE_BYTES ){
+		if( TYPEOF(value) == RAWSXP ){
+			value_size = 1 ;
+		} else if( TYPEOF(value) == STRSXP ){
+			value_size = LENGTH(value);
+		} else if( TYPEOF(value) == S4SXP && Rf_inherits( value, "Message") ){
+			value_size = 1 ; /* we will store the message payload */
+		} else if( TYPEOF(value) == VECSXP && allAreMessages( value ) ){
+			value_size = LENGTH(value) ;
+		} else if( TYPEOF(value) == VECSXP && allAreRaws( value ) ){
+			value_size = LENGTH(value) ;
+		} else {
+			throwException( "cannot convert to string", "ConversionException" ) ;
+		}
+	}
+	// }}}
+
 	if( field_desc->is_repeated() ){
 		// {{{ repeated fields
 		
-		// {{{ preliminary checks
-		int value_size = Rf_isVector(value) ? LENGTH(value) : 1;
-		// if the R type is RAWSXP and the cpp type is string or bytes, 
-		// then value_size is actually one because the raw vector
-		// is converted to a string
-		int field_type = field_desc->type() ;
-		if( field_type == TYPE_STRING || field_type == TYPE_BYTES ){
-			if( TYPEOF(value) == RAWSXP ){
-				value_size = 1 ;
-            } else if( TYPEOF(value) == STRSXP ){
-                value_size = LENGTH(value);
-			} else if( TYPEOF(value) == S4SXP && Rf_inherits( value, "Message") ){
-				value_size = 1 ; /* we will store the message payload */
-			} else if( TYPEOF(value) == VECSXP && allAreMessages( value ) ){
-				value_size = LENGTH(value) ;
-			} else if( TYPEOF(value) == VECSXP && allAreRaws( value ) ){
-				value_size = LENGTH(value) ;
-			} else {
-				throwException( "cannot convert to string", "ConversionException" ) ;
-			}
-		}
-		// }}}
 		// The number of elements already in the repeated field.
 		int field_size = ref->FieldSize( *message, field_desc ) ;
 		
@@ -1011,7 +1012,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		// }}}
 	} else {
 		// {{{ non repeated fields
-		if (Rf_isVector(value) && LENGTH(value) > 1) {
+		if (value_size > 1) {
 			throwException( "cannot set non-repeated field to vector of length > 1", "CastException" ) ;
 		}
 		switch( GPB::FieldDescriptor::TypeToCppType( field_desc->type() ) ){
