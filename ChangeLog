@@ -1,3 +1,9 @@
+2013-12-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/lookup.cpp (rprotobuf): Descrictor pools attached directly
+	* R/lookup.R (attachDescriptorPool): No longer attach them here
+	* src/rprotobuf.h: Updated function declaration
+
 2013-12-14  Murray Stokely  <murray@FreeBSD.org>
 
 	* src/mutators.cpp (rprotobuf): Fix a bug which incorrectly

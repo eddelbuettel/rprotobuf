@@ -1,3 +1,5 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
 #include "rprotobuf.h"
 #include "DescriptorPoolLookup.h" 
 
@@ -196,42 +198,47 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
 	return( objects ); 
 }
 
-SEXP newProtocolBufferLookup(){
+SEXP newProtocolBufferLookup(SEXP possexp){
 #ifdef LOOKUP_DEBUG
- Rprintf( "<newProtocolBufferLookup>\n" ); 
+    Rprintf( "<newProtocolBufferLookup>\n" ); 
 #endif
 
- R_ObjectTable *tb;
- SEXP val, klass;
+    R_ObjectTable *tb;
+    SEXP val, klass;
 
-  tb = (R_ObjectTable *) malloc(sizeof(R_ObjectTable));
-  if(!tb)
-      Rf_error( "cannot allocate space for an internal R object table" );
+    tb = (R_ObjectTable *) malloc(sizeof(R_ObjectTable));
+    if(!tb)
+        Rf_error( "cannot allocate space for an internal R object table" );
+    
+    tb->type = RPROTOBUF_LOOKUP ; /* FIXME: not sure what this should be */
+    tb->cachedNames = NULL;
   
-  tb->type = RPROTOBUF_LOOKUP ; /* FIXME: not sure what this should be */
-  tb->cachedNames = NULL;
-  
-  tb->privateData = (void*)0 ;
+    tb->privateData = (void*)0 ;
 
-  tb->exists = rProtoBufTable_exists;
-  tb->get = rProtoBufTable_get;
-  tb->remove = rProtoBufTable_remove;
-  tb->assign = rProtoBufTable_assign;
-  tb->objects = rProtoBufTable_objects;
-  tb->canCache = rProtoBufTable_canCache;
+    tb->exists = rProtoBufTable_exists;
+    tb->get = rProtoBufTable_get;
+    tb->remove = rProtoBufTable_remove;
+    tb->assign = rProtoBufTable_assign;
+    tb->objects = rProtoBufTable_objects;
+    tb->canCache = rProtoBufTable_canCache;
 
-  tb->onAttach = NULL;
-  tb->onDetach = NULL;
+    tb->onAttach = NULL;
+    tb->onDetach = NULL;
 
-  PROTECT(val = R_MakeExternalPtr(tb, Rf_install("UserDefinedDatabase"), R_NilValue));
-  PROTECT(klass = Rf_mkString( "UserDefinedDatabase" ) );
-  Rf_setAttrib(val, R_ClassSymbol, klass) ;
-  UNPROTECT(2); /* val, klass */
-
+    PROTECT(val = R_MakeExternalPtr(tb, Rf_install("UserDefinedDatabase"), R_NilValue));
+    PROTECT(klass = Rf_mkString( "UserDefinedDatabase" ) );
+    Rf_setAttrib(val, R_ClassSymbol, klass) ;
+    UNPROTECT(2); /* val, klass */
+    
 #ifdef LOOKUP_DEBUG
- Rprintf( "</newProtocolBufferLookup>\n" ); 
+    Rprintf( "</newProtocolBufferLookup>\n" ); 
 #endif
-  return(val);
+
+    Rcpp::Function fun("attach");
+    int pos = Rcpp::as<int>(possexp);
+    fun(val, Rcpp::Named("pos")=pos, Rcpp::Named("name")="RProtoBuf:DescriptorPool");
+
+    return(val);
 }
 
 

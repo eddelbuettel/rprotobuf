@@ -133,7 +133,7 @@ RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB:
 RcppExport SEXP throwException( const char*, const char*) ;
 
 /* in lookup.cpp */
-RcppExport SEXP newProtocolBufferLookup() ;
+RcppExport SEXP newProtocolBufferLookup(SEXP) ;
 
 /* in mutators.cpp */
 RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
