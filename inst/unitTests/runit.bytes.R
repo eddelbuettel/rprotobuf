@@ -24,5 +24,5 @@ test.all <- function() {
     # Test raw(10) can be set to a single req field.
     test$req <- raw(10)
     checkEquals(length(test$req), 10)
-    checkTrue(all(blob$content == raw(10)))
+    checkTrue(all(test$req == raw(10)))
 }
