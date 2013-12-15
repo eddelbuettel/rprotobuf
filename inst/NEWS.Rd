@@ -12,6 +12,8 @@
     \item Change object table lookup slightly to allow users to use the
     '<<-' operator in code using RProtoBuf without hitting a stop() error
     in the lookup routine.
+    \item Add missing enum_type method and improve show method for
+    EnumValueDescriptors.
     \item Improve documentation and tests for all of the above.
   }
 }
