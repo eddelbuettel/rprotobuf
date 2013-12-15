@@ -15,6 +15,7 @@
     \item Add missing enum_type method and improve show method for
     EnumValueDescriptors.
     \item Improve documentation and tests for all of the above.
+    \item Rewrote \code{tests/} script calling \cpkg{RUnit} tests
   }
 }
 

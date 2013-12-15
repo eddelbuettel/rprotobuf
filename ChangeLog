@@ -1,3 +1,8 @@
+2013-12-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/runUnitTests.R: Minor rewrite and cleanup from doRUnit.R with
+	a tip of the hat to Murray's version in his HistogramTools package
+
 2013-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/lookup.cpp (rprotobuf): Descrictor pools attached directly
