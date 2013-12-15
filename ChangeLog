@@ -1,5 +1,7 @@
 2013-12-15  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version): Release 0.3.2
+
 	* tests/runUnitTests.R: Minor rewrite and cleanup from doRUnit.R with
 	a tip of the hat to Murray's version in his HistogramTools package
 

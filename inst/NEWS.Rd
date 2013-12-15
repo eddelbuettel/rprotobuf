@@ -10,9 +10,9 @@
     a message of the wrong type instead of causing a C++ check failure
     that terminates the Rsession.
     \item Change object table lookup slightly to allow users to use the
-    '<<-' operator in code using RProtoBuf without hitting a stop() error
-    in the lookup routine.
-    \item Add missing enum_type method and improve show method for
+    \code{<<-} operator in code using \cpkg{RProtoBuf} without hitting a
+    \code{stop()} error in the lookup routine.
+    \item Add missing \code{enum_type} method and improve show method for
     EnumValueDescriptors.
     \item Improve documentation and tests for all of the above.
     \item Rewrote \code{tests/} script calling \cpkg{RUnit} tests
