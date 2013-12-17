@@ -1,8 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rprotobuf.h: R/C++ interface class library
 //
 // Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013  Dirk Eddelbuettel, Romain Francois and Murray Stokely
 //
 // This file is part of RProtoBuf.
 //
@@ -137,18 +138,18 @@ RcppExport SEXP newProtocolBufferLookup(SEXP) ;
 
 /* in mutators.cpp */
 RcppExport SEXP setMessageField( SEXP, SEXP, SEXP ) ;
-RcppExport int GET_int( SEXP, int ) ;
-RcppExport double GET_double( SEXP, int ) ;
-RcppExport float GET_float( SEXP, int ) ;
-RcppExport int32 GET_int32( SEXP, int) ;
-RcppExport int64 GET_int64( SEXP, int) ;
-RcppExport uint32 GET_uint32( SEXP, int) ;
-RcppExport uint64 GET_uint64( SEXP, int ) ;
-RcppExport bool GET_bool( SEXP, int) ;
-           std::string GET_stdstring( SEXP, int ) ;
-           std::string GET_bytes( SEXP, int ) ;
-RcppExport void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
-RcppExport void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
+int GET_int( SEXP, int ) ;
+double GET_double( SEXP, int ) ;
+float GET_float( SEXP, int ) ;
+int32 GET_int32( SEXP, int) ;
+int64 GET_int64( SEXP, int) ;
+uint32 GET_uint32( SEXP, int) ;
+uint64 GET_uint64( SEXP, int ) ;
+bool GET_bool( SEXP, int) ;
+std::string GET_stdstring( SEXP, int ) ;
+std::string GET_bytes( SEXP, int ) ;
+void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
+void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
 
 /* in wrapper_ServiceDescriptor.cpp */
 RcppExport SEXP ServiceDescriptor_length(SEXP);

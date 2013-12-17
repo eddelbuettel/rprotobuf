@@ -1,7 +1,7 @@
 2013-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/rprotobuf.h (RCPP_ENUM_TRAITS): Don't use extern "C" on two
-	internal functions returning a C++ type
+	* src/rprotobuf.h (RCPP_ENUM_TRAITS): Don't use extern "C" on
+	internal functions returning atomistic or C++ types
 
 2013-12-15  Dirk Eddelbuettel  <edd@debian.org>
 
