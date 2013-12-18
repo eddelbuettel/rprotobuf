@@ -30,7 +30,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	
 	names <- c( 
 		.Call( "Descriptor__getMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"new(", "read(", "readASCII(", "fileDescriptor()", "name(", "fileDescriptor()", 
+		"new(", "read(", "readASCII(", "fileDescriptor()", "name(",
+                "toString()", "as.character()",
 		"containing_type()", "field_count()", "nested_type_count()", "enum_type_count", 
 		"field(", "nested_type(", "enum_type(" )
 	grep( pattern, names, value = TRUE )
