@@ -5,7 +5,7 @@
 \usepackage[colorlinks]{hyperref}
 \setlength{\oddsidemargin}{0pt}
 \setlength{\textwidth}{17cm} % uh-oh, I use letter :)
-
+\setcounter{tocdepth}{2}
 <<echo=FALSE,print=FALSE>>=
 library( "RProtoBuf" )
 options("width"=65)
@@ -34,6 +34,8 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 
 }
 
+
+\tableofcontents
 
 \section{Protocol Buffers}
 
