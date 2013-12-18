@@ -318,14 +318,14 @@ methods that are not generic in the S3 sense, such as \texttt{new}
 and \texttt{serialize}.
 
 The \texttt{RProtoBuf} package combines the \emph{R typical} dispatch
-of the form \verb|method( object, arguments)| and the more traditionnal
+of the form \verb|method( object, arguments)| and the more traditional
 object oriented notation \verb|object$method(arguments)|.
 
 \subsection{messages}
 
 Messages are represented in R using the \texttt{Message}
 S4 class. The class contains the slots \texttt{pointer} and \texttt{type} as
-described on the table~\ref{Message-class-table} :
+described on the Table~\ref{Message-class-table}.
 
 \begin{table}[h]
 \centering
@@ -854,8 +854,8 @@ the slots \texttt{pointer} and \texttt{type} :
 \end{table}
 
 Similarly to messages, the \verb|$| operator can be used to extract
-information from the descriptor, or invoke pseuso-methods.  The
-table~\ref{Descriptor-methods-table} describes the methods defined for the \texttt{Descriptor} class :
+information from the descriptor, or invoke pseuso-methods.
+Table~\ref{Descriptor-methods-table} describes the methods defined for the \texttt{Descriptor} class :
 
 \begin{table}[h]
 \centering
@@ -955,6 +955,21 @@ writeLines( as.character( m ) )
 
 m <- read( tutorial.Person.PhoneNumber, tf )
 writeLines( as.character( m ) )
+@
+
+
+\subsubsection{The readASCII method}
+\label{Descriptor-method-readASCII}
+
+The \texttt{readASCII} method is used to read a message
+from a text file or a character vector.
+
+<<>>=
+# start by generating the ASCII representation of a message
+text <- as.character(new(tutorial.Person, id=1, name="Murray"))
+text
+# Then read the ascii representation in as a new message object.
+msg <- tutorial.Person$readASCII(text)
 @
 
 \subsubsection{The toString method}
