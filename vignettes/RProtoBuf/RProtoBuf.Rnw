@@ -854,7 +854,44 @@ the slots \texttt{pointer} and \texttt{type} :
 \end{table}
 
 Similarly to messages, the \verb|$| operator can be used to extract
-information from the descriptor, or invoke pseuso-methods.
+information from the descriptor, or invoke pseuso-methods.  The
+table~\ref{Descriptor-methods-table} describes the methods defined for the \texttt{Descriptor} class :
+
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|ccp{8cm}|}
+\hline
+\textbf{Method} & \textbf{Section} & \textbf{Description} \\
+\hline
+\hline
+\texttt{new} & \ref{Descriptor-method-new} & Creates a prototype of a message described by this descriptor.\\
+\texttt{read} & \ref{Descriptor-method-read} & Reads a message from a file or binary connection.\\
+\texttt{readASCII} & \ref{Descriptor-method-readASCII} & Read a message in ASCII format from a file or
+text connection.\\
+\hline
+\texttt{name} & \ref{Descriptor-method-name} & Retrieve the name of the message type associated with
+this descriptor.\\
+\texttt{as.character} & \ref{Descriptor-method-ascharacter} & character representation of a descriptor\\
+\texttt{toString} & \ref{Descriptor-method-tostring} & character representation of a descriptor (same as \texttt{as.character}) \\
+\hline
+\texttt{fileDescriptor} & \ref{Descriptor-method-filedescriptor} & Retrieve the file descriptor of this
+descriptor.\\
+\texttt{containing\_type} & \ref{Descriptor-method-containingtype} & Retrieve the descriptor describing the message type containing this descriptor.\\
+\texttt{field\_count} & \ref{Descriptor-method-fieldcount} & Return the number of fields in this descriptor.\\
+\texttt{field} & \ref{Descriptor-method-field} & Return the descriptor for the specified field in this descriptor.\\
+\texttt{nested\_type\_count} & \ref{Descriptor-method-nestedtypecount}
+& The number of nested types in this descriptor.\\
+\texttt{nested\_type} & \ref{Descriptor-method-nestedtype} & Return the descriptor for the specified nested
+type in this descriptor.\\
+\texttt{enum\_type\_count} & \ref{Descriptor-method-enumtypecount} & The number of enum types in this descriptor.\\
+\texttt{enum\_type} & \ref{Descriptor-method-enumtype} & Return the descriptor for the specified enum
+type in this descriptor.\\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{Descriptor-methods-table}Description of methods for the \texttt{Descriptor} S4 class}
+\end{table}
 
 \subsubsection{Extracting descriptors}
 
@@ -879,6 +916,7 @@ tutorial.Person.PhoneNumber
 @
 
 \subsubsection{The new method}
+\label{Descriptor-method-new}
 
 The \texttt{new} method creates a prototype of a message
 described by the descriptor.
@@ -899,6 +937,7 @@ update( tutorial.Person$new( ), email = "foo@bar.com" )
 @
 
 \subsubsection{The read method}
+\label{Descriptor-method-read}
 
 The \texttt{read} method is used to read a message
 from a file or a binary connection.
@@ -919,11 +958,13 @@ writeLines( as.character( m ) )
 @
 
 \subsubsection{The toString method}
+\label{Descriptor-method-tostring}
 
 \texttt{toString} currently is an alias to the \texttt{as.character} function.
 
 
 \subsubsection{The as.character method}
+\label{Descriptor-method-ascharacter}
 
 \texttt{as.character} prints the text representation of the descriptor
 as it would be specified in the \texttt{.proto} file.
@@ -936,6 +977,7 @@ writeLines( as.character(tutorial.Person) )
 @
 
 \subsubsection{The fileDescriptor method}
+\label{Descriptor-method-filedescriptor}
 
 The \texttt{fileDescriptor} method retrieves the
 file descriptor of the descriptor.  See section~\ref{subsec-fileDescriptor} for more information
@@ -948,6 +990,7 @@ fileDescriptor( desc )
 @
 
 \subsubsection{The name method}
+\label{Descriptor-method-name}
 
 The \texttt{name} method can be used to retrieve the name of the
 message type associated with the descriptor.
@@ -958,6 +1001,77 @@ tutorial.Person$name()
 # name including scope
 tutorial.Person$name(full = TRUE)
 @
+
+\subsubsection{The containing\_type method}
+\label{Descriptor-method-containingtype}
+
+The \texttt{containing\_type} method retrieves the descriptor
+describing the message type containing this descriptor.
+
+<<>>=
+tutorial.Person$containing_type()
+tutorial.Person$PhoneNumber$containing_type()
+@ 
+
+\subsubsection{The field\_count method}
+\label{Descriptor-method-fieldcount}
+
+Tme \texttt{field\_count} method retrieves the number of fields in
+this descriptor.
+
+<<>>=
+tutorial.Person$field_count()
+@ 
+
+\subsubsection{The field method}
+\label{Descriptor-method-field}
+
+The \texttt{field} method returns the descriptor for the specified
+field in this descriptor.
+
+<<>>=
+tutorial.Person$field(1)
+@ 
+
+\subsubsection{The nested\_type\_count method}
+\label{Descriptor-method-nestedtypecount}
+
+The \texttt{nested\_type\_count} method returns the number of nested
+types in this descriptor.
+
+<<>>=
+tutorial.Person$nested_type_count()
+@ 
+
+\subsubsection{The nested\_type method}
+\label{Descriptor-method-nestedtype}
+
+The \texttt{nested\_type} method return the descriptor for the specified nested
+type in this descriptor.
+
+<<>>=
+tutorial.Person$nested_type(1)
+@ 
+
+\subsubsection{The enum\_type\_count method}
+\label{Descriptor-method-enumtypecount}
+
+The \texttt{enum\_type\_count} method returns the number of enum types
+in this descriptor.
+
+<<>>=
+tutorial.Person$enum_type_count()
+@ 
+
+\subsubsection{The enum\_type method}
+\label{Descriptor-method-enumtype}
+
+The \texttt{enum\_type} method returns the descriptor for the specified enum
+type in this descriptor.
+
+<<>>=
+tutorial.Person$enum_type(1)
+@ 
 
 \subsection{field descriptors}
 \label{subsec-field-descriptor}
