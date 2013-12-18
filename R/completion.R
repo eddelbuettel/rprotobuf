@@ -17,7 +17,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	names <- c( 
 		.Call( "Message__fieldNames", x@pointer, PACKAGE = "RProtoBuf" ) ,
 		"has(", "clone()", "clone(", "isInitialized()", "serialize(", 
-		"clear()", "clear(", "size(", "bytesize()", 
+		"clear()", "clear(", "size(", "bytesize()", "fetch(",
 		"swap(", "str()", "as.character()", "update(", "as.list()", 
                 "setExtension(", "getExtension(",
                 "descriptor()", "set(", "toString(", "add(", "fileDescriptor()" )

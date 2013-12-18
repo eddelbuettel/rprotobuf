@@ -1,3 +1,10 @@
+2013-12-17  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/completion.R (.DollarNames.Message): Add missing "fetch(" to
+	  dollar completion list for Message objects.
+	* vignettes/RProtoBuf/RProtoBuf.Rnw (subsection{messages}): Minor
+	  improvements, add a missing methods to Table 2.
+
 2013-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/rprotobuf.h (RCPP_ENUM_TRAITS): Don't use extern "C" on
