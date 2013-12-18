@@ -377,6 +377,8 @@ describes the methods defined for the \texttt{Message} class :
 \texttt{str} & \ref{Message-method-str} & the R structure of the message\\
 \texttt{as.character} & \ref{Message-method-ascharacter} & character representation of a message\\
 \texttt{toString} & \ref{Message-method-toString} & character representation of a message (same as \texttt{as.character}) \\
+\texttt{as.list} & \ref{Message-method-aslist} & converts message to a
+named R list\\
 \texttt{update} & \ref{Message-method-update} & updates several fields of a message at once\\
 \texttt{descriptor} & \ref{Message-method-descriptor} & get the descriptor of the message type of this message\\
 \texttt{fileDescriptor} & \ref{Message-method-fileDescriptor} & get the file descriptor
@@ -384,7 +386,7 @@ of this message's descriptor\\
 \hline
 \end{tabular}
 \end{small}
-\caption{\label{Message-methods-table}Description of slots for the \texttt{Message} S4 class}
+\caption{\label{Message-methods-table}Description of methods for the \texttt{Message} S4 class}
 \end{table}
 
 \subsubsection{Retrieve fields}
