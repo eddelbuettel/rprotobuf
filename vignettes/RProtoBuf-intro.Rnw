@@ -1557,15 +1557,21 @@ The \texttt{package} method can be used to retrieve the package scope associated
 tutorial.Person$fileDescriptor()$package()
 @
 
+\subsection{enum value descriptors}
+\label{subsec-EnumValueDescriptor}
+
+TODO: add content
+
 \subsection{service descriptors}
 \label{subsec-ServiceDescriptor}
 
-TODO: add content
+TODO: add content or remove?
 
 \subsection{method descriptors}
 \label{subsec-MethodDescriptor}
 
-TODO: add content
+TODO: add content or remove?
+
 \section{Utilities}
 
 \subsection{coercing objects to messages}
