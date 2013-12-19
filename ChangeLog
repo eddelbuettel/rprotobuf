@@ -2,6 +2,8 @@
 
 	* vignettes/RProtoBuf-intro.Rnw: Use with vignette builder
 	* vignettes/RProtoBuf-quickref.Rnw: Idem
+	* vignettes/RProtoBuf-unitTests.Rnw: Rewritten / simplified
+
 	* DESCRIPTION: Increased dependency to R (>= 3.0.0)
 
 	* configure.in: No longer create vignettes/Makefile

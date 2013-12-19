@@ -1,21 +1,63 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{RProtoBuf-unitTests}
+%\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
+%\VignetteDepends{RProtoBuf}
+
 \usepackage{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+<<echo=FALSE,print=FALSE>>=
+require(RProtoBuf)
+prettyVersion <- packageDescription("RProtoBuf")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
+library(RUnit)
+@
 
 \usepackage[colorlinks]{hyperref}
 \author{Romain Fran\c{c}ois \and Dirk Eddelbuettel \and Murray Stokely}
 \title{RProtoBuf : Unit testing results}
+\date{RProtoBuf version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
+
 \begin{document}
 \maketitle
 
-\begin{verbatim}
-<<echo=FALSE,results=tex>>=
-results <- "unitTests-results/RProtoBuf-unitTests.txt"
-if( file.exists( results ) ){
-	writeLines( readLines( results ) )
+\section*{Test Execution}
+
+<<unitTesting,echo=FALSE,print=FALSE>>=
+pkg <- "RProtoBuf"
+
+if (file.exists("unitTests-results")) unlink("unitTests-results", recursive = TRUE)
+dir.create("unitTests-results")
+pathRcppTests <<- system.file("unitTests", package = pkg)
+path <- system.file("unitTests", package=pkg)
+testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs=path)
+tests <- runTestSuite(testSuite)
+err <- getErrors(tests)
+if (err$nFail > 0) cat(sprintf("unit test problems: %d failures", err$nFail))
+if (err$nErr > 0) cat(sprintf("unit test problems: %d errors", err$nErr))
+printHTMLProtocol(tests, fileName=sprintf("unitTests-results/%s-unitTests.html", pkg))
+printTextProtocol(tests, fileName=sprintf("unitTests-results/%s-unitTests.txt" , pkg))
+
+if (file.exists("/tmp")) {
+    invisible(sapply(c("txt", "html"), function(ext) {
+        fname <- sprintf("unitTests-results/%s-unitTests.%s", pkg, ext)
+        file.copy(fname, "/tmp", overwrite=TRUE)
+    }))
 }
 @
+
+\section*{Test Results}
+
+\begin{verbatim}
+<<importResults,echo=FALSE,results=tex>>=
+results <- sprintf("unitTests-results/%s-unitTests.txt", pkg)
+if (file.exists(results)) {
+    writeLines(readLines(results))
+} else{
+    writeLines("Unit test results not available")
+}
+@
+
 \end{verbatim}
 
 \end{document}

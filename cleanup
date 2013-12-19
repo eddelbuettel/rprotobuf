@@ -4,9 +4,11 @@ rm -f config.* src/Makedeps src/Makevars \
     src/addressbook.pb.cc src/addressbook.pb.h \
     src/protobufrpc.pb.cc src/protobufrpc.pb.h \
     src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~ \
-    src/symbols.rds 
+    src/symbols.rds \
+    vignettes/RProtoBuf*.aux vignettes/RProtoBuf*.log \
+    vignettes/RProtoBuf*.out vignettes/RProtoBuf*.toc \
+    vignettes/RProtoBuf*.tex
+
 rm -rf inst/doc/auto
 
-( cd vignettes; rm -f RProtoBuf*.aux RProtoBuf*.log \
-                      RProtoBuf*.out RProtoBuf*.toc )
 
