@@ -1840,6 +1840,11 @@ classes, plus :
 \item names for top-level extensions
 \end{itemize}
 
+In the unlikely event that there is a user-defined field of exactly
+the same name as one of the pseudo methods, the user-defined field
+shall take precedence for completion purposes by design, since the
+method name can always be invoked directly.
+
 \subsection{with and within}
 
 The S3 generic \texttt{with} function is implemented for class
