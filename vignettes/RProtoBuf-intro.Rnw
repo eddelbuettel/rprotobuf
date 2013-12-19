@@ -1363,6 +1363,9 @@ representation of a descriptor (same as \texttt{as.character}) \\
 \texttt{length} &
 \ref{enumdescriptor-method-length} & Return the number of constants in
 this enum.\\
+\texttt{has} &
+\ref{enumdescriptor-method-has} & Return TRUE if this enum contains
+the specified named constant string.\\
 \texttt{value\_count} &
 \ref{enumdescriptor-method-valuecount} & Return the number of constants in
 this enum (same as \texttt{length}).\\
@@ -1455,6 +1458,17 @@ length(tutorial.Person$PhoneType)
 tutorial.Person$PhoneType$length()
 @ 
 
+\subsubsection{has}
+\label{enumdescriptor-method-has}
+
+The \texttt{has} method returns TRUE if this enum contains the
+specified named constant string.
+
+<<>>=
+tutorial.Person$PhoneType$has("WORK")
+tutorial.Person$PhoneType$has("nonexistant")
+@ 
+
 \subsubsection{value\_count}
 \label{enumdescriptor-method-valuecount}
 
@@ -1478,6 +1492,120 @@ tutorial.Person$PhoneType$value(1)
 tutorial.Person$PhoneType$value(name="HOME")
 tutorial.Person$PhoneType$value(number=1)
 @ 
+
+\subsection{enum value descriptors}
+\label{subsec-EnumValueDescriptor}
+
+The class \emph{EnumValueDescriptor} is an R wrapper
+class around the C++ class \texttt{google::protobuf::EnumValueDescriptor}.
+Table~\ref{enumvaluedescriptor-methods-table} describes the methods
+defined for the \texttt{EnumValueDescriptor} class.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|cp{10cm}|}
+\hline
+\textbf{slot} & \textbf{description} \\
+\hline
+\texttt{pointer} & External pointer to the \texttt{EnumValueDescriptor} C++ variable \\
+\hline
+\texttt{name} & simple name of the enum value \\
+\hline
+\texttt{full\_name} & fully qualified name of the enum value \\
+\hline
+\end{tabular}
+\caption{\label{EnumValueDescriptor-class-table}Description of slots for the \texttt{EnumValueDescriptor} S4 class}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|ccp{8cm}|}
+\hline
+\textbf{method} & \textbf{section} & \textbf{description} \\
+\hline
+\hline
+\texttt{number} & \ref{enumvaluedescriptor-method-number} & return the
+number of this EnumValueDescriptor. \\
+\texttt{name} & \ref{enumvaluedescriptor-method-name} & Return the name of
+the enum value descriptor.\\
+\texttt{enum\_type} & \ref{enumvaluedescriptor-method-enumtype} &
+return the EnumDescriptor type of this EnumValueDescriptor. \\
+\texttt{as.character} & \ref{enumvaluedescriptor-method-ascharacter} & character
+representation of a descriptor. \\
+\texttt{toString} & \ref{enumvaluedescriptor-method-tostring} & character
+representation of a descriptor (same as \texttt{as.character}). \\
+\texttt{asMessage} & \ref{enumvaluedescriptor-method-asmessage} &
+return EnumValueDescriptorProto message. \\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{enumvaluedescriptor-methods-table}Description of methods for the \texttt{EnumValueDescriptor} S4 class}
+\end{table}
+
+\subsubsection{number}
+\label{enumvaluedescriptor-method-number}
+
+The \texttt{number} method can be used to retrieve the number of the
+enum value descriptor.
+
+<<>>=
+number( tutorial.Person$PhoneType$value(number=2) )
+@
+
+\subsubsection{name}
+\label{enumvaluedescriptor-method-name}
+
+The \texttt{name} method can be used to retrieve the name of the
+enum value descriptor.
+
+<<>>=
+# simple name.
+name( tutorial.Person$PhoneType$value(number=2) )
+# name including scope.
+name( tutorial.Person$PhoneType$value(number=2), full=TRUE )
+@
+
+\subsubsection{enum\_type}
+\label{enumvaluedescriptor-method-enumtype}
+
+The \texttt{enum\_type} method can be used to retrieve the EnumDescriptor of the
+enum value descriptor.
+
+<<>>=
+enum_type( tutorial.Person$PhoneType$value(number=2) )
+@
+
+\subsubsection{as.character}
+\label{enumvaluedescriptor-method-ascharacter}
+
+The \texttt{as.character} method brings the debug string of the enum
+value type.
+
+<<>>=
+writeLines( as.character( tutorial.Person$PhoneType$value(number=2) ) )
+@
+
+\subsubsection{toString}
+\label{enumvaluedescriptor-method-tostring}
+
+The \texttt{toString} method brings the debug string of the enum value
+type.
+
+<<>>=
+writeLines( toString( tutorial.Person$PhoneType$value(number=2) ) )
+@
+
+\subsubsection{asMessage}
+\label{enumvaluedescriptor-method-asmessage}
+
+The \texttt{asMessage} method returns a message of type
+\texttt{google.protobuf.EnumValueDescriptorProto} of the EnumValueDescriptor.
+
+<<>>=
+tutorial.Person$PhoneType$value(number=2)$asMessage()
+writeLines(as.character(tutorial.Person$PhoneType$value(number=2)$asMessage()))
+@
 
 \subsection{file descriptors}
 \label{subsec-fileDescriptor}
@@ -1557,10 +1685,6 @@ The \texttt{package} method can be used to retrieve the package scope associated
 tutorial.Person$fileDescriptor()$package()
 @
 
-\subsection{enum value descriptors}
-\label{subsec-EnumValueDescriptor}
-
-TODO: add content
 
 \subsection{service descriptors}
 \label{subsec-ServiceDescriptor}
