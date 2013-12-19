@@ -19,6 +19,10 @@
 
 \usepackage[colorlinks]{hyperref}
 
+\usepackage{microtype}                     %% cf http://www.khirevich.com/latex/microtype/
+\usepackage[T1]{fontenc}		   %% cf http://www.khirevich.com/latex/font/
+\usepackage[bitstream-charter]{mathdesign} %% cf http://www.khirevich.com/latex/font/
+
 <<echo=FALSE,print=FALSE>>=
 options(width= 50)
 library("RProtoBuf")

@@ -13,6 +13,10 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 library(RUnit)
 @
 
+\usepackage{microtype}                     %% cf http://www.khirevich.com/latex/microtype/
+\usepackage[T1]{fontenc}		   %% cf http://www.khirevich.com/latex/font/
+\usepackage[bitstream-charter]{mathdesign} %% cf http://www.khirevich.com/latex/font/
+
 \usepackage[colorlinks]{hyperref}
 \author{Romain Fran\c{c}ois \and Dirk Eddelbuettel \and Murray Stokely}
 \title{RProtoBuf : Unit testing results}

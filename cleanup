@@ -7,7 +7,7 @@ rm -f config.* src/Makedeps src/Makevars \
     src/symbols.rds \
     vignettes/RProtoBuf*.aux vignettes/RProtoBuf*.log \
     vignettes/RProtoBuf*.out vignettes/RProtoBuf*.toc \
-    vignettes/RProtoBuf*.tex
+    vignettes/RProtoBuf*.tex vignettes/RProtoBuf*.pdf
 
 rm -rf inst/doc/auto
 
