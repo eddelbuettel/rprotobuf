@@ -1163,12 +1163,10 @@ return FieldDescriptorProto message. \\
 \texttt{label} & \ref{fielddescriptor-method-label} & Gets the label of a field (optional, required, or repeated).\\
 \texttt{is\_repeated} & \ref{fielddescriptor-method-isrepeated} & Return TRUE if this field is repeated.\\
 \texttt{is\_required} & \ref{fielddescriptor-method-isrequired} & Return TRUE if this field is required.\\
-\texttt{is\_optional} & \ref{fielddescriptor-method-isoptional} & Return TRUE if htis field is optional.\\
-\texttt{has\_default\_value} & \ref{fielddescriptor-method-hasdefaultvalue} &
-Return TRUE if this field has a default value.\\
+\texttt{is\_optional} & \ref{fielddescriptor-method-isoptional} & Return TRUE if this field is optional.\\
+\texttt{has\_default\_value} & \ref{fielddescriptor-method-hasdefaultvalue} & Return TRUE if this field has a default value.\\
 \texttt{default\_value} & \ref{fielddescriptor-method-defaultvalue} &
 Return the default value.\\
-\texttt{is\_optional} & \ref{fielddescriptor-method-isoptional} & Return TRUE if htis field is optional.\\
 \texttt{message\_type} & \ref{fielddescriptor-method-messagetype} & Return the message type if this is a message type field.\\
 \texttt{enum\_type} & \ref{fielddescriptor-method-enumtype} & Return the enum type if this is an enum type field.\\
 \hline
@@ -1328,9 +1326,6 @@ is_optional( tutorial.Person$id )
 tutorial.Person$id$is_optional()
 @
 
-
-\texttt{has\_default\_value} & \ref{fielddescriptor-method-hasdefaultvalue} &
-Return TRUE if this field has a default value.\\
 \subsubsection{has\_default\_value}
 \label{fielddescriptor-method-hasdefaultvalue}
 
@@ -1342,19 +1337,15 @@ has_default_value(tutorial.Person$PhoneNumber$type)
 has_default_value(tutorial.Person$PhoneNumber$number)
 @
 
-\texttt{default\_value} & \ref{fielddescriptor-method-defaultvalue} &
-Return the default value.\\
-\subsubsection{is\_optional}
-\label{fielddescriptor-method-isoptional}
+\subsubsection{default\_value}
+\label{fielddescriptor-method-defaultvalue}
 
-The \texttt{is\_optional} method returns TRUE if this field is optional.
+The \texttt{default\_value} method returns the default value of a field.
 
 <<>>=
-is_optional( tutorial.Person$id )
-tutorial.Person$id$is_optional()
+default_value( tutorial.Person$PhoneNumber$type )
+default_value( tutorial.Person$PhoneNumber$number )
 @
-
-
 
 \subsubsection{message\_type}
 \label{fielddescriptor-method-messagetype}
@@ -1798,12 +1789,18 @@ tutorial.Person$fileDescriptor()$package()
 \subsection{service descriptors}
 \label{subsec-ServiceDescriptor}
 
-TODO: add content or remove?
+Not fully implemented.  Needs to be connected to a concrete RPC
+implementation.  The Google Protocol Buffers C++ open-source library
+does not include an RPC implementation, but this can be connected
+easily to others.
 
 \subsection{method descriptors}
 \label{subsec-MethodDescriptor}
 
-TODO: add content or remove?
+Not fully implemented.  Needs to be connected to a concrete RPC
+implementation.  The Google Protocol Buffers C++ open-source library
+does not include an RPC implementation, but this can be connected
+easily to others.
 
 \section{Utilities}
 
@@ -2021,6 +2018,11 @@ that is not yet used by \texttt{RProtoBuf}, but we may one day
 take advantage of this by writing a protocol buffer message R server,
 and client code as well, probably based on the functionality
 of the \texttt{Rserve} package.
+
+Extensions have been implemented in RProtoBuf and have been
+extensively used and tested, but they are not currently described in
+this vignette.  Additional examples and documentation are needed for
+extensions.
 
 % \section{Troubleshouting}
 
