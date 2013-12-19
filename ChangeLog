@@ -1,3 +1,11 @@
+2013-12-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RProtoBuf-intro.Rnw: Use with vignette builder
+	* vignettes/RProtoBuf-quickref.Rnw: Idem
+	* DESCRIPTION: Increased dependency to R (>= 3.0.0)
+
+	* configure.in: No longer create vignettes/Makefile
+
 2013-12-17  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/completion.R (.DollarNames.Message): Add missing methods to

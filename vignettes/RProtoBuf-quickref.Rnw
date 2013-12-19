@@ -1,6 +1,8 @@
 \documentclass[10pt,twocolumn,a4paper]{article}
 %\VignetteIndexEntry{RProtoBuf-quickref}
-
+%\VignetteEngine{highlight::highlight}
+%\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
+%\VignetteDepends{RProtoBuf}
 
 \setlength{\hoffset}{-0.8in}
 \setlength{\voffset}{-0.8in}
@@ -18,9 +20,9 @@
 \usepackage[colorlinks]{hyperref}
 
 <<echo=FALSE,print=FALSE>>=
-options( width= 50)
-library( "RProtoBuf" )
-rpb.version <- packageDescription( "RProtoBuf" )$Version
+options(width= 50)
+library("RProtoBuf")
+rpb.version <- packageDescription("RProtoBuf")$Version
 @
 % closing $ needed here
 

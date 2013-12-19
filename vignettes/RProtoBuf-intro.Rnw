@@ -1,5 +1,8 @@
 \documentclass[11pt]{article}
 %\VignetteIndexEntry{RProtoBuf-intro}
+%\VignetteEngine{highlight::highlight}
+%\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
+%\VignetteDepends{RProtoBuf}
 
 \usepackage{url}
 \usepackage[colorlinks]{hyperref}
@@ -7,9 +10,9 @@
 \setlength{\textwidth}{17cm} % uh-oh, I use letter :)
 \setcounter{tocdepth}{2}
 <<echo=FALSE,print=FALSE>>=
-library( "RProtoBuf" )
+library("RProtoBuf")
 options("width"=65)
-rpb.version <- packageDescription( "RProtoBuf" )$Version
+rpb.version <- packageDescription("RProtoBuf")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
 @
 % closing $ needed here
@@ -1028,7 +1031,7 @@ describing the message type containing this descriptor.
 <<>>=
 tutorial.Person$containing_type()
 tutorial.Person$PhoneNumber$containing_type()
-@ 
+@
 
 \subsubsection{The field\_count method}
 \label{Descriptor-method-fieldcount}
@@ -1038,7 +1041,7 @@ this descriptor.
 
 <<>>=
 tutorial.Person$field_count()
-@ 
+@
 
 \subsubsection{The field method}
 \label{Descriptor-method-field}
@@ -1048,7 +1051,7 @@ field in this descriptor.
 
 <<>>=
 tutorial.Person$field(1)
-@ 
+@
 
 \subsubsection{The nested\_type\_count method}
 \label{Descriptor-method-nestedtypecount}
@@ -1058,7 +1061,7 @@ types in this descriptor.
 
 <<>>=
 tutorial.Person$nested_type_count()
-@ 
+@
 
 \subsubsection{The nested\_type method}
 \label{Descriptor-method-nestedtype}
@@ -1068,7 +1071,7 @@ type in this descriptor.
 
 <<>>=
 tutorial.Person$nested_type(1)
-@ 
+@
 
 \subsubsection{The enum\_type\_count method}
 \label{Descriptor-method-enumtypecount}
@@ -1078,7 +1081,7 @@ in this descriptor.
 
 <<>>=
 tutorial.Person$enum_type_count()
-@ 
+@
 
 \subsubsection{The enum\_type method}
 \label{Descriptor-method-enumtype}
@@ -1088,7 +1091,7 @@ type in this descriptor.
 
 <<>>=
 tutorial.Person$enum_type(1)
-@ 
+@
 
 \subsection{field descriptors}
 \label{subsec-field-descriptor}
@@ -1455,7 +1458,7 @@ length(unique(test$repeated_int64))
 
 <<echo=FALSE,print=FALSE>>=
 options("RProtoBuf.int64AsString" = FALSE)
-@ 
+@
 
 \section{Other approaches}
 

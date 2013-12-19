@@ -2,6 +2,13 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in UNRELEASED RProtoBuf version 0.3.3 (2013-12-18)}{
+  \itemize{
+    \item Vignettes have been converted to the R 3.0.0 or later use of
+    external vignette builders, no longer need a \code{Makefile}
+  }
+}
+
 \section{Changes in RProtoBuf version 0.3.2 (2013-12-15)}{
   \itemize{
     \item Fixed a bug that erroneously prevented users from setting raw
