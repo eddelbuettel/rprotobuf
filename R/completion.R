@@ -93,7 +93,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.FileDescriptor <- function(x, pattern = "" ){
 	names <- c(
 		.Call( "FileDescriptor__getMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"as.character()", "toString()", "name(" )
+		"as.character()", "toString()", "name(", "as.list()",
+                   "asMessage()", "package()")
 	grep( pattern, names, value = TRUE )
 }
 # }}}
