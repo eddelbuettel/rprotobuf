@@ -4,5 +4,5 @@
 ## both Rcpp (ie libRcpp.so and Rcpp.h) and 
 ## ProtoBuf headers and library via the variables
 PKG_CPPFLAGS=		@PKG_CPPFLAGS@
-PKG_LIBS=		@PKG_LIBS@
+PKG_LIBS=		/usr/local/lib/libprotobuf.a @PKG_LIBS@ 
 

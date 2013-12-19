@@ -884,6 +884,8 @@ text connection.\\
 this descriptor.\\
 \texttt{as.character} & \ref{Descriptor-method-ascharacter} & character representation of a descriptor\\
 \texttt{toString} & \ref{Descriptor-method-tostring} & character representation of a descriptor (same as \texttt{as.character}) \\
+\texttt{asMessage} & \ref{Descriptor-method-asmessage} &
+return DescriptorProto message. \\
 \hline
 \texttt{fileDescriptor} & \ref{Descriptor-method-filedescriptor} & Retrieve the file descriptor of this
 descriptor.\\
@@ -999,6 +1001,16 @@ desc <- tutorial.Person
 writeLines( desc$toString() )
 writeLines( toString( desc ) )
 writeLines( as.character(tutorial.Person) )
+@
+
+\subsubsection{asMessage}
+\label{Descriptor-method-asmessage}
+
+The \texttt{asMessage} method returns a message of type
+\texttt{google.protobuf.DescriptorProto} of the Descriptor.
+
+<<>>=
+tutorial.Person$asMessage()
 @
 
 \subsubsection{The fileDescriptor method}
@@ -1137,6 +1149,8 @@ defined for the \texttt{FieldDescriptor} class.
 \texttt{as.character} & \ref{fielddescriptor-method-ascharacter} & character representation of a descriptor\\
 \texttt{toString} & \ref{fielddescriptor-method-tostring} & character
 representation of a descriptor (same as \texttt{as.character}) \\
+\texttt{asMessage} & \ref{fielddescriptor-method-asmessage} &
+return FieldDescriptorProto message. \\
 \texttt{name} &  \ref{fielddescriptor-method-name} & Return the name of the field descriptor.\\
 \texttt{fileDescriptor} & \ref{fielddescriptor-method-filedescriptor}
 & Return the fileDescriptor where this field is defined.\\
@@ -1149,6 +1163,11 @@ representation of a descriptor (same as \texttt{as.character}) \\
 \texttt{label} & \ref{fielddescriptor-method-label} & Gets the label of a field (optional, required, or repeated).\\
 \texttt{is\_repeated} & \ref{fielddescriptor-method-isrepeated} & Return TRUE if this field is repeated.\\
 \texttt{is\_required} & \ref{fielddescriptor-method-isrequired} & Return TRUE if this field is required.\\
+\texttt{is\_optional} & \ref{fielddescriptor-method-isoptional} & Return TRUE if htis field is optional.\\
+\texttt{has\_default\_value} & \ref{fielddescriptor-method-hasdefaultvalue} &
+Return TRUE if this field has a default value.\\
+\texttt{default\_value} & \ref{fielddescriptor-method-defaultvalue} &
+Return the default value.\\
 \texttt{is\_optional} & \ref{fielddescriptor-method-isoptional} & Return TRUE if htis field is optional.\\
 \texttt{message\_type} & \ref{fielddescriptor-method-messagetype} & Return the message type if this is a message type field.\\
 \texttt{enum\_type} & \ref{fielddescriptor-method-enumtype} & Return the enum type if this is an enum type field.\\
@@ -1174,6 +1193,17 @@ writeLines( as.character( tutorial.Person$PhoneNumber ) )
 
 <<>>=
 writeLines( tutorial.Person.PhoneNumber$toString() )
+@
+
+\subsubsection{asMessage}
+\label{fielddescriptor-method-asmessage}
+
+The \texttt{asMessage} method returns a message of type
+\texttt{google.protobuf.FieldDescriptorProto} of the FieldDescriptor.
+
+<<>>=
+tutorial.Person$id$asMessage()
+writeLines(as.character(tutorial.Person$id$asMessage()))
 @
 
 \subsubsection{name}
@@ -1297,6 +1327,35 @@ The \texttt{is\_optional} method returns TRUE if this field is optional.
 is_optional( tutorial.Person$id )
 tutorial.Person$id$is_optional()
 @
+
+
+\texttt{has\_default\_value} & \ref{fielddescriptor-method-hasdefaultvalue} &
+Return TRUE if this field has a default value.\\
+\subsubsection{has\_default\_value}
+\label{fielddescriptor-method-hasdefaultvalue}
+
+The \texttt{has\_default\_value} method returns TRUE if this field has
+a default value.
+
+<<>>=
+has_default_value(tutorial.Person$PhoneNumber$type)
+has_default_value(tutorial.Person$PhoneNumber$number)
+@
+
+\texttt{default\_value} & \ref{fielddescriptor-method-defaultvalue} &
+Return the default value.\\
+\subsubsection{is\_optional}
+\label{fielddescriptor-method-isoptional}
+
+The \texttt{is\_optional} method returns TRUE if this field is optional.
+
+<<>>=
+is_optional( tutorial.Person$id )
+tutorial.Person$id$is_optional()
+@
+
+
+
 \subsubsection{message\_type}
 \label{fielddescriptor-method-messagetype}
 
@@ -1355,6 +1414,8 @@ integer vector with the values of the enum and their names.\\
 \texttt{as.character} & \ref{enumdescriptor-method-ascharacter} & character representation of a descriptor\\
 \texttt{toString} & \ref{enumdescriptor-method-tostring} & character
 representation of a descriptor (same as \texttt{as.character}) \\
+\texttt{asMessage} & \ref{enumdescriptor-method-asmessage} &
+return EnumDescriptorProto message. \\
 \texttt{name} &  \ref{enumdescriptor-method-name} & Return the name of the enum descriptor.\\
 \texttt{fileDescriptor} & \ref{enumdescriptor-method-filedescriptor}
 & Return the fileDescriptor where this field is defined.\\
@@ -1414,6 +1475,17 @@ The \texttt{toString} method brings the debug string of the enum type.
 
 <<>>=
 writeLines( toString( tutorial.Person$PhoneType ) )
+@
+
+\subsubsection{asMessage}
+\label{enumdescriptor-method-asmessage}
+
+The \texttt{asMessage} method returns a message of type
+\texttt{google.protobuf.EnumDescriptorProto} of the EnumDescriptor.
+
+<<>>=
+tutorial.Person$PhoneType$asMessage()
+writeLines(as.character(tutorial.Person$PhoneType$asMessage()))
 @
 
 \subsubsection{name}
@@ -1634,16 +1706,45 @@ the slots \texttt{pointer}, \texttt{filename}, and \texttt{package} :
 
 Similarly to messages, the \verb|$| operator can be used to extract
 information from the file descriptor, or invoke pseuso-methods.
+Table~\ref{filedescriptor-methods-table} describes the methods
+defined for the \texttt{FileDescriptor} class.
+
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|ccp{8cm}|}
+\hline
+\textbf{method} & \textbf{section} & \textbf{description} \\
+\hline
+\hline
+\texttt{name} & \ref{filedescriptor-method-name} & Return the filename
+for this FileDescriptorProto.\\
+\texttt{package} & \ref{filedescriptor-method-package} & Return the
+file-level package name specified in this FileDescriptorProto.\\
+\texttt{as.character} & \ref{filedescriptor-method-ascharacter} & character
+representation of a descriptor. \\
+\texttt{toString} & \ref{filedescriptor-method-tostring} & character
+representation of a descriptor (same as \texttt{as.character}). \\
+\texttt{asMessage} & \ref{filedescriptor-method-asmessage} &
+return FileDescriptorProto message. \\
+\texttt{as.list} & \ref{filedescriptor-method-aslist} &
+return named list of descriptors defined in this file descriptor.\\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{filedescriptor-methods-table}Description of methods for the \texttt{FileDescriptor} S4 class}
+\end{table}
 
 \subsubsection{as.character}
-
-The \texttt{as.character} method brings the debug string of the enum type.
+\label{filedescriptor-method-ascharacter}
+The \texttt{as.character} method brings the debug string of the file descriptor.
 
 <<>>=
 writeLines( as.character(fileDescriptor(tutorial.Person)) )
 @
 
 \subsubsection{toString}
+\label{filedescriptor-method-tostring}
 
 \texttt{toString} is an alias of \texttt{as.character}.
 
@@ -1652,6 +1753,7 @@ writeLines( fileDescriptor(tutorial.Person)$toString() )
 @
 
 \subsubsection{asMessage}
+\label{filedescriptor-method-asmessage}
 
 The \texttt{asMessage} method returns a protocol buffer message representation of the file descriptor.
 
@@ -1661,6 +1763,7 @@ writeLines( as.character(asMessage(tutorial.Person$fileDescriptor())) )
 @
 
 \subsubsection{as.list}
+\label{filedescriptor-method-aslist}
 
 The \texttt{as.list} method creates a named R list that contains the descriptors defined in this file descriptor.
 
@@ -1669,22 +1772,26 @@ as.list( tutorial.Person$fileDescriptor() )
 @
 
 \subsubsection{name}
+\label{filedescriptor-method-name}
 
 The \texttt{name} method can be used to retrieve the file name associated with the
-file descriptor.
+file descriptor.  The optional boolean argument can be specified if
+full pathnames are desired.
 
 <<>>=
 name( tutorial.Person$fileDescriptor() )
-tutorial.Person$fileDescriptor()$name()
+tutorial.Person$fileDescriptor()$name(TRUE)
 @
-\subsubsection{package}
 
-The \texttt{package} method can be used to retrieve the package scope associated with this file descriptor.
+\subsubsection{package}
+\label{filedescriptor-method-package}
+
+The \texttt{package} method can be used to retrieve the package scope
+associated with this file descriptor.
 
 <<>>=
 tutorial.Person$fileDescriptor()$package()
 @
-
 
 \subsection{service descriptors}
 \label{subsec-ServiceDescriptor}
