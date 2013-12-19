@@ -21,14 +21,17 @@ setMethod( "value", "EnumDescriptor", function(object, index, name, number){
 	}
 	
 	if( has_index ){
+		stopifnot(is.numeric(index))
 		return( .Call( "EnumDescriptor__getValueByIndex", object@pointer, as.integer(index)-1L, PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_number ){
+		stopifnot(is.numeric(number))
 		return( .Call( "EnumDescriptor__getValueByNumber", object@pointer, as.integer(number), PACKAGE = "RProtoBuf" ) )
 	}
 	
 	if( has_name ){
+		stopifnot(is.character(name))
 		return( .Call( "EnumDescriptor__getValueByName", object@pointer, as.character(name), PACKAGE = "RProtoBuf" ) )
 	}
 	

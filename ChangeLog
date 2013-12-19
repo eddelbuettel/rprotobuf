@@ -6,6 +6,9 @@
 	* R/00classes.R (P): Ensure that the FileDescriptor $name() method
 	  accepts a boolean for full paths just like the generic name()
 	  method.
+	* R/wrapper_EnumDescriptor.R: Add better error checking.  Expect
+	  exceptions if wrong types are provided for arguments rather than
+	  just returning NULL.
 
 2013-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
