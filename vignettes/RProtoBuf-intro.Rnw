@@ -1518,7 +1518,9 @@ tutorial.Person$PhoneType$fileDescriptor()
 The \texttt{containing\_type} method can be used to retrieve the
 descriptor for the message type that contains this enum descriptor.
 
-TODO(ms): seems broken, fix it!
+<<>>=
+tutorial.Person$PhoneType$containing_type()
+@ 
 
 \subsubsection{length}
 \label{enumdescriptor-method-length}

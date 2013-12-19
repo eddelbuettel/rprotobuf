@@ -15,9 +15,9 @@ setMethod( "containing_type", "Descriptor", function(object){
 } )
 setMethod( "containing_type", "EnumDescriptor", function(object){
 	retval <- .Call( "EnumDescriptor__containing_type", object@pointer, PACKAGE = "RProtoBuf" )
-	if (length(retval@name) == 0) {
-                # If this enum type is nested in a message type, this is that message type.
-                # Otherwise, NULL.
+	if (length(name(retval)) == 0) {
+		# If this enum type is nested in a message type, this
+		# is that message type.	 Otherwise, NULL.
 		return(NULL)
 	} else {
                 return(retval)
