@@ -1,8 +1,11 @@
 2013-12-18  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/completion.R (.DollarNames.EnumValueDescriptor): Add
-	  $-completion for EnumValueDescriptor class as with other S4
-	  RProtoBuf classes here.
+	  $-completion for EnumValueDescriptor and FileDescriptor classes
+	  as with other S4 RProtoBuf classes here.
+	* R/00classes.R (P): Ensure that the FileDescriptor $name() method
+	  accepts a boolean for full paths just like the generic name()
+	  method.
 
 2013-12-18  Dirk Eddelbuettel  <edd@debian.org>
 

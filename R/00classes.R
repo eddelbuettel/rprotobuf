@@ -288,7 +288,7 @@ setMethod( "$", "FileDescriptor", function(x, name ){
 		"toString" = function(...) toString(x, ...) ,
 		"asMessage" = function() asMessage(x),
 		"as.list" = function() as.list(x),
-      		"name" = function() x@filename,
+      		"name" = function(...) name(x, ... ),
        		"package" = function() x@package,
 		invisible(NULL)
 		)
