@@ -44,7 +44,16 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	names <- c( 
 		.Call( "EnumDescriptor__getConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"name(", "fileDescriptor()", "as.character()", "toString()", 
-		"containing_type()", "length()", "value_count()", "value(" )
+		"containing_type()", "length()", "value_count()", "value(",
+		"has(")
+	grep( pattern, names, value = TRUE )
+}
+# }}}
+
+# {{{ EnumValueDescriptor
+.DollarNames.EnumValueDescriptor <- function(x, pattern = "" ){
+	names <- c("number()", "name()", "enum_type()",
+		   "as.character()", "toString()", "asMessage()")
 	grep( pattern, names, value = TRUE )
 }
 # }}}

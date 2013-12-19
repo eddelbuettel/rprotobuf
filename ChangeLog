@@ -1,3 +1,9 @@
+2013-12-18  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/completion.R (.DollarNames.EnumValueDescriptor): Add
+	  $-completion for EnumValueDescriptor class as with other S4
+	  RProtoBuf classes here.
+
 2013-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/RProtoBuf-intro.Rnw: Use with vignette builder
