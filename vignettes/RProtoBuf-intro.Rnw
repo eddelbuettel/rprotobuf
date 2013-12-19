@@ -1104,6 +1104,8 @@ tutorial.Person$enum_type(1)
 The class \emph{FieldDescriptor} represents field
 descriptor in R. This is a wrapper S4 class around the
 \texttt{google::protobuf::FieldDescriptor} C++ class.
+Table~\ref{fielddescriptor-methods-table} describes the methods
+defined for the \texttt{FieldDescriptor} class.
 
 \begin{table}[h]
 \centering
@@ -1123,7 +1125,41 @@ descriptor in R. This is a wrapper S4 class around the
 \caption{\label{FieldDescriptor-class-table}Description of slots for the \texttt{FieldDescriptor} S4 class}
 \end{table}
 
+
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|ccp{8cm}|}
+\hline
+\textbf{method} & \textbf{section} & \textbf{description} \\
+\hline
+\hline
+\texttt{as.character} & \ref{fielddescriptor-method-ascharacter} & character representation of a descriptor\\
+\texttt{toString} & \ref{fielddescriptor-method-tostring} & character
+representation of a descriptor (same as \texttt{as.character}) \\
+\texttt{name} &  \ref{fielddescriptor-method-name} & Return the name of the field descriptor.\\
+\texttt{fileDescriptor} & \ref{fielddescriptor-method-filedescriptor}
+& Return the fileDescriptor where this field is defined.\\
+\texttt{containing\_type} &
+\ref{fielddescriptor-method-containingtype} & Return the containing descriptor of this field.\\
+\texttt{is\_extension} & \ref{fielddescriptor-method-isextension} & Return TRUE if this field is an extension.\\
+\texttt{number} & \ref{fielddescriptor-method-number} & Gets the declared tag number of the field.\\
+\texttt{type} & \ref{fielddescriptor-method-type} & Gets the type of the field.\\
+\texttt{cpp\_type} & \ref{fielddescriptor-method-cpptype} & Gets the C++ type of the field.\\
+\texttt{label} & \ref{fielddescriptor-method-label} & Gets the label of a field (optional, required, or repeated).\\
+\texttt{is\_repeated} & \ref{fielddescriptor-method-isrepeated} & Return TRUE if this field is repeated.\\
+\texttt{is\_required} & \ref{fielddescriptor-method-isrequired} & Return TRUE if this field is required.\\
+\texttt{is\_optional} & \ref{fielddescriptor-method-isoptional} & Return TRUE if htis field is optional.\\
+\texttt{message\_type} & \ref{fielddescriptor-method-messagetype} & Return the message type if this is a message type field.\\
+\texttt{enum\_type} & \ref{fielddescriptor-method-enumtype} & Return the enum type if this is an enum type field.\\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{fielddescriptor-methods-table}Description of methods for the \texttt{FieldDescriptor} S4 class}
+\end{table}
+
 \subsubsection{as.character}
+\label{fielddescriptor-method-ascharacter}
 
 The \texttt{as.character} method brings the debug string of the field descriptor.
 
@@ -1132,6 +1168,7 @@ writeLines( as.character( tutorial.Person$PhoneNumber ) )
 @
 
 \subsubsection{toString}
+\label{fielddescriptor-method-tostring}
 
 \texttt{toString} is an alias of \texttt{as.character}.
 
@@ -1140,6 +1177,7 @@ writeLines( tutorial.Person.PhoneNumber$toString() )
 @
 
 \subsubsection{name}
+\label{fielddescriptor-method-name}
 
 The \texttt{name} method can be used to retrieve the name of the
 field descriptor.
@@ -1151,11 +1189,140 @@ name( tutorial.Person$id )
 name( tutorial.Person$id, full=TRUE )
 @
 
+\subsubsection{fileDescriptor}
+\label{fielddescriptor-method-filedescriptor}
+
+The \texttt{fileDescriptor} method can be used to retrieve the file
+descriptor of the field descriptor.
+
+<<>>=
+fileDescriptor(tutorial.Person$id)
+tutorial.Person$id$fileDescriptor()
+@ 
+
+\subsubsection{containing\_type}
+\label{fielddescriptor-method-containingtype}
+
+The \texttt{containing\_type} method can be used to retrieve the
+descriptor for the message type that contains this descriptor.
+
+<<>>=
+containing_type(tutorial.Person$id)
+tutorial.Person$id$containing_type()
+@
+
+
+\subsubsection{is\_extension}
+\label{fielddescriptor-method-isextension}
+
+The \texttt{is\_extension} method returns TRUE if this field is an extension.
+% TODO(ms): cross reference to a to be written section on extensions.
+
+<<>>=
+is_extension( tutorial.Person$id )
+tutorial.Person$id$is_extension()
+@
+
+\subsubsection{number}
+\label{fielddescriptor-method-number}
+
+The \texttt{number} method returns the declared tag number of this field.
+
+<<>>=
+number( tutorial.Person$id )
+tutorial.Person$id$number()
+@
+
+\subsubsection{type}
+\label{fielddescriptor-method-type}
+
+The \texttt{type} method can be used to retrieve the type of the
+field descriptor.
+
+<<>>=
+type( tutorial.Person$id )
+tutorial.Person$id$type()
+@
+\subsubsection{cpp\_type}
+\label{fielddescriptor-method-cpptype}
+
+The \texttt{cpp\_type} method can be used to retrieve the C++ type of the
+field descriptor.
+
+<<>>=
+cpp_type( tutorial.Person$id )
+tutorial.Person$id$cpp_type()
+@
+
+\subsubsection{label}
+\label{fielddescriptor-method-label}
+
+Gets the label of a field (optional, required, or repeated).
+The \texttt{label} method returns the label of a field (optional,
+required, or repeated).  By defualt it returns a number value, but the
+optional \texttt{as.string} argument can be provided to return a
+human readable string representation.
+
+<<>>=
+label( tutorial.Person$id )
+label( tutorial.Person$id , TRUE)
+tutorial.Person$id$label(TRUE)
+@
+\subsubsection{is\_repeated}
+\label{fielddescriptor-method-isrepeated}
+
+The \texttt{is\_repeated} method returns TRUE if this field is repeated.
+
+<<>>=
+is_repeated( tutorial.Person$id )
+tutorial.Person$id$is_repeated()
+@
+
+\subsubsection{is\_required}
+\label{fielddescriptor-method-isrequired}
+
+The \texttt{is\_required} method returns TRUE if this field is required.
+
+<<>>=
+is_required( tutorial.Person$id )
+tutorial.Person$id$is_required()
+@
+
+\subsubsection{is\_optional}
+\label{fielddescriptor-method-isoptional}
+
+The \texttt{is\_optional} method returns TRUE if this field is optional.
+
+<<>>=
+is_optional( tutorial.Person$id )
+tutorial.Person$id$is_optional()
+@
+\subsubsection{message\_type}
+\label{fielddescriptor-method-messagetype}
+
+The \texttt{message\_type} method returns the message type if this is
+a message type field.
+
+<<>>=
+message_type(tutorial.Person$phone)
+tutorial.Person$phone$message_type()
+@
+\subsubsection{enum\_type}
+\label{fielddescriptor-method-enumtype}
+
+The \texttt{enum\_type} method returns the enum type if this is an enum type field.
+
+<<>>=
+enum_type(tutorial.Person$PhoneNumber$type)
+@
+
 \subsection{enum descriptors}
 \label{subsec-enum-descriptor}
 
 The class \emph{EnumDescriptor} is an R wrapper
 class around the C++ class \texttt{google::protobuf::EnumDescriptor}.
+Table~\ref{enumdescriptor-methods-table} describes the methods
+defined for the \texttt{EnumDescriptor} class.
 
 \begin{table}[h]
 \centering
@@ -1175,7 +1342,51 @@ class around the C++ class \texttt{google::protobuf::EnumDescriptor}.
 \caption{\label{EnumDescriptor-class-table}Description of slots for the \texttt{EnumDescriptor} S4 class}
 \end{table}
 
+\begin{table}[h]
+\centering
+\begin{small}
+\begin{tabular}{|ccp{8cm}|}
+\hline
+\textbf{method} & \textbf{section} & \textbf{description} \\
+\hline
+\hline
+\texttt{as.list} & \ref{enumdescriptor-method-aslist} & return a named
+integer vector with the values of the enum and their names.\\
+\texttt{as.character} & \ref{enumdescriptor-method-ascharacter} & character representation of a descriptor\\
+\texttt{toString} & \ref{enumdescriptor-method-tostring} & character
+representation of a descriptor (same as \texttt{as.character}) \\
+\texttt{name} &  \ref{enumdescriptor-method-name} & Return the name of the enum descriptor.\\
+\texttt{fileDescriptor} & \ref{enumdescriptor-method-filedescriptor}
+& Return the fileDescriptor where this field is defined.\\
+\texttt{containing\_type} &
+\ref{enumdescriptor-method-containingtype} & Return the containing descriptor of this field.\\
+\texttt{length} &
+\ref{enumdescriptor-method-length} & Return the number of constants in
+this enum.\\
+\texttt{value\_count} &
+\ref{enumdescriptor-method-valuecount} & Return the number of constants in
+this enum (same as \texttt{length}).\\
+\texttt{value} &
+\ref{enumdescriptor-method-value} & Return the
+EnumValueDescriptor of an enum value of specified index, name, or number.\\
+\hline
+\end{tabular}
+\end{small}
+\caption{\label{enumdescriptor-methods-table}Description of methods for the \texttt{EnumDescriptor} S4 class}
+\end{table}
+
+\subsubsection{Extracting descriptors}
+
+The \verb|$| operator, when used on a EnumDescriptor object retrieves
+EnumValueDescriptors that are contained in the descriptor.
+
+<<>>=
+tutorial.Person$PhoneType$WORK
+name(tutorial.Person$PhoneType$value(number=2))
+@
+
 \subsubsection{as.list}
+\label{enumdescriptor-method-aslist}
 
 The \texttt{as.list} method creates a named R integer vector that
 captures the values of the enum and their names.
@@ -1185,12 +1396,88 @@ as.list( tutorial.Person$PhoneType )
 @
 
 \subsubsection{as.character}
+\label{enumdescriptor-method-ascharacter}
 
 The \texttt{as.character} method brings the debug string of the enum type.
 
 <<>>=
 writeLines( as.character( tutorial.Person$PhoneType ) )
 @
+
+\subsubsection{toString}
+\label{enumdescriptor-method-tostring}
+
+The \texttt{toString} method brings the debug string of the enum type.
+
+<<>>=
+writeLines( toString( tutorial.Person$PhoneType ) )
+@
+
+\subsubsection{name}
+\label{enumdescriptor-method-name}
+
+The \texttt{name} method can be used to retrieve the name of the
+enum descriptor.
+
+<<>>=
+# simple name.
+name( tutorial.Person$PhoneType )
+# name including scope.
+name( tutorial.Person$PhoneType, full=TRUE )
+@
+
+\subsubsection{fileDescriptor}
+\label{enumdescriptor-method-filedescriptor}
+
+The \texttt{fileDescriptor} method can be used to retrieve the file
+descriptor of the enum descriptor.
+
+<<>>=
+fileDescriptor(tutorial.Person$PhoneType)
+tutorial.Person$PhoneType$fileDescriptor()
+@ 
+
+\subsubsection{containing\_type}
+\label{enumdescriptor-method-containingtype}
+
+The \texttt{containing\_type} method can be used to retrieve the
+descriptor for the message type that contains this enum descriptor.
+
+TODO(ms): seems broken, fix it!
+
+\subsubsection{length}
+\label{enumdescriptor-method-length}
+
+The \texttt{length} method returns the number of constants in this enum.
+
+<<>>=
+length(tutorial.Person$PhoneType)
+tutorial.Person$PhoneType$length()
+@ 
+
+\subsubsection{value\_count}
+\label{enumdescriptor-method-valuecount}
+
+The \texttt{value\_count} method returnst he number of constants in
+this enum.
+%TODO(ms): Duplicate of length, just like tostring/as.character.
+<<>>=
+value_count(tutorial.Person$PhoneType)
+tutorial.Person$PhoneType$value_count()
+@ 
+
+\subsubsection{value}
+\label{enumdescriptor-method-value}
+
+The \texttt{value} method extracts an EnumValueDescriptor.  Exactly
+one argument of 'index', 'number', or 'name' must be specified to
+identify which constant is desired.
+
+<<>>=
+tutorial.Person$PhoneType$value(1)
+tutorial.Person$PhoneType$value(name="HOME")
+tutorial.Person$PhoneType$value(number=1)
+@ 
 
 \subsection{file descriptors}
 \label{subsec-fileDescriptor}
