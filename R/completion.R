@@ -45,7 +45,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		.Call( "EnumDescriptor__getConstantNames", x@pointer, PACKAGE = "RProtoBuf" ), 
 		"name(", "fileDescriptor()", "as.character()", "toString()", 
 		"containing_type()", "length()", "value_count()", "value(",
-		"has(")
+		"has(", "asMessage()")
 	grep( pattern, names, value = TRUE )
 }
 # }}}
@@ -64,7 +64,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		"fileDescriptor()", "containing_type()", 
 		"is_extension()", "number()", "type(", "cpp_type(", "label(", 
 		"is_repeated()", "is_required()", "is_optional()", 
-		"message_type()", "enum_type()"
+		"message_type()", "enum_type()",
+		"has_default_value()", "default_value(",
 	)
 	grep( pattern, names, value = TRUE )
 }
