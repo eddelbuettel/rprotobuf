@@ -1,3 +1,8 @@
+2013-12-20  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/00classes.R: Correct a bug that incorrectly dispatched
+	  as.character() when as.list() was called on Descriptor objects.
+
 2013-12-18  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/completion.R (.DollarNames.EnumValueDescriptor): Add

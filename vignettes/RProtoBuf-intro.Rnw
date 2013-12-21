@@ -884,6 +884,8 @@ text connection.\\
 this descriptor.\\
 \texttt{as.character} & \ref{Descriptor-method-ascharacter} & character representation of a descriptor\\
 \texttt{toString} & \ref{Descriptor-method-tostring} & character representation of a descriptor (same as \texttt{as.character}) \\
+\texttt{as.list} & \ref{Descriptor-method-aslist} & return a named
+list of the field, enum, and nested descriptors included in this descriptor.\\
 \texttt{asMessage} & \ref{Descriptor-method-asmessage} &
 return DescriptorProto message. \\
 \hline
@@ -1001,6 +1003,16 @@ desc <- tutorial.Person
 writeLines( desc$toString() )
 writeLines( toString( desc ) )
 writeLines( as.character(tutorial.Person) )
+@
+
+\subsubsection{as.list}
+\label{Descriptor-method-aslist}
+
+The \texttt{as.list} method returns a named list of the field, enum,
+and nested descriptors included in this descriptor.
+
+<<>>=
+tutorial.Person$as.list()
 @
 
 \subsubsection{asMessage}

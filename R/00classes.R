@@ -206,7 +206,7 @@ setMethod("$", "Descriptor", function(x, name) {
 		"readASCII" = function( input ) readASCII( x, input ),
 		"toString" = function(...) toString(x, ...) ,
 		"as.character" = function(...) as.character(x, ...) ,
-		"as.list" = function(...) as.character(x, ...) ,
+		"as.list" = function(...) as.list(x, ...) ,
 		"asMessage" = function() asMessage(x),
 		"fileDescriptor" = function() fileDescriptor(x ),
 		"name" = function(...) name(x, ... ),
