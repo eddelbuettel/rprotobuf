@@ -87,14 +87,14 @@ project page: \url{http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns}
 The protocol buffer project page contains a comprehensive
 description of the language: \url{http://code.google.com/apis/protocolbuffers/docs/proto.html}
 
-\section{Dynamic use: Protocol Buffers and R}
+\section{Basic use: Protocol Buffers and R}
 
 This section describes how to use the R API to create and manipulate
 protocol buffer messages in R, and how to read and write the
 binary \emph{payload} of the messages to files and arbitrary binary
 R connections.
 
-\subsection{Importing proto files}
+\subsection{Importing proto files dynamically}
 
 In contrast to the other languages (Java, C++, Python) that are officially
 supported by Google, the implementation used by the \texttt{RProtoBuf}
@@ -1927,7 +1927,62 @@ tutorial.Person
 new( tutorial.Person )
 @
 
-\section{Descriptor lookup}
+\section{Advanced Features}
+\subsection{Extensions}
+\label{sec-extensions}
+
+Extensions allow you to declare a range of field numbers in a message
+that are available for extension types.  This allows others to declare
+new fields for a given message type possibly in their own
+\texttt{.proto} files without having to edit the original file.  See
+\url{https://developers.google.com/protocol-buffers/docs/proto#extensions}.
+
+Notice that the last line of the \texttt{Person} message schema in
+\texttt{addressbook.proto} is the following line :
+
+\begin{verbatim}
+  extensions 100 to 199;  
+\end{verbatim}
+
+This specifies that other users in other .proto files can use tag
+numbers between 100 and 199 for extention types of this message.
+
+For example, the following file \texttt{extend.proto}:
+
+<<echo=FALSE,print=FALSE>>=
+  extend.proto <- tempfile()
+  writeLines(c(
+               paste0('import "', system.file("proto/addressbook.proto",
+                                            package="RProtoBuf"), '";'),
+               "package tutorial;",
+               paste0("extend Person {\n  optional string nationality = 100;\n}")),
+             extend.proto)
+@ 
+
+<<echo=FALSE>>=
+writeLines(readLines(extend.proto))  
+@ 
+
+After importing this new \texttt{.proto} file with an extension
+defined, we can get or set the value of this extension in Messages of
+type \texttt{Person}.
+
+<<>>=
+library(RProtoBuf)
+readProtoFiles(extend.proto)     
+person <- new(tutorial.Person, id=1, name="Murray")
+person
+person$setExtension(P("tutorial.nationality"), "USA")
+cat(as.character(person))
+person$getExtension(P("tutorial.nationality"))
+@ 
+
+The character output of this message places the extension type in
+brackets to differentiate it from other fields in the message, and so
+we know we need to use the \texttt{getExtension} method rather than a
+'\$' field extractor to get the value.
+
+\subsection{Descriptor lookup}
 \label{sec-lookup}
 
 The \texttt{RProtoBuf} package uses the user defined tables framework
@@ -1944,7 +1999,7 @@ it asks to our package if it knows the binding "foo", this is then
 implemented by the \texttt{RProtoBuf} package by calling an internal
 method of the \texttt{protobuf} C++ library.
 
-\section{64-bit integer issues}
+\subsection{64-bit integer issues}
 \label{sec:int64}
 
 R does not have native 64-bit integer support.  Instead, R treats

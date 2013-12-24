@@ -2,10 +2,23 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in UNRELEASED RProtoBuf version 0.3.3 (2013-12-18)}{
+\section{Changes in UNRELEASED RProtoBuf version 0.3.3 (2013-12-23)}{
   \itemize{
     \item Vignettes have been converted to the R 3.0.0 or later use of
     external vignette builders, no longer need a \code{Makefile}
+    \item Added missing methods to dollar completion list for Message,
+    Descriptor, EnumValueDescriptor, and FileDescriptor classes.
+    \item Add more than 10 additional pages to the main Intro vignette
+    documenting better all of the S4 classes implemented by RProtoBuf and
+    advanced features such as Extensions.
+    \item Added better error checking in EnumDescriptors to catch the
+    case when wrong types are provided.
+    \item Updated the FileDescriptor \code{name()} method to accept a boolean
+    for full paths just like the generic \code{name()} method.
+    \item Correct a bug that incorrectly dispatched \code{as.character()} when
+    \code{as.list()} was called on Descriptor objects.
+    \item Added a reservation for extension fields in the example
+    tutorial.Person schema.
   }
 }
 

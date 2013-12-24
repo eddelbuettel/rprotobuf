@@ -1,3 +1,11 @@
+2013-12-23  Murray Stokely  <murray@FreeBSD.org>
+
+	* DESCRIPTION (Version): increment.
+	* inst/proto/addressbook.proto: Reserved extension fields in
+	  tutorial.Person.
+	* vignettes/RProtoBuf-intro.Rnw (subsection{Extensions}): Added a
+	  new section documenting protocol buffer extensions.
+
 2013-12-20  Murray Stokely  <murray@FreeBSD.org>
 
 	* R/00classes.R: Correct a bug that incorrectly dispatched

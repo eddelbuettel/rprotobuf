@@ -15,6 +15,7 @@ message Person {
     optional PhoneType type = 2 [default = HOME];
   }
   repeated PhoneNumber phone = 4;
+  extensions 100 to 199;  
 }
 message AddressBook {
   repeated Person person = 1;
