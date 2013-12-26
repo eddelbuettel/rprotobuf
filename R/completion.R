@@ -65,7 +65,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		"is_extension()", "number()", "type(", "cpp_type(", "label(", 
 		"is_repeated()", "is_required()", "is_optional()", 
 		"message_type()", "enum_type()", "asMessage()",
-		"has_default_value()", "default_value(",
+		"has_default_value()", "default_value("
 	)
 	grep( pattern, names, value = TRUE )
 }

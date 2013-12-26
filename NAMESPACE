@@ -83,6 +83,7 @@ if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarN
 S3method(.DollarNames, Message )
 S3method(.DollarNames, Descriptor )
 S3method(.DollarNames, EnumDescriptor )
+S3method(.DollarNames, EnumValueDescriptor )
 S3method(.DollarNames, FileDescriptor )
 S3method(.DollarNames, FieldDescriptor )
 S3method(.DollarNames, ServiceDescriptor )
