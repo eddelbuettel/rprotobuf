@@ -1,3 +1,10 @@
+2013-12-26  Murray Stokely  <murray@FreeBSD.org>
+
+	* R/00classes.R: Update FileDescriptor '$' dispatch to work
+	  properly for the names of fields defined in the FileDescriptor,
+	  instead of just returning NULL even for types returned by $
+	  completion.
+
 2013-12-23  Murray Stokely  <murray@FreeBSD.org>
 
 	* DESCRIPTION (Version): increment.

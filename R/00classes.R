@@ -290,7 +290,7 @@ setMethod( "$", "FileDescriptor", function(x, name ){
 		"as.list" = function() as.list(x),
       		"name" = function(...) name(x, ... ),
        		"package" = function() x@package,
-		invisible(NULL)
+                as.list(x)[[name]]
 		)
 })
 

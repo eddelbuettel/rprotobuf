@@ -1710,10 +1710,16 @@ the slots \texttt{pointer}, \texttt{filename}, and \texttt{package} :
 \end{table}
 
 Similarly to messages, the \verb|$| operator can be used to extract
-information from the file descriptor, or invoke pseuso-methods.
+fields from the file descriptor (in this case, types defined in the
+file), or invoke pseuso-methods.
 Table~\ref{filedescriptor-methods-table} describes the methods
 defined for the \texttt{FileDescriptor} class.
 
+<<>>=
+f <- tutorial.Person$fileDescriptor()
+f
+f$Person
+@ 
 \begin{table}[h]
 \centering
 \begin{small}
