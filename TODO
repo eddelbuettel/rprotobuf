@@ -1,47 +1,43 @@
 Current TODO list:
 
-1. Finish improved vignette / R Journal writeup.
+o Finish improved vignette / R Journal writeup.
 
-2. Refactor massive 800+ line setMessageField function in
-   src/mutators.cpp into more modular, testable, easier to read
-   subroutines.
+o Push some type coercion hacks done in RProtoBuf upstream to Rcpp
+  (Rcpp:as<int> types should work on character strings representing
+  numbers, especially for int64s since we don't otherwise have a way
+  to represent 64-bit integers in base R).
 
-3. Push some type coercion hacks done in RProtoBuf upstream to Rcpp
-   (Rcpp:as<int> types should work on character strings representing
-   numbers, especially for int64s since we don't otherwise have a way
-   to represent 64-bit integers in base R).
+o Add more packages that depend on or enhance RProtoBuf.
 
-4. Add more packages that depend on or enhance RProtoBuf.
-
-5. Improve exception handling to prevent cases where an Rcpp exception
+o Improve exception handling to prevent cases where an Rcpp exception
    crashes the interactive R instance.
 
-6. Investigate Rcpp Modules support for some classes.  Murray is not
-   personally super enthusiastic about this one, as I think it may
-   require non trivial changes to Rcpp and/or result in losing some of
-   the user-friendliness we've crafted in the explicit RcppExported
-   function entry points.  Still, it could be explored and may result
-   in significantly fewer lines of code if successful.
+o Investigate Rcpp Modules support for some classes.  Murray is not
+  personally super enthusiastic about this one, as I think it may
+  require non trivial changes to Rcpp and/or result in losing some of
+  the user-friendliness we've crafted in the explicit RcppExported
+  function entry points.  Still, it could be explored and may result
+  in significantly fewer lines of code if successful.
 
-7. Add a FAQ and other documentation / examples.
+o Add a FAQ and other documentation / examples.
 
-8. Add more unit tests.
+o Add more unit tests.
 
-9. Explore removing the CLONE() in extractors.cpp.  This makes for
-   unusual semantics for any mutable methods of sub-messages.  For
-   example, clear(), setExtension(), and probably also update() ( but
-   "$<-" on sub-messages is not a problem, it seems).  More details below.
+o Explore removing the CLONE() in extractors.cpp.  This makes for
+  unusual semantics for any mutable methods of sub-messages.  For
+  example, clear(), setExtension(), and probably also update() ( but
+  "$<-" on sub-messages is not a problem, it seems).  More details below.
 
-10. What should we do when we unload the package?  Any additional
-   resources to free that is not currently done?
+o What should we do when we unload the package?  Any additional
+  resources to free that is not currently done?
 
-11. finalizers [murray: what is needed here?]
+o finalizers [murray: what is needed here?]
 
-12. Clean up formatting / whitespace (its awful, run it all through
-    clang-format?)
+o Clean up formatting / whitespace (its awful, run it all through
+  clang-format?)
 
-13. Thoroughly audit extensions support and other deeply nested types
-   support to ensure everything is implemented as expected.
+o Thoroughly audit extensions support and other deeply nested types
+  support to ensure everything is implemented as expected.
 
 Stuff I think belongs in additional packages that depend on RProtoBuf,
 rather than inside RProtoBuf directly:

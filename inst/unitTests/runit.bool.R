@@ -34,13 +34,12 @@ test.bool <- function() {
     checkEquals(length(unique(a$repeated_bool)), 2)
 
     # Verify we can't set any garbage string to a bool.
-    # TODO(mstokely): Fix and uncomment these.
-#    checkException(a$optional_bool <- "100")
-#    checkException(a$optional_bool <- "invalid")
+    checkException(a$optional_bool <- "100")
+    checkException(a$optional_bool <- "invalid")
 
     # Verify we can't set any garbage string to a repeated bool.
-#    checkException(a$repeated_bool <-c("invalid", "invalid"))
-#    checkException(a$repeated_bool <-c("33-"))
+    checkException(a$repeated_bool <-c("invalid", "invalid"))
+    checkException(a$repeated_bool <-c("33-"))
 
     # Verify we can set NA
     checkException(a$repeated_bool <- c(TRUE, FALSE, TRUE, NA))
