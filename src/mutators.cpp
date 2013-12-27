@@ -83,6 +83,29 @@ int GET_int( SEXP x, int index ){
 	return 0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
+template<typename ValueType>
+ValueType Int64FromString(const string &value) {
+    std::stringstream ss(value);
+    ValueType ret;
+    if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+        string message = "Provided character value '" + value +
+                "' cannot be cast to 64-bit integer.";
+        throwException(message.c_str(), "CastException");
+    }
+    return ret;
+}
+
+template<typename ValueType>
+ValueType Int32FromString(const string &value) {
+    std::stringstream ss(value);
+    ValueType ret;
+    if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
+        string message = "Provided character value '" + value +
+                "' cannot be cast to 32-bit integer.";
+        throwException(message.c_str(), "CastException");
+    }
+    return ret;
+}
 
 int32 GET_int32( SEXP x, int index ){
 	switch( TYPEOF(x) ){
@@ -94,22 +117,12 @@ int32 GET_int32( SEXP x, int index ){
 			return( (int32)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (int32)RAW(x)[index] ) ;
+		case STRSXP:
+			return Int32FromString<int32>(CHAR(STRING_ELT(x, index)));
 		default:
 			throwException( "cannot cast SEXP to int32", "CastException" ) ; 
 	}
 	return (int32)0 ; // -Wall, should not happen since we only call this when we know it works
-}
-
-template<typename ValueType>
-ValueType Int64FromString(const string &value) {
-    std::stringstream ss(value);
-    ValueType ret;
-    if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
-        string message = "Provided character value '" + value +
-                "' cannot be cast to 64-bit integer.";
-        throwException(message.c_str(), "CastException");
-    }
-    return ret;
 }
 
 int64 GET_int64( SEXP x, int index ){
@@ -140,6 +153,8 @@ uint32 GET_uint32( SEXP x, int index ){
 			return( (uint32)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (uint32)RAW(x)[index] ) ;
+		case STRSXP:
+            return Int32FromString<uint32>(CHAR(STRING_ELT(x, index)));
 		default:
 			throwException( "cannot cast SEXP to uint32", "CastException" ) ; 
 	}
@@ -583,6 +598,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case REALSXP:
     					case LGLSXP:
     					case RAWSXP:	
+						case STRSXP: // For int32, we support chars.
     						{
     							int i = 0;
    								/* in any case, fill the values up to field_size */
@@ -599,6 +615,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     							
     							break ;
     						}
+
     					default: 
     						{
     							throwException( "Cannot convert to int32", "ConversionException" ) ; 
@@ -652,6 +669,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
     					case REALSXP:
     					case LGLSXP:
     					case RAWSXP:	
+						case STRSXP: // For int32, we support chars.
     						{
     							int i = 0;
 	    						/* in any case, fill the values up to field_size */
@@ -667,6 +685,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	    						}
     							break ;
     						}
+
     					default: 
     						throwException( "Cannot convert to uint32", "ConversionException" ) ; 
     				}
@@ -1025,11 +1044,36 @@ PRINT_DEBUG_INFO( "value", value ) ;
 					break ;												\
 				}
 
-			HANDLE_SINGLE_FIELD( CPPTYPE_INT32, Int32, GPB::int32) ;
-			HANDLE_SINGLE_FIELD( CPPTYPE_UINT32, UInt32, GPB::uint32) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
+			case CPPTYPE_INT32 :
+				{
+					if (TYPEOF(value) == STRSXP) {
+						const string int32str = COPYSTRING(CHAR(
+							STRING_ELT(value, 0)));
+						ref->SetInt32(message, field_desc,
+									  Int32FromString<GPB::int32>(int32str));
+						break ;
+					} else {
+						ref->SetInt32( message, field_desc, Rcpp::as<GPB::int32>(value));
+						break;
+					}
+				}
+			case CPPTYPE_UINT32 :
+				{
+					if (TYPEOF(value) == STRSXP) {
+						const string uint32str = COPYSTRING(CHAR(
+							STRING_ELT(value, 0)));
+						ref->SetUInt32(message, field_desc,
+									   Int32FromString<GPB::uint32>(uint32str));
+						break ;
+					} else {
+						ref->SetUInt32( message, field_desc, Rcpp::as<GPB::uint32>(value));
+						break;
+					}
+				}
+
 #ifdef RCPP_HAS_LONG_LONG_TYPES
 			case CPPTYPE_INT64 :
 				{

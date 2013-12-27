@@ -1,5 +1,7 @@
 2013-12-26  Murray Stokely  <murray@FreeBSD.org>
 
+	* src/mutators.cpp: Support setting int32 values with character
+	  vectors of a decimal number, as we do by necessity for int64s.
 	* NAMESPACE: Add missing export for .DollarNames
 	  EnumValueDescriptor to allow completion on that class.
 	* R/00classes.R: Update FileDescriptor '$' dispatch to work
