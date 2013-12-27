@@ -70,7 +70,7 @@ RPB_FUNCTION_2(int,get_value_of_enum,
 	const GPB::EnumValueDescriptor* evd = d->FindValueByName(name) ;
     if( !evd ){
     	/* or maybe it should just be NA */
-	Rcpp::throw("cannot get the value");
+	Rcpp::stop("cannot get the value");
     }
 	return evd->number(); 
 }

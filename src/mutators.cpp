@@ -35,7 +35,6 @@ namespace rprotobuf{
  */
 /* FIXME: should we convert the NA's */
 double GET_double( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (double)INTEGER(x)[index] ) ;
@@ -46,17 +45,13 @@ double GET_double( SEXP x, int index ){
 		case RAWSXP:
 			return( (double)RAW(x)[index] ) ;
 		default:
-			Rcpp::throw("cannot cast SEXP to double");
+			Rcpp::stop("cannot cast SEXP to double");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return 0.0  ; // -Wall 
 }
 // }}}
 
 float GET_float( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (float)INTEGER(x)[index] ) ;
@@ -67,16 +62,12 @@ float GET_float( SEXP x, int index ){
 		case RAWSXP:
 			return( (float)RAW(x)[index] ) ;
 		default:
-			Rcpp::throw("cannot cast SEXP to double");
+			Rcpp::stop("cannot cast SEXP to double");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return (float)0.0  ; // -Wall 
 }
 
 int GET_int( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( INTEGER(x)[index] );
@@ -87,48 +78,36 @@ int GET_int( SEXP x, int index ){
 		case RAWSXP:
 			return( (int)RAW(x)[index] ) ;
 		default:
-			Rcpp::throw( "cannot cast SEXP to int" );
+			Rcpp::stop( "cannot cast SEXP to int" );
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return 0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
 template<typename ValueType>
 ValueType Int64FromString(const string &value) {
-	try {
 		std::stringstream ss(value);
 		ValueType ret;
 		if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
 			string message = "Provided character value '" + value +
                 "' cannot be cast to 64-bit integer.";
-			Rcpp::throw(message.c_str());
+			Rcpp::stop(message.c_str());
 		}
 		return ret;
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 }
 
 template<typename ValueType>
 ValueType Int32FromString(const string &value) {
-	try {
 		std::stringstream ss(value);
 		ValueType ret;
 		if ((ss >> ret).fail() || !(ss>>std::ws).eof()) {
 			string message = "Provided character value '" + value +
                 "' cannot be cast to 32-bit integer.";
-			Rcpp::throw(message.c_str());
+			Rcpp::stop(message.c_str());
 		}
 		return ret;
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 }
 
 int32 GET_int32( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (int32)INTEGER(x)[index] );
@@ -141,16 +120,12 @@ int32 GET_int32( SEXP x, int index ){
 		case STRSXP:
 			return Int32FromString<int32>(CHAR(STRING_ELT(x, index)));
 		default:
-			Rcpp::throw( "cannot cast SEXP to int32");
+			Rcpp::stop( "cannot cast SEXP to int32");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return (int32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
 int64 GET_int64( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (int64)INTEGER(x)[index] );
@@ -163,16 +138,12 @@ int64 GET_int64( SEXP x, int index ){
 		case STRSXP:
             return Int64FromString<int64>(CHAR(STRING_ELT(x, index)));
 		default:
-			Rcpp::throw("cannot cast SEXP to int64");
+			Rcpp::stop("cannot cast SEXP to int64");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return (int64)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
 uint32 GET_uint32( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (uint32)INTEGER(x)[index] );
@@ -185,16 +156,12 @@ uint32 GET_uint32( SEXP x, int index ){
 		case STRSXP:
             return Int32FromString<uint32>(CHAR(STRING_ELT(x, index)));
 		default:
-			Rcpp::throw("cannot cast SEXP to uint32");
+			Rcpp::stop("cannot cast SEXP to uint32");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return (uint32)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
 uint64 GET_uint64( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
 			return( (uint64)INTEGER(x)[index] );
@@ -207,43 +174,36 @@ uint64 GET_uint64( SEXP x, int index ){
 		case STRSXP:
             return Int64FromString<uint64>(CHAR(STRING_ELT(x, index)));
 		default:
-			Rcpp::throw("cannot cast SEXP to uint64");
+			Rcpp::stop("cannot cast SEXP to uint64");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return (uint64)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
 bool GET_bool( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x) ){
 		case INTSXP: 
             if (INTEGER(x)[index] == R_NaInt) {
-				Rcpp::throw("NA boolean values can not be stored in "
+				Rcpp::stop("NA boolean values can not be stored in "
 							"bool protocol buffer fields");
             }
 			return( (bool)INTEGER(x)[index] );
 		case REALSXP: 
             if (REAL(x)[index] == R_NaReal) {
-				Rcpp::throw("NA boolean values can not be stored in "
+				Rcpp::stop("NA boolean values can not be stored in "
 							"bool protocol buffer fields");
             }
 			return( (bool)REAL(x)[index] );
 		case LGLSXP:
             if (LOGICAL(x)[index] == NA_LOGICAL) {
-				Rcpp::throw("NA boolean values can not be stored in "
+				Rcpp::stop("NA boolean values can not be stored in "
 							"bool protocol buffer fields");
             }
 			return( (bool)LOGICAL(x)[index] );
 		case RAWSXP:
 			return( (bool)RAW(x)[index] ) ;
 		default:
-			Rcpp::throw("cannot cast SEXP to bool");
+			Rcpp::stop("cannot cast SEXP to bool");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return (bool)0 ; // -Wall, should not happen since we only call this when we know it works
 }
 
@@ -255,26 +215,22 @@ std::string GET_stdstring( SEXP x, int index ){
 }
 
 std::string GET_bytes( SEXP x, int index ){
-	try {
 		switch( TYPEOF(x)) {
 		case RAWSXP:
 			if (index == 0) {
 				return(std::string((const char *) RAW(x), (size_t) LENGTH(x)));
 			} else {
-				Rcpp::throw("cannot cast SEXP to bytes");
+				Rcpp::stop("cannot cast SEXP to bytes");
 			}
 		case VECSXP:
 			if (TYPEOF(VECTOR_ELT(x, index)) == RAWSXP) {
 				return(std::string((const char *) RAW(VECTOR_ELT(x, index)), (size_t) LENGTH(VECTOR_ELT(x, index))));
 			} else {
-				Rcpp::throw("cannot cast SEXP to bytes");
+				Rcpp::stop("cannot cast SEXP to bytes");
 			}
 		default:
-			Rcpp::throw("cannot cast SEXP to bytes");
+			Rcpp::stop("cannot cast SEXP to bytes");
 		}
-	} catch(std::exception &ex) {
-		forward_exception_to_r(ex);
-	}
 	return "" ; // -Wall, should not happen since we only call this when we know it works
 }
 
@@ -359,7 +315,7 @@ void CHECK_values_for_enum( const GPB::FieldDescriptor* field_desc, SEXP value )
     					}
     				}
     				if( !ok ){
-						Rcpp::throw("wrong value for enum");
+						Rcpp::stop("wrong value for enum");
     				}
     			}
     			
@@ -388,7 +344,7 @@ void CHECK_values_for_enum( const GPB::FieldDescriptor* field_desc, SEXP value )
     					}
     				}
     				if( !ok ){
-						Rcpp::throw("wrong value for enum");
+						Rcpp::stop("wrong value for enum");
     				}
     			}
     			break ;
@@ -396,7 +352,7 @@ void CHECK_values_for_enum( const GPB::FieldDescriptor* field_desc, SEXP value )
     	// }}}
     	
     	default:
-			Rcpp::throw("impossible to convert to a enum");
+			Rcpp::stop("impossible to convert to a enum");
     }
 	VOID_END_RCPP
 }
@@ -407,7 +363,7 @@ void CHECK_values_for_enum( const GPB::FieldDescriptor* field_desc, SEXP value )
 void CHECK_messages( const GPB::FieldDescriptor* field_desc, SEXP values ){
 	BEGIN_RCPP
 	if( TYPEOF( values ) != VECSXP ){
-		Rcpp::throw("expecting a list of messages");
+		Rcpp::stop("expecting a list of messages");
 	}
 	
 	const char* target = field_desc->message_type()->full_name().c_str() ;
@@ -415,7 +371,7 @@ void CHECK_messages( const GPB::FieldDescriptor* field_desc, SEXP values ){
 	for( int i=0; i<n; i++){
 		if( !isMessage( VECTOR_ELT(values, i), target ) ){
 			/* TODO: include i, target type and actual type in the message */
-			Rcpp::throw("incorrect type");
+			Rcpp::stop("incorrect type");
 		}
 	}
 	VOID_END_RCPP
@@ -428,7 +384,6 @@ void CHECK_messages( const GPB::FieldDescriptor* field_desc, SEXP values ){
  */
 void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 						 SEXP value, int value_size) {
-	BEGIN_RCPP
 	switch( field_desc->type() ){
 	case TYPE_MESSAGE:
 	case TYPE_GROUP:
@@ -447,13 +402,13 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 					/* check that this is a message of the appropriate type */
 					if( !isMessage( value,
 									field_desc->message_type()->full_name().c_str() ) ){
-						Rcpp::throw("incorrect type");
+						Rcpp::stop("incorrect type");
 					}
 					break ;
 				}
 			default:
 				{
-					Rcpp::("impossible to convert to a message");
+					Rcpp::stop("impossible to convert to a message");
 				}
 			}
 			break ;
@@ -492,7 +447,7 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 							}
 						}
 						if( !ok ){
-							Rcpp::throw("wrong value for enum");
+							Rcpp::stop("wrong value for enum");
 						}
 					}
 					break ;
@@ -520,7 +475,7 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 							}
 						}
 						if( !ok ){
-							Rcpp::throw("wrong value for enum");
+							Rcpp::stop("wrong value for enum");
 						}
 					}
      							
@@ -529,7 +484,7 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 				// }}}
     					
 			default:
-				Rcpp::throw("impossible to convert to a enum");
+				Rcpp::stop("impossible to convert to a enum");
 			}
 			break ;
 		}
@@ -553,7 +508,6 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 		}
 	}
 	// }}}
-	VOID_END_RCPP
 }
 
 /**
@@ -572,7 +526,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 								const GPB::FieldDescriptor* field_desc,
 								SEXP value, int value_size) {
 	if (value_size > 1) {
-		Rcpp::throw("cannot set non-repeated field to vector of length > 1");
+		Rcpp::stop("cannot set non-repeated field to vector of length > 1");
 	}
 	switch( GPB::FieldDescriptor::TypeToCppType( field_desc->type() ) ){
 		// {{{ simple cases using macro expansion
@@ -591,15 +545,15 @@ void setNonRepeatedMessageField(GPB::Message* message,
 			// TODO(mstokely): Rcpp should handle this!
 			if ((TYPEOF(value) == LGLSXP) &&
 				(LOGICAL(value)[0] == NA_LOGICAL)) {
-				Rcpp::throw("NA boolean values can not be stored in "
+				Rcpp::stop("NA boolean values can not be stored in "
 							"bool protocol buffer fields");
 			} else if ((TYPEOF(value) == INTSXP) &&
 					   (INTEGER(value)[0] == R_NaInt)) {
-				Rcpp::throw("NA boolean values can not be stored in "
+				Rcpp::stop("NA boolean values can not be stored in "
 							"bool protocol buffer fields");
 			} else if ((TYPEOF(value) == REALSXP) &&
 					   (REAL(value)[0] == R_NaReal)) {
-				Rcpp::throw("NA boolean values can not be stored in "
+				Rcpp::stop("NA boolean values can not be stored in "
 							"bool protocol buffer fields");
 			}
 			ref->SetBool(message, field_desc, Rcpp::as<bool>(value));
@@ -667,7 +621,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 #endif
 #undef HANDLE_SINGLE_FIELD
 	default:
-		Rcpp::throw("Unsupported type");
+		Rcpp::stop("Unsupported type");
 // }}}  
      		
 		// {{{ string
@@ -689,7 +643,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 				{
 					/* check if value is a message */
 					if( !Rf_inherits( value, "Message" ) ){
-						Rcpp::throw("Can only convert S4 objects of class 'Message'");
+						Rcpp::stop("Can only convert S4 objects of class 'Message'");
 					}
 					GPB::Message* __mess = GET_MESSAGE_POINTER_FROM_S4(value);
 					ref->SetString(message, field_desc,
@@ -698,7 +652,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 				}
 			default: 
 				{
-					Rcpp::throw("Cannot convert to string");
+					Rcpp::stop("Cannot convert to string");
 				}
 			}
 			break ; 
@@ -713,12 +667,12 @@ void setNonRepeatedMessageField(GPB::Message* message,
 				const char* type = mess->GetDescriptor()->full_name().c_str() ;
 				const char* target = field_desc->message_type()->full_name().c_str() ; 
 				if( strcmp( type, target ) ){
-					Rcpp::throw("wrong message type");
+					Rcpp::stop("wrong message type");
 				}
 				GPB::Message* m = ref->MutableMessage( message, field_desc ) ; 
 				m->CopyFrom( *mess ) ;
 			} else {
-				Rcpp::throw("type mismatch, expecting a 'Message' object");
+				Rcpp::stop("type mismatch, expecting a 'Message' object");
 			}
 			break ;
 		}
@@ -737,7 +691,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 					int val = Rcpp::as<int>(value) ;
 					const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByNumber(val) ;
 					if( !evd ){
-						Rcpp::throw("wrong value for enum");
+						Rcpp::stop("wrong value for enum");
 					} else {
 						ref->SetEnum( message, field_desc, evd ); 
 					}
@@ -748,7 +702,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 					std::string val = Rcpp::as<std::string>( value ) ;
 					const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
 					if( !evd ){
-						Rcpp::throw("wrong value for enum");
+						Rcpp::stop("wrong value for enum");
 					} else {
 						ref->SetEnum( message, field_desc, evd ); 
 					}
@@ -756,7 +710,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 				}
 			default: 
 				{
-					Rcpp::throw("cannot set enum value");
+					Rcpp::stop("cannot set enum value");
 				}
 			}
 		}
@@ -831,7 +785,7 @@ void setRepeatedMessageField(GPB::Message* message,
 
 			default: 
 				{
-					Rcpp::throw("Cannot convert to int32");
+					Rcpp::stop("Cannot convert to int32");
 				}
 			}
 			break ;   
@@ -869,7 +823,7 @@ void setRepeatedMessageField(GPB::Message* message,
 				}
 
 			default: 
-				Rcpp::throw("Cannot convert to int64");
+				Rcpp::stop("Cannot convert to int64");
 			}
 			break ;
 		}
@@ -903,7 +857,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to uint32");
+				Rcpp::stop("Cannot convert to uint32");
 			}
 			break ;   
 		}
@@ -937,7 +891,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to int64");
+				Rcpp::stop("Cannot convert to int64");
 			}
 			break ;   
 		}
@@ -968,7 +922,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to double");
+				Rcpp::stop("Cannot convert to double");
 			}
 			break ;   
 		}
@@ -1000,7 +954,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to float");
+				Rcpp::stop("Cannot convert to float");
 			}
 			break ;
 		}
@@ -1032,7 +986,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to bool");
+				Rcpp::stop("Cannot convert to bool");
 			}
 			break ;   
 		}
@@ -1083,7 +1037,7 @@ void setRepeatedMessageField(GPB::Message* message,
 				{
 					/* check if value is a message */
 					if( !Rf_inherits( value, "Message" ) ){
-						Rcpp::throw("Can only convert S4 objects of class 'Message'");
+						Rcpp::stop("Can only convert S4 objects of class 'Message'");
 					}
 					GPB::Message* __mess = GET_MESSAGE_POINTER_FROM_S4( value ) ;
 					ref->SetRepeatedString(message, field_desc, 0,
@@ -1134,7 +1088,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to string");
+				Rcpp::stop("Cannot convert to string");
 			}
 			break ; 
 		}
@@ -1179,7 +1133,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					}
 				}
 			} else{
-				Rcpp::throw("type mismatch, expecting a 'Message' object or a list of them");
+				Rcpp::stop("type mismatch, expecting a 'Message' object or a list of them");
 			}
 			break ;
 		}
@@ -1243,7 +1197,7 @@ void setRepeatedMessageField(GPB::Message* message,
 				// {{{ default
 			default: 
 				{
-					Rcpp::throw("cannot set enum value");
+					Rcpp::stop("cannot set enum value");
 				}
 				// }}}
 			}
@@ -1305,7 +1259,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 		} else if( TYPEOF(value) == VECSXP && allAreRaws( value ) ){
 			value_size = LENGTH(value) ;
 		} else {
-			Rcpp::throw("cannot convert to string");
+			Rcpp::stop("cannot convert to string");
 		}
 	}
 	// }}}

@@ -737,7 +737,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 					}
 				default: 
 					{
-						Rcpp::throw("Cannot convert to int32");
+						Rcpp::stop("Cannot convert to int32");
 					}
 				}
 				break ;   
@@ -758,7 +758,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 						ref->AddInt64( message, field_desc, GET_int64(values,i) ) ;
 					}
 				default: 
-					Rcpp::throw("Cannot convert to int64");
+					Rcpp::stop("Cannot convert to int64");
 				}
 				break ;
 			}
@@ -780,7 +780,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 				break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to uint32");
+				Rcpp::stop("Cannot convert to uint32");
     			}
 			break ;   
 			}
@@ -802,7 +802,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 				break ;
 			}
 			default: 
-				Rcpp::throw("Cannot convert to int64");
+				Rcpp::stop("Cannot convert to int64");
 			}
 			break ;   
 		}
@@ -823,7 +823,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 				break ;
 			}
 			default: 
-				Rcpp::throw("Cannot convert to double");
+				Rcpp::stop("Cannot convert to double");
 			}
 			break ;   
 		}
@@ -844,7 +844,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 					break ;
 				}
 			default: 
-				Rcpp::throw("Cannot convert to float");
+				Rcpp::stop("Cannot convert to float");
 			}
 			break ;   
 		}
@@ -865,7 +865,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 				break ;
 			}
 			default: 
-				Rcpp::throw("Cannot convert to bool");
+				Rcpp::stop("Cannot convert to bool");
 			}
 			break ;   
 		}
@@ -879,7 +879,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 					ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(values,i )) ) ) ;
 				}
 			} else{
-				Rcpp::throw("Cannot convert to string");
+				Rcpp::stop("Cannot convert to string");
 			}
 			break ; 
 		}
@@ -895,7 +895,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 					ref->AddString( message, field_desc, GET_bytes(values,i )) ;
 				}
 			} else{
-				Rcpp::throw("Cannot convert to bytes");
+				Rcpp::stop("Cannot convert to bytes");
 			}
 			break ; 
 		}
@@ -914,7 +914,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 					ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
 				}
 			} else{
-				Rcpp::throw("type mismatch, expecting a list of 'Message' objects");
+				Rcpp::stop("type mismatch, expecting a list of 'Message' objects");
 			}
 			break ;
 		}
@@ -954,7 +954,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 			// {{{ default
 			default:
 			{
-				Rcpp::throw("cannot set enum value");
+				Rcpp::stop("cannot set enum value");
 			}
 			// }}}
 			}
@@ -967,7 +967,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
 		}
     		}
 	} else{
-	  Rcpp::throw("add can only be used on repeated fields");
+	  Rcpp::stop("add can only be used on repeated fields");
 	}
 }
 

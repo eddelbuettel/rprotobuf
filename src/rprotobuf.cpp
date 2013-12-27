@@ -123,7 +123,7 @@ Rf_PrintValue( type ) ;
  * @param descriptor a "Descriptor" R object
  */
 SEXP newProtoMessage( SEXP descriptor ){
-  try {
+	BEGIN_RCPP
 #ifdef RPB_DEBUG
 Rprintf( "<newProtoMessage>\n" ) ;
 	/* FIXME: the message type, we don't really need that*/
@@ -148,9 +148,7 @@ Rprintf( "</newProtoMessage>\n" ) ;
 #endif
 	
 	return( S4_Message( message )  ) ;
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  }
+	END_RCPP
 }
 
 /**
@@ -234,7 +232,7 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 		    if (Rf_inherits( name, "FieldDescriptor") ){
 		      field_desc = GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(name);
 		    } else {
-		      Rcpp::throw("S4 class is not a FieldDescriptor");
+		      Rcpp::stop("S4 class is not a FieldDescriptor");
 		    }
 		    break ;
 		  }
@@ -258,7 +256,7 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 			}
 	}
 	if( !field_desc ){
-		Rcpp::throw(error_message.c_str());
+		Rcpp::stop(error_message.c_str());
 	}
 	return field_desc ;
   } catch(std::exception &ex) {

@@ -106,7 +106,7 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define XPP EXTPTR_PTR
 
 #define NEW_S4_OBJECT(CLAZZ) SEXP oo = PROTECT( NEW_OBJECT(MAKE_CLASS(CLAZZ)) ); \
-  		if (!Rf_inherits(oo, CLAZZ)) throwException(CLAZZ, "CannotCreateObjectException" );
+    if (!Rf_inherits(oo, CLAZZ)) Rcpp::stop(CLAZZ);
   		
 namespace rprotobuf{
 
@@ -129,9 +129,6 @@ RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP) ;
 /* in extractors.cpp */
 RcppExport SEXP getMessageField( SEXP, SEXP ); 
 RcppExport SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& , const GPB::FieldDescriptor* ) ;
-
-/* in exceptions.cpp */
-RcppExport SEXP throwException( const char*, const char*) ;
 
 /* in lookup.cpp */
 RcppExport SEXP newProtocolBufferLookup(SEXP) ;
