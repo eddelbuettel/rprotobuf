@@ -199,7 +199,7 @@ SEXP do_dollar_Descriptor( SEXP pointer, SEXP name ){
 /** 
  *
  * @param m potentially a message 
- * @param target the exxpected type
+ * @param target the expected type
  *
  * @return TRUE if m is a a message of the given type
  */ 
@@ -222,8 +222,8 @@ Rprintf( "<isMessage>\n" ) ;
 
 
 GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
-  try {
 	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
+	BEGIN_RCPP
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	std::string error_message = "could not get FieldDescriptor for field";
 	switch( TYPEOF(name) ){
@@ -259,9 +259,8 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 		Rcpp::stop(error_message.c_str());
 	}
 	return field_desc ;
-  } catch(std::exception &ex) {
-    forward_exception_to_r(ex);
-  }
+	VOID_END_RCPP
+	return field_desc ;
 }
 
 RPB_FUNCTION_VOID_1( check_libprotobuf_version, int minversion ){
