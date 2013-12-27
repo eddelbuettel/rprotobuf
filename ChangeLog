@@ -7,6 +7,8 @@
 	  error instead of terminating our R instance.
 	* inst/unitTests/runit.messages.R (test.message): Add unit tests
 	  for our handling of setting repeated message fields.
+	* src/wrapper_Message.cpp: Add const qualifier to
+	  field_desc throughout file.
 
 2013-12-26  Murray Stokely  <mstokely@google.com>
 

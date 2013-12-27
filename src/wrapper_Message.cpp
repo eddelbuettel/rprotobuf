@@ -167,7 +167,7 @@ RPB_XP_METHOD_VOID_0(METHOD(clear), GPB::Message, Clear )
  * @param field name or tag of the field
  */
 RPB_FUNCTION_VOID_2(METHOD(clear_field), Rcpp::XPtr<GPB::Message> m, SEXP field ){
-	GPB::FieldDescriptor* field_desc = getFieldDescriptor( m, field ) ;
+	const GPB::FieldDescriptor* field_desc = getFieldDescriptor( m, field ) ;
 	const GPB::Reflection* ref = m->GetReflection(); 
 	ref->ClearField( m, field_desc ) ;
 }
@@ -258,7 +258,7 @@ RPB_XP_METHOD_0( METHOD(bytesize), GPB::Message, ByteSize )
 
 RPB_FUNCTION_2( int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP field  ){
 	
-	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+	const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 	
 	int res = 0 ;
 	if( field_desc->is_repeated() ){
@@ -276,7 +276,7 @@ RPB_FUNCTION_1( S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Messa
 
 RPB_FUNCTION_VOID_3( METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SEXP field, int target){
 	
-	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+	const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 	const GPB::Reflection* ref = message->GetReflection() ;
 	
 	if( field_desc->is_repeated() ){
@@ -688,7 +688,7 @@ RPB_FUNCTION_2( S4_Message, METHOD(merge), Rcpp::XPtr<GPB::Message> m1, Rcpp::XP
  */ 
 RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP field, SEXP values){
 		const Reflection * ref = message->GetReflection() ;
-		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
+		const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
 		
 		if( values == R_NilValue || LENGTH(values) == 0 ){
 			return ; 
@@ -1076,7 +1076,7 @@ RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP 
 	 */
 	RPB_FUNCTION_VOID_4( METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index, SEXP values ){
 		
-		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+		const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
 		if( !field_desc->is_repeated() ){
 			throw std::range_error( "set can only be used on repeated fields" ) ;
 		}

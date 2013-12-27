@@ -288,7 +288,7 @@ Rboolean allAreRaws( SEXP x) {
  * @param value value to potentially fill the enum
  *
  */
-void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
+void CHECK_values_for_enum( const GPB::FieldDescriptor* field_desc, SEXP value ){
 	
 	const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
 	// N.B. n undefined if TYPEOF(value) not a vector, but we catch that below.
@@ -365,7 +365,7 @@ void CHECK_values_for_enum( GPB::FieldDescriptor* field_desc, SEXP value ){
 /**
  * check that the values are suitable for the field descriptor
  */
-void CHECK_messages( GPB::FieldDescriptor* field_desc, SEXP values ){
+void CHECK_messages( const GPB::FieldDescriptor* field_desc, SEXP values ){
 	
 	if( TYPEOF( values ) != VECSXP ){
 		throwException( "expecting a list of messages", "ConversionException" ) ;
@@ -396,26 +396,25 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 			switch( TYPEOF( value ) ){
 			case VECSXP :
 				{
-					/* check that it is a list of Messages of the appropriate type */
-					for( int i=0; i<value_size; i++){
-						if( !isMessage( VECTOR_ELT(value, i), field_desc->message_type()->full_name().c_str() ) ){
-							/* TODO: include i, target type and actual type in the message */
-							throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
-						}
-					}
+
+					/* check that it is a list of Messages of the
+					   appropriate type */
+					CHECK_messages(field_desc, value);
 					break ;
 				}
 			case S4SXP: 
 				{
 					/* check that this is a message of the appropriate type */
-					if( !isMessage( value, field_desc->message_type()->full_name().c_str() ) ){
+					if( !isMessage( value,
+									field_desc->message_type()->full_name().c_str() ) ){
 						throwException( "incorrect type", "IncorrectMessageTypeException" ) ;
 					}
 					break ;
 				}
 			default:
 				{
-					throwException( "impossible to convert to a message" , "ConversionException" ) ; 
+					throwException( "impossible to convert to a message" ,
+									"ConversionException" ) ; 
 				}
 			}
 			break ;

@@ -148,8 +148,8 @@ uint64 GET_uint64( SEXP, int ) ;
 bool GET_bool( SEXP, int) ;
 std::string GET_stdstring( SEXP, int ) ;
 std::string GET_bytes( SEXP, int ) ;
-void CHECK_values_for_enum( GPB::FieldDescriptor*, SEXP) ;
-void CHECK_messages( GPB::FieldDescriptor*, SEXP) ;
+void CHECK_values_for_enum( const GPB::FieldDescriptor*, SEXP) ;
+void CHECK_messages( const GPB::FieldDescriptor*, SEXP) ;
 
 /* in wrapper_ServiceDescriptor.cpp */
 RcppExport SEXP ServiceDescriptor_length(SEXP);
