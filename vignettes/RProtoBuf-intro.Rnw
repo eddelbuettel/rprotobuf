@@ -438,15 +438,17 @@ double	& \texttt{double} vector & \texttt{double} vector \\
 float	& \texttt{double} vector & \texttt{double} vector \\
 \hline
 int32	  & \texttt{integer} vector & \texttt{integer} vector \\
-int64	  & \texttt{integer} vector & \texttt{integer} vector \\
 uint32	  & \texttt{integer} vector & \texttt{integer} vector \\
-uint64	  & \texttt{integer} vector & \texttt{integer} vector \\
 sint32	  & \texttt{integer} vector & \texttt{integer} vector \\
-sint64	  & \texttt{integer} vector & \texttt{integer} vector \\
 fixed32	  & \texttt{integer} vector & \texttt{integer} vector \\
-fixed64	  & \texttt{integer} vector & \texttt{integer} vector \\
 sfixed32  & \texttt{integer} vector & \texttt{integer} vector \\
-sfixed64  & \texttt{integer} vector & \texttt{integer} vector \\
+\hline
+int64	  & \texttt{integer} or \texttt{character}
+vector \footnotemark & \texttt{integer} or \texttt{character} vector \\
+uint64	  & \texttt{integer} or \texttt{character} vector & \texttt{integer} or \texttt{character} vector \\
+sint64	  & \texttt{integer} or \texttt{character} vector & \texttt{integer} or \texttt{character} vector \\
+fixed64	  & \texttt{integer} or \texttt{character} vector & \texttt{integer} or \texttt{character} vector \\
+sfixed64  & \texttt{integer} or \texttt{character} vector & \texttt{integer} or \texttt{character} vector \\
 \hline
 bool	& \texttt{logical} vector & \texttt{logical} vector \\
 \hline
@@ -459,7 +461,11 @@ message & \texttt{S4} object of class \texttt{Message} & \texttt{list} of \textt
 \hline
 \end{tabular}
 \end{small}
-\caption{\label{table-get-types}Correspondance between field type and R type retrieved by the extractors.}
+\caption{\label{table-get-types}Correspondance between field type and
+  R type retrieved by the extractors. \footnotesize{1. R lacks native
+  64-bit integers, so the \texttt{RProtoBuf.int64AsString} option is
+  available to return large integers as characters to avoid losing
+  precision.  This option is described in Section~\ref{sec:int64}}.}
 \end{table}
 
 \subsubsection{Modify fields}
@@ -495,7 +501,8 @@ internal type & allowed R types \\
 \texttt{int32},  \texttt{int64},  \texttt{uint32},  \texttt{uint64},  \texttt{sint32},
 \texttt{sint64},  \texttt{fixed32},  \texttt{fixed64},  \texttt{sfixed32},  \texttt{sfixed64}
 &
-	\texttt{integer}, \texttt{raw}, \texttt{double}, \texttt{logical} \\
+	\texttt{integer}, \texttt{raw}, \texttt{double},
+        \texttt{logical}, \texttt{character} \\
 \hline
 \texttt{bool} & \texttt{integer}, \texttt{raw}, \texttt{double}, \texttt{logical} \\
 \hline
@@ -1855,6 +1862,7 @@ classes, plus :
 \item field names, enum types, nested types for message type descriptors
 \item names for enum descriptors
 \item names for top-level extensions
+\item message names for file descriptors
 \end{itemize}
 
 In the unlikely event that there is a user-defined field of exactly
