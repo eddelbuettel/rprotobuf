@@ -411,7 +411,9 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 					/* check that this is a message of the appropriate type */
 					if( !isMessage( value,
 									field_desc->message_type()->full_name().c_str() ) ){
-						Rcpp::stop("incorrect type");
+						string message = "Not a message of type '" +
+							field_desc->message_type()->full_name() + "'";
+						Rcpp::stop(message.c_str());
 					}
 					break ;
 				}
@@ -1127,7 +1129,7 @@ void setRepeatedMessageField(GPB::Message* message,
 				for( ; i<field_size; i++){
 					GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
 					/* we already know it is of the correct type because of the 
-					   premptive chjeck above */
+					   premptive check above */
 					ref->MutableRepeatedMessage(message, field_desc, i )->CopyFrom( *mess ) ;
 				}
 			    		
@@ -1136,7 +1138,7 @@ void setRepeatedMessageField(GPB::Message* message,
 					for( ; i<value_size; i++){
 						GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( value, i) ) ; 
 						/* we already know it is of the correct type
-						   because of the premptive chjeck above */
+						   because of the premptive check above */
 			    				
 						ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
 					}
