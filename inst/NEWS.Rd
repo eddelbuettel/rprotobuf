@@ -2,23 +2,36 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in UNRELEASED RProtoBuf version 0.3.3 (2013-12-23)}{
+\section{Changes in UNRELEASED RProtoBuf version 0.3.3 (2013-12-26)}{
   \itemize{
     \item Vignettes have been converted to the R 3.0.0 or later use of
     external vignette builders, no longer need a \code{Makefile}
     \item Added missing methods to dollar completion list for Message,
     Descriptor, EnumValueDescriptor, and FileDescriptor classes.
+    \item Add missing export for \code{.DollarNames} EnumValueDescriptor
+    to allow completion on that class.
     \item Add more than 10 additional pages to the main Intro vignette
-    documenting better all of the S4 classes implemented by RProtoBuf and
-    advanced features such as Extensions.
+    documenting better all of the S4 classes implemented by RProtoBuf,
+    updating the type mapping tables to take into account 64-bit
+    support, and documenting advanced features such as Extensions.
     \item Added better error checking in EnumDescriptors to catch the
     case when wrong types are provided.
     \item Updated the FileDescriptor \code{name()} method to accept a boolean
     for full paths just like the generic \code{name()} method.
     \item Correct a bug that incorrectly dispatched \code{as.character()} when
     \code{as.list()} was called on Descriptor objects.
+    \item Update FileDescriptor \code{$} dispatch to work properly for
+    the names of fields defined in the FileDescriptor, instead of
+    just returning \code{NULL} even for types returned by \code{$}
+    completion.
     \item Added a reservation for extension fields in the example
     tutorial.Person schema.
+    \item Support setting int32 fields with character representations
+    and raise an R-level \code{stop()} error if the provided string can
+    not be parsed as a 32-bit integer, rather than crashing the R
+    instance.
+    \item Update the project TODO file.
+    \item Add better documentation and tests for all of the above.
   }
 }
 
