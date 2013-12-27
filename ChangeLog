@@ -2,12 +2,19 @@
 
 	* src/mutators.cpp: Support setting int32 values with character
 	  vectors of a decimal number, as we do by necessity for int64s.
+	* inst/unitTests/runit.int32.R (test.int32): Add tests for above.
 	* NAMESPACE: Add missing export for .DollarNames
 	  EnumValueDescriptor to allow completion on that class.
 	* R/00classes.R: Update FileDescriptor '$' dispatch to work
 	  properly for the names of fields defined in the FileDescriptor,
 	  instead of just returning NULL even for types returned by $
 	  completion.
+	* vignettes/RProtoBuf-intro.Rnw (subsubsection{Retrieve fields}):
+	  Update the type mapping tables to note that characters can be
+	  extracted from 64-bit integer types with the
+	  RProtoBuf.int64AsString type and note that int32 and int64 types
+	  can be set to character values representing decimal numbers.
+	* TODO: Update todo list.
 
 2013-12-23  Murray Stokely  <mstokely@google.com>
 

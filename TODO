@@ -1,16 +1,96 @@
 Current TODO list:
 
-1. Finish extensions support [enums, messages, nested, more tests]
-2. Unit testing [ongoing]
-3. More as.Message methods [have patch, needs cleanup]
-4. Replace usage of RCPP_FUNCTION_* macros with Rcpp Modules or Attributes.
-5. Clean up formatting / whitespace.
-6. Add more documentation / examples.
+1. Finish improved vignette / R Journal writeup.
 
-Older stuff
+2. Refactor massive 800+ line setMessageField function in
+   src/mutators.cpp into more modular, testable, easier to read
+   subroutines.
 
-    o   finalizers [murray: what is needed here?]
-    o   http-powered rpc implementation [maybe]
-    o   what to do when unload the package
-    o   useR abstract [done]
-    o   useR presentation [done]
+3. Push some type coercion hacks done in RProtoBuf upstream to Rcpp
+   (Rcpp:as<int> types should work on character strings representing
+   numbers, especially for int64s since we don't otherwise have a way
+   to represent 64-bit integers in base R).
+
+4. Add more packages that depend on or enhance RProtoBuf.
+
+5. Investigate Rcpp Modules support for some classes.  Murray is not
+   personally super enthusiastic about this one, as I think it may
+   require non trivial changes to Rcpp and/or result in losing some of
+   the user-friendliness we've crafted in the explicit RcppExported
+   function entry points.  Still, it could be explored and may result
+   in significantly fewer lines of code if successful.
+
+6. Add a FAQ and other documentation / examples.
+
+7. Add more unit tests.
+
+8. Explore removing the CLONE() in extractors.cpp.  This makes for
+   unusual semantics for any mutable methods of sub-messages.  For
+   example, clear(), setExtension(), and probably also update() ( but
+   "$<-" on sub-messages is not a problem, it seems).  More details below.
+
+9. What should we do when we unload the package?  Any additional
+   resources to free that is not currently done?
+
+10. finalizers [murray: what is needed here?]
+
+11. Clean up formatting / whitespace (its awful, run it all through
+    clang-format?)
+
+12. Thoroughly audit extensions support and other deeply nested types
+   support to ensure everything is implemented as expected.
+
+Stuff I think belongs in additional packages that depend on RProtoBuf,
+rather than inside RProtoBuf directly:
+
+    o   http-powered rpc implementation
+    o   More as.Message methods
+
+--- Detailed Notes ----
+
+8. CLONE()
+
+--[ examples from Murray illustrating the problem ]--
+
+library(RProtoBuf)
+InitGoogle()
+
+if (!exists("protobuf_unittest.TestAllTypes", "RProtoBuf:DescriptorPool")) {
+         unittest.proto.file <- system.file("unitTests", "data", "unittest.proto",package="RProtoBuf")
+         readProtoFiles(file=unittest.proto.file)
+}
+test <- new(protobuf_unittest.TestAllTypes)
+test$optional_foreign_message <- new(protobuf_unittest.ForeignMessage, c=3)
+
+# Example 1:
+test$optional_foreign_message$c
+test$optional_foreign_message$clear()
+test$optional_foreign_message$c
+# didn't clear test$optional_foreign_message$c
+
+# Example 2:
+foo <- new(protobuf_unittest.ForeignMessage, c=3)
+foo$c
+foo$clear()
+foo$c
+# did clear foo$c
+
+# Example 3:
+baz <- test$optional_foreign_message
+baz$c
+baz$c <- 4
+test$optional_foreign_message$c
+# still 3, but would be 4 if we removed the CLONE().
+
+
+Example 1 is currently I think very confusing semantically for users of RProtoBuf with nested messages and I would like to fix that case.  Example 2 works correctly now and would not be affected by this change.  Example 3 would change behavior and could cause problems for users.  Would need to be clearly announced in the NEWS file and to our user list.
+
+--[ Romain's thoughts ]--
+
+
+`$<-` is the task of setMessageField:
+
+https://github.com/RProtoBuf/RProtoBuf/blob/master/R/00classes.R#L197
+https://github.com/RProtoBuf/RProtoBuf/blob/master/src/mutators.cpp#L377
+
+For "$" we could perhaps move to some sort of copy on change semantics (similar to what R does), instead of what we use currently which is more like copy on access.
