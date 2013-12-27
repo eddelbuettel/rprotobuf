@@ -359,9 +359,10 @@ void CHECK_values_for_enum( const GPB::FieldDescriptor* field_desc, SEXP value )
 
 /**
  * check that the values are suitable for the field descriptor
+ *
+ * @throws Rcpp::exception on error (uncaught)
  */
 void CHECK_messages( const GPB::FieldDescriptor* field_desc, SEXP values ){
-	BEGIN_RCPP
 	if( TYPEOF( values ) != VECSXP ){
 		Rcpp::stop("expecting a list of messages");
 	}
@@ -370,11 +371,19 @@ void CHECK_messages( const GPB::FieldDescriptor* field_desc, SEXP values ){
 	int n = LENGTH(values) ; 
 	for( int i=0; i<n; i++){
 		if( !isMessage( VECTOR_ELT(values, i), target ) ){
-			/* TODO: include i, target type and actual type in the message */
-			Rcpp::stop("incorrect type");
+			// TODO(mstokely): When we have C++11 CXX11, use
+			// std::to_string(i)
+			// {{{
+			std::string s;
+			std::stringstream out;
+			out << i;
+			s = out.str();
+			// }}}
+			string message = "List element " + s + " is not a message " +
+				"of the appropriate type ('" + target + "')";
+			Rcpp::stop(message.c_str());
 		}
 	}
-	VOID_END_RCPP
 }
 
 /**
