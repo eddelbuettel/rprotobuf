@@ -1,4 +1,4 @@
-2013-12-26  Murray Stokely  <murray@FreeBSD.org>
+2013-12-26  Murray Stokely  <mstokely@google.com>
 
 	* src/mutators.cpp: Support setting int32 values with character
 	  vectors of a decimal number, as we do by necessity for int64s.
@@ -9,7 +9,7 @@
 	  instead of just returning NULL even for types returned by $
 	  completion.
 
-2013-12-23  Murray Stokely  <murray@FreeBSD.org>
+2013-12-23  Murray Stokely  <mstokely@google.com>
 
 	* DESCRIPTION (Version): increment.
 	* inst/proto/addressbook.proto: Reserved extension fields in
@@ -17,12 +17,12 @@
 	* vignettes/RProtoBuf-intro.Rnw (subsection{Extensions}): Added a
 	  new section documenting protocol buffer extensions.
 
-2013-12-20  Murray Stokely  <murray@FreeBSD.org>
+2013-12-20  Murray Stokely  <mstokely@google.com>
 
 	* R/00classes.R: Correct a bug that incorrectly dispatched
 	  as.character() when as.list() was called on Descriptor objects.
 
-2013-12-18  Murray Stokely  <murray@FreeBSD.org>
+2013-12-18  Murray Stokely  <mstokely@google.com>
 
 	* R/completion.R (.DollarNames.EnumValueDescriptor): Add
 	  $-completion for EnumValueDescriptor and FileDescriptor classes
@@ -44,7 +44,7 @@
 
 	* configure.in: No longer create vignettes/Makefile
 
-2013-12-17  Murray Stokely  <murray@FreeBSD.org>
+2013-12-17  Murray Stokely  <mstokely@google.com>
 
 	* R/completion.R (.DollarNames.Message): Add missing methods to
 	  dollar completion list for Message and Descriptor objects
@@ -70,7 +70,7 @@
 	* R/lookup.R (attachDescriptorPool): No longer attach them here
 	* src/rprotobuf.h: Updated function declaration
 
-2013-12-14  Murray Stokely  <murray@FreeBSD.org>
+2013-12-14  Murray Stokely  <mstokely@google.com>
 
 	* src/mutators.cpp (rprotobuf): Fix a bug which incorrectly
 	  prevented users from setting raw non-repeated fields under some
@@ -79,14 +79,14 @@
 	  set to required bytes fields to verify correct behavior for use
 	  case mentioned on rprotobuf-yada list.
 
-2013-11-13  Murray Stokely  <murray@FreeBSD.org>
+2013-11-13  Murray Stokely  <mstokely@google.com>
 
 	* R/extensions.R: Give a user friendly error message if someone tries
 	  to set an extension to a message of the wrong type instead of
 	  causing a C++ check failure that terminates your R session.
 	* inst/unitTests/runit.extensions.R (test.extension): Add test.
 
-2013-10-23  Murray Stokely  <murray@FreeBSD.org>
+2013-10-23  Murray Stokely  <mstokely@google.com>
 
 	* src/lookup.cpp (rprotobuf): Remove stop() error in object table
 	  assignment as this was causing errors with the '<<-' operator in
@@ -94,7 +94,7 @@
 	* inst/unitTests/runit.import.R (test.assign.in.global): Add a
 	  test for the above.
 
-2013-09-16  Murray Stokely  <murray@FreeBSD.org>
+2013-09-16  Murray Stokely  <mstokely@google.com>
 
 	* DESCRIPTION (Version): Increment to 0.3.1.1.
 	* R/00classes.R: Improve show method for EnumValueDescriptor and
@@ -109,31 +109,31 @@
 
 	* DESCRIPTION (Version): Release 0.3.1
 
-2013-09-13  Murray Stokely  <murray@FreeBSD.org>
+2013-09-13  Murray Stokely  <mstokely@google.com>
 
 	* vignettes/Makefile.in: Update configure to output R_HOME to the
 	  vignette makefile so we can avoid the use of a non-portable GNU
 	  makefile extension here.
 
-2013-09-12  Murray Stokely  <murray@FreeBSD.org>
+2013-09-12  Murray Stokely  <mstokely@google.com>
 
 	* src/RcppMacros.h: Add Rcpp compatibility macros
 	  which are simplified versions of the now deprecated ones from
 	  Rcpp.
 
-2013-09-11  Murray Stokely  <mstokely@FreeBSD.org>
+2013-09-11  Murray Stokely  <mstokely@google.com>
 
 	* configure.in: If pkg-config is not available add -lprotobuf to
 	  PKG_LIBS.  This makes it easier to install on MacOS X 10.8, for
 	  example.
 
-2013-09-06  Murray Stokely  <murray@FreeBSD.org>
+2013-09-06  Murray Stokely  <mstokely@google.com>
 
 	* src/rprotobuf.cpp (rprotobuf): Include the name of the field
 	  that could not be found in exceptions in getFieldDescriptor
 	  (errors from update / new, etc.).
 
-2013-09-03  Murray Stokely  <murray@FreeBSD.org>
+2013-09-03  Murray Stokely  <mstokely@google.com>
 
 	* inst/NEWS.Rd: Summarize changes since the last release.
 	* vignettes/RProtoBuf/RProtoBuf.Rnw: Add a new section on 64-bit
@@ -148,7 +148,7 @@
 	* R/*R: Updated several files which no longer need 'tools:::' prefix
 	* DESCRIPTION: Updated Depends: and Imports accordingly
 
-2013-08-29  Murray Stokely  <murray@FreeBSD.org>
+2013-08-29  Murray Stokely  <mstokely@google.com>
 
 	* R/zzz.R (.onLoad): Rename option controlling int64 handling with
 	  package name prefix.
@@ -157,7 +157,7 @@
 	  code duplication in last changelist.
 	* src/mutators.cpp (rprotobuf): Idem
 
-2013-08-27  Murray Stokely  <murray@FreeBSD.org>
+2013-08-27  Murray Stokely  <mstokely@google.com>
 
 	* src/extractors.cpp (rprotobuf): Add support for a new
 	  option("int64AsString") that controls whether extractors for
@@ -175,7 +175,7 @@
 	  identifier needs to be stored.
 	* inst/unitTests/runit.int64.R: Add tests for the above.
 
-2013-08-21  Murray Stokely  <murray@FreeBSD.org>
+2013-08-21  Murray Stokely  <mstokely@google.com>
 
 	* inst/unitTests/runit.addressbook.R (test.ascii): Add more tests.
 	* src/wrapper_Descriptor.cpp (rprotobuf): Add better error
@@ -204,7 +204,7 @@
 	* vignettes/RProtoBuf-unitTests.Rnw: Idem
 	* vignettes/RProtoBuf-quickref/RProtoBuf-quickref.Rnw: Idem
 
-2013-07-13  Murray Stokely  <murray@FreeBSD.org>
+2013-07-13  Murray Stokely  <mstokely@google.com>
 
 	* inst/NEWS.Rd: Summarize new features since the last CRAN release
           last year.
@@ -221,7 +221,7 @@
 	rather long time ago
 	* R/zzz.R: Check for minimal version is now commented-out
 
-2013-07-12  Murray Stokely  <murray@FreeBSD.org>
+2013-07-12  Murray Stokely  <mstokely@google.com>
 
 	* src/extensions.cpp: Replace custom extractor and mutator with
 	  call to existing functions in mutators.cpp and extractors.cpp that
@@ -236,7 +236,7 @@
 	* inst/unitTests/runit.extensions.R: Add additional tests for
 	  nested enum and message type extensions.
 
-2013-07-11  Murray Stokely  <murray@FreeBSD.org>
+2013-07-11  Murray Stokely  <mstokely@google.com>
 
 	* R/extensions.R: Implement getExtension, setExtension methods.
 	* src/extensions.cpp: Implement getExtension, setExtension.
@@ -254,7 +254,7 @@
 	* src/lookup.cpp: Add support for looking up extensions.
 	* inst/unitTests/runit.extensions.R: Add basic test for the above.
 
-2013-07-10  Murray Stokely  <murray@FreeBSD.org>
+2013-07-10  Murray Stokely  <mstokely@google.com>
 
 	* man/aslist.Rd: Document behavior for enum and file descriptors
 	  and be more sparing with \dontrun in examples.
@@ -275,7 +275,7 @@
 	* man/with.Rd: Idem
 	* man/RProtoBuf-package.Rd: Idem
 
-2013-07-08  Murray Stokely  <murray@FreeBSD.org>
+2013-07-08  Murray Stokely  <mstokely@google.com>
 
 	* R/has.R: add a has method for EnumDescriptor objects to return a
 	  logical indicating if the named constant exists or not.
@@ -290,7 +290,7 @@
 	* man/EnumDescriptor-class.Rd: Add example of the above.
 	* man/EnumValueDescriptor-class.Rd: Add example of the above.
 
-2013-02-21  Murray Stokely  <murray@FreeBSD.org>
+2013-02-21  Murray Stokely  <mstokely@google.com>
 
 	* R/00classes.R: add filename and package slots to FileDescriptor
 	  S4 class and provide more user-friendly show() methods for
@@ -304,7 +304,7 @@
 	* man/FileDescriptor-class.Rd: document the new slots in
 	  FileDescriptor and add examples.
 
-2012-10-03  Murray Stokely  <murray@FreeBSD.org>
+2012-10-03  Murray Stokely  <mstokely@google.com>
 
 	* src/mutators.cpp (rprotobuf): Fix bug where LENGTH() is used on
 	  non-vectors when setting a repeated message field to a single
@@ -321,7 +321,7 @@
 	* man/number.Rd: Idem
 	* man/type.Rd: Idem
 
-2012-09-24  Murray Stokely  <murray@FreeBSD.org>
+2012-09-24  Murray Stokely  <mstokely@google.com>
 
 	* R/has.R: Distinguish between non-existant and not-set fields in
 	  a message by returning NULL in the former case.
@@ -330,7 +330,7 @@
 	* inst/unitTests/runit.golden.message.R (test.has): Add test.
 	* man/has.Rd: Add example of the above.
 
-2012-09-21  Murray Stokely  <murray@FreeBSD.org>
+2012-09-21  Murray Stokely  <mstokely@google.com>
 
 	* Fix a bug causing segfaults in containing_type().
 	* R/containing_type.R: Return NULL instead of invalid descriptors
@@ -344,7 +344,7 @@
 	* inst/unitTests/runit.FieldDescriptor.R
 	(test.FieldDescriptor.class): Add tests for the above.
 
-2012-08-21  Murray Stokely  <murray@FreeBSD.org>
+2012-08-21  Murray Stokely  <mstokely@google.com>
 
 	* src/mutators.cpp: Add better input checking when setting an
 	optional field to avoid an uncaught exception that would kill the
