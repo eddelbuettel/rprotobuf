@@ -18,6 +18,8 @@
 	  RProtoBuf.int64AsString type and note that int32 and int64 types
 	  can be set to character values representing decimal numbers.
 	* TODO: Update todo list.
+	* inst/unitTests/runit.bool.R (test.bool): Add more tests about
+	  boolean values, NA handling, etc.
 
 2013-12-23  Murray Stokely  <mstokely@google.com>
 

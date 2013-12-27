@@ -13,31 +13,34 @@ Current TODO list:
 
 4. Add more packages that depend on or enhance RProtoBuf.
 
-5. Investigate Rcpp Modules support for some classes.  Murray is not
+5. Improve exception handling to prevent cases where an Rcpp exception
+   crashes the interactive R instance.
+
+6. Investigate Rcpp Modules support for some classes.  Murray is not
    personally super enthusiastic about this one, as I think it may
    require non trivial changes to Rcpp and/or result in losing some of
    the user-friendliness we've crafted in the explicit RcppExported
    function entry points.  Still, it could be explored and may result
    in significantly fewer lines of code if successful.
 
-6. Add a FAQ and other documentation / examples.
+7. Add a FAQ and other documentation / examples.
 
-7. Add more unit tests.
+8. Add more unit tests.
 
-8. Explore removing the CLONE() in extractors.cpp.  This makes for
+9. Explore removing the CLONE() in extractors.cpp.  This makes for
    unusual semantics for any mutable methods of sub-messages.  For
    example, clear(), setExtension(), and probably also update() ( but
    "$<-" on sub-messages is not a problem, it seems).  More details below.
 
-9. What should we do when we unload the package?  Any additional
+10. What should we do when we unload the package?  Any additional
    resources to free that is not currently done?
 
-10. finalizers [murray: what is needed here?]
+11. finalizers [murray: what is needed here?]
 
-11. Clean up formatting / whitespace (its awful, run it all through
+12. Clean up formatting / whitespace (its awful, run it all through
     clang-format?)
 
-12. Thoroughly audit extensions support and other deeply nested types
+13. Thoroughly audit extensions support and other deeply nested types
    support to ensure everything is implemented as expected.
 
 Stuff I think belongs in additional packages that depend on RProtoBuf,
