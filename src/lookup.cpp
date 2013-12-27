@@ -174,7 +174,7 @@ Rboolean rProtoBufTable_canCache(const char * const name, R_ObjectTable *tb){
  * Previously this function returned a stop() error, but this has side
  * effects such as preventing users from using '<<-' operator in any
  * scripts that include RProtoBuf.  So instead, we now simply return
- * NULL to indicate assign is not possible on this lookup talbe
+ * NULL to indicate assign is not possible on this lookup table
  * without giving such a hard error.
  */
 SEXP rProtoBufTable_assign(const char * const name, SEXP value, R_ObjectTable *tb){
