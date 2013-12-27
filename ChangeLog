@@ -1,4 +1,4 @@
-2013-12-27  Murray Stokely  <murray@hilbert.local>
+2013-12-27  Murray Stokely  <mstokely@google.com>
 
 	* src/mutators.cpp: Refactor setMessageField into four separate
 	  functions, correct a few minor typos, and wrap everything in a

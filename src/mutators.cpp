@@ -387,7 +387,7 @@ void CHECK_messages( GPB::FieldDescriptor* field_desc, SEXP values ){
  * otherwise this could lead to modifying a few values then failing in
  * an inconsistent state.
  */
-void CHECK_repeated_vals(GPB::FieldDescriptor* field_desc,
+void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 						 SEXP value, int value_size) {
 	switch( field_desc->type() ){
 	case TYPE_MESSAGE:
@@ -530,7 +530,7 @@ void CHECK_repeated_vals(GPB::FieldDescriptor* field_desc,
  */
 void setNonRepeatedMessageField(GPB::Message* message,
 								const Reflection* ref,
-								GPB::FieldDescriptor* field_desc,
+								const GPB::FieldDescriptor* field_desc,
 								SEXP value, int value_size) {
 	if (value_size > 1) {
 		throwException( "cannot set non-repeated field to vector of length > 1",
@@ -748,7 +748,7 @@ void setNonRepeatedMessageField(GPB::Message* message,
 
 void setRepeatedMessageField(GPB::Message* message,
 							 const Reflection* ref,
-							 GPB::FieldDescriptor* field_desc,
+							 const GPB::FieldDescriptor* field_desc,
 							 SEXP value, int value_size) {
 	// The number of elements already in the repeated field.
 	int field_size = ref->FieldSize( *message, field_desc ) ;
@@ -1255,7 +1255,7 @@ PRINT_DEBUG_INFO( "value", value ) ;
 	GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP(pointer) ;
 
 	/* check that we can get a file descriptor from name */
-	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
+	const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, name ); 
 	
 	const Reflection * ref = message->GetReflection() ;
     
