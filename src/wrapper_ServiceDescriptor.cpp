@@ -99,9 +99,8 @@ SEXP get_service_method( SEXP pointer, SEXP name ){
 	}
 	
 	if( !method_desc ){
-		throwException( "could not get MethodDescriptor", "NoSuchMethodException" ) ;
+		Rcpp::throw("could not get MethodDescriptor");
 	}
-	
 	return S4_MethodDescriptor( method_desc ); 
 	
 }

@@ -8,53 +8,55 @@ namespace rprotobuf{
 
 /* helpers */
 
-	/* this is only to be called for repeated fields */
-	int MESSAGE_GET_REPEATED_INT( GPB::Message* message, GPB::FieldDescriptor* field_desc, int index ){
+/* this is only to be called for repeated fields */
+int MESSAGE_GET_REPEATED_INT(GPB::Message* message,
+			     GPB::FieldDescriptor* field_desc, int index ){
+	BEGIN_RCPP
+	const GPB::Reflection* ref = message->GetReflection() ; 
 		
-		const GPB::Reflection* ref = message->GetReflection() ; 
-		
-		switch( field_desc->type() ){
-			case TYPE_INT32:
-    		case TYPE_SINT32:
-    		case TYPE_SFIXED32:
-    			return (int) ref->GetRepeatedInt32( *message, field_desc, index ) ;
-    		case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-    			return (int) ref->GetRepeatedInt64( *message, field_desc, index ) ;
-    		case TYPE_UINT32:
-    		case TYPE_FIXED32:
-    			return (int) ref->GetRepeatedUInt32( *message, field_desc, index ) ;
-    		case TYPE_UINT64:
-    		case TYPE_FIXED64:
-    			return (int) ref->GetRepeatedUInt64( *message, field_desc, index ) ;
-    		case TYPE_ENUM:
-    			return ref->GetRepeatedEnum( *message, field_desc, index )->number() ;
-    		default:
-    			throwException( "cannot cast to int", "CastException" ) ; 
-		}
-		return 0 ; // -Wall
+	switch( field_desc->type() ){
+	case TYPE_INT32:
+	case TYPE_SINT32:
+	case TYPE_SFIXED32:
+		return (int) ref->GetRepeatedInt32( *message, field_desc, index ) ;
+	case TYPE_INT64:
+	case TYPE_SINT64:
+	case TYPE_SFIXED64:
+		return (int) ref->GetRepeatedInt64( *message, field_desc, index ) ;
+	case TYPE_UINT32:
+	case TYPE_FIXED32:
+		return (int) ref->GetRepeatedUInt32( *message, field_desc, index ) ;
+	case TYPE_UINT64:
+	case TYPE_FIXED64:
+		return (int) ref->GetRepeatedUInt64( *message, field_desc, index ) ;
+	case TYPE_ENUM:
+		return ref->GetRepeatedEnum( *message, field_desc, index )->number() ;
+	default:
+		Rcpp_error("cannot cast to int");
 	}
+	VOID_END_RCPP
+	return 0 ; // -Wall
+}
 	
-	/* this is only to be called for repeated fields */
-	double MESSAGE_GET_REPEATED_DOUBLE( GPB::Message* message, GPB::FieldDescriptor* field_desc, int index ){
+/* this is only to be called for repeated fields */
+double MESSAGE_GET_REPEATED_DOUBLE(GPB::Message* message,
+				   GPB::FieldDescriptor* field_desc,
+				   int index ){
+	BEGIN_RCPP
+	const GPB::Reflection* ref = message->GetReflection() ; 
 		
-		const GPB::Reflection* ref = message->GetReflection() ; 
-		
-		switch( field_desc->type() ){
-			case TYPE_FLOAT:
-    			return (double) ref->GetRepeatedFloat( *message, field_desc, index ) ;
-    		case TYPE_DOUBLE:
-    			return (double) ref->GetRepeatedDouble( *message, field_desc, index ) ;
-    		default:
-    			throwException( "cannot cast to double", "CastException" ) ; 
-		}
-		return 0 ; // -Wall
+	switch( field_desc->type() ){
+	case TYPE_FLOAT:
+		return (double) ref->GetRepeatedFloat( *message, field_desc, index ) ;
+	case TYPE_DOUBLE:
+		return (double) ref->GetRepeatedDouble( *message, field_desc, index ) ;
+	default:
+		Rcpp_error("cannot cast to double");
 	}
-	
+	VOID_END_RCPP
+	return 0; // -Wall
+}
 
-
-	
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(Message__,__NAME__)
 
@@ -457,6 +459,7 @@ RPB_FUNCTION_1( Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Messa
 }
 
 bool identical_messages_( GPB::Message* m1,  GPB::Message* m2, double tol ){
+  BEGIN_RCPP
 	const GPB::Descriptor* d1 = m1->GetDescriptor() ;
 	const GPB::Descriptor* d2 = m2->GetDescriptor() ;
 	
@@ -563,7 +566,7 @@ bool identical_messages_( GPB::Message* m1,  GPB::Message* m2, double tol ){
 						break ;
     				}
     			default:
-    				throwException( "unknown type" , "UnknownTypeException" ) ;
+				Rcpp_error("unknown type");
 			}
 			
 		} else {
@@ -632,15 +635,14 @@ bool identical_messages_( GPB::Message* m1,  GPB::Message* m2, double tol ){
 						break ;
     				}
     			default:
-    				throwException( "unknown type" , "UnknownTypeException" ) ;
+				Rcpp_error("unknown type");
 			}
 			
 		}
 	}
-	
-	/* finally */
-	return true ;
-	
+  VOID_END_RCPP
+  /* finally */
+  return true ;
 }
 
 RPB_FUNCTION_2( bool, identical_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2){
@@ -686,384 +688,379 @@ RPB_FUNCTION_2( S4_Message, METHOD(merge), Rcpp::XPtr<GPB::Message> m1, Rcpp::XP
  * @param field field tag number or name
  * @param values values to append
  */ 
-RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP field, SEXP values){
-		const Reflection * ref = message->GetReflection() ;
-		const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
+RPB_FUNCTION_VOID_3( METHOD(add_values), Rcpp::XPtr<GPB::Message> message,
+		     SEXP field, SEXP values){
+	const Reflection * ref = message->GetReflection() ;
+	const GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field );
 		
-		if( values == R_NilValue || LENGTH(values) == 0 ){
-			return ; 
-		}
-		
-		if( field_desc->is_repeated() ){
-			/* first check */
-			switch( field_desc->type() ){
-				case TYPE_ENUM:
-					{
-						CHECK_values_for_enum( field_desc, values) ; 
-						break ;
-					}
-				case TYPE_MESSAGE:
-				case TYPE_GROUP:
-					{
-						CHECK_messages( field_desc, values ) ;
-						break ;
-					}
-				default:
-					{// nothing
-					}
-			}
-
-			int value_size = LENGTH( values ) ;
-			/* then add the values */
-			switch( field_desc->type() ){
-				// {{{ int32
-    			case TYPE_INT32:
-    			case TYPE_SINT32:
-    			case TYPE_SFIXED32:
-    				{
-    					switch( TYPEOF( values ) ){
-    						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								for( int i=0; i<value_size; i++){
-    									ref->AddInt32( message, field_desc, GET_int32(values,i) ) ;
-    								}
-    								break ;
-    							}
-    						default: 
-    							{
-    								throwException( "Cannot convert to int32", "ConversionException" ) ; 
-    							}
-    					}
-    					break ;   
-    				}
-				// }}}
-    			
-				// {{{ int64
-				case TYPE_INT64:
-    			case TYPE_SINT64:
-    			case TYPE_SFIXED64:
-    				{
-    					switch( TYPEOF( values ) ){
-    						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							for( int i=0; i<value_size; i++){
-	    							ref->AddInt64( message, field_desc, GET_int64(values,i) ) ;
-	    						}
-	    					default: 
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    					}
-    					break ;
-    				}
-    				// }}}	
-    				
-    			// {{{ uint32
-    			case TYPE_UINT32:
-    			case TYPE_FIXED32:
-    				{
-    					switch( TYPEOF( values ) ){
-   							case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								for( int i=0; i<value_size; i++){
-	    								ref->AddUInt32( message, field_desc, GET_int32(values,i) ) ;
-	    							}
-	    							break ;
-    							}
-    						default: 
-    							throwException( "Cannot convert to uint32", "ConversionException" ) ; 
-    					}
-    					break ;   
-    				}
-				// }}}
-     			
-				// {{{ uint64
-    			case TYPE_UINT64:
-    			case TYPE_FIXED64:
-    				{
-    					switch( TYPEOF( values ) ){
-	   						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								for( int i=0; i<value_size; i++){
-	    								ref->AddUInt64( message, field_desc, GET_uint64(values,i) ) ;
-	    							}
-	    							break ;
-    							}
-    						default: 
-    							throwException( "Cannot convert to int64", "ConversionException" ) ; 
-    					}
-    					break ;   
-    				}
-				// }}}
-        	
-				// {{{ double
-    			case TYPE_DOUBLE:
-    				{
-    					switch( TYPEOF( values ) ){
-    						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								
-    								for( int i=0; i<value_size; i++){
-	    								ref->AddDouble( message, field_desc, GET_double(values,i) ) ;
-	    							}
-	    							break ;
-    							}
-    						default: 
-    							throwException( "Cannot convert to double", "ConversionException" ) ; 
-    					}
-    					break ;   
-    				}
-				// }}}	
-    				
-				// {{{ float
-    			case TYPE_FLOAT:
-    				{
-    					switch( TYPEOF( values ) ){
-    						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								
-    								for( int i=0; i<value_size; i++){
-	    								ref->AddFloat( message, field_desc, GET_float(values,i) ) ;
-	    							}
-	    							break ;
-    							}
-    						default: 
-    							throwException( "Cannot convert to float", "ConversionException" ) ; 
-    					}
-    					break ;   
-    				}
-				// }}}	
-    			
-				// {{{ bool
-				case TYPE_BOOL:
-   				{
-    					switch( TYPEOF( values ) ){
-     						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:	
-    							{
-    								
-    								for( int i=0; i<value_size; i++){
-	    								ref->AddBool( message, field_desc, GET_bool(values,i) ) ;
-	    							}
-	    							break ;
-    							}
-   							default: 
-    							throwException( "Cannot convert to float", "ConversionException" ) ; 
-    					}
-    					break ;   
-    				}
-				// }}}
-				
-     			// {{{ string
-				case TYPE_STRING:
-    				{
-    					if( TYPEOF(values) == STRSXP ){ 
-    						for( int i=0 ; i<value_size; i++){
-				    			ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(values,i )) ) ) ;
-				    		}
-    					} else{
-    						throwException( "Cannot convert to string", "ConversionException" ) ;
-    					}
-    					break ; 
-    				}
-				// }}}
-
-     			// {{{ bytes
-    			case TYPE_BYTES:
-    				{
-						if( TYPEOF(values) == RAWSXP ){
-							ref->AddString( message, field_desc, GET_bytes(values,0 )) ;
-						} else if( TYPEOF(values) == VECSXP ){ 
-							for( int i=0 ; i<value_size; i++) {
-								ref->AddString( message, field_desc, GET_bytes(values,i )) ;
-				    		}
-    					} else{
-    						throwException( "Cannot convert to bytes", "ConversionException" ) ;
-    					}
-    					break ; 
-    				}
-				// }}}
-    			
-				// {{{ message
-    			case TYPE_MESSAGE:
-    			case TYPE_GROUP: 
-    				{    
-    					if( TYPEOF(values) == VECSXP )  {
-    						for( int i=0; i<value_size; i++){
-				    			GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( values, i) ) ; 
-				    			/* we already know it is of the correct type because of the 
-				    			  premptive chjeck above */
-				    			
-				    			ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
-				    		}
-				    					
-    					} else{
-    						throwException( "type mismatch, expecting a list of 'Message' objects", "TypeMismatchException" ) ;
-    					}
-    					break ;
-    				}
-    				// }}}
-    			
-				// {{{ enum
-    			case TYPE_ENUM : 
-    				{
-    					const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
-        	
-    					switch( TYPEOF( values ) ){
-    						// {{{ numbers 
-    						case INTSXP:
-    						case REALSXP:
-    						case LGLSXP:
-    						case RAWSXP:
-    							{
-    								for( int i=0; i<value_size; i++){
-	    								int val = GET_int(values, i ); 
-	    								ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
-									}
-	    							break ;
-    							}
-							// }}}
-        	
-							// {{{ STRSXP
-    						case STRSXP:
-    							{
-    								for( int i=0; i<value_size; i++){
-	    								std::string val = CHAR( STRING_ELT( values, i) ) ;
-	    								const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
-	    								ref->AddEnum( message, field_desc, evd ) ; 
-									}
-	    							break ;
-    							}
-							// }}}
-    							
-							// {{{ default
-    						default: 
-    							{
-    								throwException( "cannot set enum value", "WrongTypeEnumValueException" ) ; 
-    							}
-							// }}}
-    					}
-    					break; 
-    				}
-					// }}}
-    			default:
-    				{
-    					// nothing
-    				}
-    		}
-		} else{
-			throwException( "add can only be used on repeated fields", "NotRepeatedFieldException" ) ;
-		}
-		
+	if( values == R_NilValue || LENGTH(values) == 0 ){
+		return ; 
 	}
-
-
-	/**
-	 * fetch a subset of the values of a field
-	 *
-	 * @param (GPB::Message*) external pointer
-	 * @param field name or tag number of the field
-	 * @param index 
-	 */
-	 RPB_FUNCTION_3( SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index ){
 		
-		GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
-		if( !field_desc->is_repeated() ){
-			Rf_error( "fetch can only be used on repeated fields" ) ;
-		}
-		
-		int n = index.size() ; 
+	if( field_desc->is_repeated() ){
+		/* first check */
 		switch( field_desc->type() ){
-			
-    		case TYPE_INT32:
-    		case TYPE_SINT32:
-    		case TYPE_SFIXED32:
-			case TYPE_INT64:
-    		case TYPE_SINT64:
-    		case TYPE_SFIXED64:
-			case TYPE_UINT32:
-	    	case TYPE_FIXED32:
-	    	case TYPE_UINT64:
-	    	case TYPE_FIXED64:
-	    	case TYPE_ENUM:
-	    		{
-	    			Rcpp::IntegerVector res(n) ;
-	    			for( int i=0; i<n; i++){
-						res[i] = MESSAGE_GET_REPEATED_INT( 
-							message, field_desc, index[i] ) ;
-					}
-					return res; 
-				}
-			case TYPE_DOUBLE:
-		    case TYPE_FLOAT:
-				{
-					Rcpp::NumericVector res(n) ;
-					for( int i=0; i<n; i++){
-						res[i] = MESSAGE_GET_REPEATED_DOUBLE( 
-							message, field_desc, index[i] ) ;
-					}
-					return res; 
-				}
-			case TYPE_BOOL:
-				{
-					Rcpp::LogicalVector res(n) ;
-	    			for( int i=0; i<n; i++){
-						res[i] = MESSAGE_GET_REPEATED_DOUBLE( 
-							message, field_desc, index[i] ) ;
-					}
-					return res; 
-				}
-			case TYPE_STRING:
-	    		{
-	    			const GPB::Reflection* ref = message->GetReflection() ; 
-	    			Rcpp::CharacterVector res(n) ;
-	    			for( int i=0; i<n; i++){
-	    				res[i] = ref->GetRepeatedString( *message, field_desc, index[i] ) ;
-    				}
-    			    return res ;
-	    		}
-	    	case TYPE_BYTES:
-	    		{
-	    			const GPB::Reflection* ref = message->GetReflection() ; 
-	    			Rcpp::List res(n) ;
-	    			for( int i=0; i<n; i++){
-						std::string s = ref->GetRepeatedString( *message, field_desc, index[i] );
-	    				res[i] = std::vector<Rbyte>(s.begin(), s.end());
-    				}
-    			    return res ;
-	    		}
-	    	case TYPE_MESSAGE:
-    		case TYPE_GROUP:
-    			{
-	    			const GPB::Reflection* ref = message->GetReflection() ; 
-	    			Rcpp::List res(n) ;
-	    			for( int i=0; i<n; i++){
-    					res[i] = S4_Message( CLONE( &ref->GetRepeatedMessage( *message, field_desc, i ) ) ) ;
-    				} 
-    				return res ;
-    			}
-    		default: 
-    			throw std::range_error( "unknown type" ) ;
+		case TYPE_ENUM:
+			{
+				CHECK_values_for_enum( field_desc, values) ; 
+				break ;
+			}
+		case TYPE_MESSAGE:
+		case TYPE_GROUP:
+			{
+				CHECK_messages( field_desc, values ) ;
+				break ;
+			}
+		default:
+			{// nothing
+			}
 		}
-		return R_NilValue ; // -Wall 
+
+		int value_size = LENGTH( values ) ;
+		/* then add the values */
+		switch( field_desc->type() ){
+		// {{{ int32
+		case TYPE_INT32:
+		case TYPE_SINT32:
+		case TYPE_SFIXED32:
+			{
+				switch( TYPEOF( values ) ){
+				case INTSXP:
+				case REALSXP:
+				case LGLSXP:
+				case RAWSXP:	
+					{
+					for( int i=0; i<value_size; i++){
+						ref->AddInt32( message, field_desc, GET_int32(values,i) ) ;
+					}
+					break ;
+					}
+				default: 
+					{
+						Rcpp::throw("Cannot convert to int32");
+					}
+				}
+				break ;   
+			}
+		// }}}
+    			
+		// {{{ int64
+		case TYPE_INT64:
+		case TYPE_SINT64:
+		case TYPE_SFIXED64:
+			{
+				switch( TYPEOF( values ) ){
+				case INTSXP:
+				case REALSXP:
+				case LGLSXP:
+				case RAWSXP:	
+					for( int i=0; i<value_size; i++){
+						ref->AddInt64( message, field_desc, GET_int64(values,i) ) ;
+					}
+				default: 
+					Rcpp::throw("Cannot convert to int64");
+				}
+				break ;
+			}
+		// }}}	
+    				
+    		// {{{ uint32
+		case TYPE_UINT32:
+		case TYPE_FIXED32:
+			{
+			switch( TYPEOF( values ) ){
+			case INTSXP:
+			case REALSXP:
+			case LGLSXP:
+			case RAWSXP:	
+				{
+				for( int i=0; i<value_size; i++){
+					ref->AddUInt32( message, field_desc, GET_int32(values,i) ) ;
+				}
+				break ;
+				}
+			default: 
+				Rcpp::throw("Cannot convert to uint32");
+    			}
+			break ;   
+			}
+		// }}}
+     			
+		// {{{ uint64
+		case TYPE_UINT64:
+		case TYPE_FIXED64:
+		{
+			switch( TYPEOF( values ) ){
+			case INTSXP:
+			case REALSXP:
+			case LGLSXP:
+			case RAWSXP:	
+			{
+				for( int i=0; i<value_size; i++){
+					ref->AddUInt64( message, field_desc, GET_uint64(values,i) ) ;
+				}
+				break ;
+			}
+			default: 
+				Rcpp::throw("Cannot convert to int64");
+			}
+			break ;   
+		}
+		// }}}
+        	
+		// {{{ double
+		case TYPE_DOUBLE:
+		{
+			switch( TYPEOF( values ) ){
+			case INTSXP:
+			case REALSXP:
+			case LGLSXP:
+			case RAWSXP:	
+			{
+				for( int i=0; i<value_size; i++){
+					ref->AddDouble( message, field_desc, GET_double(values,i) ) ;
+				}
+				break ;
+			}
+			default: 
+				Rcpp::throw("Cannot convert to double");
+			}
+			break ;   
+		}
+		// }}}	
+    				
+		// {{{ float
+		case TYPE_FLOAT:
+		{
+			switch( TYPEOF( values ) ){
+			case INTSXP:
+			case REALSXP:
+			case LGLSXP:
+			case RAWSXP:	
+				{
+					for( int i=0; i<value_size; i++){
+						ref->AddFloat( message, field_desc, GET_float(values,i) ) ;
+					}
+					break ;
+				}
+			default: 
+				Rcpp::throw("Cannot convert to float");
+			}
+			break ;   
+		}
+		// }}}	
+    			
+		// {{{ bool
+		case TYPE_BOOL:
+		{
+			switch( TYPEOF( values ) ){
+			case INTSXP:
+			case REALSXP:
+			case LGLSXP:
+			case RAWSXP:	
+			{
+				for( int i=0; i<value_size; i++){
+					ref->AddBool( message, field_desc, GET_bool(values,i) ) ;
+				}
+				break ;
+			}
+			default: 
+				Rcpp::throw("Cannot convert to bool");
+			}
+			break ;   
+		}
+		// }}}
+
+		// {{{ string
+		case TYPE_STRING:
+		{
+			if( TYPEOF(values) == STRSXP ){ 
+				for( int i=0 ; i<value_size; i++){
+					ref->AddString( message, field_desc, COPYSTRING( CHAR(STRING_ELT(values,i )) ) ) ;
+				}
+			} else{
+				Rcpp::throw("Cannot convert to string");
+			}
+			break ; 
+		}
+		// }}}
+
+		// {{{ bytes
+		case TYPE_BYTES:
+		{
+			if( TYPEOF(values) == RAWSXP ){
+				ref->AddString( message, field_desc, GET_bytes(values,0 )) ;
+			} else if( TYPEOF(values) == VECSXP ){ 
+				for( int i=0 ; i<value_size; i++) {
+					ref->AddString( message, field_desc, GET_bytes(values,i )) ;
+				}
+			} else{
+				Rcpp::throw("Cannot convert to bytes");
+			}
+			break ; 
+		}
+		// }}}
+    			
+		// {{{ message
+		case TYPE_MESSAGE:
+		case TYPE_GROUP: 
+		{    
+			if( TYPEOF(values) == VECSXP )  {
+				for( int i=0; i<value_size; i++){
+					GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4( VECTOR_ELT( values, i) ) ; 
+					/* we already know it is of the correct
+					   type because of premptive check above */
+
+					ref->AddMessage(message, field_desc)->CopyFrom( *mess ) ; 
+				}
+			} else{
+				Rcpp::throw("type mismatch, expecting a list of 'Message' objects");
+			}
+			break ;
+		}
+		// }}}
+    			
+		// {{{ enum
+		case TYPE_ENUM : 
+		{
+			const GPB::EnumDescriptor* enum_desc = field_desc->enum_type() ;
+			switch( TYPEOF( values ) ){
+			// {{{ numbers 
+			case INTSXP:
+			case REALSXP:
+			case LGLSXP:
+			case RAWSXP:
+			{
+				for( int i=0; i<value_size; i++){
+					int val = GET_int(values, i ); 
+					ref->AddEnum( message, field_desc, enum_desc->FindValueByNumber(val) ) ;
+				}
+				break ;
+			}
+			// }}}
+
+			// {{{ STRSXP
+			case STRSXP:
+			{
+				for( int i=0; i<value_size; i++){
+					std::string val = CHAR( STRING_ELT( values, i) ) ;
+					const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val) ;
+					ref->AddEnum( message, field_desc, evd ) ; 
+				}
+				break ;
+			}
+			// }}}
+
+			// {{{ default
+			default:
+			{
+				Rcpp::throw("cannot set enum value");
+			}
+			// }}}
+			}
+			break; 
+		}
+		// }}}
+		default:
+		{
+			// nothing
+		}
+    		}
+	} else{
+	  Rcpp::throw("add can only be used on repeated fields");
 	}
+}
+
+
+/**
+ * fetch a subset of the values of a field
+ *
+ * @param (GPB::Message*) external pointer
+ * @param field name or tag number of the field
+ * @param index 
+ */
+RPB_FUNCTION_3( SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field, Rcpp::IntegerVector index ){
+	GPB::FieldDescriptor* field_desc = getFieldDescriptor( message, field ) ;
+	if( !field_desc->is_repeated() ){
+		Rf_error( "fetch can only be used on repeated fields" ) ;
+	}
+		
+	int n = index.size() ; 
+	switch( field_desc->type() ){
+			
+	case TYPE_INT32:
+	case TYPE_SINT32:
+	case TYPE_SFIXED32:
+	case TYPE_INT64:
+	case TYPE_SINT64:
+	case TYPE_SFIXED64:
+	case TYPE_UINT32:
+	case TYPE_FIXED32:
+	case TYPE_UINT64:
+	case TYPE_FIXED64:
+	case TYPE_ENUM:
+		{
+		Rcpp::IntegerVector res(n) ;
+		for( int i=0; i<n; i++){
+			res[i] = MESSAGE_GET_REPEATED_INT(message, field_desc,
+							  index[i]) ;
+		}
+		return res; 
+		}
+	case TYPE_DOUBLE:
+	case TYPE_FLOAT:
+		{
+		Rcpp::NumericVector res(n) ;
+		for( int i=0; i<n; i++){
+			res[i] = MESSAGE_GET_REPEATED_DOUBLE(message,
+							     field_desc,
+							     index[i]) ;
+		}
+		return res; 
+		}
+	case TYPE_BOOL:
+		{
+		Rcpp::LogicalVector res(n) ;
+		for( int i=0; i<n; i++){
+			res[i] = MESSAGE_GET_REPEATED_DOUBLE( 
+							     message, field_desc, index[i] ) ;
+		}
+		return res; 
+		}
+	case TYPE_STRING:
+		{
+		const GPB::Reflection* ref = message->GetReflection() ; 
+		Rcpp::CharacterVector res(n) ;
+		for( int i=0; i<n; i++){
+			res[i] = ref->GetRepeatedString( *message, field_desc, index[i] ) ;
+		}
+		return res ;
+		}
+	case TYPE_BYTES:
+		{
+		const GPB::Reflection* ref = message->GetReflection() ; 
+		Rcpp::List res(n) ;
+		for( int i=0; i<n; i++){
+			std::string s = ref->GetRepeatedString( *message, field_desc, index[i] );
+			res[i] = std::vector<Rbyte>(s.begin(), s.end());
+		}
+		return res ;
+		}
+	case TYPE_MESSAGE:
+	case TYPE_GROUP:
+		{
+		const GPB::Reflection* ref = message->GetReflection() ; 
+		Rcpp::List res(n) ;
+		for( int i=0; i<n; i++){
+			res[i] = S4_Message( CLONE( &ref->GetRepeatedMessage( *message, field_desc, i ) ) ) ;
+		} 
+		return res ;
+		}
+	default: 
+		throw std::range_error( "unknown type" ) ;
+	}
+	return R_NilValue ; // -Wall 
+}
 
 
 	/**

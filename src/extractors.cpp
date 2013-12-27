@@ -35,18 +35,20 @@ bool UseStringsForInt64() {
 // So, if an option is set, we return as a character string.
 template<typename ValueType>
 SEXP Int64AsSEXP(ValueType value) {
-    if (UseStringsForInt64()) {
-        std::stringstream ss;
-        if ((ss << value).fail()) {
-            // This should not happen, its a bug in the code.
-            string message = string("Error converting int64 to string, unset ") +
+	BEGIN_RCPP
+		if (UseStringsForInt64()) {
+			std::stringstream ss;
+			if ((ss << value).fail()) {
+				// This should not happen, its a bug in the code.
+				string message = string("Error converting int64 to string, unset ") +
                     kIntStringOptionName + " option.";
-            throwException(message.c_str(), "ConversionException");
+				Rcpp::throw(message.c_str());
+			}
+			return Rcpp::CharacterVector(ss.str());
+		} else {
+			return Rcpp::wrap(value);
 		}
-        return Rcpp::CharacterVector(ss.str());
-    } else {
-        return Rcpp::wrap(value);
-    }
+	END_RCPP
 }
 
 /**
@@ -82,7 +84,7 @@ Rprintf( "</getMessageField>\n" ) ;
 
 SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
 						 const GPB::FieldDescriptor*  fieldDesc ){
-
+	BEGIN_RCPP
     const Reflection * ref = message->GetReflection() ;
        
     if( fieldDesc->is_repeated() ){
@@ -137,15 +139,14 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
 				}
 				return res;
 			} else {
-				throwException( "unknown field type with CPP_TYPE STRING", "ConversionException" ) ;
+				Rcpp::throw("unknown field type with CPP_TYPE STRING");
 			}
 			
 		default:
-			throwException("Unsupported type", "ConversionException");
+			Rcpp::throw("Unsupported type");
     	}
     	
     } else {
-    	
     	switch( GPB::FieldDescriptor::TypeToCppType(fieldDesc->type()) ){
 
 #undef HANDLE_SINGLE_FIELD
@@ -175,7 +176,7 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
 				std::string s = ref->GetString(*message, fieldDesc);
 				return Rcpp::wrap(std::vector<Rbyte>(s.begin(), s.end()));
 			} else {
-				throwException( "unknown field type with CPP_TYPE STRING", "ConversionException" ) ;			   
+				Rcpp::throw("unknown field type with CPP_TYPE STRING");
 			}
 		case CPPTYPE_ENUM : 
 			return Rcpp::wrap( ref->GetEnum( *message, fieldDesc )->number() ) ;
@@ -185,11 +186,11 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
 			break ;
 
 		default:
-			throwException("Unsupported type", "ConversionException");
+			Rcpp::throw("Unsupported type");
     	}
 
     }
-    return R_NilValue ; /* -Wall */
+	END_RCPP
 }
 
 } // namespace rprotobuf

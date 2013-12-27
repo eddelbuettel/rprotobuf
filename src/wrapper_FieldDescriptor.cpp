@@ -83,7 +83,7 @@ case CPPTYPE_##__CPP__:                                           \
 	
 	RPB_FUNCTION_1(S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::FieldDescriptor> d){
 		if( d->cpp_type() != CPPTYPE_ENUM ){
-			throwException( "not an enum type field", "NotEnumType" ); 
+			Rcpp::throw("not an enum type field");
 		}
 		return S4_EnumDescriptor( d->enum_type() ) ;
 	}

@@ -123,7 +123,7 @@ Rf_PrintValue( type ) ;
  * @param descriptor a "Descriptor" R object
  */
 SEXP newProtoMessage( SEXP descriptor ){
-
+  try {
 #ifdef RPB_DEBUG
 Rprintf( "<newProtoMessage>\n" ) ;
 	/* FIXME: the message type, we don't really need that*/
@@ -141,13 +141,16 @@ PRINT_DEBUG_INFO( "type", type ) ;
 	/* grab the Message from the factory */
 	const GPB::Message* message = PROTOTYPE( desc ) ; 
 	if( !message ){
-		throwException( "could not call factory->GetPrototype(desc)->New()", "MessageCreationException" ) ; 
+		Rcpp_error("could not call factory->GetPrototype(desc)->New()");
 	}
 #ifdef RPB_DEBUG
 Rprintf( "</newProtoMessage>\n" ) ;
 #endif
 	
 	return( S4_Message( message )  ) ;
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  }
 }
 
 /**
@@ -221,6 +224,7 @@ Rprintf( "<isMessage>\n" ) ;
 
 
 GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
+  try {
 	GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
 	const GPB::Descriptor* desc = message->GetDescriptor() ;
 	std::string error_message = "could not get FieldDescriptor for field";
@@ -230,7 +234,7 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 		    if (Rf_inherits( name, "FieldDescriptor") ){
 		      field_desc = GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(name);
 		    } else {
-		      throwException( "S4 class is not a FieldDescriptor", "NoSuchFieldException" ) ;
+		      Rcpp::throw("S4 class is not a FieldDescriptor");
 		    }
 		    break ;
 		  }
@@ -254,9 +258,12 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name){
 			}
 	}
 	if( !field_desc ){
-		throwException( error_message.c_str(), "NoSuchFieldException" ) ;
+		Rcpp::throw(error_message.c_str());
 	}
 	return field_desc ;
+  } catch(std::exception &ex) {
+    forward_exception_to_r(ex);
+  }
 }
 
 RPB_FUNCTION_VOID_1( check_libprotobuf_version, int minversion ){

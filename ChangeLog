@@ -9,6 +9,10 @@
 	  for our handling of setting repeated message fields.
 	* src/wrapper_Message.cpp: Add const qualifier to
 	  field_desc throughout file.
+	* src/exceptions.cpp: Remove ancient exceptions handling code,
+	  migrate codebase to use standard exception classes and helper
+	  functions from Rcpp.
+	* R/exceptions.R (throw): idem.
 
 2013-12-26  Murray Stokely  <mstokely@google.com>
 
