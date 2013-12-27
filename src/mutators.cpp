@@ -183,19 +183,22 @@ bool GET_bool( SEXP x, int index ){
 	switch( TYPEOF(x) ){
 		case INTSXP: 
             if (INTEGER(x)[index] == R_NaInt) {
-                throwException( "NA boolean values not supported by RProtoBuf",
+                throwException( "NA boolean values can not be stored in "
+								"bool protocol buffer fields",
                                 "CastException" ) ;
             }
 			return( (bool)INTEGER(x)[index] );
 		case REALSXP: 
             if (REAL(x)[index] == R_NaReal) {
-                throwException( "NA boolean values not supported by RProtoBuf",
+                throwException( "NA boolean values can not be stored in "
+								"bool protocol buffer fields",
                                 "CastException" ) ;
             }
 			return( (bool)REAL(x)[index] );
 		case LGLSXP:
             if (LOGICAL(x)[index] == NA_LOGICAL) {
-                throwException( "NA boolean values not supported by RProtoBuf",
+                throwException( "NA boolean values can not be stored in "
+								"bool protocol buffer fields",
                                 "CastException" ) ;
             }
 			return( (bool)LOGICAL(x)[index] );
@@ -1046,7 +1049,28 @@ PRINT_DEBUG_INFO( "value", value ) ;
 
 			HANDLE_SINGLE_FIELD( CPPTYPE_DOUBLE, Double, double) ;
 			HANDLE_SINGLE_FIELD( CPPTYPE_FLOAT, Float, float) ;
-			HANDLE_SINGLE_FIELD( CPPTYPE_BOOL, Bool, bool) ;
+			case CPPTYPE_BOOL :
+				{
+					// TODO(mstokely): Rcpp should handle this!
+					if ((TYPEOF(value) == LGLSXP) &&
+						(LOGICAL(value)[0] == NA_LOGICAL)) {
+						throwException("NA boolean values can not be stored in "
+									   "bool protocol buffer fields",
+									   "CastException");
+					} else if ((TYPEOF(value) == INTSXP) &&
+							   (INTEGER(value)[0] == R_NaInt)) {
+						throwException( "NA boolean values can not be stored in "
+										"bool protocol buffer fields",
+										"CastException");
+					} else if ((TYPEOF(value) == REALSXP) &&
+							   (REAL(value)[0] == R_NaReal)) {
+						throwException( "NA boolean values can not be stored in "
+										"bool protocol buffer fields",
+										"CastException");
+					}
+					ref->SetBool(message, field_desc, Rcpp::as<bool>(value));
+					break ;
+				}
 			case CPPTYPE_INT32 :
 				{
 					if (TYPEOF(value) == STRSXP) {

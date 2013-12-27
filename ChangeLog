@@ -2,6 +2,9 @@
 
 	* src/mutators.cpp: Support setting int32 values with character
 	  vectors of a decimal number, as we do by necessity for int64s.
+	  Also, refuse to set non-repeated bools to NA, just as we do for
+	  repeated bool fields by raising a stop() error since protocol
+	  buffer bools are 2-valued and NA is the third-value of R bools.
 	* inst/unitTests/runit.int32.R (test.int32): Add tests for above.
 	* NAMESPACE: Add missing export for .DollarNames
 	  EnumValueDescriptor to allow completion on that class.
