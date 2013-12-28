@@ -1,3 +1,11 @@
+2013-12-28  Murray Stokely  <mstokely@google.com>
+
+	* src/extractors.cpp (rprotobuf): Correct handling of uint32 for
+	  single values greater than 2^31 by returning as R numeric types
+	  to avoid losing precision since R doesn't have unsigned int
+	  types but C++ does. Works around an Rcpp bug
+	  https://r-forge.r-project.org/tracker/index.php?func=detail&aid=1360&group_id=155&atid=637
+
 2013-12-27  Murray Stokely  <mstokely@google.com>
 
 	* src/mutators.cpp: Refactor setMessageField into four separate
