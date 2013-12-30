@@ -2,8 +2,6 @@
 #include "ConnectionInputStream.h"
 #include "ConnectionOutputStream.h"
 
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-
 namespace rprotobuf {
 
 void ZeroCopyInputStreamWrapper_finalizer(SEXP xp) { delete (ZeroCopyInputStreamWrapper*)XPP(xp); }
