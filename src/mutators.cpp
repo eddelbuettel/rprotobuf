@@ -592,7 +592,9 @@ void setNonRepeatedMessageField(GPB::Message* message,
 							   Int32FromString<GPB::uint32>(uint32str));
 				break ;
 			} else {
-				ref->SetUInt32( message, field_desc, Rcpp::as<GPB::uint32>(value));
+				// Rcpp::as is broken for uint32 types, so we just get Rcpp
+				// to give us a valid double, 
+				ref->SetUInt32( message, field_desc, Rcpp::as<double>(value));
 				break;
 			}
 		}
@@ -855,14 +857,14 @@ void setRepeatedMessageField(GPB::Message* message,
 					/* in any case, fill the values up to field_size */
 					for( ; i<field_size; i++){
 						ref->SetRepeatedUInt32( message, field_desc, i,
-												GET_int32(value,i) ) ;
+												GET_uint32(value,i) ) ;
 					}
 	    						
 					/* then add some if needed */
 					if( value_size > field_size ){
 						for( ; i<value_size; i++){
 							ref->AddUInt32( message, field_desc,
-											GET_int32(value,i) ) ;
+											GET_uint32(value,i) ) ;
 						}
 					}
 					break ;
