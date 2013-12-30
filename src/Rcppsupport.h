@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // rprotobuf.h: support for using Rcpp
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
