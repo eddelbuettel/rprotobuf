@@ -437,10 +437,11 @@ field type & R type (non repeated) & R type (repeated) \\
 double	& \texttt{double} vector & \texttt{double} vector \\
 float	& \texttt{double} vector & \texttt{double} vector \\
 \hline
+uint32	  & \texttt{double} vector & \texttt{double} vector \\
+fixed32	  & \texttt{double} vector & \texttt{double} vector \\
+\hline
 int32	  & \texttt{integer} vector & \texttt{integer} vector \\
-uint32	  & \texttt{integer} vector & \texttt{integer} vector \\
 sint32	  & \texttt{integer} vector & \texttt{integer} vector \\
-fixed32	  & \texttt{integer} vector & \texttt{integer} vector \\
 sfixed32  & \texttt{integer} vector & \texttt{integer} vector \\
 \hline
 int64	  & \texttt{integer} or \texttt{character}
@@ -465,7 +466,8 @@ message & \texttt{S4} object of class \texttt{Message} & \texttt{list} of \textt
   R type retrieved by the extractors. \footnotesize{1. R lacks native
   64-bit integers, so the \texttt{RProtoBuf.int64AsString} option is
   available to return large integers as characters to avoid losing
-  precision.  This option is described in Section~\ref{sec:int64}}.}
+  precision.  This option is described in Section~\ref{sec:int64}}.  R
+  also lacks an unsigned integer type.}
 \end{table}
 
 \subsubsection{Modify fields}
@@ -1966,8 +1968,8 @@ For example, the following file \texttt{extend.proto}:
 <<echo=FALSE,print=FALSE>>=
   extend.proto <- tempfile()
   writeLines(c(
-               paste0('import "', system.file("proto/addressbook.proto",
-                                            package="RProtoBuf"), '";'),
+               paste0('import "',
+                      name(tutorial.Person$fileDescriptor(), TRUE), '";'),
                "package tutorial;",
                paste0("extend Person {\n  optional string nationality = 100;\n}")),
              extend.proto)
