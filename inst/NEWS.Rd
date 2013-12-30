@@ -10,7 +10,7 @@
     Descriptor, EnumValueDescriptor, and FileDescriptor classes.
     \item Add missing export for \code{.DollarNames} EnumValueDescriptor
     to allow completion on that class.
-    \item Add more than 10 additional pages to the main Intro vignette
+    \item Add more than 15 additional pages to the main Intro vignette
     documenting better all of the S4 classes implemented by RProtoBuf,
     updating the type mapping tables to take into account 64-bit
     support, and documenting advanced features such as Extensions.
@@ -32,6 +32,24 @@
     instance.
     \item Update the project TODO file.
     \item Add better documentation and tests for all of the above.
+    \item Corrected the handling of uint32 and fixed32 types in protocol
+    buffers to ensure that they work with numbers as large as 2^32 - 1,
+    which is larger than an integer can hold in R since R does not have an
+    unsigned integer class.  These values are stored as doubles internally
+    now to avoid losing precision.
+    \item Added unit tests to verify behavior of RProtoBuf with extreme
+    values for uint32 types.
+    \item Removed old exception handling code and instead rely on the
+    more modern Rcpp::stop method maintained in Rcpp.
+    \item Add better error messages when setting a repeated field of
+    messages to inform the user which element index was of the wrong type
+    and what the expected type was.
+    \item (internal) Added const qualifiers in more places throughout
+    the C++ code for type safety.
+    \item (internal) Standardize coding conventions of the C++ files and run them
+    through clang-format for consistency.  A STYLE file has been submitted
+    to R-Forge with details about the coding standards and how they are
+    enforced with Emacs and clang-format.
   }
 }
 
