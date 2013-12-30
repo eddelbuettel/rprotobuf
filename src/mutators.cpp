@@ -518,7 +518,6 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc,
 			; // nothing, just to satisfy -Wall 
 		}
 	}
-	// }}}
 }
 
 /**
@@ -729,7 +728,6 @@ void setNonRepeatedMessageField(GPB::Message* message,
 		}
 		// }}}
 	}
-	// }}}
 }
 
 /**
@@ -751,7 +749,7 @@ void setRepeatedMessageField(GPB::Message* message,
 	// The number of elements already in the repeated field.
 	int field_size = ref->FieldSize( *message, field_desc ) ;
 		
-	/* {{{ in case of messages or enum, we have to check that all
+	/* in case of messages or enum, we have to check that all
 	   values are ok before doing anything, othewise this could leed
 	   to modify a few values and then fail which is not good */
 	CHECK_repeated_vals(field_desc, value, value_size);
@@ -1217,7 +1215,6 @@ void setRepeatedMessageField(GPB::Message* message,
 		}
 		// }}}
 	}
-	// }}}
 }
 
 /**
