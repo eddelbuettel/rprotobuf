@@ -25,30 +25,30 @@
 
 namespace rprotobuf {
 
-RcppExport SEXP getExtension( SEXP pointer, SEXP sfielddesc){
-        /* grab the Message pointer */
-	Rcpp::XPtr<GPB::Message> message(pointer) ;
-	const Reflection * ref = message->GetReflection() ;
-        const GPB::FieldDescriptor* field_desc =
-		GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(sfielddesc);
+RcppExport SEXP getExtension(SEXP pointer, SEXP sfielddesc) {
+    /* grab the Message pointer */
+    Rcpp::XPtr<GPB::Message> message(pointer);
+    const Reflection* ref = message->GetReflection();
+    const GPB::FieldDescriptor* field_desc =
+        GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(sfielddesc);
 
-	// extractFieldAsSEXP returns a default (e.g. 0) even when
-	// field doesn't exist, but returning NULL probably makes more
-	// sense.
-	//
-	// TODO(mstokely): move this logic into extractField so that
-	// all fields get this updated behavior, not just extensions.
+    // extractFieldAsSEXP returns a default (e.g. 0) even when
+    // field doesn't exist, but returning NULL probably makes more
+    // sense.
+    //
+    // TODO(mstokely): move this logic into extractField so that
+    // all fields get this updated behavior, not just extensions.
 
-	if (field_desc->is_repeated()) {
-	  if (ref->FieldSize(*message, field_desc) < 1) {
-	    return R_NilValue;
-	  }
-	} else {
-	  if (!ref->HasField(*message, field_desc)) {
-	    return R_NilValue;
-	  }
-	}
-	return( extractFieldAsSEXP(message, field_desc) );
+    if (field_desc->is_repeated()) {
+        if (ref->FieldSize(*message, field_desc) < 1) {
+            return R_NilValue;
+        }
+    } else {
+        if (!ref->HasField(*message, field_desc)) {
+            return R_NilValue;
+        }
+    }
+    return (extractFieldAsSEXP(message, field_desc));
 }
 
 }  // namespace rprotobuf
