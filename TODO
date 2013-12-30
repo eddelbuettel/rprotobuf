@@ -10,7 +10,7 @@ o Push some type coercion hacks done in RProtoBuf upstream to Rcpp
 o Add more packages that depend on or enhance RProtoBuf.
 
 o Improve exception handling to prevent cases where an Rcpp exception
-   crashes the interactive R instance.
+  crashes the interactive R instance.
 
 o Investigate Rcpp Modules support for some classes.  Murray is not
   personally super enthusiastic about this one, as I think it may
@@ -33,8 +33,10 @@ o What should we do when we unload the package?  Any additional
 
 o finalizers [murray: what is needed here?]
 
-o Clean up formatting / whitespace (its awful, run it all through
-  clang-format?)
+o Clean up formatting / whitespace of R code.  The C++ code is now
+  kept consistent through clang-format and a new emacs directory level
+  config in pkg/src, and the style guide notes in the STYLE file on
+  R-Forge.
 
 o Thoroughly audit extensions support and other deeply nested types
   support to ensure everything is implemented as expected.
