@@ -30,3 +30,12 @@ test.uint32 <- function() {
                 "4294967295")
     checkEquals(foo$optional_uint32,
                 foo$repeated_uint32[[1]])
+
+    # fixed32 are a more efficient representation of uint32
+    foo$optional_fixed32 <- 2^32 - 1
+    foo$repeated_fixed32 <- c(foo$optional_fixed32, foo$optional_fixed32)
+    checkEquals(as.character(foo$optional_fixed32),
+                "4294967295")
+    checkEquals(foo$optional_fixed32,
+                foo$repeated_fixed32[[1]])
+}
