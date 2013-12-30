@@ -93,21 +93,18 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define GET_DESCRIPTOR_POINTER_FROM_S4(m) \
     (GPB::Descriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
 
-#define GET_FIELD_DESCRIPTOR_POINTER_FROM_XP(xp) \
-    (GPB::FieldDescriptor*) EXTPTR_PTR(xp)
+#define GET_FIELD_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::FieldDescriptor*) EXTPTR_PTR(xp)
 #define GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(m) \
     (GPB::FieldDescriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
 
-#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_XP(xp) \
-    (GPB::EnumValueDescriptor*) EXTPTR_PTR(xp)
+#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::EnumValueDescriptor*) EXTPTR_PTR(xp)
 #define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_S4(m) \
     (GPB::EnumValueDescriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
 
 #define GET_METHOD(xp) (GPB::MethodDescriptor*) EXTPTR_PTR(xp)
 
 #define COPYSTRING(s) s
-#define THROW_SOCKET_ERROR(message) \
-    Rf_error("%s : %s", message, strerror(sockerrno))
+#define THROW_SOCKET_ERROR(message) Rf_error("%s : %s", message, strerror(sockerrno))
 
 #define XPP EXTPTR_PTR
 
@@ -135,8 +132,7 @@ RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP);
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField(SEXP, SEXP);
-RcppExport SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>&,
-                                   const GPB::FieldDescriptor*);
+RcppExport SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>&, const GPB::FieldDescriptor*);
 
 /* in lookup.cpp */
 RcppExport SEXP newProtocolBufferLookup(SEXP);
@@ -247,14 +243,11 @@ class ZeroCopyInputStreamWrapper {
 
 #define GET_ZCIS(xp) ((ZeroCopyInputStreamWrapper*)XPP(xp))->get_stream()
 #define GET_CIS(xp) ((ZeroCopyInputStreamWrapper*)XPP(xp))->get_coded_stream()
-#define GET_FIS(xp)                                                   \
-    (GPB::io::FileInputStream*)((ZeroCopyInputStreamWrapper*)XPP(xp)) \
-        ->get_stream()
+#define GET_FIS(xp) (GPB::io::FileInputStream*)((ZeroCopyInputStreamWrapper*)XPP(xp))->get_stream()
 
 #define GET_ZCOS(xp) ((ZeroCopyOutputStreamWrapper*)XPP(xp))->get_stream()
 #define GET_COS(xp) ((ZeroCopyOutputStreamWrapper*)XPP(xp))->get_coded_stream()
-#define GET_FOS(xp)                                                     \
-    (GPB::io::FileOutputStream*)((ZeroCopyOutputStreamWrapper*)XPP(xp)) \
-        ->get_stream()
+#define GET_FOS(xp) \
+    (GPB::io::FileOutputStream*)((ZeroCopyOutputStreamWrapper*)XPP(xp))->get_stream()
 
 #endif
