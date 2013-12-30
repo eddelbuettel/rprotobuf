@@ -1,8 +1,6 @@
 #include "rprotobuf.h"
 #include "ConnectionInputStream.h"
 #include "ConnectionOutputStream.h"
-#include "ZeroCopyInputStreamWrapper.h"
-#include "ZeroCopyOutputStreamWrapper.h"
 
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 
