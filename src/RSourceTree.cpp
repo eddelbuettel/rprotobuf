@@ -27,15 +27,12 @@ GPB::io::ZeroCopyInputStream* RSourceTree::Open(const std::string& filename) {
         return NULL;
     }
 
-    GPB::io::FileInputStream* result =
-        new GPB::io::FileInputStream(file_descriptor);
+    GPB::io::FileInputStream* result = new GPB::io::FileInputStream(file_descriptor);
     result->SetCloseOnDelete(true);
     return result;
 }
 
-void RSourceTree::addDirectory(const std::string& directory) {
-    directories.insert(directory);
-}
+void RSourceTree::addDirectory(const std::string& directory) { directories.insert(directory); }
 void RSourceTree::addDirectories(SEXP dirs) {
     int n = LENGTH(dirs);
     for (int i = 0; i < n; i++) {
@@ -43,9 +40,7 @@ void RSourceTree::addDirectories(SEXP dirs) {
     }
 }
 
-void RSourceTree::removeDirectory(const std::string& directory) {
-    directories.erase(directory);
-}
+void RSourceTree::removeDirectory(const std::string& directory) { directories.erase(directory); }
 void RSourceTree::removeDirectories(SEXP dirs) {
     int n = LENGTH(dirs);
     for (int i = 0; i < n; i++) {

@@ -2,8 +2,7 @@
 
 namespace rprotobuf {
 
-ZeroCopyOutputStreamWrapper::ZeroCopyOutputStreamWrapper(
-    GPB::io::ZeroCopyOutputStream* stream)
+ZeroCopyOutputStreamWrapper::ZeroCopyOutputStreamWrapper(GPB::io::ZeroCopyOutputStream* stream)
     : stream(stream) {
     coded_stream = new GPB::io::CodedOutputStream(stream);
 }
@@ -15,11 +14,7 @@ ZeroCopyOutputStreamWrapper::~ZeroCopyOutputStreamWrapper() {
     /* then the stream itself */
     delete stream;
 }
-GPB::io::ZeroCopyOutputStream* ZeroCopyOutputStreamWrapper::get_stream() {
-    return stream;
-}
-GPB::io::CodedOutputStream* ZeroCopyOutputStreamWrapper::get_coded_stream() {
-    return coded_stream;
-}
+GPB::io::ZeroCopyOutputStream* ZeroCopyOutputStreamWrapper::get_stream() { return stream; }
+GPB::io::CodedOutputStream* ZeroCopyOutputStreamWrapper::get_coded_stream() { return coded_stream; }
 
 }  // namespace rprotobuf

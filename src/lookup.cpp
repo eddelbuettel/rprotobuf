@@ -18,8 +18,7 @@ SEXP R_getUnboundValue() { return (R_UnboundValue); }
  *
  * @return _TRUE_ if there is a message of the given type in the DescriptorPool
  */
-Rboolean rProtoBufTable_exists(const char *const name, Rboolean *canCache,
-                               R_ObjectTable *tb) {
+Rboolean rProtoBufTable_exists(const char *const name, Rboolean *canCache, R_ObjectTable *tb) {
 
 #ifdef LOOKUP_DEBUG
     Rprintf("  >> rProtoBufTable_exists\n");
@@ -35,16 +34,15 @@ Rboolean rProtoBufTable_exists(const char *const name, Rboolean *canCache,
     } else {
         /* try the generated pool */
         const GPB::DescriptorPool *pool = GPB::DescriptorPool::generated_pool();
-        if (pool->FindMessageTypeByName(name) ||
-            pool->FindEnumTypeByName(name) || pool->FindServiceByName(name) ||
-            pool->FindMethodByName(name) || pool->FindExtensionByName(name)) {
+        if (pool->FindMessageTypeByName(name) || pool->FindEnumTypeByName(name) ||
+            pool->FindServiceByName(name) || pool->FindMethodByName(name) ||
+            pool->FindExtensionByName(name)) {
             DescriptorPoolLookup::add(name);
             val = _TRUE_;
         } else {
             /* try the runtime pool */
             pool = DescriptorPoolLookup::pool();
-            if (pool->FindMessageTypeByName(name) ||
-                pool->FindEnumTypeByName(name) ||
+            if (pool->FindMessageTypeByName(name) || pool->FindEnumTypeByName(name) ||
                 pool->FindServiceByName(name) || pool->FindMethodByName(name) ||
                 pool->FindExtensionByName(name)) {
                 DescriptorPoolLookup::add(name);
@@ -65,29 +63,25 @@ SEXP findSomething(const GPB::DescriptorPool *pool, const char *const name) {
         DescriptorPoolLookup::add(name_string);
         return S4_Descriptor(desc);
     } else {
-        const GPB::EnumDescriptor *enum_desc =
-            pool->FindEnumTypeByName(name_string);
+        const GPB::EnumDescriptor *enum_desc = pool->FindEnumTypeByName(name_string);
         if (enum_desc) {
             /* enum */
             DescriptorPoolLookup::add(name_string);
             return S4_EnumDescriptor(enum_desc);
 
         } else {
-            const GPB::FieldDescriptor *extension_desc =
-                pool->FindExtensionByName(name_string);
+            const GPB::FieldDescriptor *extension_desc = pool->FindExtensionByName(name_string);
             if (extension_desc) {
                 /* extension */
                 DescriptorPoolLookup::add(name_string);
                 return S4_FieldDescriptor(extension_desc);
             } else {
-                const GPB::ServiceDescriptor *service_desc =
-                    pool->FindServiceByName(name_string);
+                const GPB::ServiceDescriptor *service_desc = pool->FindServiceByName(name_string);
                 if (service_desc) {
                     DescriptorPoolLookup::add(name_string);
                     return S4_ServiceDescriptor(service_desc);
                 } else {
-                    const GPB::MethodDescriptor *method_desc =
-                        pool->FindMethodByName(name_string);
+                    const GPB::MethodDescriptor *method_desc = pool->FindMethodByName(name_string);
                     if (method_desc) {
                         DescriptorPoolLookup::add(name_string);
                         return S4_MethodDescriptor(method_desc);
@@ -107,8 +101,7 @@ SEXP findSomething(const GPB::DescriptorPool *pool, const char *const name) {
  * @param canCache
  * @param tb lookup table
  */
-SEXP rProtoBufTable_get(const char *const name, Rboolean *canCache,
-                        R_ObjectTable *tb) {
+SEXP rProtoBufTable_get(const char *const name, Rboolean *canCache, R_ObjectTable *tb) {
 
 #ifdef LOOKUP_DEBUG
     Rprintf("  >> rProtoBufTable_get\n");
@@ -172,8 +165,7 @@ Rboolean rProtoBufTable_canCache(const char *const name, R_ObjectTable *tb) {
  * NULL to indicate assign is not possible on this lookup table
  * without giving such a hard error.
  */
-SEXP rProtoBufTable_assign(const char *const name, SEXP value,
-                           R_ObjectTable *tb) {
+SEXP rProtoBufTable_assign(const char *const name, SEXP value, R_ObjectTable *tb) {
 #ifdef LOOKUP_DEBUG
     Rprintf("  >> rProtoBufTable_assign( %s ) \n", name);
 #endif
@@ -224,8 +216,7 @@ SEXP newProtocolBufferLookup(SEXP possexp) {
     tb->onAttach = NULL;
     tb->onDetach = NULL;
 
-    PROTECT(val = R_MakeExternalPtr(tb, Rf_install("UserDefinedDatabase"),
-                                    R_NilValue));
+    PROTECT(val = R_MakeExternalPtr(tb, Rf_install("UserDefinedDatabase"), R_NilValue));
     PROTECT(klass = Rf_mkString("UserDefinedDatabase"));
     Rf_setAttrib(val, R_ClassSymbol, klass);
     UNPROTECT(2); /* val, klass */
@@ -236,8 +227,7 @@ SEXP newProtocolBufferLookup(SEXP possexp) {
 
     Rcpp::Function fun("attach");
     int pos = Rcpp::as<int>(possexp);
-    fun(val, Rcpp::Named("pos") = pos,
-        Rcpp::Named("name") = "RProtoBuf:DescriptorPool");
+    fun(val, Rcpp::Named("pos") = pos, Rcpp::Named("name") = "RProtoBuf:DescriptorPool");
 
     return (val);
 }

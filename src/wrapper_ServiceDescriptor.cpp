@@ -10,10 +10,9 @@ RPB_XP_METHOD_0(METHOD(length), GPB::ServiceDescriptor, method_count)
 RPB_XP_METHOD_0(METHOD(method_count), GPB::ServiceDescriptor, method_count)
 RPB_XP_METHOD_0(METHOD(as_character), GPB::ServiceDescriptor, DebugString)
 
-RPB_XP_METHOD_CAST_1(METHOD(getMethodByIndex), GPB::ServiceDescriptor, method,
+RPB_XP_METHOD_CAST_1(METHOD(getMethodByIndex), GPB::ServiceDescriptor, method, S4_MethodDescriptor)
+RPB_XP_METHOD_CAST_1(METHOD(getMethodByName), GPB::ServiceDescriptor, FindMethodByName,
                      S4_MethodDescriptor)
-RPB_XP_METHOD_CAST_1(METHOD(getMethodByName), GPB::ServiceDescriptor,
-                     FindMethodByName, S4_MethodDescriptor)
 
 RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMethodNames),
                Rcpp::XPtr<GPB::ServiceDescriptor> desc) {
@@ -30,8 +29,7 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMethodNames),
  * @param xp (GPB::ServiceDescriptor*) external pointer
  * @return the descriptor as an R list
  */
-RPB_FUNCTION_1(Rcpp::List, METHOD(as_list),
-               Rcpp::XPtr<GPB::ServiceDescriptor> desc) {
+RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::ServiceDescriptor> desc) {
     int n = desc->method_count();
 
     Rcpp::CharacterVector names(n);
@@ -45,20 +43,17 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list),
     return res;
 }
 
-RPB_FUNCTION_1(S4_Message, METHOD(as_Message),
-               Rcpp::XPtr<GPB::ServiceDescriptor> d) {
+RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::ServiceDescriptor> d) {
     GPB::ServiceDescriptorProto* message = new GPB::ServiceDescriptorProto();
     d->CopyTo(message);
     return S4_Message(message);
 }
 
-RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor),
-               Rcpp::XPtr<GPB::ServiceDescriptor> desc) {
+RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::ServiceDescriptor> desc) {
     return S4_FileDescriptor(desc->file());
 }
 
-RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::ServiceDescriptor> d,
-               bool full) {
+RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::ServiceDescriptor> d, bool full) {
     return full ? d->full_name() : d->name();
 }
 
@@ -89,15 +84,13 @@ SEXP get_service_method(SEXP pointer, SEXP name) {
         case REALSXP: {
 
             /* the method descriptor */
-            method_desc =
-                (GPB::MethodDescriptor*)desc->method((int)REAL(name)[0]);
+            method_desc = (GPB::MethodDescriptor*)desc->method((int)REAL(name)[0]);
 
             break;
         }
         case INTSXP: {
             /* the method descriptor */
-            method_desc =
-                (GPB::MethodDescriptor*)desc->method(INTEGER(name)[0]);
+            method_desc = (GPB::MethodDescriptor*)desc->method(INTEGER(name)[0]);
 
             break;
         }

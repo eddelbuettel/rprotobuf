@@ -11,8 +11,7 @@ SEXP ZeroCopyInputStream_Next(SEXP xp) {
     if (!res) {
         throw std::range_error("cannot read from stream");
     } else {
-        result.assign(reinterpret_cast<const Rbyte*>(in),
-                      reinterpret_cast<const Rbyte*>(in) + s);
+        result.assign(reinterpret_cast<const Rbyte*>(in), reinterpret_cast<const Rbyte*>(in) + s);
     }
     return result;
 }

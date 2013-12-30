@@ -22,9 +22,7 @@
 
 namespace rprotobuf {
 
-void DescriptorPoolLookup::add(const std::string& element) {
-    elements.insert(element);
-}
+void DescriptorPoolLookup::add(const std::string& element) { elements.insert(element); }
 
 bool DescriptorPoolLookup::contains(const std::string& element) {
     return elements.find(element) != elements.end();
@@ -35,20 +33,16 @@ SEXP DescriptorPoolLookup::getElements() { return Rcpp::wrap(elements); }
 std::set<std::string> DescriptorPoolLookup::elements;
 RWarningErrorCollector DescriptorPoolLookup::error_collector;
 RSourceTree DescriptorPoolLookup::source_tree;
-GPB::compiler::Importer DescriptorPoolLookup::importer(&source_tree,
-                                                       &error_collector);
-GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory(
-    importer.pool());
+GPB::compiler::Importer DescriptorPoolLookup::importer(&source_tree, &error_collector);
+GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory(importer.pool());
 
 void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs) {
     source_tree.addDirectories(dirs);
     int n = LENGTH(files);
     for (int j = 0; j < n; j++) {
-        const GPB::FileDescriptor* file_desc =
-            importer.Import(CHAR(STRING_ELT(files, j)));
+        const GPB::FileDescriptor* file_desc = importer.Import(CHAR(STRING_ELT(files, j)));
         if (!file_desc) {
-            Rf_error("Could not load proto file '%s'\n",
-                     CHAR(STRING_ELT(files, j)));
+            Rf_error("Could not load proto file '%s'\n", CHAR(STRING_ELT(files, j)));
             continue;
         }
         int ntypes = file_desc->message_type_count();
@@ -68,12 +62,8 @@ void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs) {
     // source_tree.removeDirectories( dirs ) ;
 }
 
-const GPB::DescriptorPool* DescriptorPoolLookup::pool() {
-    return importer.pool();
-}
+const GPB::DescriptorPool* DescriptorPoolLookup::pool() { return importer.pool(); }
 
-const GPB::DynamicMessageFactory* DescriptorPoolLookup::factory() {
-    return &message_factory;
-}
+const GPB::DynamicMessageFactory* DescriptorPoolLookup::factory() { return &message_factory; }
 
 }  // namespace rprotobuf

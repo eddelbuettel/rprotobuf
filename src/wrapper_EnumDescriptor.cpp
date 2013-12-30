@@ -29,13 +29,12 @@ RPB_XP_METHOD_0(METHOD(as_character), GPB::EnumDescriptor, DebugString);
 RPB_XP_METHOD_0(METHOD(length), GPB::EnumDescriptor, value_count)
 RPB_XP_METHOD_0(METHOD(value_count), GPB::EnumDescriptor, value_count)
 
-RPB_FUNCTION_1(S4_Descriptor, METHOD(containing_type),
-               Rcpp::XPtr<GPB::EnumDescriptor> d) {
+RPB_FUNCTION_1(S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::EnumDescriptor> d) {
     return S4_Descriptor(d->containing_type());
 }
 
-RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByIndex),
-               Rcpp::XPtr<GPB::EnumDescriptor> d, int index) {
+RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByIndex), Rcpp::XPtr<GPB::EnumDescriptor> d,
+               int index) {
     if ((index >= 0) && (index < d->value_count())) {
         return S4_EnumValueDescriptor(d->value(index));
     } else {
@@ -43,17 +42,16 @@ RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByIndex),
     }
 }
 
-RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByNumber),
-               Rcpp::XPtr<GPB::EnumDescriptor> d, int i) {
+RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByNumber), Rcpp::XPtr<GPB::EnumDescriptor> d,
+               int i) {
     return S4_EnumValueDescriptor(d->FindValueByNumber(i));
 }
-RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByName),
-               Rcpp::XPtr<GPB::EnumDescriptor> d, std::string name) {
+RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByName), Rcpp::XPtr<GPB::EnumDescriptor> d,
+               std::string name) {
     return S4_EnumValueDescriptor(d->FindValueByName(name));
 }
 
-RPB_FUNCTION_1(S4_Message, METHOD(as_Message),
-               Rcpp::XPtr<GPB::EnumDescriptor> d) {
+RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::EnumDescriptor> d) {
     GPB::EnumDescriptorProto* message = new GPB::EnumDescriptorProto();
     d->CopyTo(message);
     return S4_Message(message);
@@ -67,8 +65,7 @@ RPB_FUNCTION_1(S4_Message, METHOD(as_Message),
  *
  * @param the value associated with the name
  */
-RPB_FUNCTION_2(int, get_value_of_enum, Rcpp::XPtr<GPB::EnumDescriptor> d,
-               std::string name) {
+RPB_FUNCTION_2(int, get_value_of_enum, Rcpp::XPtr<GPB::EnumDescriptor> d, std::string name) {
 
     const GPB::EnumValueDescriptor* evd = d->FindValueByName(name);
     if (!evd) {
@@ -85,8 +82,7 @@ RPB_FUNCTION_2(int, get_value_of_enum, Rcpp::XPtr<GPB::EnumDescriptor> d,
  * @param name the name of the enum
  * @return logical
  */
-RPB_FUNCTION_2(bool, has_enum_name, Rcpp::XPtr<GPB::EnumDescriptor> d,
-               std::string name) {
+RPB_FUNCTION_2(bool, has_enum_name, Rcpp::XPtr<GPB::EnumDescriptor> d, std::string name) {
     const GPB::EnumValueDescriptor* evd = d->FindValueByName(name);
     return (evd != NULL);
 }
@@ -95,8 +91,7 @@ RPB_FUNCTION_2(bool, has_enum_name, Rcpp::XPtr<GPB::EnumDescriptor> d,
  * @param xp external pointer to a Descriptor
  * @return the descriptor as an R list
  */
-RPB_FUNCTION_1(Rcpp::IntegerVector, METHOD(as_list),
-               Rcpp::XPtr<GPB::EnumDescriptor> d) {
+RPB_FUNCTION_1(Rcpp::IntegerVector, METHOD(as_list), Rcpp::XPtr<GPB::EnumDescriptor> d) {
 
     int n = d->value_count();
     Rcpp::IntegerVector values(n);
@@ -111,8 +106,7 @@ RPB_FUNCTION_1(Rcpp::IntegerVector, METHOD(as_list),
     return values;
 }
 
-RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getConstantNames),
-               Rcpp::XPtr<GPB::EnumDescriptor> d) {
+RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getConstantNames), Rcpp::XPtr<GPB::EnumDescriptor> d) {
     int n = d->value_count();
     Rcpp::CharacterVector res(n);
     for (int i = 0; i < n; i++) {
@@ -121,13 +115,11 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getConstantNames),
     return res;
 }
 
-RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor),
-               Rcpp::XPtr<GPB::EnumDescriptor> desc) {
+RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::EnumDescriptor> desc) {
     return S4_FileDescriptor(desc->file());
 }
 
-RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::EnumDescriptor> d,
-               bool full) {
+RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::EnumDescriptor> d, bool full) {
     return full ? d->full_name() : d->name();
 }
 

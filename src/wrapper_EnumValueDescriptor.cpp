@@ -27,25 +27,19 @@ namespace rprotobuf {
 
 RPB_XP_METHOD_0(METHOD(as_character), GPB::EnumValueDescriptor, DebugString);
 
-RPB_FUNCTION_1(S4_Message, METHOD(as_Message),
-               Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
-    GPB::EnumValueDescriptorProto* message =
-        new GPB::EnumValueDescriptorProto();
+RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
+    GPB::EnumValueDescriptorProto* message = new GPB::EnumValueDescriptorProto();
     d->CopyTo(message);
     return S4_Message(message);
 }
 
-RPB_FUNCTION_2(std::string, METHOD(name),
-               Rcpp::XPtr<GPB::EnumValueDescriptor> d, bool full) {
+RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::EnumValueDescriptor> d, bool full) {
     return full ? d->full_name() : d->name();
 }
 
-RPB_FUNCTION_1(int, METHOD(number), Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
-    return d->number();
-}
+RPB_FUNCTION_1(int, METHOD(number), Rcpp::XPtr<GPB::EnumValueDescriptor> d) { return d->number(); }
 
-RPB_FUNCTION_1(S4_EnumDescriptor, METHOD(enum_type),
-               Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
+RPB_FUNCTION_1(S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::EnumValueDescriptor> d) {
     return S4_EnumDescriptor(d->type());
 }
 

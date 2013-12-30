@@ -10,8 +10,7 @@ GPB::Message* PROTOTYPE(const GPB::Descriptor* desc) {
     Rprintf("desc = %d\n", desc);
 #endif
     /* first try the runtime factory */
-    GPB::Message* m = (GPB::Message*)((GPB::DynamicMessageFactory*)
-                                      DescriptorPoolLookup::factory())
+    GPB::Message* m = (GPB::Message*)((GPB::DynamicMessageFactory*)DescriptorPoolLookup::factory())
                           ->GetPrototype(desc)
                           ->New();
 
@@ -20,9 +19,7 @@ GPB::Message* PROTOTYPE(const GPB::Descriptor* desc) {
 #endif
     if (!m) {
         /* then the dynamic runtime factory */
-        m = (GPB::Message*)GPB::MessageFactory::generated_factory()
-                ->GetPrototype(desc)
-                ->New();
+        m = (GPB::Message*)GPB::MessageFactory::generated_factory()->GetPrototype(desc)->New();
 #ifdef RPB_DEBUG
         Rprintf("runtime  factory = %d\n", m);
 #endif
@@ -212,8 +209,7 @@ Rboolean isMessage(SEXP m, const char* target) {
 
     if (TYPEOF(m) != S4SXP || !Rf_inherits(m, "Message")) return _FALSE_;
 
-    GPB::Message* message =
-        (GPB::Message*)EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")));
+    GPB::Message* message = (GPB::Message*)EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")));
 
     const char* type = message->GetDescriptor()->full_name().c_str();
     if (strcmp(type, target)) {
@@ -238,22 +234,18 @@ GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name) {
             break;
         }
         case CHARSXP: {
-            field_desc =
-                (GPB::FieldDescriptor*)desc->FindFieldByName(CHAR(name));
+            field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName(CHAR(name));
             error_message = error_message + " '" + CHAR(name) + "'";
             break;
         }
         case STRSXP: {
-            field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName(
-                CHAR(STRING_ELT(name, 0)));
-            error_message =
-                error_message + " '" + CHAR(STRING_ELT(name, 0)) + "'";
+            field_desc = (GPB::FieldDescriptor*)desc->FindFieldByName(CHAR(STRING_ELT(name, 0)));
+            error_message = error_message + " '" + CHAR(STRING_ELT(name, 0)) + "'";
             break;
         }
         case REALSXP:
         case INTSXP: {
-            field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber(
-                Rcpp::as<int>(name));
+            field_desc = (GPB::FieldDescriptor*)desc->FindFieldByNumber(Rcpp::as<int>(name));
             break;
         }
     }
@@ -273,8 +265,6 @@ RPB_FUNCTION_VOID_1(check_libprotobuf_version, int minversion) {
     }
 }
 
-RPB_FUNCTION_0(int, get_protobuf_library_version) {
-    return GOOGLE_PROTOBUF_VERSION;
-}
+RPB_FUNCTION_0(int, get_protobuf_library_version) { return GOOGLE_PROTOBUF_VERSION; }
 
 }  // namespace rprotobuf

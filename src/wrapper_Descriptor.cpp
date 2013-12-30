@@ -11,8 +11,7 @@ RPB_XP_METHOD_0(METHOD(field_count), GPB::Descriptor, field_count)
 RPB_XP_METHOD_0(METHOD(nested_type_count), GPB::Descriptor, nested_type_count)
 RPB_XP_METHOD_0(METHOD(enum_type_count), GPB::Descriptor, enum_type_count)
 
-RPB_XP_METHOD_CAST_0(METHOD(containing_type), GPB::Descriptor, containing_type,
-                     S4_Descriptor)
+RPB_XP_METHOD_CAST_0(METHOD(containing_type), GPB::Descriptor, containing_type, S4_Descriptor)
 
 /**
  * returns the names of the members contained in the descriptor
@@ -22,8 +21,7 @@ RPB_XP_METHOD_CAST_0(METHOD(containing_type), GPB::Descriptor, containing_type,
  *
  * @return member names, as an R character vector (STRSXP)
  */
-RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMemberNames),
-               Rcpp::XPtr<GPB::Descriptor> desc) {
+RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::Descriptor> desc) {
 
     int nfields = desc->field_count();
     int ntypes = desc->nested_type_count();
@@ -84,33 +82,30 @@ RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::Descriptor> d) {
     return message;
 }
 
-RPB_FUNCTION_2(S4_FieldDescriptor, METHOD(field), Rcpp::XPtr<GPB::Descriptor> d,
-               int i) {
+RPB_FUNCTION_2(S4_FieldDescriptor, METHOD(field), Rcpp::XPtr<GPB::Descriptor> d, int i) {
     return d->field(i);
 }
 
-RPB_FUNCTION_2(S4_FieldDescriptor, METHOD(FindFieldByNumber),
-               Rcpp::XPtr<GPB::Descriptor> d, int num) {
+RPB_FUNCTION_2(S4_FieldDescriptor, METHOD(FindFieldByNumber), Rcpp::XPtr<GPB::Descriptor> d,
+               int num) {
     return d->FindFieldByNumber(num);
 }
 
-RPB_FUNCTION_2(S4_FieldDescriptor, METHOD(FindFieldByName),
-               Rcpp::XPtr<GPB::Descriptor> d, std::string nam) {
+RPB_FUNCTION_2(S4_FieldDescriptor, METHOD(FindFieldByName), Rcpp::XPtr<GPB::Descriptor> d,
+               std::string nam) {
     return d->FindFieldByName(nam);
 }
 
-RPB_FUNCTION_2(S4_Descriptor, METHOD(nested_type),
-               Rcpp::XPtr<GPB::Descriptor> d, int i) {
+RPB_FUNCTION_2(S4_Descriptor, METHOD(nested_type), Rcpp::XPtr<GPB::Descriptor> d, int i) {
     return d->nested_type(i);
 }
 
-RPB_FUNCTION_2(S4_Descriptor, METHOD(FindNestedTypeByName),
-               Rcpp::XPtr<GPB::Descriptor> d, std::string nam) {
+RPB_FUNCTION_2(S4_Descriptor, METHOD(FindNestedTypeByName), Rcpp::XPtr<GPB::Descriptor> d,
+               std::string nam) {
     return d->FindNestedTypeByName(nam);
 }
 
-RPB_FUNCTION_2(S4_EnumDescriptor, METHOD(enum_type),
-               Rcpp::XPtr<GPB::Descriptor> d, int i) {
+RPB_FUNCTION_2(S4_EnumDescriptor, METHOD(enum_type), Rcpp::XPtr<GPB::Descriptor> d, int i) {
     return d->enum_type(i);
 }
 
@@ -120,26 +115,23 @@ RPB_FUNCTION_2(S4_EnumDescriptor, METHOD(enum_type),
 // 	return d->FindEnumTypeByName( i ) ;
 // }
 
-RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor),
-               Rcpp::XPtr<GPB::Descriptor> desc) {
+RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Descriptor> desc) {
     return S4_FileDescriptor(desc->file());
 }
 
-RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::Descriptor> d,
-               bool full) {
+RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::Descriptor> d, bool full) {
     return full ? d->full_name() : d->name();
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromFile),
-               Rcpp::XPtr<GPB::Descriptor> desc, std::string filename) {
+RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromFile), Rcpp::XPtr<GPB::Descriptor> desc,
+               std::string filename) {
     /* open the file to read in binary mode */
     int file = open(filename.c_str(), O_RDONLY | O_BINARY);
 
     /* create a prototype of the message we are going to read */
     GPB::Message* message = PROTOTYPE(desc);
     if (!message) {
-        throw std::range_error(
-            "could not call factory->GetPrototype(desc)->New()");
+        throw std::range_error("could not call factory->GetPrototype(desc)->New()");
     }
 
     /* read the message from the file */
@@ -148,8 +140,8 @@ RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromFile),
     return (S4_Message(message));
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromConnection),
-               Rcpp::XPtr<GPB::Descriptor> desc, int conn_id) {
+RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromConnection), Rcpp::XPtr<GPB::Descriptor> desc,
+               int conn_id) {
     RconnectionCopyingInputStream wrapper(conn_id);
     GPB::io::CopyingInputStreamAdaptor stream(&wrapper);
     GPB::io::CodedInputStream coded_stream(&stream);
@@ -157,8 +149,7 @@ RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromConnection),
     /* create a prototype of the message we are going to read */
     GPB::Message* message = PROTOTYPE(desc);
     if (!message) {
-        throw std::range_error(
-            "could not call factory->GetPrototype(desc)->New()");
+        throw std::range_error("could not call factory->GetPrototype(desc)->New()");
     }
     message->ParsePartialFromCodedStream(&coded_stream);
 
@@ -166,42 +157,39 @@ RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromConnection),
     return res;
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromRawVector),
-               Rcpp::XPtr<GPB::Descriptor> desc, Rcpp::RawVector raw) {
+RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::Descriptor> desc,
+               Rcpp::RawVector raw) {
     GPB::io::ArrayInputStream ais((void*)raw.begin(), raw.size());
     GPB::io::CodedInputStream stream(&ais);
 
     GPB::Message* message = PROTOTYPE(desc);
     if (!message) {
-        throw std::range_error(
-            "could not call factory->GetPrototype(desc)->New()");
+        throw std::range_error("could not call factory->GetPrototype(desc)->New()");
     }
 
     message->MergePartialFromCodedStream(&stream);
     return (S4_Message(message));
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromString),
-               Rcpp::XPtr<GPB::Descriptor> desc, std::string input) {
+RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc,
+               std::string input) {
     GPB::Message* message = PROTOTYPE(desc);
     if (GPB::TextFormat::ParseFromString(input, message)) {
         return (S4_Message(message));
     } else {
-        throw std::range_error(
-            "Could not parse ASCII protocol buffer from text string.");
+        throw std::range_error("Could not parse ASCII protocol buffer from text string.");
     }
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromConnection),
-               Rcpp::XPtr<GPB::Descriptor> desc, int conn_id) {
+RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc,
+               int conn_id) {
     RconnectionCopyingInputStream wrapper(conn_id);
     GPB::io::CopyingInputStreamAdaptor stream(&wrapper);
 
     /* create a prototype of the message we are going to read */
     GPB::Message* message = PROTOTYPE(desc);
     if (!message) {
-        throw std::range_error(
-            "could not call factory->GetPrototype(desc)->New()");
+        throw std::range_error("could not call factory->GetPrototype(desc)->New()");
     }
     if (!GPB::TextFormat::Parse(&stream, message)) {
         throw std::range_error("Could not parse ASCII protocol buffer.");

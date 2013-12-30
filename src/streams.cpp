@@ -6,9 +6,7 @@
 
 namespace rprotobuf {
 
-void ZeroCopyInputStreamWrapper_finalizer(SEXP xp) {
-    delete (ZeroCopyInputStreamWrapper*)XPP(xp);
-}
+void ZeroCopyInputStreamWrapper_finalizer(SEXP xp) { delete (ZeroCopyInputStreamWrapper*)XPP(xp); }
 void ZeroCopyOutputStreamWrapper_finalizer(SEXP xp) {
     delete (ZeroCopyOutputStreamWrapper*)XPP(xp);
 }
@@ -21,14 +19,11 @@ SEXP FileInputStream_new(SEXP filename, SEXP block_size, SEXP close_on_delete) {
     NEW_S4_OBJECT("FileInputStream");
     int fd = open(CHAR(STRING_ELT(filename, 0)), O_RDONLY | O_BINARY);
 
-    GPB::io::FileInputStream* stream =
-        new GPB::io::FileInputStream(fd, INTEGER(block_size)[0]);
+    GPB::io::FileInputStream* stream = new GPB::io::FileInputStream(fd, INTEGER(block_size)[0]);
     stream->SetCloseOnDelete(LOGICAL(close_on_delete)[0]);
-    ZeroCopyInputStreamWrapper* wrapper =
-        new ZeroCopyInputStreamWrapper(stream);
+    ZeroCopyInputStreamWrapper* wrapper = new ZeroCopyInputStreamWrapper(stream);
 
-    SEXP ptr =
-        PROTECT(R_MakeExternalPtr((void*)wrapper, R_NilValue, R_NilValue));
+    SEXP ptr = PROTECT(R_MakeExternalPtr((void*)wrapper, R_NilValue, R_NilValue));
     R_RegisterCFinalizerEx(ptr, ZeroCopyInputStreamWrapper_finalizer, _FALSE_);
     SET_SLOT(oo, Rf_install("pointer"), ptr);
 
@@ -54,10 +49,8 @@ SEXP FileInputStream_Close(SEXP xp) {
 // {{{ ConnectionInputStream
 SEXP ConnectionInputStream_new(SEXP con, SEXP was_open) {
     NEW_S4_OBJECT("ConnectionInputStream");
-    ConnectionInputStream* stream =
-        new ConnectionInputStream(con, (bool)LOGICAL(was_open)[0]);
-    ZeroCopyInputStreamWrapper* wrapper =
-        new ZeroCopyInputStreamWrapper(stream);
+    ConnectionInputStream* stream = new ConnectionInputStream(con, (bool)LOGICAL(was_open)[0]);
+    ZeroCopyInputStreamWrapper* wrapper = new ZeroCopyInputStreamWrapper(stream);
     SEXP ptr = PROTECT(R_MakeExternalPtr((void*)wrapper, R_NilValue, con));
     R_RegisterCFinalizerEx(ptr, ZeroCopyInputStreamWrapper_finalizer, _FALSE_);
     SET_SLOT(oo, Rf_install("pointer"), ptr);
@@ -97,20 +90,15 @@ SEXP ZeroCopyOutputStream_BackUp(SEXP xp, SEXP count) {
 // {{{ ArrayOutputStream
 // }}}
 // {{{ FileOutputStream
-SEXP FileOutputStream_new(SEXP filename, SEXP block_size,
-                          SEXP close_on_delete) {
+SEXP FileOutputStream_new(SEXP filename, SEXP block_size, SEXP close_on_delete) {
     NEW_S4_OBJECT("FileOutputStream");
-    int fd = open(CHAR(STRING_ELT(filename, 0)),
-                  O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666);
+    int fd = open(CHAR(STRING_ELT(filename, 0)), O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666);
 
-    GPB::io::FileOutputStream* stream =
-        new GPB::io::FileOutputStream(fd, INTEGER(block_size)[0]);
+    GPB::io::FileOutputStream* stream = new GPB::io::FileOutputStream(fd, INTEGER(block_size)[0]);
     stream->SetCloseOnDelete(LOGICAL(close_on_delete)[0]);
-    ZeroCopyOutputStreamWrapper* wrapper =
-        new ZeroCopyOutputStreamWrapper(stream);
+    ZeroCopyOutputStreamWrapper* wrapper = new ZeroCopyOutputStreamWrapper(stream);
 
-    SEXP ptr =
-        PROTECT(R_MakeExternalPtr((void*)wrapper, R_NilValue, R_NilValue));
+    SEXP ptr = PROTECT(R_MakeExternalPtr((void*)wrapper, R_NilValue, R_NilValue));
     R_RegisterCFinalizerEx(ptr, ZeroCopyOutputStreamWrapper_finalizer, _FALSE_);
     SET_SLOT(oo, Rf_install("pointer"), ptr);
 
@@ -140,10 +128,8 @@ SEXP FileOutputStream_SetCloseOnDelete(SEXP xp, SEXP close) {
 // {{{ ConnectionOutputStream
 SEXP ConnectionOutputStream_new(SEXP con, SEXP was_open) {
     NEW_S4_OBJECT("ConnectionOutputStream");
-    ConnectionOutputStream* stream =
-        new ConnectionOutputStream(con, (bool)LOGICAL(was_open)[0]);
-    ZeroCopyOutputStreamWrapper* wrapper =
-        new ZeroCopyOutputStreamWrapper(stream);
+    ConnectionOutputStream* stream = new ConnectionOutputStream(con, (bool)LOGICAL(was_open)[0]);
+    ZeroCopyOutputStreamWrapper* wrapper = new ZeroCopyOutputStreamWrapper(stream);
     /* we keep the R connection protected as long as the
        external pointer is kept out of GC */
     SEXP ptr = PROTECT(R_MakeExternalPtr((void*)wrapper, R_NilValue, con));
@@ -162,8 +148,7 @@ SEXP ZeroCopyInputStream_ReadRaw(SEXP xp, SEXP size) {
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
     int s = INTEGER(size)[0];
     SEXP payload = PROTECT(Rf_allocVector(RAWSXP, s));
-    if (!coded_stream->ReadRaw(RAW(payload), s))
-        Rf_error("error reading raw bytes");
+    if (!coded_stream->ReadRaw(RAW(payload), s)) Rf_error("error reading raw bytes");
     UNPROTECT(1); /* payload */
     return payload;
 }
@@ -187,16 +172,14 @@ SEXP ZeroCopyInputStream_ReadVarint32(SEXP xp) {
 SEXP ZeroCopyInputStream_ReadLittleEndian32(SEXP xp) {
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
     uint32 res = 0;
-    if (!coded_stream->ReadVarint32(&res))
-        Rf_error("error reading little endian int32");
+    if (!coded_stream->ReadVarint32(&res)) Rf_error("error reading little endian int32");
     return Rf_ScalarInteger(res);
 }
 
 SEXP ZeroCopyInputStream_ReadLittleEndian64(SEXP xp) {
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
     uint64 res = 0;
-    if (!coded_stream->ReadVarint64(&res))
-        Rf_error("error reading little endian int32");
+    if (!coded_stream->ReadVarint64(&res)) Rf_error("error reading little endian int32");
     return Rf_ScalarReal((double)res);
 }
 
