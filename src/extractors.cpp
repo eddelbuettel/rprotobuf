@@ -1,6 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
 // Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of RProtoBuf.
