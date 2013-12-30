@@ -1,3 +1,11 @@
+2013-12-30  Murray Stokely  <mstokely@google.com>
+
+	* inst/unitTests/runit.extremevalues.R (test.uint32): Add test
+	  verifying that we can store 2^32 - 1 properly in repeated or
+	  optional protobuf fields.
+	* src/extractors.cpp (rprotobuf): Correct handling of uint32 for
+	  repeated fields.
+	
 2013-12-28  Murray Stokely  <mstokely@google.com>
 
 	* src/extractors.cpp (rprotobuf): Correct handling of uint32 for

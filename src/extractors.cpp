@@ -97,14 +97,17 @@ SEXP extractFieldAsSEXP( const Rcpp::XPtr<GPB::Message>& message,
 			return Rcpp::wrap( RepeatedFieldImporter<DATATYPE>(ref, *message, fieldDesc) ) ; \
 
 			HANDLE_REPEATED_FIELD(CPPTYPE_INT32, GPB::int32) ;
-			// TODO(mstokely): Rcpp doesn't handle uint32 properly as of 2013/12
-			// See https://r-forge.r-project.org/tracker/index.php?func=detail&aid=1360&group_id=155&atid=637
-    		HANDLE_REPEATED_FIELD(CPPTYPE_UINT32, GPB::uint32) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_DOUBLE, double) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_FLOAT, float) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_BOOL, bool) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_ENUM, enum_field ) ;
     		HANDLE_REPEATED_FIELD(CPPTYPE_MESSAGE, message_field ) ;
+			// TODO(mstokely): Rcpp doesn't handle uint32 properly as of 2013/12
+			// See https://r-forge.r-project.org/tracker/index.php?func=detail&aid=1360&group_id=155&atid=637
+			case CPPTYPE_UINT32:
+				return Rcpp::wrap(
+						UInt32RepeatedFieldImporter(ref, *message,
+													fieldDesc));
 #ifdef RCPP_HAS_LONG_LONG_TYPES
             // We can't handle these the same way, because Rcpp::wrap silently
             // casts int64s to doubles which may cause us to lose precision.

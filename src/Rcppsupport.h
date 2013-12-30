@@ -78,6 +78,29 @@ public:
     const GPB::FieldDescriptor* field ;
 };
 
+// TODO(mstokely): Rcpp doesn't handle uint32 properly as of 2013/12
+// See https://r-forge.r-project.org/tracker/index.php?func=detail&aid=1360&group_id=155&atid=637
+class UInt32RepeatedFieldImporter {
+public:
+    // Represent as doubles, since R doesn't have uint32s.
+    typedef double r_import_type;
+    UInt32RepeatedFieldImporter(const GPB::Reflection* ref_ ,
+				const GPB::Message& message_,
+				const GPB::FieldDescriptor* field_):
+            ref(ref_), message(message_), field(field_){}
+    inline int size() const {
+        return ref->FieldSize( message, field ) ;
+    }
+    inline double get(int i) const {
+	return double(ref->GetRepeatedUInt32(message, field, i));
+    }
+  private:
+    const GPB::Reflection* ref ;
+    const GPB::Message& message ;
+    const GPB::FieldDescriptor* field ;
+};
+
+
 template <typename T> class RepeatedFieldImporter{} ;
 
 #undef GENERATE__FIELD__IMPORTER__DECL
