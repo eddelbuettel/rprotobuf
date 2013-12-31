@@ -57,7 +57,7 @@ SEXP Int64AsSEXP(ValueType value) {
  * @return the field called "name" of the message if the
  *         message has the field, otherwise an error is generated
  */
-SEXP getMessageField(SEXP pointer, SEXP name) {
+RcppExport SEXP getMessageField(SEXP pointer, SEXP name) {
 
 #ifdef RPB_DEBUG
     Rprintf("<getMessageField>\n");
@@ -78,8 +78,8 @@ SEXP getMessageField(SEXP pointer, SEXP name) {
     return (extractFieldAsSEXP(message, field_desc));
 }
 
-SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
-                        const GPB::FieldDescriptor* fieldDesc) {
+RcppExport SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
+				   const GPB::FieldDescriptor* fieldDesc) {
     BEGIN_RCPP
     const Reflection* ref = message->GetReflection();
 
