@@ -135,9 +135,9 @@ SEXP rProtoBufTable_get(const char *const name, Rboolean *canCache, R_ObjectTabl
 /**
  * Does nothing. Not applicable
  */
-int rProtoBufTable_remove(const char *const name, R_ObjectTable *tb) {
+int rProtoBufTable_remove(const char *const unused_name, R_ObjectTable *unused_tb) {
 #ifdef LOOKUP_DEBUG
-    Rprintf("  >> rProtoBufTable_remove( %s) \n", name);
+    Rprintf("  >> rProtoBufTable_remove( %s) \n", unused_name);
 #endif
     Rf_error("cannot remove from protobuf descriptor pool");
     return (0);  // make -Wall happy
@@ -151,7 +151,7 @@ int rProtoBufTable_remove(const char *const name, R_ObjectTable *tb) {
  * @param tb lookup table
  * @return allways _FALSE_ (for now)
  */
-Rboolean rProtoBufTable_canCache(const char *const name, R_ObjectTable *tb) {
+Rboolean rProtoBufTable_canCache(const char *const unused_name, R_ObjectTable *unused_tb) {
 #ifdef LOOKUP_DEBUG
     Rprintf("  >> rProtoBufTable_canCache\n");
 #endif
@@ -165,9 +165,10 @@ Rboolean rProtoBufTable_canCache(const char *const name, R_ObjectTable *tb) {
  * NULL to indicate assign is not possible on this lookup table
  * without giving such a hard error.
  */
-SEXP rProtoBufTable_assign(const char *const name, SEXP value, R_ObjectTable *tb) {
+SEXP rProtoBufTable_assign(const char *const unused_name, SEXP unused_value,
+			   R_ObjectTable *unused_tb) {
 #ifdef LOOKUP_DEBUG
-    Rprintf("  >> rProtoBufTable_assign( %s ) \n", name);
+    Rprintf("  >> rProtoBufTable_assign( %s ) \n", unused_name);
 #endif
     return (R_NilValue);  // make -Wall happy
 }
@@ -190,7 +191,8 @@ SEXP rProtoBufTable_objects(R_ObjectTable *tb) {
     return (objects);
 }
 
-SEXP newProtocolBufferLookup(SEXP possexp) {
+RcppExport SEXP newProtocolBufferLookup(SEXP possexp) {
+    BEGIN_RCPP
 #ifdef LOOKUP_DEBUG
     Rprintf("<newProtocolBufferLookup>\n");
 #endif
@@ -199,7 +201,7 @@ SEXP newProtocolBufferLookup(SEXP possexp) {
     SEXP val, klass;
 
     tb = (R_ObjectTable *)malloc(sizeof(R_ObjectTable));
-    if (!tb) Rf_error("cannot allocate space for an internal R object table");
+    if (!tb) throw Rcpp::exception("cannot allocate space for an internal R object table");
 
     tb->type = RPROTOBUF_LOOKUP; /* FIXME: not sure what this should be */
     tb->cachedNames = NULL;
@@ -229,7 +231,9 @@ SEXP newProtocolBufferLookup(SEXP possexp) {
     int pos = Rcpp::as<int>(possexp);
     fun(val, Rcpp::Named("pos") = pos, Rcpp::Named("name") = "RProtoBuf:DescriptorPool");
 
+    // TODO(mstokely): Somewhere we should deallocate tb?  If package is unattached?
     return (val);
+    END_RCPP
 }
 
 }  // namespace rprotobuf
