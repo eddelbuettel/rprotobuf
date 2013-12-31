@@ -6,6 +6,14 @@
 
 \usepackage{url}
 \usepackage[colorlinks]{hyperref}
+\definecolor{link}{rgb}{0,0,0.3}
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
 \setlength{\oddsidemargin}{0pt}
 \setlength{\textwidth}{17cm} % uh-oh, I use letter :)
 \setcounter{tocdepth}{2}
@@ -1247,7 +1255,7 @@ descriptor of the field descriptor.
 <<>>=
 fileDescriptor(tutorial.Person$id)
 tutorial.Person$id$fileDescriptor()
-@ 
+@
 
 \subsubsection{containing\_type}
 \label{fielddescriptor-method-containingtype}
@@ -1522,7 +1530,7 @@ descriptor of the enum descriptor.
 <<>>=
 fileDescriptor(tutorial.Person$PhoneType)
 tutorial.Person$PhoneType$fileDescriptor()
-@ 
+@
 
 \subsubsection{containing\_type}
 \label{enumdescriptor-method-containingtype}
@@ -1532,7 +1540,7 @@ descriptor for the message type that contains this enum descriptor.
 
 <<>>=
 tutorial.Person$PhoneType$containing_type()
-@ 
+@
 
 \subsubsection{length}
 \label{enumdescriptor-method-length}
@@ -1542,7 +1550,7 @@ The \texttt{length} method returns the number of constants in this enum.
 <<>>=
 length(tutorial.Person$PhoneType)
 tutorial.Person$PhoneType$length()
-@ 
+@
 
 \subsubsection{has}
 \label{enumdescriptor-method-has}
@@ -1553,7 +1561,7 @@ specified named constant string.
 <<>>=
 tutorial.Person$PhoneType$has("WORK")
 tutorial.Person$PhoneType$has("nonexistant")
-@ 
+@
 
 \subsubsection{value\_count}
 \label{enumdescriptor-method-valuecount}
@@ -1564,7 +1572,7 @@ this enum.
 <<>>=
 value_count(tutorial.Person$PhoneType)
 tutorial.Person$PhoneType$value_count()
-@ 
+@
 
 \subsubsection{value}
 \label{enumdescriptor-method-value}
@@ -1577,7 +1585,7 @@ identify which constant is desired.
 tutorial.Person$PhoneType$value(1)
 tutorial.Person$PhoneType$value(name="HOME")
 tutorial.Person$PhoneType$value(number=1)
-@ 
+@
 
 \subsection{enum value descriptors}
 \label{subsec-EnumValueDescriptor}
@@ -1728,7 +1736,7 @@ defined for the \texttt{FileDescriptor} class.
 f <- tutorial.Person$fileDescriptor()
 f
 f$Person
-@ 
+@
 \begin{table}[h]
 \centering
 \begin{small}
@@ -1957,7 +1965,7 @@ Notice that the last line of the \texttt{Person} message schema in
 \texttt{addressbook.proto} is the following line :
 
 \begin{verbatim}
-  extensions 100 to 199;  
+  extensions 100 to 199;
 \end{verbatim}
 
 This specifies that other users in other .proto files can use tag
@@ -1973,11 +1981,11 @@ For example, the following file \texttt{extend.proto}:
                "package tutorial;",
                paste0("extend Person {\n  optional string nationality = 100;\n}")),
              extend.proto)
-@ 
+@
 
 <<echo=FALSE>>=
-writeLines(readLines(extend.proto))  
-@ 
+writeLines(readLines(extend.proto))
+@
 
 After importing this new \texttt{.proto} file with an extension
 defined, we can get or set the value of this extension in Messages of
@@ -1985,13 +1993,13 @@ type \texttt{Person}.
 
 <<>>=
 library(RProtoBuf)
-readProtoFiles(extend.proto)     
+readProtoFiles(extend.proto)
 person <- new(tutorial.Person, id=1, name="Murray")
 person
 person$setExtension(P("tutorial.nationality"), "USA")
 cat(as.character(person))
 person$getExtension(P("tutorial.nationality"))
-@ 
+@
 
 The character output of this message places the extension type in
 brackets to differentiate it from other fields in the message, and so
