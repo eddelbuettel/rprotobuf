@@ -200,14 +200,14 @@ bool GET_bool(SEXP x, int index) {
         default:
             Rcpp::stop("cannot cast SEXP to bool");
     }
-    return (bool)0;  // -Wall, should not happen since we only call this when we know it works
+    return (bool)0;  // Unreachable.  -Wall
 }
 
 std::string GET_stdstring(SEXP x, int index) {
     if (TYPEOF(x) == STRSXP) {
         return (CHAR(STRING_ELT(x, index)));
     }
-    return "";  // -Wall, should not happen since we only call this when we know it works
+    return "";  // Unreachable.  -Wall
 }
 
 std::string GET_bytes(SEXP x, int index) {
@@ -228,7 +228,7 @@ std::string GET_bytes(SEXP x, int index) {
         default:
             Rcpp::stop("cannot cast SEXP to bytes");
     }
-    return "";  // -Wall, should not happen since we only call this when we know it works
+    return "";  // Unreachable. -Wall
 }
 
 /**
@@ -1158,7 +1158,7 @@ SEXP setMessageField(SEXP pointer, SEXP name, SEXP value) {
     // if the R type is RAWSXP and the cpp type is string or bytes,
     // then value_size is actually one because the raw vector
     // is converted to a string
-    int field_type = field_desc->type();
+    GPB::FieldDescriptor::Type field_type = field_desc->type();
     if (field_type == TYPE_STRING || field_type == TYPE_BYTES) {
         if (TYPEOF(value) == RAWSXP) {
             value_size = 1;
@@ -1191,7 +1191,7 @@ RPB_FUNCTION_VOID_2(update_message, Rcpp::XPtr<GPB::Message> message, Rcpp::List
     Rcpp::CharacterVector names = list.attr("names");
     int n = list.size();
     for (int i = 0; i < n; i++) {
-        setMessageField(message, names[i], list[i]);
+        (void)setMessageField(message, names[i], list[i]);
     }
 }
 
