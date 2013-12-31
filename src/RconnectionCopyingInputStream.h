@@ -8,7 +8,7 @@ class RconnectionCopyingInputStream : public GPB::io::CopyingInputStream {
     RconnectionCopyingInputStream(int id);
 
     int Read(void* buffer, int size);
-    bool Failure() { return (failure); }
+    bool Failure() const { return (failure); }
 
    private:
     int connection_id;
