@@ -33,7 +33,7 @@ struct message_field{};
 class Int64AsStringRepeatedFieldImporter {
 public:
     // Probably want to convert to strings here.
-    typedef string r_import_type;
+    typedef std::string r_import_type;
     Int64AsStringRepeatedFieldImporter(const GPB::Reflection* ref_ ,
                                        const GPB::Message& message_,
                                        const GPB::FieldDescriptor* field_)
@@ -41,8 +41,8 @@ public:
     inline int size() const {
         return ref->FieldSize(message, field);
     }
-    inline string get(int i) const {
-        stringstream stream;
+    inline std::string get(int i) const {
+        std::stringstream stream;
         int64 val = ref->GetRepeatedInt64(message, field, i);
         stream << val;
         return stream.str();
@@ -56,7 +56,7 @@ public:
 class UInt64AsStringRepeatedFieldImporter {
 public:
     // Probably want to convert to strings here.
-    typedef string r_import_type;
+    typedef std::string r_import_type;
     UInt64AsStringRepeatedFieldImporter(const GPB::Reflection* ref_,
                                         const GPB::Message& message_,
                                         const GPB::FieldDescriptor* field_)
@@ -64,8 +64,8 @@ public:
     inline int size() const {
         return ref->FieldSize(message, field) ;
     }
-    inline string get(int i) const {
-        stringstream stream;
+    inline std::string get(int i) const {
+        std::stringstream stream;
         uint64 val = ref->GetRepeatedUInt64(message, field, i);
         stream << val;
         return stream.str();

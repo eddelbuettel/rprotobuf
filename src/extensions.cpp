@@ -27,7 +27,7 @@ namespace rprotobuf {
 RcppExport SEXP getExtension(SEXP pointer, SEXP sfielddesc) {
     /* grab the Message pointer */
     Rcpp::XPtr<GPB::Message> message(pointer);
-    const Reflection* ref = message->GetReflection();
+    const GPB::Reflection* ref = message->GetReflection();
     const GPB::FieldDescriptor* field_desc = GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(sfielddesc);
 
     // extractFieldAsSEXP returns a default (e.g. 0) even when

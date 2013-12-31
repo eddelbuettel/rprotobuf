@@ -64,19 +64,19 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::FileDescriptor> desc
     Rcpp::CharacterVector names(n);
     Rcpp::List res(n);
     int count = 0;
-    for (i = 0; i < ntypes; count++, i++) {
+    for (int i = 0; i < ntypes; count++, i++) {
         res[count] = S4_Descriptor(desc->message_type(i));
         names[count] = desc->message_type(i)->name();
     }
-    for (i = 0; i < nenums; count++, i++) {
+    for (int i = 0; i < nenums; count++, i++) {
         res[count] = S4_EnumDescriptor(desc->enum_type(i));
         names[count] = desc->enum_type(i)->name();
     }
-    for (i = 0; i < nserv; count++, i++) {
+    for (int i = 0; i < nserv; count++, i++) {
         res[count] = S4_ServiceDescriptor(desc->service(i));
         names[count] = desc->service(i)->name();
     }
-    for (i = 0; i < nexts; count++, i++) {
+    for (int i = 0; i < nexts; count++, i++) {
         res[count] = S4_FieldDescriptor(desc->extension(i));
         // always use full names for extensions
         names[count] = desc->extension(i)->full_name();

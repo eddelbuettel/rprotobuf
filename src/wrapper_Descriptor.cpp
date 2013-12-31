@@ -55,17 +55,17 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc) {
     Rcpp::CharacterVector names(n);
     Rcpp::List res(n);
     int cnt = 0;
-    for (i = 0; i < nfields; cnt++, i++) {
+    for (int i = 0; i < nfields; cnt++, i++) {
         const GPB::FieldDescriptor* fd = desc->field(i);
         res[cnt] = S4_FieldDescriptor(fd);
         names[cnt] = fd->name();
     }
-    for (i = 0; i < ntypes; cnt++, i++) {
+    for (int i = 0; i < ntypes; cnt++, i++) {
         const GPB::Descriptor* d = desc->nested_type(i);
         res[cnt] = S4_Descriptor(d);
         names[cnt] = d->name();
     }
-    for (i = 0; i < nenums; cnt++, i++) {
+    for (int i = 0; i < nenums; cnt++, i++) {
         const GPB::EnumDescriptor* ed = desc->enum_type(i);
         res[cnt] = S4_EnumDescriptor(ed);
         names[cnt] = ed->name();
