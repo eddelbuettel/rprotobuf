@@ -5,6 +5,7 @@
 %\VignetteDepends{RProtoBuf}
 
 \usepackage{url}
+\usepackage{color}
 \usepackage[colorlinks]{hyperref}
 \definecolor{link}{rgb}{0,0,0.3}
 \hypersetup{
