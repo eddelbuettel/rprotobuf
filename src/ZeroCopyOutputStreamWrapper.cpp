@@ -8,11 +8,12 @@ ZeroCopyOutputStreamWrapper::ZeroCopyOutputStreamWrapper(GPB::io::ZeroCopyOutput
 }
 
 ZeroCopyOutputStreamWrapper::~ZeroCopyOutputStreamWrapper() {
-    /* first clear the coded stream */
-    delete coded_stream;
-
-    /* then the stream itself */
-    delete stream;
+    try {
+	/* first clear the coded stream */
+	delete coded_stream;
+	/* then the stream itself */
+	delete stream;
+    } catch (...) { }
 }
 GPB::io::ZeroCopyOutputStream* ZeroCopyOutputStreamWrapper::get_stream() { return stream; }
 GPB::io::CodedOutputStream* ZeroCopyOutputStreamWrapper::get_coded_stream() { return coded_stream; }

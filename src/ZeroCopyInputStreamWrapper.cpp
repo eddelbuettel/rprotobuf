@@ -8,11 +8,12 @@ ZeroCopyInputStreamWrapper::ZeroCopyInputStreamWrapper(GPB::io::ZeroCopyInputStr
 }
 
 ZeroCopyInputStreamWrapper::~ZeroCopyInputStreamWrapper() {
-    /* first clear the coded stream */
-    delete coded_stream;
-
-    /* then the stream itself */
-    delete stream;
+    try {
+	/* first clear the coded stream */
+	delete coded_stream;
+	/* then the stream itself */
+	delete stream;
+    } catch (...) { }
 }
 GPB::io::ZeroCopyInputStream* ZeroCopyInputStreamWrapper::get_stream() { return stream; }
 GPB::io::CodedInputStream* ZeroCopyInputStreamWrapper::get_coded_stream() { return coded_stream; }
