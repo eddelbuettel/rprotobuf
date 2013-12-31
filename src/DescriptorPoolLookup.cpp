@@ -49,7 +49,8 @@ void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs) {
     for (int j = 0; j < n; j++) {
         const GPB::FileDescriptor* file_desc = importer.Import(CHAR(STRING_ELT(files, j)));
         if (!file_desc) {
-            string message = "Could not load proto file '" + CHAR(STRING_ELT(files, j)) + "'\n";
+            string message = string("Could not load proto file '") + CHAR(STRING_ELT(files, j)) +
+                "'\n";
             Rcpp_error(message.c_str());
             continue;
         }
