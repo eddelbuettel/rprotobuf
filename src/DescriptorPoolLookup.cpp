@@ -36,13 +36,21 @@ RSourceTree DescriptorPoolLookup::source_tree;
 GPB::compiler::Importer DescriptorPoolLookup::importer(&source_tree, &error_collector);
 GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory(importer.pool());
 
+/**
+ * Add descriptors from a proto file to the descriptor pool.
+ *
+ * @param files A character vector of .proto files to import.
+ * @param dirs A character vector of directories to import from.
+ * @throws Rcpp::exception if a file can't be loaded (uncaught).
+ */
 void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs) {
     source_tree.addDirectories(dirs);
     int n = LENGTH(files);
     for (int j = 0; j < n; j++) {
         const GPB::FileDescriptor* file_desc = importer.Import(CHAR(STRING_ELT(files, j)));
         if (!file_desc) {
-            Rf_error("Could not load proto file '%s'\n", CHAR(STRING_ELT(files, j)));
+            string message = "Could not load proto file '" + CHAR(STRING_ELT(files, j)) + "'\n";
+            Rcpp_error(message.c_str());
             continue;
         }
         int ntypes = file_desc->message_type_count();
