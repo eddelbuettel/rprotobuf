@@ -231,7 +231,7 @@ RPB_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message) {
     int nexts = 0;
     vector<const FieldDescriptor*> fields;
     ref->ListFields(*message, &fields);
-    for (int i = 0; i < fields.size(); i++) {
+    for (unsigned int i = 0; i < fields.size(); i++) {
         if (fields[i]->is_extension()) {
             nexts++;
         }

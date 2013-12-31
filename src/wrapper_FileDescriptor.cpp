@@ -6,7 +6,7 @@ namespace rprotobuf {
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(FileDescriptor__, __NAME__)
 
-RPB_XP_METHOD_0(METHOD(as_character), GPB::FileDescriptor, DebugString);
+RPB_XP_METHOD_0(METHOD(as_character), GPB::FileDescriptor, DebugString)
 
 RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::FileDescriptor> d) {
     GPB::FileDescriptorProto* message = new GPB::FileDescriptorProto();

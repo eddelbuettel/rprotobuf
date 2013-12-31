@@ -25,7 +25,7 @@ namespace rprotobuf {
 #undef METHOD
 #define METHOD(__NAME__) RCPP_PP_CAT(EnumDescriptor__, __NAME__)
 
-RPB_XP_METHOD_0(METHOD(as_character), GPB::EnumDescriptor, DebugString);
+RPB_XP_METHOD_0(METHOD(as_character), GPB::EnumDescriptor, DebugString)
 RPB_XP_METHOD_0(METHOD(length), GPB::EnumDescriptor, value_count)
 RPB_XP_METHOD_0(METHOD(value_count), GPB::EnumDescriptor, value_count)
 
