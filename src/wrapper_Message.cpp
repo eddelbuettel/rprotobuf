@@ -9,8 +9,8 @@ namespace rprotobuf {
 /* helpers */
 
 /* this is only to be called for repeated fields */
-int MESSAGE_GET_REPEATED_INT(GPB::Message* message, GPB::FieldDescriptor* field_desc, int index) {
-    BEGIN_RCPP
+int MESSAGE_GET_REPEATED_INT(const GPB::Message* message, const GPB::FieldDescriptor* field_desc,
+			     int index) {
     const GPB::Reflection* ref = message->GetReflection();
 
     switch (field_desc->type()) {
@@ -33,14 +33,13 @@ int MESSAGE_GET_REPEATED_INT(GPB::Message* message, GPB::FieldDescriptor* field_
         default:
             Rcpp_error("cannot cast to int");
     }
-    VOID_END_RCPP
-    return 0;  // -Wall
+    return 0;  // Unreachable for -Wall
 }
 
 /* this is only to be called for repeated fields */
-double MESSAGE_GET_REPEATED_DOUBLE(GPB::Message* message, GPB::FieldDescriptor* field_desc,
+double MESSAGE_GET_REPEATED_DOUBLE(const GPB::Message* message,
+				   const GPB::FieldDescriptor* field_desc,
                                    int index) {
-    BEGIN_RCPP
     const GPB::Reflection* ref = message->GetReflection();
 
     switch (field_desc->type()) {
@@ -51,7 +50,6 @@ double MESSAGE_GET_REPEATED_DOUBLE(GPB::Message* message, GPB::FieldDescriptor* 
         default:
             Rcpp_error("cannot cast to double");
     }
-    VOID_END_RCPP
     return 0;  // -Wall
 }
 
@@ -133,6 +131,7 @@ RPB_FUNCTION_VOID_2(METHOD(serialize_to_file), Rcpp::XPtr<GPB::Message> message,
     int file = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666);
 
     /* using partial to allow partially filled messages */
+    // TODO(mstokely): Check return value and throw Rcpp::stop if 0?
     message->SerializePartialToFileDescriptor(file);
 
     close(file);
@@ -427,7 +426,7 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Messag
     return (res);
 }
 
-bool identical_messages_(GPB::Message* m1, GPB::Message* m2, double tol) {
+bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double tol) {
     const GPB::Descriptor* d1 = m1->GetDescriptor();
     const GPB::Descriptor* d2 = m2->GetDescriptor();
 
@@ -535,7 +534,7 @@ bool identical_messages_(GPB::Message* m1, GPB::Message* m2, double tol) {
                     for (int j = 0; j < fs; j++) {
                         const GPB::Message* mm1 = &ref->GetRepeatedMessage(*m1, field_desc, j);
                         const GPB::Message* mm2 = &ref->GetRepeatedMessage(*m2, field_desc, j);
-                        if (!identical_messages_((GPB::Message*)mm1, (GPB::Message*)mm2, tol)) {
+                        if (!identical_messages_(mm1, mm2, tol)) {
                             return false;
                         }
                     }
@@ -604,7 +603,7 @@ bool identical_messages_(GPB::Message* m1, GPB::Message* m2, double tol) {
                 case TYPE_GROUP: {
                     const GPB::Message* mm1 = &ref->GetMessage(*m1, field_desc);
                     const GPB::Message* mm2 = &ref->GetMessage(*m2, field_desc);
-                    if (!identical_messages_((GPB::Message*)mm1, (GPB::Message*)mm2, tol)) {
+                    if (!identical_messages_(mm1, mm2, tol)) {
                         return false;
                     }
                     break;
@@ -618,12 +617,13 @@ bool identical_messages_(GPB::Message* m1, GPB::Message* m2, double tol) {
     return true;
 }
 
-RPB_FUNCTION_2(bool, identical_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2) {
+RPB_FUNCTION_2(bool, identical_messages, Rcpp::XPtr<const GPB::Message> m1,
+	       Rcpp::XPtr<const GPB::Message> m2) {
     return identical_messages_(m1, m2, 0.0);
 }
 
-RPB_FUNCTION_3(bool, all_equal_messages, Rcpp::XPtr<GPB::Message> m1, Rcpp::XPtr<GPB::Message> m2,
-               double tol) {
+RPB_FUNCTION_3(bool, all_equal_messages, Rcpp::XPtr<const GPB::Message> m1,
+	       Rcpp::XPtr<const GPB::Message> m2, double tol) {
     return identical_messages_(m1, m2, tol);
 }
 
@@ -723,6 +723,7 @@ RPB_FUNCTION_VOID_3(METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP f
                         for (int i = 0; i < value_size; i++) {
                             ref->AddInt64(message, field_desc, GET_int64(values, i));
                         }
+			break;
                     default:
                         Rcpp::stop("Cannot convert to int64");
                 }
@@ -739,7 +740,7 @@ RPB_FUNCTION_VOID_3(METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP f
                     case LGLSXP:
                     case RAWSXP: {
                         for (int i = 0; i < value_size; i++) {
-                            ref->AddUInt32(message, field_desc, GET_int32(values, i));
+                            ref->AddUInt32(message, field_desc, GET_uint32(values, i));
                         }
                         break;
                     }
@@ -994,7 +995,7 @@ RPB_FUNCTION_3(SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message,
         default:
             throw std::range_error("unknown type");
     }
-    return R_NilValue;  // -Wall
+    return R_NilValue;  // Unreachable.  For -Wall
 }
 
 /**
@@ -1110,6 +1111,7 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
                 default:
                     throw std::range_error("impossible to convert to a enum");
             }
+	    break;
         }
         case TYPE_MESSAGE:
         case TYPE_GROUP: {

@@ -25,6 +25,10 @@ test.int64 <- function() {
 
     a <- new(protobuf_unittest.TestAllTypes)
     a$repeated_int64 <- 1
+    # Now just test that we can use add to set int64 fields.
+    a$add("repeated_int64", 2:10)
+    checkEquals(length(a$repeated_int64), 10)
+    
     # Verify we can set character strings of large 64-bit ints
     a$repeated_int64 <- c("9007199254740992", "9007199254740993")
     checkEquals(length(a$repeated_int64), 2)
@@ -49,4 +53,5 @@ test.int64 <- function() {
     options("RProtoBuf.int64AsString" = TRUE)
     # But we can see they are different if we treat them as strings.
     checkEquals(length(unique(a$repeated_int64)), 2)
+
 }

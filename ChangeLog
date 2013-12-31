@@ -1,3 +1,14 @@
+2013-12-31  Murray Stokely  <mstokely@google.com>
+
+	* src/wrapper_Message.cpp: Fix type coercion bug in add() method
+	  for uint32s and add a missing break statement that erroneously
+	  raised an error when setting some int64 fields.  Make more
+	  function arguments const and remove a superfluous
+	  BEGIN_RCPP/END_RCPP.  Also add comment about long-vector
+	  support.  All of these fixes were highlighted by Flexelint.
+	* inst/unitTests/runit.int64.R (test.int64): Add tests for above.
+	* inst/unitTests/runit.extremevalues.R (test.uint32): Idem.
+
 2013-12-30  Murray Stokely  <mstokely@google.com>
 
 	* inst/unitTests/runit.extremevalues.R (test.uint32): Add test
