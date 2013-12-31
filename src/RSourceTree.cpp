@@ -19,7 +19,7 @@ GPB::io::ZeroCopyInputStream* RSourceTree::Open(const std::string& filename) {
             file += filename;
             file_descriptor = open(file.c_str(), O_RDONLY);
             if (file_descriptor > 0) break;
-            it++;
+            ++it;
         }
     }
 
