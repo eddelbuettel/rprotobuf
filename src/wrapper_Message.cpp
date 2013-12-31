@@ -335,16 +335,12 @@ RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SE
                     case TYPE_MESSAGE:
                     case TYPE_GROUP: {
                         /* fill with the prototype for that message type */
-                        Rf_error(
-                            "growing repeated messages not implemented yet, "
-                            "patches welcome");
+                        Rcpp_error("growing repeated messages not implemented, patches welcome");
                         break;
                     }
                     case TYPE_ENUM: {
                         /* fill with the prototype for that message type */
-                        Rf_error(
-                            "growing repeated enum not implemented yet, "
-                            "patches welcome");
+                        Rcpp_error("growing repeated enums not implemented yet, patches welcome");
                         break;
                     }
                 } /* switch */

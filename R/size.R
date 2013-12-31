@@ -31,7 +31,7 @@ setMethod( "size<-", "Message", function(object, field, ..., value){
 	value <- as.integer( value )[1]
 	
 	if( is.character( field ) || is.numeric( field ) ){
-		.Call( "set_field_size", object@pointer, field, value, PACKAGE = "RProtoBuf" )
+		.Call( "Message__set_field_size", object@pointer, field, value, PACKAGE = "RProtoBuf" )
 	} else{
 		stop( "field should be a character or a number" )
 	}

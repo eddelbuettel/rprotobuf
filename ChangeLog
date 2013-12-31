@@ -5,7 +5,17 @@
 	  optional protobuf fields.
 	* src/extractors.cpp (rprotobuf): Correct handling of uint32 for
 	  repeated fields.
-	
+	* src/wrapper_Message.cpp (rprotobuf): Remove Rf_error in favor of
+	  Rcpp_error so that we throw an exception and unwind the stack to
+	  deallocate objects before jumping to R' serror.
+	* R/size.R: Correct an incorrect method name that prevented size<-
+	  from working.
+	* man/size.Rd: Document the behavior of size<-
+	* (C++): Ran all the C++ files and most of the headers through
+	  clang-format as described in the STYLE file on R-Forge.
+	  Basically, we now use 4-char indents and 100-char limit for line
+	  wrap.
+
 2013-12-28  Murray Stokely  <mstokely@google.com>
 
 	* src/extractors.cpp (rprotobuf): Correct handling of uint32 for
