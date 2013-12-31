@@ -903,7 +903,7 @@ RPB_FUNCTION_VOID_3(METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP f
                     // }}}
 
                     default:
-                        Rcpp::stop("cannot set enum value"); }
+                        Rcpp::stop("cannot set enum value");
                 }
                 break;
             }
@@ -1127,4 +1127,5 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
 }
 
 #undef METHOD
+
 }
