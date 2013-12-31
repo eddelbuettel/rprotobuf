@@ -399,12 +399,12 @@ RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SE
                     case TYPE_MESSAGE:
                     case TYPE_GROUP: {
                         /* fill with the prototype for that message type */
-                        Rf_error("not implemented yet, patches welcome");
+                        Rcpp_error("not implemented yet, patches welcome");
                         break;
                     }
                     case TYPE_ENUM: {
                         /* fill with the prototype for that message type */
-                        Rf_error("not implemented yet, patches welcome");
+                        Rcpp_error("not implemented yet, patches welcome");
                         break;
                     }
                 }
@@ -934,7 +934,7 @@ RPB_FUNCTION_3(SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message,
                Rcpp::IntegerVector index) {
     GPB::FieldDescriptor* field_desc = getFieldDescriptor(message, field);
     if (!field_desc->is_repeated()) {
-        Rf_error("fetch can only be used on repeated fields");
+        Rcpp_error("fetch can only be used on repeated fields");
     }
 
     int n = index.size();
