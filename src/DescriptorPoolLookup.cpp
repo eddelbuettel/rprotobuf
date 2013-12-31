@@ -52,7 +52,6 @@ void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs) {
             std::string message = std::string("Could not load proto file '") + CHAR(STRING_ELT(files, j)) +
                 "'\n";
             Rcpp_error(message.c_str());
-            continue;
         }
         int ntypes = file_desc->message_type_count();
         for (int i = 0; i < ntypes; i++) {

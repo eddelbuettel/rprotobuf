@@ -42,7 +42,6 @@ RPB_FUNCTION_1(S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::FieldDesc
 #define RPB_HANDLE_CASE(__CPP__, __LC__)                \
     case CPPTYPE_##__CPP__: {                           \
         return Rcpp::wrap(d->default_value_##__LC__()); \
-        break;                                          \
     }
 
 RPB_FUNCTION_1(SEXP, METHOD(default_value), Rcpp::XPtr<GPB::FieldDescriptor> d) {
@@ -61,7 +60,6 @@ RPB_FUNCTION_1(SEXP, METHOD(default_value), Rcpp::XPtr<GPB::FieldDescriptor> d) 
 
         case CPPTYPE_ENUM: {
             return Rf_ScalarInteger(d->default_value_enum()->number());
-            break;
         }
         default:
             break;

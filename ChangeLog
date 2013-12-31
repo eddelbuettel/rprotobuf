@@ -8,6 +8,13 @@
 	  support.  All of these fixes were highlighted by Flexelint.
 	* inst/unitTests/runit.int64.R (test.int64): Add tests for above.
 	* inst/unitTests/runit.extremevalues.R (test.uint32): Idem.
+	* src/wrapper_FieldDescriptor.cpp (RPB_HANDLE_CASE): Remove
+	  unreachable statement in a macro.
+	* src/wrapper_Descriptor.cpp (rprotobuf): Remove unused variable,
+	  rename another variable for clarity, and add some TODOs.
+	* src/wrapper_FileDescriptor.cpp (rprotobuf): Idem.
+	* src/DescriptorPoolLookup.cpp (rprotobuf): Remove unreachable statement.
+	* src/extensions.cpp: Remove unused header.
 
 2013-12-30  Murray Stokely  <mstokely@google.com>
 

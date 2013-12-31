@@ -20,7 +20,6 @@
  */
 
 #include "rprotobuf.h"
-#include "fieldtypes.h"
 #include "Rcppsupport.h"
 
 namespace rprotobuf {

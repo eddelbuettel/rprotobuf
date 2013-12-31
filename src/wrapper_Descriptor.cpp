@@ -54,22 +54,21 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc) {
 
     Rcpp::CharacterVector names(n);
     Rcpp::List res(n);
-    int i = 0;
-    int j = 0;
-    for (i = 0; i < nfields; j++, i++) {
+    int cnt = 0;
+    for (i = 0; i < nfields; cnt++, i++) {
         const GPB::FieldDescriptor* fd = desc->field(i);
-        res[j] = S4_FieldDescriptor(fd);
-        names[j] = fd->name();
+        res[cnt] = S4_FieldDescriptor(fd);
+        names[cnt] = fd->name();
     }
-    for (i = 0; i < ntypes; j++, i++) {
+    for (i = 0; i < ntypes; cnt++, i++) {
         const GPB::Descriptor* d = desc->nested_type(i);
-        res[j] = S4_Descriptor(d);
-        names[j] = d->name();
+        res[cnt] = S4_Descriptor(d);
+        names[cnt] = d->name();
     }
-    for (i = 0; i < nenums; j++, i++) {
+    for (i = 0; i < nenums; cnt++, i++) {
         const GPB::EnumDescriptor* ed = desc->enum_type(i);
-        res[j] = S4_EnumDescriptor(ed);
-        names[j] = ed->name();
+        res[cnt] = S4_EnumDescriptor(ed);
+        names[cnt] = ed->name();
     }
     res.names() = names;
 
@@ -135,6 +134,7 @@ RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromFile), Rcpp::XPtr<GPB::Descript
     }
 
     /* read the message from the file */
+    // TODO(mstokely): Check return value!
     message->ParsePartialFromFileDescriptor(file);
     close(file);
     return (S4_Message(message));
@@ -151,6 +151,7 @@ RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromConnection), Rcpp::XPtr<GPB::De
     if (!message) {
         throw std::range_error("could not call factory->GetPrototype(desc)->New()");
     }
+    // TODO(mstokely): Check return value!
     message->ParsePartialFromCodedStream(&coded_stream);
 
     S4_Message res(message);
