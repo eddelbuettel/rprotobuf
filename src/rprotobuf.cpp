@@ -47,7 +47,7 @@ GPB::Message* CLONE(const GPB::Message* origin) {
  *
  * @param file proto file name
  */
-SEXP readProtoFiles(SEXP file, SEXP dirs) {
+RcppExport SEXP readProtoFiles(SEXP file, SEXP dirs) {
     BEGIN_RCPP
     DescriptorPoolLookup::importProtoFiles(file, dirs);
     return R_NilValue;
@@ -62,7 +62,7 @@ SEXP readProtoFiles(SEXP file, SEXP dirs) {
  * @return an S4 object of class Descriptor, or NULL if the type
  *  is unknown
  */
-SEXP getProtobufDescriptor(SEXP type) {
+RcppExport SEXP getProtobufDescriptor(SEXP type) {
 
 #ifdef RPB_DEBUG
     Rprintf("<getProtobufDescriptor>\n      type = ");
@@ -95,7 +95,7 @@ SEXP getProtobufDescriptor(SEXP type) {
  * @return an S4 object of class FieldDescriptor, or NULL if the type
  *  is unknown
  */
-SEXP getExtensionDescriptor(SEXP type) {
+RcppExport SEXP getExtensionDescriptor(SEXP type) {
 #ifdef RPB_DEBUG
     Rprintf("<getExtensionDescriptor>\n      type = ");
     Rf_PrintValue(type);
@@ -160,7 +160,7 @@ SEXP newProtoMessage(SEXP descriptor) {
  * @param pointer external pointer to a google::protobuf::Descriptor object
  * @param name name of the thing to extract
  */
-SEXP do_dollar_Descriptor(SEXP pointer, SEXP name) {
+RcppExport SEXP do_dollar_Descriptor(SEXP pointer, SEXP name) {
 
     const char* what = CHAR(STRING_ELT(name, 0));
     GPB::Descriptor* desc = (GPB::Descriptor*)EXTPTR_PTR(pointer);
