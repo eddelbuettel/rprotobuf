@@ -1,6 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
 // Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of RProtoBuf.
@@ -183,23 +180,17 @@ bool GET_bool(SEXP x, int index) {
     switch (TYPEOF(x)) {
         case INTSXP:
             if (INTEGER(x)[index] == R_NaInt) {
-                Rcpp::stop(
-                    "NA boolean values can not be stored in "
-                    "bool protocol buffer fields");
+                Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
             return ((bool)INTEGER(x)[index]);
         case REALSXP:
             if (REAL(x)[index] == R_NaReal) {
-                Rcpp::stop(
-                    "NA boolean values can not be stored in "
-                    "bool protocol buffer fields");
+                Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
             return ((bool)REAL(x)[index]);
         case LGLSXP:
             if (LOGICAL(x)[index] == NA_LOGICAL) {
-                Rcpp::stop(
-                    "NA boolean values can not be stored in "
-                    "bool protocol buffer fields");
+                Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
             return ((bool)LOGICAL(x)[index]);
         case RAWSXP:
@@ -414,7 +405,8 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc, SEXP value, int
                     }
                     break;
                 }
-                default: { Rcpp::stop("impossible to convert to a message"); }
+                default:
+                    Rcpp::stop("impossible to convert to a message");
             }
             break;
         }
@@ -541,17 +533,11 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
         case CPPTYPE_BOOL: {
             // TODO(mstokely): Rcpp should handle this!
             if ((TYPEOF(value) == LGLSXP) && (LOGICAL(value)[0] == NA_LOGICAL)) {
-                Rcpp::stop(
-                    "NA boolean values can not be stored in "
-                    "bool protocol buffer fields");
+                Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             } else if ((TYPEOF(value) == INTSXP) && (INTEGER(value)[0] == R_NaInt)) {
-                Rcpp::stop(
-                    "NA boolean values can not be stored in "
-                    "bool protocol buffer fields");
+                Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             } else if ((TYPEOF(value) == REALSXP) && (REAL(value)[0] == R_NaReal)) {
-                Rcpp::stop(
-                    "NA boolean values can not be stored in "
-                    "bool protocol buffer fields");
+                Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
             ref->SetBool(message, field_desc, Rcpp::as<bool>(value));
             break;
@@ -630,7 +616,8 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                     ref->SetString(message, field_desc, __mess->SerializeAsString());
                     break;
                 }
-                default: { Rcpp::stop("Cannot convert to string"); }
+                default:
+                    Rcpp::stop("Cannot convert to string");
             }
             break;
         }
@@ -682,10 +669,12 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                     }
                     break;
                 }
-                default: { Rcpp::stop("cannot set enum value"); }
+                default:
+                    Rcpp::stop("cannot set enum value");
             }
+            break;
         }
-            // }}}
+        // }}}
     }
 }
 
@@ -748,7 +737,8 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                     break;
                 }
 
-                default: { Rcpp::stop("Cannot convert to int32"); }
+                default:
+                    Rcpp::stop("Cannot convert to int32");
             }
             break;
         }
@@ -1119,12 +1109,11 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 }
                 // }}}
 
-                // {{{ default
-                default: { Rcpp::stop("cannot set enum value"); }
-                    // }}}
+                default:
+                    Rcpp::stop("cannot set enum value");
             }
         }
-            // }}}
+        // }}}
     }
 }
 
@@ -1139,7 +1128,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
  */
 SEXP setMessageField(SEXP pointer, SEXP name, SEXP value) {
     BEGIN_RCPP
-// {{{ grab data
+    // {{{ grab data
 #ifdef RPB_DEBUG
     Rprintf("<setMessageField>\n");
 

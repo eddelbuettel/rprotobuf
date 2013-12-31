@@ -59,7 +59,7 @@ double MESSAGE_GET_REPEATED_DOUBLE(GPB::Message* message, GPB::FieldDescriptor* 
 #define METHOD(__NAME__) RCPP_PP_CAT(Message__, __NAME__)
 
 /**
- * clone a message
+ * Clone a message
  *
  * @param xp external pointer to a message
  * @return a new message, clone of the input message
@@ -120,7 +120,7 @@ RPB_FUNCTION_1(bool, METHOD(is_initialized), Rcpp::XPtr<GPB::Message> message) {
 }
 
 /**
- * serialize a message to a file
+ * Serialize a message to a file
  *
  * @param xp external pointer to a GPB::Message*
  * @param filename file name where to serialize
@@ -139,8 +139,7 @@ RPB_FUNCTION_VOID_2(METHOD(serialize_to_file), Rcpp::XPtr<GPB::Message> message,
 }
 
 /**
- * create a raw vector that contains the content of the serialized
- * message
+ * Create a raw vector that contains the content of the serialized message
  *
  * @param xp xternal pointer to the message
  */
@@ -171,6 +170,8 @@ RPB_FUNCTION_VOID_2(METHOD(clear_field), Rcpp::XPtr<GPB::Message> m, SEXP field)
 }
 
 /**
+ * Return a named list representation of the fields set in a message.
+ *
  * @param xp external pointer to a Message
  * @return the message as an R list
  */
@@ -192,8 +193,7 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Message> message) {
 }
 
 /**
- * The number of fields the message has. A field counts in these two situations
- *:
+ * The number of fields the message has. A field counts in these two situations:
  * - it is repeated and the array size is greater than 0
  * - it is not repeated and the message has it
  *
@@ -204,7 +204,6 @@ RPB_FUNCTION_1(int, METHOD(length), Rcpp::XPtr<GPB::Message> message) {
     const GPB::Reflection* ref = message->GetReflection();
 
     int nfields = desc->field_count();
-
     int res = 0;
 
     for (int i = 0; i < nfields; i++) {
@@ -241,7 +240,7 @@ RPB_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message) {
 }
 
 /**
- * Get the message descriptor of a Message
+ * Get the message descriptor of a Message.
  *
  * @param xp (GPB::Message*) external pointer
  * @return the descriptor, as a Descriptor R S4 object
@@ -254,7 +253,6 @@ RPB_XP_METHOD_0(METHOD(as_character), GPB::Message, DebugString)
 RPB_XP_METHOD_0(METHOD(bytesize), GPB::Message, ByteSize)
 
 RPB_FUNCTION_2(int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP field) {
-
     const GPB::FieldDescriptor* field_desc = getFieldDescriptor(message, field);
 
     int res = 0;
@@ -272,7 +270,6 @@ RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Messag
 
 RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SEXP field,
                     int target) {
-
     const GPB::FieldDescriptor* field_desc = getFieldDescriptor(message, field);
     const GPB::Reflection* ref = message->GetReflection();
 
@@ -291,7 +288,6 @@ RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SE
         } else {/* current < target */
 
             while (current != target) {
-
                 switch (field_desc->type()) {
                     case TYPE_INT32:
                     case TYPE_SINT32:
@@ -414,7 +410,7 @@ RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SE
 }
 
 /**
- * returns the field names of the message
+ * Returns the field names of the message.
  *
  * @param xp external pointer to a Message
  *
@@ -432,7 +428,6 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Messag
 }
 
 bool identical_messages_(GPB::Message* m1, GPB::Message* m2, double tol) {
-    BEGIN_RCPP
     const GPB::Descriptor* d1 = m1->GetDescriptor();
     const GPB::Descriptor* d2 = m2->GetDescriptor();
 
@@ -619,7 +614,6 @@ bool identical_messages_(GPB::Message* m1, GPB::Message* m2, double tol) {
             }
         }
     }
-    VOID_END_RCPP
     /* finally */
     return true;
 }
@@ -647,7 +641,7 @@ RPB_FUNCTION_VOID_4(METHOD(swap), Rcpp::XPtr<GPB::Message> message, SEXP field,
 }
 
 /**
- * creates a new message by merging two messages of the same type
+ * Creates a new message by merging two messages of the same type.
  *
  * @param xp1 external pointer to a GPB::Message*
  * @param xp2 external pointer to a GPB::Message*
@@ -663,7 +657,7 @@ RPB_FUNCTION_2(S4_Message, METHOD(merge), Rcpp::XPtr<GPB::Message> m1,
 }
 
 /**
- * Add values to a repeated field
+ * Add values to a repeated field.
  *
  * @param xp (GPB::Message*) external pointer
  * @param field field tag number or name
@@ -710,7 +704,8 @@ RPB_FUNCTION_VOID_3(METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP f
                         }
                         break;
                     }
-                    default: { Rcpp::stop("Cannot convert to int32"); }
+                    default:
+                        Rcpp::stop("Cannot convert to int32");
                 }
                 break;
             }
@@ -907,9 +902,8 @@ RPB_FUNCTION_VOID_3(METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP f
                     }
                     // }}}
 
-                    // {{{ default
-                    default: { Rcpp::stop("cannot set enum value"); }
-                        // }}}
+                    default:
+                        Rcpp::stop("cannot set enum value"); }
                 }
                 break;
             }
@@ -924,7 +918,7 @@ RPB_FUNCTION_VOID_3(METHOD(add_values), Rcpp::XPtr<GPB::Message> message, SEXP f
 }
 
 /**
- * fetch a subset of the values of a field
+ * Fetch a subset of the values of a field.
  *
  * @param (GPB::Message*) external pointer
  * @param field name or tag number of the field
@@ -939,7 +933,6 @@ RPB_FUNCTION_3(SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message,
 
     int n = index.size();
     switch (field_desc->type()) {
-
         case TYPE_INT32:
         case TYPE_SINT32:
         case TYPE_SFIXED32:
@@ -1014,7 +1007,6 @@ RPB_FUNCTION_3(SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message,
  */
 RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, SEXP field,
                     Rcpp::IntegerVector index, SEXP values) {
-
     const GPB::FieldDescriptor* field_desc = getFieldDescriptor(message, field);
     if (!field_desc->is_repeated()) {
         throw std::range_error("set can only be used on repeated fields");
@@ -1025,7 +1017,6 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
     /* we know here that LENGTH(index) == LENGTH(values) */
     int n = index.size();
     switch (field_desc->type()) {
-
         case TYPE_INT32:
         case TYPE_SINT32:
         case TYPE_SFIXED32: {
@@ -1104,7 +1095,6 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
                         ref->SetRepeatedEnum(message, field_desc, i,
                                              enum_desc->FindValueByNumber(val));
                     }
-
                     break;
                 }
                 case STRSXP: {
@@ -1115,7 +1105,6 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
                         const GPB::EnumValueDescriptor* evd = enum_desc->FindValueByName(val);
                         ref->SetRepeatedEnum(message, field_desc, i, evd);
                     }
-
                     break;
                 }
                 default:
@@ -1129,7 +1118,6 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
             for (int i = 0; i < n; i++) {
                 GPB::Message* mess = GET_MESSAGE_POINTER_FROM_S4(vals[i]);
                 ref->MutableRepeatedMessage(message, field_desc, i)->CopyFrom(*mess);
-                ;
             }
             break;
         }
