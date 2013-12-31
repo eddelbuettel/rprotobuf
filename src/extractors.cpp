@@ -92,12 +92,12 @@ SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
     case TYPE:                                \
         return Rcpp::wrap(RepeatedFieldImporter<DATATYPE>(ref, *message, fieldDesc));
 
-            HANDLE_REPEATED_FIELD(CPPTYPE_INT32, GPB::int32);
-            HANDLE_REPEATED_FIELD(CPPTYPE_DOUBLE, double);
-            HANDLE_REPEATED_FIELD(CPPTYPE_FLOAT, float);
-            HANDLE_REPEATED_FIELD(CPPTYPE_BOOL, bool);
-            HANDLE_REPEATED_FIELD(CPPTYPE_ENUM, enum_field);
-            HANDLE_REPEATED_FIELD(CPPTYPE_MESSAGE, message_field);
+            HANDLE_REPEATED_FIELD(CPPTYPE_INT32, GPB::int32)
+            HANDLE_REPEATED_FIELD(CPPTYPE_DOUBLE, double)
+            HANDLE_REPEATED_FIELD(CPPTYPE_FLOAT, float)
+            HANDLE_REPEATED_FIELD(CPPTYPE_BOOL, bool)
+            HANDLE_REPEATED_FIELD(CPPTYPE_ENUM, enum_field)
+            HANDLE_REPEATED_FIELD(CPPTYPE_MESSAGE, message_field)
             // TODO(mstokely): Rcpp doesn't handle uint32 properly as of 2013/12
             // See
             // https://r-forge.r-project.org/tracker/index.php?func=detail&aid=1360&group_id=155&atid=637
@@ -149,10 +149,10 @@ SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
     case CPPTYPE:                            \
         return Rcpp::wrap(ref->Get##SUFFIX(*message, fieldDesc));
 
-            HANDLE_SINGLE_FIELD(CPPTYPE_INT32, Int32);
-            HANDLE_SINGLE_FIELD(CPPTYPE_DOUBLE, Double);
-            HANDLE_SINGLE_FIELD(CPPTYPE_FLOAT, Float);
-            HANDLE_SINGLE_FIELD(CPPTYPE_BOOL, Bool);
+            HANDLE_SINGLE_FIELD(CPPTYPE_INT32, Int32)
+            HANDLE_SINGLE_FIELD(CPPTYPE_DOUBLE, Double)
+            HANDLE_SINGLE_FIELD(CPPTYPE_FLOAT, Float)
+            HANDLE_SINGLE_FIELD(CPPTYPE_BOOL, Bool)
             // TODO(mstokely): Rcpp doesn't handle uint32 properly as of 2013/12
             // See
             // https://r-forge.r-project.org/tracker/index.php?func=detail&aid=1360&group_id=155&atid=637
@@ -182,7 +182,6 @@ SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
 
             case CPPTYPE_MESSAGE:
                 return S4_Message(CLONE(&ref->GetMessage(*message, fieldDesc)));
-                break;
 
             default:
                 Rcpp::stop("Unsupported type");

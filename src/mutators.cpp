@@ -104,6 +104,8 @@ ValueType Int32FromString(const string& value) {
     return ret;
 }
 
+  // TODO(mstokely): not long vector clean. int index should be R_xlen_t
+  // Add test illustrating the problem by using size(repeated_field)<-bignum
 int32 GET_int32(SEXP x, int index) {
     switch (TYPEOF(x)) {
         case INTSXP:
@@ -292,7 +294,7 @@ void CHECK_values_for_enum(const GPB::FieldDescriptor* field_desc, SEXP value) {
         case REALSXP:
         case LGLSXP:
         case RAWSXP: {
-            int nenums = enum_desc->value_count();
+            int nenums = enum_desc->value_count();  // Guaranteed to be > 0.
             std::vector<int> possibles(nenums);
             for (int i = 0; i < nenums; i++) {
                 possibles[i] = enum_desc->value(i)->number();
@@ -528,8 +530,8 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
         break;                                                       \
     }
 
-        HANDLE_SINGLE_FIELD(CPPTYPE_DOUBLE, Double, double);
-        HANDLE_SINGLE_FIELD(CPPTYPE_FLOAT, Float, float);
+        HANDLE_SINGLE_FIELD(CPPTYPE_DOUBLE, Double, double)
+        HANDLE_SINGLE_FIELD(CPPTYPE_FLOAT, Float, float)
         case CPPTYPE_BOOL: {
             // TODO(mstokely): Rcpp should handle this!
             if ((TYPEOF(value) == LGLSXP) && (LOGICAL(value)[0] == NA_LOGICAL)) {
