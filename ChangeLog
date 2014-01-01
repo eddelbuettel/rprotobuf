@@ -13,8 +13,14 @@
 	* src/wrapper_Descriptor.cpp (rprotobuf): Remove unused variable,
 	  rename another variable for clarity, and add some TODOs.
 	* src/wrapper_FileDescriptor.cpp (rprotobuf): Idem.
-	* src/DescriptorPoolLookup.cpp (rprotobuf): Remove unreachable statement.
+	* src/DescriptorPoolLookup.cpp (rprotobuf): Remove unreachable
+	  statement.
 	* src/extensions.cpp: Remove unused header.
+	* src/mutators.cpp (rprotobuf): Update code to check for Long
+	  vectors and use the safer R_xlen_t type everywhere.  Protocol
+	  Buffers repeated fields seem to be limited to int size indices
+	  as with normal R vectors.
+	* src/rprotobuf.h: Idem
 
 2013-12-30  Murray Stokely  <mstokely@google.com>
 

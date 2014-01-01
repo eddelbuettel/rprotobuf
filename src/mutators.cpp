@@ -104,124 +104,122 @@ ValueType Int32FromString(const string& value) {
     return ret;
 }
 
-  // TODO(mstokely): not long vector clean. int index should be R_xlen_t
-  // Add test illustrating the problem by using size(repeated_field)<-bignum
-int32 GET_int32(SEXP x, int index) {
+int32 GET_int32(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((int32)INTEGER(x)[index]);
+            return ((int32)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((int32)REAL(x)[index]);
+            return ((int32)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((int32)LOGICAL(x)[index]);
+            return ((int32)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((int32)RAW(x)[index]);
+            return ((int32)RAW(x)[vec_index]);
         case STRSXP:
-            return Int32FromString<int32>(CHAR(STRING_ELT(x, index)));
+            return Int32FromString<int32>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to int32");
     }
     return (int32)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-int64 GET_int64(SEXP x, int index) {
+int64 GET_int64(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((int64)INTEGER(x)[index]);
+            return ((int64)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((int64)REAL(x)[index]);
+            return ((int64)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((int64)LOGICAL(x)[index]);
+            return ((int64)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((int64)RAW(x)[index]);
+            return ((int64)RAW(x)[vec_index]);
         case STRSXP:
-            return Int64FromString<int64>(CHAR(STRING_ELT(x, index)));
+            return Int64FromString<int64>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to int64");
     }
     return (int64)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-uint32 GET_uint32(SEXP x, int index) {
+uint32 GET_uint32(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((uint32)INTEGER(x)[index]);
+            return ((uint32)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((uint32)REAL(x)[index]);
+            return ((uint32)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((uint32)LOGICAL(x)[index]);
+            return ((uint32)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((uint32)RAW(x)[index]);
+            return ((uint32)RAW(x)[vec_index]);
         case STRSXP:
-            return Int32FromString<uint32>(CHAR(STRING_ELT(x, index)));
+            return Int32FromString<uint32>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to uint32");
     }
     return (uint32)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-uint64 GET_uint64(SEXP x, int index) {
+uint64 GET_uint64(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((uint64)INTEGER(x)[index]);
+            return ((uint64)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((uint64)REAL(x)[index]);
+            return ((uint64)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((uint64)LOGICAL(x)[index]);
+            return ((uint64)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((uint64)RAW(x)[index]);
+            return ((uint64)RAW(x)[vec_index]);
         case STRSXP:
-            return Int64FromString<uint64>(CHAR(STRING_ELT(x, index)));
+            return Int64FromString<uint64>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to uint64");
     }
     return (uint64)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-bool GET_bool(SEXP x, int index) {
+bool GET_bool(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            if (INTEGER(x)[index] == R_NaInt) {
+            if (INTEGER(x)[vec_index] == R_NaInt) {
                 Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
-            return ((bool)INTEGER(x)[index]);
+            return ((bool)INTEGER(x)[vec_index]);
         case REALSXP:
-            if (REAL(x)[index] == R_NaReal) {
+            if (REAL(x)[vec_index] == R_NaReal) {
                 Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
-            return ((bool)REAL(x)[index]);
+            return ((bool)REAL(x)[vec_index]);
         case LGLSXP:
-            if (LOGICAL(x)[index] == NA_LOGICAL) {
+            if (LOGICAL(x)[vec_index] == NA_LOGICAL) {
                 Rcpp::stop("NA boolean values can not be stored in bool protocol buffer fields");
             }
-            return ((bool)LOGICAL(x)[index]);
+            return ((bool)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((bool)RAW(x)[index]);
+            return ((bool)RAW(x)[vec_index]);
         default:
             Rcpp::stop("cannot cast SEXP to bool");
     }
     return (bool)0;  // Unreachable.  -Wall
 }
 
-std::string GET_stdstring(SEXP x, int index) {
+std::string GET_stdstring(SEXP x, R_xlen_t vec_index) {
     if (TYPEOF(x) == STRSXP) {
-        return (CHAR(STRING_ELT(x, index)));
+        return (CHAR(STRING_ELT(x, vec_index)));
     }
     return "";  // Unreachable.  -Wall
 }
 
-std::string GET_bytes(SEXP x, int index) {
+std::string GET_bytes(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case RAWSXP:
-            if (index == 0) {
+            if (vec_index == 0) {
                 return (std::string((const char*)RAW(x), (size_t)LENGTH(x)));
             } else {
                 Rcpp::stop("cannot cast SEXP to bytes");
             }
         case VECSXP:
-            if (TYPEOF(VECTOR_ELT(x, index)) == RAWSXP) {
-                return (std::string((const char*)RAW(VECTOR_ELT(x, index)),
-                                    (size_t)LENGTH(VECTOR_ELT(x, index))));
+            if (TYPEOF(VECTOR_ELT(x, vec_index)) == RAWSXP) {
+                return (std::string((const char*)RAW(VECTOR_ELT(x, vec_index)),
+                                    (size_t)LENGTH(VECTOR_ELT(x, vec_index))));
             } else {
                 Rcpp::stop("cannot cast SEXP to bytes");
             }
@@ -234,16 +232,15 @@ std::string GET_bytes(SEXP x, int index) {
 /**
  * indicates if this is a list of messages
  *
- * @param x a list (VECSXP)
+ * @param x a list (VECSXP), not a long vec
  * @return TRUE if all objects are instances of Message class
  */
 Rboolean allAreMessages(SEXP x) {
-
     if (TYPEOF(x) != VECSXP) return _FALSE_;
 
-    int n = LENGTH(x);
+    R_xlen_t n = LENGTH(x);     // Caller verifies its not a long vec
     SEXP current;
-    for (int i = 0; i < n; i++) {
+    for (R_xlen_t i = 0; i < n; i++) {
         current = VECTOR_ELT(x, i);
         /* not an S4 object */
         if (TYPEOF(current) != S4SXP) return _FALSE_;
@@ -261,12 +258,11 @@ Rboolean allAreMessages(SEXP x) {
  * @return TRUE if all objects are instances of RAWSXP
  */
 Rboolean allAreRaws(SEXP x) {
-
     if (TYPEOF(x) != VECSXP) return _FALSE_;
 
-    int n = LENGTH(x);
+    R_xlen_t n = LENGTH(x);
     SEXP current;
-    for (int i = 0; i < n; i++) {
+    for (R_xlen_t i = 0; i < n; i++) {
         current = VECTOR_ELT(x, i);
         /* not a RAWSXP */
         if (TYPEOF(current) != RAWSXP) return _FALSE_;
@@ -286,7 +282,7 @@ void CHECK_values_for_enum(const GPB::FieldDescriptor* field_desc, SEXP value) {
     BEGIN_RCPP
     const GPB::EnumDescriptor* enum_desc = field_desc->enum_type();
     // N.B. n undefined if TYPEOF(value) not a vector, but we catch that below.
-    int n = LENGTH(value);
+    R_xlen_t n = XLENGTH(value);
 
     switch (TYPEOF(value)) {
         // {{{ numbers
@@ -693,7 +689,8 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
  */
 
 void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
-                             const GPB::FieldDescriptor* field_desc, SEXP value, int value_size) {
+                             const GPB::FieldDescriptor* field_desc, SEXP value,
+                             R_xlen_t value_size) {
     // The number of elements already in the repeated field.
     int field_size = ref->FieldSize(*message, field_desc);
 
@@ -723,7 +720,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case RAWSXP:
                 case STRSXP:  // For int32, we support chars.
                 {
-                    int i = 0;
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedInt32(message, field_desc, i, GET_int32(value, i));
@@ -757,8 +754,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case RAWSXP:
                 case STRSXP:  // For int64, we support chars.
                 {
-                    int i = 0;
-
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedInt64(message, field_desc, i, GET_int64(value, i));
@@ -790,7 +786,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case RAWSXP:
                 case STRSXP:  // For int32, we support chars.
                 {
-                    int i = 0;
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedUInt32(message, field_desc, i, GET_uint32(value, i));
@@ -821,7 +817,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case RAWSXP:
                 case STRSXP:  // For int64, we support chars.
                 {
-                    int i = 0;
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedUInt64(message, field_desc, i, GET_uint64(value, i));
@@ -849,7 +845,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case REALSXP:
                 case LGLSXP:
                 case RAWSXP: {
-                    int i = 0;
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedDouble(message, field_desc, i, GET_double(value, i));
@@ -876,7 +872,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case REALSXP:
                 case LGLSXP:
                 case RAWSXP: {
-                    int i = 0;
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedFloat(message, field_desc, i, GET_float(value, i));
@@ -904,7 +900,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 case REALSXP:
                 case LGLSXP:
                 case RAWSXP: {
-                    int i = 0;
+                    R_xlen_t i = 0;
                     /* in any case, fill the values up to field_size */
                     for (; i < field_size; i++) {
                         ref->SetRepeatedBool(message, field_desc, i, GET_bool(value, i));
@@ -931,7 +927,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
             switch (TYPEOF(value)) {
                 case STRSXP: {
                     /* in any case, fill the values up to field_size */
-                    int i = 0;
+                    R_xlen_t i = 0;
                     for (; i < field_size; i++) {
                         ref->SetRepeatedString(message, field_desc, i,
                                                COPYSTRING(CHAR(STRING_ELT(value, i))));
@@ -948,7 +944,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                 }
                 case RAWSXP: {
                     /* in any case, fill the values up to field_size */
-                    int i = 0;
+                    R_xlen_t i = 0;
                     for (; i < field_size; i++) {
                         ref->SetRepeatedString(message, field_desc, i, GET_bytes(value, 0));
                     }
@@ -975,7 +971,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                     // has been tested above
                     if (LENGTH(value) > 0 && TYPEOF(VECTOR_ELT(value, 0)) == RAWSXP) {
                         /* in any case, fill the values up to field_size */
-                        int i = 0;
+                        R_xlen_t i = 0;
                         for (; i < field_size; i++) {
                             ref->SetRepeatedString(message, field_desc, i, GET_bytes(value, i));
                         }
@@ -993,7 +989,7 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
                         GPB::Message* __mess;
 
                         /* in any case, fill the values up to field_size */
-                        int i = 0;
+                        R_xlen_t i = 0;
                         for (; i < field_size; i++) {
                             __mess = GET_MESSAGE_POINTER_FROM_S4(VECTOR_ELT(value, i));
                             ref->SetRepeatedString(message, field_desc, i,
@@ -1154,7 +1150,17 @@ SEXP setMessageField(SEXP pointer, SEXP name, SEXP value) {
     // }}}
 
     // {{{ preliminary checks
-    int value_size = Rf_isVector(value) ? LENGTH(value) : 1;
+    R_xlen_t value_size = 1;
+    if (Rf_isVector(value)) {
+        if (IS_LONG_VEC(value)) {
+            // field_size is an int, so presumably it would generate
+            // a CHECK failure in protobuf code on 2^32 element anyway.
+            Rcpp_error("Long vectors not supported for repeated fields.");
+        } else {
+            value_size = LENGTH(value);
+        }
+    }
+
     // if the R type is RAWSXP and the cpp type is string or bytes,
     // then value_size is actually one because the raw vector
     // is converted to a string
