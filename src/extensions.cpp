@@ -1,4 +1,4 @@
-/*
+/* -*- indent-tabs-mode: nil; tab-width: 4; show-trailing-whitespace: t; c-indent-level: 4; c-basic-offset: 4; -*-
  * Copyright 2012 Google Inc. All Rights Reserved.
  * Author: Murray Stokely
  *

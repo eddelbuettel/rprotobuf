@@ -1,3 +1,4 @@
+// -*- indent-tabs-mode: nil; tab-width: 4; show-trailing-whitespace: t; c-indent-level: 4; c-basic-offset: 4; -*-
 // wrapper_EnumValueDescriptor.h: R/C++ interface class library
 //
 // Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
