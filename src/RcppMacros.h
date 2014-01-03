@@ -80,26 +80,6 @@ END_RCPP                                            \
 }                                                   \
 __OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2)
 
-#define RPB_FUNCTION_4(__OUT__,__NAME__, ___0, ___1, ___2, ___3)     \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3);             \
-extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3){        \
-SEXP res = R_NilValue ;                                              \
-BEGIN_RCPP                                                           \
-res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 )), ::Rcpp::internal::converter( x3 )) ) ;   \
-return res ;                                           \
-END_RCPP                                               \
-}                                                      \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3)
-
-#define RPB_FUNCTION_VOID_0(__NAME__)               \
-void RCPP_DECORATE(__NAME__)();                     \
-extern "C" SEXP __NAME__(){                         \
-BEGIN_RCPP                                          \
-RCPP_DECORATE(__NAME__)();                          \
-END_RCPP                                            \
-}                                                   \
-void RCPP_DECORATE(__NAME__)()
-
 #define RPB_FUNCTION_VOID_1(__NAME__, ___0)         \
 void RCPP_DECORATE(__NAME__)(___0);                 \
 extern "C" SEXP __NAME__(SEXP x0){                  \
