@@ -2,3 +2,4 @@ m4
 configure.in
 vignettes/Sweave.sty
 src/.dir-locals.el
+src/std.lnt

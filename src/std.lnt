@@ -1,0 +1,73 @@
+// Rcpp includes really long macro lines, so we need this.
++linebuf
++linebuf
++linebuf
++linebuf
+
+// Make at least two passes so that cross-functional checks can be made.
+-passes(2)
+
+// Output four text files with useful info
++program_info( output_prefix= )
+
+// R and Rcpp include paths.
+--i"/Library/Frameworks/R.framework/Resources/include"
+--i"/Library/Frameworks/R.framework/Versions/3.0/Resources/library/Rcpp/include"
+
+// Many RProtoBuf/Rcpp classes do not have/need a default 0 argument constructor.
+// This is discussed in:
+// Koenig, Andrew
+// Check List for Class Authors
+// The C++ Journal, 2:1 (1992 Nov 1), 42-46
+// Reprinted in "Ruminations on C++", Chapter 4
+-esym(1712,S4_Message)
+-esym(1712,S4_ArrayOutputStream)
+-esym(1712,S4_ArrayInputStream)
+-esym(1712,S4_MethodDescriptor)
+-esym(1712,RconnectionCopyingInputStream)
+-esym(1712,S4_Descriptor)
+-esym(1712,S4_FileDescriptor)
+-esym(1712,S4_FieldDescriptor)
+-esym(1712,S4_ServiceDescriptor)
+-esym(1712,S4_EnumDescriptor)
+-esym(1712,S4_EnumValueDescriptor)
+-esym(1712,ConnectionCopyingInputStream)
+-esym(1712,Int64AsStringRepeatedFieldImporter)
+-esym(1712,UInt64AsStringRepeatedFieldImporter)
+-esym(1712,UInt32RepeatedFieldImporter)
+-esym(1712,RepeatedFieldImporter)
+-esym(1712,ZeroCopyOutputStreamWrapper)
+-esym(1712,ZeroCopyInputStreamWrapper)
+
+// Turn off unused variable warnings for any identifier beginning with unused_
+// And const warnings as well.
+-esym(715, unused_*)
+-esym(818, unused_*)
+
+// Tell Flexelint about functions that never return.
+// http://www.gimpel.com/Discussion.cfm?ThreadID=4476
+-function(exit, Rcpp::stop)
+-function(exit, Rcpp_error)
+-function(exit, Rf_error)
+
+// 527 unreachable code, sometimes we return for the benefit of -Wall with
+// less sophisticated tools.
+-esym(527, return)
+
+// 725 expected positive indentation - BEGIN_RCPP expands to a block but we don't indent.
+// just turn off this message since we use clang-format to handle indentation.
+-e725
+
+// 27: illegal character, lets just ignore for anything in /usr/include
+// e.g. There are some dtrace probes in /usr/include/c++/4.2.1/bits/os_defines.h on MacOS X that include 
+
+-efile(27, "/usr/include/*")
+-esym(27, "__dtrace*")
+
+// 578: declaration of symbol 'index' hides symbol index from strings.h
+-esym(578, index)
+
+// Not interested in debugging at the moment, let the Rcpp maintainers deal.
+-emacro( (*), VOID_END_RCPP)
+-emacro( (*), END_RCPP)
+-emacro( (*), BEGIN_RCPP)
