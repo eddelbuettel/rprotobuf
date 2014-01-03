@@ -82,11 +82,11 @@ int GET_int(SEXP x, int index) {
 }
 
 template <typename ValueType>
-ValueType Int64FromString(const string& value) {
+ValueType Int64FromString(const std::string& value) {
     std::stringstream ss(value);
     ValueType ret;
     if ((ss >> ret).fail() || !(ss >> std::ws).eof()) {
-        string message =
+        std::string message =
             "Provided character value '" + value + "' cannot be cast to 64-bit integer.";
         Rcpp::stop(message.c_str());
     }
@@ -94,11 +94,11 @@ ValueType Int64FromString(const string& value) {
 }
 
 template <typename ValueType>
-ValueType Int32FromString(const string& value) {
+ValueType Int32FromString(const std::string& value) {
     std::stringstream ss(value);
     ValueType ret;
     if ((ss >> ret).fail() || !(ss >> std::ws).eof()) {
-        string message =
+        std::string message =
             "Provided character value '" + value + "' cannot be cast to 32-bit integer.";
         Rcpp::stop(message.c_str());
     }
@@ -1127,14 +1127,10 @@ void setRepeatedMessageField(GPB::Message* message, const Reflection* ref,
  */
 SEXP setMessageField(SEXP pointer, SEXP name, SEXP value) {
     BEGIN_RCPP
-    // {{{ grab data
-#ifdef RPB_DEBUG
-    Rprintf("<setMessageField>\n");
-
+    RPB_DEBUG_BEGIN("setMessageField")
     PRINT_DEBUG_INFO("pointer", pointer);
     PRINT_DEBUG_INFO("name", name);
     PRINT_DEBUG_INFO("value", value);
-#endif
 
     /* grab the Message pointer */
     GPB::Message* message = GET_MESSAGE_POINTER_FROM_XP(pointer);
@@ -1148,7 +1144,6 @@ SEXP setMessageField(SEXP pointer, SEXP name, SEXP value) {
         ref->ClearField(message, field_desc);
         return R_NilValue;
     }
-    // }}}
 
     // {{{ preliminary checks
     R_xlen_t value_size = 1;
@@ -1188,9 +1183,7 @@ SEXP setMessageField(SEXP pointer, SEXP name, SEXP value) {
     } else {
         setNonRepeatedMessageField(message, ref, field_desc, value, value_size);
     }
-#ifdef RPB_DEBUG
-    Rprintf("</setMessageField>\n");
-#endif
+    RPB_DEBUG_END("setMessageField")
     END_RCPP
 }
 
