@@ -38,8 +38,8 @@ SEXP Int64AsSEXP(ValueType value) {
         std::stringstream ss;
         if ((ss << value).fail()) {
             // This should not happen, its a bug in the code.
-            string message = string("Error converting int64 to string, unset ") +
-                             kIntStringOptionName + " option.";
+            std::string message = std::string("Error converting int64 to string, unset ") +
+                kIntStringOptionName + " option.";
             Rcpp::stop(message.c_str());
         }
         return Rcpp::CharacterVector(ss.str());
@@ -60,21 +60,16 @@ SEXP Int64AsSEXP(ValueType value) {
  */
 RcppExport SEXP getMessageField(SEXP pointer, SEXP name) {
 
-#ifdef RPB_DEBUG
-    Rprintf("<getMessageField>\n");
-
+    RPB_DEBUG_BEGIN("getMessageField")
     PRINT_DEBUG_INFO("pointer", pointer);
     PRINT_DEBUG_INFO("name", name);
-#endif
 
     /* grab the Message pointer */
     Rcpp::XPtr<GPB::Message> message(pointer);
 
     GPB::FieldDescriptor* field_desc = getFieldDescriptor(message, name);
 
-#ifdef RPB_DEBUG
-    Rprintf("</getMessageField>\n");
-#endif
+    RPB_DEBUG_END("getMessageField");
 
     return (extractFieldAsSEXP(message, field_desc));
 }
