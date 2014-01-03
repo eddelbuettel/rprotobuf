@@ -6,8 +6,8 @@
 namespace rprotobuf {
 
 GPB::Message* PROTOTYPE(const GPB::Descriptor* desc) {
+    RPB_DEBUG_BEGIN("PROTOTYPE")
 #ifdef RPB_DEBUG
-    Rprintf("<PROTOTYPE>\n");
     Rprintf("desc = %d\n", desc);
 #endif
     /* first try the runtime factory */
@@ -25,21 +25,16 @@ GPB::Message* PROTOTYPE(const GPB::Descriptor* desc) {
         Rprintf("runtime  factory = %d\n", m);
 #endif
     }
+    RPB_DEBUG_END("PROTOTYPE")
     return m;
 }
 
 GPB::Message* CLONE(const GPB::Message* origin) {
-#ifdef RPB_DEBUG
-    Rprintf("<CLONE>");
-#endif
-
+    RPB_DEBUG_BEGIN("CLONE")
     const GPB::Descriptor* desc = origin->GetDescriptor();
     GPB::Message* sheep = PROTOTYPE(desc);
     sheep->CopyFrom(*origin);
-
-#ifdef RPB_DEBUG
-    Rprintf("</CLONE>");
-#endif
+    RPB_DEBUG_END("CLONE")
     return sheep;
 }
 
@@ -127,8 +122,8 @@ RcppExport SEXP getExtensionDescriptor(SEXP type) {
  */
 SEXP newProtoMessage(SEXP descriptor) {
     BEGIN_RCPP
+    RPB_DEBUG_BEGIN("newProtoMessage")
 #ifdef RPB_DEBUG
-    Rprintf("<newProtoMessage>\n");
     /* FIXME: the message type, we don't really need that*/
     SEXP type = GET_SLOT(descriptor, Rf_install("type"));
 #endif
@@ -146,9 +141,7 @@ SEXP newProtoMessage(SEXP descriptor) {
     if (!message) {
         Rcpp_error("could not call factory->GetPrototype(desc)->New()");
     }
-#ifdef RPB_DEBUG
-    Rprintf("</newProtoMessage>\n");
-#endif
+    RPB_DEBUG_END("newProtoMessage")
 
     return (S4_Message(message));
     END_RCPP
@@ -206,19 +199,17 @@ RcppExport SEXP do_dollar_Descriptor(SEXP pointer, SEXP name) {
  * @return TRUE if m is a a message of the given type
  */
 Rboolean isMessage(SEXP m, const char* target) {
-#ifdef RPB_DEBUG
-    Rprintf("<isMessage>\n");
-#endif
+    RPB_DEBUG_BEGIN("isMessage")
 
     if (TYPEOF(m) != S4SXP || !Rf_inherits(m, "Message")) return _FALSE_;
 
     GPB::Message* message = (GPB::Message*)EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")));
 
     const char* type = message->GetDescriptor()->full_name().c_str();
+    RPB_DEBUG_END("isMessage")
     if (strcmp(type, target)) {
         return _FALSE_;
     }
-
     return _TRUE_;
 }
 

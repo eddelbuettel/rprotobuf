@@ -73,9 +73,13 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 // #define FIN_DBG(ptr, CLAZZ) Rprintf( "RProtoBuf finalizing %s (%p)\n", CLAZZ,
 // ptr )
 
+#ifdef RPB_DEBUG
 #define PRINT_DEBUG_INFO(name, o)                    \
     Rprintf("     %s [%d] =     ", name, TYPEOF(o)); \
     Rf_PrintValue(o);
+#else
+#define PRINT_DEBUG_INFO(name, o)
+#endif
 
 #define RPROTOBUF_LOOKUP 24
 // #define LOOKUP_DEBUG
