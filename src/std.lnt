@@ -4,6 +4,15 @@
 +linebuf
 +linebuf
 
+// Verbose option, to see all the include files and which are treated as Library or not.
+// -vf
+
+// error messages only in library headers
+-wlib(1)
+// But not illegal character warnings.
+// Some MacOS X dtrace$ identifiers cause lots of illegal char errors.
+-elib(27)  // Error 27: Illegal character
+
 // Make at least two passes so that cross-functional checks can be made.
 -passes(2)
 
@@ -67,7 +76,13 @@
 // 578: declaration of symbol 'index' hides symbol index from strings.h
 -esym(578, index)
 
-// Not interested in debugging at the moment, let the Rcpp maintainers deal.
--emacro( (*), VOID_END_RCPP)
--emacro( (*), END_RCPP)
--emacro( (*), BEGIN_RCPP)
+// END_RCPP __ex__ reference parameter is not const, but maybe should be
+-elibmacro( 1764 )
+
+// These don't work, because they are in library headers e.g. need -elibmacro
+// -emacro( (*), VOID_END_RCPP)
+// -emacro( (*), END_RCPP)
+//-emacro( (*), BEGIN_RCPP)
+
+// Print a summary at the end.
+-summary
