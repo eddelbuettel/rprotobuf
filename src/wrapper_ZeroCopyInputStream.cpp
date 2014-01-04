@@ -4,6 +4,7 @@
 namespace rprotobuf {
 
 SEXP ZeroCopyInputStream_Next(SEXP xp) {
+    BEGIN_RCPP
     GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
     int s = 0;
     const void* in;
@@ -15,9 +16,11 @@ SEXP ZeroCopyInputStream_Next(SEXP xp) {
         result.assign(reinterpret_cast<const Rbyte*>(in), reinterpret_cast<const Rbyte*>(in) + s);
     }
     return result;
+    END_RCPP
 }
 
 SEXP ZeroCopyInputStream_BackUp(SEXP xp, SEXP size) {
+    BEGIN_RCPP
     GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
     int s = GET_int(size, 0);
     if (s <= 0) {
@@ -25,17 +28,22 @@ SEXP ZeroCopyInputStream_BackUp(SEXP xp, SEXP size) {
     }
     stream->BackUp(s);
     return R_NilValue;
+    END_RCPP
 }
 
 SEXP ZeroCopyInputStream_Skip(SEXP xp, SEXP size) {
+    BEGIN_RCPP
     GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
     int s = GET_int(size, 0);
     bool res = stream->Skip(s);
     return (Rf_ScalarLogical(res ? _TRUE_ : _FALSE_));
+    END_RCPP
 }
 
 SEXP ZeroCopyInputStream_ByteCount(SEXP xp) {
+    BEGIN_RCPP
     GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
     return (Rf_ScalarReal((double)stream->ByteCount()));
+    END_RCPP
 }
 }
