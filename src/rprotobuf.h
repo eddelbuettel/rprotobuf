@@ -21,11 +21,17 @@
 #ifndef RPROTOBUF_H
 #define RPROTOBUF_H
 
-#include <unistd.h>  // g++-4.7 wants this
-/* should we check this is available */
+// TODO(mstokely): should we check if this header is available?
 #include <fcntl.h>
-/* FIXME: need to include some header file instead of this define */
+#include <string.h>  // for strerror
+#include <unistd.h>  // g++-4.7 wants this
+#include <string>    // for string
+// O_BINARY does not exist on Unix/Linux, since there is no distinction
+// between text mode and binary mode files there, but if we ever got
+// this code running on Windows this would be needed.
+#ifndef O_BINARY
 #define O_BINARY 0
+#endif
 
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/compiler/importer.h>
