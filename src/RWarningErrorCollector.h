@@ -1,3 +1,5 @@
+#include <string>               /* For string */
+
 #include "rprotobuf.h"
 
 namespace rprotobuf {

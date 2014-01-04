@@ -20,6 +20,9 @@
 #ifndef RPROTOBUF__RCPPSUPPORT__H
 #define RPROTOBUF__RCPPSUPPORT__H
 
+#include <ostream>              /* for stringstream, basic_ostream */
+#include <string>               /* for string */
+
 #include "rprotobuf.h"
 
 namespace rprotobuf {

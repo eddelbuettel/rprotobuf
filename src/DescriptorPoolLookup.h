@@ -1,6 +1,9 @@
 #ifndef RPROTOBUF_DescriptorPoolLookup_H
 #define RPROTOBUF_DescriptorPoolLookup_H
 
+#include <set>                  /* For set */
+#include <string>               /* For string */
+
 #include "RSourceTree.h"
 #include "RWarningErrorCollector.h"
 
