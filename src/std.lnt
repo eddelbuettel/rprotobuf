@@ -76,8 +76,43 @@
 // 578: declaration of symbol 'index' hides symbol index from strings.h
 -esym(578, index)
 
+// 1790: Base class 'Rcpp::S4' has no non-destructor virtual functions - seems fine?
+// Sutter, Herb, Exceptional C++, Item 22
+-esym(1790, Rcpp::S4)
+
 // END_RCPP __ex__ reference parameter is not const, but maybe should be
 -elibmacro( 1764 )
+
+// O_BINARY is just set to 0 since it doesn't exist on Unix, which causes warnings.
+-esym(835, |)
+
+// 765: external symbol could be made static. (R code calls these entry points.)
+-esym(765, FileDescriptor__*)
+-esym(765, FieldDescriptor__*)
+-esym(765, Descriptor__*)
+-esym(765, Message__*)
+-esym(765, EnumDescriptor__*)
+-esym(765, EnumValueDescriptor__*)
+-esym(765, do_dollar_Descriptor)
+-esym(765, getMessageField)
+-esym(765, setMessageField)
+-esym(765, getExtensionDescriptor)
+// 00classes.R
+-esym(765, update_message)
+-esym(765, newProtoMessage)
+// 714: not referenced (by C++, but it is in a .Call line in R code)
+-esym(714, FileDescriptor__*)
+-esym(714, FieldDescriptor__*)
+-esym(714, Descriptor__*)
+-esym(714, Message__*)
+-esym(714, EnumDescriptor__*)
+-esym(714, EnumValueDescriptor__*)
+-esym(714, do_dollar_Descriptor)
+-esym(714, getMessageField)
+-esym(714, setMessageField)
+-esym(714, getExtensionDescriptor)
+-esym(714, update_message)
+-esym(714, newProtoMessage)
 
 // These don't work, because they are in library headers e.g. need -elibmacro
 // -emacro( (*), VOID_END_RCPP)
