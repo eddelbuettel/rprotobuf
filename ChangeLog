@@ -1,3 +1,8 @@
+2014-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src: Deprecate files SocketCopyingInputStream.{cpp,h}, sisocks.h as
+	the current RProtoBuf design does not provide networking capabilities
+
 2013-12-31  Murray Stokely  <mstokely@google.com>
 
 	* src/wrapper_Message.cpp: Fix type coercion bug in add() method
