@@ -1,0 +1,41 @@
+package rexp;
+
+message REXP {
+  enum RClass {
+    STRING = 0;
+    RAW = 1;
+    REAL = 2;
+    COMPLEX = 3;
+    INTEGER = 4;
+    LIST = 5;
+    LOGICAL = 6;
+    NULLTYPE = 7;
+  }
+  enum RBOOLEAN {
+    F=0;
+    T=1;
+    NA=2;
+  }
+
+  required RClass rclass = 1 ; 
+  repeated double realValue = 2 [packed=true];
+  repeated sint32 intValue = 3 [packed=true];
+  repeated RBOOLEAN booleanValue = 4;
+  repeated STRING stringValue = 5;
+
+  optional bytes rawValue = 6;
+  repeated CMPLX complexValue = 7;
+  repeated REXP rexpValue = 8;
+
+  repeated string attrName = 11;
+  repeated REXP attrValue = 12;
+}
+message STRING {
+  optional string strval = 1;
+  optional bool isNA = 2 [default=false];
+}
+message CMPLX {
+  optional double real = 1 [default=0];
+  required double imag = 2;
+}
+

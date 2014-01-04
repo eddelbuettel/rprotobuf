@@ -105,4 +105,7 @@ exportPattern( "^TYPE_" )
 exportPattern( "^CPPTYPE_" )
 exportPattern( "^LABEL_" )
 
+# copied from RProtoBufUtils
+export( "serialize_pb", "unserialize_pb", "can_serialize_pb" )
+
 # export( run_unit_tests )
