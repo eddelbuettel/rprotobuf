@@ -12,5 +12,5 @@ rm rexp.proto
 python readmsg.py
 
 #cleanup tmp files
-rm rexp_pb2.py
+rm rexp_pb2.py rexp_pb2.pyc
 rm *.msg
