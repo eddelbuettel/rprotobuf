@@ -22,6 +22,9 @@
 
 namespace rprotobuf {
 
+class ZeroCopyInputStreamWrapper;
+class ZeroCopyOutputStreamWrapper;
+
 class S4_EnumValueDescriptor : public Rcpp::S4 {
    public:
     S4_EnumValueDescriptor(const GPB::EnumValueDescriptor* d) : S4("EnumValueDescriptor") {
@@ -192,7 +195,7 @@ class S4_ArrayInputStream : public Rcpp::S4 {
     S4_ArrayInputStream(Rcpp::RawVector payload, int block_size) : S4("ArrayInputStream") {
         GPB::io::ArrayInputStream* stream =
             new GPB::io::ArrayInputStream(payload.begin(), payload.size(), block_size);
-        Rcpp::XPtr<rprotobuf::ZeroCopyInputStreamWrapper> wrapper(
+        Rcpp::XPtr<ZeroCopyInputStreamWrapper> wrapper(
             new ZeroCopyInputStreamWrapper(stream), true, R_NilValue, payload);
         slot("pointer") = wrapper;
     }
