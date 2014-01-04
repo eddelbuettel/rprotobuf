@@ -213,7 +213,7 @@ Rboolean isMessage(SEXP m, const char* target) {
     return _TRUE_;
 }
 
-GPB::FieldDescriptor* getFieldDescriptor(GPB::Message* message, SEXP name) {
+RcppExport GPB::FieldDescriptor* getFieldDescriptor(const GPB::Message* message, SEXP name) {
     GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
     BEGIN_RCPP
     const GPB::Descriptor* desc = message->GetDescriptor();

@@ -75,7 +75,7 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
 #endif
 
-#define FIN_DBG(ptr, CLAZZ)
+// #define FIN_DBG(ptr, CLAZZ)
 // #define FIN_DBG(ptr, CLAZZ) Rprintf( "RProtoBuf finalizing %s (%p)\n", CLAZZ,
 // ptr )
 
@@ -111,8 +111,6 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_S4(m) \
     (GPB::EnumValueDescriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
 
-#define GET_METHOD(xp) (GPB::MethodDescriptor*) EXTPTR_PTR(xp)
-
 #define COPYSTRING(s) s
 #define THROW_SOCKET_ERROR(message) Rf_error("%s : %s", message, strerror(sockerrno))
 
@@ -138,7 +136,7 @@ RcppExport SEXP getProtobufDescriptor(SEXP);
 RcppExport SEXP getExtensionDescriptor(SEXP);
 RcppExport SEXP readProtoFiles(SEXP, SEXP);
 RcppExport Rboolean isMessage(SEXP, const char*);
-RcppExport GPB::FieldDescriptor* getFieldDescriptor(GPB::Message*, SEXP);
+RcppExport GPB::FieldDescriptor* getFieldDescriptor(const GPB::Message*, SEXP);
 
 /* in extractors.cpp */
 RcppExport SEXP getMessageField(SEXP, SEXP);
