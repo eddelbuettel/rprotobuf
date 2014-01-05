@@ -5,12 +5,30 @@ setGeneric( "ReadRaw", function(object, size ){
 setMethod( "ReadRaw", c( object="ZeroCopyInputStream", size = "integer" ), function(object, size){
 	.Call( "ZeroCopyInputStream_ReadRaw", object@pointer, size, PACKAGE = "RProtoBuf" )
 } )
+setMethod("ReadRaw", c( object="ZeroCopyInputStream", size = "numeric" ),
+          function(object, size) {
+        if (size %% 1 == 0) {
+                .Call( "ZeroCopyInputStream_ReadRaw", object@pointer, as.integer(size),
+                      PACKAGE = "RProtoBuf" )
+        } else {
+                stop("Size must be a whole number.")
+        }
+} )
 
 setGeneric( "ReadString", function(object, size ){
 	standardGeneric( "ReadString" )
 } )
 setMethod( "ReadString", c( object="ZeroCopyInputStream", size = "integer" ), function(object, size){
 	.Call( "ZeroCopyInputStream_ReadString", object@pointer, size, PACKAGE = "RProtoBuf" )
+} )
+setMethod("ReadString", c( object="ZeroCopyInputStream", size = "numeric" ),
+          function(object, size) {
+        if (size %% 1 == 0) {
+                .Call("ZeroCopyInputStream_ReadString", object@pointer, as.integer(size),
+                      PACKAGE = "RProtoBuf" )
+        } else {
+                stop("Size must be a whole number.")
+        }
 } )
 
 setGeneric( "ReadVarint32", function(object){
@@ -40,4 +58,3 @@ setGeneric( "ReadVarint64", function(object){
 setMethod( "ReadVarint64", c( object="ZeroCopyInputStream"), function(object){
 	.Call( "ZeroCopyInputStream_ReadVarint64", object@pointer, PACKAGE = "RProtoBuf" )
 } )
-

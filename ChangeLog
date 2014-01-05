@@ -1,5 +1,10 @@
 2014-01-04  Murray Stokely  <mstokely@google.com>
 
+	* R/wrapper_CodedInputStream.R: Accept numeric size arguments for
+	  ReadRaw and ReadString to make this more user friendly for
+	  interactive use by calling as.integer() as needed.
+	* R/00classes.R (P): Add missing object prameters in
+	  ZeroCopyInputStream calls to ReadRaw and ReadString.
 	* inst/unitTests/data/encoding.proto: Add example messages used in
 	  the encoding documentation.
 	* inst/unitTests/runit.serialize.R (test.encoding): Add tests

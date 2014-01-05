@@ -344,8 +344,8 @@ setMethod( "$", "ZeroCopyInputStream", function(x, name ){
 		"BackUp" = function(...) BackUp(x, ...),
 
 		# CodedInputStream related
-		"ReadRaw" = function(...) ReadRaw(...),
-		"ReadString" = function(...) ReadString(...),
+		"ReadRaw" = function(...) ReadRaw(x, ...),
+		"ReadString" = function(...) ReadString(x, ...),
 		"ReadVarint32"= function() ReadVarint32(x),
 		"ReadVarint64" = function() ReadVarint64(x),
 		"ReadLittleEndian32" = function() ReadLittleEndian32(x),
