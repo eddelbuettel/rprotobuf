@@ -13,6 +13,7 @@
 	* src/wrapper_ZeroCopyInputStream.cpp (rprotobuf): Add
 	  BEGIN/END_RCPP macros to gracefully catch exceptions and return
 	  them as R language errors.
+	* src/streams.cpp (rprotobuf): Idem.
 
 2014-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
