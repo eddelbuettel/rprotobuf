@@ -1,3 +1,4 @@
+# -*- indent-tabs-mode: nil; tab-width: 4; show-trailing-whitespace: t; c-indent-level: 4; c-basic-offset: 4; -*-
 # Copyright 2012 Google Inc. All Rights Reserved.
 # Author: Murray Stokely
 #
@@ -15,7 +16,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 # this is executed before each test function
 .setUp <- function(){
 	if( !exists("tutorial.Person", "RProtoBuf:DescriptorPool") ) {
@@ -23,6 +23,37 @@
                                                   package = "RProtoBuf" )
 		readProtoFiles(file = unitest.proto.file)
 	}
+}
+
+test.encoding <- function() {
+        if (!exists("protobuf_encoding_test.Test1",
+                    "RProtoBuf:DescriptorPool")) {
+          unittest.proto.file <- system.file("unitTests", "data",
+                                             "encoding.proto",
+                                             package="RProtoBuf")
+          readProtoFiles(file=unittest.proto.file)
+        }
+
+        # Encoding examples from:
+        # https://developers.google.com/protocol-buffers/docs/encoding
+        test1 <- new(protobuf_encoding_test.Test1)
+        test1$a <- 150
+        checkIdentical(test1$serialize(NULL), as.raw(c(0x08,0x96,0x01)))
+
+        test2 <- new(protobuf_encoding_test.Test2)
+        test2$b <- "testing"
+        checkIdentical(test2$serialize(NULL),
+                       as.raw(c(0x12, 0x07, 0x74, 0x65, 0x73, 0x74, 0x69, 0x6e, 0x67)))
+
+        test3 <- new(protobuf_encoding_test.Test3)
+        test3$c$a <- 150
+        checkIdentical(test3$serialize(NULL),
+                       as.raw(c(0x1a, 0x03, 0x08, 0x96, 0x01)))
+
+        test4 <- new(protobuf_encoding_test.Test4)
+        test4$d <- c(3, 270, 86942)
+        checkIdentical(test4$serialize(NULL),
+                       as.raw(c(0x22, 0x06, 0x03, 0x8e, 0x02, 0x9e, 0xa7, 0x05)))
 }
 
 test.serialize <- function() {

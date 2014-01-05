@@ -1,5 +1,10 @@
 2014-01-04  Murray Stokely  <mstokely@google.com>
 
+	* inst/unitTests/data/encoding.proto: Add example messages used in
+	  the encoding documentation.
+	* inst/unitTests/runit.serialize.R (test.encoding): Add tests
+	  verifying the exact byte serialization as described in the
+	  encoding documentation.
 	* src/wrapper_ZeroCopyInputStream.cpp (rprotobuf): Add
 	  BEGIN/END_RCPP macros to gracefully catch exceptions and return
 	  them as R language errors.
