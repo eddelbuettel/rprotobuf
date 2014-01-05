@@ -10,10 +10,13 @@
 	* inst/unitTests/runit.serialize.R (test.encoding): Add tests
 	  verifying the exact byte serialization as described in the
 	  encoding documentation.
+	  (test.arrayinputstream): Add new test of ArrayInputStreams.
 	* src/wrapper_ZeroCopyInputStream.cpp (rprotobuf): Add
 	  BEGIN/END_RCPP macros to gracefully catch exceptions and return
 	  them as R language errors.
 	* src/streams.cpp (rprotobuf): Idem.
+	* man/ArrayInputStream-class.Rd: Add some examples of using
+	  ArrayInputStream.
 
 2014-01-04  Dirk Eddelbuettel  <edd@debian.org>
 

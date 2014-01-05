@@ -25,6 +25,19 @@
 	}
 }
 
+test.arrayinputstream <- function() {
+    # Note: This class is experimental, and some parts of the design
+    # may need to change, but this works now.
+    stream <- ArrayInputStream(as.raw(0:10))
+    checkEquals(stream$ReadRaw(5), as.raw(0:4))
+
+    stringstream <- ArrayInputStream(as.raw(c(0x74, 0x65, 0x73, 0x74, 0x69, 0x6e, 0x67)))
+    checkEquals(stringstream$ReadString(as.integer(7)), "testing")
+
+    intstream <- ArrayInputStream(as.raw(c(0x9e, 0xa7, 0x05)))
+    checkEquals(intstream$ReadVarint32(), 86942)
+}
+
 test.encoding <- function() {
         if (!exists("protobuf_encoding_test.Test1",
                     "RProtoBuf:DescriptorPool")) {
