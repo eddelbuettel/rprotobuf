@@ -173,18 +173,31 @@ RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromRawVector), Rcpp::XPtr<GPB::Des
     return (S4_Message(message));
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc,
-               std::string input) {
+RPB_FUNCTION_3(S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descriptor> desc,
+               std::string input, bool partial) {
     GPB::Message* message = PROTOTYPE(desc);
-    if (GPB::TextFormat::ParseFromString(input, message)) {
-        return (S4_Message(message));
+    if (partial) {
+        // Allow partial messages where object is not fully initialized
+        GPB::TextFormat::Parser parser;
+        parser.AllowPartialMessage(partial);
+        if (parser.ParseFromString(input, message)) {
+            return (S4_Message(message));
+        } else {
+            throw std::range_error("Could not parse ASCII protocol buffer from text string."
+                                   " Consider setting partial=TRUE");
+        }
     } else {
-        throw std::range_error("Could not parse ASCII protocol buffer from text string.");
+        // Default parser requires fully initialized ascii messages.
+        if (GPB::TextFormat::ParseFromString(input, message)) {
+            return (S4_Message(message));
+        } else {
+            throw std::range_error("Could not parse ASCII protocol buffer from text string.");
+        }
     }
 }
 
 RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc,
-               int conn_id) {
+               int conn_id, bool partial) {
     RconnectionCopyingInputStream wrapper(conn_id);
     GPB::io::CopyingInputStreamAdaptor stream(&wrapper);
 
@@ -193,14 +206,23 @@ RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Desc
     if (!message) {
         throw std::range_error("could not call factory->GetPrototype(desc)->New()");
     }
-    if (!GPB::TextFormat::Parse(&stream, message)) {
-        throw std::range_error("Could not parse ASCII protocol buffer.");
-    } else {
-        if (wrapper.Failure()) {
-            throw std::range_error("Could not read ASCII protocol buffer.");
+    if (partial) {
+        // Allow partial messages where object is not fully initialized
+        GPB::TextFormat::Parser parser;
+        parser.AllowPartialMessage(partial);
+        if (!parser.Parse(&stream, message)) {
+            throw std::range_error("Could not parse ASCII protocol buffer.");
         }
-        return (S4_Message(message));
+    } else {
+        // Default parser requires fully initialized ascii messages.
+        if (!GPB::TextFormat::Parse(&stream, message)) {
+            throw std::range_error("Could not parse ASCII protocol buffer.");
+        }
     }
+    if (wrapper.Failure()) {
+        throw std::range_error("Could not read ASCII protocol buffer.");
+    }
+    return (S4_Message(message));
 }
 
 #undef METHOD

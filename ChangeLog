@@ -1,3 +1,10 @@
+2014-01-09  Murray Stokely  <mstokely@google.com>
+
+	* R/read.R: Add a logical argument 'partial' to readASCII that
+	  accepts uninitialized message fragments.
+	* src/wrapper_Descriptor.cpp (rprotobuf): Idem
+	* inst/unitTests/runit.addressbook.R (test.ascii): Add tests for above.
+
 2014-01-04  Murray Stokely  <mstokely@google.com>
 
 	* R/wrapper_CodedInputStream.R: Accept numeric size arguments for

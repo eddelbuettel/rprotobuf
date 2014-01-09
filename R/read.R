@@ -29,24 +29,28 @@ function( descriptor, input ){
 
 
 
-setGeneric( "readASCII", function( descriptor, input ){
+setGeneric( "readASCII", function( descriptor, input, partial=FALSE ){
 	standardGeneric( "readASCII" )
 } )
 
 setMethod( "readASCII", c( descriptor = "Descriptor" , input = "character" ),
-function(descriptor, input ){
-	.Call( "Descriptor__readASCIIFromString", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
+function(descriptor, input, partial=FALSE){
+        stopifnot(is.logical(partial), length(partial) == 1)
+	.Call( "Descriptor__readASCIIFromString", descriptor@pointer, input,
+              partial, PACKAGE = "RProtoBuf" )
 } )
 
 setMethod( "readASCII", c( descriptor = "Descriptor" ),
-function( descriptor, input ){
+function( descriptor, input, partial=FALSE){
+        stopifnot(is.logical(partial), length(partial) == 1)
 	if( !inherits( input, "connection" ) ){
 		stop( "can only read from connections" )
 	}
 	wasopen <- identical( summary(input)[["opened"]], "opened" )
 	if( !wasopen ) open( input, "rb" )
         stopifnot(summary(input)[["text"]] == "binary")
-	message <- .Call( "Descriptor__readASCIIFromConnection", descriptor@pointer, input, PACKAGE = "RProtoBuf" )
+	message <- .Call( "Descriptor__readASCIIFromConnection", descriptor@pointer, input,
+                         partial, PACKAGE = "RProtoBuf" )
 	if( !wasopen ) close( input )
 	message
 } )

@@ -203,7 +203,7 @@ setMethod("$", "Descriptor", function(x, name) {
 	switch( name,
 		"new" = function( ... ) newProto( x, ... ) ,
 		"read" = function( input ) read( x, input ) ,
-		"readASCII" = function( input ) readASCII( x, input ),
+		"readASCII" = function(input, ...) readASCII(x, input, ...),
 		"toString" = function(...) toString(x, ...) ,
 		"as.character" = function(...) as.character(x, ...) ,
 		"as.list" = function(...) as.list(x, ...) ,

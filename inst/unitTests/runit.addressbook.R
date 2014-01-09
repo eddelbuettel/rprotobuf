@@ -66,4 +66,16 @@ test.ascii <- function() {
     # Verify that we get an exception if we forget the file() and thus treat the
     # path as a protobuf string.
     checkException( readASCII( tutorial.AddressBook, out.file2))
+
+    incomplete.msg <- new(tutorial.Person, name="Murray", email="murray@stokely.org")
+    tmp.file <- tempfile()
+    writeLines(as.character(incomplete.msg), file(tmp.file))
+
+    checkTrue(!incomplete.msg$isInitialized())
+    # Verify we normally get an exception if we try to read an incomplete ASCII protocol buffer
+    checkException( tutorial.Person$readASCII(file(tmp.file)))
+
+    # Verify we can however read it if we set partial=TRUE.
+    new.msg <- tutorial.Person$readASCII(file(tmp.file), TRUE)
+    checkEquals(incomplete.msg$name, new.msg$name)
 }
