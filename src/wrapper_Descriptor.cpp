@@ -196,7 +196,7 @@ RPB_FUNCTION_3(S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descript
     }
 }
 
-RPB_FUNCTION_2(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc,
+RPB_FUNCTION_3(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Descriptor> desc,
                int conn_id, bool partial) {
     RconnectionCopyingInputStream wrapper(conn_id);
     GPB::io::CopyingInputStreamAdaptor stream(&wrapper);
