@@ -1,7 +1,13 @@
 # -*- mode: Makefile -*-
 ##
 ## The folders C:/protobuf-2.5.0/lib/{i386,x64}/ contain static libraries for windows.
-RCPP_LDFLAGS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
-PROTOBUFROOT= "C:/protobuf-2.5.0"
+## There is a problem with mingw64 and libprotobuf that results in ld reading symbols multiple times
+## We can workaround it using "-Wl,-allow-multiple-definition".
+## See also https://sourceware.org/bugzilla/show_bug.cgi?id=12762
+##
+MINGW64HACK= "-Wl,-allow-multiple-definition"
+RCPP_LDFLAGS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()") $(MINGW64HACK)
+PROTOBUFROOT= "../protobuf-2.5.0"
 PKG_CPPFLAGS= -I$(PROTOBUFROOT)/src
 PKG_LIBS=$(RCPP_LDFLAGS) -L$(PROTOBUFROOT)/lib${R_ARCH} -lprotobuf
+
