@@ -17,4 +17,3 @@ SystemRequirements: Protocol Buffer compiler (to create C++ header and source fi
 License: GPL-2
 URL: http://r-forge.r-project.org/projects/rprotobuf/, http://romainfrancois.blog.free.fr/index.php?category/R-package/RProtoBuf, http://dirk.eddelbuettel.com/blog/code/rprotobuf/
 BugReports: http://r-forge.r-project.org/tracker/index.php?group_id=576&atid=2338
-OS_type: unix
