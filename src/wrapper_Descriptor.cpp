@@ -183,15 +183,15 @@ RPB_FUNCTION_3(S4_Message, METHOD(readASCIIFromString), Rcpp::XPtr<GPB::Descript
         if (parser.ParseFromString(input, message)) {
             return (S4_Message(message));
         } else {
-            throw std::range_error("Could not parse ASCII protocol buffer from text string."
-                                   " Consider setting partial=TRUE");
+            throw std::range_error("Could not parse ASCII protocol buffer from text string.");
         }
     } else {
         // Default parser requires fully initialized ascii messages.
         if (GPB::TextFormat::ParseFromString(input, message)) {
             return (S4_Message(message));
         } else {
-            throw std::range_error("Could not parse ASCII protocol buffer from text string.");
+            throw std::range_error("Could not parse ASCII protocol buffer from text string."
+                                   " Consider setting partial=TRUE");
         }
     }
 }
