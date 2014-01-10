@@ -1,0 +1,7 @@
+# -*- mode: Makefile -*-
+##
+## The folders C:/protobuf-2.5.0/lib/{i386,x64}/ contain static libraries for windows.
+RCPP_LDFLAGS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
+PROTOBUFROOT= "C:/protobuf-2.5.0"
+PKG_CPPFLAGS= -I$(PROTOBUFROOT)/src
+PKG_LIBS=$(RCPP_LDFLAGS) -L$(PROTOBUFROOT)/lib${R_ARCH} -lprotobuf
