@@ -10,5 +10,5 @@ libraries for windows.
 ## MINGW64HACK= "-Wl,-allow-multiple-definition"
 RCPP_LDFLAGS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 PROTOBUFROOT= "../protobuf-2.5.0"
-PKG_CPPFLAGS= -I$(PROTOBUFROOT)/src
+PKG_CPPFLAGS= -I$(PROTOBUFROOT)/include
 PKG_LIBS=$(RCPP_LDFLAGS) -L$(PROTOBUFROOT)/lib${R_ARCH} -lprotobuf
