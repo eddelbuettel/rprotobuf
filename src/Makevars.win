@@ -1,14 +1,15 @@
 # -*- mode: Makefile -*-
 ##
-## The folders ../protobuf-2.5.0/lib/{i386,x64}/ contain static
-libraries for windows.
-## mingw64-4.8.1 has an issue that results in ld reading symbols multiple times.
-## A workaround is to add "-Wl,-allow-multiple-definition" to RCPP_LDFLAGS.
+## The folders ../protobuf-2.5.0/lib/{i386,x64}/ contain static libraries
+## for windows. Note that mingw64-4.8.1 has an issue that results in ld
+## reading symbols multiple times. As a workaround, we can add a flag
+## "-Wl,-allow-multiple-definition" to RCPP_LDFLAGS.
 ## See also https://sourceware.org/bugzilla/show_bug.cgi?id=12762
-## However the problem did not appear for mingw 4.7.3.
+## However the problem did not appear for mingw 4.7.3. So that's what we
+## ended up using.
 ##
 ## MINGW64HACK= "-Wl,-allow-multiple-definition"
-RCPP_LDFLAGS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
+RCPP_LDFLAGS= $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 PROTOBUFROOT= "../protobuf-2.5.0"
 PKG_CPPFLAGS= -I$(PROTOBUFROOT)/include
 PKG_LIBS=$(RCPP_LDFLAGS) -L$(PROTOBUFROOT)/lib${R_ARCH} -lprotobuf
