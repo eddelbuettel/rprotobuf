@@ -1,7 +1,7 @@
 # -*- mode: Makefile -*-
 ##
 ## On the CRAN windows builder, the heades and library are installed in
-## a directory ${LIB_PROTOBUF}. On other machines, the configure.win file
+## a directory ${LIB_PROTOBUF}. On other machines, the configure.win.readme
 ## contains instructions for getting these files.
 ##
 ## Note that mingw64 4.8.1 had an issue that results in ld reading 

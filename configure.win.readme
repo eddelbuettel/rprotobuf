@@ -1,0 +1,7 @@
+# Rename this file to configure.win to build on machines where the 
+# headers/lib are not installed on the machine already. Make sure to
+# use R CMD INSTALL --force-biarch 
+#
+"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e '
+download.file("http://r-forge.r-project.org/scm/viewvc.php/*checkout*/windows/protobuf-2.5.0-windows.zip?root=rprotobuf", "lib.zip");
+unzip("lib.zip");'
