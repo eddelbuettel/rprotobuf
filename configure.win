@@ -1,5 +1,7 @@
-# This is a temporary solution for when the headers/lib are not avaialble on the machine
-"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e '
-download.file("http://www.stat.ucla.edu/~jeroen/files/protobuf-2.5.0-windows.zip", "lib.zip");
-unzip("lib.zip");
-'
+# Uncomment this to build on machines where the headers/lib are not installed
+# on the machine already. 
+#
+#
+# "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e '
+# download.file("http://www.stat.ucla.edu/~jeroen/files/protobuf-2.5.0-windows.zip", "lib.zip");
+# unzip("lib.zip");'
