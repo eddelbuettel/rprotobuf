@@ -2054,23 +2054,40 @@ if (!exists("protobuf_unittest.TestAllTypes",
 If we try to set an int64 field in R to double values, we lose
 precision:
 
-<<>>=
-if (.Machine$sizeof.longlong >= 8) {
-  test <- new(protobuf_unittest.TestAllTypes)
-  test$repeated_int64 <- c(2^53, 2^53+1)
-  length(unique(test$repeated_int64))
-}
-@
+% We comment out the raw Sweave here because it doesn't work on 32-bit
+% platforms but it is important to illustrate what the user is missing
+% out on so we hard code the output from a platform with 64-bit long
+% long type.
+%
+% <<>>=
+%  test <- new(protobuf_unittest.TestAllTypes)
+%  test$repeated_int64 <- c(2^53, 2^53+1)
+%  length(unique(test$repeated_int64))
+% @
+
+\begin{Schunk}
+\begin{Sinput}
+>   test <- new(protobuf_unittest.TestAllTypes)
+>   test$repeated_int64 <- c(2^53, 2^53+1)
+>   length(unique(test$repeated_int64))
+\end{Sinput}
+\begin{Soutput}
+[1] 1
+\end{Soutput}
+\end{Schunk}
 
 However, we can specify the values as character strings so that the
 C++ library on which RProtoBuf is based can store a true 64-bit
 integer representation of the data.
 
-<<>>=
-if (.Machine$sizeof.longlong >= 8) {
-  test$repeated_int64 <- c("9007199254740992", "9007199254740993")
-}
-@
+% <<>>=
+%   test$repeated_int64 <- c("9007199254740992", "9007199254740993")
+% @
+\begin{Schunk}
+\begin{Sinput}
+>   test$repeated_int64 <- c("9007199254740992", "9007199254740993")
+\end{Sinput}
+\end{Schunk}
 
 When reading the value back into R, numeric types are returned by
 default, but when the full precision is required a character value
@@ -2081,16 +2098,54 @@ to \texttt{TRUE}.
 % output inside the block (E.g. the output of test$repeated_int64).
 % This reduces the usefulness of this example when we are on a 64-bit
 % platform.  E.g. only the final ``2'' is returned.
-<<echo=TRUE,print=TRUE>>=
-if (.Machine$sizeof.longlong >= 8) {
-  options("RProtoBuf.int64AsString" = FALSE)
-  test$repeated_int64
-  length(unique(test$repeated_int64))
-  options("RProtoBuf.int64AsString" = TRUE)
-  test$repeated_int64
-  length(unique(test$repeated_int64))
-}
-@
+% <<echo=TRUE,print=TRUE>>=
+%  options("RProtoBuf.int64AsString" = FALSE)
+%  test$repeated_int64
+%  length(unique(test$repeated_int64))
+%  options("RProtoBuf.int64AsString" = TRUE)
+%  test$repeated_int64
+%  length(unique(test$repeated_int64))
+%@
+\begin{Schunk}
+\begin{Sinput}
+>   options("RProtoBuf.int64AsString" = FALSE)
+\end{Sinput}
+\begin{Soutput}
+$RProtoBuf.int64AsString
+[1] FALSE
+\end{Soutput}
+\begin{Sinput}
+>   test$repeated_int64
+\end{Sinput}
+\begin{Soutput}
+[1] 9.007199e+15 9.007199e+15
+\end{Soutput}
+\begin{Sinput}
+>   length(unique(test$repeated_int64))
+\end{Sinput}
+\begin{Soutput}
+[1] 1
+\end{Soutput}
+\begin{Sinput}
+>   options("RProtoBuf.int64AsString" = TRUE)
+\end{Sinput}
+\begin{Soutput}
+$RProtoBuf.int64AsString
+[1] FALSE
+\end{Soutput}
+\begin{Sinput}
+>   test$repeated_int64
+\end{Sinput}
+\begin{Soutput}
+[1] "9007199254740992" "9007199254740993"
+\end{Soutput}
+\begin{Sinput}
+>   length(unique(test$repeated_int64))
+\end{Sinput}
+\begin{Soutput}
+[1] 2
+\end{Soutput}
+\end{Schunk}
 
 <<echo=FALSE,print=FALSE>>=
 options("RProtoBuf.int64AsString" = FALSE)
