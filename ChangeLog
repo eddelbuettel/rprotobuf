@@ -1,3 +1,12 @@
+2014-01-13  Murray Stokely  <mstokely@google.com>
+
+	* inst/unitTests/runit.int64.R (test.int64): Skip this test with a
+	  warning if running on a machine with sizeof(long long) < 8.
+	* vignettes/RProtoBuf-intro.Rnw (subsection{64-bit integer
+	  issues}): Hide 64-bit field accesses with if conditional to
+	  avoid running code that won't work on platforms without 64-bit
+	  long longs.
+
 2014-01-09  Murray Stokely  <mstokely@google.com>
 
 	* R/read.R: Add a logical argument 'partial' to readASCII that

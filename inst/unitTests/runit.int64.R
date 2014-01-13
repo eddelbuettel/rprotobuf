@@ -23,19 +23,20 @@ test.int64 <- function() {
         readProtoFiles(file=unittest.proto.file)
     }
 
+    if (.Machine$sizeof.longlong < 8) {
+      warning("Can't test 64-bit int type on platform with sizeof(long long) < 8")
+      return
+    }
+
     a <- new(protobuf_unittest.TestAllTypes)
     a$repeated_int64 <- 1
     # Now just test that we can use add to set int64 fields.
     a$add("repeated_int64", 2:10)
     checkEquals(length(a$repeated_int64), 10)
 
-    if (.Machine$sizeof.longlong >= 8) {
-      # Verify we can set character strings of large 64-bit ints
-      a$repeated_int64 <- c("9007199254740992", "9007199254740993")
-      checkEquals(length(a$repeated_int64), 2)
-    } else {
-      warning("Can't test 64-bit int type on platform with sizeof(long long) < 8")
-    }
+    # Verify we can set character strings of large 64-bit ints
+    a$repeated_int64 <- c("9007199254740992", "9007199254740993")
+    checkEquals(length(a$repeated_int64), 2)
 
     # Verify we can't set any garbage string to a repeated int64.
     checkException(a$repeated_int64 <-c("invalid", "invalid"))
@@ -57,7 +58,5 @@ test.int64 <- function() {
 
     options("RProtoBuf.int64AsString" = TRUE)
     # But we can see they are different if we treat them as strings.
-    if (.Machine$sizeof.longlong >= 8) {
-      checkEquals(length(unique(a$repeated_int64)), 2)
-    }
+    checkEquals(length(unique(a$repeated_int64)), 2)
 }
