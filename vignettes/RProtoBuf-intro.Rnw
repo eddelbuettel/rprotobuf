@@ -2038,7 +2038,8 @@ it loses the ability to distinguish some distinct integers:
 Protocol Buffers are frequently used to pass data between different
 systems, however, and most other systems these days have support for
 64-bit integers.  To work around this, RProtoBuf allows users to get
-and set 64-bit integer types by treating them as characters.
+and set 64-bit integer types by treating them as characters when
+running on a platform with a 64-bit long long type available.
 
 <<echo=FALSE,print=FALSE>>=
 if (!exists("protobuf_unittest.TestAllTypes",
@@ -2054,9 +2055,11 @@ If we try to set an int64 field in R to double values, we lose
 precision:
 
 <<>>=
-test <- new(protobuf_unittest.TestAllTypes)
-test$repeated_int64 <- c(2^53, 2^53+1)
-length(unique(test$repeated_int64))
+if (.Machine$sizeof.longlong >= 8) {
+  test <- new(protobuf_unittest.TestAllTypes)
+  test$repeated_int64 <- c(2^53, 2^53+1)
+  length(unique(test$repeated_int64))
+}
 @
 
 However, we can specify the values as character strings so that the
@@ -2064,7 +2067,9 @@ C++ library on which RProtoBuf is based can store a true 64-bit
 integer representation of the data.
 
 <<>>=
-test$repeated_int64 <- c("9007199254740992", "9007199254740993")
+if (.Machine$sizeof.longlong >= 8) {
+  test$repeated_int64 <- c("9007199254740992", "9007199254740993")
+}
 @
 
 When reading the value back into R, numeric types are returned by
@@ -2072,13 +2077,19 @@ default, but when the full precision is required a character value
 will be returned if the \texttt{RProtoBuf.int64AsString} option is set
 to \texttt{TRUE}.
 
-<<>>=
-options("RProtoBuf.int64AsString" = FALSE)
-test$repeated_int64
-length(unique(test$repeated_int64))
-options("RProtoBuf.int64AsString" = TRUE)
-test$repeated_int64
-length(unique(test$repeated_int64))
+% TODO: the if statement prevents us from seeing line by line
+% output inside the block (E.g. the output of test$repeated_int64).
+% This reduces the usefulness of this example when we are on a 64-bit
+% platform.  E.g. only the final ``2'' is returned.
+<<echo=TRUE,print=TRUE>>=
+if (.Machine$sizeof.longlong >= 8) {
+  options("RProtoBuf.int64AsString" = FALSE)
+  test$repeated_int64
+  length(unique(test$repeated_int64))
+  options("RProtoBuf.int64AsString" = TRUE)
+  test$repeated_int64
+  length(unique(test$repeated_int64))
+}
 @
 
 <<echo=FALSE,print=FALSE>>=
@@ -2128,7 +2139,7 @@ Some of the design of the package is based on the design of the
 structures using external pointers, etc ...). We'd like to thank
 Simon for his indirect involvment on \texttt{RProtoBuf}.
 
-The user defined table mechasnism, implemented by Duncan Temple Lang
+The user defined table mechanism, implemented by Duncan Temple Lang
 for the purpose of the \texttt{RObjectTables} package allowed the
 dynamic symbol lookup (see section~\ref{sec-lookup}). Many thanks
 to Duncan for this amazing feature.
