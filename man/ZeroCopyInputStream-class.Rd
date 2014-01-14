@@ -12,10 +12,12 @@
 \alias{ReadRaw}
 \alias{ReadRaw-methods}
 \alias{ReadRaw,ZeroCopyInputStream,integer-method}
+\alias{ReadRaw,ZeroCopyInputStream,numeric-method}
 
 \alias{ReadString}
 \alias{ReadString-methods}
 \alias{ReadString,ZeroCopyInputStream,integer-method}
+\alias{ReadString,ZeroCopyInputStream,numeric-method}
 
 \alias{ReadVarint32}
 \alias{ReadVarint32-methods}
@@ -52,7 +54,9 @@ This is a virtual class
 	\item{BackUp}{\code{signature(object="ZeroCopyInputStream")}: Backs up a number of bytes, so that the next call to \code{Next} returns data again that was already returned by the last call to \code{Next}.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyInputStream")}: Returns the total number of bytes read since this object was created. }
 	\item{ReadRaw}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: read raw bytes from the stream}
+	\item{ReadRaw}{\code{signature(object="ZeroCopyInputStream", size = "numeric")}: read raw bytes from the stream}
 	\item{ReadString}{\code{signature(object="ZeroCopyInputStream", size = "integer")}: same as \code{ReadRaw} but formats the result as a string}
+	\item{ReadString}{\code{signature(object="ZeroCopyInputStream", size = "numeric")}: same as \code{ReadRaw} but formats the result as a string}
 	\item{ReadVarint32}{\code{signature(object="ZeroCopyInputStream")}: Read an unsigned integer with Varint encoding, truncating to 32 bits. }
 	\item{ReadLittleEndian32}{\code{signature(object="ZeroCopyInputStream")}: Read a 32-bit little-endian integer.  }
 	\item{ReadLittleEndian64}{\code{signature(object="ZeroCopyInputStream")}: Read a 64-bit little-endian integer. In R the value is stored as a \code{double} which looses some precision (no other way) }
@@ -69,4 +73,3 @@ This is a virtual class
 	TODO: add classes that extend
 }
 \keyword{classes}
-
