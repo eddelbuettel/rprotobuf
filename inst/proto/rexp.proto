@@ -1,3 +1,6 @@
+// Originally written by Saptarshi Guha for RHIPE (http://www.rhipe.org)
+// Released under Apache License 2.0, and reused with permission here  
+
 package rexp;
 
 message REXP {
