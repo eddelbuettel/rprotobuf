@@ -2,6 +2,17 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in RProtoBuf version 0.4.0 (2014-01-14)}{
+  \itemize{
+    \item Added Jeroen Ooms as author
+    \item Changes to support CRAN builds for MS Windows. 
+    \item Added functions \code{serialize_pb}, \code{unserialize_pb},
+    and \code{can_serialize_pb} plus documentation.
+    \item Added unit tests for serializing and unserializing datasets
+    using \code{serialize_pb}.
+  }
+}
+
 \section{Changes in UNRELEASED RProtoBuf version 0.3.3 (2013-12-26)}{
   \itemize{
     \item Vignettes have been converted to the R 3.0.0 or later use of
