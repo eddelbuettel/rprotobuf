@@ -6,6 +6,7 @@
 	  issues}): Hide 64-bit field accesses with if conditional to
 	  avoid running code that won't work on platforms without 64-bit
 	  long longs.
+	* DESCRIPTION (Version): Increment to 0.4.0
 
 2014-01-09  Murray Stokely  <mstokely@google.com>
 

@@ -22,7 +22,7 @@ test.bool <- function() {
                                            package="RProtoBuf")
         readProtoFiles(file=unittest.proto.file)
     }
-
+ 
     a <- new(protobuf_unittest.TestAllTypes)
     a$optional_bool <- TRUE
     a$optional_bool <- FALSE
