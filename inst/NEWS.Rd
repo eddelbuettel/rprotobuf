@@ -50,6 +50,8 @@
     \item Add better error messages when setting a repeated field of
     messages to inform the user which element index was of the wrong type
     and what the expected type was.
+    \item Add an optional 'partial' argument to readASCII allowing
+    uninitialized message fragments to be read in.
     \item (internal) Added const qualifiers in more places throughout
     the C++ code for type safety.
     \item (internal) Standardize coding conventions of the C++ files and run them
