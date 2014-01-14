@@ -8,7 +8,6 @@
     \item Added functions \code{serialize_pb}, \code{unserialize_pb},
     and \code{can_serialize_pb} plus documentation from Jeroen Ooms
     RProtoBufUtils package.
-    using \code{serialize_pb}.
     \item Added Jeroen Ooms as author.
     \item Vignettes have been converted to the R 3.0.0 or later use of
     external vignette builders, no longer need a \code{Makefile}
