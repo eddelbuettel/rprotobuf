@@ -12,3 +12,8 @@
 RCPP_LDFLAGS= $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 PKG_CPPFLAGS=-I${LIB_PROTOBUF}/include -I../protobuf-2.5.0/include
 PKG_LIBS=$(RCPP_LDFLAGS) -L${LIB_PROTOBUF}/lib${R_ARCH} -L../protobuf-2.5.0/lib${R_ARCH} -lprotobuf
+
+## In case the headers and library are not installed, excute the following bit
+## of R code, and make sure to # use R CMD INSTALL --force-biarch 
+##
+##  "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e 'download.file("http://r-forge.r-project.org/scm/viewvc.php/*checkout*/windows/protobuf-2.5.0-windows.zip?root=rprotobuf", "lib.zip"); unzip("lib.zip");'
