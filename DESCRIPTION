@@ -9,9 +9,9 @@ Description: Protocol Buffers are a way of encoding structured data in an
  of its internal RPC protocols and file formats.  
 Depends: R (>= 3.0.0), methods
 LinkingTo: Rcpp
-Suggests: RUnit, highlight, Rcpp
+Suggests: RUnit, highlight
 VignetteBuilder: highlight
-Imports: utils, stats, tools, RCurl
+Imports: utils, stats, tools, Rcpp, RCurl
 SystemRequirements: Protocol Buffer compiler (to create C++ header and source files
  from .proto descriptions) and library (version 2.2.0 or later)
 License: GPL-2

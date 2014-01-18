@@ -7,6 +7,7 @@ importFrom(utils, str, packageDescription)
 importFrom(stats, update)
 importFrom(tools, file_path_as_absolute)
 importFrom(RCurl, basicTextGatherer, curlPerform)
+importFrom(Rcpp, evalCpp)
 
 exportClasses(
 
