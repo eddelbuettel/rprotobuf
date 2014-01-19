@@ -1,5 +1,7 @@
 2014-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION: Finalize release 0.4.0 with initial Windows support
+
 	* src/S4_classes.h: Adapt to S4 access function renaming in Rcpp
 	0.10.7 and later, with special thanks to Kevin Ushey
 

@@ -4,7 +4,7 @@
 
 \section{Changes in RProtoBuf version 0.4.0 (2014-01-14)}{
   \itemize{
-    \item Changes to support CRAN builds for MS Windows. 
+    \item Changes to support CRAN builds for MS Windows.
     \item Added functions \code{serialize_pb}, \code{unserialize_pb},
     and \code{can_serialize_pb} plus documentation from Jeroen Ooms
     RProtoBufUtils package.
@@ -54,10 +54,13 @@
     uninitialized message fragments to be read in.
     \item (internal) Added const qualifiers in more places throughout
     the C++ code for type safety.
-    \item (internal) Standardize coding conventions of the C++ files and run them
-    through clang-format for consistency.  A STYLE file has been submitted
-    to R-Forge with details about the coding standards and how they are
-    enforced with Emacs and clang-format.
+    \item (internal) Standardize coding conventions of the C++ files and
+    run them through clang-format for consistency.  A STYLE file has
+    been submitted to R-Forge with details about the coding standards
+    and how they are enforced with Emacs and clang-format.
+    \item Applied changes suggested by Kevin Ushey to the \code{S4}
+    class handling to support both the currently released \cpkg{Rcpp} as
+    well as the currently pending next version.
   }
 }
 
