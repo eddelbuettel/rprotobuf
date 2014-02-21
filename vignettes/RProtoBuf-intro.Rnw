@@ -2151,6 +2151,34 @@ $RProtoBuf.int64AsString
 options("RProtoBuf.int64AsString" = FALSE)
 @
 
+\subsection{Deprecated Feature: Protocol Buffer Groups}
+\label{sec:groups}
+
+Groups are a deprecated feature that offered another way to nest
+information in message definitions.  For example, the
+\texttt{TestAllTypes} message type in \texttt{unittest.proto} includes
+an OptionalGroup type:
+
+\begin{verbatim}
+  optional group OptionalGroup = 16 {
+    optional int32 a = 17;
+  }
+\end{verbatim}
+
+And although the feature is deprecated, it can be used with RProtoBuf:
+
+<<echo=TRUE>>=
+test <- new(protobuf_unittest.TestAllTypes)
+test$optionalgroup$a <- 3
+test$optionalgroup$a
+cat(as.character(test))
+@
+
+Note that groups simply combine a nested message type and a field into
+a single declaration.  The field type is OptionalGroup in this
+example, and the field name is converted to lower-case 'optionalgroup'
+so as not to conflict with the type name.
+
 \section{Other approaches}
 
 Saptarshi Guha wrote another package that deals with integration

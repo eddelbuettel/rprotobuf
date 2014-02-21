@@ -3,6 +3,8 @@
 	* inst/unitTests/runit.messages.R (test.message): Add a test for
 	  the deprecated group feature which works fine with RProtoBuf.
 	  The type is converted to lower case, which users often forget.
+	* vignettes/RProtoBuf-intro.Rnw (subsection{Deprecated Feature:
+	  Protocol Buffer Groups}): document groups.
 
 2014-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
