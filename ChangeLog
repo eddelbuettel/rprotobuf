@@ -1,3 +1,9 @@
+2014-02-21  Murray Stokely  <mstokely@google.com>
+
+	* inst/unitTests/runit.messages.R (test.message): Add a test for
+	  the deprecated group feature which works fine with RProtoBuf.
+	  The type is converted to lower case, which users often forget.
+
 2014-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Finalize release 0.4.0 with initial Windows support

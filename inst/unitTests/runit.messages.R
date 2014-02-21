@@ -23,6 +23,9 @@ test.message <- function() {
     readProtoFiles(file=unittest.proto.file)
   }
   a <- new(protobuf_unittest.TestAllTypes)
+  a$optionalgroup$a <- 3
+  checkEquals(a$optionalgroup$a, 3)
+
   a$repeated_nested_message <- list(
       new(protobuf_unittest.TestAllTypes.NestedMessage, bb=3),
       new(protobuf_unittest.TestAllTypes.NestedMessage, bb=4))
@@ -39,7 +42,7 @@ test.message <- function() {
 
   checkException(a$repeated_nested_message <- list(
       new(protobuf_unittest.TestAllTypes.NestedMessage, bb=4),
-      3))                                   
+      3))
 
   checkException(a$repeated_nested_message <- list(
       new(protobuf_unittest.TestAllTypes.NestedMessage, bb=4),
