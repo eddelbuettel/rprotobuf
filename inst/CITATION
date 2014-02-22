@@ -1,0 +1,19 @@
+citHeader("To cite RProtoBuf in publications use:")
+
+# Preprint of our JSS submission
+citEntry(entry = "Article",
+  title        = "{RProtoBuf}: Efficient Cross-Language Data Serialization in {R}",
+  author       = personList(as.person("Dirk Eddelbuettel"),
+                   as.person("Murray Stokely"), as.person("Jeroen Ooms")),	
+  journal      = "arXiv preprint arXiv:1401.7372",
+  year         = "2014",
+  url          = "http://arxiv.org/abs/1401.7372",
+  textVersion  =
+     paste("Dirk Eddelbuettel, Murray Stokely, and Jeroen Ooms (2014).",
+         "RProtoBuf: Efficient Cross-Language Data Serialization in R.",
+         "arXiv preprint, arXiv:1401.7372",
+         "URL http://arxiv.org/abs/1401.7372")
+)
+
+# Also include the normal auto-generated RProtoBuf citation()
+citation(auto=meta)

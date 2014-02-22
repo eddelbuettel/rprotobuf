@@ -5,6 +5,9 @@
 	  The type is converted to lower case, which users often forget.
 	* vignettes/RProtoBuf-intro.Rnw (subsection{Deprecated Feature:
 	  Protocol Buffer Groups}): document groups.
+	* inst/CITATION: Add a manual CITATION file pointing to the JSS
+	  preprint on arxiv.org in addition to the normal auto-generated
+	  citation().
 
 2014-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
