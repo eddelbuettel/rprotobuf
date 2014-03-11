@@ -133,12 +133,10 @@ RcppExport SEXP getEnumDescriptor(SEXP type) {
 
     /* first try the generated pool */
     const GPB::DescriptorPool* pool = GPB::DescriptorPool::generated_pool();
-    Rprintf("typeName = %s", typeName);
     const GPB::EnumDescriptor* desc = pool->FindEnumTypeByName(typeName);
     if (!desc) {
         /* then try the "runtime" pool" */
         pool = DescriptorPoolLookup::pool();
-        Rprintf("trying runtime pool typeName = %s", typeName);
         desc = pool->FindEnumTypeByName(typeName);
         if (!desc) {
             /* unlucky */
