@@ -116,6 +116,40 @@ RcppExport SEXP getExtensionDescriptor(SEXP type) {
 }
 
 /**
+ * get the descriptor associated with an enum
+ *
+ * @param type message type
+ *
+ * @return an S4 object of class EnumDescriptor, or NULL if the type
+ *  is unknown
+ */
+RcppExport SEXP getEnumDescriptor(SEXP type) {
+#ifdef RPB_DEBUG
+    Rprintf("<getEnumDescriptor>\n      type = ");
+    Rf_PrintValue(type);
+#endif
+
+    const char* typeName = CHAR(STRING_ELT(type, 0));
+
+    /* first try the generated pool */
+    const GPB::DescriptorPool* pool = GPB::DescriptorPool::generated_pool();
+    Rprintf("typeName = %s", typeName);
+    const GPB::EnumDescriptor* desc = pool->FindEnumTypeByName(typeName);
+    if (!desc) {
+        /* then try the "runtime" pool" */
+        pool = DescriptorPoolLookup::pool();
+        Rprintf("trying runtime pool typeName = %s", typeName);
+        desc = pool->FindEnumTypeByName(typeName);
+        if (!desc) {
+            /* unlucky */
+            return R_NilValue;
+        }
+    }
+
+    return (S4_EnumDescriptor(desc));
+}
+
+/**
  * make a new protobuf message
  *
  * @param descriptor a "Descriptor" R object

@@ -34,7 +34,7 @@ setClass( "EnumDescriptor", representation(
 	pointer = "externalptr" ,  # pointer to a google::protobuf::EnumDescriptor c++ object
 	name    = "character",
 	full_name  = "character",
-	type    = "character"
+	type    = "character"   # TODO(mstokely): enums don't really have another type, remove?
 ), prototype = list( pointer = NULL, name = character(0),
 	full_name = character(0), type = character(0) ) )
 
@@ -122,7 +122,11 @@ P <- function( type, file ){
 		# See if it is an extension
 		desc <- .Call("getExtensionDescriptor", type, PACKAGE="RProtoBuf")
 		if (is.null(desc)) {
-			stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
+			# See if it is an enum
+			desc <- .Call("getEnumDescriptor", type, PACKAGE="RProtoBuf")
+			if (is.null(desc)) {
+				stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
+			}
 		}
 	}
 	desc
@@ -146,7 +150,8 @@ setMethod( "show", c( "FieldDescriptor" ), function(object){
 	show( sprintf( "descriptor for field '%s' of type '%s' ", object@name, object@type ) )
 } )
 setMethod( "show", c( "EnumDescriptor" ), function(object){
-	show( sprintf( "descriptor for enum '%s' of type '%s' with %d values", object@name, object@type, value_count(object) ) )
+	show( sprintf( "descriptor for enum '%s' with %d values", object@name,
+                      value_count(object) ) )
 } )
 setMethod( "show", c( "ServiceDescriptor" ), function(object){
 	show( sprintf( "service descriptor <%s>", object@name ) )

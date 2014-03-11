@@ -1,3 +1,14 @@
+2014-03-10  Murray Stokely  <mstokely@google.com>
+
+	* src/DescriptorPoolLookup.cpp (rprotobuf): Import all top-level
+	  enums defined in an imported .proto file.
+	* src/rprotobuf.cpp (rprotobuf): Add a function to get the enum
+	  descriptor associated with a named enum.
+	* inst/unitTests/runit.enums.R (test.enums): Test that we import
+	  top-level enums from .proto files correctly.
+	* R/00classes.R (P): Correct a bug in the show() method for
+	  EnumDescriptor that prevented useful output in some contexts.
+
 2014-02-21  Murray Stokely  <mstokely@google.com>
 
 	* inst/unitTests/runit.messages.R (test.message): Add a test for

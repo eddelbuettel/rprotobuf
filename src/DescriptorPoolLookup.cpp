@@ -40,6 +40,9 @@ GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory(importer.pool()
 /**
  * Add descriptors from a proto file to the descriptor pool.
  *
+ * Specifically, message types, extensions, and enums are added.
+ * Services are not added because they are not really used in RProtoBuf.
+ *
  * @param files A character vector of .proto files to import.
  * @param dirs A character vector of directories to import from.
  * @throws Rcpp::exception if a file can't be loaded (uncaught).
@@ -54,18 +57,24 @@ void DescriptorPoolLookup::importProtoFiles(SEXP files, SEXP dirs) {
                 "'\n";
             Rcpp_error(message.c_str());
         }
+        // add top level messages from the file.
         int ntypes = file_desc->message_type_count();
         for (int i = 0; i < ntypes; i++) {
             const GPB::Descriptor* desc = file_desc->message_type(i);
             add(desc->full_name());
             /* should we bother recursing ? */
-            /* TODO(mstokely): add top level enums and services? */
         }
-        // add top level extensions!
+        // add top level extensions
         int nexts = file_desc->extension_count();
         for (int i = 0; i < nexts; i++) {
             const GPB::FieldDescriptor* field_desc = file_desc->extension(i);
             add(field_desc->full_name());
+        }
+        // add top level enums.
+        int nenums = file_desc->enum_type_count();
+        for (int i = 0; i < nenums; i++) {
+            const GPB::EnumDescriptor* enum_desc = file_desc->enum_type(i);
+            add(enum_desc->full_name());
         }
     }
     // source_tree.removeDirectories( dirs ) ;
