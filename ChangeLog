@@ -4,7 +4,10 @@
 	  TestEnumWithDupValue.  This causes problems with the newest
 	  libprotobuf-2.5 which now wants an option to be specified to
 	  enable enum aliasing like this.
-
+	* configure.in: if we can't find the libproto headers with the
+	  default CPPFLAGS/CXXFLAGS, manually add /usr/local/include and try
+	  again.
+	
 2014-03-10  Murray Stokely  <mstokely@google.com>
 
 	* src/DescriptorPoolLookup.cpp (rprotobuf): Import all top-level

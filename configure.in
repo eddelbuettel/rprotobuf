@@ -8,7 +8,7 @@
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.3])
+AC_INIT([RProtoBuf],[0.4])
 m4_include([m4/m4-ax_cxx_compile_stdcxx_0x.m4])
 
 # We are using C++
@@ -67,8 +67,22 @@ fi
 
 ## check for header and ability to link
 ## first for headers Debian has in libprotobuf-dev
-AC_CHECK_HEADER(google/protobuf/stubs/common.h,,
-                [AC_MSG_ERROR([ERROR: ProtoBuf headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])])
+protobuf_common_header=google/protobuf/stubs/common.h
+protobuf_common_header_cache_var=AS_TR_SH([ac_cv_header_$protobuf_common_header])
+AC_CHECK_HEADER([$protobuf_common_header],,
+                [
+		# If it didn't work, try adding /usr/local directly then trying again
+		AC_MSG_WARN([Protobuf headers not found with default CXXFLAGS and CPPFLAGS, manually trying /usr/local/include])
+		CPPFLAGS="${protobuf_cxxflags} ${CPPFLAGS} -I/usr/local/include"
+		CXXFLAGS="${protobuf_cxxflags} ${CXXFLAGS} -I/usr/local/include -L/usr/local/lib"
+		# unset the cache variable for this particular header
+		# check, so we can check again with different defaults
+		# specified.
+		AC_MSG_WARN([Unsetting $protobuf_common_header_cache_var])
+		AS_UNSET([$protobuf_common_header_cache_var])
+		AC_CHECK_HEADER([$protobuf_common_header],,
+		[AC_MSG_ERROR([ERROR: ProtoBuf headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])])
+		])
 ## second for headers Debian has in libprotoc-dev
 AC_CHECK_HEADER(google/protobuf/compiler/code_generator.h,,
                 [AC_MSG_ERROR([ERROR: ProtoBuf compiler headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])])
