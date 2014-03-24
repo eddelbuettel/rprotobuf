@@ -392,15 +392,16 @@ message TestNestedMessageHasBits {
   optional NestedMessage optional_nested_message = 1;
 }
 
-
+// mstokely commented this out, it breaks with libprotobuf-2.5.
+//
 // Test an enum that has multiple values with the same number.
-enum TestEnumWithDupValue {
-  FOO1 = 1;
-  BAR1 = 2;
-  BAZ = 3;
-  FOO2 = 1;
-  BAR2 = 2;
-}
+// enum TestEnumWithDupValue {
+//  FOO1 = 1;
+//  BAR1 = 2;
+//  BAZ = 3;
+//  FOO2 = 1;
+//  BAR2 = 2;
+//}
 
 // Test an enum with large, unordered values.
 enum TestSparseEnum {

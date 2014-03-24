@@ -1,3 +1,10 @@
+2014-03-24  Murray Stokely  <mstokely@google.com>
+
+	* inst/unitTests/data/unittest.proto: Comment out
+	  TestEnumWithDupValue.  This causes problems with the newest
+	  libprotobuf-2.5 which now wants an option to be specified to
+	  enable enum aliasing like this.
+
 2014-03-10  Murray Stokely  <mstokely@google.com>
 
 	* src/DescriptorPoolLookup.cpp (rprotobuf): Import all top-level
