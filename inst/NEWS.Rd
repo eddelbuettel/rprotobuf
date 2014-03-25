@@ -2,7 +2,7 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in RProtoBuf version 0.4.x (2014-XX-XX)}{
+\section{Changes in RProtoBuf version 0.4.1 (2014-03-25)}{
   \itemize{
     \item Document and add a test for the deprecated group
     functionality.
