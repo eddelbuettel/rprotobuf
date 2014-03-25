@@ -1,3 +1,7 @@
+2014-03-25  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION (Version): Release 0.4.1
+
 2014-03-24  Murray Stokely  <mstokely@google.com>
 
 	* inst/unitTests/runit.int64.R (test.int64): Check
@@ -29,16 +33,15 @@
 	  The type is converted to lower case, which users often forget.
 	* vignettes/RProtoBuf-intro.Rnw (subsection{Deprecated Feature:
 	  Protocol Buffer Groups}): document groups.
-	* inst/CITATION: Add a manual CITATION file pointing to the JSS
-	  preprint on arxiv.org in addition to the normal auto-generated
-	  citation().
+	* inst/CITATION: Add a manual CITATION file pointing to the preprint
+ 	  on arxiv.org in addition to the normal auto-generated citation().
 
 2014-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Finalize release 0.4.0 with initial Windows support
 
 	* src/S4_classes.h: Adapt to S4 access function renaming in Rcpp
-	0.10.7 and later, with special thanks to Kevin Ushey
+	  0.10.7 and later, with special thanks to Kevin Ushey
 
 2014-01-13  Murray Stokely  <mstokely@google.com>
 

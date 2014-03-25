@@ -6,8 +6,7 @@
   \itemize{
     \item Document and add a test for the deprecated group
     functionality.
-    \item Add a \code{CITATION} file pointing to the JSS preprint on
-    arXiv.org.
+    \item Add a \code{CITATION} file pointing to the arXiv.org preprint.
     \item Fix a bug in the \code{show} method for \code{EnumDescriptor}
     types.
     \item Import all top-level enums from imported \code{.proto} files.
@@ -16,6 +15,7 @@
     allow_alias).
   }
 }
+
 \section{Changes in RProtoBuf version 0.4.0 (2014-01-14)}{
   \itemize{
     \item Changes to support CRAN builds for MS Windows.
