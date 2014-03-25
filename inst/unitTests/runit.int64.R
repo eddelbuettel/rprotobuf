@@ -27,7 +27,8 @@ test.int64 <- function() {
       warning("Can't test 64-bit int type on platform with sizeof(long long) < 8")
       return
     }
-    if (Rcpp:::capabilities()["long long"] != TRUE) {
+    if (is.na(Rcpp:::capabilities()["long long"]) ||
+        Rcpp:::capabilities()["long long"] != TRUE) {
       warning("Can't test 64-bit int type without RCPP_LONG_LONG support.")
       return
     }
