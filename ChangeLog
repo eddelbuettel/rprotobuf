@@ -1,5 +1,8 @@
 2014-03-24  Murray Stokely  <mstokely@google.com>
 
+	* inst/unitTests/runit.int64.R (test.int64): Check
+	  Rcpp:::capabilities() to ensure we have long long support in Rcpp
+	  before trying to run the 64-bit integer tests.
 	* inst/unitTests/data/unittest.proto: Comment out
 	  TestEnumWithDupValue.  This causes problems with the newest
 	  libprotobuf-2.5 which now wants an option to be specified to
