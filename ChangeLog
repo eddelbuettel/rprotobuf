@@ -1,3 +1,14 @@
+2014-04-02  Murray Stokely  <mstokely@google.com>
+
+	Two patches from Karl Millar <kmillar@google.com>:
+	* src/S4_classes.h (rprotobuf): Change handling of
+	  S4_EnumDescriptor when passed a NULL pointer to just create empty
+	  object with empty name and full_name rather than setting to
+	  R_NilValue.
+	* src/wrapper_EnumDescriptor.cpp (rprotobuf): Change return value
+	  of getValue* functions on EnumDescriptor and return an
+	  EnumValueDescriptor or R_NilValue on failure.
+
 2014-04-01  Murray Stokely  <mstokely@google.com>
 
 	* tests/runUnitTests.R: Add improved checks to ensure R CMD CHECK
