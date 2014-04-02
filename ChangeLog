@@ -1,3 +1,8 @@
+2014-04-01  Murray Stokely  <mstokely@google.com>
+
+	* tests/runUnitTests.R: Add improved checks to ensure R CMD CHECK
+	  fails if there are any errors in the tests, not just failures.
+
 2014-03-25  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION (Version): Release 0.4.1
