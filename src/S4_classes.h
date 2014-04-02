@@ -43,14 +43,14 @@ class ZeroCopyOutputStreamWrapper;
 class S4_EnumValueDescriptor : public Rcpp::S4 {
    public:
     S4_EnumValueDescriptor(const GPB::EnumValueDescriptor* d) : S4("EnumValueDescriptor") {
-
+        slot("pointer") = Rcpp::XPtr<GPB::EnumValueDescriptor>(
+            const_cast<GPB::EnumValueDescriptor*>(d), false);
         if (d) {
-            slot("pointer") = Rcpp::XPtr<GPB::EnumValueDescriptor>(
-                const_cast<GPB::EnumValueDescriptor*>(d), false);
             slot("name") = d->name();
             slot("full_name") = d->full_name();
         } else {
-            SetSexp(R_NilValue);
+            slot("name") = Rcpp::StringVector(0);
+            slot("full_name") = Rcpp::StringVector(0);
         }
     }
 

@@ -34,22 +34,29 @@ RPB_FUNCTION_1(S4_Descriptor, METHOD(containing_type), Rcpp::XPtr<GPB::EnumDescr
     return S4_Descriptor(d->containing_type());
 }
 
-RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByIndex), Rcpp::XPtr<GPB::EnumDescriptor> d,
+RPB_FUNCTION_2(SEXP, METHOD(getValueByIndex), Rcpp::XPtr<GPB::EnumDescriptor> d,
                int index) {
     if ((index >= 0) && (index < d->value_count())) {
         return S4_EnumValueDescriptor(d->value(index));
     } else {
-        return S4_EnumValueDescriptor(NULL);
+        return R_NilValue;
     }
 }
 
-RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByNumber), Rcpp::XPtr<GPB::EnumDescriptor> d,
+RPB_FUNCTION_2(SEXP, METHOD(getValueByNumber), Rcpp::XPtr<GPB::EnumDescriptor> d,
                int i) {
-    return S4_EnumValueDescriptor(d->FindValueByNumber(i));
+    const GPB::EnumValueDescriptor* descriptor = d->FindValueByNumber(i);
+    if (descriptor)
+        return S4_EnumValueDescriptor(descriptor);
+    return R_NilValue;
 }
-RPB_FUNCTION_2(S4_EnumValueDescriptor, METHOD(getValueByName), Rcpp::XPtr<GPB::EnumDescriptor> d,
+
+RPB_FUNCTION_2(SEXP, METHOD(getValueByName), Rcpp::XPtr<GPB::EnumDescriptor> d,
                std::string name) {
-    return S4_EnumValueDescriptor(d->FindValueByName(name));
+    const GPB::EnumValueDescriptor* descriptor = d->FindValueByName(name);
+    if (descriptor)
+        return S4_EnumValueDescriptor(descriptor);
+    return R_NilValue;
 }
 
 RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::EnumDescriptor> d) {
