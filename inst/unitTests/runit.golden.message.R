@@ -21,7 +21,7 @@ test.import <- function(){
 	import_enum <- as.list(protobuf_unittest_import.ImportEnum )
 	checkTrue( all( c("IMPORT_FOO", "IMPORT_BAR", "IMPORT_BAZ") %in% names(import_enum) ), 
 		msg = "expected names for 'protobuf_unittest_import.ImportEnum'" )
-	checkEquals( unname(import_enum), 7:9, 
+	checkEquals( unlist(unname(import_enum)), 7:9, 
 		msg = "expected values for 'protobuf_unittest_import.ImportEnum' " )
 }
 
@@ -51,7 +51,7 @@ test.readProtoFile <- function(){
 	foreign_enum <- as.list( protobuf_unittest.ForeignEnum )
 	checkEquals( length(foreign_enum), 3L, msg = "length( protobuf_unittest.ForeignEnum ) == 3" )
 	checkTrue( all( c("FOREIGN_FOO", "FOREIGN_BAR", "FOREIGN_BAZ") %in% names( foreign_enum ) ), msg = "expected names for enum `protobuf_unittest.ForeignEnum`" )
-	checkEquals( unname(as.list(protobuf_unittest.ForeignEnum)), 4:6, msg = "expected values for enum `protobuf_unittest.ForeignEnum`" )
+	checkEquals( unlist(unname(as.list(protobuf_unittest.ForeignEnum))), 4:6, msg = "expected values for enum `protobuf_unittest.ForeignEnum`" )
 	
 }
 
