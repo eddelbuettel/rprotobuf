@@ -40,7 +40,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"clear", "size", "size<-", "swap",
 	"descriptor", "set", "fetch", "toString",
 	"identical", "==", "!=", "all.equal", "add",
-	"fileDescriptor", "name", "flush", "close",
+	"fileDescriptor", "name", "names", "flush", "close",
         "setExtension", "getExtension",
 
         "containing_type",

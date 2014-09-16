@@ -1,3 +1,27 @@
+2014-09-15  Murray Stokely  <mstokely@google.com>
+
+	Address feedback from anonymous reviewers for our Journal of
+	Statistical Software submission:
+	* src/wrapper_EnumDescriptor.cpp (rprotobuf): Correct the
+	  definition of as.list for EnumDescriptors to return a proper list
+	  instead of a named vector.
+	* man/aslist.Rd: clarify order of returned list for descriptor
+	  objects.
+	* NAMESPACE: add names as exported method.
+	* R/00classes.R (show): Update the default print methods to use
+	  cat() with fill=TRUE instead of show() to eliminate the confusing
+	  [1] since the classes in RProtoBuf are not vectorized.
+	* Make Descriptor and EnumDescriptor objects subsettable with
+	  "[[".
+	* Add length() method for Descriptor objects.
+	* Add names() method for Message, Descriptor, and EnumDescriptor
+	  objects.
+	* inst/unitTests/runit.enums.R (test.enums): Add test of
+	  subsetting an EnumDescriptor object.
+	* inst/unitTests/runit.descriptors.R (test.descriptor): Add test
+	  for subsetting of descriptor objects.
+	* DESCRIPTION (Version): Increment.
+
 2014-04-02  Murray Stokely  <mstokely@google.com>
 
 	Two patches from Karl Millar <kmillar@google.com>:

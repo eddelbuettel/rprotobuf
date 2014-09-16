@@ -225,6 +225,35 @@ RPB_FUNCTION_3(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Desc
     return (S4_Message(message));
 }
 
+RcppExport SEXP Descriptor_getField(SEXP pointer, SEXP name) {
+    GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
+    BEGIN_RCPP
+    std::string error_message = "could not get FieldDescriptor for field";
+    SEXP retVal = R_NilValue;
+    switch (TYPEOF(name)) {
+        case CHARSXP:
+        case STRSXP:
+            // This tries to get the field by name for various types of descriptors.
+            retVal = do_dollar_Descriptor(pointer, name);
+            if (retVal == R_NilValue) {
+                error_message = "Unknown field";
+            } else {
+                return retVal;
+            }
+            break;
+        default: {
+            error_message = "Invalid type for get field extractor.";
+            break;
+        }
+    }
+    if (!field_desc) {
+        Rcpp::stop(error_message.c_str());
+    }
+    return S4_FieldDescriptor(field_desc);
+    VOID_END_RCPP
+    return S4_FieldDescriptor(field_desc);
+}
+
 #undef METHOD
 
 }  // namespace rprotobuf

@@ -141,27 +141,28 @@ setMethod( "show", c( "Message" ), function(object){
   if (nexts > 0) {
     tmp <- paste(tmp, sprintf("and %d extension%s", nexts, if (nexts == 1) "" else "s"))
   }
-  show(tmp)
+  cat(tmp, fill=TRUE)
 } )
 setMethod( "show", c( "Descriptor" ), function(object){
-	show( sprintf( "descriptor for type '%s' ", object@type ) )
+	cat( sprintf( "descriptor for type '%s' ", object@type ) , fill=TRUE)
 } )
 setMethod( "show", c( "FieldDescriptor" ), function(object){
-	show( sprintf( "descriptor for field '%s' of type '%s' ", object@name, object@type ) )
+	cat( sprintf( "descriptor for field '%s' of type '%s' ",
+                     object@name, object@type ), fill=TRUE)
 } )
 setMethod( "show", c( "EnumDescriptor" ), function(object){
-	show( sprintf( "descriptor for enum '%s' with %d values", object@name,
-                      value_count(object) ) )
+	cat( sprintf( "descriptor for enum '%s' with %d values", object@name,
+                      value_count(object) ) , fill=TRUE)
 } )
 setMethod( "show", c( "ServiceDescriptor" ), function(object){
-	show( sprintf( "service descriptor <%s>", object@name ) )
+	cat( sprintf( "service descriptor <%s>", object@name ) , fill=TRUE)
 } )
 setMethod( "show", c( "FileDescriptor" ), function(object){
-	show( sprintf( "file descriptor for package %s (%s)", object@package,
-                      object@filename) )
+	cat( sprintf( "file descriptor for package %s (%s)", object@package,
+                      object@filename) , fill=TRUE)
 } )
 setMethod( "show", c( "EnumValueDescriptor" ), function(object){
-	show( sprintf( "enum value descriptor %s", object@full_name) )
+	cat( sprintf( "enum value descriptor %s", object@full_name), fill=TRUE)
 } )
 
 # }}}
@@ -386,7 +387,6 @@ setMethod( "$", "ZeroCopyOutputStream", function(x, name ){
 
 # {{{ [[
 setMethod( "[[", "Message", function(x, i, j, ..., exact = TRUE){
-
 	if( missing( i ) ){
 		stop( "`i` is required" )
 	}
@@ -394,12 +394,45 @@ setMethod( "[[", "Message", function(x, i, j, ..., exact = TRUE){
 		warning( "`j` is ignored" )
 	}
 
+        ## This works correctly by number or name. e.g. p[[1]] or p[["name"]]
 	if( is.character( i ) || is.numeric( i ) ){
 		.Call( "getMessageField", x@pointer, i, PACKAGE = "RProtoBuf" )
 	} else {
 		stop( "wrong type, `i` should be a character or a number" )
 	}
 
+} )
+
+setMethod( "[[", "Descriptor", function(x, i, j, ..., exact = TRUE){
+	if( missing( i ) ){
+          stop( "`i` is required" )
+	}
+	if( !missing(j) ){
+          warning( "`j` is ignored" )
+	}
+
+	if( is.character( i ) ) {
+          # gets a named field, nested type, or enum.
+          .Call("Descriptor_getField", x@pointer, i, package="RProtoBuf")
+        } else if (is.numeric( i ) ) {
+          return(as.list(x)[[i]])
+	} else {
+          stop( "wrong type, `i` should be a character or a number" )
+	}
+} )
+
+setMethod( "[[", "EnumDescriptor", function(x, i, j, ..., exact = TRUE){
+	if( missing( i ) ){
+                stop( "`i` is required" )
+	}
+	if( !missing(j) ){
+                warning( "`j` is ignored" )
+	}
+        if (is.character(i) || is.numeric(i)) {
+          return(as.list(x)[[i]])
+        } else {
+          stop( "wrong type, `i` should be a character or a number" )
+	}
 } )
 
 setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
@@ -468,6 +501,12 @@ setGeneric( "length" )
 setMethod( "length", "Message", function( x ){
 	.Call( "Message__length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
+# Returns number of fields, enums, types in message descriptor.
+# May be more than field_count which is only fields.
+# e.g. length(tutorial.Person) > field_count(tutorial.Person)
+setMethod( "length", "Descriptor", function( x ){
+        length(as.list(x))
+} )
 setMethod( "length", "EnumDescriptor", function( x ){
 	.Call( "EnumDescriptor__length", x@pointer, PACKAGE = "RProtoBuf" )
 } )
@@ -520,6 +559,23 @@ setMethod( "name", c( object = "FileDescriptor" ) ,
 function(object, full = FALSE){
 	filename <- .Call( "FileDescriptor__name", object@pointer, PACKAGE = "RProtoBuf" )
 	if( full ) filename else basename( filename )
+})
+# }}}
+
+# {{{ names
+# as.list() and names() don't make as much sense for FieldDescriptors,
+# EnumValueDescriptors, etc.
+setMethod( "names", c( x = "Message" ) ,
+function(x){
+        names(as.list(x))
+})
+setMethod( "names", c( x = "Descriptor" ) ,
+function(x){
+        names(as.list(x))
+})
+setMethod( "names", c( x = "EnumDescriptor" ) ,
+function(x){
+        names(as.list(x))
 })
 # }}}
 

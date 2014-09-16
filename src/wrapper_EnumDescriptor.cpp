@@ -99,19 +99,18 @@ RPB_FUNCTION_2(bool, has_enum_name, Rcpp::XPtr<GPB::EnumDescriptor> d, std::stri
  * @param xp external pointer to a Descriptor
  * @return the descriptor as an R list
  */
-RPB_FUNCTION_1(Rcpp::IntegerVector, METHOD(as_list), Rcpp::XPtr<GPB::EnumDescriptor> d) {
+RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::EnumDescriptor> d) {
 
     int n = d->value_count();
-    Rcpp::IntegerVector values(n);
     Rcpp::CharacterVector names(n);
-
+    Rcpp::List res(n);
     for (int i = 0; i < n; i++) {
         const GPB::EnumValueDescriptor* value_d = d->value(i);
-        values[i] = value_d->number();
+        res[i] = value_d->number();
         names[i] = value_d->name();
     }
-    values.names() = names;
-    return values;
+    res.names() = names;
+    return res;
 }
 
 RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getConstantNames), Rcpp::XPtr<GPB::EnumDescriptor> d) {

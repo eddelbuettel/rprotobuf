@@ -27,10 +27,10 @@ an R list, with one item per field.
 For messages, a list of the content of the fields is 
 returned.
 
-For message type descriptors, a list containing 
-nested type descriptors (\linkS4class{Descriptor} objects), 
-enum type descriptors (\linkS4class{EnumDescriptor} objects), 
-or field descriptors (\linkS4class{FieldDescriptor} objects)
+For message type descriptors, a list containing
+nested type descriptors (\linkS4class{Descriptor} objects),
+enum type descriptors (\linkS4class{EnumDescriptor} objects),
+then field descriptors (\linkS4class{FieldDescriptor} objects) in that order.
 
 For enum descriptors, a named list of the enumerated values.
 

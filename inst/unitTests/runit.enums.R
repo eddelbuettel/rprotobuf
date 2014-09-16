@@ -41,6 +41,10 @@ test.enums <- function() {
   checkTrue(has(ProtoFormat$PhoneType, "WORK"))
   checkTrue(!has(ProtoFormat$PhoneType, "NONEXISTANT"))
 
+  # Verify we can subset the EnumDescriptor class
+  checkEquals(ProtoFormat$PhoneType[["WORK"]], 2)
+  checkEquals(ProtoFormat$PhoneType[["MOBILE"]], 0)
+
   # Verify that invalid indices are returned as NULL.
   checkTrue(is.null(value(ProtoFormat$PhoneType, index=900)))
 
