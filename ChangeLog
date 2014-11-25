@@ -1,3 +1,9 @@
+2014-11-24  Murray Stokely  <mstokely@google.com>
+
+	* inst/unitTests/runit.golden.message.R: remove trailing
+	  whitespace.
+	* man/P.Rd: Improve output of example.
+
 2014-09-15  Murray Stokely  <mstokely@google.com>
 
 	Address feedback from anonymous reviewers for our Journal of

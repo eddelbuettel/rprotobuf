@@ -10,18 +10,18 @@
 .tearDown <- function(){}
 
 test.import <- function(){
-	checkTrue( exists( "protobuf_unittest_import.ImportMessage", "RProtoBuf:DescriptorPool" ) , 
+	checkTrue( exists( "protobuf_unittest_import.ImportMessage", "RProtoBuf:DescriptorPool" ) ,
 		msg = "exists( protobuf_unittest_import.ImportMessage ) " )
-	checkTrue( exists( "protobuf_unittest_import.ImportEnum", "RProtoBuf:DescriptorPool" ) , 
+	checkTrue( exists( "protobuf_unittest_import.ImportEnum", "RProtoBuf:DescriptorPool" ) ,
 		msg = "exists( protobuf_unittest_import.ImportEnum ) " )
-	checkEquals( 
-		names(as.list( protobuf_unittest_import.ImportMessage)), 
-		"d", 
+	checkEquals(
+		names(as.list( protobuf_unittest_import.ImportMessage)),
+		"d",
 		msg = "names( protobuf_unittest_import.ImportMessage ) == 'd'" )
 	import_enum <- as.list(protobuf_unittest_import.ImportEnum )
-	checkTrue( all( c("IMPORT_FOO", "IMPORT_BAR", "IMPORT_BAZ") %in% names(import_enum) ), 
+	checkTrue( all( c("IMPORT_FOO", "IMPORT_BAR", "IMPORT_BAZ") %in% names(import_enum) ),
 		msg = "expected names for 'protobuf_unittest_import.ImportEnum'" )
-	checkEquals( unlist(unname(import_enum)), 7:9, 
+	checkEquals( unlist(unname(import_enum)), 7:9,
 		msg = "expected values for 'protobuf_unittest_import.ImportEnum' " )
 }
 
@@ -30,10 +30,9 @@ test.readProtoFile <- function(){
 	checkTrue( exists( "protobuf_unittest.TestAllTypes.NestedMessage", "RProtoBuf:DescriptorPool" ),  msg = "exists( protobuf_unittest_import.TestAllTypes.NestedMessage ) " )
 	checkTrue( exists( "protobuf_unittest.TestAllTypes.NestedEnum", "RProtoBuf:DescriptorPool" ),  msg = "exists( protobuf_unittest_import.TestAllTypes.NestedEnum ) " )
 	checkTrue( exists( "protobuf_unittest.TestAllTypes.OptionalGroup", "RProtoBuf:DescriptorPool" ) ,  msg = "exists( protobuf_unittest.TestAllTypes.OptionalGroup ) " )
-	
-	types <- c("int32", "int64", "uint32", "uint64", "sint32", "sint64", 
-		"fixed32", "fixed64", "sfixed32", "sfixed64", "float", "double", 
-		"bool", "string", "bytes" )       
+	types <- c("int32", "int64", "uint32", "uint64", "sint32", "sint64",
+		"fixed32", "fixed64", "sfixed32", "sfixed64", "float", "double",
+		"bool", "string", "bytes" )
 	fieldnames <- names( as.list( protobuf_unittest.TestAllTypes ) )
 	prefixes <- c("optional", "default", "repeated" )
 	for( prefix in prefixes ){
@@ -43,16 +42,13 @@ test.readProtoFile <- function(){
 		checkTrue( sprintf("%s_foreign_enum"  , prefix ) %in% fieldnames, msg = sprintf( "%s_foreign_enum in field names"   , prefix ) )
 		checkTrue( sprintf("%s_import_enum"   , prefix ) %in% fieldnames, msg = sprintf( "%s_import_enum in field names"    , prefix ) )
 	}
-	
 	checkTrue( exists( "protobuf_unittest.ForeignMessage", "RProtoBuf:DescriptorPool" ) ,  msg = "exists( protobuf_unittest.ForeignMessage ) " )
 	checkEquals( names(as.list(protobuf_unittest.ForeignMessage)), "c" )
-	
 	checkTrue( exists( "protobuf_unittest.ForeignEnum", "RProtoBuf:DescriptorPool" ) ,  msg = "exists( protobuf_unittest.ForeignEnum ) " )
 	foreign_enum <- as.list( protobuf_unittest.ForeignEnum )
 	checkEquals( length(foreign_enum), 3L, msg = "length( protobuf_unittest.ForeignEnum ) == 3" )
 	checkTrue( all( c("FOREIGN_FOO", "FOREIGN_BAR", "FOREIGN_BAZ") %in% names( foreign_enum ) ), msg = "expected names for enum `protobuf_unittest.ForeignEnum`" )
 	checkEquals( unlist(unname(as.list(protobuf_unittest.ForeignEnum))), 4:6, msg = "expected values for enum `protobuf_unittest.ForeignEnum`" )
-	
 }
 
 # Early versions of RProtoBuf did not support repeated messages properly.

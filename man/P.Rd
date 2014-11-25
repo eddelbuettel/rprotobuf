@@ -28,6 +28,6 @@ Person <- P( "tutorial.Person", file = proto.file )
 }
 \dontshow{ Person <- P("tutorial.Person") }
 
-as.character( Person )
+cat(as.character( Person ))
 }
 \keyword{ interface }
