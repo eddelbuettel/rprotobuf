@@ -1,8 +1,15 @@
 // Originally written by Saptarshi Guha for RHIPE (http://www.rhipe.org)
-// Released under Apache License 2.0, and reused with permission here  
+// Released under Apache License 2.0, and reused with permission here
+// Extended in November 2014 with new types to support encoding
+// language, environment, and function types from R.
 
 package rexp;
 
+option java_package = "org.godhuli.rhipe";
+option java_outer_classname = "REXPProtos";
+
+// TODO(mstokely): Refine this using the new protobuf 2.6 oneof field
+// for unions.
 message REXP {
   enum RClass {
     STRING = 0;
@@ -13,6 +20,9 @@ message REXP {
     LIST = 5;
     LOGICAL = 6;
     NULLTYPE = 7;
+    LANGUAGE = 8;
+    ENVIRONMENT = 9;
+    FUNCTION = 10;
   }
   enum RBOOLEAN {
     F=0;
@@ -20,7 +30,7 @@ message REXP {
     NA=2;
   }
 
-  required RClass rclass = 1 ; 
+  required RClass rclass = 1;
   repeated double realValue = 2 [packed=true];
   repeated sint32 intValue = 3 [packed=true];
   repeated RBOOLEAN booleanValue = 4;
@@ -32,6 +42,9 @@ message REXP {
 
   repeated string attrName = 11;
   repeated REXP attrValue = 12;
+  optional bytes languageValue = 13;
+  optional bytes environmentValue = 14;
+  optional bytes functionValue = 14;
 }
 message STRING {
   optional string strval = 1;
@@ -41,4 +54,3 @@ message CMPLX {
   optional double real = 1 [default=0];
   required double imag = 2;
 }
-

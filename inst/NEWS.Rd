@@ -18,7 +18,12 @@
     \item Update the default print methods to use
     \code{cat()} with \code{fill=TRUE} instead of \code{show()} to eliminate the confusing
     \code{[1]} since the classes in \cpkg{RProtoBuf} are not vectorized.
-    \item Add unit tests.
+    \item Add support for serializing function, language, and
+      environment objects by falling back to R's native serialization
+      with \code{serialize_pb} and \code{unserialize_pb} to make it
+      easy to serialize into a protocol buffer all 100+ of the
+      built-in datasets with R.
+    \item Add unit tests for all of the above.
 }
 
 \section{Changes in RProtoBuf version 0.4.1 (2014-03-25)}{
