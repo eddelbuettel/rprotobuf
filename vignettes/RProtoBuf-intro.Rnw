@@ -367,7 +367,7 @@ Although the \texttt{RProtoBuf} package uses
 the S4 system, the \verb|@| operator is very rarely used. Fields of the
 message are retrieved or modified using the \verb|$| or \verb|[[| operators
 as seen on the previous section, and pseudo-methods can also
-be called using the \verb|$| operator. The table~\ref{Message-methods-table}
+be called using the \verb|$| operator. Table~\ref{Message-methods-table}
 describes the methods defined for the \texttt{Message} class :
 
 \begin{table}[h]
@@ -431,7 +431,7 @@ Neither \verb|$| nor \verb|[[| support partial matching of names. The
 \verb|$| is also used to call methods on the message, and the
 \verb|[[| operator can use the tag number of the field.
 
-The table~\ref{table-get-types} details correspondance between
+Table~\ref{table-get-types} details correspondance between
 the field type and the type of data that is retrieved by \verb|$| and
 \verb|[[|.
 
@@ -495,7 +495,7 @@ message[[ 1 ]] <- "foobar"
 writeLines( message$as.character() )
 @
 
-The table~\ref{table-message-field-setters} describes the R types that
+Table~\ref{table-message-field-setters} describes the R types that
 are allowed in the right hand side depending on the target type of the
 field.
 
@@ -726,8 +726,8 @@ message$fetch( "phone", 1 )
 \subsubsection{Message\$setExtension method}
 \label{Message-method-setExtension}
 
-The \texttt{setExtension} method can be used to get values
-of a repeated field.
+The \texttt{setExtension} method can be used to set an extension field of the
+Message.
 
 <<keep.source=T>>=
 if (!exists("protobuf_unittest.TestAllTypes",
@@ -882,7 +882,7 @@ the slots \texttt{pointer} and \texttt{type} :
 \end{table}
 
 Similarly to messages, the \verb|$| operator can be used to extract
-information from the descriptor, or invoke pseuso-methods.
+information from the descriptor, or invoke pseudo-methods.
 Table~\ref{Descriptor-methods-table} describes the methods defined for the \texttt{Descriptor} class :
 
 \begin{table}[h]

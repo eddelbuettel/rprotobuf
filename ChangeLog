@@ -1,3 +1,8 @@
+2014-11-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RProtoBuf-intro.Rnw: Applied a few corrections spotted by
+	Tim Hesterberg and communicated in email.
+
 2014-11-24  Murray Stokely  <mstokely@google.com>
 
 	* inst/unitTests/runit.golden.message.R: remove trailing
