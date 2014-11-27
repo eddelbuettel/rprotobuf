@@ -1,3 +1,9 @@
+# Functions to convert an arbitrary R object into a protocol buffer
+# using the universal rexp.proto descriptor.
+#
+# Written by Jeroen Ooms
+# Modified 2014 by Murray Stokely to support language and environment types
+
 rexp_obj <- function(obj){
   sm <- typeof(obj);
   msg <- switch(sm,
@@ -8,10 +14,13 @@ rexp_obj <- function(obj){
     "integer" = rexp_integer(obj),
     "list" = rexp_list(obj),
     "logical" = rexp_logical(obj),
+    "language" = rexp_language(obj),
+    "environment" = rexp_environment(obj),
+    "function" = rexp_function(obj),
     "NULL" = rexp_null(),
     {warning("Unsupported R object type:", sm); rexp_null()}
   );
-  
+
   attrib <- attributes(obj)
   msg$attrName <- names(attrib)
   msg$attrValue <- lapply(attrib, rexp_obj)
@@ -23,6 +32,21 @@ rexp_string <- function(obj){
     new(pb(rexp.STRING), strval=x, isNA=is.na(x))
   })
   new(pb(rexp.REXP), rclass = 0, stringValue=xvalue)
+}
+
+# For objects that only make sense in R, we just fall back
+# to R's default serialization.
+
+rexp_language <- function(obj){
+  new(pb(rexp.REXP), rclass= 8, languageValue = base::serialize(obj, NULL))
+}
+
+rexp_environment <- function(obj){
+  new(pb(rexp.REXP), rclass= 9, environmentValue = base::serialize(obj, NULL))
+}
+
+rexp_function <- function(obj){
+  new(pb(rexp.REXP), rclass= 10, functionValue = base::serialize(obj, NULL))
 }
 
 rexp_raw <- function(obj){
@@ -62,7 +86,7 @@ rexp_null <- function(){
 unrexp <- function(msg){
   stopifnot(is(msg, "Message"))
   stopifnot(msg@type == "rexp.REXP")
-  
+
   myrexp <- as.list(msg)
   xobj <- switch(as.character(myrexp$rclass),
      "0" = unrexp_string(myrexp),
@@ -73,15 +97,18 @@ unrexp <- function(msg){
      "5" = unrexp_list(myrexp),
      "6" = unrexp_logical(myrexp),
      "7" = unrexp_null(),
+     "8" = unrexp_language(myrexp),
+     "9" = unrexp_environment(myrexp),
+     "10" = unrexp_function(myrexp),
      stop("Unsupported rclass:", myrexp$rclass)
   )
-  
+
   if(length(myrexp$attrValue)){
     attrib <- lapply(myrexp$attrValue, unrexp)
     names(attrib) <- myrexp$attrName
     attributes(xobj) <- attrib
   }
-  
+
   xobj
 }
 
@@ -125,6 +152,21 @@ unrexp_null <- function(){
   NULL
 }
 
+unrexp_language <- function(myrexp){
+  xvalue <- myrexp$languageValue
+  unserialize(xvalue)
+}
+
+unrexp_environment <- function(myrexp){
+  xvalue <- myrexp$environmentValue
+  unserialize(xvalue)
+}
+
+unrexp_function <- function(myrexp){
+  xvalue <- myrexp$functionValue
+  unserialize(xvalue)
+}
+
 #Helper function to lookup a PB descriptor
 pb <- function(name){
   descriptor <- deparse(substitute(name))
@@ -134,28 +176,8 @@ pb <- function(name){
   get(descriptor, "RProtoBuf:DescriptorPool")
 }
 
-#Checks if object can be serialized 
+#Checks if object can be serialized
 can_serialize_pb <- rexp_valid <- function(obj) {
-  valid.types <- c("character", "raw", "double", "complex", "integer",
-    "list", "logical", "NULL")
-  sm <- typeof(obj)
-  if (sm %in% valid.types) {
-    if (sm == "list") {
-      if (any(! unlist(lapply(obj, rexp_valid)))) {
-        return(FALSE)
-      }
-    }
-  } else {
-    return(FALSE)
-  }
-  attrib <- attributes(obj)
-  if (is.null(attrib)) {
-    return(TRUE)
-  }
-  if (rexp_valid(names(attrib))) {
-    if (rexp_valid(unname(attrib))) {
-      return(TRUE)
-    }
-  }
-  return(FALSE)
+# We can now serialize everything.  just call back to R serialization
+  return(TRUE)
 }
