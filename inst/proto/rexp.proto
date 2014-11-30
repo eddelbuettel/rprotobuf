@@ -44,7 +44,7 @@ message REXP {
   repeated REXP attrValue = 12;
   optional bytes languageValue = 13;
   optional bytes environmentValue = 14;
-  optional bytes functionValue = 14;
+  optional bytes functionValue = 15;
 }
 message STRING {
   optional string strval = 1;
