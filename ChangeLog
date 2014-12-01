@@ -1,3 +1,9 @@
+2014-12-01  Murray Stokely  <mstokely@google.com>
+
+	* R/wrapper_ZeroCopyInputStream.R: Avoid file.create for getting
+	absolute path of a temporary file name (JSS reviewer feedback)
+	* R/serialize.R: Idem.
+
 2014-11-26  Murray Stokely  <mstokely@google.com>
 
 	Address feedback from anonymous reviewer for JSS to make this

@@ -14,10 +14,10 @@ setMethod( "serialize", c( object = "Message" ) ,
 		if( is.character( connection ) ){
 			# pretend it is a file name
 			if( !file.exists(connection) ){
-				# FIXME: hack to grab the absolute path name
-				file.create( connection )
-				file <- file_path_as_absolute(connection)
-				unlink( file )
+				if( !file.exists( dirname(connection) ) ){
+					stop( "directory does not exist" )
+				}
+				file <- normalizePath(connection, mustWork=FALSE)
 			} else{
 				file <- file_path_as_absolute(connection)
 			}

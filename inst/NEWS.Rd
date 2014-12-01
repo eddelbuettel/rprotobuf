@@ -2,7 +2,7 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in RProtoBuf version 0.4.2 (2014-??-??)}{
+\section{Changes in RProtoBuf version 0.4.2 (2014-12-??)}{
   \itemize{
     \item Address changes suggested by anonymous reviewers for our
     Journal of Statistical Software submission.
@@ -23,6 +23,8 @@
       with \code{serialize_pb} and \code{unserialize_pb} to make it
       easy to serialize into a protocol buffer all 100+ of the
       built-in datasets with R.
+    \item Use \code{normalizePath} instead of creating a temporary
+    file with \code{file.create} when getting absolute path names.
     \item Add unit tests for all of the above.
 }
 

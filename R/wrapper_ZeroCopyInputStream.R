@@ -128,9 +128,7 @@ setMethod( "FileOutputStream", signature( filename = "character", block_size = "
 		if( !file.exists( dirname(filename) ) ){
 			stop( "directory does not exist" )
 		}
-		file.create( filename )
-		filename <- file_path_as_absolute(filename)
-		unlink( filename )
+		filename <- normalizePath(filename, mustWork=FALSE)
 	} else{
 		filename <- file_path_as_absolute(filename)
 	}
