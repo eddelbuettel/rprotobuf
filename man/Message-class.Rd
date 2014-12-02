@@ -11,6 +11,7 @@
 \alias{show,Message-method}
 \alias{update,Message-method}
 \alias{length,Message-method}
+\alias{names,Message-method}
 \alias{str,Message-method}
 \alias{toString,Message-method}
 \alias{identical,Message,Message-method}
@@ -68,7 +69,9 @@ as an external pointer.
     \item{==}{\code{signature(e1 = "Message", e2 = "Message")}: Same as \code{identical} }
     \item{!=}{\code{signature(e1 = "Message", e2 = "Message")}: Negation of \code{identical} }
     \item{all.equal}{\code{signature(e1 = "Message", e2 = "Message")}: Test near equality }
-     }
+    \item{names}{\code{signature(x = "Message")}: extracts the names of the message. }
+
+  }
 }
 \references{ 
 	The \code{Message} class from the C++ proto library.

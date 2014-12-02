@@ -18,6 +18,9 @@
 \alias{value-methods}
 \alias{value,EnumDescriptor-method}
 
+\alias{[[,EnumDescriptor-method}
+\alias{names,EnumDescriptor-method}
+
 \title{Class "EnumDescriptor"  }
 \description{ R representation of an enum descriptor. This 
 is a thin wrapper around the \code{EnumDescriptor} c++ class. }
@@ -60,6 +63,8 @@ Objects of this class are typically retrieved as members of
       using the name of the constant, using the \code{FindValueByName}
       C++ method.
     }
+    \item{[[}{\code{signature(x = "EnumDescriptor")}: extracts field identified by its name or declared tag number}
+    \item{names}{\code{signature(x = "EnumDescriptor")} : extracts names of this enum}
   }
   	
 }

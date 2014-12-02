@@ -15,6 +15,9 @@
 \alias{field,Descriptor-method}
 \alias{nested_type,Descriptor-method}
 \alias{enum_type,Descriptor,ANY,ANY-method}
+\alias{[[,Descriptor-method}
+\alias{names,Descriptor-method}
+\alias{length,Descriptor-method}
 
 \title{Class "Descriptor" }
 \description{ full descriptive information about a protocol buffer 
@@ -81,6 +84,9 @@ C++ class \code{Descriptor}}
 			If \code{name} is used, the enum type will be retrieved
 			using its name, with the \code{FindEnumTypeByName} C++ method
 	}
+    \item{[[}{\code{signature(x = "Descriptor")}: extracts a field identified by its name or declared tag number}
+    \item{names}{\code{signature(x = "Descriptor")} : extracts names of this descriptor}
+    \item{length}{\code{signature(x = "Descriptor")} : extracts length of this descriptor}
 
   }
 }

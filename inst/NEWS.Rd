@@ -26,6 +26,7 @@
     \item Use \code{normalizePath} instead of creating a temporary
     file with \code{file.create} when getting absolute path names.
     \item Add unit tests for all of the above.
+  }
 }
 
 \section{Changes in RProtoBuf version 0.4.1 (2014-03-25)}{

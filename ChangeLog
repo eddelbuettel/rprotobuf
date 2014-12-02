@@ -1,3 +1,9 @@
+2014-12-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/Message-class.Rd: Completed documentation
+	* man/Descriptor-class.Rd: Ditto
+	* man/EnumDescriptor-class.Rd: Ditto
+
 2014-12-01  Murray Stokely  <mstokely@google.com>
 
 	* R/wrapper_ZeroCopyInputStream.R: Avoid file.create for getting
