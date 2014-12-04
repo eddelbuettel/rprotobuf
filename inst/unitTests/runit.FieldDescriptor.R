@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-.runThisTest <-  FALSE                  # as a brute force test, suppress
+.runThisTest <-  TRUE
 
 if (.runThisTest) {
 
@@ -25,18 +25,18 @@ if (.runThisTest) {
         Person <- P( "tutorial.Person", file = proto.file )
 
         ## field descriptor object
-        checkTrue(!is.null(Person$email))
+        checkTrue(!is.null(Person$email), msg="non-null email")
 
         ## debug string
-        checkTrue(nchar(as.character( Person$email )) > 1)
+        checkTrue(nchar(as.character( Person$email )) > 1, msg="non-empty email")
 
         ## default values
-        checkTrue(!has_default_value(Person$id))
-        checkTrue(has_default_value(Person$PhoneNumber$type))
+        checkTrue(!has_default_value(Person$id), msg="no default for id")
+        checkTrue(has_default_value(Person$PhoneNumber$type), msg="default for phone")
+        checkEquals(default_value(Person$PhoneNumber$type), 1, msg="check default for phone type")
+        checkEquals(default_value(Person$id), 0, msg="check default for person id")
 
-        checkEquals(default_value(Person$PhoneNumber$type), 1)
-        checkEquals(default_value(Person$id), 0)
-
+        if (FALSE) {
         ## Get the types of field descriptors
         checkEquals(type(Person$id), TYPE_INT32)
         checkEquals(type(Person$id, TRUE), "TYPE_INT32")
@@ -66,6 +66,6 @@ if (.runThisTest) {
 
         ## No containing type for the top-level message descriptor.
         checkTrue(is.null(Person$containing_type()))
-        
+        }
     }
 }
