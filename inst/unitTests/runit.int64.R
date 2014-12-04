@@ -15,6 +15,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 test.int64 <- function() {
+    # Preserve option.
+    old.optval <- options("RProtoBuf.int64AsString")
+    on.exit(options(old.optval))
+
     if (!exists("protobuf_unittest.TestAllTypes",
                 "RProtoBuf:DescriptorPool")) {
         unittest.proto.file <- system.file("unitTests", "data",

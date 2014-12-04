@@ -1,3 +1,8 @@
+2014-12-04  Murray Stokely  <mstokely@google.com>
+
+	* inst/unitTests/runit.int64.R: restore options on exit from this
+	  function to make the test indempotent.
+
 2014-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/Message-class.Rd: Completed documentation
