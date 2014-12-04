@@ -1,3 +1,9 @@
+2014-12-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Added after move to GitHub
+
+	* README.md: Added minimal first version with Travis badge
+
 2014-12-04  Murray Stokely  <mstokely@google.com>
 
 	* inst/unitTests/runit.int64.R: restore options on exit from this
