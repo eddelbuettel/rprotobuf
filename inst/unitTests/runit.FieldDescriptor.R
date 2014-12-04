@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-.runThisTest <-  TRUE
+.runThisTest <-  FALSE
 
 if (.runThisTest) {
 
@@ -36,7 +36,6 @@ if (.runThisTest) {
         checkEquals(default_value(Person$PhoneNumber$type), 1, msg="check default for phone type")
         checkEquals(default_value(Person$id), 0, msg="check default for person id")
 
-        if (FALSE) {
         ## Get the types of field descriptors
         checkEquals(type(Person$id), TYPE_INT32)
         checkEquals(type(Person$id, TRUE), "TYPE_INT32")
@@ -66,6 +65,6 @@ if (.runThisTest) {
 
         ## No containing type for the top-level message descriptor.
         checkTrue(is.null(Person$containing_type()))
-        }
+
     }
 }
