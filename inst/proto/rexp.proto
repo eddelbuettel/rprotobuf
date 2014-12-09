@@ -20,9 +20,7 @@ message REXP {
     LIST = 5;
     LOGICAL = 6;
     NULLTYPE = 7;
-    LANGUAGE = 8;
-    ENVIRONMENT = 9;
-    FUNCTION = 10;
+    NATIVE = 8;
   }
   enum RBOOLEAN {
     F=0;
@@ -42,9 +40,7 @@ message REXP {
 
   repeated string attrName = 11;
   repeated REXP attrValue = 12;
-  optional bytes languageValue = 13;
-  optional bytes environmentValue = 14;
-  optional bytes functionValue = 15;
+  optional bytes nativeValue = 13;
 }
 message STRING {
   optional string strval = 1;
