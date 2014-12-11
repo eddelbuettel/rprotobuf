@@ -1,12 +1,16 @@
-2014-12-10 Jeroen Ooms <jeroenooms@gmail.com>
+2014-12-10  Jeroen Ooms  <jeroenooms@gmail.com>
 
-  * Change Makevars.win to use new protobuf 2.6.1 builds on windows
-  * Fix a bug in int64 unit test on windows
+	* src/Makevars.win: Use new ProtoBuf 2.6.1 builds on Windows
+	* tools/winlibs.R: Helper function used for Windows build
 
-2014-12-08 Jeroen Ooms <jeroenooms@gmail.com>
+	* inst/unitTests/runit.int64.R: Fixed a windows bug
 
-  * Add a new type 'native' to rexp.proto
-  * Modify (un)serialize_pb to serialize() non-data types as native
+2014-12-08  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* inst/proto/rexp.proto: Add a new type 'native'
+
+	* R/rexp_obj.R: Modify (un)serialize_pb to serialize() non-data types
+	as 'native' types
 
 2014-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
