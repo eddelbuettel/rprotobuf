@@ -2,15 +2,15 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in RProtoBuf version 0.4.2 (2014-12-??)}{
+\section{Changes in RProtoBuf version 0.4.2 (2014-12-10)}{
   \itemize{
     \item Address changes suggested by anonymous reviewers for our
     Journal of Statistical Software submission.
     \item Make \code{Descriptor} and \code{EnumDescriptor} objects subsettable with
     "\code{[[}".
     \item Add \code{length()} method for \code{Descriptor} objects.
-    \item Add \code{names()} method for \code{Message}, \code{Descriptor}, and \code{EnumDescriptor}
-    objects.
+    \item Add \code{names()} method for \code{Message},
+    \code{Descriptor}, and \code{EnumDescriptor} objects.
     \item Clarify order of returned list for descriptor objects in
     \code{as.list} documentation.
     \item Correct the definition of \code{as.list} for \code{EnumDescriptors} to
@@ -21,8 +21,8 @@
     \item Add support for serializing function, language, and
       environment objects by falling back to R's native serialization
       with \code{serialize_pb} and \code{unserialize_pb} to make it
-      easy to serialize into a protocol buffer all 100+ of the
-      built-in datasets with R.
+      easy to serialize into a Protocol Buffer all of the more than 100
+      datasets which come with R.
     \item Use \code{normalizePath} instead of creating a temporary
     file with \code{file.create} when getting absolute path names.
     \item Add unit tests for all of the above.
