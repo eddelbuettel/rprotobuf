@@ -1,3 +1,13 @@
+2014-12-10 Jeroen Ooms <jeroenooms@gmail.com>
+
+  * Change Makevars.win to use new protobuf 2.6.1 builds on windows
+  * Fix a bug in int64 unit test on windows
+
+2014-12-08 Jeroen Ooms <jeroenooms@gmail.com>
+
+  * Add a new type 'native' to rexp.proto
+  * Modify (un)serialize_pb to serialize() non-data types as native
+
 2014-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Added after move to GitHub
@@ -106,7 +116,7 @@
 	* configure.in: if we can't find the libproto headers with the
 	  default CPPFLAGS/CXXFLAGS, manually add /usr/local/include and try
 	  again.
-	
+
 2014-03-10  Murray Stokely  <mstokely@google.com>
 
 	* src/DescriptorPoolLookup.cpp (rprotobuf): Import all top-level
