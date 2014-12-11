@@ -1,3 +1,7 @@
+2014-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION (Version): Release 0.4.2
+
 2014-12-10  Jeroen Ooms  <jeroenooms@gmail.com>
 
 	* src/Makevars.win: Use new ProtoBuf 2.6.1 builds on Windows
