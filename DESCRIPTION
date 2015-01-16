@@ -15,8 +15,7 @@ Imports: utils, stats, tools, Rcpp, RCurl
 LinkingTo: Rcpp
 Suggests: RUnit, highlight
 VignetteBuilder: highlight
-SystemRequirements: Protocol Buffer compiler (to create C++ header and source files
- from .proto descriptions) and library (version 2.2.0 or later)
+SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later. On Debian/Ubuntu these are libprotoc-dev and libprotobuf-dev. On Fedora we need protobuf-devel and protobuf-compiler.
 License: GPL-2
 URL: https://github.com/eddelbuettel/rprotobuf, http://romainfrancois.blog.free.fr/index.php?category/R-package/RProtoBuf, http://dirk.eddelbuettel.com/blog/code/rprotobuf/, http://arxiv.org/abs/1401.7372
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
