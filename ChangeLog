@@ -1,5 +1,13 @@
 2015-08-23  Dirk Eddelbuettel  <edd@debian.org>
 
+	* tools/winlibs.R: Actually tests against R 3.3.0
+
+2015-08-23  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* tools/winlibs.R: Test for R 3.3.0 on Windows
+
+2015-08-23  Dirk Eddelbuettel  <edd@debian.org>
+
 	* NAMESPACE: Added imports for as and is from methods
 
 	* DESCRIPTION: Removed several of the (largely redundant) URLs, and
