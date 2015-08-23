@@ -2,8 +2,7 @@
 ## Package has dynamic library
 useDynLib(RProtoBuf)
 
-importFrom(methods, new)
-importFrom(methods, show)
+importFrom(methods, new, show, as, is)
 importFrom(utils, str, packageDescription)
 importFrom(stats, update)
 importFrom(tools, file_path_as_absolute)
