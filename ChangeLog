@@ -1,3 +1,29 @@
+2015-08-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* NAMESPACE: Expanded importsFrom(methods) as requested by CRAN
+
+	* DESCRIPTION: Removed several of the (largely redundant) URLs, and
+	minor edits in Description: to update to current standard
+
+	* man/RProtoBuf-package.Rd: Updated, removed old URLs.
+
+2015-07-08  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* tools/winlibs.R: Update URL to windows build of the required
+	ProtoBuf library
+
+2015-01-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Minor edits
+
+2015-01-16  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* DESCRIPTION: Make SystemRequirements: more explicit
+
+2014-12-11  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* DESCRIPTION: Update URLs
+
 2014-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION (Version): Release 0.4.2
