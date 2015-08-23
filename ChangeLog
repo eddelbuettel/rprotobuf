@@ -7,6 +7,8 @@
 
 	* man/RProtoBuf-package.Rd: Updated, removed old URLs.
 
+	* .travis.yml: Accelerate by installing dependencies via apt-get
+
 2015-08-05  Balasubramanian Narasimhan <b.naras@gmail.com>
 
 	* NAMESPACE: Added import for show from methods package
