@@ -1,3 +1,9 @@
+2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Additional badges
+
+	* inst/unitTests/runit.FieldDescriptor.R: Added msg field
+
 2015-08-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tools/winlibs.R: Actually tests against R 3.3.0
