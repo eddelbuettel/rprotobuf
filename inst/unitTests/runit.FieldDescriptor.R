@@ -17,9 +17,9 @@
 
 # this is executed before each test function
 .setUp <- function(){
-    if( !exists("tutorial.Person", "RProtoBuf:DescriptorPool") ) {
-        unitest.proto.file <- system.file("proto", "addressbook.proto", package = "RProtoBuf" )
-        readProtoFiles(file = unitest.proto.file)
+    if( !exists("tutorial.Person", "RProtoBuf:DescriptorPool")) {
+        protofile <- system.file("proto", "addressbook.proto", package = "RProtoBuf" )
+        readProtoFiles(file = protofile)
     }
 }
         
@@ -41,33 +41,34 @@ test.FieldDescriptor.class <- function() {
     checkEquals(default_value(Person$id), 0, msg="check default for person id")
 
     ## Get the types of field descriptors
-    checkEquals(type(Person$id), TYPE_INT32)
-    checkEquals(type(Person$id, TRUE), "TYPE_INT32")
-    checkEquals(cpp_type(Person$email), CPPTYPE_STRING)
-    checkEquals(cpp_type(Person$email, TRUE), "CPPTYPE_STRING")
+    checkEquals(type(Person$id), TYPE_INT32, msg="type int32")
+    checkEquals(type(Person$id, TRUE), "TYPE_INT32", msg="type int32 as char")
+    checkEquals(cpp_type(Person$email), CPPTYPE_STRING, msg="cpptype string")
+    checkEquals(cpp_type(Person$email, TRUE), "CPPTYPE_STRING", msg="cpptype string as char")
 
     ## Get the label of a field descriptor
-    checkEquals(label(Person$id), LABEL_REQUIRED)
-    checkEquals(label(Person$id, TRUE), "LABEL_REQUIRED")
-    checkEquals(label(Person$email), LABEL_OPTIONAL)
-    checkEquals(label(Person$email, TRUE), "LABEL_OPTIONAL")
+    checkEquals(label(Person$id), LABEL_REQUIRED, msg="label required")
+    checkEquals(label(Person$id, TRUE), "LABEL_REQUIRED", msg="label required as char")
+    checkEquals(label(Person$email), LABEL_OPTIONAL, msg="label optional")
+    checkEquals(label(Person$email, TRUE), "LABEL_OPTIONAL", msg="label optional as char")
 
     ## Test if a field is optional
-    checkTrue(is_required(Person$id))
-    checkTrue(!is_optional(Person$id))
-    checkTrue(!is_repeated(Person$id))
+    checkTrue(is_required(Person$id), msg="id is required")
+    checkTrue(!is_optional(Person$id), msg="id is not optional")
+    checkTrue(!is_repeated(Person$id), msg="id is not repeated")
 
-    checkTrue(!is_required(Person$email))
-    checkTrue(is_optional(Person$email))
-    checkTrue(!is_repeated(Person$email))
+    checkTrue(!is_required(Person$email), msg="email is not required")
+    checkTrue(is_optional(Person$email), msg="email is optional")
+    checkTrue(!is_repeated(Person$email), msg="email is not repeated")
 
     ## Return the class of a message field
-    checkTrue(inherits(message_type(Person$phone), "Descriptor"))
+    checkTrue(inherits(message_type(Person$phone), "Descriptor"), msg="inherits Descriptor")
 
     ## Containing type of a field is the message descriptor
-    checkTrue(inherits(Person$id$containing_type(), "Descriptor"))
+    checkTrue(inherits(Person$id$containing_type(), "Descriptor"),
+              msg="inherits containing type Descriptor")
 
     ## No containing type for the top-level message descriptor.
-    checkTrue(is.null(Person$containing_type()))
+    checkTrue(is.null(Person$containing_type()), msg="no containing typw")
 
 }

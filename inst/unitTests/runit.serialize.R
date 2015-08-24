@@ -17,11 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # this is executed before each test function
-.setUp <- function(){
-	if( !exists("tutorial.Person", "RProtoBuf:DescriptorPool") ) {
-		unitest.proto.file <- system.file("proto", "addressbook.proto",
-                                                  package = "RProtoBuf" )
-		readProtoFiles(file = unitest.proto.file)
+.setUp <- function() {
+	if (!exists("tutorial.Person", "RProtoBuf:DescriptorPool")) {
+		protofile <- system.file("proto", "addressbook.proto", package = "RProtoBuf")
+		readProtoFiles(file = protofile)
 	}
 }
 
