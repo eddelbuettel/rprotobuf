@@ -1,3 +1,7 @@
+2015-08-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Release 0.4.3
+
 2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Additional badges
@@ -46,7 +50,7 @@
 
 2014-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
- 	* DESCRIPTION (Version): Release 0.4.2
+	* DESCRIPTION (Version): Release 0.4.2
 
 2014-12-10  Jeroen Ooms  <jeroenooms@gmail.com>
 
