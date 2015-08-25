@@ -2,6 +2,19 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in RProtoBuf version 0.4.3 (2015-08-25)}{
+  \itemize{
+    \item Declare additional imports from \pkg{methods} in \code{NAMESPACE}.
+    \item Travis CI tests now run faster as all CRAN dependencies are
+    installed as binaries.
+    \item The \code{tools/winlibs.R} script now tests for R (< 3.3.0)
+    before calling the (soon-to-be phased out) \code{setInternet2()} function.
+    \item Several small edits were made to \code{DESCRIPTION} to clarify
+    library dependencies, provide additonal references and conform to
+    now-current R packaging standards.
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.2 (2014-12-10)}{
   \itemize{
     \item Address changes suggested by anonymous reviewers for our
