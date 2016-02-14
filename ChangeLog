@@ -1,3 +1,9 @@
+2016-02-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (License): Set to GPL (>= 2) which is what the code
+	files with actual copyright and license headers had all along
+	* README.md: Idem
+
 2015-08-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Release 0.4.3
