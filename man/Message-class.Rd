@@ -46,7 +46,7 @@ as an external pointer.
     \item{toString}{\code{signature(x = "Message")}: same as \code{as.character} }
     \item{$<-}{\code{signature(x = "Message")}: set the value of a field of the message. }
     \item{$}{\code{signature(x = "Message")}: gets the value of a field. 
-    Primitive types are brough back to R as R objects of the closest matching R type. 
+    Primitive types are brought back to R as R objects of the closest matching R type. 
     Messages are brought back as instances of the \code{Message} class.}
     \item{[[}{\code{signature(x = "Message")}: extracts a field identified by its name or declared tag number }
     \item{[[<-}{\code{signature(x = "Message")}: replace the value of a field identified by its name or declared tag number }

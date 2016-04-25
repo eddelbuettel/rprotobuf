@@ -24,7 +24,7 @@ TODO
   \describe{
   	  \item{\code{pointer}:}{External pointer to a \code{google::protobuf::MethodDescriptor} C++ object }
   	  \item{\code{name}:}{fully qualified name of the method}
-  	  \item{\code{service}:}{fully qualified name of the servive that defines this method}
+  	  \item{\code{service}:}{fully qualified name of the service that defines this method}
   }
 }
 \section{Methods}{

@@ -56,7 +56,7 @@ Objects of this class are typically retrieved as members of
       used.
       If \code{index} is used, the enum value descriptor is retrieved
       by position, using the \code{value} method of the C++ class. 
-      If \code{number} is used, the enum value descripror is retrieved
+      If \code{number} is used, the enum value descriptor is retrieved
       using the value of the constant, using the \code{FindValueByNumber}
       C++ method. 
       If \code{name} is used, the enum value descriptor is retrieved

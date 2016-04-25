@@ -39,7 +39,7 @@ TODO
 	descriptors contained in this service descriptor}
 	\item{length}{\code{signature(x = "ServiceDescriptor")}: number of \linkS4class{MethodDescriptor} }
 	\item{method_count}{\code{signature(x = "ServiceDescriptor")}: number of \linkS4class{MethodDescriptor} }
-	\item{method}{\code{signature(x = "ServiceDescriptor")}: retrieveds a \linkS4class{MethodDescriptor} }
+	\item{method}{\code{signature(x = "ServiceDescriptor")}: retrieves a \linkS4class{MethodDescriptor} }
 	}
 }
 \author{ Romain Francois <francoisromain@free.fr> }
