@@ -140,7 +140,10 @@ unrexp_null <- function(){
 }
 
 unrexp_native <- function(myrexp){
-  unserialize(myrexp$nativeValue)
+  buf <- myrexp$nativeValue
+  if(!length(buf))
+    return(NULL)
+  unserialize(buf)
 }
 
 #Helper function to lookup a PB descriptor
