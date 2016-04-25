@@ -1,20 +1,22 @@
 #' Serialize R object to Protocol Buffer Message.
-#' 
-#' This function serializes R objects to a general purpose protobuf message. It 
-#' uses the same \code{rexp.proto} descriptor and mapping between R objects and
-#' protobuf messages as RHIPE.
-#' 
-#' Third party clients need both the message and the \code{rexp.proto} descriptor
-#' to read serialized R objects. The latter is included in the the package 
-#' installation \code{proto} directory:
+#'
+#' Serializes R objects to a general purpose protobuf message using the same
+#' \code{rexp.proto} descriptor and mapping as RHIPE.
+#' An optimized version of this function is also available in the
+#' \link[protolite:serialize_pb]{protolite} package.
+#'
+#' Clients need both the
+#' message and the \code{rexp.proto} descriptor to parse serialized R objects.
+#' The latter is included in the the package installation \code{proto} directory:
 #' \code{system.file(package="RProtoBuf", "proto/rexp.proto")}
-#' 
-#' Currently, the following storage types are supported: 
+#'
+#' The following storage types are natively supported by the descriptor:
 #' \code{character}, \code{raw}, \code{double}, \code{complex}, \code{integer},
-#' \code{list}, and \code{NULL}. Objects with other storage types, such as 
-#' functions, environments, S4 classes, etc, will be skipped with a warning. 
-#' Missing values, attributes and numeric precision will be preserved. 
-#'  
+#' \code{list}, and \code{NULL}. Objects with other storage types, such as
+#' functions, environments, S4 classes, etc, are serialized using base R
+#' \code{\link{serialize}} and stored in the proto \code{native} type.
+#' Missing values, attributes and numeric precision will be preserved.
+#'
 #' @param object R object to serialize
 #' @param connection passed on to  \code{\link{serialize}}
 #' @param ... additional arguments passed on to  \code{\link{serialize}}
