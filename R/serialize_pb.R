@@ -1,8 +1,7 @@
 #' Serialize R object to Protocol Buffer Message.
 #'
 #' Serializes R objects to a general purpose protobuf message using the same
-#' \code{rexp.proto} descriptor and mapping as RHIPE or
-#' \link[protolite:serialize_pb]{protolite}.
+#' \code{rexp.proto} descriptor and mapping.
 #'
 #' Clients need both the message and the \code{rexp.proto} descriptor to parse
 #' serialized R objects. The latter is included in the the package installation
