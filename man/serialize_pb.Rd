@@ -17,7 +17,8 @@ serialize_pb(object, connection, ...)
 }
 \description{
 Serializes R objects to a general purpose protobuf message using the same
-\code{rexp.proto} descriptor and mapping.
+\code{rexp.proto} descriptor and mapping between R objects and protobuf
+mesages as RHIPE.
 }
 \details{
 Clients need both the message and the \code{rexp.proto} descriptor to parse
