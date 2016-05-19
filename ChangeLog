@@ -1,3 +1,8 @@
+2016-05-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RProtoBuf-unitTests.Rnw: Do not write unit test results to
+	/tmp per request from CRAN to not write outside test directories
+
 2016-02-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (License): Set to GPL (>= 2) which is what the code
