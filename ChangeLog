@@ -1,7 +1,42 @@
+2016-07-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Release 0.4.4
+
+	* vignettes/RProtoBuf-paper.Rnw: Added, based on pending JSS publication
+	* vignettes/RProtoBuf-paper.bib: Ditto
+	* vignettes/figures/*: Ditto
+	* vignettes/proto/*: Ditto
+	* vignettes/jss.cls: Ditto
+	* vignettes/jss.bst: Ditto
+
+	* inst/CITATION: Update to version provided by JSS
+
+	* README.md: Updated to use of canonical URLs for CRAN
+
 2016-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/RProtoBuf-unitTests.Rnw: Do not write unit test results to
 	/tmp per request from CRAN to not write outside test directories
+
+2016-04-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* CONTRIBUTING.md: New workflow document
+
+2016-04-25  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* R/rexp_obj.R: Fix zero-length edge case
+
+	* R/serialize_pb.R: Improved documentation
+	* man/serialize_pb.Rd: Ditto
+
+2016-04-21  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* src/Makevars.win: Accomodate new Windows toolchain
+
+2016-04-21  Jonathon Love  <jon@thon.cc>
+
+        * inst/unitTests/runit.addressbook.R: Set to mode 0644
+        * inst/unitTests/runit.bytes.R: Ditto
 
 2016-02-11  Dirk Eddelbuettel  <edd@debian.org>
 

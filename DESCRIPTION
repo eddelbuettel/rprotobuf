@@ -1,15 +1,14 @@
 Package: RProtoBuf
-Version: 0.4.3
-Date: 2015-08-25
+Version: 0.4.4
+Date: 2016-07-10
 Author: Romain Francois, Dirk Eddelbuettel, Murray Stokely and Jeroen Ooms
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the Protocol Buffers API
 Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
- of its internal RPC protocols and file formats.  Additional
- documentation is available in the arXiv.org preprint "RProtoBuf:
- Efficient Cross-Language Data Serialization in R" by Eddelbuettel,
- Stokely, and Ooms (2014) at <http://arxiv.org/abs/1401.7372>.
+ of its internal 'RPC' protocols and file formats.  Additional documentation
+ is available in two included vignettes one of which corresponds to our paper
+ in the Journal of Statistical Software (2016, v71i02).
 Depends: R (>= 3.0.0), methods
 Imports: utils, stats, tools, Rcpp, RCurl
 LinkingTo: Rcpp

@@ -2,6 +2,17 @@
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in RProtoBuf version 0.4.4 (2016-07-10)}{
+  \itemize{
+    \item New vignette based on JSS publication (v71 i02)
+    \item Some documentation enhancements were made, as well as other
+    minor cleanups to file modes and operations
+    \item Unit-test vignette no longer writes to \code{/tmp} per CRAN
+    request
+    \item The new Windows toolchain (based on g++ 4.9.*) is supported
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.3 (2015-08-25)}{
   \itemize{
     \item Declare additional imports from \pkg{methods} in \code{NAMESPACE}.
