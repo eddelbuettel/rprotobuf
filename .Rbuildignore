@@ -1,8 +1,10 @@
 m4
 configure.in
 vignettes/Sweave.sty
+vignettes/jss.bst
 src/.dir-locals.el
 src/std.lnt
 .travis.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
+CONTRIBUTING.md

@@ -1,0 +1,6 @@
+package JSSPaper;
+
+message Example1 {
+  optional bool optional_bool = 1;
+  repeated int64 repeated_int64 = 2;
+}
