@@ -131,7 +131,8 @@ AC_PROG_R
 if test -z "${R_HOME}"; then
     AC_MSG_ERROR([Could not determine R_HOME.])   
 fi
-CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+R_CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+CXXFLAGS="${CXXFLAGS} ${R_CXXFLAGS}"
 
 # We need this to get some limited int64 support with Rcpp.
 if test "x$ax_cv_cxx_compile_cxx0x_cxx" = "xyes" ; then
@@ -155,7 +156,7 @@ fi
 
 ## now use all these
 AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} $protobuf_cxxflags"])
-AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags $protobuf_libs"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LDFLAGS} $rcpp_ldflags $protobuf_libs"])
 AC_SUBST([R_HOME],["${R_HOME}"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
