@@ -4073,6 +4073,7 @@ if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
 
 else
 
+#		AC_MSG_ERROR([ERROR: ProtoBuf headers required; use '-Iincludedir' in CXXFLAGS for unusual locations.])
 		# If it didn't work, try adding /usr/local directly then trying again
 		{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Protobuf headers not found with default CXXFLAGS and CPPFLAGS, manually trying /usr/local/include" >&5
 $as_echo "$as_me: WARNING: Protobuf headers not found with default CXXFLAGS and CPPFLAGS, manually trying /usr/local/include" >&2;}
