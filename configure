@@ -4264,7 +4264,7 @@ fi
 ## now use all these
 PKG_CPPFLAGS="${PKG_CPPFLAGS} ${CXXFLAGS} $protobuf_cxxflags"
 
-PKG_LIBS="${PKG_LIBS} ${LDFLAGS} $rcpp_ldflags $protobuf_libs"
+PKG_LIBS="${PKG_LIBS} $rcpp_ldflags $protobuf_libs"
 
 R_HOME="${R_HOME}"
 

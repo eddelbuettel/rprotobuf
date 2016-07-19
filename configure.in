@@ -156,7 +156,7 @@ fi
 
 ## now use all these
 AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} $protobuf_cxxflags"])
-AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LDFLAGS} $rcpp_ldflags $protobuf_libs"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags $protobuf_libs"])
 AC_SUBST([R_HOME],["${R_HOME}"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
