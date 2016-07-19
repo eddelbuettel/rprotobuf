@@ -1,3 +1,8 @@
+2016-07-19  Craig Radcliffe  <chradcliffe@gmail.com>
+
+	* configure.in: Make sure that CXXFLAGS is from the environment
+	when writing to src/Makevars
+
 2016-07-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Release 0.4.4

@@ -131,7 +131,8 @@ AC_PROG_R
 if test -z "${R_HOME}"; then
     AC_MSG_ERROR([Could not determine R_HOME.])   
 fi
-CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+R_CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+CXXFLAGS="${CXXFLAGS} ${R_CXXFLAGS}"
 
 # We need this to get some limited int64 support with Rcpp.
 if test "x$ax_cv_cxx_compile_cxx0x_cxx" = "xyes" ; then
