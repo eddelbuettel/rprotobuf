@@ -6,6 +6,14 @@ sudo: required
 
 dist: trusty
 
+env:
+  matrix: 
+    # set up a test matrix for both ProtoBuf library versions: "v2" which we source
+    # from Ubuntu "trusty" as usual, and "v3" which we source from Dirk's PPA where
+    # an unofficial / local build of ProtoBuf 3.0.0 is available (sans Java)
+    - PROTO="v2"
+    - PROTO="v3"
+  
 before_install:
   - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
   # add our launchpad repo which has (inter alia) the newest QuantLib
@@ -13,7 +21,7 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - .run.sh install_aptget libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-rcpp r-cran-runit r-cran-rcurl r-cran-highlight
+  - ./run.sh install_aptget libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-rcpp r-cran-runit r-cran-rcurl r-cran-highlight
 
 script:
   - ./run.sh run_tests
