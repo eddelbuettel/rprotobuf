@@ -13,7 +13,7 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - ./travis-tool.sh install_aptget libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-rcpp r-cran-runit r-cran-rcurl r-cran-highlight
+  - .run.sh install_aptget libprotobuf-dev libprotoc-dev protobuf-compiler r-cran-rcpp r-cran-runit r-cran-rcurl r-cran-highlight
 
 script:
   - ./run.sh run_tests
