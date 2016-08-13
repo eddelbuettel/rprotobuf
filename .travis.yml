@@ -11,13 +11,13 @@ env:
     # set up a test matrix for both ProtoBuf library versions: "v2" which we source
     # from Ubuntu "trusty" as usual, and "v3" which we source from Dirk's PPA where
     # an unofficial / local build of ProtoBuf 3.0.0 is available (sans Java)
-    - PROTO="v2"
-    - PROTO="v3"
+    - PROTOBUF="v2"
+    - PROTOBUF="v3"
   
 before_install:
   - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
-  # add our launchpad repo which has (inter alia) the newest QuantLib
-  # - sudo add-apt-repository -y ppa:edd/misc
+  # if v3, add our launchpad repo which has (inter alia) the newest ProtoBuf as an unofficial build
+  - if [ "$PROTOBUF" == "v3" ]; then sudo add-apt-repository -y ppa:edd/misc; fi
   - ./run.sh bootstrap
 
 install:
