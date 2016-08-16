@@ -1,3 +1,6 @@
+// mark as Protocol Buffers v2 format
+syntax = "proto2";
+
 message NestedInner {
   required int32 x = 1;
 }

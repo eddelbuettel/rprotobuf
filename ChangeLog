@@ -1,3 +1,19 @@
+2016-08-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Rolling minor version
+
+	* inst/proto/addressbook.proto: Added 'syntax = "proto2";'
+	* inst/proto/helloworld.proto: Idem
+	* inst/proto/rexp.proto: Idem
+	* inst/unitTests/data/bytes.proto: Idem
+	* inst/unitTests/data/encoding.proto: Idem
+	* inst/unitTests/data/nested.proto: Idem
+	* inst/unitTests/data/unittest.proto: Idem
+	* inst/unitTests/data/unittest_import.proto: Idem
+	* vignettes/proto/int64.proto: Idem
+
+	* inst/unitTests/runit.addressbook.R: Currently disabled. TODO/FIXME
+
 2016-08-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Switch to using run.sh for Travis CI, also switch to

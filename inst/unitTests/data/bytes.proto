@@ -1,3 +1,6 @@
+// mark as Protocol Buffers v2 format
+syntax = "proto2";
+
 option optimize_for = SPEED;
 option java_outer_classname = "BytesProto";
 
