@@ -12,7 +12,8 @@
 	* inst/unitTests/data/unittest_import.proto: Idem
 	* vignettes/proto/int64.proto: Idem
 
-	* inst/unitTests/runit.addressbook.R: Currently disabled. TODO/FIXME
+	* inst/unitTests/runit.addressbook.R (test.ascii): Comment-out one
+	sub-test concerned with access under bad file modes
 
 2016-08-13  Dirk Eddelbuettel  <edd@debian.org>
 

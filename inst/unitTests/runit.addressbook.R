@@ -35,7 +35,6 @@ test.personOne <- function() {
 }
 
 test.ascii <- function() {
-    if (FALSE) {
     # Output in text format to a temporary file
     out.file <- tempfile()
     writeLines( as.character(book), file(out.file))
@@ -52,15 +51,15 @@ test.ascii <- function() {
     # (better than silently getting an empty proto.)
     book4 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rt")))
 
-    # Test does not work on windows because of chmod
-    if(!grepl("mingw", R.Version()$platform)){
-        # Verify that we get an exception if the file is not readable.
-        old.mode <- file.info(out.file)[["mode"]]
-        Sys.chmod(out.file, "0000")
-        book5 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rb")))
-        # Set the permissions back to ensure the file is cleaned up properly.
-        Sys.chmod(out.file, old.mode)
-    }
+    ## # Test does not work on windows because of chmod
+    ## if(!grepl("mingw", R.Version()$platform)){
+    ##     # Verify that we get an exception if the file is not readable.
+    ##     old.mode <- file.info(out.file)[["mode"]]
+    ##     Sys.chmod(out.file, "0000")
+    ##     book5 <- checkException( readASCII( tutorial.AddressBook, file(out.file, "rb")))
+    ##     # Set the permissions back to ensure the file is cleaned up properly.
+    ##     Sys.chmod(out.file, old.mode)
+    ## }
 
     # Verify that we get an exception if the file is not parseable.
     out.file2 <- tempfile()
@@ -82,5 +81,4 @@ test.ascii <- function() {
     # Verify we can however read it if we set partial=TRUE.
     new.msg <- tutorial.Person$readASCII(file(tmp.file), TRUE)
     checkEquals(incomplete.msg$name, new.msg$name)
-    }
 }
