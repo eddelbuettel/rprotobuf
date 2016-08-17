@@ -1,6 +1,9 @@
-package rprotobuf ;
-option java_package = "org.rproject.rprotobuf" ;
-option java_outer_classname = "HelloWorld" ;
+// mark as Protocol Buffers v2 format
+syntax = "proto2";
+
+package rprotobuf;
+option java_package = "org.rproject.rprotobuf";
+option java_outer_classname = "HelloWorld";
 
 message HelloWorldRequest{}
 message HelloWorldResponse{

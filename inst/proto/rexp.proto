@@ -3,6 +3,9 @@
 // Extended in November 2014 with new types to support encoding
 // language, environment, and function types from R.
 
+// mark as Protocol Buffers v2 format
+syntax = "proto2";
+
 package rexp;
 
 option java_package = "org.godhuli.rhipe";
