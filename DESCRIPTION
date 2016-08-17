@@ -14,9 +14,10 @@ Imports: utils, stats, tools, Rcpp, RCurl
 LinkingTo: Rcpp
 Suggests: RUnit, highlight
 VignetteBuilder: highlight
-SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later. 
- On Debian/Ubuntu these are libprotoc-dev and libprotobuf-dev, while on 
- Fedora protobuf-devel and protobuf-compiler are needed.
+SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
+ version 3.0.0 or later is supported as well. On Debian/Ubuntu these can be
+ installed as libprotoc-dev and libprotobuf-dev, while on Fedora/CentOS
+ protobuf-devel and protobuf-compiler are needed.
 License: GPL (>= 2)
 URL: https://github.com/eddelbuettel/rprotobuf 
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
