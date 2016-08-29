@@ -2,6 +2,7 @@ m4
 configure.in
 vignettes/Sweave.sty
 vignettes/jss.bst
+vignettes/jss.cls
 src/.dir-locals.el
 src/std.lnt
 .travis.yml
