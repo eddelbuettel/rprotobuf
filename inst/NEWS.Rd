@@ -1,9 +1,22 @@
 \name{NEWS}
 \title{News for Package \pkg{RProtoBuf}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
+\newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
+
+\section{Changes in RProtoBuf version 0.4.5 (2016-08-29)}{
+  \itemize{
+    \item Support for version 3 of the Protcol Buffers API
+    \item Added 'syntax = "proto2";' to all proto files (PR \ghpr{17})
+    \item Updated Travis CI script to test against both versions 2 and 3
+    using custom-built .deb packages of version 3 (PR \ghpr{16})
+    \item Improved build system with support for custom CXXFLAGS (Craig
+    Radcliffe in PR \ghpr{15}) 
+  }
+}
 
 \section{Changes in RProtoBuf version 0.4.4 (2016-07-10)}{
-  \itemize{
+   \itemize{
     \item New vignette based on JSS publication (v71 i02)
     \item Some documentation enhancements were made, as well as other
     minor cleanups to file modes and operations
