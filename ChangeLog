@@ -1,3 +1,10 @@
+2016-09-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	[ Entry for anonymous PR #18 by 'oliverbock' ] 
+	* R/rexp_obj.R (unrexp_string): Ensure zero-length strings can be
+	serialized; special case of native encoding for S4 objects
+	* inst/unitTests/runit.serialize_pb.R: New tests
+
 2016-08-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): New release 0.4.5

@@ -4,6 +4,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.6 (2016-xx-yy)}{
+  \itemize{
+    \item Support for serializing zero-length objects was added (PR
+    \ghpr{18} addressing \ghit{13})
+    \item S4 objects are natively encoded (also PR \ghpr{18})
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.5 (2016-08-29)}{
   \itemize{
     \item Support for version 3 of the Protcol Buffers API
