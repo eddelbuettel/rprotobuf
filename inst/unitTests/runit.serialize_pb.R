@@ -19,8 +19,10 @@ test.serialize_pb <- function() {
     mylist = list(foo='bar', 123, NA, NULL, list('test')),
     mylogical = c(TRUE,FALSE,NA),
     mychar = c('foo', NA, 'bar'),
+    myemptychar = character(0),
     somemissings = c(1,2,NA,NaN,5, Inf, 7 -Inf, 9, NA),
-    myrawvec = charToRaw('This is a test')
+    myrawvec = charToRaw('This is a test'),
+    myS4 = asS4("test")
   );
 
   checkEquals(unserialize_pb(serialize_pb(myobject, NULL)), myobject)

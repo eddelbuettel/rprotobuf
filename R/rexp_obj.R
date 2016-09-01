@@ -5,6 +5,11 @@
 # Modified 2014 by Murray Stokely to support language and environment types
 
 rexp_obj <- function(obj){
+  if(isS4(obj)) {
+    # Some S4 objects do not return "S4" from typeof.  e.g. lubridate interval
+    # These must be natively encoded or we will lose the S4 flag.
+    return(rexp_native(obj))
+  }
   sm <- typeof(obj);
   msg <- switch(sm,
     "character" = rexp_string(obj),
@@ -103,7 +108,7 @@ unrexp_string <- function(myrexp){
   mystring <- unlist(lapply(myrexp$stringValue, "[[", "strval"))
   isNA <- unlist(lapply(myrexp$stringValue, "[[", "isNA"))
   mystring[isNA] <- NA
-  mystring
+  as.character(mystring)
 }
 
 unrexp_raw <- function(myrexp){
@@ -118,7 +123,7 @@ unrexp_complex <- function(myrexp){
   xvalue <- lapply(myrexp$complexValue, function(x){
     complex(real=x$real, imaginary=x$imag)
   })
-  unlist(xvalue)
+  as.complex(unlist(xvalue))
 }
 
 unrexp_integer <- function(myrexp){
