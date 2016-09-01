@@ -103,7 +103,7 @@ unrexp_string <- function(myrexp){
   mystring <- unlist(lapply(myrexp$stringValue, "[[", "strval"))
   isNA <- unlist(lapply(myrexp$stringValue, "[[", "isNA"))
   mystring[isNA] <- NA
-  mystring
+  as.character(mystring)
 }
 
 unrexp_raw <- function(myrexp){
@@ -118,7 +118,7 @@ unrexp_complex <- function(myrexp){
   xvalue <- lapply(myrexp$complexValue, function(x){
     complex(real=x$real, imaginary=x$imag)
   })
-  unlist(xvalue)
+  as.complex(unlist(xvalue))
 }
 
 unrexp_integer <- function(myrexp){
