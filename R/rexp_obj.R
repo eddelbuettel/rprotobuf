@@ -5,6 +5,11 @@
 # Modified 2014 by Murray Stokely to support language and environment types
 
 rexp_obj <- function(obj){
+  if(isS4(obj)) {
+    # Some S4 objects do not return "S4" from typeof.  e.g. lubridate interval
+    # These must be natively encoded or we will lose the S4 flag.
+    return(rexp_native(obj))
+  }
   sm <- typeof(obj);
   msg <- switch(sm,
     "character" = rexp_string(obj),
