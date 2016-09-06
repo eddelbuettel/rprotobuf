@@ -1,6 +1,12 @@
+2016-09-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RProtoBuf-paper.Rnw: Comment-out the use of the \DOI
+	macro from (updated) jss.cls: cannot ship jss.cls (or R will warn)
+	and cannot use \DOI as (as R-release and older do not know \DOI)
+
 2016-09-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	[ Entry for anonymous PR #18 by 'oliverbock' ] 
+	[ Entry for anonymous PR #18 by 'oliverbock' ]
 	* R/rexp_obj.R (unrexp_string): Ensure zero-length strings can be
 	serialized; special case of native encoding for S4 objects
 	* inst/unitTests/runit.serialize_pb.R: New tests

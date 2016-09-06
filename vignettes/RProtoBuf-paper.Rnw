@@ -60,7 +60,7 @@
 \Year{2016}
 \Submitdate{2014-02-05}
 \Acceptdate{2015-04-13}
-\DOI{10.18637/jss.v071.i02}
+%\DOI{10.18637/jss.v071.i02}
 
 %% The address of (at least) one author should be given
 %% in the following format:
