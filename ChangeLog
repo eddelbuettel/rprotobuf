@@ -2,6 +2,7 @@
 
 	* DESCRIPTION (Version, Date): New release 0.4.6
 	* inst/NEWS.Rd: Ditto, also replace \cpkg{} with \CRANpkg{}
+	* README.md: Use https for CRAN URL
 
 2016-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
