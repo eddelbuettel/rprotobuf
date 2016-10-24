@@ -3,7 +3,7 @@
 #include "DescriptorPoolLookup.h"
 
 /* This uses the mechanism of the RObjectTables package
-   see: http://www.omegahat.org/RObjectTables/ */
+   see: http://www.omegahat.net/RObjectTables/ */
 
 namespace rprotobuf {
 

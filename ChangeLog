@@ -1,3 +1,10 @@
+2016-10-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Roll minor version and date
+
+	* src/lookup.cpp: Replace omegahat.org with omagehat.net
+	* vignettes/RProtoBuf-paper.bib: Ditto
+
 2016-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): New release 0.4.6
