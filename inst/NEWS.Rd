@@ -3,6 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.7 (2016-10-27)}{
+  \itemize{
+    \item At the request of CRAN, two documentation instances referring
+    to the Omegehat repository were updated to \url{http://omegahat.net}
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.6 (2016-09-08)}{
   \itemize{
     \item Support for serializing zero-length objects was added (PR

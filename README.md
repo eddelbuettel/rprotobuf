@@ -27,14 +27,16 @@ You can either install from source via this repo, or install
 the usual way from [R](https://www.r-project.org) via
 
 ```r
-R> install.packages("RProtoBuf")
+install.packages("RProtoBuf")
 ```
 
 but do make sure you have the system requirements covered when building from
-source. Under Debian/Ubuntu you may need
+source.
 
-```
-$ sudo apt-get install protobuf-compiler libprotobuf-dev libprotoc-dev 
+Under Debian/Ubuntu you may need
+
+```bash
+sudo apt-get install protobuf-compiler libprotobuf-dev libprotoc-dev 
 ```
 
 with similar commands on other operating systems or distributions.
