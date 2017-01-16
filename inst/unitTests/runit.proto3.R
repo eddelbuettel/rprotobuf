@@ -20,9 +20,9 @@
 
 ## The Travis CI tests use both proto2 and proto3, so we need to condition against
 ## running this one with proto2 where it cannot pass we impose a proto3 file
-isNotProto2Test <- Sys.getenv("PROTOBUF") != "v2"    
+isProto3 <- (RProtoBuf:::getProtobufLibVersion() >= 3000000)
 
-if (isNotProto2Test) {
+if (isProto3) {
 
     .setUp <- function(){
         if( !exists("SearchRequest", "RProtoBuf:DescriptorPool")) {
