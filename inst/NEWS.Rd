@@ -3,6 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.8 (2017-01-17)}{
+  \itemize{
+    \item Windows builds now use the proto3 library as well (PR \ghpr{21}
+    fixing \ghit{20})
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.7 (2016-10-27)}{
   \itemize{
     \item At the request of CRAN, two documentation instances referring
