@@ -9,6 +9,6 @@ rm -f config.* src/Makedeps src/Makevars \
     vignettes/RProtoBuf*.out vignettes/RProtoBuf*.toc \
     vignettes/RProtoBuf*.tex vignettes/RProtoBuf*.pdf
 
-rm -rf inst/doc/auto
+rm -rf inst/doc/auto autom4te.cache
 
 
