@@ -3,9 +3,9 @@
 # RProtoBuf configure.ac
 #
 # Copyright (C) 2009 - 2017  Dirk Eddelbuettel <edd@debian.org>
-# Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
-# Copyright (C) 2013 - 2017  Dirk Eddelbuettel, Romain Francois and Murray Stokely
-# Copyright (C) 2016 - 2017  Dirk Eddelbuettel, Romain Francois, Murray Stokely and Craig Radcliffe
+# Portions Copyright (C) 2010  Romain Francois
+# Portions Copyright (C) 2013  Murray Stokely
+# Portions Copyright (C) 2016  Craig Radcliffe
 
 # require at least autoconf 2.61
 AC_PREREQ(2.61)
