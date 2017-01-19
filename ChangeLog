@@ -1,3 +1,7 @@
+2017-01-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure.ac: Renamed from configure.in, minor edit
+
 2017-01-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* configure.in: Updated and simplified in a few places as
