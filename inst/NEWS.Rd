@@ -3,6 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.8 (2017-xx-yy)}{
+  \itemize{
+    \item The `configure.ac` file was updated, and renamed from the
+    older converntion `configure.in`, along with `src/Makevars`. (PR
+    \ghpr{24} fixing \ghit{23}) 
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.8 (2017-01-17)}{
   \itemize{
     \item Windows builds now use the proto3 library as well (PR \ghpr{21}

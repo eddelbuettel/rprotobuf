@@ -1,7 +1,9 @@
 ## -*- mode: makefile; -*-
 
-## Configure tells us about locations for
-## both Rcpp (ie libRcpp.so and Rcpp.h) and 
-## ProtoBuf headers and library via the variables
-PKG_CPPFLAGS=		@PKG_CPPFLAGS@
-PKG_LIBS=		@PKG_LIBS@ 
+## Make this C++11 so that we get better int64 support and much more
+CXX_STD=CXX11
+
+## Configure tells us about locations for ## both Rcpp (ie libRcpp.so and Rcpp.h) and 
+## ProtoBuf headers and library via these variables
+PKG_CPPFLAGS=@PKG_CPPFLAGS@
+PKG_LIBS=@PKG_LIBS@ 

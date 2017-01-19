@@ -1,26 +1,23 @@
 # -*- mode: autoconf; autoconf-indentation: 4; -*-
 #
-# RProtoBuf configure.in by Dirk Eddelbuettel <edd@debian.org>
+# RProtoBuf configure.ac
 #
-# $Id$
+# Copyright (C) 2009 - 2017  Dirk Eddelbuettel <edd@debian.org>
+# Portions Copyright (C) 2010  Romain Francois
+# Portions Copyright (C) 2013  Murray Stokely
+# Portions Copyright (C) 2016  Craig Radcliffe
 
 # require at least autoconf 2.61
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.4.1])
-m4_include([m4/m4-ax_cxx_compile_stdcxx_0x.m4])
+AC_INIT([RProtoBuf],[0.4.9])
 
 # We are using C++
 AC_LANG(C++)
 AC_REQUIRE_CPP
 AC_PROG_CC
 AC_PROG_CXX
-
-# If we can support std=c++0x we should pass flags to do so (this will
-# enable better int64 support) but we shouldn't cause the build to
-# fail if we can't do this.
-AC_CXX_COMPILE_STDCXX_0X
 
 ## simpler alternative to test below:  AC_PATH_PROG(PROTOC, protoc)
 
@@ -91,17 +88,6 @@ AC_CHECK_HEADER(google/protobuf/compiler/code_generator.h,,
 # LIBS="$LIBS -lprotoc -lprotobuf -lpthread"
 LIBS="$LIBS $protobuf_libs"
 
-## [Romain] this does not work for me just now, ignoring
-## AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-## 	#include <google/protobuf/text_format.h>
-## 	#include <google/protobuf/compiler/command_line_interface.h>
-## 	]], [[
-## 	google::protobuf::TextFormat::Printer foo;
-## 	google::protobuf::compiler::CommandLineInterface bar;
-## 	]]
-## 	)],[],[AC_MSG_ERROR([ERROR: protobuf test program did not link, maybe add '-Llibdir' to LDFLAGS.])])
-#LIBS="$pb_savedlibs"
-
 ## also check for minimum version
 AC_MSG_CHECKING([if ProtoBuf version >= 2.2.0])
 AC_RUN_IFELSE([AC_LANG_SOURCE([[
@@ -134,30 +120,16 @@ fi
 R_CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 CXXFLAGS="${CXXFLAGS} ${R_CXXFLAGS}"
 
-# We need this to get some limited int64 support with Rcpp.
-if test "x$ax_cv_cxx_compile_cxx0x_cxx" = "xyes" ; then
-   CXXFLAGS="$CXXFLAGS -std=c++0x"
-fi
-
-## look for Rscript, but use the one found via R_HOME to allow for multiple installations
-AC_DEFUN([AC_PROG_RSCRIPT], [AC_CHECK_PROG(RSCRIPT,Rscript,yes)])
-AC_PROG_RSCRIPT
-if test x"${RSCRIPT}" == x"yes" ; then
-    ## link flag providing libary as well as path to library, and optionally rpath
-    rcpp_ldflags=`${R_HOME}/bin/Rscript -e 'Rcpp:::LdFlags()'`
-else
-    echo "
-  Your installation does not appear to have Rscript installed.
-
-  Please make sure that you have a working and complete R installation.
-"
-    exit 1
-fi
-
 ## now use all these
-AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} $protobuf_cxxflags"])
-AC_SUBST([PKG_LIBS],["${PKG_LIBS} $rcpp_ldflags $protobuf_libs"])
-AC_SUBST([R_HOME],["${R_HOME}"])
+AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} ${protobuf_cxxflags}"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${protobuf_libs}"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
-echo "Completed configuration and ready to build."
+
+echo "
+RProtoBuf $PACKAGE_VERSION
+===============
+
+cflags:  ${PKG_CPPFLAGS} 
+libs:    ${PKG_LIBS}
+"

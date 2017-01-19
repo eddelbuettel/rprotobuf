@@ -1,3 +1,19 @@
+2017-01-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure.ac: Renamed from configure.in, minor edit
+
+2017-01-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure.in: Updated and simplified in a few places as
+	we no longer need m4 macros for C++0x or Rscript for Rcpp library query
+	* configure: Re-generated accordingly
+
+	* src/Makevars.in: Set CXX_STD=CXX11
+
+	* m4/m4-ax_cxx_compile_stdcxx_0x.m4: Removed
+
+	* cleanup: remove autoconf cache
+
 2017-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version and date
