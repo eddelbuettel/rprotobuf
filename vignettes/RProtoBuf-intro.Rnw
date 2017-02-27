@@ -153,7 +153,7 @@ readProtoFiles( package = "RProtoBuf" )
 @
 
 Once the proto files are imported, all message descriptors are
-are available in the R search path in the \texttt{RProtoBuf:DescriptorPool}
+available in the R search path in the \texttt{RProtoBuf:DescriptorPool}
 special environment. The underlying mechanism used here is
 described in more detail in section~\ref{sec-lookup}.
 
@@ -190,7 +190,7 @@ However, as opposed to R lists, no partial matching is performed
 and the name must be given entirely.
 
 The \verb|[[| operator can also be used to query and set fields
-of a mesages, supplying either their name or their tag number :
+of a message, supplying either their name or their tag number :
 
 <<>>=
 p[["name"]] <- "Romain Francois"
@@ -253,7 +253,7 @@ close( con )
 readBin( tf2, raw(0), 500 )
 @
 
-\texttt{serialize} can also be used in a more traditionnal
+\texttt{serialize} can also be used in a more traditional
 object oriented fashion using the dollar operator :
 
 <<>>=
@@ -431,7 +431,7 @@ Neither \verb|$| nor \verb|[[| support partial matching of names. The
 \verb|$| is also used to call methods on the message, and the
 \verb|[[| operator can use the tag number of the field.
 
-Table~\ref{table-get-types} details correspondance between
+Table~\ref{table-get-types} details correspondence between
 the field type and the type of data that is retrieved by \verb|$| and
 \verb|[[|.
 
@@ -471,7 +471,7 @@ message & \texttt{S4} object of class \texttt{Message} & \texttt{list} of \textt
 \hline
 \end{tabular}
 \end{small}
-\caption{\label{table-get-types}Correspondance between field type and
+\caption{\label{table-get-types}Correspondence between field type and
   R type retrieved by the extractors. \footnotesize{1. R lacks native
   64-bit integers, so the \texttt{RProtoBuf.int64AsString} option is
   available to return large integers as characters to avoid losing
@@ -804,7 +804,7 @@ writeLines( toString( message ) )
 \subsubsection{Message\$as.list method}
 \label{Message-method-aslist}
 
-The \texttt{as.list} method converts the message to an named R list
+The \texttt{as.list} method converts the message to a named R list.
 
 <<>>=
 message <- new( tutorial.Person, name = "foo", email = "foo@bar.com", id = 2 )
@@ -958,7 +958,7 @@ tutorial.Person$new( )
 new( tutorial.Person )
 @
 
-Passing additional arguments to the method allows to directlt set
+Passing additional arguments to the method allows directly setting
 the fields of the message at construction time.
 
 <<>>=
@@ -1083,7 +1083,7 @@ tutorial.Person$PhoneNumber$containing_type()
 \subsubsection{The field\_count method}
 \label{Descriptor-method-fieldcount}
 
-Tme \texttt{field\_count} method retrieves the number of fields in
+The \texttt{field\_count} method retrieves the number of fields in
 this descriptor.
 
 <<>>=
@@ -1113,8 +1113,8 @@ tutorial.Person$nested_type_count()
 \subsubsection{The nested\_type method}
 \label{Descriptor-method-nestedtype}
 
-The \texttt{nested\_type} method return the descriptor for the specified nested
-type in this descriptor.
+The \texttt{nested\_type} method returns the descriptor for the specified 
+nested type in this descriptor.
 
 <<>>=
 tutorial.Person$nested_type(1)
@@ -1208,7 +1208,7 @@ Return the default value.\\
 \subsubsection{as.character}
 \label{fielddescriptor-method-ascharacter}
 
-The \texttt{as.character} method brings the debug string of the field descriptor.
+The \texttt{as.character} method gives the debug string of the field descriptor.
 
 <<>>=
 writeLines( as.character( tutorial.Person$PhoneNumber ) )
@@ -1317,7 +1317,7 @@ tutorial.Person$id$cpp_type()
 
 Gets the label of a field (optional, required, or repeated).
 The \texttt{label} method returns the label of a field (optional,
-required, or repeated).  By defualt it returns a number value, but the
+required, or repeated).  By default it returns a number value, but the
 optional \texttt{as.string} argument can be provided to return a
 human readable string representation.
 
@@ -1483,7 +1483,7 @@ as.list( tutorial.Person$PhoneType )
 \subsubsection{as.character}
 \label{enumdescriptor-method-ascharacter}
 
-The \texttt{as.character} method brings the debug string of the enum type.
+The \texttt{as.character} method gives the debug string of the enum type.
 
 <<>>=
 writeLines( as.character( tutorial.Person$PhoneType ) )
@@ -1492,7 +1492,7 @@ writeLines( as.character( tutorial.Person$PhoneType ) )
 \subsubsection{toString}
 \label{enumdescriptor-method-tostring}
 
-The \texttt{toString} method brings the debug string of the enum type.
+The \texttt{toString} method gives the debug string of the enum type.
 
 <<>>=
 writeLines( toString( tutorial.Person$PhoneType ) )
@@ -1567,7 +1567,7 @@ tutorial.Person$PhoneType$has("nonexistant")
 \subsubsection{value\_count}
 \label{enumdescriptor-method-valuecount}
 
-The \texttt{value\_count} method returnst he number of constants in
+The \texttt{value\_count} method returns the number of constants in
 this enum.
 %TODO(ms): Duplicate of length, just like tostring/as.character.
 <<>>=
@@ -1674,7 +1674,7 @@ enum_type( tutorial.Person$PhoneType$value(number=2) )
 \subsubsection{as.character}
 \label{enumvaluedescriptor-method-ascharacter}
 
-The \texttt{as.character} method brings the debug string of the enum
+The \texttt{as.character} method gives the debug string of the enum
 value type.
 
 <<>>=
@@ -1684,7 +1684,7 @@ writeLines( as.character( tutorial.Person$PhoneType$value(number=2) ) )
 \subsubsection{toString}
 \label{enumvaluedescriptor-method-tostring}
 
-The \texttt{toString} method brings the debug string of the enum value
+The \texttt{toString} method gives the debug string of the enum value
 type.
 
 <<>>=
@@ -1729,7 +1729,7 @@ the slots \texttt{pointer}, \texttt{filename}, and \texttt{package} :
 
 Similarly to messages, the \verb|$| operator can be used to extract
 fields from the file descriptor (in this case, types defined in the
-file), or invoke pseuso-methods.
+file), or invoke pseudo-methods.
 Table~\ref{filedescriptor-methods-table} describes the methods
 defined for the \texttt{FileDescriptor} class.
 
@@ -1766,7 +1766,7 @@ return named list of descriptors defined in this file descriptor.\\
 
 \subsubsection{as.character}
 \label{filedescriptor-method-ascharacter}
-The \texttt{as.character} method brings the debug string of the file descriptor.
+The \texttt{as.character} method gives the debug string of the file descriptor.
 
 <<>>=
 writeLines( as.character(fileDescriptor(tutorial.Person)) )
@@ -1970,7 +1970,7 @@ Notice that the last line of the \texttt{Person} message schema in
 \end{verbatim}
 
 This specifies that other users in other .proto files can use tag
-numbers between 100 and 199 for extention types of this message.
+numbers between 100 and 199 for extension types of this message.
 
 For example, the following file \texttt{extend.proto}:
 
