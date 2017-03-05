@@ -51,6 +51,5 @@ setMethod( "getExtension", "Message", function( object, field){
 			   containing_type(field)@type, "!=",
 			   object@type, ")"))
 	}
-        .Call( "getExtension", object@pointer, field,
-              PACKAGE = "RProtoBuf" )
+        .Call( "getExtension_cpp", object@pointer, field, PACKAGE = "RProtoBuf" )
 } )

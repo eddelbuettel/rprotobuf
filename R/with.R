@@ -10,10 +10,10 @@ generateActiveBindings <- function(data){
   		  makeActiveBinding( x, function(v){
   		    if( missing(v) ){
   		    	# get
-  		      .Call( "getMessageField", xp, x )
+  		      .Call( "getMessageField", xp, x, PACKAGE="RProtoBuf" )
   		    } else {
   		    	# set
-  		      .Call( "setMessageField", xp, x, v )
+  		      .Call( "setMessageField", xp, x, v, PACKAGE="RProtoBuf")
   		    }
   		  }, env )
   		} )

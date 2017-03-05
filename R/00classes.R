@@ -4,7 +4,7 @@
 IMPLEMENTATIONS <- new.env( parent = emptyenv() )
 
 # invisible version of .Call
-.icall <- function(...) invisible(.Call(...))
+#.icall <- function(...) invisible(.Call(...))
 
 # {{{ class definitions
 # we need to formalize connection so that the S4 methods
@@ -172,9 +172,9 @@ setMethod("$", "Message", function(x, name) {
 
 	switch( name,
 		"has" = function( ... ) has(x, ...),
-		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, ..., PACKAGE = "RProtoBuf"),
-		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer,      PACKAGE = "RProtoBuf"),
-		"descriptor" = function()    .Call( "Message__descriptor"     , x@pointer,      PACKAGE = "RProtoBuf" ),
+		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, PACKAGE = "RProtoBuf"),
+		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer, PACKAGE = "RProtoBuf"),
+		"descriptor" = function()    .Call( "Message__descriptor"    , x@pointer, PACKAGE = "RProtoBuf"),
 
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x),
@@ -227,7 +227,7 @@ setMethod("$", "Descriptor", function(x, name) {
 
 
 		# default
-		.Call( "do_dollar_Descriptor", x@pointer, name )
+		.Call( "do_dollar_Descriptor", x@pointer, name, PACKAGE="RProtoBuf")
 	)
 } )
 setMethod( "$", "EnumDescriptor", function(x, name ){
@@ -490,7 +490,7 @@ setMethod( "update", "Message", function( object, ... ){
 	if( !length( named ) ){
 		return( object )
 	}
-	.Call( "update_message", object@pointer, named )
+	.Call( "update_message", object@pointer, named, PACKAGE="RProtoBuf")
 	object
 
 } )

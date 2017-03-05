@@ -44,7 +44,7 @@ readProtoFiles <- function(files,
 		files <- sapply(files[ex], function(x) file_path_as_absolute(x) )
 	}
 	directories <- unique( c( getwd(), dirname(files) ) )
-	.Call( "readProtoFiles", files, directories, PACKAGE = "RProtoBuf" )
+	.Call( "readProtoFiles_cpp", files, directories, PACKAGE = "RProtoBuf" )
 	invisible(NULL)
 }
 
