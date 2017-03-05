@@ -43,7 +43,7 @@ GPB::Message* CLONE(const GPB::Message* origin) {
  *
  * @param file proto file name
  */
-RcppExport SEXP readProtoFiles(SEXP file, SEXP dirs) {
+RcppExport SEXP readProtoFiles_cpp(SEXP file, SEXP dirs) {
     BEGIN_RCPP
     DescriptorPoolLookup::importProtoFiles(file, dirs);
     return R_NilValue;

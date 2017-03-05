@@ -24,7 +24,7 @@
 
 namespace rprotobuf {
 
-RcppExport SEXP getExtension(SEXP pointer, SEXP sfielddesc) {
+RcppExport SEXP getExtension_cpp(SEXP pointer, SEXP sfielddesc) {
     /* grab the Message pointer */
     Rcpp::XPtr<GPB::Message> message(pointer);
     const GPB::Reflection* ref = message->GetReflection();
