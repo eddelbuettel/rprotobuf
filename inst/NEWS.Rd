@@ -3,8 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.8 (2017-xx-yy)}{
+\section{Changes in RProtoBuf version 0.4.9 (2017-03-xx)}{
   \itemize{
+    \item A new file \code{init.c} was added with calls to
+    \code{R_registerRoutines()} and \code{R_useDynamicSymbols()}
+    \item Symbol registration is enable in \code{useDynLib}
+    \item Several missing \code{PACKAGE=} arguments were added to
+    \code{.Call}
+    \item Two (internal) C++ functions were renamed with suffix
+    \code{_cpp} to disambiguate them from R functions with the same name
     \item The `configure.ac` file was updated, and renamed from the
     older converntion `configure.in`, along with `src/Makevars`. (PR
     \ghpr{24} fixing \ghit{23}) 
