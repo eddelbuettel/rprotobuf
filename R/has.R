@@ -10,7 +10,7 @@ setGeneric( "has", function( object, name, ... ){
 	}
 }
 ._has_enum_name <- function( object, name, ...){
-  return(.Call( "has_enum_name", object@pointer, name, package = "RProtoBuf"))
+  return(.Call( "has_enum_name", object@pointer, name, PACKAGE = "RProtoBuf"))
 }
 
 setMethod( "has", "Message", ._has_message )

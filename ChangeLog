@@ -1,3 +1,26 @@
+2017-03-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version and date
+
+	* src/init.c (R_init_RcppSMC): Call R_registerRoutines()
+	and R_useDynamicSymbols()
+
+	* NAMESPACE: Use .registration=TRUE on useDynLib
+
+	* src/extensions.cpp (rprotobuf): Rename getExtension to
+	getExtension_cpp to disambiguate from R function
+	* src/rprotobuf.cpp (rprotobuf): Idem for readProtoFiles_cpp
+
+	* R/00classes.R (.icall): Comment-out unused function
+	(setMethod): Remove erroneous extra '...' from Message_clone arguments
+	* R/clone.R (._clone.message): Add missing PACKAGE= argument to .Call
+	* R/extensions.R: Idem
+	* R/has.R (._has_enum_name): Idem
+	* R/internals.R (readProtoFiles): Idem
+	* R/merge.R: Idem
+	* R/with.R (generateActiveBindings): Idem
+	* R/has.R (._has_enum_name): Use PACKAGE= in .Call()
+
 2017-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* configure.ac: Renamed from configure.in, minor edit
@@ -13,6 +36,10 @@
 	* m4/m4-ax_cxx_compile_stdcxx_0x.m4: Removed
 
 	* cleanup: remove autoconf cache
+
+2017-01-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Relase 0.4.8
 
 2017-01-16  Dirk Eddelbuettel  <edd@debian.org>
 

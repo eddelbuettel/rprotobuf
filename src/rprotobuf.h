@@ -134,7 +134,7 @@ RcppExport SEXP do_dollar_Descriptor(SEXP, SEXP);
 RcppExport SEXP newProtoMessage(SEXP);
 RcppExport SEXP getProtobufDescriptor(SEXP);
 RcppExport SEXP getExtensionDescriptor(SEXP);
-RcppExport SEXP readProtoFiles(SEXP, SEXP);
+RcppExport SEXP readProtoFiles_cpp(SEXP, SEXP);
 RcppExport Rboolean isMessage(SEXP, const char*);
 RcppExport GPB::FieldDescriptor* getFieldDescriptor(const GPB::Message*, SEXP);
 

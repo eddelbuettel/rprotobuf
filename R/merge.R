@@ -6,7 +6,7 @@ setMethod( "merge",
                         stop(sprintf("incompatible message types, cannot merge '%s' and '%s'", x@type, y@type))
 		}
 		
-		message <- .Call( "Message__merge", x@pointer, y@pointer )
+		message <- .Call( "Message__merge", x@pointer, y@pointer, PACKAGE="RProtoBuf")
 		message
 } )
 
