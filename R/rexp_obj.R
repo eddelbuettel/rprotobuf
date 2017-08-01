@@ -98,7 +98,11 @@ unrexp <- function(msg){
   if(length(myrexp$attrValue)){
     attrib <- lapply(myrexp$attrValue, unrexp)
     names(attrib) <- myrexp$attrName
-    attributes(xobj) <- attrib
+    tryCatch(attributes(xobj) <- attrib, error=function(cond) {
+        #Try not setting the class in case the values are invalid
+        attributes(xobj) <- attrib[names(attrib)!="class"]
+        warning("Unable to set class, ", cond$message)
+    })
   }
 
   xobj
