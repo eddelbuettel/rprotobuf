@@ -70,8 +70,8 @@ setClass( "Message",  representation(
 
 # rpc
 
-setClass( "RpcHTTP", representation( 
-	host = "character", port = "integer", root = "character" 
+setClass( "RpcHTTP", representation(
+	host = "character", port = "integer", root = "character"
 ), prototype = list( host = "127.0.0.1", port = 4444L, root = "" ) )
 
 # streams
@@ -413,7 +413,7 @@ setMethod( "[[", "Descriptor", function(x, i, j, ..., exact = TRUE){
 
 	if( is.character( i ) ) {
           # gets a named field, nested type, or enum.
-          .Call("Descriptor_getField", x@pointer, i, package="RProtoBuf")
+          .Call("Descriptor_getField", x@pointer, i, PACKAGE="RProtoBuf")
         } else if (is.numeric( i ) ) {
           return(as.list(x)[[i]])
 	} else {

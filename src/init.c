@@ -53,7 +53,7 @@ extern SEXP Descriptor__readASCIIFromString(SEXP, SEXP, SEXP);
 extern SEXP Descriptor__readMessageFromConnection(SEXP, SEXP);
 extern SEXP Descriptor__readMessageFromFile(SEXP, SEXP);
 extern SEXP Descriptor__readMessageFromRawVector(SEXP, SEXP);
-extern SEXP Descriptor_getField(SEXP, SEXP, SEXP);
+extern SEXP Descriptor_getField(SEXP, SEXP);
 extern SEXP do_dollar_Descriptor(SEXP, SEXP);
 extern SEXP EnumDescriptor__as_character(SEXP);
 extern SEXP EnumDescriptor__as_list(SEXP);
@@ -208,7 +208,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Descriptor__readMessageFromConnection",    (DL_FUNC) &Descriptor__readMessageFromConnection,     2},
     {"Descriptor__readMessageFromFile",          (DL_FUNC) &Descriptor__readMessageFromFile,           2},
     {"Descriptor__readMessageFromRawVector",     (DL_FUNC) &Descriptor__readMessageFromRawVector,      2},
-    {"Descriptor_getField",                      (DL_FUNC) &Descriptor_getField,                       3},
+    {"Descriptor_getField",                      (DL_FUNC) &Descriptor_getField,                       2},
     {"do_dollar_Descriptor",                     (DL_FUNC) &do_dollar_Descriptor,                      2},
     {"EnumDescriptor__as_character",             (DL_FUNC) &EnumDescriptor__as_character,              1},
     {"EnumDescriptor__as_list",                  (DL_FUNC) &EnumDescriptor__as_list,                   1},
