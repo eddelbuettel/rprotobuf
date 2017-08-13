@@ -11,7 +11,7 @@
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.4.9])
+AC_INIT([RProtoBuf],[0.4.10])
 
 # We are using C++
 AC_LANG(C++)

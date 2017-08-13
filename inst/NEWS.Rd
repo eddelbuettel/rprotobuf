@@ -3,11 +3,20 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.10 (2017-08-13)}{
+  \itemize{
+    \item More careful operation in deserializer checking for a valid
+    class attribute (Jeffey Shen in \ghpr{29} fixing \ghit{28})
+    \item At the request of CRAN, correct one \code{.Call()} argument to
+    \code{PACKAGE=}; update routine registration accordingly
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.9 (2017-03-06)}{
   \itemize{
     \item A new file \code{init.c} was added with calls to
     \code{R_registerRoutines()} and \code{R_useDynamicSymbols()}
-    \item Symbol registration is enable in \code{useDynLib}
+    \item Symbol registration is enabled in \code{useDynLib}
     \item Several missing \code{PACKAGE=} arguments were added to
     the corresponding \code{.Call} invocations
     \item Two (internal) C++ functions were renamed with suffix
