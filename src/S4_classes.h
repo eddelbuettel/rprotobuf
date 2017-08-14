@@ -1,6 +1,6 @@
 // S4_classes.h: R/C++ interface class library
 //
-// Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of RProtoBuf.
 //
@@ -198,7 +198,9 @@ class S4_ArrayOutputStream : public Rcpp::S4 {
         slot("pointer") = wrapper;
     }
 
-    S4_ArrayOutputStream(const S4_ArrayOutputStream& other) { SetSexp(other.AsSexp()); }
+    S4_ArrayOutputStream(const S4_ArrayOutputStream& other) : S4(other) {
+        SetSexp(other.AsSexp());
+    }
     S4_ArrayOutputStream& operator=(const S4_ArrayOutputStream& other) {
         SetSexp(other.AsSexp());
         return *this;
