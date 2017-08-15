@@ -128,7 +128,7 @@ AC_OUTPUT
 
 echo "
 RProtoBuf $PACKAGE_VERSION
-===============
+================
 
 cflags:  ${PKG_CPPFLAGS} 
 libs:    ${PKG_LIBS}

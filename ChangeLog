@@ -1,3 +1,10 @@
+2017-08-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* src/S4_classes.h: Initialize S4 base class in copy constructor
+	for S4_ArrayOutputStream class
+
 2017-08-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.10
