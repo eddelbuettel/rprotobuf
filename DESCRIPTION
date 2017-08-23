@@ -17,8 +17,8 @@ Suggests: RUnit, highlight
 VignetteBuilder: highlight
 SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
  version 3.0.0 or later is supported as well. On Debian/Ubuntu these can be
- installed as libprotoc-dev and libprotobuf-dev, while on Fedora/CentOS
- protobuf-devel and protobuf-compiler are needed.
+ installed as libprotoc-dev, libprotobuf-dev and protobuf-compiler, while on
+ Fedora/CentOS protobuf-devel and protobuf-compiler are needed.
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
 URL: https://github.com/eddelbuettel/rprotobuf 
 License: GPL (>= 2)
