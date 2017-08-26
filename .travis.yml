@@ -15,7 +15,7 @@ env:
     - PROTOBUF="v3"
   
 before_install:
-  - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
+  - curl -OLs https://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
   # if v3, add the launchpad repo which has (inter alia) the newest ProtoBuf as an unofficial build
   - if [ "$PROTOBUF" == "v3" ]; then sudo add-apt-repository -y ppa:edd/misc; fi
   - ./run.sh bootstrap
