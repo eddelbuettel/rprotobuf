@@ -1,108 +1,122 @@
-\documentclass[10pt,twocolumn,a4paper]{article}
-%\VignetteIndexEntry{RProtoBuf-quickref}
-%\VignetteEngine{highlight::highlight}
-%\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
-%\VignetteDepends{RProtoBuf}
+---
+title: \pkg{RProtoBuf} Quick Reference Guide
 
-\setlength{\hoffset}{-0.8in}
-\setlength{\voffset}{-0.8in}
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+  - name: Murray Stokely
+    affiliation: c
+    
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+  - code: c
+    address: \url{https://stokely.org}
 
-\setlength{\marginparwidth}{0pt}
-\setlength{\marginparsep}{0pt}
-\setlength{\oddsidemargin}{0pt}
-\setlength{\headheight}{0pt}
-\setlength{\topmargin}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\footskip}{0pt}
-\setlength{\textheight}{27cm}
-\setlength{\textwidth}{20cm}
+# For footer text
+lead_author_surname: Eddelbuettel, François and Stokely
 
-\usepackage[colorlinks]{hyperref}
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=RProtoBuf"
 
-\usepackage{microtype}                     %% cf http://www.khirevich.com/latex/microtype/
-\usepackage[T1]{fontenc}		   %% cf http://www.khirevich.com/latex/font/
-\usepackage[bitstream-charter]{mathdesign} %% cf http://www.khirevich.com/latex/font/
+# Customize footer, eg by referencing the vignette
+footer_contents: "RProtoBuf Vignette"
 
-<<echo=FALSE,print=FALSE>>=
-options(width= 50)
+# Produce a pinp document
+output: pinp::pinp
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+  \newcommand{\faq}[1]{FAQ~\ref{#1}}
+  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\sugar}{\textsl{Rcpp sugar}~}
+
+vignette: >
+  %\VignetteIndexEntry{RProtoBuf-quickref}
+  %\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
+  %\VignetteDepends{RProtoBuf}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r init, echo=FALSE}
 library("RProtoBuf")
-rpb.version <- packageDescription("RProtoBuf")$Version
-@
-% closing $ needed here
+options("width"=48)
+```
 
-\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel \and Murray Stokely}
-\title{RProtoBuf \Sexpr{rpb.version}: Quick Reference Guide}
+## Example proto file
 
-\begin{document}
-\maketitle
-\thispagestyle{empty}
+```{r readab, echo=FALSE, comment=""}
+ab.proto <- system.file("proto", "addressbook.proto", package = "RProtoBuf")
+writeLines(readLines(ab.proto))
+```
 
-\paragraph{example proto file}
+## Read proto description files
 
-<<echo=F>>=
-ab.proto <- system.file( "proto", "addressbook.proto",
-	package = "RProtoBuf" )
-writeLines( readLines( ab.proto ) )
-@
+```{r readproto, eval=FALSE}
+readProtoFiles("somefile.proto")
+readProtoFiles(dir = somedir)
+readProtoFiles(package = AnRPackage)
+```
 
-\paragraph{read proto description files}
+## Create a message
 
-<<eval=F>>=
-readProtoFiles( "somefile.proto" )
-readProtoFiles( dir = somedir )
-readProtoFiles( package = AnRPackage )
-@
+```{r createmsg}
+message <- new(tutorial.Person, id = 0,
+               name = "Romain Francois",
+               email = "francoisromain@free.fr")
+```
 
-\paragraph{create a message}
 
-<<keep.source=T>>=
-message <- new( tutorial.Person, id = 0,
-	name = "Romain Francois",
-	email = "francoisromain@free.fr" )
-@
+## Serialize a message to a file or binary connection
 
-\paragraph{serialize a message to a file or binary connection}
-
-<<keep.source=T>>=
+```{r serialize}
 # to a file
 tf1 <- tempfile()
-message$serialize( tf1 )
+message$serialize(tf1)
 
 # to a binary connection
-tf2 <- tempfile(); con <- file( tf2, open = "wb" )
-message$serialize( con )
+tf2 <- tempfile()
+con <- file(tf2, open = "wb")
+message$serialize(con)
 close(con)
 
 # retrieve the payload
-message$serialize( NULL )
-@
+message$serialize(NULL)
+```
 
-\paragraph{read a message from a file or binary connection}
+## Read a message from a file or binary connection}
 
-<<keep.source=T>>=
+```{r readbin, eval=FALSE}
 # from a file
-tutorial.Person$read( tf1 )
+tutorial.Person$read(tf1)
 # from a connection
-con <- file( tf2, open = "rb" )
-tutorial.Person$read( con )
-<<echo=F,print=F>>=
-close( con )
-@
+con <- file(tf2, open = "rb")
+tutorial.Person$read(con)
+close(con)
+```
 
-\paragraph{Get/Set fields}
+## Get/Set fields
 
-<<keep.source=T>>=
+```{r getset}
 email <- message$email
 message$id <- 2
-message[[ "name" ]] <- "Romain"
-id <- message[[ 2 ]] # tag number for 'id'
-@
+message[["name"]] <- "Romain"
+id <- message[[2]] # tag number for 'id'
+```
 
-\paragraph{Message methods}
+
+## Message methods
 
 \begin{center}
 \begin{small}
-\begin{tabular}{cp{7cm}}
+\begin{tabular}{cp{2.2in}}
 \hline
 \texttt{has} & Indicates if a message has a given field.   \\
 \texttt{clone} & Creates a clone of the message \\
@@ -127,22 +141,16 @@ id <- message[[ 2 ]] # tag number for 'id'
 \end{small}
 \end{center}
 
-<<>>=
-writeLines( message$toString() )
-@
 
-\paragraph{More info}
+## More info
 
 \begin{center}
 \begin{small}
-\begin{tabular}{cp{7cm}}
-full vignette & \verb|vignette( "RProtoBuf")| \\
-protobuf & \url{http://code.google.com/p/protobuf/} \\
-RProtoBuf & \url{http://r-forge.r-project.org/projects/rprotobuf/}\\
-mailing list & \url{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rprotobuf-yada} \\
+\begin{tabular}{cp{2.2in}}
+Full Vignette & \verb|vignette("RProtoBuf-intro")| \\
+JSS Paper & \verb|vignette("RProtoBuf-paper")| \\
+Protocol Buffers & \url{https://developers.google.com/protocol-buffers/} \\
+RProtoBuf & \url{https://github.com/eddelbuettel/rprotobuf}\\
 \end{tabular}
 \end{small}
 \end{center}
-
-\end{document}
-

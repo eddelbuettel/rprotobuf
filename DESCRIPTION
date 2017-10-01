@@ -1,20 +1,20 @@
 Package: RProtoBuf
-Version: 0.4.10.1
-Date: 2017-08-14
+Version: 0.4.10.2
+Date: 2017-10-01
 Author: Romain Francois, Dirk Eddelbuettel, Murray Stokely and Jeroen Ooms
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the 'Protocol Buffers' 'API' (Version 2 or 3)
 Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
  of its internal 'RPC' protocols and file formats.  Additional documentation
- is available in two included vignettes one of which corresponds to our paper
- in the Journal of Statistical Software (2016, v71i02). Either version 2 or 3
- of the 'Protocol Buffers' 'API' is supported.
+ is available in two included vignettes one of which corresponds to our JSS
+ paper (2016, <doi:10.18637/jss.v071.i02>. Either version 2 or 3 of the
+ 'Protocol Buffers' 'API' is supported.
 Depends: R (>= 3.0.0), methods
 Imports: utils, stats, tools, Rcpp, RCurl
 LinkingTo: Rcpp
-Suggests: RUnit, highlight
-VignetteBuilder: highlight
+Suggests: RUnit, rmarkdown, knitr, pinp
+VignetteBuilder: knitr
 SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
  version 3.0.0 or later is supported as well. On Debian/Ubuntu these can be
  installed as libprotoc-dev, libprotobuf-dev and protobuf-compiler, while on

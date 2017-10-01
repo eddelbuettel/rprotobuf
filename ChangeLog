@@ -1,3 +1,13 @@
+2017-10-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RProtoBuf-intro.Rmd: Renamed, now uses Rmd via pinp
+	* vignettes/RProtoBuf-quickref.Rmd: Idem
+
+	* DESCRIPTION: Added pinp package, rolled minor version, use doi
+	in Description
+
+	* cleanup: Adjusted and updated
+
 2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (before_install): Use https for curl fetch
