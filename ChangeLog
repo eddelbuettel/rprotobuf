@@ -8,6 +8,8 @@
 
 	* cleanup: Adjusted and updated
 
+	* .travis.yml (install): Add r-cran-pinp
+
 2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (before_install): Use https for curl fetch
