@@ -1,3 +1,12 @@
+2017-10-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.11
+
+2017-10-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Minor edit to suppress another NOTE from R CMD check
+	* README.md: Idem
+
 2017-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/RProtoBuf-intro.Rmd: Renamed, now uses Rmd via pinp

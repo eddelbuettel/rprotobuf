@@ -1,4 +1,4 @@
-## RProtoBuf [![Build Status](https://travis-ci.org/eddelbuettel/rprotobuf.svg)](https://travis-ci.org/eddelbuettel/rprotobuf) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf) [![Downloads](http://cranlogs.r-pkg.org/badges/RProtoBuf?color=brightgreen)](http://www.r-pkg.org/pkg/RProtoBuf)
+## RProtoBuf [![Build Status](https://travis-ci.org/eddelbuettel/rprotobuf.svg)](https://travis-ci.org/eddelbuettel/rprotobuf) [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf) [![Downloads](http://cranlogs.r-pkg.org/badges/RProtoBuf?color=brightgreen)](http://www.r-pkg.org/pkg/RProtoBuf)
 
 R Interface to [Google Protocol Buffers](https://developers.google.com/protocol-buffers/)
 

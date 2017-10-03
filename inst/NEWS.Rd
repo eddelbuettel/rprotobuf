@@ -3,6 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.11 (2017-10-03)}{
+  \itemize{
+    \item The \code{RProtoBuf-info} vignette was converted to Rmarkdown
+    using the templates and style file from the pinp package.
+    \item A few minor internal upgrades
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.10 (2017-08-13)}{
   \itemize{
     \item More careful operation in deserializer checking for a valid
