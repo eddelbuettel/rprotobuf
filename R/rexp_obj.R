@@ -63,7 +63,14 @@ rexp_integer <- function(obj){
 }
 
 rexp_list <- function(obj){
-  xobj <- lapply(obj, rexp_obj)
+  # Avoid infinite recursion
+  # some R objects return themselves when subindexed
+  if (length(obj) > 0 && identical(obj, obj[[1]])) {
+      xobj <- rexp_obj(unlist(obj))
+  } else {
+      xobj <- lapply(obj, rexp_obj)
+  }
+
   new(pb(rexp.REXP), rclass=5, rexpValue = xobj)
 }
 
