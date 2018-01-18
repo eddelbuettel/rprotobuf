@@ -48,6 +48,55 @@ readProtoFiles <- function(files,
 	invisible(NULL)
 }
 
+readProtoFiles2 <- function(files,
+                            dir = getwd(),
+                            pattern = "\\.proto$",
+                            protoPath = getwd()
+	){
+
+	if( !is.character( protoPath ) || length( protoPath ) < 1 ){
+		stop( "'protoPath' should be a character vector with at least one element" )
+	}
+	protoPath <- unique( normalizePath( protoPath ) )
+
+	# Search for the base directory in the search path that contains the given filepath.
+	file_search <- function(filepaths) {
+		helper <- function(filepath) {
+			if( file.exists( filepath ) && file_path_as_absolute( filepath ) == filepath ){
+				return( TRUE )
+			}
+			for( baseDir in protoPath ){
+				if( file.exists( file.path( baseDir, filepath ) ) ){
+					return( baseDir )
+				}
+			}
+			return( NA_character_ )
+		}
+		sapply( filepaths, helper )
+	}
+
+	if( missing( files ) ) {
+		if( !is.character( dir ) || length( dir ) < 1 ){
+			stop( "'dir' argument must be non-empty when 'files' is missing" )
+		}
+
+		files <- c()
+		# search for dir relative to the search path.
+		baseDirs <- file_search( dir )
+		for( i in seq_along( dir ) ) {
+			absPaths <-
+				list.files( file.path( baseDirs[i], dir[i] ), pattern = pattern, full.names = TRUE )
+			files <- c( files, substr( absPaths, nchar( baseDirs[i] ) + 2, 10000L ) )
+		}
+	}
+	missing_files <- files[ is.na( file_search( files ) ) ]
+	if( length( missing_files) > 0 ){
+		warning( "Missing files: ", paste(missing_files, collapse = ", " ) )
+	}
+
+	.Call( "readProtoFiles_cpp", files, protoPath, PACKAGE = "RProtoBuf" )
+	invisible(NULL)
+}
 
 getProtobufLibVersion <- function( format = FALSE ){
 	version <- .Call( "get_protobuf_library_version", PACKAGE = "RProtoBuf" )
