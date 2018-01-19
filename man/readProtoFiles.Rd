@@ -11,7 +11,7 @@ message type names.
 }
 \usage{
 readProtoFiles(files, dir, package="RProtoBuf", pattern="\\\\.proto$", lib.loc=NULL)
-readProtoFiles2(files, dir=getwd(), pattern="\\\\.proto$", protoPath=getwd())
+readProtoFiles2(files, dir=getwd(), pattern="\\\\.proto$", recursive=FALSE, protoPath=getwd())
 }
 \arguments{
   \item{files}{Proto files}
@@ -21,7 +21,8 @@ readProtoFiles2(files, dir=getwd(), pattern="\\\\.proto$", protoPath=getwd())
   \item{package}{R package name. If \code{files} and \code{dir} are
   missing, "proto" files in the "proto" directory of the 
   package tree are imported.}
-  \item{pattern}{A filename pattern to match proto files.}
+  \item{pattern}{A filename pattern to match proto files when using \code{dir}.}
+  \item{recursive}{Whether to descend recursively into \code{dir}.}
   \item{lib.loc}{Library location.}
   \item{protoPath}{Search path for proto file imports.}
 }

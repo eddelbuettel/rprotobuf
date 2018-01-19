@@ -49,8 +49,9 @@ readProtoFiles <- function(files,
 }
 
 readProtoFiles2 <- function(files,
-                            dir = getwd(),
+                            dir = ".",
                             pattern = "\\.proto$",
+                            recursive = FALSE,
                             protoPath = getwd()
 	){
 
@@ -85,8 +86,10 @@ readProtoFiles2 <- function(files,
 		baseDirs <- file_search( dir )
 		for( i in seq_along( dir ) ) {
 			absPaths <-
-				list.files( file.path( baseDirs[i], dir[i] ), pattern = pattern, full.names = TRUE )
+				list.files( file.path( baseDirs[i], dir[i] ), pattern = pattern,
+                    recursive = recursive, full.names = TRUE )
 			files <- c( files, substr( absPaths, nchar( baseDirs[i] ) + 2, 10000L ) )
+			files <- sub( "^\\./", "", files )
 		}
 	}
 	missing_files <- files[ is.na( file_search( files ) ) ]
