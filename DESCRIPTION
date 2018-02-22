@@ -1,5 +1,5 @@
 Package: RProtoBuf
-Version: 0.4.11.1
+Version: 0.4.11.2
 Date: 2017-11-20
 Author: Romain Francois, Dirk Eddelbuettel, Murray Stokely and Jeroen Ooms
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
@@ -20,5 +20,5 @@ SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
  installed as libprotoc-dev, libprotobuf-dev and protobuf-compiler, while on
  Fedora/CentOS protobuf-devel and protobuf-compiler are needed.
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
-URL: https://github.com/eddelbuettel/rprotobuf 
+URL: https://github.com/eddelbuettel/rprotobuf
 License: GPL (>= 2)
