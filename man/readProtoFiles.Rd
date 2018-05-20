@@ -1,5 +1,6 @@
 \name{readProtoFiles}
 \alias{readProtoFiles}
+\alias{readProtoFiles2}
 \title{
 protocol buffer descriptor importer
 }
@@ -10,6 +11,7 @@ message type names.
 }
 \usage{
 readProtoFiles(files, dir, package="RProtoBuf", pattern="\\\\.proto$", lib.loc=NULL)
+readProtoFiles2(files, dir=getwd(), pattern="\\\\.proto$", recursive=FALSE, protoPath=getwd())
 }
 \arguments{
   \item{files}{Proto files}
@@ -19,8 +21,19 @@ readProtoFiles(files, dir, package="RProtoBuf", pattern="\\\\.proto$", lib.loc=N
   \item{package}{R package name. If \code{files} and \code{dir} are
   missing, "proto" files in the "proto" directory of the 
   package tree are imported.}
-  \item{pattern}{A filename pattern to match proto files.}
+  \item{pattern}{A filename pattern to match proto files when using \code{dir}.}
+  \item{recursive}{Whether to descend recursively into \code{dir}.}
   \item{lib.loc}{Library location.}
+  \item{protoPath}{Search path for proto file imports.}
+}
+\details{
+\code{readProtoFiles2} is different from \code{readProtoFiles} to be
+consistent with the behavior of \code{protoc} command line tool in
+being explicit about the search path for proto import statements. In addition,
+we also require that both \code{files} and \code{dir} arguments are
+interpreted relative to \code{protoPath}, so that there is consistency in
+future imports of the same files through import statements of other proto
+files.
 }
 \value{
 \code{NULL}, invisibly. 
