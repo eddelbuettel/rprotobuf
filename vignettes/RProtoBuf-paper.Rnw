@@ -1331,9 +1331,7 @@ payload <- serialize_pb(args, NULL)
 req <- POST (
   url = "https://cloud.opencpu.org/ocpu/library/stats/R/rnorm/pb",
   body = payload,
-  add_headers (
-    "Content-Type" = "application/protobuf")
-  )
+  add_headers ("Content-Type" = "application/protobuf")
 )
 
 output <- unserialize_pb(req$content)
