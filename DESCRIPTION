@@ -1,6 +1,6 @@
 Package: RProtoBuf
-Version: 0.4.11.1
-Date: 2017-11-20
+Version: 0.4.11.3
+Date: 2018-05-20
 Author: Romain Francois, Dirk Eddelbuettel, Murray Stokely and Jeroen Ooms
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the 'Protocol Buffers' 'API' (Version 2 or 3)
@@ -20,5 +20,5 @@ SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
  installed as libprotoc-dev, libprotobuf-dev and protobuf-compiler, while on
  Fedora/CentOS protobuf-devel and protobuf-compiler are needed.
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
-URL: https://github.com/eddelbuettel/rprotobuf 
+URL: https://github.com/eddelbuettel/rprotobuf
 License: GPL (>= 2)

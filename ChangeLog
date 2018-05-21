@@ -1,3 +1,21 @@
+2018-05-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* man/readProtoFiles.Rd: One minor correction, and some whitespace
+	and indentation cleanups
+
+2018-04-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/RProtoBuf-paper.Rnw: Two updates for OpenCPU
+
+2018-01-19  Siddhartha Bagaria  <bagaria.siddhartha@gmail.com>
+
+	* R/internals.R: New function readProtoFiles2 to use directory
+	argument along with pattern similar to protoc behavior; also
+	add recursive argument to readProtoFiles
+	* man/readProtoFiles.Rd: Documentation for readProtoFiles2
+
 2017-11-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
