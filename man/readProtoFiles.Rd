@@ -1,6 +1,7 @@
 \name{readProtoFiles}
 \alias{readProtoFiles}
 \alias{readProtoFiles2}
+\alias{resetDescriptorPool}
 \title{
 protocol buffer descriptor importer
 }
@@ -12,6 +13,7 @@ message type names.
 \usage{
 readProtoFiles(files, dir, package="RProtoBuf", pattern="\\\\.proto$", lib.loc=NULL)
 readProtoFiles2(files, dir=getwd(), pattern="\\\\.proto$", recursive=FALSE, protoPath=getwd())
+resetDescriptorPool()
 }
 \arguments{
   \item{files}{Proto files}
@@ -34,6 +36,8 @@ we also require that both \code{files} and \code{dir} arguments are
 interpreted relative to \code{protoPath}, so that there is consistency in
 future imports of the same files through import statements of other proto
 files.
+
+\code{resetDescriptorPool} clears all imported proto definitions.
 }
 \value{
 \code{NULL}, invisibly. 

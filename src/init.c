@@ -146,6 +146,7 @@ extern SEXP MethodDescriptor__output_type(SEXP);
 extern SEXP newProtocolBufferLookup(SEXP);
 extern SEXP newProtoMessage(SEXP);
 extern SEXP readProtoFiles_cpp(SEXP, SEXP);
+extern SEXP resetDescriptorPool_cpp();
 extern SEXP ServiceDescriptor__as_character(SEXP);
 extern SEXP ServiceDescriptor__as_list(SEXP);
 extern SEXP ServiceDescriptor__as_Message(SEXP);
@@ -301,6 +302,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"newProtocolBufferLookup",                  (DL_FUNC) &newProtocolBufferLookup,                   1},
     {"newProtoMessage",                          (DL_FUNC) &newProtoMessage,                           1},
     {"readProtoFiles_cpp",                       (DL_FUNC) &readProtoFiles_cpp,                        2},
+    {"resetDescriptorPool_cpp",                  (DL_FUNC) &resetDescriptorPool_cpp,                   0},
     {"ServiceDescriptor__as_character",          (DL_FUNC) &ServiceDescriptor__as_character,           1},
     {"ServiceDescriptor__as_list",               (DL_FUNC) &ServiceDescriptor__as_list,                1},
     {"ServiceDescriptor__as_Message",            (DL_FUNC) &ServiceDescriptor__as_Message,             1},
@@ -340,4 +342,8 @@ static const R_CallMethodDef CallEntries[] = {
 void R_init_RProtoBuf(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
+}
+
+void R_unload_RProtoBuf(DllInfo* dll) {
+    resetDescriptorPool_cpp();
 }

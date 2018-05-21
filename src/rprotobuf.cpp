@@ -51,6 +51,16 @@ RcppExport SEXP readProtoFiles_cpp(SEXP file, SEXP dirs) {
 }
 
 /**
+ * reset the descriptor pool, clearing all persisted state
+ */
+RcppExport SEXP resetDescriptorPool_cpp() {
+    BEGIN_RCPP
+    DescriptorPoolLookup::reset();
+    return R_NilValue;
+    END_RCPP
+}
+
+/**
  * get the descriptor associated with a message type
  *
  * @param type message type
