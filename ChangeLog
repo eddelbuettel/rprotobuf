@@ -1,3 +1,21 @@
+2018-05-21  Siddhartha Bagaria  <bagaria.siddhartha@gmail.com>
+
+	* src/DescriptorPoolLookup.cpp: New reset() function 
+	* src/DescriptorPoolLookup.h: Idem
+	* src/RSourceTree.cpp: New directory removal function
+	* src/RSourceTree.h: Idem
+	* src/init.c: Register new resetDescriptorPool_cpp functions
+	* src/rprotobuf.cpp: callable resetDescriptorPool_cpp() function
+	* man/readProtoFiles.Rd: Added documentation
+	* R/internals.R: Add R-callable resetDescriptorPool()
+	* NAMESPACE: Corresponding export
+
+	* inst/unitTests/data/cyclical/*: Unit test infrastructure
+	* inst/unitTests/data/recursive/*: Idem
+	* inst/unitTests/data/subdir/*: Idem
+	* inst/unitTests/data/unittest.proto: Added proto definition
+	* inst/unitTests/runit.import.R: New tests
+
 2018-05-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

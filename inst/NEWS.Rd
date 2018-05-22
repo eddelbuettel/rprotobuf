@@ -9,6 +9,8 @@
     now recognised (Jeffrey Shen in \ghpr{38} fixing \ghit{37})
     \item New function \code{readProtoFiles2} to be consistent with
     \code{protoc} (Siddhartha Bagaria in \ghpr{40} fixing \ghit{39})
+    \item New unit tests for new functionality (Siddhartha Bagaria in
+    \ghpr{45}) 
   }
 }
 
