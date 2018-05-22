@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package protobuf_unittest_subdir;
+
+import "unittest_import.proto";
+
+message SubdirMessage {
+  optional protobuf_unittest_import.ImportMessage msg = 1;
+}

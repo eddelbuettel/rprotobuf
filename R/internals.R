@@ -101,6 +101,12 @@ readProtoFiles2 <- function(files,
 	invisible(NULL)
 }
 
+resetDescriptorPool <- function(){
+	.Call( "resetDescriptorPool_cpp", PACKAGE = "RProtoBuf" )
+	readProtoFiles2( protoPath=system.file( "proto", package="RProtoBuf", lib.loc=.RProtoBuf_libname) )
+	invisible(NULL)
+}
+
 getProtobufLibVersion <- function( format = FALSE ){
 	version <- .Call( "get_protobuf_library_version", PACKAGE = "RProtoBuf" )
 

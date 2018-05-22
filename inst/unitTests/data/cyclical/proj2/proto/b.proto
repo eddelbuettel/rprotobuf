@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "proto/a.proto";
+
+message B {
+  optional A a = 1;
+}

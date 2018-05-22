@@ -19,6 +19,8 @@ class DescriptorPoolLookup {
 
     static void importProtoFiles(SEXP files, SEXP cwd);
 
+    static void reset();
+
     static const GPB::DescriptorPool* pool();
 
     static const GPB::DynamicMessageFactory* factory();
@@ -27,7 +29,7 @@ class DescriptorPoolLookup {
     static std::set<std::string> elements;
     static RWarningErrorCollector error_collector;
     static RSourceTree source_tree;
-    static GPB::compiler::Importer importer;
+    static GPB::compiler::Importer* importer;
     static GPB::DynamicMessageFactory message_factory;
 };
 

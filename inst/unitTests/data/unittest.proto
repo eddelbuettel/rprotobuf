@@ -42,6 +42,9 @@ syntax = "proto2";
 // the extra file from the directory in which this file is
 import "unittest_import.proto";
 
+// To test if we can import a message in another directory.
+import "subdir/subdir_message.proto";
+
 // We don't put this in a package within proto2 because we need to make sure
 // that the generated code doesn't depend on being in the proto2 namespace.
 // In test_util.h we do "using namespace unittest = protobuf_unittest".

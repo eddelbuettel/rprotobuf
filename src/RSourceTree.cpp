@@ -48,5 +48,6 @@ void RSourceTree::removeDirectories(SEXP dirs) {
         directories.erase(std::string(CHAR(STRING_ELT(dirs, i))));
     }
 }
+void RSourceTree::removeAllDirectories() { directories.clear(); }
 
 }  // namespace rprotobuf

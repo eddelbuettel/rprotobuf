@@ -1,6 +1,7 @@
 \name{readProtoFiles}
 \alias{readProtoFiles}
 \alias{readProtoFiles2}
+\alias{resetDescriptorPool}
 \title{protocol buffer descriptor importer}
 \description{
   Imports proto files into the descriptor pool that 
@@ -10,6 +11,7 @@
 \usage{
   readProtoFiles(files, dir, package="RProtoBuf", pattern="\\\\.proto$", lib.loc=NULL)
   readProtoFiles2(files, dir=".", pattern="\\\\.proto$", recursive=FALSE, protoPath=getwd())
+  resetDescriptorPool()
 }
 \arguments{
   \item{files}{Proto files}
@@ -32,6 +34,8 @@
   interpreted relative to \code{protoPath}, so that there is consistency in
   future imports of the same files through import statements of other proto
   files.
+
+  \code{resetDescriptorPool} clears all imported proto definitions.
 }
 \value{\code{NULL}, invisibly.}
 \author{Romain Francois <francoisromain@free.fr>}
