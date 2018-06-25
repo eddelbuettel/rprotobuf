@@ -1,6 +1,11 @@
+2018-06-25  Jeroen Ooms  <jeroenooms@gmail.com>
+
+    * src/Makevars.win: update Windows build to protobuf v3.5.1 to
+    support upcoming gcc-8 toolchain.
+
 2018-05-21  Siddhartha Bagaria  <bagaria.siddhartha@gmail.com>
 
-	* src/DescriptorPoolLookup.cpp: New reset() function 
+	* src/DescriptorPoolLookup.cpp: New reset() function
 	* src/DescriptorPoolLookup.h: Idem
 	* src/RSourceTree.cpp: New directory removal function
 	* src/RSourceTree.h: Idem

@@ -1,7 +1,7 @@
 # Links against libprotobuf build from Rtools gcc toolchain.
 COMPILED_BY ?= gcc-4.6.3
-PKG_CPPFLAGS= -I../windows/protobuf-3.2.0/include
-PKG_LIBS= -L../windows/protobuf-3.2.0/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} -lprotobuf
+PKG_CPPFLAGS= -I../windows/protobuf-3.5.1/include
+PKG_LIBS= -L../windows/protobuf-3.5.1/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} -lprotobuf
 
 ## Make this C++11 so that we get better int64 support and more
 CXX_STD=CXX11
