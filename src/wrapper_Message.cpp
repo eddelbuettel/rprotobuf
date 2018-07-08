@@ -229,7 +229,7 @@ RPB_FUNCTION_1(int, METHOD(length), Rcpp::XPtr<GPB::Message> message) {
 RPB_FUNCTION_1(int, METHOD(num_extensions), Rcpp::XPtr<GPB::Message> message) {
     const GPB::Reflection* ref = message->GetReflection();
     int nexts = 0;
-    vector<const FieldDescriptor*> fields;
+    std::vector<const FieldDescriptor*> fields;
     ref->ListFields(*message, &fields);
     for (unsigned int i = 0; i < fields.size(); i++) {
         if (fields[i]->is_extension()) {
