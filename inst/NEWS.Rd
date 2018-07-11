@@ -10,7 +10,7 @@
     \item New function \code{readProtoFiles2} to be consistent with
     \code{protoc} (Siddhartha Bagaria in \ghpr{40} fixing \ghit{39})
     \item Update Windows binary library used (Maciej Lach and Jeroen
-    Ooms in \phpr{42} and follow-up commits)
+    Ooms in \ghpr{42} and follow-up commits)
     \item New unit tests for new functionality (Siddhartha Bagaria in
     \ghpr{45})
   }
