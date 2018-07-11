@@ -9,3 +9,4 @@ src/std.lnt
 ^.*\.Rproj$
 ^\.Rproj\.user$
 CONTRIBUTING.md
+.*\.tar.gz$

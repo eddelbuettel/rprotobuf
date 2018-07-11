@@ -1,3 +1,7 @@
+2018-07-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.11
+
 2018-07-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/wrapper_Message.cpp (rprotobuf): Properly reference std::vector
@@ -5,8 +9,8 @@
 
 2018-06-25  Jeroen Ooms  <jeroenooms@gmail.com>
 
-    * src/Makevars.win: update Windows build to protobuf v3.5.1 to
-    support upcoming gcc-8 toolchain.
+	* src/Makevars.win: update Windows build to protobuf v3.5.1 to
+	support upcoming gcc-8 toolchain.
 
 2018-05-21  Siddhartha Bagaria  <bagaria.siddhartha@gmail.com>
 
