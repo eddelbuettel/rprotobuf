@@ -1,3 +1,9 @@
+2018-07-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* configure.ac: Set CXX and CXXFLAGS values by calling R to reflect
+	values in Makeconf used by R  [CRAN request]
+	* configure: Idem
+
 2018-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.11

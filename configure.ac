@@ -1,19 +1,24 @@
-# -*- mode: autoconf; autoconf-indentation: 4; -*-
-#
-# RProtoBuf configure.ac
-#
-# Copyright (C) 2009 - 2017  Dirk Eddelbuettel <edd@debian.org>
-# Portions Copyright (C) 2010  Romain Francois
-# Portions Copyright (C) 2013  Murray Stokely
-# Portions Copyright (C) 2016  Craig Radcliffe
+
+## RProtoBuf configure.ac
+##
+## Copyright (C) 2009 - 2018  Dirk Eddelbuettel <edd@debian.org>
+## Portions Copyright (C) 2010  Romain Francois
+## Portions Copyright (C) 2013  Murray Stokely
+## Portions Copyright (C) 2016  Craig Radcliffe
 
 # require at least autoconf 2.61
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.4.10])
+AC_INIT([RProtoBuf],[0.4.12])
 
-# We are using C++
+# Ensure C++ is set up as R expects
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+    AC_MSG_ERROR([Could not determine R_HOME.])   
+fi
+CXX=`"${R_HOME}/bin/R" CMD config CXX`
+CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 AC_LANG(C++)
 AC_REQUIRE_CPP
 AC_PROG_CC
@@ -27,17 +32,17 @@ AC_PROG_PKGCONFIG
 ## use pkg-config for ProtoBuf settings
 ##
 if test x"${PKGCONFIG}" == x"yes"; then
-  if pkg-config --exists protobuf; then
-    protobuf_cxxflags=`pkg-config --cflags protobuf`
-    protobuf_libs=`pkg-config --libs protobuf`
-  else
+    if pkg-config --exists protobuf; then
+        protobuf_cxxflags=`pkg-config --cflags protobuf`
+        protobuf_libs=`pkg-config --libs protobuf`
+    else
+        protobuf_cxxflags=""
+        protobuf_libs="-lprotobuf"
+    fi
+else
+    # Add a reasonable default of -lprotobuf if we don't have pkg-config
     protobuf_cxxflags=""
     protobuf_libs="-lprotobuf"
-  fi
-else
-  # Add a reasonable default of -lprotobuf if we don't have pkg-config
-  protobuf_cxxflags=""
-  protobuf_libs="-lprotobuf"
 fi
 
 ## And make sure these flags are used for the tests below.
@@ -104,21 +109,21 @@ int main() {
 [pb_version_ok=no],
 [pb_version_ok=yes])
 if test x"${pb_version_ok}" == x"no"; then
-  AC_MSG_ERROR([Need ProtoBuf version >= 2.2.0])
+    AC_MSG_ERROR([Need ProtoBuf version >= 2.2.0])
 else
-  AC_MSG_RESULT([yes])
+    AC_MSG_RESULT([yes])
 fi
 
 AC_DEFUN([AC_PROG_R], [AC_CHECK_PROG(R,R,yes)])
 AC_PROG_R
 
-## With thanks to Kurt
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-    AC_MSG_ERROR([Could not determine R_HOME.])   
-fi
-R_CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
-CXXFLAGS="${CXXFLAGS} ${R_CXXFLAGS}"
+## With thanks to Kurt (now set above)
+#: ${R_HOME=`R RHOME`}
+#if test -z "${R_HOME}"; then
+#    AC_MSG_ERROR([Could not determine R_HOME.])   
+#fi
+#R_CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+#CXXFLAGS="${CXXFLAGS} ${R_CXXFLAGS}"
 
 ## now use all these
 AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} ${protobuf_cxxflags}"])
@@ -127,7 +132,7 @@ AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 
 echo "
-RProtoBuf $PACKAGE_VERSION
+${PACKAGE_NAME} $PACKAGE_VERSION
 ================
 
 cflags:  ${PKG_CPPFLAGS} 
