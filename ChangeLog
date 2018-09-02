@@ -1,3 +1,8 @@
+2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Enfor R version 3.4 for now as the PPA we need for the
+	Protocol Buffers library has r-cran-* packages built for R 3.4
+
 2018-07-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* configure.ac: Set CXX and CXXFLAGS values by calling R to reflect
