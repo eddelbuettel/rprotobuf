@@ -67,6 +67,8 @@ rexp_list <- function(obj){
   # some R objects return themselves when subindexed
   if (length(obj) > 0 && identical(obj, obj[[1]])) {
       xobj <- rexp_obj(unlist(obj))
+  } else if (is(obj, "POSIXlt")) {
+      xobj <- lapply(unclass(obj), rexp_obj)
   } else {
       xobj <- lapply(obj, rexp_obj)
   }

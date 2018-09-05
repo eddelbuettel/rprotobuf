@@ -48,3 +48,8 @@ test.serialize.sublist <- function() {
     x <- packageVersion("RProtoBuf")
     checkIdentical(x, unserialize_pb(serialize_pb(x, NULL)), msg="checking sublists")
 }
+
+test.serialize.posixlt <- function() {
+    x <- as.POSIXlt("1970-01-01T00:00:00Z")
+    checkIdentical(x, unserialize_pb(serialize_pb(x, NULL)), msg="checking posixlt")
+}
