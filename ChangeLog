@@ -1,3 +1,8 @@
+2018-09-05  Jeffrey Shen  <jeffrey.shen@displayr.com>
+
+	* R/rexp_obj.R: Unclass POSIXlt before converting them
+	* inst/unitTests/runit.serialize_pb.R: Unit test
+
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Enfor R version 3.4 for now as the PPA we need for the
