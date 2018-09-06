@@ -2,6 +2,9 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* .Rbuildignore: Ignore GTAGS, GRTAGS, GPATH from GNU global
+	* .gitignore: Idem
+
 2018-09-06  Jeffrey Shen  <jeffrey.shen@displayr.com>
 
 	* R/rexp_obj.R: Refinement for POSIXlt treatment

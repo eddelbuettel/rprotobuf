@@ -10,3 +10,6 @@ src/std.lnt
 ^\.Rproj\.user$
 CONTRIBUTING.md
 .*\.tar.gz$
+GPATH
+GRTAGS
+GTAGS
