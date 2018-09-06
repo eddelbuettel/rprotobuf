@@ -5,6 +5,8 @@
 	* .Rbuildignore: Ignore GTAGS, GRTAGS, GPATH from GNU global
 	* .gitignore: Idem
 
+	* docker/ci/Dockerfile: Added Dockerfile for CI use
+
 2018-09-06  Jeffrey Shen  <jeffrey.shen@displayr.com>
 
 	* R/rexp_obj.R: Refinement for POSIXlt treatment
