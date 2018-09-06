@@ -1,3 +1,11 @@
+2018-09-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2018-09-06  Jeffrey Shen  <jeffrey.shen@displayr.com>
+
+	* R/rexp_obj.R: Refinement for POSIXlt treatment
+
 2018-09-05  Jeffrey Shen  <jeffrey.shen@displayr.com>
 
 	* R/rexp_obj.R: Unclass POSIXlt before converting them

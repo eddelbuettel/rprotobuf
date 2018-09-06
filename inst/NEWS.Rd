@@ -8,7 +8,7 @@
     \item The \code{configure} setup is more robust with respect to the
     C++ setup (CRAN request).
     \item \code{POSIXlt} elements are now properly serialized too
-    (Jeffrey Shen in \ghpr{48} fixing \ghit{47})
+    (Jeffrey Shen in \ghpr{48} and \ghpr{50} fixing \ghit{47})
   }
 }
 
