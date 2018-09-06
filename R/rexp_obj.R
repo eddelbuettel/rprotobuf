@@ -63,12 +63,12 @@ rexp_integer <- function(obj){
 }
 
 rexp_list <- function(obj){
-  # Avoid infinite recursion
-  # some R objects return themselves when subindexed
-  if (length(obj) > 0 && identical(obj, obj[[1]])) {
-      xobj <- rexp_obj(unlist(obj))
-  } else if (is(obj, "POSIXlt")) {
+  if (is(obj, "POSIXlt")) {
       xobj <- lapply(unclass(obj), rexp_obj)
+  } else if (length(obj) > 0 && identical(obj, obj[[1]])) {
+      # Avoid infinite recursion
+      # some R objects return themselves when subindexed
+      xobj <- rexp_obj(unlist(obj))
   } else {
       xobj <- lapply(obj, rexp_obj)
   }
