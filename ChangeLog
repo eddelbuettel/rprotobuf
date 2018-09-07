@@ -1,3 +1,7 @@
+2018-09-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/run/Dockerfile: Added Dockerfile for deployment
+
 2018-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
