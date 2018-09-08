@@ -1,3 +1,7 @@
+2018-09-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Rewritten to use rprotobuf/ci Docker container
+
 2018-09-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/run/Dockerfile: Added Dockerfile for deployment
