@@ -2,6 +2,8 @@
 
 	* .travis.yml: Rewritten to use rprotobuf/ci Docker container
 
+	* docker/run/Dockerfile: Correction to Dockerfile
+
 2018-09-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/run/Dockerfile: Added Dockerfile for deployment
