@@ -21,6 +21,7 @@ Read the message directly from the character string
 }}
 \keyword{methods}
 \examples{
+\dontrun{
 # example file that contains a "tutorial.AddressBook" message
 book <- system.file( "examples", "addressbook.pb", package = "RProtoBuf" )
 
@@ -39,5 +40,6 @@ message3 <- readASCII( tutorial.AddressBook, file(out.file))
 
 \dontshow{
 stopifnot( identical( message, message2) )
+}
 }
 }

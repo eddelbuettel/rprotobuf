@@ -1,3 +1,10 @@
+2018-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/runUnitTests.R: Rewritten matching other packages
+
+	* man/readASCII.Rd: Set examples to \dontrun{} as occasional error
+	from a remaining open connection seen
+
 2018-09-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Rewritten to use rprotobuf/ci Docker container
@@ -28,8 +35,8 @@
 
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml: Enfor R version 3.4 for now as the PPA we need for the
-	Protocol Buffers library has r-cran-* packages built for R 3.4
+	* .travis.yml: Enforce R version 3.4 for now as the PPA we need for
+	the Protocol Buffers library has r-cran-* packages built for R 3.4
 
 2018-07-25  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -39,7 +46,7 @@
 
 2018-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.4.11
+	* DESCRIPTION (Version, Date): Release 0.4.12
 
 2018-07-08  Dirk Eddelbuettel  <edd@debian.org>
 
