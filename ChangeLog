@@ -1,3 +1,7 @@
+2018-11-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.13
+
 2018-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/runUnitTests.R: Rewritten matching other packages

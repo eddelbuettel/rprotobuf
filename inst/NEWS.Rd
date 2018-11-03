@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.13 (2018-xx-yy)}{
+\section{Changes in RProtoBuf version 0.4.13 (2018-11-03)}{
   \itemize{
     \item The \code{configure} setup is more robust with respect to the
     C++ setup (CRAN request).

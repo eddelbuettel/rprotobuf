@@ -10,7 +10,7 @@
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.4.12])
+AC_INIT([RProtoBuf],[0.4.13])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
