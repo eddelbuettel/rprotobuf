@@ -101,6 +101,8 @@ S3method( as.list, EnumDescriptor )
 S3method( as.list, FileDescriptor )
 S3method( as.list, ServiceDescriptor )
 
+S3method( all.equal, Message )
+
 # constants
 exportPattern( "^TYPE_" )
 exportPattern( "^CPPTYPE_" )

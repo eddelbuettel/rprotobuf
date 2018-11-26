@@ -14,6 +14,9 @@ setMethod( "!=", c( e1 = "Message", e2 = "Message" ), function(e1, e2 ){
 setGeneric( "all.equal" )
 setMethod( "all.equal", c( target = "Message", current = "Message" ), 
 	function(target, current, tolerance = .Machine$double.eps^0.5, ...){
-	.Call( "all_equal_messages", target@pointer, current@pointer, tolerance, PACKAGE = "RProtoBuf" )
+        all.equal.Message(target, current, tolerance, ...)
 } )
 
+all.equal.Message <- function(target, current, tolerance = .Machine$double.eps^0.5, ...){
+	.Call( "all_equal_messages", target@pointer, current@pointer, tolerance, PACKAGE = "RProtoBuf" )
+}
