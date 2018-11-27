@@ -3,6 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+
+\section{Changes in RProtoBuf version 0.4.14 (2019-xx-yy)}{
+  \itemize{
+    \item An \code{all.equal.Message} method was added to avoid a
+    fallback to the generic (Jarod Meng in \ghpr{54} fixing \ghit{53})
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.13 (2018-11-03)}{
   \itemize{
     \item The \code{configure} setup is more robust with respect to the

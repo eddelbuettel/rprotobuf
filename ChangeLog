@@ -1,3 +1,13 @@
+2018-11-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2018-11-26  Jarod G.R. Meng <jarodmeng@google.com>
+
+	* R/identical.R: Add 'add.equal.Message' for Protocol Buffer message
+	types to avoid the default method being called by unit test runners
+	* NAMESPACE: Add S3 registration for new method
+
 2018-11-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.13
