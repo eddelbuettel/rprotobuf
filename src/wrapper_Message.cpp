@@ -446,15 +446,18 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
         if (field_desc->is_repeated()) {
 
             /* test if the size differs */
-            int fs = ref->FieldSize(*m1, field_desc);
-            if (fs != ref->FieldSize(*m2, field_desc)) return false;
+            int fs1 = ref->FieldSize(*m1, field_desc);
+            int fs2 = ref->FieldSize(*m2, field_desc);
+            if (fs1 != fs2) return false;
+            /* skip the field if it's unset in both messages */
+            if (fs1 == 0 & fs2 == 0) continue;
 
             /* test all items */
             switch (field_desc->type()) {
                 case TYPE_INT32:
                 case TYPE_SINT32:
                 case TYPE_SFIXED32: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedInt32(*m1, field_desc, j) !=
                             ref->GetRepeatedInt32(*m2, field_desc, j))
                             return false;
@@ -464,7 +467,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                 case TYPE_INT64:
                 case TYPE_SINT64:
                 case TYPE_SFIXED64: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedInt64(*m1, field_desc, j) !=
                             ref->GetRepeatedInt64(*m2, field_desc, j))
                             return false;
@@ -473,7 +476,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                 }
                 case TYPE_UINT32:
                 case TYPE_FIXED32: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedUInt32(*m1, field_desc, j) !=
                             ref->GetRepeatedUInt32(*m2, field_desc, j))
                             return false;
@@ -482,7 +485,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                 }
                 case TYPE_UINT64:
                 case TYPE_FIXED64: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedUInt64(*m1, field_desc, j) !=
                             ref->GetRepeatedUInt64(*m2, field_desc, j))
                             return false;
@@ -490,7 +493,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                     break;
                 }
                 case TYPE_DOUBLE: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (!SAME(ref->GetRepeatedDouble(*m1, field_desc, j),
                                   ref->GetRepeatedDouble(*m2, field_desc, j), tol))
                             return false;
@@ -498,7 +501,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                     break;
                 }
                 case TYPE_FLOAT: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (!SAME(ref->GetRepeatedFloat(*m1, field_desc, j),
                                   ref->GetRepeatedFloat(*m2, field_desc, j), tol))
                             return false;
@@ -506,7 +509,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                     break;
                 }
                 case TYPE_BOOL: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedBool(*m1, field_desc, j) !=
                             ref->GetRepeatedBool(*m2, field_desc, j))
                             return false;
@@ -515,7 +518,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                 }
                 case TYPE_STRING:
                 case TYPE_BYTES: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedString(*m1, field_desc, j) !=
                             ref->GetRepeatedString(*m2, field_desc, j))
                             return false;
@@ -523,7 +526,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                     break;
                 }
                 case TYPE_ENUM: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         if (ref->GetRepeatedEnum(*m1, field_desc, j) !=
                             ref->GetRepeatedEnum(*m2, field_desc, j))
                             return false;
@@ -532,7 +535,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
                 }
                 case TYPE_MESSAGE:
                 case TYPE_GROUP: {
-                    for (int j = 0; j < fs; j++) {
+                    for (int j = 0; j < fs1; j++) {
                         const GPB::Message* mm1 = &ref->GetRepeatedMessage(*m1, field_desc, j);
                         const GPB::Message* mm2 = &ref->GetRepeatedMessage(*m2, field_desc, j);
                         if (!identical_messages_(mm1, mm2, tol)) {
@@ -546,6 +549,10 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
             }
 
         } else {
+            /* skip the field if it's unset in both messages */
+            bool hf1 = ref->HasField(*m1, field_desc);
+            bool hf2 = ref->HasField(*m2, field_desc);
+            if (!hf1 & !hf2) continue;
 
             switch (field_desc->type()) {
                 case TYPE_INT32:
