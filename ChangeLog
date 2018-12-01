@@ -1,3 +1,8 @@
+2018-11-30  Jarod G.R. Meng <jarodmeng@google.com>
+
+	* src/wrapper_Message.cpp: Protect identical() against recursive
+	messages
+
 2018-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
