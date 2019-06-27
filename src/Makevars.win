@@ -1,9 +1,9 @@
-# Links against libprotobuf build from Rtools gcc toolchain.
-COMPILED_BY ?= gcc-4.6.3
-PKG_CPPFLAGS= -I../windows/protobuf-3.5.1/include
-PKG_LIBS= -L../windows/protobuf-3.5.1/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-	-L../windows/protobuf-3.5.1/lib${R_ARCH} \
-	-lprotobuf
+# ProtoBuf Version
+VERSION = 3.8.0
+RWINLIB = ../windows/protobuf-${VERSION}
+PKG_CPPFLAGS= -I$(RWINLIB)/include
+PKG_LIBS= -L$(RWINLIB)/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
+	-L$(RWINLIB)/lib${R_ARCH} -lprotobuf
 
 ## Make this C++11 so that we get better int64 support and more
 CXX_STD=CXX11
@@ -14,4 +14,4 @@ clean:
 	rm -f $(OBJECTS) $(SHLIB)
 
 winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" $(VERSION)

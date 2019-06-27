@@ -1,3 +1,7 @@
+2019-06-27  Jeroen Ooms <jeroen@berkeley.edu>
+
+    * Windows: update to protobuf 3.8.0, add support for GCC 8+.
+
 2018-11-30  Jarod G.R. Meng <jarodmeng@google.com>
 
 	* src/wrapper_Message.cpp: Protect identical() against recursive
