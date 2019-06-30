@@ -450,7 +450,7 @@ bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double 
             int fs2 = ref->FieldSize(*m2, field_desc);
             if (fs1 != fs2) return false;
             /* skip the field if it's unset in both messages */
-            if (fs1 == 0 & fs2 == 0) continue;
+            if ((fs1 == 0) & (fs2 == 0)) continue;
 
             /* test all items */
             switch (field_desc->type()) {
