@@ -1,7 +1,7 @@
 
 ## RProtoBuf configure.ac
 ##
-## Copyright (C) 2009 - 2018  Dirk Eddelbuettel <edd@debian.org>
+## Copyright (C) 2009 - 2019  Dirk Eddelbuettel <edd@debian.org>
 ## Portions Copyright (C) 2010  Romain Francois
 ## Portions Copyright (C) 2013  Murray Stokely
 ## Portions Copyright (C) 2016  Craig Radcliffe
@@ -10,12 +10,12 @@
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.4.13])
+AC_INIT([RProtoBuf],[0.4.14])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
-    AC_MSG_ERROR([Could not determine R_HOME.])   
+    AC_MSG_ERROR([Could not determine R_HOME.])
 fi
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
@@ -120,7 +120,7 @@ AC_PROG_R
 ## With thanks to Kurt (now set above)
 #: ${R_HOME=`R RHOME`}
 #if test -z "${R_HOME}"; then
-#    AC_MSG_ERROR([Could not determine R_HOME.])   
+#    AC_MSG_ERROR([Could not determine R_HOME.])
 #fi
 #R_CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 #CXXFLAGS="${CXXFLAGS} ${R_CXXFLAGS}"
@@ -135,6 +135,6 @@ echo "
 ${PACKAGE_NAME} $PACKAGE_VERSION
 ================
 
-cflags:  ${PKG_CPPFLAGS} 
+cflags:  ${PKG_CPPFLAGS}
 libs:    ${PKG_LIBS}
 "
