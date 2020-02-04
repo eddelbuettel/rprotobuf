@@ -996,7 +996,7 @@ RPB_FUNCTION_3(SEXP, METHOD(get_field_values), Rcpp::XPtr<GPB::Message> message,
             const GPB::Reflection* ref = message->GetReflection();
             Rcpp::List res(n);
             for (int i = 0; i < n; i++) {
-                res[i] = S4_Message(CLONE(&ref->GetRepeatedMessage(*message, field_desc, i)));
+                res[i] = S4_Message(CLONE(&ref->GetRepeatedMessage(*message, field_desc, index[i])));
             }
             return res;
         }
