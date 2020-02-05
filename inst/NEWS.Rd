@@ -3,6 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.15 (2020-02-xx)}{
+  \itemize{
+    \item Repeated Message and Group objects are now returned correctly
+    (\ghit{62}).
+    }
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.14 (2019-06-30)}{
   \itemize{
     \item An \code{all.equal.Message} method was added to avoid a

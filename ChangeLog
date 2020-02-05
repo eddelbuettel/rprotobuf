@@ -1,3 +1,11 @@
+2020-02-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2020-02-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/wrapper_Message.cpp: Correct indexing for Message and Group
+
 2019-06-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.14
