@@ -18,6 +18,6 @@ RUN apt-get update \
                 libprotobuf-c-dev \
                 libprotobuf-dev \
                 libprotoc-dev \
-        && install.r pinp 
+        && install.r pinp tinytest
 
 CMD ["bash"]
