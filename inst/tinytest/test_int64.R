@@ -54,9 +54,8 @@ expect_equal(a$optional_int64, 2)
 # Verify we can't set any garbage string to an optional int64.
 expect_error(a$optional_int64 <- "invalid")
 
-a <- protobuf_unittest.TestAllTypes$readASCII(
-       file(system.file("unitTests", "data", "int64.ascii",
-                        package="RProtoBuf")))
+a <- protobuf_unittest.TestAllTypes$readASCII(file(system.file("tinytest", "data", "int64.ascii",
+                                                               package="RProtoBuf")))
 # And can read them in OK from an ASCII file.
 expect_equal(length(a$repeated_int64), 2)
 
