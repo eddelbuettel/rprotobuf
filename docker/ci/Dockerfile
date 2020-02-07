@@ -10,7 +10,6 @@ RUN apt-get update \
         && apt-get install -y --no-install-recommends \
                 r-cran-rcpp \
                 r-cran-rcurl \
-                r-cran-runit \
                 r-cran-rmarkdown \
                 r-cran-knitr \
                 protobuf-compiler \
