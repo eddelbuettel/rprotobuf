@@ -13,7 +13,7 @@ Description: Protocol Buffers are a way of encoding structured data in an
 Depends: R (>= 3.0.0), methods
 Imports: utils, stats, tools, Rcpp, RCurl
 LinkingTo: Rcpp
-Suggests: RUnit, rmarkdown, knitr, pinp
+Suggests: tinytest, RUnit, rmarkdown, knitr, pinp
 VignetteBuilder: knitr
 SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
  version 3.0.0 or later is supported as well. On Debian/Ubuntu these can be

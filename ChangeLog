@@ -1,3 +1,9 @@
+2020-02-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Suggests): Add tinytest
+
+	* docker/ci/Dockerfile: Add tinytest
+
 2020-02-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
