@@ -23,7 +23,7 @@ not supported for message, group, and enum types.
 \item{\code{signature(object = "Message")}}{Number of objects in a message field}
 }}
 \examples{
-unitest.proto.file <- system.file("unitTests", "data", "unittest.proto",
+unitest.proto.file <- system.file("tinytest", "data", "unittest.proto",
 				  package = "RProtoBuf" )
 readProtoFiles(file = unitest.proto.file)
 

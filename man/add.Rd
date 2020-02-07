@@ -12,7 +12,7 @@ Add elements to a repeated field of a message.
 \item{\code{signature(object = "Message")}}{add elements to a repeated field of a message}
 }}
 \examples{
-unitest.proto.file <- system.file("unitTests", "data", "unittest.proto",
+unitest.proto.file <- system.file("tinytest", "data", "unittest.proto",
 				  package = "RProtoBuf" )
 readProtoFiles(file = unitest.proto.file)
 

@@ -1,3 +1,18 @@
+2020-02-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/read.R: Always close connection in readASCII
+
+2020-02-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Suggests): Add tinytest
+
+	* inst/tinytest/*: Converted from RUnit to tinytest
+	* inst/unitTests/*: Idem
+	* tests/tinytest.R: Idem
+	* tests/doRUnit.R: Idem
+
+	* docker/ci/Dockerfile: Add tinytest
+
 2020-02-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
