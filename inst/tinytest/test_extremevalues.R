@@ -1,4 +1,3 @@
-
 # Copyright 2013 Google Inc.
 #
 # This program is free software; you can redistribute it and/or
@@ -17,31 +16,29 @@
 
 library(RProtoBuf)
 
-#test.bool <- function() {
+#test.uint32 <- function() {
 if (!exists("protobuf_unittest.TestAllTypes",
             "RProtoBuf:DescriptorPool")) {
-    unittest.proto.file <- system.file("tinytest", "data", "unittest.proto", package="RProtoBuf")
+    unittest.proto.file <- system.file("tinytest", "data", "unittest.proto",
+                                       package="RProtoBuf")
     readProtoFiles(file=unittest.proto.file)
 }
 
-a <- new(protobuf_unittest.TestAllTypes)
-a$optional_bool <- TRUE
-a$optional_bool <- FALSE
-## Verify we can not set a protocol buffer bool to NA.
-expect_error(a$optional_bool <- NA)
+foo <- new(protobuf_unittest.TestAllTypes)
+foo$optional_uint32 <- 2^32 - 1
+foo$repeated_uint32 <- c(foo$optional_uint32, foo$optional_uint32)
+expect_equal(as.character(foo$optional_uint32),
+            "4294967295")
+expect_equal(foo$optional_uint32,
+            foo$repeated_uint32[[1]])
+foo$add("repeated_uint32", c(2^32 - 1, 2^32 - 1))
+expect_equal(length(unique(foo$repeated_uint32)), 1)
 
-## Verify we can set character strings
-a$repeated_bool <- c(TRUE, FALSE, TRUE)
-expect_equal(length(unique(a$repeated_bool)), 2)
-
-## Verify we can't set any garbage string to a bool.
-expect_error(a$optional_bool <- "100")
-expect_error(a$optional_bool <- "invalid")
-
-## Verify we can't set any garbage string to a repeated bool.
-expect_error(a$repeated_bool <-c("invalid", "invalid"))
-expect_error(a$repeated_bool <-c("33-"))
-
-## Verify we can set NA
-expect_error(a$repeated_bool <- c(TRUE, FALSE, TRUE, NA))
+## fixed32 are a more efficient representation of uint32
+foo$optional_fixed32 <- 2^32 - 1
+foo$repeated_fixed32 <- c(foo$optional_fixed32, foo$optional_fixed32)
+expect_equal(as.character(foo$optional_fixed32),
+            "4294967295")
+expect_equal(foo$optional_fixed32,
+            foo$repeated_fixed32[[1]])
 #}

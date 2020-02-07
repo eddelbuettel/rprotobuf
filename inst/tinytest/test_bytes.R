@@ -3,7 +3,7 @@ library(RProtoBuf)
 
 #.setUp <- function(){
 if( ! exists( "TestBytes", "RProtoBuf:DescriptorPool" ) ){
-    unitest.proto.file <- system.file( "unitTests", "data", "bytes.proto", package = "RProtoBuf" )
+    unitest.proto.file <- system.file( "tinytest", "data", "bytes.proto", package = "RProtoBuf" )
     readProtoFiles(file = unitest.proto.file)
 }
 #}

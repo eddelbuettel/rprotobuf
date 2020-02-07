@@ -17,10 +17,8 @@
 library(RProtoBuf)
 
 #test.extension <- function() {
-if (!exists("protobuf_unittest.TestAllTypes",
-            "RProtoBuf:DescriptorPool")) {
-    unittest.proto.file <- system.file("unitTests", "data",
-                                       "unittest.proto",
+if (!exists("protobuf_unittest.TestAllTypes", "RProtoBuf:DescriptorPool")) {
+    unittest.proto.file <- system.file("tinytest", "data", "unittest.proto",
                                        package="RProtoBuf")
     readProtoFiles(file=unittest.proto.file)
 }

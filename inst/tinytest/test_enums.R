@@ -53,9 +53,7 @@ expect_true(is.null(value(ProtoFormat$PhoneType, index=900)))
 ## Verify that we import top-level enums from .proto files.
 if (!exists("protobuf_unittest.TestAllTypes",
             "RProtoBuf:DescriptorPool")) {
-    unittest.proto.file <- system.file("unitTests", "data",
-                                       "unittest.proto",
-                                       package="RProtoBuf")
+    unittest.proto.file <- system.file("tinytest", "data", "unittest.proto", package="RProtoBuf")
     readProtoFiles(file=unittest.proto.file)
 }
 expect_true(inherits(P("protobuf_unittest.ForeignEnum"), "EnumDescriptor"))
