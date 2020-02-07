@@ -7,7 +7,6 @@
   \itemize{
     \item Repeated Message and Group objects are now returned correctly
     (\ghit{62}).
-    }
   }
 }
 

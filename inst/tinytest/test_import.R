@@ -58,7 +58,7 @@ expect_true(exists("protobuf_unittest_recursive_subdir.SubdirMessage", "RProtoBu
 #}
 
 #test.import.cyclical <- function() {
-unit.test.cyclical.dir <- system.file("unitTests", "data", "cyclical", package="RProtoBuf")
+unit.test.cyclical.dir <- system.file("tinytest", "data", "cyclical", package="RProtoBuf")
 proj1.dir <- file.path(unit.test.cyclical.dir, "proj1")
 proj2.dir <- file.path(unit.test.cyclical.dir, "proj2")
 

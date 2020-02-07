@@ -2,6 +2,11 @@
 
 	* DESCRIPTION (Suggests): Add tinytest
 
+	* inst/tinytest/*: Converted from RUnit to tinytest
+	* inst/unitTests/*: Idem
+	* tests/tinytest.R: Idem
+	* tests/doRUnit.R: Idem
+
 	* docker/ci/Dockerfile: Add tinytest
 
 2020-02-04  Dirk Eddelbuettel  <edd@debian.org>

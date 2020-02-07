@@ -1,7 +1,0 @@
-syntax = "proto2";
-
-import "proto/b.proto";
-
-message C {
-  optional B b = 1;
-}
