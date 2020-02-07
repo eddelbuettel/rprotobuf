@@ -51,6 +51,6 @@ function( descriptor, input, partial=FALSE){
         stopifnot(summary(input)[["text"]] == "binary")
 	message <- .Call( "Descriptor__readASCIIFromConnection", descriptor@pointer, input,
                          partial, PACKAGE = "RProtoBuf" )
-	if( !wasopen ) close( input )
+        close(input)
 	message
 } )

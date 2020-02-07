@@ -1,3 +1,7 @@
+2020-02-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/read.R: Always close connection in readASCII
+
 2020-02-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Suggests): Add tinytest
