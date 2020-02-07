@@ -1,6 +1,11 @@
 2020-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Suggests): Remove Suggests for RUnit
+	* vignettes/RProtoBuf-intro.Rnw: Wrapper around pre-made vignette
+	* vignettes/RProtoBuf-paper.Rnw: Idem
+	* vignettes/RProtoBuf-quickref.Rnw: Idem
+
+	* DESCRIPTION (Suggests): Remove Suggests for RUnit, rmarkdown,
+	knitr, pinp; (VignetteBuilder): Removed
 	* docker/ci/Dockerfile: No longer install r-cran-runit
 
 	* R/read.R: Always close connection in readASCII
