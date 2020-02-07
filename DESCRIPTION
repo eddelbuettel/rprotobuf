@@ -1,6 +1,6 @@
 Package: RProtoBuf
-Version: 0.4.14.1
-Date: 2020-02-04
+Version: 0.4.14.2
+Date: 2020-02-07
 Author: Romain Francois, Dirk Eddelbuettel, Murray Stokely and Jeroen Ooms
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the 'Protocol Buffers' 'API' (Version 2 or 3)
@@ -13,8 +13,7 @@ Description: Protocol Buffers are a way of encoding structured data in an
 Depends: R (>= 3.0.0), methods
 Imports: utils, stats, tools, Rcpp, RCurl
 LinkingTo: Rcpp
-Suggests: tinytest, rmarkdown, knitr, pinp
-VignetteBuilder: knitr
+Suggests: tinytest
 SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
  version 3.0.0 or later is supported as well. On Debian/Ubuntu these can be
  installed as libprotoc-dev, libprotobuf-dev and protobuf-compiler, while on
