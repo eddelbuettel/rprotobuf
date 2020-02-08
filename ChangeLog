@@ -1,13 +1,15 @@
 2021-01-09  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version): Roll minor version and date
+
 	* DESCRIPTION (Imports): Remove RCurl used for rpc
-	* NAMESPACE: Deprecate 'rpc' class and 'invoke' method
-	* R/00classes.R: Comment-out deprecated class and method
-	* deprecated/R/http.handler.R: Deprecated from R/
+	* NAMESPACE: Remove 'rpc' class and 'invoke' method
+	* R/00classes.R: Comment-out removed class and method
+	* deprecated/R/http.handler.R: Moved from R/
 	* deprecated/R/rpc.R: Idem
-	* deprecated/man/RpcHTTP-class.Rd: Deprecated from man/
+	* deprecated/man/RpcHTTP-class.Rd: Moved from man/
 	* deprecated/man/invokeLocally.Rd: Idem
-	* .Rbuildignore: R/
+	* .Rbuildignore: Added deprecated/
 
 2020-08-16  Dirk Eddelbuettel  <edd@debian.org>
 

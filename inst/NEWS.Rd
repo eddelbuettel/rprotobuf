@@ -7,6 +7,9 @@
   \itemize{
     \item Support \code{string_view}  in \code{FindMethodByName()} (Adam
     Cozzette in \ghpr{72})
+    \item The (to the best of our knowledge) unused minimal RPC
+    mechanism has been removed, retiring one method and one class as
+    well as the import of the \pkg{RCurl} package.
   }
 }
 
@@ -17,7 +20,7 @@
     \item The JSON unit tests are skipped if ProtoBuf 2.* is used (Dirk,
     also \ghpr{71}).
     \item The \code{configure} script now extracts the version from the
-    \code{DESCRIPTION} file ( (Dirk, also \ghpr{71}).
+    \code{DESCRIPTION} file (Dirk, also \ghpr{71}).
   }
 }
 
