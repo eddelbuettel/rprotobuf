@@ -1,3 +1,7 @@
+2020-02-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.15
+
 2020-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/RProtoBuf-intro.Rnw: Wrapper around pre-made vignette

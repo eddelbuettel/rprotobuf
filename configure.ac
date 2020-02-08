@@ -1,7 +1,7 @@
 
 ## RProtoBuf configure.ac
 ##
-## Copyright (C) 2009 - 2019  Dirk Eddelbuettel <edd@debian.org>
+## Copyright (C) 2009 - 2020  Dirk Eddelbuettel <edd@debian.org>
 ## Portions Copyright (C) 2010  Romain Francois
 ## Portions Copyright (C) 2013  Murray Stokely
 ## Portions Copyright (C) 2016  Craig Radcliffe
@@ -10,7 +10,7 @@
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf],[0.4.14])
+AC_INIT([RProtoBuf],[0.4.15])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
