@@ -11,7 +11,7 @@ Description: Protocol Buffers are a way of encoding structured data in an
  paper (2016, <doi:10.18637/jss.v071.i02>. Either version 2 or 3 of the
  'Protocol Buffers' 'API' is supported.
 Depends: R (>= 3.0.0), methods
-Imports: utils, stats, tools, Rcpp, RCurl
+Imports: utils, stats, tools, Rcpp
 LinkingTo: Rcpp
 Suggests: tinytest
 SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;

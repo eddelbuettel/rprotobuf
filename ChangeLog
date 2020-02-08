@@ -1,3 +1,14 @@
+2021-01-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Imports): Remove RCurl used for rpc
+	* NAMESPACE: Deprecate 'rpc' class and 'invoke' method
+	* R/00classes.R: Comment-out deprecated class and method
+	* deprecated/R/http.handler.R: Deprecated from R/
+	* deprecated/R/rpc.R: Idem
+	* deprecated/man/RpcHTTP-class.Rd: Deprecated from man/
+	* deprecated/man/invokeLocally.Rd: Idem
+	* .Rbuildignore: R/
+
 2020-08-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added JSS badge
