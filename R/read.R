@@ -78,6 +78,6 @@ function( descriptor, input){
         stopifnot(summary(input)[["text"]] == "binary")
 	message <- .Call( "Descriptor__readJSONFromConnection", descriptor@pointer, input,
                          PACKAGE = "RProtoBuf" )
-	if ( !wasopen ) close(input)
+	close(input)
 	message
 } )
