@@ -225,6 +225,58 @@ RPB_FUNCTION_3(S4_Message, METHOD(readASCIIFromConnection), Rcpp::XPtr<GPB::Desc
     return (S4_Message(message));
 }
 
+RPB_FUNCTION_2(S4_Message, METHOD(readJSONFromString), Rcpp::XPtr<GPB::Descriptor> desc,
+               std::string input) {
+#ifdef PROTOBUF_JSON_UTIL
+    GPB::Message* message = PROTOTYPE(desc);
+    if (!message) {
+        Rcpp::stop("could not call factory->GetPrototype(desc)->New()");
+    }
+
+    GPB::util::Status status = GPB::util::JsonStringToMessage(input, message);
+    if (!status.ok()) {
+        Rcpp::stop(status.ToString().c_str());
+    }
+    return (S4_Message(message));
+#else
+    Rcpp::stop(
+        "The protobuf library you are using is too old for using JSON utility functions, "
+        "please upgrade to version 3 or above.");
+#endif
+}
+
+RPB_FUNCTION_2(S4_Message, METHOD(readJSONFromConnection), Rcpp::XPtr<GPB::Descriptor> desc,
+               int conn_id) {
+#ifdef PROTOBUF_JSON_UTIL
+    std::string json_string;
+    RconnectionCopyingInputStream wrapper(conn_id);
+    GPB::io::CopyingInputStreamAdaptor stream(&wrapper);
+    const void* buffer;
+    int size;
+    while (stream.Next(&buffer, &size)) {
+        json_string.append((char *) buffer, size);
+    }
+    if (wrapper.Failure()) {
+        Rcpp::stop("Could not read JSON protocol buffer.");
+    }
+
+    /* create a prototype of the message we are going to read */
+    GPB::Message* message = PROTOTYPE(desc);
+    if (!message) {
+        Rcpp::stop("could not call factory->GetPrototype(desc)->New()");
+    }
+    GPB::util::Status status = GPB::util::JsonStringToMessage(json_string, message);
+    if (!status.ok()) {
+        Rcpp::stop(status.ToString().c_str());
+    }
+    return (S4_Message(message));
+#else
+    Rcpp::stop(
+        "The protobuf library you are using is too old for using JSON utility functions, "
+        "please upgrade to version 3 or above.");
+#endif
+}
+
 RcppExport SEXP Descriptor_getField(SEXP pointer, SEXP name) {
     GPB::FieldDescriptor* field_desc = (GPB::FieldDescriptor*)0;
     BEGIN_RCPP

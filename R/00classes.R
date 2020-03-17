@@ -189,6 +189,7 @@ setMethod("$", "Message", function(x, name) {
 		"set" = function(...) set( x, ... ),
 		"fetch" = function(...) fetch(x, ... ),
 		"toString" = function(...) toString( x, ... ),
+		"toJSON" = function(...) toJSON( x, ... ),
 		"add" = function(...) add( x, ...),
 
 		"serialize" = function(...) serialize( x, ... ),
@@ -210,6 +211,7 @@ setMethod("$", "Descriptor", function(x, name) {
 		"new" = function( ... ) newProto( x, ... ) ,
 		"read" = function( input ) read( x, input ) ,
 		"readASCII" = function(input, ...) readASCII(x, input, ...),
+		"readJSON" = function(input, ...) readJSON(x, input, ...),
 		"toString" = function(...) toString(x, ...) ,
 		"as.character" = function(...) as.character(x, ...) ,
 		"as.list" = function(...) as.list(x, ...) ,

@@ -14,6 +14,7 @@
 \alias{names,Message-method}
 \alias{str,Message-method}
 \alias{toString,Message-method}
+\alias{toJSON,Message-method}
 \alias{identical,Message,Message-method}
 \alias{==,Message,Message-method}
 \alias{!=,Message,Message-method}
@@ -42,8 +43,10 @@ as an external pointer.
 \section{Methods}{
   \describe{
     \item{as.character}{\code{signature(x = "Message")}: returns the debug string of the message. 
-    	This is built from a call to the \code{DebugString} message of the \code{Message} object}
+    This is built from a call to the \code{DebugString} method of the \code{Message} object}
     \item{toString}{\code{signature(x = "Message")}: same as \code{as.character} }
+    \item{toJSON}{\code{signature(x = "Message")}: returns the JSON representation of the message.
+    This is built from a call to the \code{google::protobuf::util::MessageToJsonString} method}
     \item{$<-}{\code{signature(x = "Message")}: set the value of a field of the message. }
     \item{$}{\code{signature(x = "Message")}: gets the value of a field. 
     Primitive types are brought back to R as R objects of the closest matching R type. 

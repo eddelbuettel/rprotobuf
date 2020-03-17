@@ -42,6 +42,12 @@
 #include <google/protobuf/service.h>
 #include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/text_format.h>
+
+#if GOOGLE_PROTOBUF_VERSION >= 3000000
+#include <google/protobuf/util/json_util.h>
+#define PROTOBUF_JSON_UTIL
+#endif
+
 namespace GPB = google::protobuf;
 
 #define R_NO_REMAP

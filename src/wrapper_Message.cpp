@@ -427,6 +427,33 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Messag
     return (res);
 }
 
+/**
+ * Returns the JSON representation of the message.
+ *
+ * @param xp external pointer to a Message
+ *
+ * @return JSON representation of the message as a single element R character vector (STRSXP)
+ */
+RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(as_json), Rcpp::XPtr<GPB::Message> message) {
+#ifdef PROTOBUF_JSON_UTIL
+    GPB::util::JsonPrintOptions opts;
+    opts.add_whitespace = true;
+
+    std::string buf;
+    GPB::util::Status status = GPB::util::MessageToJsonString(*message, &buf, opts);
+    if (!status.ok()) {
+        Rcpp::stop(status.ToString().c_str());
+    }
+    Rcpp::CharacterVector res(1);
+    res[0] = buf;
+    return (res);
+#else
+    Rcpp::stop(
+        "The protobuf library you are using is too old for using JSON utility functions, "
+        "please upgrade to version 3 or above.");
+#endif
+}
+
 bool identical_messages_(const GPB::Message* m1, const GPB::Message* m2, double tol) {
     const GPB::Descriptor* d1 = m1->GetDescriptor();
     const GPB::Descriptor* d2 = m2->GetDescriptor();
