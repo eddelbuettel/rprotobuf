@@ -146,7 +146,7 @@ RPB_FUNCTION_VOID_2(METHOD(serialize_to_file), Rcpp::XPtr<GPB::Message> message,
 RPB_FUNCTION_1(Rcpp::RawVector, METHOD(get_payload), Rcpp::XPtr<GPB::Message> message) {
 
     /* create a raw vector of the appropriate size */
-    int size = message->ByteSize();
+    R_xlen_t size = message->ByteSizeLong();
     Rcpp::RawVector payload(size);
 
     /* fill the array */
@@ -250,7 +250,7 @@ RPB_FUNCTION_1(S4_Descriptor, METHOD(descriptor), Rcpp::XPtr<GPB::Message> messa
 }
 
 RPB_XP_METHOD_0(METHOD(as_character), GPB::Message, DebugString)
-RPB_XP_METHOD_0(METHOD(bytesize), GPB::Message, ByteSize)
+RPB_XP_METHOD_0(METHOD(bytesize), GPB::Message, ByteSizeLong)
 
 RPB_FUNCTION_2(int, METHOD(field_size), Rcpp::XPtr<GPB::Message> message, SEXP field) {
     const GPB::FieldDescriptor* field_desc = getFieldDescriptor(message, field);

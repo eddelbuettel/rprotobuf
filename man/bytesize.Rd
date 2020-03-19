@@ -16,7 +16,7 @@ The number of bytes taken by a \linkS4class{Message}
 	message <- new( tutorial.Person, name = "dddd", email = "eeeeeee", id = 1 )
 	bytesize( message )
 	\dontshow{
-		stopifnot( identical( bytesize(message), length(serialize(message, NULL ) ) ) )
+		stopifnot( all.equal( bytesize(message), length(serialize(message, NULL ) ) ) )
 	}
 }
 
