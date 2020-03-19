@@ -44,3 +44,11 @@ setMethod( "toString", "MethodDescriptor", ._toString_MethodDescriptor )
 setMethod( "toString", "FileDescriptor", ._toString_FileDescriptor )
 setMethod( "toString", "EnumValueDescriptor", ._toString_EnumValueDescriptor )
 
+setGeneric( "toJSON", function( x ){
+    standardGeneric( "toJSON" )
+} )
+setMethod( "toJSON", c( x = "Message" ),
+function(message) {
+    .Call( "Message__as_json", x@pointer, PACKAGE = "RProtoBuf")
+} )
+

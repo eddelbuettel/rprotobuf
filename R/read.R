@@ -54,3 +54,30 @@ function( descriptor, input, partial=FALSE){
         close(input)
 	message
 } )
+
+
+
+
+setGeneric( "readJSON", function( descriptor, input ){
+	standardGeneric( "readJSON" )
+} )
+
+setMethod( "readJSON", c( descriptor = "Descriptor" , input = "character" ),
+function(descriptor, input){
+	.Call( "Descriptor__readJSONFromString", descriptor@pointer, input,
+              PACKAGE = "RProtoBuf" )
+} )
+
+setMethod( "readJSON", c( descriptor = "Descriptor" ),
+function( descriptor, input){
+	if( !inherits( input, "connection" ) ){
+		stop( "can only read from connections" )
+	}
+	wasopen <- identical( summary(input)[["opened"]], "opened" )
+	if( !wasopen ) open( input, "rb" )
+        stopifnot(summary(input)[["text"]] == "binary")
+	message <- .Call( "Descriptor__readJSONFromConnection", descriptor@pointer, input,
+                         PACKAGE = "RProtoBuf" )
+	close(input)
+	message
+} )

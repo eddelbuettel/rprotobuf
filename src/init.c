@@ -50,6 +50,8 @@ extern SEXP Descriptor__nested_type(SEXP, SEXP);
 extern SEXP Descriptor__nested_type_count(SEXP);
 extern SEXP Descriptor__readASCIIFromConnection(SEXP, SEXP, SEXP);
 extern SEXP Descriptor__readASCIIFromString(SEXP, SEXP, SEXP);
+extern SEXP Descriptor__readJSONFromConnection(SEXP, SEXP);
+extern SEXP Descriptor__readJSONFromString(SEXP, SEXP);
 extern SEXP Descriptor__readMessageFromConnection(SEXP, SEXP);
 extern SEXP Descriptor__readMessageFromFile(SEXP, SEXP);
 extern SEXP Descriptor__readMessageFromRawVector(SEXP, SEXP);
@@ -115,6 +117,7 @@ extern SEXP has_enum_name(SEXP, SEXP);
 extern SEXP identical_messages(SEXP, SEXP);
 extern SEXP Message__add_values(SEXP, SEXP, SEXP);
 extern SEXP Message__as_character(SEXP);
+extern SEXP Message__as_json(SEXP);
 extern SEXP Message__as_list(SEXP);
 extern SEXP Message__bytesize(SEXP);
 extern SEXP Message__clear(SEXP);
@@ -206,6 +209,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"Descriptor__nested_type_count",            (DL_FUNC) &Descriptor__nested_type_count,             1},
     {"Descriptor__readASCIIFromConnection",      (DL_FUNC) &Descriptor__readASCIIFromConnection,       3},
     {"Descriptor__readASCIIFromString",          (DL_FUNC) &Descriptor__readASCIIFromString,           3},
+    {"Descriptor__readJSONFromConnection",       (DL_FUNC) &Descriptor__readJSONFromConnection,        2},
+    {"Descriptor__readJSONFromString",           (DL_FUNC) &Descriptor__readJSONFromString,            2},
     {"Descriptor__readMessageFromConnection",    (DL_FUNC) &Descriptor__readMessageFromConnection,     2},
     {"Descriptor__readMessageFromFile",          (DL_FUNC) &Descriptor__readMessageFromFile,           2},
     {"Descriptor__readMessageFromRawVector",     (DL_FUNC) &Descriptor__readMessageFromRawVector,      2},
@@ -271,6 +276,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"identical_messages",                       (DL_FUNC) &identical_messages,                        2},
     {"Message__add_values",                      (DL_FUNC) &Message__add_values,                       3},
     {"Message__as_character",                    (DL_FUNC) &Message__as_character,                     1},
+    {"Message__as_json",                         (DL_FUNC) &Message__as_json,                          1},
     {"Message__as_list",                         (DL_FUNC) &Message__as_list,                          1},
     {"Message__bytesize",                        (DL_FUNC) &Message__bytesize,                         1},
     {"Message__clear",                           (DL_FUNC) &Message__clear,                            1},

@@ -84,3 +84,31 @@ expect_error(tutorial.Person$readASCII(file(tmp.file)))
 new.msg <- tutorial.Person$readASCII(file(tmp.file), TRUE)
 expect_equal(incomplete.msg$name, new.msg$name)
 #}
+
+# These tests are similar to the group of tests covered with test.ascii above.
+#test.json <- function() {
+## Output in JSON format to a temporary file
+out.file <- tempfile()
+writeLines( book$toJSON(), file(out.file))
+
+## Verify that we can read back in the message from a text file.
+book2 <- readJSON( tutorial.AddressBook, file(out.file, "rb"))
+expect_equal(as.character(book), as.character(book2) )
+
+## Verify that we can read in messages from unopened connections.
+book3 <- readJSON( tutorial.AddressBook, file(out.file))
+expect_equal(as.character(book), as.character(book3) )
+
+## Verify that we get an exception if we try to read from a text connection.
+## (better than silently getting an empty proto.)
+book4 <- expect_error( readJSON( tutorial.AddressBook, file(out.file, "rt")))
+
+## Verify that we get an exception if the file is not parseable.
+out.file2 <- tempfile()
+writeLines("jibberish", file(out.file2))
+book6 <- expect_error( readJSON( tutorial.AddressBook, file(out.file2)))
+
+## Verify that we get an exception if we forget the file() and thus treat the
+## path as a protobuf string.
+expect_error( readJSON( tutorial.AddressBook, out.file2))
+#}

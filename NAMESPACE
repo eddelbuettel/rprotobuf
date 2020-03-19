@@ -35,10 +35,10 @@ exportClasses(
 
 exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"serialize", "as.character", "update",
-	"has", "clone", "merge", "read", "readASCII", "bytesize",
-	"length", "str", "isInitialized",
+	"has", "clone", "merge", "read", "readASCII", "readJSON",
+	"bytesize", "length", "str", "isInitialized",
 	"clear", "size", "size<-", "swap",
-	"descriptor", "set", "fetch", "toString",
+	"descriptor", "set", "fetch", "toString", "toJSON",
 	"identical", "==", "!=", "all.equal", "add",
 	"fileDescriptor", "name", "names", "flush", "close",
         "setExtension", "getExtension",

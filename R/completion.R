@@ -20,7 +20,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 		"clear()", "clear(", "size(", "bytesize()", "fetch(",
 		"swap(", "str()", "as.character()", "update(", "as.list()", 
                 "setExtension(", "getExtension(",
-                "descriptor()", "set(", "toString(", "add(", "fileDescriptor()" )
+                "descriptor()", "set(", "toString(", "toJSON(", "add(", "fileDescriptor()" )
 	grep( pattern, names, value = TRUE )
 }
 # }}}
@@ -30,7 +30,7 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 	
 	names <- c( 
 		.Call( "Descriptor__getMemberNames", x@pointer, PACKAGE = "RProtoBuf" ), 
-		"new(", "read(", "readASCII(", "fileDescriptor()", "name(",
+		"new(", "read(", "readASCII(", "readJSON(", "fileDescriptor()", "name(",
                 "toString()", "as.character()", "asMessage()",
 		"containing_type()", "field_count()", "nested_type_count()", "enum_type_count", 
 		"field(", "nested_type(", "enum_type(" )
