@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.16 (2020-03-19)}{
+  \itemize{
+    \item Added support for parsing and printing JSON (Siddhartha
+    Bagaria in \ghpr{68} closing wishlist \ghit{61}).
+    \item Switched \code{ByteSize()} to \code{ByteSizeLong()} to appease
+    \code{clang} (Dirk).
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.15 (2020-02-08)}{
   \itemize{
     \item Repeated Message and Group objects are now returned correctly
