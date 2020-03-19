@@ -1,27 +1,27 @@
 
 ._toString_Message <- function(x, ...){
-	.Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_Descriptor <- function(x, ...){
-	.Call( "Descriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "Descriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_EnumDescriptor <- function(x, ...){
-	.Call( "EnumDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "EnumDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_FieldDescriptor <- function(x, ...){
-	.Call( "FieldDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "FieldDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_ServiceDescriptor <- function(x, ...){
-	.Call( "ServiceDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "ServiceDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_MethodDescriptor <- function(x, ...){
-	.Call( "MethodDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "MethodDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_FileDescriptor <- function(x, ...){
-	.Call( "FileDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "FileDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 ._toString_EnumValueDescriptor <- function(x, ...){
-	.Call( "EnumValueDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" ) 
+	.Call( "EnumValueDescriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
 }
 
 
@@ -48,7 +48,7 @@ setGeneric( "toJSON", function( x ){
     standardGeneric( "toJSON" )
 } )
 setMethod( "toJSON", c( x = "Message" ),
-function(message) {
+function(x) {
     .Call( "Message__as_json", x@pointer, PACKAGE = "RProtoBuf")
 } )
 

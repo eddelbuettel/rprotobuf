@@ -14,6 +14,7 @@
 \alias{names,Message-method}
 \alias{str,Message-method}
 \alias{toString,Message-method}
+\alias{toJSON}
 \alias{toJSON,Message-method}
 \alias{identical,Message,Message-method}
 \alias{==,Message,Message-method}

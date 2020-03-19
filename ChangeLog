@@ -1,3 +1,25 @@
+2020-03-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* R/debug_string.R: Correct method argument
+	* man/Message-class.Rd: Alias toJSON
+
+2020-03-16  Siddhartha Bagaria  <sbagaria@grailbio.com>
+
+	* NAMESPACE: Add JSON parsing and printing support
+	* R/00classes.R: Idem
+	* R/completion.R: Idem
+	* R/debug_string.R: Idem
+	* R/read.R: Idem
+	* inst/tinytest/test_addressbook.R: Idem
+	* man/Message-class.Rd: Idem
+	* man/readJSON.Rd: Idem
+	* src/init.c: Idem
+	* src/rprotobuf.h: Idem
+	* src/wrapper_Descriptor.cpp: Idem
+	* src/wrapper_Message.cpp: Idem
+
 2020-02-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.15
