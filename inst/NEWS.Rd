@@ -7,8 +7,10 @@
   \itemize{
     \item Condition use of \code{ByteSizeLong()} on building with ProtoBuf
     3.6.0 or later (Dirk in \ghpr{71} fixing \ghit{70}).
+    \item The JSON unit tests are skipped if ProtoBuf 2.* is used (Dirk,
+    also \ghpr{71}).
     \item The \code{configure} script now extracts the version from the
-    \code{DESCRIPTION} file.
+    \code{DESCRIPTION} file ( (Dirk, also \ghpr{71}).
   }
 }
 

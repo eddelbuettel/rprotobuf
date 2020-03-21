@@ -3,6 +3,8 @@
 	* src/wrapper_Message.cpp: Condition use of ByteSizeLong on ProtoBuf
 	version 3.6.0 or later to permit compilation on older systems
 
+	* inst/tinytest/test_addressbook.R: Skip JSON tests if ProtoBuf 2.*
+
 	* configure.ac: Extract version from DESCRIPTION via awk
 	* configure: Regenerated
 

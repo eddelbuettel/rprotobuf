@@ -85,6 +85,12 @@ new.msg <- tutorial.Person$readASCII(file(tmp.file), TRUE)
 expect_equal(incomplete.msg$name, new.msg$name)
 #}
 
+## Ensure we do not try to run JSON tests on older ProtoBuf versions
+## Support starts with version 3.
+
+isProto2 <- (RProtoBuf:::getProtobufLibVersion() < 3000000)
+if (isProto2) exit_file("Skipping JSON tests with ProtoBuf2")
+
 # These tests are similar to the group of tests covered with test.ascii above.
 #test.json <- function() {
 ## Output in JSON format to a temporary file
