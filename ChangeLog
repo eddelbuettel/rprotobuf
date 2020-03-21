@@ -3,6 +3,9 @@
 	* src/wrapper_Message.cpp: Condition use of ByteSizeLong on ProtoBuf
 	version 3.6.0 or later to permit compilation on older systems
 
+	* configure.ac: Extract version from DESCRIPTION via awk
+	* configure: Regenerated
+
 2020-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.16
