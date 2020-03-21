@@ -1,6 +1,16 @@
+2020-03-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/wrapper_Message.cpp: Condition use of ByteSizeLong on ProtoBuf
+	version 3.6.0 or later to permit compilation on older systems
+
+	* inst/tinytest/test_addressbook.R: Skip JSON tests if ProtoBuf 2.*
+
+	* configure.ac: Extract version from DESCRIPTION via awk
+	* configure: Regenerated
+
 2020-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Release 0.4.15
+	* DESCRIPTION (Version, Date): Release 0.4.16
 
 	* src/wrapper_Message.cpp: Switch to ByteSizeLong() to appease a
 	clang warning on deprecated declarations
