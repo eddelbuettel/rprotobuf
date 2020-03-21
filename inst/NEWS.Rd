@@ -3,6 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.17 (2020-03-21)}{
+  \itemize{
+    \item Condition use of \code{ByteSizeLong()} on building with ProtoBuf
+    3.6.0 or later (Dirk in \ghpr{71} fixing \ghit{70}).
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.16 (2020-03-19)}{
   \itemize{
     \item Added support for parsing and printing JSON (Siddhartha
