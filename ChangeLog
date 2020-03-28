@@ -1,3 +1,9 @@
+2020-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.17
+
+	* README.md: Add a last-commit badge
+
 2020-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/wrapper_Message.cpp: Condition use of ByteSizeLong on ProtoBuf

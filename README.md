@@ -1,7 +1,11 @@
-## RProtoBuf [![Build Status](https://travis-ci.org/eddelbuettel/rprotobuf.svg)](https://travis-ci.org/eddelbuettel/rprotobuf) [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf) [![Dependencies](https://tinyverse.netlify.com/badge/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf) [![Downloads](http://cranlogs.r-pkg.org/badges/RProtoBuf?color=brightgreen)](http://www.r-pkg.org/pkg/RProtoBuf)
+## RProtoBuf: R Interface to [Google Protocol Buffers](https://developers.google.com/protocol-buffers/)
 
-
-R Interface to [Google Protocol Buffers](https://developers.google.com/protocol-buffers/)
+[![Build Status](https://travis-ci.org/eddelbuettel/rprotobuf.svg)](https://travis-ci.org/eddelbuettel/rprotobuf) 
+[![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html) 
+[![CRAN](https://www.r-pkg.org/badges/version/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf) 
+[![Dependencies](https://tinyverse.netlify.com/badge/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf) 
+[![Downloads](https://cranlogs.r-pkg.org/badges/RProtoBuf?color=brightgreen)](https://www.r-pkg.org/pkg/RProtoBuf)
+[![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/rprotobuf)](https://github.com/eddelbuettel/rprotobuf)
 
 ### What are Protocol Buffers?
 
