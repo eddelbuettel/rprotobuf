@@ -148,4 +148,15 @@ BEGIN_RCPP                                                            \
 END_RCPP                                                              \
 }
 
+/* We need a special case macro for methods taking a std::string_view, because
+ * Rcpp::internal::converter will not automatically convert to that type. */
+#define RPB_XP_METHOD_CAST_1_STRING(__NAME__,__CLASS__,__METHOD__,__CAST__)               \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0 ){                                           \
+BEGIN_RCPP                                                                                \
+        ::Rcpp::XPtr< __CLASS__ > ptr(xp) ;                                               \
+        return ::Rcpp::wrap( __CAST__( ptr->__METHOD__(                                   \
+            static_cast<const std::string&>( ::Rcpp::internal::converter( x0 ) ) ) ) ) ;  \
+END_RCPP                                                                                  \
+}
+
 #endif
