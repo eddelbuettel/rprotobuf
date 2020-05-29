@@ -3,7 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.17 (2020-03-xx)}{
+\section{Changes in RProtoBuf version 0.4.18 (2020-xx-yy)}{
+  \itemize{
+    \item Support \code{string_view}  in \code{FindMethodByName()} (Adam
+    Cozzette in \ghpr{72})
+  }
+}
+
+\section{Changes in RProtoBuf version 0.4.17 (2020-03-26)}{
   \itemize{
     \item Condition use of \code{ByteSizeLong()} on building with ProtoBuf
     3.6.0 or later (Dirk in \ghpr{71} fixing \ghit{70}).
