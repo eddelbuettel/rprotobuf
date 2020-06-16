@@ -3,7 +3,7 @@
 # Made by Dirk Eddelbuettel in September 2018 and released under GPL (>=2)
 
 os: linux
-dist: trusty
+dist: bionic
 sudo: required
 services: docker
 
@@ -12,6 +12,9 @@ env:
     - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
       DOCKER_CNTR="rprotobuf/ci"
       R_BLD_CHK_OPTS="--no-build-vignettes --no-manual"
+      PKG_NAME=$(awk '/Package:/ {print $2}' DESCRIPTION)
+      PKG_VER=$(awk '/Version:/ {print $2}' DESCRIPTION)
+      PKG_TGZ="${PKG_NAME}_${PKG_VER}.tar.gz"
 
 before_install:
  - docker pull ${DOCKER_CNTR}
@@ -21,7 +24,7 @@ install:
  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_CHK_OPTS} .
 
 script:
- - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_BLD_CHK_OPTS} RProtoBuf*.tar.gz
+ - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_BLD_CHK_OPTS} ${PKG_TGZ}
 
 after_failure:
   - ./run.sh dump_logs
