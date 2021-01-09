@@ -11,6 +11,8 @@
 	* deprecated/man/invokeLocally.Rd: Idem
 	* .Rbuildignore: Added deprecated/
 
+        * .github/workflows/ci.yaml: Add CI runner using r-ci
+
 2020-08-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added JSS badge
