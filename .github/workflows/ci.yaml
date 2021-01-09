@@ -30,7 +30,9 @@ jobs:
           ./run.sh bootstrap
 
       - name: Dependencies
-        run: ./run.sh install_deps
+        run: |
+          ./run.sh install_deps
+          ./run.sh install_aptget libprotobuf-dev libprotobuf-c-dev libprotoc-dev
 
       - name: Test
         run: ./run.sh run_tests
