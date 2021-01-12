@@ -5,7 +5,7 @@ vignettes/jss.bst
 vignettes/jss.cls
 src/.dir-locals.el
 src/std.lnt
-.travis.yml
+^\.travis\.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
 CONTRIBUTING.md
@@ -14,4 +14,6 @@ CONTRIBUTING.md
 ^GRTAGS
 ^GTAGS
 ^docker
-vignettes/rmd
+^vignettes/rmd
+^deprecated
+^\.github

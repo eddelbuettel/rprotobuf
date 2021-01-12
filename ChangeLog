@@ -1,3 +1,19 @@
+2021-01-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Roll minor version and date
+
+	* DESCRIPTION (Imports): Remove RCurl used for rpc
+	* NAMESPACE: Remove 'rpc' class and 'invoke' method
+	* R/00classes.R: Comment-out removed class and method
+	* deprecated/R/http.handler.R: Moved from R/
+	* deprecated/R/rpc.R: Idem
+	* deprecated/man/RpcHTTP-class.Rd: Moved from man/
+	* deprecated/man/invokeLocally.Rd: Idem
+	* .Rbuildignore: Added deprecated/
+
+        * .github/workflows/ci.yaml: Add CI runner using r-ci
+	* README.md: Add new badge
+
 2020-08-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added JSS badge
