@@ -47,7 +47,11 @@ as an external pointer.
     This is built from a call to the \code{DebugString} method of the \code{Message} object}
     \item{toString}{\code{signature(x = "Message")}: same as \code{as.character} }
     \item{toJSON}{\code{signature(x = "Message")}: returns the JSON representation of the message.
-    This is built from a call to the \code{google::protobuf::util::MessageToJsonString} method}
+    This is built from a call to the
+    \code{google::protobuf::util::MessageToJsonString} method and
+    accepts two arguments \code{preserve_proto_field_names} - if FALSE (the default) convert field names to camelCase
+    \code{always_print_primitive_fields} - whether to return the default
+    value for missing primitive fields (default false)}
     \item{$<-}{\code{signature(x = "Message")}: set the value of a field of the message. }
     \item{$}{\code{signature(x = "Message")}: gets the value of a field. 
     Primitive types are brought back to R as R objects of the closest matching R type. 

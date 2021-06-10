@@ -117,7 +117,7 @@ extern SEXP has_enum_name(SEXP, SEXP);
 extern SEXP identical_messages(SEXP, SEXP);
 extern SEXP Message__add_values(SEXP, SEXP, SEXP);
 extern SEXP Message__as_character(SEXP);
-extern SEXP Message__as_json(SEXP);
+extern SEXP Message__as_json(SEXP, SEXP, SEXP);
 extern SEXP Message__as_list(SEXP);
 extern SEXP Message__bytesize(SEXP);
 extern SEXP Message__clear(SEXP);
@@ -276,7 +276,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"identical_messages",                       (DL_FUNC) &identical_messages,                        2},
     {"Message__add_values",                      (DL_FUNC) &Message__add_values,                       3},
     {"Message__as_character",                    (DL_FUNC) &Message__as_character,                     1},
-    {"Message__as_json",                         (DL_FUNC) &Message__as_json,                          1},
+    {"Message__as_json",                         (DL_FUNC) &Message__as_json,                          3},
     {"Message__as_list",                         (DL_FUNC) &Message__as_list,                          1},
     {"Message__bytesize",                        (DL_FUNC) &Message__bytesize,                         1},
     {"Message__clear",                           (DL_FUNC) &Message__clear,                            1},
