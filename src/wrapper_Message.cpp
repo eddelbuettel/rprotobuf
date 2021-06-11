@@ -439,13 +439,19 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Messag
  * Returns the JSON representation of the message.
  *
  * @param xp external pointer to a Message
+ * @param preserve_proto_field_names If FALSE (the default) convert field names to camelCase.
+ * @param always_print_primitive_fields Whether to return the default value for missing primitive fields. (default false)
  *
  * @return JSON representation of the message as a single element R character vector (STRSXP)
  */
-RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(as_json), Rcpp::XPtr<GPB::Message> message) {
+RPB_FUNCTION_3(Rcpp::CharacterVector, METHOD(as_json), Rcpp::XPtr<GPB::Message> message,
+               bool preserve_proto_field_names,
+               bool always_print_primitive_fields) {
 #ifdef PROTOBUF_JSON_UTIL
     GPB::util::JsonPrintOptions opts;
     opts.add_whitespace = true;
+    opts.preserve_proto_field_names = preserve_proto_field_names;
+    opts.always_print_primitive_fields = always_print_primitive_fields;
 
     std::string buf;
     GPB::util::Status status = GPB::util::MessageToJsonString(*message, &buf, opts);
