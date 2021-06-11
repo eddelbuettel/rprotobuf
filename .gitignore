@@ -8,6 +8,3 @@ GPATH
 GRTAGS
 GTAGS
 *~
-config.log
-config.status
-src/Makevars
