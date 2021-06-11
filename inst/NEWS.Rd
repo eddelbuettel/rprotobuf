@@ -3,13 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.18 (2020-xx-yy)}{
+\section{Changes in RProtoBuf version 0.4.18 (2021-xx-yy)}{
   \itemize{
     \item Support \code{string_view}  in \code{FindMethodByName()} (Adam
-    Cozzette in \ghpr{72})
+    Cozzette in \ghpr{72}).
+    \item CI use has been updated first at Travis and at GitHub (Dirk in
+    \ghpr{74} and (parts of) \ghpr{76}).
     \item The (to the best of our knowledge) unused minimal RPC
     mechanism has been removed, retiring one method and one class as
-    well as the import of the \pkg{RCurl} package.
+    well as the import of the \pkg{RCurl} package (Dirk in \ghpr{76}).
+    \item The \code{toJSON()} method supports two (upstream) formatting
+    toggles (Vitali Spinu in \ghpr{79) with minor edit by Dirk).
   }
 }
 
