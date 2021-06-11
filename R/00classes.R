@@ -190,9 +190,8 @@ setMethod("$", "Message", function(x, name) {
 		"fetch" = function(...) fetch(x, ... ),
 		"toString" = function(...) toString( x, ... ),
                 "toJSON" = function(preserve_proto_field_names = FALSE, always_print_primitive_fields = FALSE, ...)
-            		toJSON(x,
-                               preserve_proto_field_names = preserve_proto_field_names,
-                               always_print_primitive_fields = always_print_primitive_fields, ... ),
+            		toJSON(x, preserve_proto_field_names = preserve_proto_field_names,
+                           always_print_primitive_fields = always_print_primitive_fields, ... ),
 		"add" = function(...) add( x, ...),
 
 		"serialize" = function(...) serialize( x, ... ),

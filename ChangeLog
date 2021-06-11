@@ -2,6 +2,8 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* .editorconfig: Added
+
 2021-06-10  Vitalie Spinu <spinuvit@gmail.com>
 
 	* R/debug_string.R: Support extra toJSON format arguments
@@ -2705,4 +2707,3 @@
 
 	* [r1] /README, /pkg, /www, /www/index.php: R-Forge: updated
 	  repository structure
-
