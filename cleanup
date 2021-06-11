@@ -10,6 +10,4 @@ rm -f config.* src/Makedeps src/Makevars \
     vignettes/RProtoBuf*.tex vignettes/RProtoBuf*.pdf \
     vignettes/pinp.cls
 
-rm -rf inst/doc/auto autom4te.cache
-
-
+rm -rf inst/doc/auto autom4te.cache RProtoBuf.Rcheck
