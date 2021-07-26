@@ -1,3 +1,8 @@
+2019-06-27  Jeroen Ooms  <jeroen@berkeley.edu>
+
+	* src/Makevars.win: Support UCRT build
+	* src/Makevars.ucrt: Idem
+
 2021-06-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
