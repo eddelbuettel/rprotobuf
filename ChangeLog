@@ -1,3 +1,8 @@
+2021-09-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/docker.yaml: Add action to build and push
+	containers with cron set to monthly schedule
+
 2019-06-27  Jeroen Ooms  <jeroen@berkeley.edu>
 
 	* src/Makevars.win: Support UCRT build
