@@ -1,3 +1,8 @@
+2021-10-01  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* .github/workflows/docker.yaml (on): Restrict Docker rebuilds to
+	pushes to master branch
+
 2021-09-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/docker.yaml: Add action to build and push
