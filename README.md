@@ -7,7 +7,7 @@
 [![Dependencies](https://tinyverse.netlify.com/badge/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf)
 [![Downloads](https://cranlogs.r-pkg.org/badges/RProtoBuf?color=brightgreen)](https://www.r-pkg.org/pkg/RProtoBuf)
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/rprotobuf)](https://github.com/eddelbuettel/rprotobuf)
-[![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v071.i02-brightgreen)](https://dx.doi.org/10.18637/jss.v071.i02)
+[![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v071.i02-brightgreen)](https://doi.org/10.18637/jss.v071.i02)
 
 ### What are Protocol Buffers?
 
@@ -51,7 +51,7 @@ with similar commands on other operating systems or distributions.
 ### Documentation
 
 The package contains two pdf vignettes; the second one corresponds to
-[our JSS paper](https://dx.doi.org/10.18637/jss.v071.i02).
+[our JSS paper](https://doi.org/10.18637/jss.v071.i02).
 
 ### Authors
 

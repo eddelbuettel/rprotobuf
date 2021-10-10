@@ -1,6 +1,7 @@
 2021-10-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Update JSS article url to doi per JSS request
+	* README.md: Update JSS article url to doi form per JSS request,
+	switch to shorter https://doi.org/ base
 
 2021-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
