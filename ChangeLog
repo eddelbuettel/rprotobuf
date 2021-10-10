@@ -1,3 +1,7 @@
+2021-10-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Update JSS article url to doi per JSS request
+
 2021-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
  	* .github/workflows/docker.yaml (on): Restrict Docker rebuilds to
