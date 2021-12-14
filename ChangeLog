@@ -1,3 +1,10 @@
+2021-12-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Roll minor version and date
+
+	* src/Makevars.ucrt: Applied patch by Tomas Kalibera that is part of
+	his changes for the Windows utf8-enhabced ucrt3 builds of R 4.2.0
+
 2021-10-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update JSS article url to doi form per JSS request,
@@ -13,7 +20,7 @@
 	* .github/workflows/docker.yaml: Add action to build and push
 	containers with cron set to monthly schedule
 
-2019-06-27  Jeroen Ooms  <jeroen@berkeley.edu>
+2021-06-27  Jeroen Ooms  <jeroen@berkeley.edu>
 
 	* src/Makevars.win: Support UCRT build
 	* src/Makevars.ucrt: Idem

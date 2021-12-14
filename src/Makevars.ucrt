@@ -1,2 +1,9 @@
-CRT=-ucrt
-include Makevars.win
+PKG_LIBS= -lprotobuf
+
+## Make this C++11 so that we get better int64 support and more
+CXX_STD=CXX11
+
+all: clean
+
+clean:
+	rm -f $(OBJECTS) $(SHLIB)
