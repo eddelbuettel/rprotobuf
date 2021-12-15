@@ -90,7 +90,7 @@ C++ class \code{Descriptor}}
 
   }
 }
-\references{ The \code{Descriptor} c++ class. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#Descriptor} }
+\references{ The \code{Descriptor} c++ class. \url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor?csw=1} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{
 	the \code{\link{P}} function creates "Descriptor" messages. 

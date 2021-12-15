@@ -13,7 +13,7 @@ swap elements of a repeated field of a message.
 }}
 \references{
 	See the \code{SwapElements} of the \code{Reflection} class, part of the protobuf library. 
-	\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message.html}
+	\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.message?csw=1}
 }
 \keyword{methods}
 

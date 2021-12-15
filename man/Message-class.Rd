@@ -83,7 +83,7 @@ as an external pointer.
 }
 \references{ 
 	The \code{Message} class from the C++ proto library.
-	\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message.html}
+	\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.message?csw=1}
 }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{

@@ -67,7 +67,7 @@ This is a virtual class
 \author{ Romain Francois <francoisromain@free.fr> }
 \references{
 	The \code{google::protobuf::io::ZeroCopyInputStream} C++ class. 
-	\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream.html#ZeroCopyInputStream}
+	\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream?csw=1}
 }
 \seealso{
 	TODO: add classes that extend

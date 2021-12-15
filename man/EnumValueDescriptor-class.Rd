@@ -43,7 +43,7 @@
 
 }
 \references{ The \code{EnumValueDescriptor} C++ class. 
-  \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#EnumValueDescriptor} }
+  \url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor?csw=1} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \examples{
 \dontrun{

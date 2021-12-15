@@ -30,7 +30,7 @@ Objects are usually created using the \code{\link{fileDescriptor}} method
 		\item{name}{\code{signature(object = "FileDescriptor" )} : name of the file}
 	}
 }
-\references{ The \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#FileDescriptor} }
+\references{ The \url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor?csw=1} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \keyword{classes}
 \seealso{

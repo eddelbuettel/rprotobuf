@@ -40,7 +40,7 @@ Class \code{"\linkS4class{ZeroCopyOutputStream}"}, directly.
 	See \linkS4class{ZeroCopyOutputStream} for inherited methods
 }
 \references{ The \code{FileOutputStream} class from the protobuf 
-C++ library. \url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream_impl_lite.html#FileOutputStream} }
+C++ library. \url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream_impl_lite?csw=1} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{
 	\linkS4class{ZeroCopyOutputStream} for methods
