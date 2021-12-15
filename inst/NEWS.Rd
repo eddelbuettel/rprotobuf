@@ -7,14 +7,16 @@
   \itemize{
     \item Support \code{string_view}  in \code{FindMethodByName()} (Adam
     Cozzette in \ghpr{72}).
-    \item CI use has been updated first at Travis and at GitHub (Dirk in
+    \item CI use was updated first at Travis, later at GitHub and
+    now uses \href{https://eddelbuettel.github.io/r-ci/}{r-ci} (Dirk in
     \ghpr{74} and (parts of) \ghpr{76}).
     \item The (to the best of our knowledge) unused minimal RPC
     mechanism has been removed, retiring one method and one class as
     well as the import of the \pkg{RCurl} package (Dirk in \ghpr{76}).
     \item The \code{toJSON()} method supports two (upstream) formatting
-    toggles (Vitali Spinu in \ghpr{79) with minor edit by Dirk).
-    \item Windows UCRT builds are now supported (Jeroen in \ghpr{81}).
+    toggles (Vitali Spinu in \ghpr{79} with minor edit by Dirk).
+    \item Windows UCRT builds are now supported (Jeroen in \ghpr{81},
+    Dirk and Tomas Kalibera).
   }
 }
 
