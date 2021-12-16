@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.18 (2021-xx-yy)}{
+\section{Changes in RProtoBuf version 0.4.18 (2021-12-15)}{
   \itemize{
     \item Support \code{string_view}  in \code{FindMethodByName()} (Adam
     Cozzette in \ghpr{72}).
@@ -13,10 +13,12 @@
     \item The (to the best of our knowledge) unused minimal RPC
     mechanism has been removed, retiring one method and one class as
     well as the import of the \pkg{RCurl} package (Dirk in \ghpr{76}).
+    \item Two extra parameters are now supported in the \code{toJSON}
+    conversion (Vitali Spinu in \ghpr{79})
     \item The \code{toJSON()} method supports two (upstream) formatting
     toggles (Vitali Spinu in \ghpr{79} with minor edit by Dirk).
     \item Windows UCRT builds are now supported (Jeroen in \ghpr{81},
-    Dirk and Tomas Kalibera).
+    Dirk and Tomas Kalibera in \ghpr{82}).
   }
 }
 
@@ -66,7 +68,7 @@
     \item \code{POSIXlt} elements are now properly serialized too
     (Jeffrey Shen in \ghpr{48} and \ghpr{50} fixing \ghit{47})
     \item Added two Dockerfiles for continuous integration and use; see
-    \href{https://cloud.docker.com/swarm/rprotobuf/repository/list}{this
+    \href{https://hub.docker.com/swarm/rprotobuf/repository/list}{this
       url} for more.
   }
 }

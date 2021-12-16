@@ -1,3 +1,9 @@
+2021-12-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.18
+
+	* man/*Rd: Update a number of URLs
+
 2021-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Roll minor version and date

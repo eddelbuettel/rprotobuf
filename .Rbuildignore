@@ -17,3 +17,4 @@ CONTRIBUTING.md
 ^vignettes/rmd
 ^deprecated
 ^\.github
+^\.editorconfig
