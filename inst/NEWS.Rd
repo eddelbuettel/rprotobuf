@@ -13,8 +13,6 @@
     \item The (to the best of our knowledge) unused minimal RPC
     mechanism has been removed, retiring one method and one class as
     well as the import of the \pkg{RCurl} package (Dirk in \ghpr{76}).
-    \item Two extra parameters are now supported in the \code{toJSON}
-    conversion (Vitali Spinu in \ghpr{79})
     \item The \code{toJSON()} method supports two (upstream) formatting
     toggles (Vitali Spinu in \ghpr{79} with minor edit by Dirk).
     \item Windows UCRT builds are now supported (Jeroen in \ghpr{81},
