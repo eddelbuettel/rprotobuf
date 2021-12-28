@@ -1,6 +1,5 @@
 ## RProtoBuf: R Interface to [Google Protocol Buffers](https://developers.google.com/protocol-buffers/)
 
-[![Build Status](https://travis-ci.org/eddelbuettel/rprotobuf.svg)](https://travis-ci.org/eddelbuettel/rprotobuf)
 [![CI](https://github.com/eddelbuettel/rprotobuf/workflows/ci/badge.svg)](https://github.com/eddelbuettel/rprotobuf/actions?query=workflow%3Aci)
 [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN](https://www.r-pkg.org/badges/version/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf)
