@@ -8,16 +8,17 @@ Description: Protocol Buffers are a way of encoding structured data in an
  efficient yet extensible format. Google uses Protocol Buffers for almost all
  of its internal 'RPC' protocols and file formats.  Additional documentation
  is available in two included vignettes one of which corresponds to our 'JSS'
- paper (2016, <doi:10.18637/jss.v071.i02>. Either version 2 or 3 of the
- 'Protocol Buffers' 'API' is supported.
+ paper (2016, <doi:10.18637/jss.v071.i02>. A sufficiently recent version of
+ 'Protocol Buffers' library is required; currently version 3.3.0 from 2017
+ is the stated minimum.
 Depends: R (>= 3.0.0), methods
 Imports: utils, stats, tools, Rcpp
 LinkingTo: Rcpp
 Suggests: tinytest
-SystemRequirements: ProtoBuf libraries and compiler version 2.2.0 or later;
- version 3.0.0 or later is supported as well. On Debian/Ubuntu these can be
- installed as libprotoc-dev, libprotobuf-dev and protobuf-compiler, while on
- Fedora/CentOS protobuf-devel and protobuf-compiler are needed.
+SystemRequirements: ProtoBuf libraries and compiler version 3.3.0 or later;
+ On Debian/Ubuntu these can be installed as libprotoc-dev, libprotobuf-dev
+ and protobuf-compiler, while on Fedora/CentOS protobuf-devel and
+ protobuf-compiler are needed.
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
 URL: https://github.com/eddelbuettel/rprotobuf, https://dirk.eddelbuettel.com/code/rprotobuf.html
 License: GPL (>= 2)
