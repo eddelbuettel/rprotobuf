@@ -3,6 +3,9 @@
 	* R/internals.R (getProtobufLibVersion): If formatted result, return
 	as 'package_version()' rather than just string; update .Call()
 
+	* R/zzz.R (.onAttach): In interactive mode disply package and
+	underlying library version on startup
+
 2022-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Description, SystemRequirements): Updated to state that

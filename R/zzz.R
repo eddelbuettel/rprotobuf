@@ -12,3 +12,11 @@
     #}
     .RProtoBuf_libname <<- libname
 }
+
+.onAttach <- function(libname, pkgName) {
+    if (interactive()) {
+        packageStartupMessage("RProtoBuf ", packageVersion("RProtoBuf"),
+                              " using Protocol Buffers library version ",
+                              format(getProtobufLibVersion(TRUE)), ".")
+    }
+}
