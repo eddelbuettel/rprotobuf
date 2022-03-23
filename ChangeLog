@@ -1,3 +1,8 @@
+2022-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/internals.R (getProtobufLibVersion): If formatted result, return
+	as 'package_version()' rather than just string; update .Call()
+
 2022-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Description, SystemRequirements): Updated to state that

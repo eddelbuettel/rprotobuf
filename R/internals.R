@@ -107,19 +107,16 @@ resetDescriptorPool <- function(){
 	invisible(NULL)
 }
 
-getProtobufLibVersion <- function( format = FALSE ){
-	version <- .Call( "get_protobuf_library_version", PACKAGE = "RProtoBuf" )
+getProtobufLibVersion <- function(format = FALSE){
+	version <- .Call(get_protobuf_library_version)
 
-	if( format ){
+	if (format) {
 		major <- version %/% 10^6
 		minor <- ( tmp <- (version - major * 10^6) ) %/% 10^3
 		revision <- (tmp - minor * 10^3 )
-		sprintf( "%d.%d.%d", major, minor, revision )
+		package_version(sprintf("%d.%d.%d", major, minor, revision))
 	} else {
 		version
 	}
 
 }
-
-
-
