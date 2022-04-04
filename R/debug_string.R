@@ -55,3 +55,10 @@ function(x, preserve_proto_field_names = FALSE, always_print_primitive_fields = 
           PACKAGE = "RProtoBuf")
 } )
 
+setGeneric( "toDebugString", function( x ) {
+    standardGeneric( "toDebugString" )
+} )
+setMethod( "toDebugString", c( x = "Message"),
+          function(x) {
+              .Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf")
+          } )

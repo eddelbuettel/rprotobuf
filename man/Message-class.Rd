@@ -50,6 +50,9 @@ as an external pointer.
     \item{toTextFormat}{\code{signature(x = "Message")}: returns the
       TextFormat of the message. This is built from a call to
       \code{TextFormat::PrintToString} with the \code{Message} object.}
+    \item{toDebugString}{\code{signature(x = "Message")}: returns the
+      debug string of the message. This is built from a call to the
+      \code{DebugString} method of the \code{Message} object.}
     \item{toJSON}{\code{signature(x = "Message")}: returns the JSON representation of the message.
     This is built from a call to the
     \code{google::protobuf::util::MessageToJsonString} method and
