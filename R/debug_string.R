@@ -1,6 +1,10 @@
 
-._toString_Message <- function(x, ...){
-	.Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" )
+._toString_Message <- function(x, debug = getOption("RProtoBuf.toString.debug", TRUE), ...){
+    if (isTRUE(debug)) {
+        .Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" )
+    } else {
+        .Call( "Message__print_text_format", x@pointer, PACKAGE = "RProtoBuf")
+    }
 }
 ._toString_Descriptor <- function(x, ...){
 	.Call( "Descriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
