@@ -192,6 +192,7 @@ setMethod("$", "Message", function(x, name) {
                 "toJSON" = function(preserve_proto_field_names = FALSE, always_print_primitive_fields = FALSE, ...)
             		toJSON(x, preserve_proto_field_names = preserve_proto_field_names,
                            always_print_primitive_fields = always_print_primitive_fields, ... ),
+        "toTextFormat" = function() toTextFormat(x),
 		"add" = function(...) add( x, ...),
 
 		"serialize" = function(...) serialize( x, ... ),
