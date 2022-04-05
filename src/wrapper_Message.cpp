@@ -1177,7 +1177,7 @@ RPB_FUNCTION_VOID_4(METHOD(set_field_values), Rcpp::XPtr<GPB::Message> message, 
     }
 }
 
-#undef METHOD
+//#undef METHOD
 
 /**
  * Return the TextFormat of message
@@ -1188,4 +1188,6 @@ RPB_FUNCTION_1(std::string, METHOD(print_text_format),
   std::string message_text;
   GPB::TextFormat::PrintToString(*message, &message_text);
   return message_text;
+}
+
 }
