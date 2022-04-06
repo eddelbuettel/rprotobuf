@@ -136,6 +136,7 @@ extern SEXP Message__is_initialized(SEXP);
 extern SEXP Message__length(SEXP);
 extern SEXP Message__merge(SEXP, SEXP);
 extern SEXP Message__num_extensions(SEXP);
+extern SEXP Message__print_text_format(SEXP);
 extern SEXP Message__serialize_to_file(SEXP, SEXP);
 extern SEXP Message__set_field_size(SEXP, SEXP, SEXP);
 extern SEXP Message__set_field_values(SEXP, SEXP, SEXP, SEXP);
@@ -296,6 +297,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Message__merge",                           (DL_FUNC) &Message__merge,                            2},
     {"Message__num_extensions",                  (DL_FUNC) &Message__num_extensions,                   1},
     {"Message__serialize_to_file",               (DL_FUNC) &Message__serialize_to_file,                2},
+    {"Message__print_text_format",               (DL_FUNC) &Message__print_text_format,                1},
     {"Message__set_field_size",                  (DL_FUNC) &Message__set_field_size,                   3},
     {"Message__set_field_values",                (DL_FUNC) &Message__set_field_values,                 4},
     {"Message__swap",                            (DL_FUNC) &Message__swap,                             4},

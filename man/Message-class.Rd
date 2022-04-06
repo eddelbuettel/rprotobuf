@@ -46,6 +46,9 @@ as an external pointer.
     \item{as.character}{\code{signature(x = "Message")}: returns the debug string of the message. 
     This is built from a call to the \code{DebugString} method of the \code{Message} object}
     \item{toString}{\code{signature(x = "Message")}: same as \code{as.character} }
+    \item{toTextFormat}{\code{signature(x = "Message")}: returns the TextFormat of the message. 
+    	This is built from a call to \code{TextFormat::PrintToString} with the \code{Message} object}
+    \item{toDebugString}{\code{signature(x = "Message")}: same as \code{as.character} }
     \item{toJSON}{\code{signature(x = "Message")}: returns the JSON representation of the message.
     This is built from a call to the
     \code{google::protobuf::util::MessageToJsonString} method and
