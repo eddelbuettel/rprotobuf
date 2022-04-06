@@ -1,3 +1,26 @@
+2022-04-06  Michael Chirico  <chiricom@google.com>
+
+	* R/00classes.R: Additional tests and updated changes
+	* R/debug_string.R: Idem
+	* R/text_format.R: Idem
+	* man/Message-class.Rd: Idem
+	* inst/tinytest/test_message.R: Idem
+
+2022-04-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/wrapper_Message.cpp: Correct minor issue, reenable compilation
+	* inst/tinytest/test_message.R: Park one test temporarily
+
+2022-04-04  Michael Chirico  <chiricom@google.com>
+
+	* R/00classes.R: Expose TextFormat for Message->character conversion
+	* R/debug_string.R: Idem
+	* R/text_format.R: Idem
+	* src/wrapper_Message.cpp: Idem
+	* src/init.c: Idem
+	* man/Message-class.Rd: Idem
+	* inst/tinytest/test_message.R: Idem
+
 2022-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/internals.R (getProtobufLibVersion): If formatted result, return
