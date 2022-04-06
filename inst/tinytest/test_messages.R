@@ -50,4 +50,7 @@ expect_error(a$repeated_nested_message <- list(
     "foo"))
 
 expect_equal(a$toTextFormat(), "OptionalGroup {\n  a: 3\n}\nrepeated_nested_message {\n  bb: 3\n}\nrepeated_nested_message {\n  bb: 4\n}\n")
+expect_equal(a$toDebugString(), a$toString())
+expect_equal(a$toString(debug = FALSE), a$toTextFormat())
+expect_equal(a$toString(debug = TRUE), a$toDebugString())
 #}
