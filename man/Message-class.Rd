@@ -32,7 +32,7 @@ around the \code{Message} c++ class that holds the actual message
 as an external pointer.
 }
 \section{Objects from the Class}{
-	Objects are typically created by the \code{new} function invoked
+	Objects are typically created by the \code{new} function invoked 
 	on a \linkS4class{Descriptor} object.
 }
 \section{Slots}{
@@ -43,16 +43,12 @@ as an external pointer.
 }
 \section{Methods}{
   \describe{
-    \item{as.character}{\code{signature(x = "Message")}: returns the debug string of the message.
+    \item{as.character}{\code{signature(x = "Message")}: returns the debug string of the message. 
     This is built from a call to the \code{DebugString} method of the \code{Message} object}
-    \item{toString}{\code{signature(x = "Message")}: same as
-      \code{as.character} }
-    \item{toTextFormat}{\code{signature(x = "Message")}: returns the
-      TextFormat of the message. This is built from a call to
-      \code{TextFormat::PrintToString} with the \code{Message} object.}
-    \item{toDebugString}{\code{signature(x = "Message")}: returns the
-      debug string of the message. This is built from a call to the
-      \code{DebugString} method of the \code{Message} object.}
+    \item{toString}{\code{signature(x = "Message")}: same as \code{as.character} }
+    \item{toTextFormat}{\code{signature(x = "Message")}: returns the TextFormat of the message. 
+    	This is built from a call to \code{TextFormat::PrintToString} with the \code{Message} object}
+    \item{toDebugString}{\code{signature(x = "Message")}: same as \code{as.character} }
     \item{toJSON}{\code{signature(x = "Message")}: returns the JSON representation of the message.
     This is built from a call to the
     \code{google::protobuf::util::MessageToJsonString} method and
@@ -60,20 +56,20 @@ as an external pointer.
     \code{always_print_primitive_fields} - whether to return the default
     value for missing primitive fields (default false)}
     \item{$<-}{\code{signature(x = "Message")}: set the value of a field of the message. }
-    \item{$}{\code{signature(x = "Message")}: gets the value of a field.
-    Primitive types are brought back to R as R objects of the closest matching R type.
+    \item{$}{\code{signature(x = "Message")}: gets the value of a field. 
+    Primitive types are brought back to R as R objects of the closest matching R type. 
     Messages are brought back as instances of the \code{Message} class.}
     \item{[[}{\code{signature(x = "Message")}: extracts a field identified by its name or declared tag number }
     \item{[[<-}{\code{signature(x = "Message")}: replace the value of a field identified by its name or declared tag number }
-	\item{serialize}{\code{signature(object = "Message")}: serialize a message. If the
-    	"connection" argument is \code{NULL}, the payload of the message is returned as a raw vector,
-    	if the "connection" argument is a binary writable connection, the payload is written into the
-       connection. If "connection" is a character vector, the message is sent to
+	\item{serialize}{\code{signature(object = "Message")}: serialize a message. If the 
+    	"connection" argument is \code{NULL}, the payload of the message is returned as a raw vector, 
+    	if the "connection" argument is a binary writable connection, the payload is written into the 
+       connection. If "connection" is a character vector, the message is sent to 
        the file (in binary format). }
     \item{show}{\code{signature(object = "Message")}: displays a short text about the message }
     \item{update}{\code{signature(object = "Message")}: set several fields of the message at once }
-    \item{length}{\code{signature(x = "Message")}: The number of fields actually contained in the message.
-    A field counts in these two situations: the field is repeated and the field size is greater than 0,
+    \item{length}{\code{signature(x = "Message")}: The number of fields actually contained in the message. 
+    A field counts in these two situations: the field is repeated and the field size is greater than 0, 
     the field is not repeated and the message has the field.}
     \item{setExtension}{\code{signature(object = "Message")}: set an
       extension field of the Message.}
@@ -88,19 +84,19 @@ as an external pointer.
 
   }
 }
-\references{
+\references{ 
 	The \code{Message} class from the C++ proto library.
 	\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.message?csw=1}
 }
 \author{ Romain Francois <francoisromain@free.fr> }
 \seealso{
-	\code{\link{P}} creates objects of class \linkS4class{Descriptor} that
-	can be used to create messages.
+	\code{\link{P}} creates objects of class \linkS4class{Descriptor} that 
+	can be used to create messages. 
 }
 \examples{
 \dontrun{
 # example proto file supplied with this package
-proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
 
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
@@ -119,28 +115,28 @@ has( p, "phone" ) # is the "email" field set
 length( p )       # number of fields actually set
 
 # update several fields at once
-romain <- update( new( Person ),
-	email = "francoisromain@free.fr",
-	id = 1,
-	name = "Romain Francois",
+romain <- update( new( Person ), 
+	email = "francoisromain@free.fr", 
+	id = 1, 
+	name = "Romain Francois", 
 	phone = new( PhoneNumber , number = "+33(0)...", type = "MOBILE" )
 	)
 
 # supply parameters to the constructor
-dirk <- new( Person,
-	email = "edd@debian.org",
-	id = 2,
-	name = "Dirk Eddelbuettel" )
+dirk <- new( Person, 
+	email = "edd@debian.org", 
+	id = 2, 
+	name = "Dirk Eddelbuettel" ) 
 # update the phone repeated field with a list of PhoneNumber messages
-dirk$phone <- list(
-	new( PhoneNumber , number = "+01...", type = "MOBILE" ),
+dirk$phone <- list( 
+	new( PhoneNumber , number = "+01...", type = "MOBILE" ), 
 	new( PhoneNumber , number = "+01...", type = "HOME" ) )
-
+	
 # with/within style
 saptarshi <- within( new(Person), {
 	id <- 3
 	name <- "Saptarshi Guha"
-	email <- "saptarshi.guha@gmail.com"
+	email <- "saptarshi.guha@gmail.com" 
 } )
 
 # make an addressbook

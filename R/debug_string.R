@@ -1,10 +1,10 @@
 
 ._toString_Message <- function(x, debug = getOption("RProtoBuf.toString.debug", TRUE), ...){
-    if (isTRUE(debug)) {
-        .Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" )
-    } else {
-        .Call( "Message__print_text_format", x@pointer, PACKAGE = "RProtoBuf")
-    }
+	if (isTRUE(debug)) {
+		.Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf" )
+	} else {
+		.Call( "Message__print_text_format", x@pointer, PACKAGE = "RProtoBuf")
+	}
 }
 ._toString_Descriptor <- function(x, ...){
 	.Call( "Descriptor__as_character", x@pointer, PACKAGE = "RProtoBuf" )
@@ -60,9 +60,9 @@ function(x, preserve_proto_field_names = FALSE, always_print_primitive_fields = 
 } )
 
 setGeneric( "toDebugString", function( x ) {
-    standardGeneric( "toDebugString" )
+  standardGeneric( "toDebugString" )
 } )
 setMethod( "toDebugString", c( x = "Message"),
-          function(x) {
-              .Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf")
-          } )
+  function(x) {
+    .Call( "Message__as_character", x@pointer, PACKAGE = "RProtoBuf")
+  } )
