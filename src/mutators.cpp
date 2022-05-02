@@ -1,5 +1,5 @@
-// -*- indent-tabs-mode: nil; tab-width: 4; show-trailing-whitespace: t; c-indent-level: 4; c-basic-offset: 4; -*-
-// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+
+// Copyright (C) 2010 - 2022  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of RProtoBuf.
 //
@@ -371,7 +371,7 @@ void CHECK_messages(const GPB::FieldDescriptor* field_desc, SEXP values) {
             out << i;
             s = out.str();
             // }}}
-            string message = "List element " + s + " is not a message " +
+            std::string message = "List element " + s + " is not a message " +
                              "of the appropriate type ('" + target + "')";
             Rcpp::stop(message.c_str());
         }
@@ -398,7 +398,7 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc, SEXP value, int
                 case S4SXP: {
                     /* check that this is a message of the appropriate type */
                     if (!isMessage(value, field_desc->message_type()->full_name().c_str())) {
-                        string message = "Not a message of type '" +
+                        std::string message = "Not a message of type '" +
                                          field_desc->message_type()->full_name() + "'";
                         Rcpp::stop(message.c_str());
                     }
@@ -543,7 +543,7 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
         }
         case CPPTYPE_INT32: {
             if (TYPEOF(value) == STRSXP) {
-                const string int32str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
+                const std::string int32str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
                 ref->SetInt32(message, field_desc, Int32FromString<GPB::int32>(int32str));
                 break;
             } else {
@@ -553,7 +553,7 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
         }
         case CPPTYPE_UINT32: {
             if (TYPEOF(value) == STRSXP) {
-                const string uint32str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
+                const std::string uint32str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
                 ref->SetUInt32(message, field_desc, Int32FromString<GPB::uint32>(uint32str));
                 break;
             } else {
@@ -569,7 +569,7 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
             // TODO(mstokely) Rcpp::as<int64> of a STRSEXP should just
             // work for strings representing int64s.
             if (TYPEOF(value) == STRSXP) {
-                const string int64str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
+                const std::string int64str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
                 ref->SetInt64(message, field_desc, Int64FromString<GPB::int64>(int64str));
                 break;
             } else {
@@ -581,7 +581,7 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
             // TODO(mstokely) Rcpp::as<int64> of a STRSEXP should just
             // work for strings representing int64s.
             if (TYPEOF(value) == STRSXP) {
-                const string int64str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
+                const std::string int64str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
                 ref->SetUInt64(message, field_desc, Int64FromString<GPB::uint64>(int64str));
                 break;
             } else {

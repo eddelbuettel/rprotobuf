@@ -1,3 +1,7 @@
+2022-05-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/mutators.cpp: Change seven string to std::string
+
 2022-04-06  Michael Chirico  <chiricom@google.com>
 
 	* R/00classes.R: Additional tests and updated changes
