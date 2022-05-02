@@ -1,5 +1,7 @@
 2022-05-02  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version and date
+
 	* src/mutators.cpp: Change seven string to std::string
 
 2022-04-06  Michael Chirico  <chiricom@google.com>
