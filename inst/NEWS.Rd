@@ -3,6 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.19 (2022-05-06)}{
+  \itemize{
+    \item Small cleanups to repository
+    \item Raise minimum Protocol Buffers version to 3.3 (closes \ghit{83})
+    \item Update package version display, added to startup message
+    \item Expose TextFormat API (Michael Chirico in \ghpr{88} closing \ghit{87})
+    \item Add missing explicit \code{std::} on seven \code{string}
+    instances in one file (closes \ghit{89})
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.18 (2021-12-15)}{
   \itemize{
     \item Support \code{string_view}  in \code{FindMethodByName()} (Adam

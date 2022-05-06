@@ -3,7 +3,7 @@
 useDynLib("RProtoBuf", .registration=TRUE)
 
 importFrom("methods", "new", "show", "as", "is")
-importFrom("utils", "str", "packageDescription")
+importFrom("utils", "str", "packageDescription", "packageVersion")
 importFrom("stats", "update")
 importFrom("tools", "file_path_as_absolute")
 #importFrom("RCurl", "basicTextGatherer", "curlPerform")
