@@ -1,9 +1,9 @@
 ## -*- mode: makefile; -*-
 
-## Make this C++11 so that we get better int64 support and much more
-CXX_STD=CXX11
+## Make this C++17 so that clang will not complain about [[nodiscard]] in headers
+CXX_STD=CXX17
 
-## Configure tells us about locations for ## both Rcpp (ie libRcpp.so and Rcpp.h) and 
+## Configure tells us about locations for ## both Rcpp (ie libRcpp.so and Rcpp.h) and
 ## ProtoBuf headers and library via these variables
 PKG_CPPFLAGS=@PKG_CPPFLAGS@
-PKG_LIBS=@PKG_LIBS@ 
+PKG_LIBS=@PKG_LIBS@
