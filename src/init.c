@@ -106,7 +106,7 @@ extern SEXP FileOutputStream_new(SEXP, SEXP, SEXP);
 extern SEXP FileOutputStream_SetCloseOnDelete(SEXP, SEXP);
 /*extern SEXP get_method_input_type(SEXP);*/
 extern SEXP get_method_output_prototype(SEXP);
-extern SEXP get_protobuf_library_version();
+extern SEXP get_protobuf_library_version(void);
 extern SEXP get_value_of_enum(SEXP, SEXP);
 extern SEXP getEnumDescriptor(SEXP);
 extern SEXP getExtension_cpp(SEXP, SEXP);
@@ -150,7 +150,7 @@ extern SEXP MethodDescriptor__output_type(SEXP);
 extern SEXP newProtocolBufferLookup(SEXP);
 extern SEXP newProtoMessage(SEXP);
 extern SEXP readProtoFiles_cpp(SEXP, SEXP);
-extern SEXP resetDescriptorPool_cpp();
+extern SEXP resetDescriptorPool_cpp(void);
 extern SEXP ServiceDescriptor__as_character(SEXP);
 extern SEXP ServiceDescriptor__as_list(SEXP);
 extern SEXP ServiceDescriptor__as_Message(SEXP);
