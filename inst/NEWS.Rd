@@ -141,7 +141,7 @@
 \section{Changes in RProtoBuf version 0.4.7 (2016-10-27)}{
   \itemize{
     \item At the request of CRAN, two documentation instances referring
-    to the Omegehat repository were updated to \url{http://omegahat.net}
+    to the Omegehat repository were updated to \url{https://omegahat.net/}
   }
 }
 
