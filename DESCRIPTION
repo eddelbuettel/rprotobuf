@@ -1,6 +1,6 @@
 Package: RProtoBuf
-Version: 0.4.19
-Date: 2022-05-06
+Version: 0.4.20
+Date: 2022-11-02
 Author: Romain Francois, Dirk Eddelbuettel, Murray Stokely and Jeroen Ooms
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Title: R Interface to the 'Protocol Buffers' 'API' (Version 2 or 3)

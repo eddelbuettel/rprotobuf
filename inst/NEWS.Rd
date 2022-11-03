@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.20 (2022-11-02)}{
+  \itemize{
+    \item Two function prototype were updated for \code{clang-15}.
+    \item GitHub Actions were updated to checkout version 3.
+    \item One more http:// URL was updated to https://
+    \item The package compilation is now donw with C++17 as the Protocol
+    Buffer headers require it (and \code{clang-15} nags otherwise).
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.19 (2022-05-06)}{
   \itemize{
     \item Small cleanups to repository
