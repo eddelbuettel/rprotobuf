@@ -8,7 +8,7 @@
     \item Two function prototype were updated for \code{clang-15}.
     \item GitHub Actions were updated to checkout version 3.
     \item One more http:// URL was updated to https://
-    \item The package compilation is now donw with C++17 as the Protocol
+    \item The package compilation is now done with C++17 as the Protocol
     Buffer headers require it (and \code{clang-15} nags otherwise).
   }
 }
