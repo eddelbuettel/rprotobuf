@@ -1,7 +1,7 @@
 PKG_LIBS= -lprotobuf
 
-## Make this C++11 so that we get better int64 support and more
-CXX_STD=CXX11
+## Make this C++17 so that clang will not complain about [[nodiscard]] in headers
+CXX_STD=CXX17
 
 all: clean
 
