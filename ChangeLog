@@ -1,9 +1,9 @@
-2023-07-11  Matteo Gianella  <matteo.gianella@polimi.it>
+2023-07-12  Matteo Gianella  <matteo.gianella@polimi.it>
 
 	* src/RSourceTree.h: Code update also in case of protobuf version >= 22.x
-	* src/RSourceTree.h: Idem
+	* src/RSourceTree.cpp: Idem
 	* src/wrapper_Descriptor: Idem
-	* src/wrapper_Descriptor: Idem
+	* src/wrapper_Message: Idem
 
 2023-03-11  Dirk Eddelbuettel  <edd@debian.org>
 
