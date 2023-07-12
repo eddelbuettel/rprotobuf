@@ -6,7 +6,7 @@ namespace rprotobuf {
 
 RSourceTree::RSourceTree() : directories() {}
 
-#if PROTOBUF_VERSION >= 4022000
+#if GOOGLE_PROTOBUF_VERSION < 4022000
 GPB::io::ZeroCopyInputStream* RSourceTree::Open(const std::string& filename) {
     /* first, try to open the file as it is */
     int file_descriptor = open(filename.c_str(), O_RDONLY);

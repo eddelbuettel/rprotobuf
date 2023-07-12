@@ -232,11 +232,11 @@ RPB_FUNCTION_2(S4_Message, METHOD(readJSONFromString), Rcpp::XPtr<GPB::Descripto
     if (!message) {
         Rcpp::stop("could not call factory->GetPrototype(desc)->New()");
     }
-#if PROTOBUF_VERSION >= 4022000
-    GPB::util::Status status = GPB::util::JsonStringToMessage(input, message);
-#else
-    absl::Status status = GPB::util::JsonStringToMessage(input, message);
-#endif
+    #if GOOGLE_PROTOBUF_VERSION < 4022000
+        GPB::util::Status status = GPB::util::JsonStringToMessage(input, message);
+    #else
+        absl::Status status = GPB::util::JsonStringToMessage(input, message);
+    #endif
     if (!status.ok()) {
         Rcpp::stop(status.ToString().c_str());
     }
@@ -268,7 +268,7 @@ RPB_FUNCTION_2(S4_Message, METHOD(readJSONFromConnection), Rcpp::XPtr<GPB::Descr
     if (!message) {
         Rcpp::stop("could not call factory->GetPrototype(desc)->New()");
     }
-    #if PROTOBUF_VERSION >= 4022000
+    #if GOOGLE_PROTOBUF_VERSION < 4022000
         GPB::util::Status status = GPB::util::JsonStringToMessage(json_string, message);
     #else
         absl::Status status = GPB::util::JsonStringToMessage(json_string, message);
