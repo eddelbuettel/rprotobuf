@@ -92,7 +92,7 @@ setClass( "ConnectionOutputStream", contains = "ZeroCopyOutputStream" )
 
 # {{{ new
 newProto <- function( descriptor, ... ){
-	message <- .Call( "newProtoMessage", descriptor, PACKAGE = "RProtoBuf" )
+	message <- .Call(newProtoMessage, descriptor)
 	update( message, ... )
 	message
 }
@@ -116,14 +116,13 @@ P <- function( type, file ){
 		stop( "'type' should have exactly one element" )
 	}
 
-	desc <- .Call( "getProtobufDescriptor", type,
-		PACKAGE = "RProtoBuf" )
+	desc <- .Call(getProtobufDescriptor, type)
 	if( is.null( desc ) ){
 		# See if it is an extension
-		desc <- .Call("getExtensionDescriptor", type, PACKAGE="RProtoBuf")
+		desc <- .Call(getExtensionDescriptor, type)
 		if (is.null(desc)) {
 			# See if it is an enum
-			desc <- .Call("getEnumDescriptor", type, PACKAGE="RProtoBuf")
+			desc <- .Call(getEnumDescriptor, type)
 			if (is.null(desc)) {
 				stop( sprintf( "could not find descriptor for message type '%s' ", type ) )
 			}
@@ -137,7 +136,7 @@ P <- function( type, file ){
 setMethod( "show", c( "Message" ), function(object){
   tmp <- sprintf( "message of type '%s' with %d field%s set", object@type,
                  length(object), if (length(object) == 1) "" else "s" )
-  nexts <- .Call("Message__num_extensions", object@pointer, PACKAGE="RProtoBuf")
+  nexts <- .Call(Message__num_extensions, object@pointer)
   if (nexts > 0) {
     tmp <- paste(tmp, sprintf("and %d extension%s", nexts, if (nexts == 1) "" else "s"))
   }
@@ -172,9 +171,9 @@ setMethod("$", "Message", function(x, name) {
 
 	switch( name,
 		"has" = function( ... ) has(x, ...),
-		"clone" = function( ... )    .Call( "Message__clone"         , x@pointer, PACKAGE = "RProtoBuf"),
-		"isInitialized" = function() .Call( "Message__is_initialized", x@pointer, PACKAGE = "RProtoBuf"),
-		"descriptor" = function()    .Call( "Message__descriptor"    , x@pointer, PACKAGE = "RProtoBuf"),
+		"clone" = function( ... )    .Call(Message__clone         , x@pointer),
+		"isInitialized" = function() .Call(Message__is_initialized, x@pointer),
+		"descriptor" = function()    .Call(Message__descriptor    , x@pointer),
 
 		"size"  = function(field, ...) size(x, field, ... ),
 		"bytesize" = function() bytesize(x),
@@ -202,11 +201,11 @@ setMethod("$", "Message", function(x, name) {
 		"fileDescriptor" = function() fileDescriptor(x ),
 
 		# default
-		.Call( "getMessageField", x@pointer, name, PACKAGE = "RProtoBuf" )
+		.Call(getMessageField, x@pointer, name)
 		)
 	} )
 setMethod("$<-", "Message", function(x, name, value) {
-	.Call( "setMessageField", x@pointer, name, value, PACKAGE = "RProtoBuf" )
+	.Call(setMessageField, x@pointer, name, value)
 	x
 } )
 
@@ -233,7 +232,7 @@ setMethod("$", "Descriptor", function(x, name) {
 
 
 		# default
-		.Call( "do_dollar_Descriptor", x@pointer, name, PACKAGE="RProtoBuf")
+		.Call(do_dollar_Descriptor, x@pointer, name)
 	)
 } )
 setMethod( "$", "EnumDescriptor", function(x, name ){
@@ -250,7 +249,7 @@ setMethod( "$", "EnumDescriptor", function(x, name ){
 		"value" = function(...) value(x, ...),
                 "has" = function(name, ...) has(x, name, ...),
 		# default
-		.Call( "get_value_of_enum", x@pointer, name, PACKAGE = "RProtoBuf" )
+		.Call(get_value_of_enum, x@pointer, name)
 		)
 } )
 setMethod( "$", "FieldDescriptor", function(x, name ){
@@ -289,7 +288,7 @@ setMethod( "$", "ServiceDescriptor", function(x, name ){
 		"method_count" = function() method_count(x),
 		"method" = function(...) method(x, ... ),
 
-		.Call( "ServiceDescriptor__method", x@pointer, name, PACKAGE = "RProtoBuf" )
+		.Call(ServiceDescriptor__method, x@pointer, name)
 		)
 } )
 
@@ -402,7 +401,7 @@ setMethod( "[[", "Message", function(x, i, j, ..., exact = TRUE){
 
         ## This works correctly by number or name. e.g. p[[1]] or p[["name"]]
 	if( is.character( i ) || is.numeric( i ) ){
-		.Call( "getMessageField", x@pointer, i, PACKAGE = "RProtoBuf" )
+		.Call(getMessageField, x@pointer, i)
 	} else {
 		stop( "wrong type, `i` should be a character or a number" )
 	}
@@ -419,7 +418,7 @@ setMethod( "[[", "Descriptor", function(x, i, j, ..., exact = TRUE){
 
 	if( is.character( i ) ) {
           # gets a named field, nested type, or enum.
-          .Call("Descriptor_getField", x@pointer, i, PACKAGE="RProtoBuf")
+          .Call(Descriptor_getField, x@pointer, i)
         } else if (is.numeric( i ) ) {
           return(as.list(x)[[i]])
 	} else {
@@ -449,7 +448,7 @@ setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
 		warning( "`j` is ignored" )
 	}
 	if( is.character( i ) || is.numeric( i ) ){
-		.Call( "ServiceDescriptor__method", x@pointer, name, PACKAGE = "RProtoBuf" )
+		.Call( ServiceDescriptor__method, x@pointer, name )
 	} else{
 		stop( "wrong type, `i` should be a character or a number" )
 	}
@@ -473,7 +472,7 @@ function(x, i, j, ..., exact = TRUE, value ){
 	}
 
 	if( is.character( i ) || is.numeric( i ) ){
-		.Call( "setMessageField", x@pointer, i, value, PACKAGE = "RProtoBuf" )
+		.Call( setMessageField, x@pointer, i, value )
 	} else {
 		stop( "wrong type, `i` should be a character or a number" )
 	}
@@ -496,7 +495,7 @@ setMethod( "update", "Message", function( object, ... ){
 	if( !length( named ) ){
 		return( object )
 	}
-	.Call( "update_message", object@pointer, named, PACKAGE="RProtoBuf")
+	.Call( update_message, object@pointer, named)
 	object
 
 } )
@@ -505,7 +504,7 @@ setMethod( "update", "Message", function( object, ... ){
 # {{{ length
 setGeneric( "length" )
 setMethod( "length", "Message", function( x ){
-	.Call( "Message__length", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( Message__length, x@pointer )
 } )
 # Returns number of fields, enums, types in message descriptor.
 # May be more than field_count which is only fields.
@@ -514,10 +513,10 @@ setMethod( "length", "Descriptor", function( x ){
         length(as.list(x))
 } )
 setMethod( "length", "EnumDescriptor", function( x ){
-	.Call( "EnumDescriptor__length", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( EnumDescriptor__length, x@pointer )
 } )
 setMethod( "length", "ServiceDescriptor", function( x ){
-	.Call( "ServiceDescriptor_method_count", x@pointer, PACKAGE = "RProtoBuf" )
+	.Call( ServiceDescriptor_method_count, x@pointer )
 } )
 # }}}
 
@@ -539,31 +538,31 @@ setGeneric( "name", function(object, full = FALSE){
 })
 setMethod( "name", c( object = "Descriptor" ) ,
 function(object, full = FALSE){
-	.Call( "Descriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+	.Call( Descriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "FieldDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( "FieldDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+	.Call( FieldDescriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "EnumDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+	.Call( EnumDescriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "EnumValueDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( "EnumDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+	.Call( EnumDescriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "ServiceDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( "ServiceDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+	.Call( ServiceDescriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "MethodDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( "MethodDescriptor__name", object@pointer, full, PACKAGE = "RProtoBuf" )
+	.Call( MethodDescriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "FileDescriptor" ) ,
 function(object, full = FALSE){
-	filename <- .Call( "FileDescriptor__name", object@pointer, PACKAGE = "RProtoBuf" )
+	filename <- .Call( FileDescriptor__name, object@pointer )
 	if( full ) filename else basename( filename )
 })
 # }}}
@@ -587,25 +586,25 @@ function(x){
 
 # {{{ as
 setAs("Descriptor", "Message", function(from){
-	.Call( "Descriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( Descriptor__as_Message, from@pointer )
 })
 setAs("FieldDescriptor", "Message", function(from){
-	.Call( "FieldDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( FieldDescriptor__as_Message, from@pointer )
 })
 setAs("EnumDescriptor", "Message", function(from){
-	.Call( "EnumDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( EnumDescriptor__as_Message, from@pointer )
 })
 setAs("ServiceDescriptor", "Message", function(from){
-	.Call( "ServiceDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( ServiceDescriptor__as_Message, from@pointer )
 })
 setAs("MethodDescriptor", "Message", function(from){
-	.Call( "MethodDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( MethodDescriptor__as_Message, from@pointer )
 })
 setAs("FileDescriptor", "Message", function(from){
-	.Call( "FileDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( FileDescriptor__as_Message, from@pointer )
 })
 setAs("EnumValueDescriptor", "Message", function(from){
-	.Call( "EnumValueDescriptor__as_Message", from@pointer, PACKAGE = "RProtoBuf" )
+	.Call( EnumValueDescriptor__as_Message, from@pointer )
 })
 asMessage <- function( x, ... ){
 	as( x, "Message", ... )

@@ -3,17 +3,17 @@
 generateActiveBindings <- function(data){
 	env <- new.env( parent = environment() )
 	xp <- data@pointer
-	names <- .Call( "Message__fieldNames", xp, PACKAGE = "RProtoBuf" )
+	names <- .Call(Message__fieldNames, xp)
 
 	if( !is.null(names) && length(names) ){
 		lapply( names, function(x ){
   		  makeActiveBinding( x, function(v){
   		    if( missing(v) ){
   		    	# get
-  		      .Call( "getMessageField", xp, x, PACKAGE="RProtoBuf" )
+  		      .Call(getMessageField, xp, x)
   		    } else {
   		    	# set
-  		      .Call( "setMessageField", xp, x, v, PACKAGE="RProtoBuf")
+  		      .Call(setMessageField, xp, x, v)
   		    }
   		  }, env )
   		} )
@@ -31,4 +31,3 @@ within.Message <- function(data, expr, ... ){
   	eval( substitute( expr ), envir = envir )
   	data
 }
-

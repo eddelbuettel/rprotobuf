@@ -8,11 +8,10 @@ NAMESPACE <- environment()
 attachDescriptorPool <- function(pos = 2) {
     if (is.null(OTABLE)) {
         ##unlockBinding( "OTABLE", NAMESPACE )
-        otable <- .Call("newProtocolBufferLookup", pos, PACKAGE = "RProtoBuf")
+        otable <- .Call(newProtocolBufferLookup, pos)
         #attach(otable, pos=pos, name="RProtoBuf:DescriptorPool")
         assign("OTABLE", otable, envir = NAMESPACE, inherits = FALSE)
         lockBinding("OTABLE", NAMESPACE )
     }
 
 }
-

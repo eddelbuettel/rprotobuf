@@ -5,11 +5,11 @@ setGeneric( "set", function(object, field, index, values ){
 	standardGeneric( "set" )
 } )
 setMethod( "set", "Message", function(object, field, index, values ){
-	
+
 	if( !is.numeric( index ) ){
 		stop( "index should be numbers" )
 	}
-	
+
 	if( inherits( values, "Message" ) ){
 		values <- list( values )
 	}
@@ -19,16 +19,14 @@ setMethod( "set", "Message", function(object, field, index, values ){
 		#       recycling, ...
 		stop( "`index` should have the same length as `values`" )
 	}
-	
+
 	fsize <- size( object, field )
 	if( any( index > fsize ) || any( index < 1) ){
-		stop( sprintf( "index should only contain values between 1 and %d", fsize )  ) 
+		stop( sprintf( "index should only contain values between 1 and %d", fsize )  )
 	}
-	
-	.Call( "Message__set_field_values", object@pointer, 
-		field, index - 1L , values, 
-		PACKAGE = "RProtoBuf" )
-		
+
+	.Call( Message__set_field_values, object@pointer, field, index - 1L , values )
+
 	# we work by reference
 	invisible( NULL )
 } )
@@ -37,16 +35,13 @@ setGeneric( "fetch", function(object, field, index ){
 	standardGeneric( "fetch" )
 } )
 setMethod( "fetch", "Message", function(object, field, index ){
-	
+
 	if( !is.numeric( index ) ){
 		stop( "index should be numbers" )
 	}
 	fsize <- size( object, field )
 	if( any( index > fsize ) || any( index < 1) ){
-		stop( sprintf( "index should only contain values between 1 and %d", fsize )  ) 
+		stop( sprintf( "index should only contain values between 1 and %d", fsize )  )
 	}
-	.Call( "Message__get_field_values", object@pointer, 
-		field, index - 1L , PACKAGE = "RProtoBuf" )
+	.Call( Message__get_field_values, object@pointer, field, index - 1L  )
 } )
-
-

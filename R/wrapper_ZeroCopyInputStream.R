@@ -28,33 +28,33 @@ setGeneric( "Skip", function(object, count){
 
 # {{{ zero input stream
 setMethod( "Next", c( object = "ZeroCopyInputStream", payload = "missing"), function(object, payload){
-	.Call( "ZeroCopyInputStream_Next", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(ZeroCopyInputStream_Next, object@pointer)
 } )
 
 setMethod( "BackUp", "ZeroCopyInputStream", function(object, count){
-	invisible(.Call( "ZeroCopyInputStream_BackUp", object@pointer, count, PACKAGE = "RProtoBuf" ))
+	invisible(.Call(ZeroCopyInputStream_BackUp, object@pointer, count))
 } )
 
 setMethod( "ByteCount", "ZeroCopyInputStream", function(object){
-	.Call( "ZeroCopyInputStream_ByteCount", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(ZeroCopyInputStream_ByteCount, object@pointer)
 } )
 
 setMethod( "Skip", "ZeroCopyInputStream", function(object, count){
-	invisible( .Call( "ZeroCopyInputStream_Skip", object@pointer, count, PACKAGE = "RProtoBuf" ) )
+	invisible( .Call(ZeroCopyInputStream_Skip, object@pointer, count) )
 } )
 # }}}
 
 # {{{ zero copy output stream
 setMethod( "Next", c( object = "ZeroCopyOutputStream", payload = "raw" ), function(object, payload){
-	.Call( "ZeroCopyOutputStream_Next", object@pointer, payload, PACKAGE = "RProtoBuf" )
+	.Call(ZeroCopyOutputStream_Next, object@pointer, payload)
 } )
 
 setMethod( "BackUp", "ZeroCopyOutputStream", function(object, count){
-	invisible( .Call( "ZeroCopyOutputStream_BackUp", object@pointer, count, PACKAGE = "RProtoBuf" ) )
+	invisible( .Call(ZeroCopyOutputStream_BackUp, object@pointer, count) )
 } )
 
 setMethod( "ByteCount", "ZeroCopyOutputStream", function(object){
-	.Call( "ZeroCopyOutputStream_ByteCount", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(ZeroCopyOutputStream_ByteCount, object@pointer)
 } )
 # }}}
 
@@ -64,15 +64,15 @@ setGeneric( "ArrayInputStream", function(payload, block_size){
 } )
 setMethod( "ArrayInputStream", c( payload = "raw", block_size = "missing" ) ,
 function(payload, block_size){
-	.Call( "ArrayInputStream__new", payload, -1L, PACKAGE = "RProtoBuf" )
+	.Call(ArrayInputStream__new, payload, -1L)
 } )
 setMethod( "ArrayInputStream", c( payload = "raw", block_size = "integer" ) ,
 function(payload, block_size){
-	.Call( "ArrayInputStream__new", payload, block_size, PACKAGE = "RProtoBuf" )
+	.Call(ArrayInputStream__new, payload, block_size)
 } )
 setMethod( "ArrayInputStream", c( payload = "raw", block_size = "numeric" ) ,
 function(payload, block_size){
-	.Call( "ArrayInputStream__new", payload, as.integer(block_size), PACKAGE = "RProtoBuf" )
+	.Call(ArrayInputStream__new, payload, as.integer(block_size))
 } )
 # }}}
 
@@ -81,22 +81,22 @@ setGeneric( "ArrayOutputStream", function(size, block_size){
 	standardGeneric( "ArrayOutputStream" )
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "missing" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", size, -1L, PACKAGE = "RProtoBuf" )
+	.Call(ArrayOutputStream__new, size, -1L)
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "integer" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", size, block_size, PACKAGE = "RProtoBuf" )
+	.Call(ArrayOutputStream__new, size, block_size)
 } )
 setMethod( "ArrayOutputStream", signature( size = "integer", block_size = "numeric" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", size, as.integer(block_size) , PACKAGE = "RProtoBuf" )
+	.Call(ArrayOutputStream__new, size, as.integer(block_size) )
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "missing" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", as.integer(size), -1L, PACKAGE = "RProtoBuf" )
+	.Call(ArrayOutputStream__new, as.integer(size), -1L)
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "integer" ),function(size, block_size){
-	.Call( "ArrayOutputStream__new", as.integer(size), block_size, PACKAGE = "RProtoBuf" )
+	.Call(ArrayOutputStream__new, as.integer(size), block_size)
 } )
 setMethod( "ArrayOutputStream", signature( size = "numeric", block_size = "numeric" ), function(size, block_size){
-	.Call( "ArrayOutputStream__new", as.integer(size), as.integer(block_size) , PACKAGE = "RProtoBuf" )
+	.Call(ArrayOutputStream__new, as.integer(size), as.integer(block_size) )
 } )
 # }}}
 
@@ -106,16 +106,16 @@ setGeneric( "FileInputStream", function(filename, block_size = -1L, close.on.del
 } )
 setMethod( "FileInputStream", signature( filename = "character", block_size = "integer", close.on.delete = "logical" ), function(filename, block_size = -1L, close.on.delete = FALSE){
 	full_filename <- file_path_as_absolute(filename)
-	.Call( "FileInputStream_new", filename, block_size, close.on.delete, PACKAGE = "RProtoBuf" )
+	.Call(FileInputStream_new, filename, block_size, close.on.delete)
 } )
 setMethod( "close", "FileInputStream", function(con, ...){
-	.Call( "FileInputStream_Close", con@pointer, PACKAGE = "RProtoBuf" )
+	.Call(FileInputStream_Close, con@pointer)
 } )
 setMethod( "GetErrno", "FileInputStream", function(object){
-	.Call( "FileInputStream_GetErrno", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(FileInputStream_GetErrno, object@pointer)
 } )
 setMethod( "SetCloseOnDelete", "FileInputStream", function(object, close=FALSE){
-	invisible( .Call( "FileInputStream_SetCloseOnDelete", object@pointer, isTRUE(close), PACKAGE = "RProtoBuf" ) )
+	invisible( .Call(FileInputStream_SetCloseOnDelete, object@pointer, isTRUE(close)) )
 } )
 # }}}
 
@@ -133,19 +133,19 @@ setMethod( "FileOutputStream", signature( filename = "character", block_size = "
 		filename <- file_path_as_absolute(filename)
 	}
 
-	.Call( "FileOutputStream_new", filename, block_size, close.on.delete, PACKAGE = "RProtoBuf" )
+	.Call(FileOutputStream_new, filename, block_size, close.on.delete)
 } )
 setMethod( "flush", "FileOutputStream", function(con){
-	.Call( "FileOutputStream_Flush", con@pointer, PACKAGE = "RProtoBuf" )
+	.Call(FileOutputStream_Flush, con@pointer)
 } )
 setMethod( "close", "FileOutputStream", function(con, ...){
-	.Call( "FileOutputStream_Close", con@pointer, PACKAGE = "RProtoBuf" )
+	.Call(FileOutputStream_Close, con@pointer)
 } )
 setMethod( "GetErrno", "FileOutputStream", function(object){
-	.Call( "FileOutputStream_GetErrno", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(FileOutputStream_GetErrno, object@pointer)
 } )
 setMethod( "SetCloseOnDelete", "FileOutputStream", function(object, close=FALSE){
-	invisible( .Call( "FileOutputStream_SetCloseOnDelete", object@pointer, isTRUE(close), PACKAGE = "RProtoBuf" ) )
+	invisible( .Call(FileOutputStream_SetCloseOnDelete, object@pointer, isTRUE(close)) )
 } )
 # }}}
 
@@ -165,7 +165,7 @@ setMethod( "ConnectionInputStream", "connection", function(object, ...){
 	if( ! was_open ){
 		open( object )
 	}
-	.Call( "ConnectionInputStream_new", object, was_open, PACKAGE = "RProtoBuf" )
+	.Call(ConnectionInputStream_new, object, was_open)
 } )
 # }}}
 
@@ -185,6 +185,6 @@ setMethod( "ConnectionOutputStream", "connection", function(object, ...){
 	if( ! was_open ){
 		open( object )
 	}
-	.Call( "ConnectionOutputStream_new", object, was_open, PACKAGE = "RProtoBuf" )
+	.Call(ConnectionOutputStream_new, object, was_open)
 } )
 # }}}
