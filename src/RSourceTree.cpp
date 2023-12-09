@@ -6,6 +6,7 @@ namespace rprotobuf {
 
 RSourceTree::RSourceTree() : directories() {}
 
+#if GOOGLE_PROTOBUF_VERSION < 4022000
 GPB::io::ZeroCopyInputStream* RSourceTree::Open(const std::string& filename) {
     /* first, try to open the file as it is */
     int file_descriptor = open(filename.c_str(), O_RDONLY);
@@ -32,6 +33,34 @@ GPB::io::ZeroCopyInputStream* RSourceTree::Open(const std::string& filename) {
     result->SetCloseOnDelete(true);
     return result;
 }
+#else
+GPB::io::ZeroCopyInputStream* RSourceTree::Open(absl::string_view filename) {
+    /* first, try to open the file as it is */
+    int file_descriptor = open(static_cast<std::string>(filename).c_str(), O_RDONLY);
+    if (file_descriptor < 0) {
+        /* then try the directories */
+        std::set<std::string>::iterator it;
+        it = directories.begin();
+        std::string file;
+        while (it != directories.end()) {
+            file = *it;
+            file += "/";
+            file += static_cast<std::string>(filename);
+            file_descriptor = open(file.c_str(), O_RDONLY);
+            if (file_descriptor > 0) break;
+            ++it;
+        }
+    }
+
+    if (file_descriptor < 0) {
+        return NULL;
+    }
+
+    GPB::io::FileInputStream* result = new GPB::io::FileInputStream(file_descriptor);
+    result->SetCloseOnDelete(true);
+    return result;
+}
+#endif
 
 void RSourceTree::addDirectory(const std::string& directory) { directories.insert(directory); }
 void RSourceTree::addDirectories(SEXP dirs) {

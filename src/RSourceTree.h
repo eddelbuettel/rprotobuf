@@ -5,7 +5,11 @@ namespace rprotobuf {
 class RSourceTree : public GPB::compiler::SourceTree {
    public:
     RSourceTree();
-    GPB::io::ZeroCopyInputStream* Open(const std::string& filename);
+    #if GOOGLE_PROTOBUF_VERSION < 4022000
+        GPB::io::ZeroCopyInputStream* Open(const std::string& filename);
+    #else
+        GPB::io::ZeroCopyInputStream* Open(absl::string_view filename);
+    #endif
     void addDirectory(const std::string& directory);
     void addDirectories(SEXP dirs);
     void removeDirectory(const std::string& directory);

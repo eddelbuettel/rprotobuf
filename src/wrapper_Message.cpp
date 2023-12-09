@@ -454,7 +454,11 @@ RPB_FUNCTION_3(Rcpp::CharacterVector, METHOD(as_json), Rcpp::XPtr<GPB::Message> 
     opts.always_print_primitive_fields = always_print_primitive_fields;
 
     std::string buf;
-    GPB::util::Status status = GPB::util::MessageToJsonString(*message, &buf, opts);
+    #if GOOGLE_PROTOBUF_VERSION < 4022000
+        GPB::util::Status status = GPB::util::MessageToJsonString(*message, &buf, opts);
+    #else
+        absl::Status status = GPB::util::MessageToJsonString(*message, &buf, opts);
+    #endif
     if (!status.ok()) {
         Rcpp::stop(status.ToString().c_str());
     }
