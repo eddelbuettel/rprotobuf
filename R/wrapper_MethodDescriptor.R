@@ -7,10 +7,9 @@ setGeneric( "output_type", function(object){
 } )
 
 setMethod( "input_type", "MethodDescriptor", function(object){
-	.Call("MethodDescriptor__input_type", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(MethodDescriptor__input_type, object@pointer )
 } )
 
 setMethod( "output_type", "MethodDescriptor", function(object){
-	.Call("MethodDescriptor__output_type", object@pointer, PACKAGE = "RProtoBuf" )
+	.Call(MethodDescriptor__output_type, object@pointer )
 } )
-

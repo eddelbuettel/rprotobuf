@@ -44,7 +44,7 @@ readProtoFiles <- function(files,
 		files <- sapply(files[ex], function(x) file_path_as_absolute(x) )
 	}
 	directories <- unique( c( getwd(), dirname(files) ) )
-	.Call( "readProtoFiles_cpp", files, directories, PACKAGE = "RProtoBuf" )
+	.Call( readProtoFiles_cpp, files, directories )
 	invisible(NULL)
 }
 
@@ -97,12 +97,12 @@ readProtoFiles2 <- function(files,
 		warning( "Missing files: ", paste(missing_files, collapse = ", " ) )
 	}
 
-	.Call( "readProtoFiles_cpp", files, protoPath, PACKAGE = "RProtoBuf" )
+	.Call( readProtoFiles_cpp, files, protoPath )
 	invisible(NULL)
 }
 
 resetDescriptorPool <- function(){
-	.Call( "resetDescriptorPool_cpp", PACKAGE = "RProtoBuf" )
+	.Call( resetDescriptorPool_cpp )
 	readProtoFiles2( protoPath=system.file( "proto", package="RProtoBuf", lib.loc=.RProtoBuf_libname) )
 	invisible(NULL)
 }

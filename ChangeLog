@@ -3,6 +3,9 @@
 	* .github/workflows/alpine.yaml: Add container-based continuous
 	integration test to permit test under newer Protocol Buffers
 
+	* R/*.R: Update numerous .Call() to switch to unquoted expression
+	given symbol registration of the compiled functions
+
 2023-07-12  Matteo Gianella  <matteo.gianella@polimi.it>
 
 	* src/RSourceTree.h: Code update also in case of protobuf version >= 22.x

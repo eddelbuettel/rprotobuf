@@ -27,8 +27,7 @@ setMethod( "setExtension", "Message", function( object, field, values ){
 	if (!is_extension(field)) {
 		stop(paste(name(field), "is not an extension FieldDescriptor."))
 	}
-	.Call( "setMessageField", object@pointer, field, values,
-	      PACKAGE = "RProtoBuf" )
+	.Call(setMessageField, object@pointer, field, values)
 	invisible( object )
 } )
 
@@ -51,5 +50,5 @@ setMethod( "getExtension", "Message", function( object, field){
 			   containing_type(field)@type, "!=",
 			   object@type, ")"))
 	}
-        .Call( "getExtension_cpp", object@pointer, field, PACKAGE = "RProtoBuf" )
+    .Call(getExtension_cpp, object@pointer, field)
 } )
