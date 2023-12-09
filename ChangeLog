@@ -1,3 +1,8 @@
+2023-12-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/alpine.yaml: Add container-based continuous
+	integration test to permit test under newer Protocol Buffers
+
 2023-07-12  Matteo Gianella  <matteo.gianella@polimi.it>
 
 	* src/RSourceTree.h: Code update also in case of protobuf version >= 22.x
