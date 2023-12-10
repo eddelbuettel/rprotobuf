@@ -1,5 +1,7 @@
 2023-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* R/00classes.R: Tweak .Call() update some more
 	* R/field_count.R: Idem
 	* R/wrapper_ServiceDescriptor.R: Idem
