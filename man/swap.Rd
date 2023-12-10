@@ -5,15 +5,11 @@
 \alias{swap,Message-method}
 \title{swap elements of a repeated field of a message}
 \description{
-swap elements of a repeated field of a message. 
+swap elements of a repeated field of a message.
 }
 \section{Methods}{
 \describe{
 \item{\code{signature(object = "Message")}}{swap elements of a repeated field of a message}
 }}
-\references{
-	See the \code{SwapElements} of the \code{Reflection} class, part of the protobuf library. 
-	\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.message?csw=1}
-}
+\references{See the \code{SwapElements} of the \code{Reflection} class, part of the protobuf library.}
 \keyword{methods}
-

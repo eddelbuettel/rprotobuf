@@ -47,8 +47,7 @@ if (!exists("protobuf_encoding_test.Test1",
     readProtoFiles(file=unittest.proto.file)
 }
 
-## Encoding examples from:
-## https://developers.google.com/protocol-buffers/docs/encoding
+## Encoding examples from https://protobuf.dev/docs/encoding
 test1 <- new(protobuf_encoding_test.Test1)
 test1$a <- 150
 expect_identical(test1$serialize(NULL), as.raw(c(0x08,0x96,0x01)))

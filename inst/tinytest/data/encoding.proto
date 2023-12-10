@@ -1,8 +1,7 @@
 // mark as Protocol Buffers v2 format
 syntax = "proto2";
 
-// Examples from:
-// https://developers.google.com/protocol-buffers/docs/encoding
+// Examples from https://protobuf.dev/docs/encoding
 package protobuf_encoding_test;
 
 message Test1 {

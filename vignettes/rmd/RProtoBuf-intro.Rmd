@@ -1,5 +1,5 @@
 ---
-title: | 
+title: |
        | \pkg{RProtoBuf}: An R API for Protocol Buffers
 
 # Use letters for affiliations
@@ -10,7 +10,7 @@ author:
     affiliation: b
   - name: Murray Stokely
     affiliation: c
-    
+
 address:
   - code: a
     address: \url{http://dirk.eddelbuettel.com}
@@ -34,7 +34,7 @@ abstract: |
   extensively internally and also released under an Open Source license.
   It provides a way of encoding structured data in an efficient yet
   extensible format. Google formally supports APIs for C++, Java and Python.
-  This vignette describes version the \texttt{RProtoBuf} package which brings 
+  This vignette describes version the \texttt{RProtoBuf} package which brings
   support for Protocol Buffer messages to R.
 
 # Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
@@ -123,7 +123,7 @@ description of the language: \url{http://code.google.com/apis/protocolbuffers/do
 This section describes how to use the R API to create and manipulate
 protocol buffer messages in R, and how to read and write the binary
 \emph{payload} of the messages to files and arbitrary binary R
-connections. 
+connections.
 
 ## Importing proto files dynamically
 
@@ -255,7 +255,7 @@ serialize( p, NULL )
 
 The same method can also be used to serialize messages to files :
 
-```{r serial2} 
+```{r serial2}
 tf1 <- tempfile()
 tf1
 serialize( p, tf1 )
@@ -971,7 +971,7 @@ described by the descriptor.
 
 ```{r newmethod}
 tutorial.Person$new()
-new(tutorial.Person) 
+new(tutorial.Person)
 ```
 
 Passing additional arguments to the method allows directly setting
@@ -1127,7 +1127,7 @@ tutorial.Person$nested_type_count()
 ### The nested_type method
 \label{Descriptor-method-nestedtype}
 
-The \texttt{nested\_type} method returns the descriptor for the specified 
+The \texttt{nested\_type} method returns the descriptor for the specified
 nested type in this descriptor.
 
 ```{r nestedtypemethod}
@@ -1845,7 +1845,7 @@ associated with this file descriptor.
 tutorial.Person$fileDescriptor()$package()
 ```
 
-## Service descriptors 
+## Service descriptors
 \label{subsec-ServiceDescriptor}
 
 Not fully implemented.  Needs to be connected to a concrete RPC
@@ -1859,7 +1859,7 @@ easily to others.
 Not fully implemented.  Needs to be connected to a concrete RPC
 implementation.  The Google Protocol Buffers C++ open-source library
 does not include an RPC implementation, but this can be connected
-easily to others.  Now that Google [gRPC](https://grpc.io/) is released, this 
+easily to others.  Now that Google [gRPC](https://grpc.io/) is released, this
 an obvious possibility. Contributions would be most welcome.
 
 
@@ -1987,7 +1987,7 @@ Extensions allow you to declare a range of field numbers in a message
 that are available for extension types.  This allows others to declare
 new fields for a given message type possibly in their own
 \texttt{.proto} files without having to edit the original file.  See
-\url{https://developers.google.com/protocol-buffers/docs/proto#extensions}.
+\url{https://protobuf.dev/docs/proto#extensions}.
 
 Notice that the last line of the \texttt{Person} message schema in
 \texttt{addressbook.proto} is the following line :
@@ -2219,4 +2219,4 @@ to Duncan for this amazing feature.
 \renewcommand{\pnasbreak}{\begin{strip}\vskip0pt\end{strip}}
 
 <!-- there is something bad happening with the pnas/pinp macros-->
-\newpage 
+\newpage

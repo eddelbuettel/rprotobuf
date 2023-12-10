@@ -11,10 +11,10 @@
 \alias{enum_type,EnumValueDescriptor,missing,missing-method}
 
 \title{Class "EnumValueDescriptor"  }
-\description{ R representation of an enum value descriptor. This 
+\description{ R representation of an enum value descriptor. This
   is a thin wrapper around the \code{EnumValueDescriptor} c++ class. }
 \section{Objects from the Class}{
-  Objects of this class are typically retrieved with the 
+  Objects of this class are typically retrieved with the
   \code{value} method of the \linkS4class{EnumDescriptor} class
 }
 \section{Slots}{
@@ -42,13 +42,11 @@
   }
 
 }
-\references{ The \code{EnumValueDescriptor} C++ class. 
-  \url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor?csw=1} }
 \author{ Romain Francois <francoisromain@free.fr> }
 \examples{
 \dontrun{
 # example proto file supplied with this package
-proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" ) 
+proto.file <- system.file( "proto", "addressbook.proto", package = "RProtoBuf" )
 # reading a proto file and creating the descriptor
 Person <- P( "tutorial.Person", file = proto.file )
 }

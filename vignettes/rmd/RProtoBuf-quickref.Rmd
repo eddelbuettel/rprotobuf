@@ -9,7 +9,7 @@ author:
     affiliation: b
   - name: Murray Stokely
     affiliation: c
-    
+
 address:
   - code: a
     address: \url{http://dirk.eddelbuettel.com}
@@ -149,7 +149,7 @@ id <- message[[2]] # tag number for 'id'
 \begin{tabular}{cp{2.2in}}
 Full Vignette & \verb|vignette("RProtoBuf-intro")| \\
 JSS Paper & \verb|vignette("RProtoBuf-paper")| \\
-Protocol Buffers & \url{https://developers.google.com/protocol-buffers/} \\
+Protocol Buffers & \url{https://protobuf.dev/} \\
 RProtoBuf & \url{https://github.com/eddelbuettel/rprotobuf}\\
 \end{tabular}
 \end{small}

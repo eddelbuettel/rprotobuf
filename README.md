@@ -1,4 +1,4 @@
-## RProtoBuf: R Interface to [Google Protocol Buffers](https://developers.google.com/protocol-buffers/)
+## RProtoBuf: R Interface to [Google Protocol Buffers](https://protobuf.dev/)
 
 [![CI](https://github.com/eddelbuettel/rprotobuf/workflows/ci/badge.svg)](https://github.com/eddelbuettel/rprotobuf/actions?query=workflow%3Aci)
 [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
@@ -12,7 +12,7 @@
 
 A serialization format developed by [Google](https://www.google.com) and used
 widely within Google, and by numerous other projects.  Quoting from the
-[official website](https://developers.google.com/protocol-buffers/):
+[official website](https://protobuf.dev/):
 
 > Protocol buffers are Google's language-neutral, platform-neutral,
 extensible mechanism for serializing structured data – think XML, but
@@ -21,7 +21,7 @@ structured once, then you can use special generated source code to easily
 write and read your structured data to and from a variety of data streams and
 using a variety of languages.
 
-[Protocol Buffers](https://developers.google.com/protocol-buffers/) natively
+[Protocol Buffers](https://protobuf.dev/) natively
 support C++, C#, Go, Java and Python. Many other languages are supported via
 contributed extensions. This package adds support for
 [R](https://www.r-project.org).

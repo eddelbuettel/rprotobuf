@@ -57,17 +57,11 @@ This is a virtual class
 	\item{Next}{\code{signature(object="ZeroCopyOutputStream", payload = "raw" )}: push the raw vector into the stream. Returns the number of bytes actually written.}
 	\item{BackUp}{\code{signature(object="ZeroCopyOutputStream")}: Backs up a number of bytes, so that the end of the last buffer returned by \code{Next} is not actually written.}
 	\item{ByteCount}{\code{signature(object="ZeroCopyOutputStream")}: Returns the total number of bytes written since this object was created. }
-	\item{WriteRaw}{\code{signature(object="ZeroCopyOuputStream", payload = "raw"}: write the raw bytes to the stream}
+	\item{WriteRaw}{\code{signature(object="ZeroCopyOuputStream")}, payload = "raw": write the raw bytes to the stream}
 }
 }
 
 \author{ Romain Francois <francoisromain@free.fr> }
-\references{
-	The \code{google::protobuf::io::ZeroCopyOutputStream} C++ class. 
-	\url{https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.io.zero_copy_stream?csw=1}
-}
-\seealso{
-	TODO: add classes that extend
-}
+\references{The \code{google::protobuf::io::ZeroCopyOutputStream} C++ class.}
+\seealso{TODO: add classes that extend}
 \keyword{classes}
-
