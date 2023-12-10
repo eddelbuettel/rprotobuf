@@ -20,9 +20,3 @@
                               format(getProtobufLibVersion(TRUE)), ".")
     }
 }
-
-utils::globalVariables(c("Descriptor__FindEnumTypeByName",
-                         "ServiceDescriptor_getMethodByIndex",
-                         "ServiceDescriptor_getMethodByName",
-                         "ServiceDescriptor_method_count",
-                         "ServiceDescriptor__method"))

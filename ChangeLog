@@ -1,3 +1,26 @@
+2023-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/00classes.R: Tweak .Call() update some more
+	* R/field_count.R: Idem
+	* R/wrapper_ServiceDescriptor.R: Idem
+
+	* README.md: Update / remove stale references to old ProtoBuf doc site
+	* man/ArrayInputStream-class.Rd: Idem
+        * man/ArrayOutputStream-class.Rd: Idem
+        * man/Descriptor-class.Rd: Idem
+        * man/EnumValueDescriptor-class.Rd: Idem
+        * man/FileDescriptor-class.Rd: Idem
+        * man/FileInputStream-class.Rd: Idem
+        * man/FileOutputStream-class.Rd: Idem
+        * man/Message-class.Rd: Idem
+        * man/ZeroCopyInputStream-class.Rd: Idem
+        * man/ZeroCopyOutputStream-class.Rd: Idem
+        * man/swap.Rd: Idem
+        * inst/tinytest/data/encoding.proto: Idem
+        * inst/tinytest/test_serialize.R: Idem
+        * vignettes/rmd/RProtoBuf-intro.Rmd: Idem
+        * vignettes/rmd/RProtoBuf-quickref.Rmd: Idem
+
 2023-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/alpine.yaml: Add container-based continuous

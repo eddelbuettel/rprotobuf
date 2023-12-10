@@ -288,7 +288,7 @@ setMethod( "$", "ServiceDescriptor", function(x, name ){
 		"method_count" = function() method_count(x),
 		"method" = function(...) method(x, ... ),
 
-		.Call(ServiceDescriptor__method, x@pointer, name)
+		.Call("ServiceDescriptor__method", x@pointer, name)
 		)
 } )
 
@@ -448,7 +448,7 @@ setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
 		warning( "`j` is ignored" )
 	}
 	if( is.character( i ) || is.numeric( i ) ){
-		.Call( ServiceDescriptor__method, x@pointer, name )
+		.Call("ServiceDescriptor__method", x@pointer, name )
 	} else{
 		stop( "wrong type, `i` should be a character or a number" )
 	}
@@ -516,7 +516,7 @@ setMethod( "length", "EnumDescriptor", function( x ){
 	.Call( EnumDescriptor__length, x@pointer )
 } )
 setMethod( "length", "ServiceDescriptor", function( x ){
-	.Call( ServiceDescriptor_method_count, x@pointer )
+	.Call("ServiceDescriptor_method_count", x@pointer )
 } )
 # }}}
 

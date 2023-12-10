@@ -79,7 +79,7 @@ setMethod( "enum_type", "Descriptor", function(object, index, name){
 	}
 
 	if( has_name ){
-		return( .Call( Descriptor__FindEnumTypeByName, object@pointer, as.character(name) ) )
+		return(.Call("Descriptor__FindEnumTypeByName", object@pointer, as.character(name) ) )
 	}
 
 })
