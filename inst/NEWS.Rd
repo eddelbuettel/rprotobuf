@@ -3,6 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.21 (2022-12-13)}{
+  \itemize{
+    \item Package now builds with ProtoBuf >= 22.x thanks to Matteo Gianella
+    (\ghpr{93} addressing \ghit{92}).
+    \item An Alpine 3.19-based workflow was added to test this in continuous
+    integration thanks to a suggestion by Sebastian Meyer.
+    \item A large number of old-style \code{.Call} were updated (\ghpr{96}).
+    \item Several packaging, dcoumentation and testing items were updated.
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.20 (2022-11-02)}{
   \itemize{
     \item Two function prototype were updated for \code{clang-15}.

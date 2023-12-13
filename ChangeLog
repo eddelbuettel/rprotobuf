@@ -1,3 +1,9 @@
+2023-12-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.4.21
+	* configure.ac: Idem
+	* configure: Idem
+
 2023-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
