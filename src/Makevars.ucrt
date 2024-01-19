@@ -1,4 +1,8 @@
-PKG_LIBS= -lprotobuf
+ifeq (,$(shell pkg-config --version 2>/dev/null))
+   PKG_LIBS = -lprotobuf
+else
+   PKG_LIBS = $(shell pkg-config --libs protobuf)
+endif
 
 ## Make this C++17 so that clang will not complain about [[nodiscard]] in headers
 CXX_STD=CXX17

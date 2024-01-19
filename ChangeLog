@@ -1,3 +1,8 @@
+2024-01-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars.ucrt: Apply patch emailed by Tomas Kalibera to support
+	pkg-config if present (as e.g. under upcoming Rtools)
+
 2023-12-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.21
