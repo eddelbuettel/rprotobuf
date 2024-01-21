@@ -3,7 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.21 (2022-12-13)}{
+\section{Changes in RProtoBuf version 0.4.22 (2022-12-13)}{
+  \itemize{
+    \item Apply patch by Tomas Kalibera to support updated rtools to build
+    with newer ProtoBuf releases on windows
+  }
+}
+
+\section{Changes in RProtoBuf version 0.4.21 (2023-12-13)}{
   \itemize{
     \item Package now builds with ProtoBuf >= 22.x thanks to Matteo Gianella
     (\ghpr{93} addressing \ghit{92}).
