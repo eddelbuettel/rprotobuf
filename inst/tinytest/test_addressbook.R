@@ -39,7 +39,7 @@ expect_equal(book$person[[2]]$phone[[1]]$type,   0,                   info="Seco
 #test.ascii <- function() {
 ## Output in text format to a temporary file
 out.file <- tempfile()
-writeLines( as.character(book), file(out.file))
+writeLines(book$toTextFormat(), file(out.file))
 
 ## Verify that we can read back in the message from a text file.
 book2 <- readASCII( tutorial.AddressBook, file(out.file, "rb"))
@@ -74,7 +74,7 @@ expect_error( readASCII( tutorial.AddressBook, out.file2))
 
 incomplete.msg <- new(tutorial.Person, name="Murray", email="murray@stokely.org")
 tmp.file <- tempfile()
-writeLines(as.character(incomplete.msg), file(tmp.file))
+writeLines(incomplete.msg$toTextFormat(), file(tmp.file))
 
 expect_true(!incomplete.msg$isInitialized())
 ## Verify we normally get an exception if we try to read an incomplete ASCII protocol buffer

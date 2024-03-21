@@ -1,3 +1,7 @@
+2024-03-20  Xufei Tan  <xufei@google.com>
+
+	* inst/tinytest/test_addressbook.R: use `toTextFormat()` in tests
+
 2024-01-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.22
