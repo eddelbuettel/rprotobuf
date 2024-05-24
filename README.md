@@ -3,7 +3,7 @@
 [![CI](https://github.com/eddelbuettel/rprotobuf/workflows/ci/badge.svg)](https://github.com/eddelbuettel/rprotobuf/actions?query=workflow%3Aci)
 [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN](https://www.r-pkg.org/badges/version/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf)
-[![Dependencies](https://tinyverse.netlify.com/badge/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf)
+[![Dependencies](https://tinyverse.netlify.app/badge/RProtoBuf)](https://cran.r-project.org/package=RProtoBuf)
 [![Downloads](https://cranlogs.r-pkg.org/badges/RProtoBuf?color=brightgreen)](https://www.r-pkg.org/pkg/RProtoBuf)
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/rprotobuf)](https://github.com/eddelbuettel/rprotobuf)
 [![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v071.i02-brightgreen)](https://doi.org/10.18637/jss.v071.i02)
