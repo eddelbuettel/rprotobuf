@@ -25,7 +25,7 @@ setMethod( "setExtension", "Message", function( object, field, values ){
 		stop("setExtension requires a FieldDescriptor")
 	}
 	if (!is_extension(field)) {
-		stop(paste(name(field), "is not an extension FieldDescriptor."))
+		stop(name(field), " is not an extension FieldDescriptor.")
 	}
 	.Call(setMessageField, object@pointer, field, values)
 	invisible( object )
@@ -40,15 +40,13 @@ setMethod( "getExtension", "Message", function( object, field){
 		stop("getExtension requires a FieldDescriptor")
 	}
 	if (!is_extension(field)) {
-		stop(paste(name(field), "is not an extension FieldDescriptor."))
+		stop(name(field), " is not an extension FieldDescriptor.")
 	}
 	# This check causes a CHECK failure in the C++ code, so give
 	# a more user-friendly error here.
 	if (containing_type(field)@type != object@type) {
-		stop(paste("Field", name(field),
-			   "does not match message type (",
-			   containing_type(field)@type, "!=",
-			   object@type, ")"))
+		stop("Field", name(field), " does not match message type ",
+             "(", containing_type(field)@type, "!=", object@type, ")")
 	}
     .Call(getExtension_cpp, object@pointer, field)
 } )
