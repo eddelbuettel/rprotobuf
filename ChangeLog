@@ -1,3 +1,7 @@
+2024-05-28  Michael Chirico  <chiricom@google.com>
+
+	* R/extensions.R: Build error strings with stop(), avoiding paste()
+
 2024-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Use tinyverse.netlify.app for dependency badge
