@@ -40,7 +40,6 @@ extern SEXP Descriptor__enum_type_count(SEXP);
 extern SEXP Descriptor__field(SEXP, SEXP);
 extern SEXP Descriptor__field_count(SEXP);
 extern SEXP Descriptor__fileDescriptor(SEXP);
-/*extern SEXP Descriptor__FindEnumTypeByName(SEXP, SEXP);*/
 extern SEXP Descriptor__FindFieldByName(SEXP, SEXP);
 extern SEXP Descriptor__FindFieldByNumber(SEXP, SEXP);
 extern SEXP Descriptor__FindNestedTypeByName(SEXP, SEXP);
@@ -156,10 +155,7 @@ extern SEXP ServiceDescriptor__as_list(SEXP);
 extern SEXP ServiceDescriptor__as_Message(SEXP);
 extern SEXP ServiceDescriptor__fileDescriptor(SEXP);
 extern SEXP ServiceDescriptor__getMethodNames(SEXP);
-/*extern SEXP ServiceDescriptor__method(SEXP, SEXP);*/
 extern SEXP ServiceDescriptor__name(SEXP, SEXP);
-/*extern SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP);*/
-/*extern SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP);*/
 /*extern SEXP ServiceDescriptor_method_count(SEXP);*/
 extern SEXP setMessageField(SEXP, SEXP, SEXP);
 extern SEXP update_message(SEXP, SEXP);
@@ -200,7 +196,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"Descriptor__field",                        (DL_FUNC) &Descriptor__field,                         2},
     {"Descriptor__field_count",                  (DL_FUNC) &Descriptor__field_count,                   1},
     {"Descriptor__fileDescriptor",               (DL_FUNC) &Descriptor__fileDescriptor,                1},
-/*    {"Descriptor__FindEnumTypeByName",           (DL_FUNC) &Descriptor__FindEnumTypeByName,            2}, */
     {"Descriptor__FindFieldByName",              (DL_FUNC) &Descriptor__FindFieldByName,               2},
     {"Descriptor__FindFieldByNumber",            (DL_FUNC) &Descriptor__FindFieldByNumber,             2},
     {"Descriptor__FindNestedTypeByName",         (DL_FUNC) &Descriptor__FindNestedTypeByName,          2},
@@ -316,10 +311,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"ServiceDescriptor__as_Message",            (DL_FUNC) &ServiceDescriptor__as_Message,             1},
     {"ServiceDescriptor__fileDescriptor",        (DL_FUNC) &ServiceDescriptor__fileDescriptor,         1},
     {"ServiceDescriptor__getMethodNames",        (DL_FUNC) &ServiceDescriptor__getMethodNames,         1},
-/*    {"ServiceDescriptor__method",                (DL_FUNC) &ServiceDescriptor__method,                 2},*/
     {"ServiceDescriptor__name",                  (DL_FUNC) &ServiceDescriptor__name,                   2},
-/*    {"ServiceDescriptor_getMethodByIndex",       (DL_FUNC) &ServiceDescriptor_getMethodByIndex,        2},*/
-/*    {"ServiceDescriptor_getMethodByName",        (DL_FUNC) &ServiceDescriptor_getMethodByName,         2},*/
 /*    {"ServiceDescriptor_method_count",           (DL_FUNC) &ServiceDescriptor_method_count,            1},*/
     {"setMessageField",                          (DL_FUNC) &setMessageField,                           3},
     {"update_message",                           (DL_FUNC) &update_message,                            2},

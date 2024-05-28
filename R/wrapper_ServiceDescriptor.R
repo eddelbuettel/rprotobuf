@@ -19,11 +19,11 @@ setMethod( "method", "ServiceDescriptor", function(object, index, name){
 	}
 
 	if( has_index ){
-		return(.Call("ServiceDescriptor_getMethodByIndex", object@pointer, as.integer(index)-1L ) )
+		stop( "No routine for getting a method from a ServiceDescriptor by index." )
 	}
 
 	if( has_name ){
-		return(.Call("ServiceDescriptor_getMethodByName", object@pointer, as.character(name) ) )
+		stop( "No routine for getting a method from a ServiceDescriptor by name." )
 	}
 
 } )

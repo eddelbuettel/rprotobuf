@@ -288,7 +288,7 @@ setMethod( "$", "ServiceDescriptor", function(x, name ){
 		"method_count" = function() method_count(x),
 		"method" = function(...) method(x, ... ),
 
-		.Call("ServiceDescriptor__method", x@pointer, name)
+		stop( "No '", name, "' method for ServiceDescriptor objects is implemented." )
 		)
 } )
 
@@ -448,7 +448,7 @@ setMethod("[[", "ServiceDescriptor", function(x, i, j, ..., exact = TRUE){
 		warning( "`j` is ignored" )
 	}
 	if( is.character( i ) || is.numeric( i ) ){
-		.Call("ServiceDescriptor__method", x@pointer, name )
+		stop( "No '", name, "' method for ServiceDescriptor objects is implemented." )
 	} else{
 		stop( "wrong type, `i` should be a character or a number" )
 	}
