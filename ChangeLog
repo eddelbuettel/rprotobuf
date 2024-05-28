@@ -1,6 +1,10 @@
 2024-05-28  Michael Chirico  <chiricom@google.com>
 
 	* R/extensions.R: Build error strings with stop(), avoiding paste()
+	* src/init.c: Remove placeholders for unimplemented methods
+	* R/00classes.R: Idem
+	* R/field_count.R: Idem
+	* R/wrapper_ServiceDescriptor.R: Idem
 
 2024-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
