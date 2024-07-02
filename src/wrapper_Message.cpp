@@ -451,7 +451,9 @@ RPB_FUNCTION_3(Rcpp::CharacterVector, METHOD(as_json), Rcpp::XPtr<GPB::Message> 
     GPB::util::JsonPrintOptions opts;
     opts.add_whitespace = true;
     opts.preserve_proto_field_names = preserve_proto_field_names;
-    opts.always_print_primitive_fields = always_print_primitive_fields;
+    #if GOOGLE_PROTOBUF_VERSION < 5026000
+        opts.always_print_primitive_fields = always_print_primitive_fields;
+    #endif
 
     std::string buf;
     #if GOOGLE_PROTOBUF_VERSION < 4022000
