@@ -1,6 +1,11 @@
+2024-07-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 2024-07-02  Matteo Gianella  <matteo.gianella@polimi.it>
 
-	* src/RWarningErrorCollector.h: Code update also in case of protobuf version >= 26.x
+	* src/RWarningErrorCollector.h: Code update also in case of protobuf
+	version >= 26.x
 	* src/RWarningErrorCollector.cpp: Idem
 	* src/wrapper_Message: Idem
 
