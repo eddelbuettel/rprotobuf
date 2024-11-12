@@ -1,3 +1,7 @@
+2024-11-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 2024-11-11  Lev Kandel  <lmakhlis@google.com>
 
 	* src/DescriptorPoolLookup.cpp: Compatibility with protobuf >= 6.30.0
