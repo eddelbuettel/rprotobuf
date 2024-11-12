@@ -47,7 +47,7 @@ RPB_FUNCTION_2(bool, valid_output_message, Rcpp::XPtr<GPB::MethodDescriptor> met
 }
 
 RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::MethodDescriptor> d, bool full) {
-    return full ? d->full_name() : d->name();
+    return std::string(full ? d->full_name() : d->name());
 }
 
 #undef METHOD

@@ -359,7 +359,7 @@ void CHECK_messages(const GPB::FieldDescriptor* field_desc, SEXP values) {
         Rcpp::stop("expecting a list of messages");
     }
 
-    const char* target = field_desc->message_type()->full_name().c_str();
+    std::string_view target = field_desc->message_type()->full_name();
     int n = LENGTH(values);
     for (int i = 0; i < n; i++) {
         if (!isMessage(VECTOR_ELT(values, i), target)) {
@@ -372,7 +372,8 @@ void CHECK_messages(const GPB::FieldDescriptor* field_desc, SEXP values) {
             s = out.str();
             // }}}
             std::string message = "List element " + s + " is not a message " +
-                             "of the appropriate type ('" + target + "')";
+                                  "of the appropriate type ('" +
+                                  std::string(target) + "')";
             Rcpp::stop(message.c_str());
         }
     }
@@ -397,10 +398,13 @@ void CHECK_repeated_vals(const GPB::FieldDescriptor* field_desc, SEXP value, int
                 }
                 case S4SXP: {
                     /* check that this is a message of the appropriate type */
-                    if (!isMessage(value, field_desc->message_type()->full_name().c_str())) {
-                        std::string message = "Not a message of type '" +
-                                         field_desc->message_type()->full_name() + "'";
-                        Rcpp::stop(message.c_str());
+                    if (!isMessage(value,
+                                   field_desc->message_type()->full_name())) {
+                      std::string message =
+                          "Not a message of type '" +
+                          std::string(field_desc->message_type()->full_name()) +
+                          "'";
+                      Rcpp::stop(message.c_str());
                     }
                     break;
                 }
@@ -627,9 +631,9 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
             if (TYPEOF(value) == S4SXP && Rf_inherits(value, "Message")) {
                 GPB::Message* mess =
                     (GPB::Message*)EXTPTR_PTR(GET_SLOT(value, Rf_install("pointer")));
-                const char* type = mess->GetDescriptor()->full_name().c_str();
-                const char* target = field_desc->message_type()->full_name().c_str();
-                if (strcmp(type, target)) {
+                std::string_view type = mess->GetDescriptor()->full_name();
+                std::string_view target = field_desc->message_type()->full_name();
+                if (type != target) {
                     Rcpp::stop("wrong message type");
                 }
                 GPB::Message* m = ref->MutableMessage(message, field_desc);

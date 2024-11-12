@@ -190,7 +190,7 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Message> message) {
     for (int i = 0; i < nf; i++) {
         const GPB::FieldDescriptor* fd = desc->field(i);
         val[i] = getMessageField(message, Rcpp::CharacterVector::create(fd->name()));
-        fieldNames[i] = fd->name();
+        fieldNames[i] = std::string(fd->name());
     }
     val.names() = fieldNames;
     return val;
@@ -430,7 +430,7 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(fieldNames), Rcpp::XPtr<GPB::Messag
     int nfields = desc->field_count();
     Rcpp::CharacterVector res(nfields);
     for (int i = 0; i < nfields; i++) {
-        res[i] = desc->field(i)->name();
+        res[i] = std::string(desc->field(i)->name());
     }
     return (res);
 }

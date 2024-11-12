@@ -35,7 +35,7 @@ RPB_FUNCTION_1(S4_Message, METHOD(as_Message), Rcpp::XPtr<GPB::EnumValueDescript
 }
 
 RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::EnumValueDescriptor> d, bool full) {
-    return full ? d->full_name() : d->name();
+    return std::string(full ? d->full_name() : d->name());
 }
 
 RPB_FUNCTION_1(int, METHOD(number), Rcpp::XPtr<GPB::EnumValueDescriptor> d) { return d->number(); }

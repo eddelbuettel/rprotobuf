@@ -93,7 +93,7 @@ RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::FieldD
 }
 
 RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::FieldDescriptor> d, bool full) {
-    return full ? d->full_name() : d->name();
+    return std::string(full ? d->full_name() : d->name());
 }
 
 #undef RPB_HANDLE_CASE

@@ -31,13 +31,13 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMemberNames), Rcpp::XPtr<GPB::De
     Rcpp::CharacterVector res(nfields + ntypes + nenums);
     int j = 0;
     for (int i = 0; i < nfields; i++, j++) {
-        res[j] = desc->field(i)->name();
+        res[j] = std::string(desc->field(i)->name());
     }
     for (int i = 0; i < ntypes; i++, j++) {
-        res[j] = desc->nested_type(i)->name();
+        res[j] = std::string(desc->nested_type(i)->name());
     }
     for (int i = 0; i < nenums; i++, j++) {
-        res[j] = desc->enum_type(i)->name();
+        res[j] = std::string(desc->enum_type(i)->name());
     }
     return (res);
 }
@@ -59,17 +59,17 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::Descriptor> desc) {
     for (int i = 0; i < nfields; cnt++, i++) {
         const GPB::FieldDescriptor* fd = desc->field(i);
         res[cnt] = S4_FieldDescriptor(fd);
-        names[cnt] = fd->name();
+        names[cnt] = std::string(fd->name());
     }
     for (int i = 0; i < ntypes; cnt++, i++) {
         const GPB::Descriptor* d = desc->nested_type(i);
         res[cnt] = S4_Descriptor(d);
-        names[cnt] = d->name();
+        names[cnt] = std::string(d->name());
     }
     for (int i = 0; i < nenums; cnt++, i++) {
         const GPB::EnumDescriptor* ed = desc->enum_type(i);
         res[cnt] = S4_EnumDescriptor(ed);
-        names[cnt] = ed->name();
+        names[cnt] = std::string(ed->name());
     }
     res.names() = names;
 
@@ -120,7 +120,7 @@ RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Descri
 }
 
 RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::Descriptor> d, bool full) {
-    return full ? d->full_name() : d->name();
+    return std::string(full ? d->full_name() : d->name());
 }
 
 RPB_FUNCTION_2(S4_Message, METHOD(readMessageFromFile), Rcpp::XPtr<GPB::Descriptor> desc,
