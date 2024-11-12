@@ -240,16 +240,16 @@ RcppExport SEXP do_dollar_Descriptor(SEXP pointer, SEXP name) {
  *
  * @return TRUE if m is a a message of the given type
  */
-Rboolean isMessage(SEXP m, const char* target) {
+Rboolean isMessage(SEXP m, std::string_view target) {
     RPB_DEBUG_BEGIN("isMessage")
 
     if (TYPEOF(m) != S4SXP || !Rf_inherits(m, "Message")) return _FALSE_;
 
     GPB::Message* message = (GPB::Message*)EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")));
 
-    const char* type = message->GetDescriptor()->full_name().c_str();
+    std::string_view type = message->GetDescriptor()->full_name();
     RPB_DEBUG_END("isMessage")
-    if (strcmp(type, target)) {
+    if (type != target) {
         return _FALSE_;
     }
     return _TRUE_;

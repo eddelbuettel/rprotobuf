@@ -107,7 +107,7 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::EnumDescriptor> d) {
     for (int i = 0; i < n; i++) {
         const GPB::EnumValueDescriptor* value_d = d->value(i);
         res[i] = value_d->number();
-        names[i] = value_d->name();
+        names[i] = std::string(value_d->name());
     }
     res.names() = names;
     return res;
@@ -117,7 +117,7 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getConstantNames), Rcpp::XPtr<GPB::
     int n = d->value_count();
     Rcpp::CharacterVector res(n);
     for (int i = 0; i < n; i++) {
-        res[i] = d->value(i)->name();
+        res[i] = std::string(d->value(i)->name());
     }
     return res;
 }
@@ -127,7 +127,7 @@ RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::EnumDe
 }
 
 RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::EnumDescriptor> d, bool full) {
-    return full ? d->full_name() : d->name();
+    return std::string(full ? d->full_name() : d->name());
 }
 
 #undef METHOD

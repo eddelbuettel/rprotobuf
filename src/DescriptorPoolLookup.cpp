@@ -23,15 +23,15 @@
 
 namespace rprotobuf {
 
-void DescriptorPoolLookup::add(const std::string& element) { elements.insert(element); }
+void DescriptorPoolLookup::add(std::string_view element) { elements.emplace(element); }
 
-bool DescriptorPoolLookup::contains(const std::string& element) {
+bool DescriptorPoolLookup::contains(std::string_view element) {
     return elements.find(element) != elements.end();
 }
 
 SEXP DescriptorPoolLookup::getElements() { return Rcpp::wrap(elements); }
 
-std::set<std::string> DescriptorPoolLookup::elements;
+std::set<std::string, std::less<>> DescriptorPoolLookup::elements;
 RWarningErrorCollector DescriptorPoolLookup::error_collector;
 RSourceTree DescriptorPoolLookup::source_tree;
 GPB::compiler::Importer* DescriptorPoolLookup::importer =

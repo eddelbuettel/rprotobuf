@@ -26,6 +26,7 @@
 #include <string.h>  // for strerror
 #include <unistd.h>  // g++-4.7 wants this
 #include <string>    // for string
+#include <string_view>
 // O_BINARY does not exist on Unix/Linux, since there is no distinction
 // between text mode and binary mode files there, but if we ever got
 // this code running on Windows this would be needed.
@@ -141,7 +142,7 @@ RcppExport SEXP newProtoMessage(SEXP);
 RcppExport SEXP getProtobufDescriptor(SEXP);
 RcppExport SEXP getExtensionDescriptor(SEXP);
 RcppExport SEXP readProtoFiles_cpp(SEXP, SEXP);
-RcppExport Rboolean isMessage(SEXP, const char*);
+RcppExport Rboolean isMessage(SEXP, std::string_view);
 RcppExport GPB::FieldDescriptor* getFieldDescriptor(const GPB::Message*, SEXP);
 
 /* in extractors.cpp */

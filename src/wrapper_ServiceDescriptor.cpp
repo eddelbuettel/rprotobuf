@@ -21,7 +21,7 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMethodNames),
     Rcpp::CharacterVector res(nmeths);
 
     for (int i = 0; i < nmeths; i++) {
-        res[i] = desc->method(i)->name();
+        res[i] = std::string(desc->method(i)->name());
     }
     return res;
 }
@@ -38,7 +38,7 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::ServiceDescriptor> d
     for (int i = 0; i < n; i++) {
         const GPB::MethodDescriptor* met = desc->method(i);
         res[i] = S4_MethodDescriptor(met);
-        names[i] = met->name();
+        names[i] = std::string(met->name());
     }
     res.names() = names;
     return res;
@@ -55,7 +55,7 @@ RPB_FUNCTION_1(S4_FileDescriptor, METHOD(fileDescriptor), Rcpp::XPtr<GPB::Servic
 }
 
 RPB_FUNCTION_2(std::string, METHOD(name), Rcpp::XPtr<GPB::ServiceDescriptor> d, bool full) {
-    return full ? d->full_name() : d->name();
+    return std::string(full ? d->full_name() : d->name());
 }
 
 /**

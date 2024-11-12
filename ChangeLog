@@ -1,3 +1,19 @@
+2024-11-11  Lev Kandel  <lmakhlis@google.com>
+
+	* src/DescriptorPoolLookup.cpp: Compatibility with protobuf >= 6.30.0
+	* src/DescriptorPoolLookup.h: Idem
+	* src/mutators.cpp: Idem
+	* src/rprotobuf.cpp: Idem
+	* src/rprotobuf.h: Idem
+	* src/wrapper_Descriptor.cpp: Idem
+	* src/wrapper_EnumDescriptor.cpp: Idem
+	* src/wrapper_EnumValueDescriptor.cpp: Idem
+	* src/wrapper_FieldDescriptor.cpp: Idem
+	* src/wrapper_FileDescriptor.cpp: Idem
+	* src/wrapper_Message.cpp: Idem
+	* src/wrapper_MethodDescriptor.cpp: Idem
+	* src/wrapper_ServiceDescriptor.cpp: Idem
+
 2024-11-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Authors@R): Added

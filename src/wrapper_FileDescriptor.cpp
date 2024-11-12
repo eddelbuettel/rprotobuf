@@ -26,25 +26,25 @@ RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMemberNames),
     int i = 0;
     int j = 0;
     while (i < ntypes) {
-        res[j] = desc->message_type(i)->name();
+        res[j] = std::string(desc->message_type(i)->name());
         i++;
         j++;
     }
     i = 0;
     while (i < nenums) {
-        res[j] = desc->enum_type(i)->name();
+        res[j] = std::string(desc->enum_type(i)->name());
         i++;
         j++;
     }
     i = 0;
     while (i < nserv) {
-        res[j] = desc->service(i)->name();
+        res[j] = std::string(desc->service(i)->name());
         i++;
         j++;
     }
     i = 0;
     while (i < nexts) {
-        res[j] = desc->extension(i)->name();
+        res[j] = std::string(desc->extension(i)->name());
         i++;
         j++;
     }
@@ -67,27 +67,27 @@ RPB_FUNCTION_1(Rcpp::List, METHOD(as_list), Rcpp::XPtr<GPB::FileDescriptor> desc
     int count = 0;
     for (int i = 0; i < ntypes; count++, i++) {
         res[count] = S4_Descriptor(desc->message_type(i));
-        names[count] = desc->message_type(i)->name();
+        names[count] = std::string(desc->message_type(i)->name());
     }
     for (int i = 0; i < nenums; count++, i++) {
         res[count] = S4_EnumDescriptor(desc->enum_type(i));
-        names[count] = desc->enum_type(i)->name();
+        names[count] = std::string(desc->enum_type(i)->name());
     }
     for (int i = 0; i < nserv; count++, i++) {
         res[count] = S4_ServiceDescriptor(desc->service(i));
-        names[count] = desc->service(i)->name();
+        names[count] = std::string(desc->service(i)->name());
     }
     for (int i = 0; i < nexts; count++, i++) {
         res[count] = S4_FieldDescriptor(desc->extension(i));
         // always use full names for extensions
-        names[count] = desc->extension(i)->full_name();
+        names[count] = std::string(desc->extension(i)->full_name());
     }
     res.names() = names;
     return res;
 }
 
 RPB_FUNCTION_1(std::string, METHOD(name), Rcpp::XPtr<GPB::FileDescriptor> desc) {
-    return desc->name();
+    return std::string(desc->name());
 }
 
 #undef METHOD
