@@ -1,7 +1,7 @@
 
 ## RProtoBuf configure.ac
 ##
-## Copyright (C) 2009 - 2024  Dirk Eddelbuettel <edd@debian.org>
+## Copyright (C) 2009 - 2025  Dirk Eddelbuettel <edd@debian.org>
 ## Portions Copyright (C) 2010  Romain Francois
 ## Portions Copyright (C) 2013  Murray Stokely
 ## Portions Copyright (C) 2016  Craig Radcliffe
@@ -31,7 +31,7 @@ AC_PROG_PKGCONFIG
 
 ## use pkg-config for ProtoBuf settings
 ##
-if test x"${PKGCONFIG}" == x"yes"; then
+if test x"${PKGCONFIG}" = x"yes"; then
     if pkg-config --exists protobuf; then
         protobuf_cxxflags=`pkg-config --cflags protobuf`
         protobuf_libs=`pkg-config --libs protobuf`
@@ -52,7 +52,7 @@ CXXFLAGS="${protobuf_cxxflags} ${CXXFLAGS}"
 ## look for protoc, the ProtoBuf compiler
 AC_DEFUN([AC_PROG_PROTOC], [AC_CHECK_PROG(PROTOC,protoc,yes)])
 AC_PROG_PROTOC
-if test x"${PROTOC}" == x"no" ; then
+if test x"${PROTOC}" = x"no" ; then
     echo "
   Your installation does not appear to have protoc installed.
 
@@ -108,7 +108,7 @@ int main() {
 [pb_version_ok=yes],
 [pb_version_ok=no],
 [pb_version_ok=yes])
-if test x"${pb_version_ok}" == x"no"; then
+if test x"${pb_version_ok}" = x"no"; then
     AC_MSG_ERROR([Need ProtoBuf version >= 2.2.0])
 else
     AC_MSG_RESULT([yes])
