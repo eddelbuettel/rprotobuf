@@ -1,5 +1,9 @@
 2025-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.4.23
+	* configure.ac: Idem
+	* configure: Idem
+
 	* inst/NEWS.Rd: Update one URL
 
 2025-01-10  Dirk Eddelbuettel  <edd@debian.org>
