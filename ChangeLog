@@ -1,3 +1,7 @@
+2025-01-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/NEWS.Rd: Update one URL
+
 2025-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* configure.ac: Correct three possible bashisms

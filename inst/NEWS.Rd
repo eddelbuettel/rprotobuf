@@ -3,7 +3,20 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.22 (2022-12-13)}{
+\section{Changes in RProtoBuf version 0.4.23 (2022-12-13)}{
+  \itemize{
+    \item More robust tests using \code{toTextFormat()} (Xufei Tan in
+    \ghpr{99} addressing \ghit{98})
+    \item Various standard packaging updates to CI and badges (Dirk)
+    \item Improvements to string construction in error messages (Michael
+    Chirico in \ghpr{102} and \ghpr{103})
+    \item Accommodate ProtoBuf 26.x and later (Matteo Gianella in \ghpr{104})
+    \item Accommodate ProtoBuf 6.30.9 and later (Lev Kandel in \ghpr{106})
+    \item Correct \code{bashism} issues in \code{configure.ac} (Dirk)
+  }
+}
+
+\section{Changes in RProtoBuf version 0.4.22 (2023-01-20)}{
   \itemize{
     \item Apply patch by Tomas Kalibera to support updated rtools to build
     with newer ProtoBuf releases on windows
@@ -105,8 +118,7 @@
     \item \code{POSIXlt} elements are now properly serialized too
     (Jeffrey Shen in \ghpr{48} and \ghpr{50} fixing \ghit{47})
     \item Added two Dockerfiles for continuous integration and use; see
-    \href{https://hub.docker.com/swarm/rprotobuf/repository/list}{this
-      url} for more.
+    \href{https://hub.docker.com/u/rprotobuf}{this url} for more.
   }
 }
 
