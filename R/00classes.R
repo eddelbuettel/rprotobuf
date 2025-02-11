@@ -550,7 +550,7 @@ function(object, full = FALSE){
 })
 setMethod( "name", c( object = "EnumValueDescriptor" ) ,
 function(object, full = FALSE){
-	.Call( EnumDescriptor__name, object@pointer, full )
+	.Call( EnumValueDescriptor__name, object@pointer, full )
 })
 setMethod( "name", c( object = "ServiceDescriptor" ) ,
 function(object, full = FALSE){

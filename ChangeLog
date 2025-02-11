@@ -1,3 +1,8 @@
+2025-02-10  Mike Kruskal  <mkruskal@google.com>
+
+	* R/00classes.R: Point to EnumValueDescriptor
+	* src/init.c: Add bindings for EnumValueDescriptor::name
+
 2025-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.23
