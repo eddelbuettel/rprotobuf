@@ -3,7 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.23 (2022-12-13)}{
+\section{Changes in RProtoBuf version 0.4.24 (2025-xx-yy)}{
+  \itemize{
+    \item Add bindings to EnumValueDescriptor::name (Mike Kruskal in
+    \ghpr{108})
+  }
+}
+
+\section{Changes in RProtoBuf version 0.4.23 (2025-01-14)}{
   \itemize{
     \item More robust tests using \code{toTextFormat()} (Xufei Tan in
     \ghpr{99} addressing \ghit{98})
@@ -16,7 +23,7 @@
   }
 }
 
-\section{Changes in RProtoBuf version 0.4.22 (2023-01-20)}{
+\section{Changes in RProtoBuf version 0.4.22 (2024-01-20)}{
   \itemize{
     \item Apply patch by Tomas Kalibera to support updated rtools to build
     with newer ProtoBuf releases on windows
