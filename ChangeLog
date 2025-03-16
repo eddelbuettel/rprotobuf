@@ -1,3 +1,9 @@
+2025-03-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/rprotobuf.h: Replace EXTPTR_PTR with R_ExternalPtrAddr
+	* src/rprotobuf.cpp: Idem
+	* src/mutators.cpp: Idem
+
 2025-02-10  Mike Kruskal  <mkruskal@google.com>
 
 	* R/00classes.R: Point to EnumValueDescriptor

@@ -629,8 +629,7 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
         // {{{ message
         case CPPTYPE_MESSAGE: {
             if (TYPEOF(value) == S4SXP && Rf_inherits(value, "Message")) {
-                GPB::Message* mess =
-                    (GPB::Message*)EXTPTR_PTR(GET_SLOT(value, Rf_install("pointer")));
+                GPB::Message* mess = (GPB::Message*)R_ExternalPtrAddr(GET_SLOT(value, Rf_install("pointer")));
                 std::string_view type = mess->GetDescriptor()->full_name();
                 std::string_view target = field_desc->message_type()->full_name();
                 if (type != target) {

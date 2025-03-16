@@ -199,7 +199,7 @@ SEXP newProtoMessage(SEXP descriptor) {
 RcppExport SEXP do_dollar_Descriptor(SEXP pointer, SEXP name) {
 
     const char* what = CHAR(STRING_ELT(name, 0));
-    GPB::Descriptor* desc = (GPB::Descriptor*)EXTPTR_PTR(pointer);
+    GPB::Descriptor* desc = (GPB::Descriptor*)R_ExternalPtrAddr(pointer);
 
     // trying fields first :
 
@@ -245,7 +245,7 @@ Rboolean isMessage(SEXP m, std::string_view target) {
 
     if (TYPEOF(m) != S4SXP || !Rf_inherits(m, "Message")) return _FALSE_;
 
-    GPB::Message* message = (GPB::Message*)EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")));
+    GPB::Message* message = (GPB::Message*)R_ExternalPtrAddr(GET_SLOT(m, Rf_install("pointer")));
 
     std::string_view type = message->GetDescriptor()->full_name();
     RPB_DEBUG_END("isMessage")

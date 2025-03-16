@@ -102,26 +102,22 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define _TRUE_ (Rboolean) TRUE
 #define _FALSE_ (Rboolean) FALSE
 
-#define GET_MESSAGE_POINTER_FROM_XP(xp) (GPB::Message*) EXTPTR_PTR(xp)
-#define GET_MESSAGE_POINTER_FROM_S4(m) \
-    (GPB::Message*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
+#define GET_MESSAGE_POINTER_FROM_XP(xp) (GPB::Message*) R_ExternalPtrAddr(xp)
+#define GET_MESSAGE_POINTER_FROM_S4(m) (GPB::Message*) R_ExternalPtrAddr(GET_SLOT(m, Rf_install("pointer")))
 
-#define GET_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::Descriptor*) EXTPTR_PTR(xp)
-#define GET_DESCRIPTOR_POINTER_FROM_S4(m) \
-    (GPB::Descriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
+#define GET_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::Descriptor*) R_ExternalPtrAddr(xp)
+#define GET_DESCRIPTOR_POINTER_FROM_S4(m) (GPB::Descriptor*) R_ExternalPtrAddr(GET_SLOT(m, Rf_install("pointer")))
 
-#define GET_FIELD_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::FieldDescriptor*) EXTPTR_PTR(xp)
-#define GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(m) \
-    (GPB::FieldDescriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
+#define GET_FIELD_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::FieldDescriptor*) R_ExternalPtrAddr(xp)
+#define GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(m) (GPB::FieldDescriptor*) R_ExternalPtrAddr(GET_SLOT(m, Rf_install("pointer")))
 
-#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::EnumValueDescriptor*) EXTPTR_PTR(xp)
-#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_S4(m) \
-    (GPB::EnumValueDescriptor*) EXTPTR_PTR(GET_SLOT(m, Rf_install("pointer")))
+#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_XP(xp) (GPB::EnumValueDescriptor*) R_ExternalPtrAddr(xp)
+#define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_S4(m) (GPB::EnumValueDescriptor*) R_ExternalPtrAddr(GET_SLOT(m, Rf_install("pointer")))
 
 #define COPYSTRING(s) s
 #define THROW_SOCKET_ERROR(message) Rf_error("%s : %s", message, strerror(sockerrno))
 
-#define XPP EXTPTR_PTR
+#define XPP R_ExternalPtrAddr
 
 #define NEW_S4_OBJECT(CLAZZ)                          \
     SEXP oo = PROTECT(NEW_OBJECT(MAKE_CLASS(CLAZZ))); \
