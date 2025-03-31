@@ -1,5 +1,9 @@
 2025-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.4.24
+	* configure.ac: Idem
+	* configure: Idem
+
 	* src/init.c: Set EnumValueDescriptor_name declaration to two args
 
 2025-03-16  Dirk Eddelbuettel  <edd@debian.org>

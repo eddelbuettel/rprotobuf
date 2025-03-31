@@ -1,6 +1,6 @@
 Package: RProtoBuf
-Version: 0.4.23.1
-Date: 2025-02-11
+Version: 0.4.24
+Date: 2025-03-31
 Authors@R: c(person("Romain", "Francois", role = "aut",
                     comment = c(ORCID = "0000-0002-2444-4226")),
              person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",

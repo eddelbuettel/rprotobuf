@@ -3,10 +3,11 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
-\section{Changes in RProtoBuf version 0.4.24 (2025-xx-yy)}{
+\section{Changes in RProtoBuf version 0.4.24 (2025-03-31)}{
   \itemize{
     \item Add bindings to EnumValueDescriptor::name (Mike Kruskal in
     \ghpr{108})
+    \item Replace EXTPTR_PTR with R_ExternalPtrAddr (Dirk)
   }
 }
 
