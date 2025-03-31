@@ -71,7 +71,7 @@ extern SEXP EnumDescriptor__value_count(SEXP);
 extern SEXP EnumValueDescriptor__as_character(SEXP);
 extern SEXP EnumValueDescriptor__as_Message(SEXP);
 extern SEXP EnumValueDescriptor__enum_type(SEXP);
-extern SEXP EnumValueDescriptor__name(SEXP);
+extern SEXP EnumValueDescriptor__name(SEXP, SEXP);
 extern SEXP EnumValueDescriptor__number(SEXP);
 extern SEXP FieldDescriptor__as_character(SEXP);
 extern SEXP FieldDescriptor__as_Message(SEXP);
@@ -228,7 +228,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"EnumValueDescriptor__as_character",        (DL_FUNC) &EnumValueDescriptor__as_character,         1},
     {"EnumValueDescriptor__as_Message",          (DL_FUNC) &EnumValueDescriptor__as_Message,           1},
     {"EnumValueDescriptor__enum_type",           (DL_FUNC) &EnumValueDescriptor__enum_type,            1},
-    {"EnumValueDescriptor__name",                (DL_FUNC) &EnumValueDescriptor__name,                 1},
+    {"EnumValueDescriptor__name",                (DL_FUNC) &EnumValueDescriptor__name,                 2},
     {"EnumValueDescriptor__number",              (DL_FUNC) &EnumValueDescriptor__number,               1},
     {"FieldDescriptor__as_character",            (DL_FUNC) &FieldDescriptor__as_character,             1},
     {"FieldDescriptor__as_Message",              (DL_FUNC) &FieldDescriptor__as_Message,               1},

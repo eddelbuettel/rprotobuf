@@ -1,3 +1,7 @@
+2025-03-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/init.c: Set EnumValueDescriptor_name declaration to two args
+
 2025-03-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/rprotobuf.h: Replace EXTPTR_PTR with R_ExternalPtrAddr
