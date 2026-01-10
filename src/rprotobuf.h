@@ -68,7 +68,13 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #include <Rcpp.h>
 
 #include <Rdefines.h>
+#include <Rversion.h>
+#if R_VERSION < R_Version(4,6,0)
 #include <R_ext/Callbacks.h>
+#else
+#include <R_ext/ObjectTable.h>
+#endif
+
 
 /* uncomment for debugging */
 // #define RPB_DEBUG
