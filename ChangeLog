@@ -1,5 +1,7 @@
 2026-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* src/rprotobuf.h: Include R_ext/ObjectTable.h under R 4.6.0 or later
 
 2025-09-18  Dirk Eddelbuettel  <edd@debian.org>
