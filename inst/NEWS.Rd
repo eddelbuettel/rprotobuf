@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.25 (2026-01-11)}{
+  \itemize{
+    \item Several routine updates to continuous integration script
+    \item Include \code{ObjectTable.h} instead of \code{Callback.h} to
+    accommodate R 4.6.0
+    \item Switch vignettes to \code{Rcpp::asis} driver, update references
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.24 (2025-03-31)}{
   \itemize{
     \item Add bindings to EnumValueDescriptor::name (Mike Kruskal in
