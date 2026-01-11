@@ -28,3 +28,4 @@ SystemRequirements: ProtoBuf libraries and compiler version 3.3.0 or later;
 BugReports: https://github.com/eddelbuettel/rprotobuf/issues
 URL: https://github.com/eddelbuettel/rprotobuf, https://dirk.eddelbuettel.com/code/rprotobuf.html
 License: GPL (>= 2)
+VignetteBuilder: Rcpp
