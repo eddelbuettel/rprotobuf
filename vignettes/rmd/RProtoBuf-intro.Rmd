@@ -372,7 +372,7 @@ described on the Table~\ref{Message-class-table}.
 \hline
 \texttt{pointer} & external pointer to the \texttt{Message} object of the C++ proto library. Documentation for the
 \texttt{Message} class is available from the protocol buffer project page:
-\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.message.html#Message} \\
+\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.message/} \\
 \hline
 \texttt{type} & fully qualified path of the message. For example a \texttt{Person} message
 has its \texttt{type} slot set to \texttt{tutorial.Person} \\
@@ -888,7 +888,7 @@ the slots \texttt{pointer} and \texttt{type} :
 \hline
 \texttt{pointer} & external pointer to the \texttt{Descriptor} object of the C++ proto library. Documentation for the
 \texttt{Descriptor} class is available from the protocol buffer project page:
-\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.descriptor.html#Descriptor} \\
+\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.descriptor/} \\
 \hline
 \texttt{type} & fully qualified path of the message type. \\
 \hline
@@ -1739,7 +1739,7 @@ the slots \texttt{pointer}, \texttt{filename}, and \texttt{package} :
 \hline
 \texttt{pointer} & external pointer to the \texttt{FileDescriptor} object of the C++ proto library. Documentation for the
 \texttt{FileDescriptor} class is available from the protocol buffer project page:
-\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.descriptor.html#FileDescriptor} \\
+\url{https://protobuf.dev/reference/csharp/api-docs/class/google/protobuf/reflection/file-descriptor.html} \\
 \hline
 \texttt{filename} & fully qualified pathname of the \texttt{.proto} file.\\
 \hline
@@ -1987,7 +1987,7 @@ Extensions allow you to declare a range of field numbers in a message
 that are available for extension types.  This allows others to declare
 new fields for a given message type possibly in their own
 \texttt{.proto} files without having to edit the original file.  See
-\url{https://github.com/jeroenooms/RProtoBufUtils}.
+\url{https://github.com/murraystokely/RProtoBufUtils}.
 
 Notice that the last line of the \texttt{Person} message schema in
 \texttt{addressbook.proto} is the following line :
