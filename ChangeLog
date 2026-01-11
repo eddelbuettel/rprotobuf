@@ -1,3 +1,12 @@
+
+	* src/Makevars.*: Remove (explicit) C++17 standard setter
+
+	* vignettes/*: Re-rerendered, now uses Rcpp::asis as driver
+	* DESCRIPTION: Add 'VignetteBuilder: Rcpp'
+	* vignettes/rmd/RProtoBuf-paper.bib: Refreshed some references
+
+	* .github/workflows/*.yaml: Switch to actions/checkout@v6
+
 2026-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
