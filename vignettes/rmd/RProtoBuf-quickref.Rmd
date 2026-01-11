@@ -14,7 +14,7 @@ address:
   - code: a
     address: \url{http://dirk.eddelbuettel.com}
   - code: b
-    address: \url{https://romain.rbind.io/}
+    address: \url{https://github.com/romainfrancois}
   - code: c
     address: \url{https://stokely.org}
 

@@ -15,6 +15,7 @@ CONTRIBUTING.md
 ^GTAGS
 ^docker
 ^vignettes/rmd
+^vignettes/inactive
 ^deprecated
 ^\.github
 ^\.editorconfig

@@ -7,18 +7,18 @@ rmdvignettes := 	$(rmdsources:.Rmd=.pdf)
 %.pdf:			%.Rmd
 			Rscript -e 'rmarkdown::render("$<")'
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
-			cp -vax $@ ../pdf
+			cp -vax $@ ..
 
 all:			${rmdvignettes} RProtoBuf-paper.pdf
 
-RProtoBuf-paper.tex:	RProtoBuf-paper.Rnw
-			Rscript -e 'Sweave("$<")'
-
-RProtoBuf-paper.pdf:	RProtoBuf-paper.tex
-			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
-			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
+RProtoBuf-paper.pdf:	RProtoBuf-paper.Rnw
+			Rscript -e 'Sweave("RProtoBuf-paper.Rnw")'
+			pdflatex RProtoBuf-paper.tex
+			bibtex RProtoBuf-paper.aux
+			pdflatex RProtoBuf-paper.tex
+			pdflatex RProtoBuf-paper.tex
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
-			cp -vax $@ ../pdf
+			cp -vax $@ ..
 
 clean:
 			@rm -rf *.aux *.log *.out *.tex *.pdf RPrototBuf-*_cache pinp.cls

@@ -1,0 +1,5 @@
+%\VignetteIndexEntry{RProtoBuf-quickref}
+%\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
+%\VignettePackage{RProtoBuf}
+%\VignetteEncoding{UTF-8}
+%\VignetteEngine{Rcpp::asis}
