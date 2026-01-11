@@ -1,8 +1,5 @@
 ## -*- mode: makefile; -*-
 
-## Make this C++17 so that clang will not complain about [[nodiscard]] in headers
-CXX_STD=CXX17
-
 ## Configure tells us about locations for ## both Rcpp (ie libRcpp.so and Rcpp.h) and
 ## ProtoBuf headers and library via these variables
 PKG_CPPFLAGS=@PKG_CPPFLAGS@

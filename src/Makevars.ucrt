@@ -4,9 +4,6 @@ else
    PKG_LIBS = $(shell pkg-config --libs protobuf)
 endif
 
-## Make this C++17 so that clang will not complain about [[nodiscard]] in headers
-CXX_STD=CXX17
-
 all: clean
 
 clean:

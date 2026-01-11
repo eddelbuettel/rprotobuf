@@ -5,9 +5,6 @@ PKG_CPPFLAGS= -I$(RWINLIB)/include
 PKG_LIBS= -L$(RWINLIB)/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
 	-L$(RWINLIB)/lib${R_ARCH}${CRT} -lprotobuf
 
-## Make this C++17 so that clang will not complain about [[nodiscard]] in headers
-CXX_STD=CXX17
-
 all: clean winlibs
 
 clean:
