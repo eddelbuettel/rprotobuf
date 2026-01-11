@@ -16,7 +16,7 @@ address:
   - code: b
     address: \url{https://github.com/romainfrancois}
   - code: c
-    address: \url{https://stokely.org}
+    address: \url{https://github.com/murraystokely}
 
 # For footer text
 lead_author_surname: Eddelbuettel, François and Stokely

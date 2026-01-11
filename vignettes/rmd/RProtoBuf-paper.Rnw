@@ -2,7 +2,7 @@
 %\VignetteIndexEntry{RProtoBuf-paper}
 %\VignetteKeywords{RProtoBuf, Protocol Buffers, package}
 %\VignetteDepends{RProtoBuf}
-\usepackage{thumbpdf,listings,booktabs} 
+\usepackage{thumbpdf,listings,booktabs}
 \graphicspath{{figures/}}
 \shortcites{sciencecloud,janus,dremel,nlme}
 
@@ -20,7 +20,7 @@
 
 
 % Articles with many authors we should shorten to FirstAuthor, et al.
-\author{Dirk Eddelbuettel\\Debian Project \And 
+\author{Dirk Eddelbuettel\\Debian Project \And
         Murray Stokely\\Google, Inc \And
         Jeroen Ooms\\University of California,\\Los Angeles}
 \Plainauthor{Dirk Eddelbuettel, Murray Stokely, Jeroen Ooms}
@@ -77,7 +77,7 @@
   1600 Amphitheatre Parkway\\
   Mountain View, CA, United States of America\\
   E-mail: \email{murray@stokely.org}\\
-  URL: \url{http://www.stokely.org/}\\
+  URL: \url{https://github.com/murraystokely/}\\
 
   Jeroen Ooms\\
   UCLA Department of Statistics\\
@@ -125,28 +125,28 @@ now.date <- strftime(Sys.Date(), "%B %d, %Y")
 %%     guarantees better line breaks
 <<echo=FALSE,print=FALSE>>=
 ## cf http://www.jstatsoft.org/style#q12
-options(prompt = "R> ", 
-        continue = "+  ", 
-        width = 70, 
-        useFancyQuotes = FALSE, 
+options(prompt = "R> ",
+        continue = "+  ",
+        width = 70,
+        useFancyQuotes = FALSE,
         digits = 4)
 @
 
 \maketitle
 
-\section{Introduction} 
+\section{Introduction}
 
 Modern data collection and analysis pipelines increasingly involve collections
-of decoupled components in order to better manage software complexity 
+of decoupled components in order to better manage software complexity
 through reusability, modularity, and fault isolation \citep{Wegiel:2010:CTT:1932682.1869479}.
-These pipelines are frequently built using different programming 
+These pipelines are frequently built using different programming
 languages for the different phases of data analysis -- collection,
 cleaning, modeling, analysis, post-processing, and
 presentation -- in order to take advantage of the unique combination of
 performance, speed of development, and library support offered by
 different environments and languages.  Each stage of such a data
 analysis pipeline may produce intermediate results that need to be
-stored in a file, or sent over the network for further processing. 
+stored in a file, or sent over the network for further processing.
 
 Given these requirements, how do we safely and efficiently share
 intermediate results between different applications, possibly written
@@ -228,7 +228,7 @@ Section~\ref{sec:summary} concludes.
 \makeatletter
 \if@nojss
   This vignette corresponds to the paper published in the \textsl{Journal of
-    Statistical Software}. For citations, please see the output of \proglang{R} 
+    Statistical Software}. For citations, please see the output of \proglang{R}
   function \texttt{citation("RProtoBuf")}.
 
   This version corresponds to \pkg{RProtoBuf} version \Sexpr{rprotobuf.version} and was
@@ -284,8 +284,8 @@ specifying whether the field is optional, required, or repeated.  The
 supported value types are numbers, enumerations, booleans, strings,
 raw bytes, or other nested message types.  The \code{.proto} file
 syntax for defining the structure of Protocol Buffer data is described
-comprehensively on Google Code at
-  \url{http://code.google.com/apis/protocolbuffers/docs/proto.html}.
+comprehensively at \url{https://protobuf.dev/programming-guides/proto/}.
+
 Table~\ref{tab:proto} shows an example \code{.proto} file that defines
 the \code{tutorial.Person} type\footnote{The compound name
   \code{tutorial.Person} in \proglang{R} is derived from the name of
@@ -310,7 +310,7 @@ message Person {
   required int32 id = 2;
   optional string email = 3;
   enum PhoneType {
-    MOBILE = 0; 
+    MOBILE = 0;
     HOME = 1;
     WORK = 2;
   }
@@ -527,9 +527,9 @@ allows the package to dispatch methods that are not generic in the
 \proglang{S}3 sense, such as \code{new} and \code{serialize}.
 
 The \pkg{Rcpp} package
-\citep{eddelbuettel2011rcpp,eddelbuettel2013seamless} is used to 
+\citep{eddelbuettel2011rcpp,eddelbuettel2013seamless} is used to
 facilitate this integration of the \proglang{R} and \proglang{C++} code for these objects.
-Each method is wrapped individually which allows us to add 
+Each method is wrapped individually which allows us to add
 user-friendly custom error handling, type coercion, and performance
 improvements at the cost of a more verbose implementation.
 The \pkg{RProtoBuf} package in many ways motivated
@@ -604,7 +604,7 @@ to retrieve descriptors that are contained in the descriptor, or
 invoke methods.
 
 When \pkg{RProtoBuf} is first loaded it calls
-\code{readProtoFiles} which reads in the example file \code{addressbook.proto} 
+\code{readProtoFiles} which reads in the example file \code{addressbook.proto}
 included with the package.  The \code{tutorial.Person} descriptor
 and all other descriptors defined in the loaded \code{.proto} files are
 then available on the search path\footnote{This explains why the example in
@@ -615,7 +615,7 @@ Table~\ref{tab:proto} lacked an explicit call to
 \label{subsec-field-descriptor}
 
 <<>>=
-tutorial.Person$email 
+tutorial.Person$email
 tutorial.Person$email$is_required()
 tutorial.Person$email$type()
 tutorial.Person$email$as.character()
@@ -667,7 +667,7 @@ file descriptor for package tutorial \
 R> f$Person
 \end{Sinput}
 \begin{Soutput}
-descriptor for type 'tutorial.Person' 
+descriptor for type 'tutorial.Person'
 \end{Soutput}
 \end{Schunk}
 
@@ -718,7 +718,7 @@ message & \code{S4} object of class \code{Message} & \code{list} of \code{S4} ob
   \proglang{R} type retrieved by the extractors. \proglang{R} lacks native
   64-bit integers, so the \code{RProtoBuf.int64AsString} option is
   available to return large integers as characters to avoid losing
-  precision; see Section~\ref{sec:int64} below. 
+  precision; see Section~\ref{sec:int64} below.
   All but the \code{Message} type can be represented in vectors of one or
   more elements; for the latter a list is used.}
 \end{table}
@@ -779,10 +779,10 @@ distinct integer variables:
 2^53 == (2^53 + 1)
 @
 
-Most modern languages do have support for 64-bit integer values, 
-which becomes problematic when \pkg{RProtoBuf} is used to exchange data 
-with a system that requires this integer type. To work around this, 
-\pkg{RProtoBuf} allows users to get and set 64-bit integer values by specifying 
+Most modern languages do have support for 64-bit integer values,
+which becomes problematic when \pkg{RProtoBuf} is used to exchange data
+with a system that requires this integer type. To work around this,
+\pkg{RProtoBuf} allows users to get and set 64-bit integer values by specifying
 them as character strings.
 
 On 64-bit platforms, character strings representing large decimal
@@ -1045,15 +1045,15 @@ initial release in 2010, hundreds of Google's statisticians and
 software engineers use the \pkg{RProtoBuf} package on a daily basis
 to interact with these systems from within \proglang{R}.
 The current section illustrates the power of Protocol Buffers to
-collect and manage large structured data in one language 
+collect and manage large structured data in one language
 before analyzing it in \proglang{R}. Our example uses MapReduce
 \citep{dean2008mapreduce}, which has emerged in the last
-decade as a popular design pattern to facilitate parallel 
+decade as a popular design pattern to facilitate parallel
 processing of big data using distributed computing clusters.
 
 Big data sets in fields such as particle physics and information
-processing are often stored in binned (histogram) form in order 
-to reduce storage requirements \citep{scott2009multivariate}. 
+processing are often stored in binned (histogram) form in order
+to reduce storage requirements \citep{scott2009multivariate}.
 Because analysis over such large data sets may involve very rare
 phenomenon or deal with highly skewed data sets or inflexible
 raw data storage systems, unbiased sampling is often not feasible.
@@ -1111,15 +1111,15 @@ serialization]{A simple single-machine example for \proglang{Python}
   to \proglang{R} serialization}
 
 To create \code{HistogramState}
-messages in \proglang{Python} for later consumption by \proglang{R}, we first compile the 
+messages in \proglang{Python} for later consumption by \proglang{R}, we first compile the
 \code{histogram.proto} descriptor into a python module using the
 \code{protoc} compiler:
 
 \begin{verbatim}
   protoc histogram.proto --python_out=.
 \end{verbatim}
-This generates a Python module called \code{histogram\_pb2.py}, containing both the 
-descriptor information as well as methods to read and manipulate the histogram 
+This generates a Python module called \code{histogram\_pb2.py}, containing both the
+descriptor information as well as methods to read and manipulate the histogram
 message data.  The following simple Python script uses this generated
 module to create a histogram (to which breakpoints and binned data are
 added), and writes out the Protocol Buffer
@@ -1345,20 +1345,20 @@ val <- do.call(stats::rnorm, fnargs)
 outputmsg <- serialize_pb(val)
 @
 
-\section{Summary}  
+\section{Summary}
 \label{sec:summary}
 Over the past decade, many formats for interoperable
 data exchange have become available, each with its unique features,
-strengths and weaknesses.  
-Text based formats such as CSV and JSON are easy to use, and will likely 
-remain popular among statisticians for many years to come. However, in the 
-context of increasingly complex analysis stacks and applications involving 
-distributed computing as well as mixed language analysis pipelines, choosing a more 
-sophisticated data interchange format may reap considerable benefits. 
+strengths and weaknesses.
+Text based formats such as CSV and JSON are easy to use, and will likely
+remain popular among statisticians for many years to come. However, in the
+context of increasingly complex analysis stacks and applications involving
+distributed computing as well as mixed language analysis pipelines, choosing a more
+sophisticated data interchange format may reap considerable benefits.
 %Protocol Buffers is itself not a protocol.
-%Forward-compatibility is one of the features. No need to re-iterate those 
-The Protocol Buffers standard and library offer a unique combination of features, 
-performance, and maturity, that seems particularly well suited for data-driven 
+%Forward-compatibility is one of the features. No need to re-iterate those
+The Protocol Buffers standard and library offer a unique combination of features,
+performance, and maturity, that seems particularly well suited for data-driven
 applications and numerical computing.
 
 The \pkg{RProtoBuf} package builds on the Protocol Buffers

@@ -21,4 +21,4 @@ RProtoBuf-paper.pdf:	RProtoBuf-paper.Rnw
 			cp -vax $@ ..
 
 clean:
-			@rm -rf *.aux *.log *.out *.tex *.pdf RPrototBuf-*_cache pinp.cls
+			@rm -rf *.aux *.log *.out *.tex *.pdf *.bbl *.blg RPrototBuf-*_cache pinp.cls auto/

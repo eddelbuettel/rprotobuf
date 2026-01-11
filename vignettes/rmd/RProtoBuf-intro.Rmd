@@ -17,7 +17,7 @@ address:
   - code: b
     address: \url{https://github.com/romainfrancois}
   - code: c
-    address: \url{https://stokely.org}
+    address: \url{https://github.com/murraystokely}
 
 # For footer text
 lead_author_surname: Eddelbuettel, François and Stokely
@@ -95,28 +95,28 @@ between three to ten times \textsl{smaller}, between twenty and one hundred
 times \textsl{faster}, as well as less ambiguous and easier to program.
 
 The Protocol Buffers code is released under an open-source (BSD) license. The
-Protocol Buffer project (\url{http://code.google.com/p/protobuf/})
+Protocol Buffer project (\url{https://protobuf.dev})
 contains a C++ library and a set of runtime libraries and compilers for
 C++, Java and Python.
 
 With these languages, the workflow follows standard practice of so-called
 Interface Description Languages (IDL)
-(c.f. \href{http://en.wikipedia.org/wiki/Interface_description_language}{Wikipedia
+(c.f. \href{https://en.wikipedia.org/wiki/Interface_description_language}{Wikipedia
   on IDL}).  This consists of compiling a Protocol Buffer description file
 (ending in \texttt{.proto}) into language specific classes that can be used
 to create, read, write and manipulate Protocol Buffer messages. In other
 words, given the 'proto' description file, code is automatically generated
 for the chosen target language(s). The project page contains a tutorial for
 each of these officially supported languages:
-\url{http://code.google.com/apis/protocolbuffers/docs/tutorials.html}
+\url{https://protobuf.dev/getting-started/}
 
 Besides the officially supported C++, Java and Python implementations, several projects have been
 created to support Protocol Buffers for many languages. The list of known
 languages to support protocol buffers is compiled as part of the
-project page: \url{http://code.google.com/p/protobuf/wiki/ThirdPartyAddOns}
+project page: \url{https://github.com/protocolbuffers/protobuf/blob/main/docs/third_party.md}
 
 The Protocol Buffer project page contains a comprehensive
-description of the language: \url{http://code.google.com/apis/protocolbuffers/docs/proto.html}
+description of the language: \url{https://protobuf.dev/programming-guides/proto/}.
 
 # Basic use: Protocol Buffers and R
 
@@ -372,7 +372,7 @@ described on the Table~\ref{Message-class-table}.
 \hline
 \texttt{pointer} & external pointer to the \texttt{Message} object of the C++ proto library. Documentation for the
 \texttt{Message} class is available from the protocol buffer project page:
-\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.message.html#Message} \\
+\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.message.html#Message} \\
 \hline
 \texttt{type} & fully qualified path of the message. For example a \texttt{Person} message
 has its \texttt{type} slot set to \texttt{tutorial.Person} \\
@@ -888,7 +888,7 @@ the slots \texttt{pointer} and \texttt{type} :
 \hline
 \texttt{pointer} & external pointer to the \texttt{Descriptor} object of the C++ proto library. Documentation for the
 \texttt{Descriptor} class is available from the protocol buffer project page:
-\url{http://code.google.com/apis/protocolbuffers/docs/reference/cpp/google.protobuf.descriptor.html#Descriptor} \\
+\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.descriptor.html#Descriptor} \\
 \hline
 \texttt{type} & fully qualified path of the message type. \\
 \hline
@@ -1739,7 +1739,7 @@ the slots \texttt{pointer}, \texttt{filename}, and \texttt{package} :
 \hline
 \texttt{pointer} & external pointer to the \texttt{FileDescriptor} object of the C++ proto library. Documentation for the
 \texttt{FileDescriptor} class is available from the protocol buffer project page:
-\url{http://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.descriptor.html#FileDescriptor} \\
+\url{https://protobuf.dev/reference/cpp/api-docs/google.protobuf.descriptor.html#FileDescriptor} \\
 \hline
 \texttt{filename} & fully qualified pathname of the \texttt{.proto} file.\\
 \hline
@@ -1987,7 +1987,7 @@ Extensions allow you to declare a range of field numbers in a message
 that are available for extension types.  This allows others to declare
 new fields for a given message type possibly in their own
 \texttt{.proto} files without having to edit the original file.  See
-\url{https://protobuf.dev/docs/proto#extensions}.
+\url{https://github.com/jeroenooms/RProtoBufUtils}.
 
 Notice that the last line of the \texttt{Person} message schema in
 \texttt{addressbook.proto} is the following line :
@@ -2172,14 +2172,13 @@ so as not to conflict with the type name.
 Saptarshi Guha wrote another package that deals with integration
 of Protocol Buffer messages with R, taking a different angle:
 serializing any R object as a message, based on a single catch-all
-\texttt{proto} file.  Saptarshi's package is available at
-\url{http://ml.stat.purdue.edu/rhipe/doc/html/ProtoBuffers.html}.
+\texttt{proto} file.
 
 Jeroen Ooms took a similar approach influenced by Saptarshi in his
 \texttt{RProtoBufUtils} package.  Unlike Saptarshi's package,
 RProtoBufUtils depends on RProtoBuf for underlying message operations.
 This package is available at
-\url{https://github.com/jeroenooms/RProtoBufUtils}.
+\url{https://github.com/murraystokely/RProtoBufUtils}.
 
 <!--
 % Phillip Yelland wrote another implementation, currently proprietary,
