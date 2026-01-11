@@ -15,7 +15,7 @@ jobs:
     container:
       image: alpine:3.22
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: System Dependencies
         run: apk add --no-cache R R-doc R-dev g++ protobuf-dev
       - name: Session Info
