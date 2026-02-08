@@ -80,7 +80,7 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 
 export( "P", "readProtoFiles", "readProtoFiles2", "resetDescriptorPool", "asMessage" )
 
-if( exists( ".DollarNames", asNamespace("utils") ) ) importFrom( utils, .DollarNames )
+importFrom( utils, .DollarNames )
 S3method(.DollarNames, Message )
 S3method(.DollarNames, Descriptor )
 S3method(.DollarNames, EnumDescriptor )
