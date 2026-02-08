@@ -1,6 +1,11 @@
 2026-02-08  Michael Chirico <chiricom@google.com>
 
-    * NAMESPACE: drop exists() check for R 3.0.0's utils::.DollarNames
+	* NAMESPACE: drop exists() check for R 3.0.0's utils::.DollarNames
+
+2026-01-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Remove long-obsolete versioned Depends for R (>=
+	3.0.0) and move 'methods' to 'Imports:'
 
 2026-01-11  Dirk Eddelbuettel  <edd@debian.org>
 

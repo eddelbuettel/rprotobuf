@@ -78,37 +78,37 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 
 	)
 
-export( "P", "readProtoFiles", "readProtoFiles2", "resetDescriptorPool", "asMessage" )
+export("P", "readProtoFiles", "readProtoFiles2", "resetDescriptorPool", "asMessage")
 
-importFrom( utils, .DollarNames )
-S3method(.DollarNames, Message )
-S3method(.DollarNames, Descriptor )
-S3method(.DollarNames, EnumDescriptor )
-S3method(.DollarNames, EnumValueDescriptor )
-S3method(.DollarNames, FileDescriptor )
-S3method(.DollarNames, FieldDescriptor )
-S3method(.DollarNames, ServiceDescriptor )
-S3method(.DollarNames, MethodDescriptor )
-S3method(.DollarNames, ZeroCopyInputStream  )
-S3method(.DollarNames, ZeroCopyOutputStream )
+importFrom(utils, .DollarNames)
+S3method(.DollarNames, Message)
+S3method(.DollarNames, Descriptor)
+S3method(.DollarNames, EnumDescriptor)
+S3method(.DollarNames, EnumValueDescriptor)
+S3method(.DollarNames, FileDescriptor)
+S3method(.DollarNames, FieldDescriptor)
+S3method(.DollarNames, ServiceDescriptor)
+S3method(.DollarNames, MethodDescriptor)
+S3method(.DollarNames, ZeroCopyInputStream)
+S3method(.DollarNames, ZeroCopyOutputStream)
 
-S3method( with, Message )
-S3method( within, Message)
+S3method(with, Message)
+S3method(within, Message)
 
-S3method( as.list, Message )
-S3method( as.list, Descriptor )
-S3method( as.list, EnumDescriptor )
-S3method( as.list, FileDescriptor )
-S3method( as.list, ServiceDescriptor )
+S3method(as.list, Message)
+S3method(as.list, Descriptor)
+S3method(as.list, EnumDescriptor)
+S3method(as.list, FileDescriptor)
+S3method(as.list, ServiceDescriptor)
 
-S3method( all.equal, Message )
+S3method(all.equal, Message)
 
 # constants
-exportPattern( "^TYPE_" )
-exportPattern( "^CPPTYPE_" )
-exportPattern( "^LABEL_" )
+exportPattern("^TYPE_")
+exportPattern("^CPPTYPE_")
+exportPattern("^LABEL_")
 
 # copied from RProtoBufUtils
-export( "serialize_pb", "unserialize_pb", "can_serialize_pb" )
+export("serialize_pb", "unserialize_pb", "can_serialize_pb")
 
-# export( run_unit_tests )
+# export(run_unit_tests)
