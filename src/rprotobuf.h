@@ -121,7 +121,7 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 #define GET_ENUM_VALUE_DESCRIPTOR_POINTER_FROM_S4(m) (GPB::EnumValueDescriptor*) R_ExternalPtrAddr(GET_SLOT(m, Rf_install("pointer")))
 
 #define COPYSTRING(s) s
-#define THROW_SOCKET_ERROR(message) Rf_error("%s : %s", message, strerror(sockerrno))
+#define THROW_SOCKET_ERROR(message) Rcpp::stop("%s : %s", message, strerror(sockerrno))
 
 #define XPP R_ExternalPtrAddr
 

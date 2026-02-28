@@ -24,7 +24,7 @@ SEXP ZeroCopyInputStream_BackUp(SEXP xp, SEXP size) {
     GPB::io::ZeroCopyInputStream* stream = GET_ZCIS(xp);
     int s = GET_int(size, 0);
     if (s <= 0) {
-        Rf_error("can only BackUp with positive numbers");
+        Rcpp::stop("can only BackUp with positive numbers");
     }
     stream->BackUp(s);
     return R_NilValue;

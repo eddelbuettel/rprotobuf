@@ -1,3 +1,11 @@
+2026-02-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/lookup.cpp (rProtoBufTable_remove): Replace Rf_error() with
+	Rcpp::stop which is preferred for proper unwinding
+	* src/rprotobuf.h (THROW_SOCKET_ERROR): Idem
+	* src/wrapper_ZeroCopyInputStream.cpp (ZeroCopyInputStream_BackUp): Idem
+	* src/std.lnt: Remove Rf_error reference
+
 2026-02-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
