@@ -1,8 +1,8 @@
 2026-02-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/lookup.cpp (rProtoBufTable_remove): Replace Rf_error() with
+	* src/lookup.cpp (rProtoBufTable_remove): Wrap Rf_error() in parentheses
+	* src/rprotobuf.h (THROW_SOCKET_ERROR): Replace Rf_error() with
 	Rcpp::stop which is preferred for proper unwinding
-	* src/rprotobuf.h (THROW_SOCKET_ERROR): Idem
 	* src/wrapper_ZeroCopyInputStream.cpp (ZeroCopyInputStream_BackUp): Idem
 	* src/std.lnt: Remove Rf_error reference
 
