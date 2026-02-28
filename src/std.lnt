@@ -57,7 +57,6 @@
 // http://www.gimpel.com/Discussion.cfm?ThreadID=4476
 -function(exit, Rcpp::stop)
 -function(exit, Rcpp_error)
--function(exit, Rf_error)
 
 // 527 unreachable code, sometimes we return for the benefit of -Wall with
 // less sophisticated tools.
@@ -68,7 +67,7 @@
 -e725
 
 // 27: illegal character, lets just ignore for anything in /usr/include
-// e.g. There are some dtrace probes in /usr/include/c++/4.2.1/bits/os_defines.h on MacOS X that include 
+// e.g. There are some dtrace probes in /usr/include/c++/4.2.1/bits/os_defines.h on MacOS X that include
 
 -efile(27, "/usr/include/*")
 -esym(27, "__dtrace*")

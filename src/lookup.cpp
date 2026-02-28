@@ -140,7 +140,7 @@ int rProtoBufTable_remove(const char *const unused_name, R_ObjectTable *unused_t
 #ifdef LOOKUP_DEBUG
     Rprintf("  >> rProtoBufTable_remove( %s) \n", unused_name);
 #endif
-    Rf_error("cannot remove from protobuf descriptor pool");
+    (Rf_error)("cannot remove from protobuf descriptor pool");
     return (0);  // make -Wall happy
 }
 
