@@ -16,7 +16,7 @@ Description: Protocol Buffers are a way of encoding structured data in an
  is available in two included vignettes one of which corresponds to our 'JSS'
  paper (2016, <doi:10.18637/jss.v071.i02>. A sufficiently recent version of
  'Protocol Buffers' library is required; currently version 3.3.0 from 2017
- is the stated minimum.
+ is the tested minimum.
 Imports: methods, utils, stats, tools, Rcpp
 LinkingTo: Rcpp
 Suggests: tinytest

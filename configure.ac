@@ -1,7 +1,7 @@
 
 ## RProtoBuf configure.ac
 ##
-## Copyright (C) 2009 - 2026  Dirk Eddelbuettel <edd@debian.org>
+## Copyright (C) 2009-2026  Dirk Eddelbuettel <edd@debian.org>
 ## Portions Copyright (C) 2010  Romain Francois
 ## Portions Copyright (C) 2013  Murray Stokely
 ## Portions Copyright (C) 2016  Craig Radcliffe
@@ -10,7 +10,7 @@
 AC_PREREQ(2.61)
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([RProtoBuf], [0.4.25],[edd@debian.org])
+AC_INIT([RProtoBuf], [0.4.26],[edd@debian.org])
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
@@ -94,11 +94,11 @@ AC_CHECK_HEADER(google/protobuf/compiler/code_generator.h,,
 LIBS="$LIBS $protobuf_libs"
 
 ## also check for minimum version
-AC_MSG_CHECKING([if ProtoBuf version >= 2.2.0])
+AC_MSG_CHECKING([if ProtoBuf version >= 3.3.0])
 AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <google/protobuf/stubs/common.h>
 int main() {
-   if (GOOGLE_PROTOBUF_VERSION >= 2001000) {
+   if (GOOGLE_PROTOBUF_VERSION >= 3003000) {
         exit (0);
    } else {
         exit(1);
@@ -109,7 +109,7 @@ int main() {
 [pb_version_ok=no],
 [pb_version_ok=yes])
 if test x"${pb_version_ok}" = x"no"; then
-    AC_MSG_ERROR([Need ProtoBuf version >= 2.2.0])
+    AC_MSG_ERROR([Need ProtoBuf version >= 3.3.0])
 else
     AC_MSG_RESULT([yes])
 fi
