@@ -9,7 +9,7 @@
     \item Remove obsolete check for \code{utils::.DollarNames} (Michael
     Chirico in \ghpr{111})
     \item Replace \code{Rf_error} with \code{Rcpp::stop}, turn remaining one
-    into \code{(Rf_error)} (Dirk in \code{112})
+    into \code{(Rf_error)} (Dirk in \ghpr{112})
     \item Update \code{configure} test to check for RProtoBuf 3.3.0 or later
   }
 }
