@@ -68,11 +68,6 @@ setMethod( "cpp_type", "FieldDescriptor", function(object, as.string = FALSE){
         }
 } )
 
-LABEL_OPTIONAL <- 1L
-LABEL_REQUIRED <- 2L
-LABEL_REPEATED <- 3L
-.LABELS <- sapply(ls( pattern="^LABEL_" ), function(x) get(x))
-
 setGeneric( "is_repeated", function(object ){
 	standardGeneric( "is_repeated" )
 } )

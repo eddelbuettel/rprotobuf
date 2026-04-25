@@ -106,7 +106,6 @@ S3method(all.equal, Message)
 # constants
 exportPattern("^TYPE_")
 exportPattern("^CPPTYPE_")
-exportPattern("^LABEL_")
 
 # copied from RProtoBufUtils
 export("serialize_pb", "unserialize_pb", "can_serialize_pb")
