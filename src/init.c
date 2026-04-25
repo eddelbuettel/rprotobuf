@@ -82,10 +82,8 @@ extern SEXP FieldDescriptor__enum_type(SEXP);
 extern SEXP FieldDescriptor__fileDescriptor(SEXP);
 extern SEXP FieldDescriptor__has_default_value(SEXP);
 extern SEXP FieldDescriptor__is_extension(SEXP);
-extern SEXP FieldDescriptor__is_optional(SEXP);
 extern SEXP FieldDescriptor__is_repeated(SEXP);
 extern SEXP FieldDescriptor__is_required(SEXP);
-extern SEXP FieldDescriptor__label(SEXP);
 extern SEXP FieldDescriptor__message_type(SEXP);
 extern SEXP FieldDescriptor__name(SEXP, SEXP);
 extern SEXP FieldDescriptor__number(SEXP);
@@ -239,10 +237,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"FieldDescriptor__fileDescriptor",          (DL_FUNC) &FieldDescriptor__fileDescriptor,           1},
     {"FieldDescriptor__has_default_value",       (DL_FUNC) &FieldDescriptor__has_default_value,        1},
     {"FieldDescriptor__is_extension",            (DL_FUNC) &FieldDescriptor__is_extension,             1},
-    {"FieldDescriptor__is_optional",             (DL_FUNC) &FieldDescriptor__is_optional,              1},
     {"FieldDescriptor__is_repeated",             (DL_FUNC) &FieldDescriptor__is_repeated,              1},
     {"FieldDescriptor__is_required",             (DL_FUNC) &FieldDescriptor__is_required,              1},
-    {"FieldDescriptor__label",                   (DL_FUNC) &FieldDescriptor__label,                    1},
     {"FieldDescriptor__message_type",            (DL_FUNC) &FieldDescriptor__message_type,             1},
     {"FieldDescriptor__name",                    (DL_FUNC) &FieldDescriptor__name,                     2},
     {"FieldDescriptor__number",                  (DL_FUNC) &FieldDescriptor__number,                   1},

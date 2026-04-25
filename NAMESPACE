@@ -48,8 +48,8 @@ exportMethods( "new", "[[", "[[<-", "$", "$<-", "show",
 	"field", "nested_type", "enum_type",
 
 	# FieldDescriptor
-	"is_extension", "number", "label",
-	"is_required", "is_repeated", "is_optional",
+	"is_extension", "number",
+	"is_required", "is_repeated",
 	"has_default_value", "default_value",
 	"message_type", "enum_type", "type", "cpp_type",
 
@@ -106,7 +106,6 @@ S3method(all.equal, Message)
 # constants
 exportPattern("^TYPE_")
 exportPattern("^CPPTYPE_")
-exportPattern("^LABEL_")
 
 # copied from RProtoBufUtils
 export("serialize_pb", "unserialize_pb", "can_serialize_pb")

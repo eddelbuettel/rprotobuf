@@ -48,19 +48,11 @@ expect_equal(type(Person$id, TRUE), "TYPE_INT32", info="type int32 as char")
 expect_equal(cpp_type(Person$email), CPPTYPE_STRING, info="cpptype string")
 expect_equal(cpp_type(Person$email, TRUE), "CPPTYPE_STRING", info="cpptype string as char")
 
-## Get the label of a field descriptor
-expect_equal(label(Person$id), LABEL_REQUIRED, info="label required")
-expect_equal(label(Person$id, TRUE), "LABEL_REQUIRED", info="label required as char")
-expect_equal(label(Person$email), LABEL_OPTIONAL, info="label optional")
-expect_equal(label(Person$email, TRUE), "LABEL_OPTIONAL", info="label optional as char")
-
 ## Test if a field is optional
 expect_true(is_required(Person$id), info="id is required")
-expect_true(!is_optional(Person$id), info="id is not optional")
 expect_true(!is_repeated(Person$id), info="id is not repeated")
 
 expect_true(!is_required(Person$email), info="email is not required")
-expect_true(is_optional(Person$email), info="email is optional")
 expect_true(!is_repeated(Person$email), info="email is not repeated")
 
 ## Return the class of a message field

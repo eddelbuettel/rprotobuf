@@ -11,16 +11,12 @@
 \alias{number,FieldDescriptor-method}
 \alias{type,FieldDescriptor-method}
 \alias{cpp_type,FieldDescriptor-method}
-\alias{label,FieldDescriptor-method}
 
 \alias{is_required}
-\alias{is_optional}
 \alias{is_repeated}
 \alias{is_required-methods}
-\alias{is_optional-methods}
 \alias{is_repeated-methods}
 \alias{is_required,FieldDescriptor-method}
-\alias{is_optional,FieldDescriptor-method}
 \alias{is_repeated,FieldDescriptor-method}
 
 \alias{has_default_value}
@@ -66,9 +62,7 @@ Objects typically are retrieved from \linkS4class{FieldDescriptor}
     \item{number}{\code{signature(object = "FieldDescriptor")} : gets the declared tag number of this field.}
 	\item{type}{\code{signature(object = "FieldDescriptor")} : type of this field.}
 	\item{cpp_type}{\code{signature(object = "FieldDescriptor")} : c++ type of this field.}
-	\item{label}{\code{signature(object = "FieldDescriptor")} : label of this field.}
 	\item{is_required}{\code{signature(object = "FieldDescriptor")} : is this field required.}
-	\item{is_optional}{\code{signature(object = "FieldDescriptor")} : is this field optional.}
 	\item{is_repeated}{\code{signature(object = "FieldDescriptor")} : is this field repeated.}
 	\item{has_default_value}{\code{signature(object = "FieldDescriptor")} : indicates if this field has a default value.}
 	\item{default_value}{\code{signature(object = "FieldDescriptor")} : the default value of this field.}
@@ -101,7 +95,6 @@ as.character( Person$email )
 Person$email$as.character()
 
 Person$email$is_required()
-Person$email$is_optional()
 Person$email$is_repeated()
 
 Person$email$has_default_value()
@@ -122,22 +115,6 @@ type(Person$id)
 type(Person$id, as.string=TRUE)
 cpp_type(Person$email)
 cpp_type(Person$email, TRUE)
-
-# Get the label of a field descriptor
-label(Person$id)
-label(Person$email)
-label(Person$phone)
-label(Person$id, TRUE)
-label(Person$email, TRUE)
-label(Person$phone, TRUE)
-LABEL_OPTIONAL
-LABEL_REQUIRED
-LABEL_REPEATED
-
-# Test if a field is optional
-is_optional(Person$id)
-is_optional(Person$email)
-is_optional(Person$phone)
 
 # Test if a field is repeated
 is_repeated(Person$id)

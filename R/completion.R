@@ -62,8 +62,8 @@ if( !exists( ".DollarNames", envir = asNamespace("utils") ) ){
 .DollarNames.FieldDescriptor <- function(x, pattern = "" ){
 	names <- c("as.character()", "toString()", "name(",
 		"fileDescriptor()", "containing_type()",
-		"is_extension()", "number()", "type(", "cpp_type(", "label(",
-		"is_repeated()", "is_required()", "is_optional()",
+		"is_extension()", "number()", "type(", "cpp_type(",
+		"is_repeated()", "is_required()",
 		"message_type()", "enum_type()", "asMessage()",
 		"has_default_value()", "default_value("
 	)

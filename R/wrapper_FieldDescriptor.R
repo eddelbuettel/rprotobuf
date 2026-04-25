@@ -68,35 +68,11 @@ setMethod( "cpp_type", "FieldDescriptor", function(object, as.string = FALSE){
         }
 } )
 
-LABEL_OPTIONAL <- 1L
-LABEL_REQUIRED <- 2L
-LABEL_REPEATED <- 3L
-.LABELS <- sapply(ls( pattern="^LABEL_" ), function(x) get(x))
-
-setGeneric( "label", function(object, as.string = FALSE ){
-	standardGeneric( "label" )
-} )
-setMethod( "label", "FieldDescriptor", function(object, as.string = FALSE){
-	lab <- .Call(FieldDescriptor__label, object@pointer)
-	if( as.string ) {
-                names(which(.LABELS == lab))
-        } else {
-                lab
-        }
-} )
-
 setGeneric( "is_repeated", function(object ){
 	standardGeneric( "is_repeated" )
 } )
 setMethod( "is_repeated", "FieldDescriptor", function(object){
 	.Call(FieldDescriptor__is_repeated, object@pointer)
-} )
-
-setGeneric( "is_optional", function(object){
-	standardGeneric( "is_optional" )
-} )
-setMethod( "is_optional", "FieldDescriptor", function(object){
-	.Call(FieldDescriptor__is_optional, object@pointer)
 } )
 
 setGeneric( "is_required", function(object ){
