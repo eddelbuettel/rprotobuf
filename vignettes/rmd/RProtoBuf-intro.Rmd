@@ -1329,21 +1329,6 @@ cpp_type( tutorial.Person$id )
 tutorial.Person$id$cpp_type()
 ```
 
-### The label method
-\label{fielddescriptor-method-label}
-
-Gets the label of a field (optional, required, or repeated).
-The \texttt{label} method returns the label of a field (optional,
-required, or repeated).  By default it returns a number value, but the
-optional \texttt{as.string} argument can be provided to return a
-human readable string representation.
-
-```{r labelmethod2}
-label(tutorial.Person$id)
-label(tutorial.Person$id, TRUE)
-tutorial.Person$id$label(TRUE)
-```
-
 ### The is_repeated method
 \label{fielddescriptor-method-isrepeated}
 
@@ -1362,16 +1347,6 @@ The \texttt{is\_required} method returns TRUE if this field is required.
 ```{r isrequiredmethod2}
 is_required( tutorial.Person$id )
 tutorial.Person$id$is_required()
-```
-
-### The is_optional method
-\label{fielddescriptor-method-isoptional}
-
-The \texttt{is\_optional} method returns TRUE if this field is optional.
-
-```{r isoptionalmethod2}
-is_optional(tutorial.Person$id)
-tutorial.Person$id$is_optional()
 ```
 
 ### The has_default_value method
