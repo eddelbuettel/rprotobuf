@@ -1,3 +1,16 @@
+2026-04-25  Luca Billi  <noreply.section+dev@gmail.com>
+
+	* NAMESPACE: Remove methods dropped in protobuf >= 34
+	* R/00classes.R: Idem
+	* R/completion.R: Idem
+	* R/wrapper_FieldDescriptor.R: Idem
+	* inst/tinytest/test_fielddescriptor.R: Idem
+	* man/FieldDescriptor-class.Rd: Idem
+	* man/label.Rd: Idem
+	* src/init.c: Idem
+	* src/wrapper_FieldDescriptor.cpp: Idem
+	* vignettes/rmd/RProtoBuf-intro.Rmd: Idem
+
 2026-03-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.4.26
