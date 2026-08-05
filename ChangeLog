@@ -1,3 +1,7 @@
+2026-08-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/type.Rd: As \usage{} field
+
 2026-06-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/docker.yaml: Update actions

@@ -40,6 +40,9 @@
 \description{
 Gets the type or the C++ type of a field
 }
+\usage{
+type(object, as.string=FALSE)
+}
 \arguments{
   \item{object}{A \linkS4class{FieldDescriptor} object.}
   \item{as.string}{If true, print a string representation of the type.}
