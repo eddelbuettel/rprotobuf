@@ -1,3 +1,18 @@
+2026-08-14  Troy Hernandez  <troy@cornball.ai>
+
+	* src/init.c: Register the ServiceDescriptor method_count, length,
+	getMethodByIndex, and getMethodByName routines (fixes #116)
+	* src/wrapper_ServiceDescriptor.cpp: Bounds-checked getMethodByIndex
+	and getMethodByName returning NULL on a miss, following the
+	EnumDescriptor accessors
+	* src/rprotobuf.h: Correct stale single-underscore declarations
+	* R/wrapper_ServiceDescriptor.R: method_count calls the registered
+	routine; method() resolves by index (1-based) or by name
+	* R/00classes.R: length() of a ServiceDescriptor calls the
+	registered routine
+	* inst/tinytest/test_servicedescriptor.R: New tests for the
+	ServiceDescriptor method accessors
+
 2026-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

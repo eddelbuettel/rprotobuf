@@ -11,9 +11,22 @@ RPB_XP_METHOD_0(METHOD(length), GPB::ServiceDescriptor, method_count)
 RPB_XP_METHOD_0(METHOD(method_count), GPB::ServiceDescriptor, method_count)
 RPB_XP_METHOD_0(METHOD(as_character), GPB::ServiceDescriptor, DebugString)
 
-RPB_XP_METHOD_CAST_1(METHOD(getMethodByIndex), GPB::ServiceDescriptor, method, S4_MethodDescriptor)
-RPB_XP_METHOD_CAST_1_STRING(METHOD(getMethodByName), GPB::ServiceDescriptor, FindMethodByName,
-                            S4_MethodDescriptor)
+RPB_FUNCTION_2(SEXP, METHOD(getMethodByIndex), Rcpp::XPtr<GPB::ServiceDescriptor> d,
+               int index) {
+    if ((index >= 0) && (index < d->method_count())) {
+        return S4_MethodDescriptor(d->method(index));
+    } else {
+        return R_NilValue;
+    }
+}
+
+RPB_FUNCTION_2(SEXP, METHOD(getMethodByName), Rcpp::XPtr<GPB::ServiceDescriptor> d,
+               std::string name) {
+    const GPB::MethodDescriptor* descriptor = d->FindMethodByName(name);
+    if (descriptor)
+        return S4_MethodDescriptor(descriptor);
+    return R_NilValue;
+}
 
 RPB_FUNCTION_1(Rcpp::CharacterVector, METHOD(getMethodNames),
                Rcpp::XPtr<GPB::ServiceDescriptor> desc) {

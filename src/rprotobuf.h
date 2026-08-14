@@ -170,10 +170,10 @@ void CHECK_values_for_enum(const GPB::FieldDescriptor*, SEXP);
 void CHECK_messages(const GPB::FieldDescriptor*, SEXP);
 
 /* in wrapper_ServiceDescriptor.cpp */
-RcppExport SEXP ServiceDescriptor_length(SEXP);
-RcppExport SEXP ServiceDescriptor_method_count(SEXP);
-RcppExport SEXP ServiceDescriptor_getMethodByIndex(SEXP, SEXP);
-RcppExport SEXP ServiceDescriptor_getMethodByName(SEXP, SEXP);
+RcppExport SEXP ServiceDescriptor__length(SEXP);
+RcppExport SEXP ServiceDescriptor__method_count(SEXP);
+RcppExport SEXP ServiceDescriptor__getMethodByIndex(SEXP, SEXP);
+RcppExport SEXP ServiceDescriptor__getMethodByName(SEXP, SEXP);
 
 /* in streams.cpp */
 void ZeroCopyInputStreamWrapper_finalizer(SEXP);

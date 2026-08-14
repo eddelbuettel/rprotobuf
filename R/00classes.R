@@ -514,7 +514,7 @@ setMethod( "length", "EnumDescriptor", function( x ){
 	.Call( EnumDescriptor__length, x@pointer )
 } )
 setMethod( "length", "ServiceDescriptor", function( x ){
-	.Call("ServiceDescriptor_method_count", x@pointer )
+	.Call( ServiceDescriptor__length, x@pointer )
 } )
 # }}}
 
