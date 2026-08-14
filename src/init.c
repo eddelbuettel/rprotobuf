@@ -153,9 +153,12 @@ extern SEXP ServiceDescriptor__as_character(SEXP);
 extern SEXP ServiceDescriptor__as_list(SEXP);
 extern SEXP ServiceDescriptor__as_Message(SEXP);
 extern SEXP ServiceDescriptor__fileDescriptor(SEXP);
+extern SEXP ServiceDescriptor__getMethodByIndex(SEXP, SEXP);
+extern SEXP ServiceDescriptor__getMethodByName(SEXP, SEXP);
 extern SEXP ServiceDescriptor__getMethodNames(SEXP);
+extern SEXP ServiceDescriptor__length(SEXP);
+extern SEXP ServiceDescriptor__method_count(SEXP);
 extern SEXP ServiceDescriptor__name(SEXP, SEXP);
-/*extern SEXP ServiceDescriptor_method_count(SEXP);*/
 extern SEXP setMessageField(SEXP, SEXP, SEXP);
 extern SEXP update_message(SEXP, SEXP);
 extern SEXP valid_input_message(SEXP, SEXP);
@@ -308,9 +311,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"ServiceDescriptor__as_list",               (DL_FUNC) &ServiceDescriptor__as_list,                1},
     {"ServiceDescriptor__as_Message",            (DL_FUNC) &ServiceDescriptor__as_Message,             1},
     {"ServiceDescriptor__fileDescriptor",        (DL_FUNC) &ServiceDescriptor__fileDescriptor,         1},
+    {"ServiceDescriptor__getMethodByIndex",      (DL_FUNC) &ServiceDescriptor__getMethodByIndex,       2},
+    {"ServiceDescriptor__getMethodByName",       (DL_FUNC) &ServiceDescriptor__getMethodByName,        2},
     {"ServiceDescriptor__getMethodNames",        (DL_FUNC) &ServiceDescriptor__getMethodNames,         1},
+    {"ServiceDescriptor__length",                (DL_FUNC) &ServiceDescriptor__length,                 1},
+    {"ServiceDescriptor__method_count",          (DL_FUNC) &ServiceDescriptor__method_count,           1},
     {"ServiceDescriptor__name",                  (DL_FUNC) &ServiceDescriptor__name,                   2},
-/*    {"ServiceDescriptor_method_count",           (DL_FUNC) &ServiceDescriptor_method_count,            1},*/
     {"setMessageField",                          (DL_FUNC) &setMessageField,                           3},
     {"update_message",                           (DL_FUNC) &update_message,                            2},
     {"valid_input_message",                      (DL_FUNC) &valid_input_message,                       2},

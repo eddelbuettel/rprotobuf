@@ -2,7 +2,7 @@ setGeneric( "method_count", function(object ){
 	standardGeneric( "method_count" )
 } )
 setMethod( "method_count", "ServiceDescriptor", function(object){
-	.Call("ServiceDescriptor_method_count", object@pointer)
+	.Call(ServiceDescriptor__method_count, object@pointer)
 } )
 
 
@@ -19,11 +19,13 @@ setMethod( "method", "ServiceDescriptor", function(object, index, name){
 	}
 
 	if( has_index ){
-		stop( "No routine for getting a method from a ServiceDescriptor by index." )
+		stopifnot(is.numeric(index))
+		return( .Call(ServiceDescriptor__getMethodByIndex, object@pointer, as.integer(index)-1L) )
 	}
 
 	if( has_name ){
-		stop( "No routine for getting a method from a ServiceDescriptor by name." )
+		stopifnot(is.character(name))
+		return( .Call(ServiceDescriptor__getMethodByName, object@pointer, as.character(name)) )
 	}
 
 } )
