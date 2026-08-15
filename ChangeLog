@@ -1,3 +1,7 @@
+2026-08-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppMacros.h: Comment-out two now-obsolete macro defintions
+
 2026-08-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
