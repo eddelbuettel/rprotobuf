@@ -1,3 +1,9 @@
+2026-08-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Switch to actions/checkout@v7
+	* .github/workflows/docker.yaml: Idem
+	* .github/workflows/alpine.yaml: Idem
+
 2026-08-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppMacros.h: Comment-out two now-obsolete macro defintions
