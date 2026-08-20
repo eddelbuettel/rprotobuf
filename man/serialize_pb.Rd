@@ -7,9 +7,11 @@
 \title{Serialize R object to Protocol Buffer Message.}
 \usage{
 serialize_pb(object, connection, ...)
+can_serialize_pb(obj)
+unserialize_pb(connection)
 }
 \arguments{
-\item{object}{R object to serialize}
+\item{object,obj}{R object to serialize}
 
 \item{connection}{passed on to  \code{\link{serialize}}}
 
@@ -39,4 +41,3 @@ obj <- unserialize_pb(msg);
 identical(iris, obj);
 
 }
-

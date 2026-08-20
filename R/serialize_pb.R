@@ -19,8 +19,6 @@
 #' @param connection passed on to  \code{\link{serialize}}
 #' @param ... additional arguments passed on to  \code{\link{serialize}}
 #' @aliases unserialize_pb can_serialize_pb
-#' @export unserialize_pb
-#' @export can_serialize_pb
 #' @export
 #' @examples msg <- tempfile();
 #' serialize_pb(iris, msg);
@@ -36,6 +34,8 @@ serialize_pb <- function(object, connection, ...){
   serialize(msg, connection = connection, ...);
 }
 
+#' @rdname serialize_pb
+#' @export
 unserialize_pb <- function(connection){
 
   #convert object to protobuf message

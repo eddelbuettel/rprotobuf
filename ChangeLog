@@ -4,6 +4,10 @@
 	* .github/workflows/docker.yaml: Idem
 	* .github/workflows/alpine.yaml: Idem
 
+	* man/serialize_pb.Rd: Add usage section
+	* R/serialize_pb.R: Update roxygen snippet
+	* R/rexp_obj.R: Idem
+
 2026-08-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppMacros.h: Comment-out two now-obsolete macro defintions

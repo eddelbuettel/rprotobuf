@@ -173,7 +173,9 @@ pb <- function(name){
   get(descriptor, "RProtoBuf:DescriptorPool")
 }
 
-#Checks if object can be serialized
+##Checks if object can be serialized
+#' @rdname serialize_pb
+#' @export
 can_serialize_pb <- rexp_valid <- function(obj) {
 # We can now serialize everything.  just call back to R serialization
   return(TRUE)
