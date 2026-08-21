@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.28 (2026-08-21)}{
+  \itemize{
+    \item Standard maintenance of continuous integration
+    \item The type help page has received a usage section
+    \item Cleanup of several methods for ServiceDescriptor, correct several
+    other declaration (Troy Hernandez in \ghpr{117} fixing \ghpr{116})
+    \item Adjusted vignette reference to Omegahat paper to alternate location
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.27 (2026-04-26)}{
   \itemize{
     \item Adjust to \code{FieldDescriptor} API changes in ProtoBuf 3.4 (Luca
@@ -216,7 +226,7 @@
 \section{Changes in RProtoBuf version 0.4.7 (2016-10-27)}{
   \itemize{
     \item At the request of CRAN, two documentation instances referring
-    to the Omegehat repository were updated to \url{https://omegahat.net/}
+    to the Omegehat repository were updated
   }
 }
 

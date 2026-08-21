@@ -1,5 +1,9 @@
 2026-08-21  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Release 0.4.28
+	* configure.ac: Idem
+	* configure: Idem
+
 	* vignettes/rmd/RProtoBuf-paper.bib: Redirect URL of vanished paper
 	to a new archival repo at GitHub
 	* vignettes/RProtoBuf-paper.pdf: Re-rendered with updated bib file
