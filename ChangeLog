@@ -1,5 +1,7 @@
 2026-09-22  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 	* configure: Regenerated under autoconf 2.73
 
 2026-08-22  Dirk Eddelbuettel  <edd@debian.org>
