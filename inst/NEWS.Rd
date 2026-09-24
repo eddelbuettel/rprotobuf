@@ -3,6 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rprotobuf/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rprotobuf/issues/#1}{##1}}
 
+\section{Changes in RProtoBuf version 0.4.29 [unreleased] (2026-xx-yy)}{
+  \itemize{
+    \item Regenerate 'configure' under newest 'autoconf' to permit builds on
+    systems requiring this, see \ghit{115}
+  }
+}
+
 \section{Changes in RProtoBuf version 0.4.28 (2026-08-21)}{
   \itemize{
     \item Standard maintenance of continuous integration
