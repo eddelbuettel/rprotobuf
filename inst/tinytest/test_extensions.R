@@ -79,6 +79,16 @@ tmp$bb <- 3
 test$setExtension(protobuf_unittest.optional_nested_message_extension, tmp)
 expect_equal(test$getExtension(protobuf_unittest.optional_nested_message_extension)$bb, 3)
 
+## Test binary serialization and deserialization of extensions.
+parsed <- protobuf_unittest.TestAllExtensions$read(test$serialize(NULL))
+expect_equal(parsed$getExtension(protobuf_unittest.optional_int32_extension), 1L)
+expect_equal(parsed$getExtension(protobuf_unittest.repeated_int32_extension), 1:10)
+expect_equal(parsed$getExtension(protobuf_unittest.TestNestedExtension.test), "foo")
+expect_equal(parsed$getExtension(protobuf_unittest.optional_nested_enum_extension),
+             protobuf_unittest.TestAllTypes.NestedEnum$BAR)
+expect_equal(parsed$getExtension(protobuf_unittest.optional_foreign_message_extension)$c, 3)
+expect_equal(parsed$getExtension(protobuf_unittest.optional_nested_message_extension)$bb, 3)
+
 ## Check that we do something sensible if invalid field descriptors are passed
 expect_error(test$getExtension(protobuf_unittest.TestAllExtensions))
 expect_error(test$setExtension(protobuf_unittest.TestAllExtensions, 3))
@@ -86,4 +96,19 @@ expect_error(test$setExtension(protobuf_unittest.TestAllExtensions, 3))
 ## Check that we don't CHECK fail in C++, but instead give a reasonable
 ## error message if incorrect extensions types are provided.
 expect_error(test$getExtension(protobuf_unittest.my_extension_string))
+
+## Test extension deserialization after resetDescriptorPool().
+resetDescriptorPool()
+unittest.proto.file <- system.file("tinytest", "data", "unittest.proto",
+                                   package="RProtoBuf")
+readProtoFiles(file=unittest.proto.file)
+test_after_reset <- new(protobuf_unittest.TestAllExtensions)
+test_after_reset$setExtension(protobuf_unittest.optional_int32_extension, 42L)
+parsed_after_reset <- protobuf_unittest.TestAllExtensions$read(
+    test_after_reset$serialize(NULL)
+)
+expect_equal(
+    parsed_after_reset$getExtension(protobuf_unittest.optional_int32_extension),
+    42L
+)
 #}
