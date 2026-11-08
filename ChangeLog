@@ -1,3 +1,7 @@
+2026-11-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
 2026-11-08  Randy Lai  <randy.cs.lai@gmail.com>
 
 	* src/DescriptorPoolLookup.cpp: Use zero-argument constructor for
