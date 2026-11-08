@@ -1,5 +1,10 @@
 2026-11-08  Randy Lai  <randy.cs.lai@gmail.com>
 
+	* src/DescriptorPoolLookup.cpp: Use zero-argument constructor for
+	DynamicMessageFactory so extensions are looked up in the extendee
+	descriptor's own DescriptorPool
+	* inst/tinytest/test_extensions.R: Add binary serialize/read roundtrip
+	tests for extensions before and after resetDescriptorPool()
 	* src/rprotobuf.cpp (getFieldDescriptor): Verify FieldDescriptor
 	containing_type() matches message descriptor before returning
 	* src/extensions.cpp (getExtension_cpp): Wrap in BEGIN_RCPP/END_RCPP and

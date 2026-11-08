@@ -36,7 +36,7 @@ RWarningErrorCollector DescriptorPoolLookup::error_collector;
 RSourceTree DescriptorPoolLookup::source_tree;
 GPB::compiler::Importer* DescriptorPoolLookup::importer =
     new GPB::compiler::Importer(&source_tree, &error_collector);
-GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory(importer->pool());
+GPB::DynamicMessageFactory DescriptorPoolLookup::message_factory;
 
 /**
  * Add descriptors from a proto file to the descriptor pool.
