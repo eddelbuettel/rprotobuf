@@ -1,3 +1,12 @@
+2026-11-08  Randy Lai  <randy.cs.lai@gmail.com>
+
+	* src/rprotobuf.cpp (getFieldDescriptor): Verify FieldDescriptor
+	containing_type() matches message descriptor before returning
+	* src/extensions.cpp (getExtension_cpp): Wrap in BEGIN_RCPP/END_RCPP and
+	verify FieldDescriptor containing_type() matches message descriptor
+	* inst/tinytest/test_extensions.R: Add tests for mismatched extension
+	FieldDescriptor in setExtension() and across resetDescriptorPool()
+
 2026-09-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

@@ -25,10 +25,21 @@
 namespace rprotobuf {
 
 RcppExport SEXP getExtension_cpp(SEXP pointer, SEXP sfielddesc) {
+    BEGIN_RCPP
     /* grab the Message pointer */
     Rcpp::XPtr<GPB::Message> message(pointer);
     const GPB::Reflection* ref = message->GetReflection();
     const GPB::FieldDescriptor* field_desc = GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(sfielddesc);
+    if (!field_desc) {
+        Rcpp::stop("could not get FieldDescriptor for field");
+    }
+    const GPB::Descriptor* desc = message->GetDescriptor();
+    if (field_desc->containing_type() != desc) {
+        Rcpp::stop("Field '%s' does not match message type ('%s' != '%s')",
+                   std::string(field_desc->name()).c_str(),
+                   std::string(field_desc->containing_type()->full_name()).c_str(),
+                   std::string(desc->full_name()).c_str());
+    }
 
     // extractFieldAsSEXP returns a default (e.g. 0) even when
     // field doesn't exist, but returning NULL probably makes more
@@ -47,6 +58,7 @@ RcppExport SEXP getExtension_cpp(SEXP pointer, SEXP sfielddesc) {
         }
     }
     return (extractFieldAsSEXP(message, field_desc));
+    END_RCPP
 }
 
 }  // namespace rprotobuf

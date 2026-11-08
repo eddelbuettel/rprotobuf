@@ -264,6 +264,12 @@ RcppExport GPB::FieldDescriptor* getFieldDescriptor(const GPB::Message* message,
         case S4SXP: {
             if (Rf_inherits(name, "FieldDescriptor")) {
                 field_desc = GET_FIELD_DESCRIPTOR_POINTER_FROM_S4(name);
+                if (field_desc && field_desc->containing_type() != desc) {
+                    Rcpp::stop("Field '%s' does not match message type ('%s' != '%s')",
+                               std::string(field_desc->name()).c_str(),
+                               std::string(field_desc->containing_type()->full_name()).c_str(),
+                               std::string(desc->full_name()).c_str());
+                }
             } else {
                 Rcpp::stop("S4 class is not a FieldDescriptor");
             }
