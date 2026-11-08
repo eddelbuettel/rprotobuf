@@ -86,4 +86,16 @@ expect_error(test$setExtension(protobuf_unittest.TestAllExtensions, 3))
 ## Check that we don't CHECK fail in C++, but instead give a reasonable
 ## error message if incorrect extensions types are provided.
 expect_error(test$getExtension(protobuf_unittest.my_extension_string))
+expect_error(test$setExtension(protobuf_unittest.my_extension_string, "abc"))
+
+## Check that holding an extension FieldDescriptor across resetDescriptorPool()
+## raises an R error rather than aborting in C++ Reflection.
+old_ext <- P("protobuf_unittest.optional_int32_extension")
+resetDescriptorPool()
+unittest.proto.file <- system.file("tinytest", "data", "unittest.proto",
+                                   package="RProtoBuf")
+readProtoFiles(file=unittest.proto.file)
+test_after_reset <- new(protobuf_unittest.TestAllExtensions)
+expect_error(test_after_reset$getExtension(old_ext))
+expect_error(test_after_reset$setExtension(old_ext, 1L))
 #}
