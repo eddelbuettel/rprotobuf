@@ -300,23 +300,23 @@ RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SE
                     case TYPE_INT32:
                     case TYPE_SINT32:
                     case TYPE_SFIXED32: {
-                        ref->AddInt32(message, field_desc, (int32)0);
+                        ref->AddInt32(message, field_desc, (int32_t)0);
                         break;
                     }
                     case TYPE_INT64:
                     case TYPE_SINT64:
                     case TYPE_SFIXED64: {
-                        ref->AddInt64(message, field_desc, (int64)0);
+                        ref->AddInt64(message, field_desc, (int64_t)0);
                         break;
                     }
                     case TYPE_UINT32:
                     case TYPE_FIXED32: {
-                        ref->AddUInt32(message, field_desc, (uint32)0);
+                        ref->AddUInt32(message, field_desc, (uint32_t)0);
                         break;
                     }
                     case TYPE_UINT64:
                     case TYPE_FIXED64: {
-                        ref->AddUInt32(message, field_desc, (uint64)0);
+                        ref->AddUInt32(message, field_desc, (uint64_t)0);
                         break;
                     }
                     case TYPE_DOUBLE: {
@@ -364,23 +364,23 @@ RPB_FUNCTION_VOID_3(METHOD(set_field_size), Rcpp::XPtr<GPB::Message> message, SE
                     case TYPE_INT32:
                     case TYPE_SINT32:
                     case TYPE_SFIXED32: {
-                        ref->SetInt32(message, field_desc, (int32)0);
+                        ref->SetInt32(message, field_desc, (int32_t)0);
                         break;
                     }
                     case TYPE_INT64:
                     case TYPE_SINT64:
                     case TYPE_SFIXED64: {
-                        ref->SetInt64(message, field_desc, (int64)0);
+                        ref->SetInt64(message, field_desc, (int64_t)0);
                         break;
                     }
                     case TYPE_UINT32:
                     case TYPE_FIXED32: {
-                        ref->SetUInt32(message, field_desc, (uint32)0);
+                        ref->SetUInt32(message, field_desc, (uint32_t)0);
                         break;
                     }
                     case TYPE_UINT64:
                     case TYPE_FIXED64: {
-                        ref->SetUInt32(message, field_desc, (uint64)0);
+                        ref->SetUInt32(message, field_desc, (uint64_t)0);
                         break;
                     }
                     case TYPE_DOUBLE: {

@@ -88,7 +88,7 @@ RcppExport SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
     case TYPE:                                \
         return Rcpp::wrap(RepeatedFieldImporter<DATATYPE>(ref, *message, fieldDesc));
 
-            HANDLE_REPEATED_FIELD(CPPTYPE_INT32, GPB::int32)
+            HANDLE_REPEATED_FIELD(CPPTYPE_INT32, int32_t)
             HANDLE_REPEATED_FIELD(CPPTYPE_DOUBLE, double)
             HANDLE_REPEATED_FIELD(CPPTYPE_FLOAT, float)
             HANDLE_REPEATED_FIELD(CPPTYPE_BOOL, bool)
@@ -106,14 +106,14 @@ RcppExport SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
                 if (UseStringsForInt64()) {
                     return Rcpp::wrap(Int64AsStringRepeatedFieldImporter(ref, *message, fieldDesc));
                 } else {
-                    return Rcpp::wrap(RepeatedFieldImporter<int64>(ref, *message, fieldDesc));
+                    return Rcpp::wrap(RepeatedFieldImporter<int64_t>(ref, *message, fieldDesc));
                 }
             case CPPTYPE_UINT64:
                 if (UseStringsForInt64()) {
                     return Rcpp::wrap(
                         UInt64AsStringRepeatedFieldImporter(ref, *message, fieldDesc));
                 } else {
-                    return Rcpp::wrap(RepeatedFieldImporter<uint64>(ref, *message, fieldDesc));
+                    return Rcpp::wrap(RepeatedFieldImporter<uint64_t>(ref, *message, fieldDesc));
                 }
 #endif
 #undef HANDLE_REPEATED_FIELD
@@ -158,9 +158,9 @@ RcppExport SEXP extractFieldAsSEXP(const Rcpp::XPtr<GPB::Message>& message,
             // Handle these types separately since Rcpp::wrap doesn't
             // do the right thing.
             case CPPTYPE_INT64:
-                return Int64AsSEXP<int64>(ref->GetInt64(*message, fieldDesc));
+                return Int64AsSEXP<int64_t>(ref->GetInt64(*message, fieldDesc));
             case CPPTYPE_UINT64:
-                return Int64AsSEXP<uint64>(ref->GetUInt64(*message, fieldDesc));
+                return Int64AsSEXP<uint64_t>(ref->GetUInt64(*message, fieldDesc));
 #endif
 #undef HANDLE_SINGLE_FIELD
 
