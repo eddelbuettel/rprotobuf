@@ -105,76 +105,76 @@ ValueType Int32FromString(const std::string& value) {
     return ret;
 }
 
-int32 GET_int32(SEXP x, R_xlen_t vec_index) {
+int32_t GET_int32(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((int32)INTEGER(x)[vec_index]);
+            return ((int32_t)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((int32)REAL(x)[vec_index]);
+            return ((int32_t)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((int32)LOGICAL(x)[vec_index]);
+            return ((int32_t)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((int32)RAW(x)[vec_index]);
+            return ((int32_t)RAW(x)[vec_index]);
         case STRSXP:
-            return Int32FromString<int32>(CHAR(STRING_ELT(x, vec_index)));
+            return Int32FromString<int32_t>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to int32");
     }
-    return (int32)0;  // -Wall, should not happen since we only call this when we know it works
+    return (int32_t)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-int64 GET_int64(SEXP x, R_xlen_t vec_index) {
+int64_t GET_int64(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((int64)INTEGER(x)[vec_index]);
+            return ((int64_t)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((int64)REAL(x)[vec_index]);
+            return ((int64_t)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((int64)LOGICAL(x)[vec_index]);
+            return ((int64_t)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((int64)RAW(x)[vec_index]);
+            return ((int64_t)RAW(x)[vec_index]);
         case STRSXP:
-            return Int64FromString<int64>(CHAR(STRING_ELT(x, vec_index)));
+            return Int64FromString<int64_t>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to int64");
     }
-    return (int64)0;  // -Wall, should not happen since we only call this when we know it works
+    return (int64_t)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-uint32 GET_uint32(SEXP x, R_xlen_t vec_index) {
+uint32_t GET_uint32(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((uint32)INTEGER(x)[vec_index]);
+            return ((uint32_t)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((uint32)REAL(x)[vec_index]);
+            return ((uint32_t)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((uint32)LOGICAL(x)[vec_index]);
+            return ((uint32_t)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((uint32)RAW(x)[vec_index]);
+            return ((uint32_t)RAW(x)[vec_index]);
         case STRSXP:
-            return Int32FromString<uint32>(CHAR(STRING_ELT(x, vec_index)));
+            return Int32FromString<uint32_t>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to uint32");
     }
-    return (uint32)0;  // -Wall, should not happen since we only call this when we know it works
+    return (uint32_t)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
-uint64 GET_uint64(SEXP x, R_xlen_t vec_index) {
+uint64_t GET_uint64(SEXP x, R_xlen_t vec_index) {
     switch (TYPEOF(x)) {
         case INTSXP:
-            return ((uint64)INTEGER(x)[vec_index]);
+            return ((uint64_t)INTEGER(x)[vec_index]);
         case REALSXP:
-            return ((uint64)REAL(x)[vec_index]);
+            return ((uint64_t)REAL(x)[vec_index]);
         case LGLSXP:
-            return ((uint64)LOGICAL(x)[vec_index]);
+            return ((uint64_t)LOGICAL(x)[vec_index]);
         case RAWSXP:
-            return ((uint64)RAW(x)[vec_index]);
+            return ((uint64_t)RAW(x)[vec_index]);
         case STRSXP:
-            return Int64FromString<uint64>(CHAR(STRING_ELT(x, vec_index)));
+            return Int64FromString<uint64_t>(CHAR(STRING_ELT(x, vec_index)));
         default:
             Rcpp::stop("cannot cast SEXP to uint64");
     }
-    return (uint64)0;  // -Wall, should not happen since we only call this when we know it works
+    return (uint64_t)0;  // -Wall, should not happen since we only call this when we know it works
 }
 
 bool GET_bool(SEXP x, R_xlen_t vec_index) {
@@ -548,17 +548,17 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
         case CPPTYPE_INT32: {
             if (TYPEOF(value) == STRSXP) {
                 const std::string int32str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
-                ref->SetInt32(message, field_desc, Int32FromString<GPB::int32>(int32str));
+                ref->SetInt32(message, field_desc, Int32FromString<int32_t>(int32str));
                 break;
             } else {
-                ref->SetInt32(message, field_desc, Rcpp::as<GPB::int32>(value));
+                ref->SetInt32(message, field_desc, Rcpp::as<int32_t>(value));
                 break;
             }
         }
         case CPPTYPE_UINT32: {
             if (TYPEOF(value) == STRSXP) {
                 const std::string uint32str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
-                ref->SetUInt32(message, field_desc, Int32FromString<GPB::uint32>(uint32str));
+                ref->SetUInt32(message, field_desc, Int32FromString<uint32_t>(uint32str));
                 break;
             } else {
                 // Rcpp::as is broken for uint32 types, so we just get Rcpp
@@ -574,10 +574,10 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
             // work for strings representing int64s.
             if (TYPEOF(value) == STRSXP) {
                 const std::string int64str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
-                ref->SetInt64(message, field_desc, Int64FromString<GPB::int64>(int64str));
+                ref->SetInt64(message, field_desc, Int64FromString<int64_t>(int64str));
                 break;
             } else {
-                ref->SetInt64(message, field_desc, Rcpp::as<GPB::int64>(value));
+                ref->SetInt64(message, field_desc, Rcpp::as<int64_t>(value));
                 break;
             }
         }
@@ -586,10 +586,10 @@ void setNonRepeatedMessageField(GPB::Message* message, const Reflection* ref,
             // work for strings representing int64s.
             if (TYPEOF(value) == STRSXP) {
                 const std::string int64str = COPYSTRING(CHAR(STRING_ELT(value, 0)));
-                ref->SetUInt64(message, field_desc, Int64FromString<GPB::uint64>(int64str));
+                ref->SetUInt64(message, field_desc, Int64FromString<uint64_t>(int64str));
                 break;
             } else {
-                ref->SetUInt64(message, field_desc, Rcpp::as<GPB::uint64>(value));
+                ref->SetUInt64(message, field_desc, Rcpp::as<uint64_t>(value));
                 break;
             }
         }

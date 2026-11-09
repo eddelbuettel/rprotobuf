@@ -25,6 +25,7 @@
 #include <fcntl.h>
 #include <string.h>  // for strerror
 #include <unistd.h>  // g++-4.7 wants this
+#include <cstdint>
 #include <string>    // for string
 #include <string_view>
 // O_BINARY does not exist on Unix/Linux, since there is no distinction
@@ -61,9 +62,6 @@ namespace GPB = google::protobuf;
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Label)
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::CppType)
 RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
-
-// RCPP_TRAITS(GPB::int64,REALSXP)
-// RCPP_TRAITS(GPB::uint64,REALSXP)
 
 #include <Rcpp.h>
 
@@ -131,11 +129,6 @@ RCPP_ENUM_TRAITS(GPB::FieldDescriptor::Type)
 
 namespace rprotobuf {
 
-typedef GPB::int32 int32;
-typedef GPB::uint32 uint32;
-typedef GPB::int64 int64;
-typedef GPB::uint64 uint64;
-
 /* in rprotobuf.cpp */
 GPB::Message* PROTOTYPE(const GPB::Descriptor*);
 GPB::Message* CLONE(const GPB::Message*);
@@ -159,10 +152,10 @@ RcppExport SEXP setMessageField(SEXP, SEXP, SEXP);
 int GET_int(SEXP, int);
 double GET_double(SEXP, int);
 float GET_float(SEXP, int);
-int32 GET_int32(SEXP, R_xlen_t);
-int64 GET_int64(SEXP, R_xlen_t);
-uint32 GET_uint32(SEXP, R_xlen_t);
-uint64 GET_uint64(SEXP, R_xlen_t);
+int32_t GET_int32(SEXP, R_xlen_t);
+int64_t GET_int64(SEXP, R_xlen_t);
+uint32_t GET_uint32(SEXP, R_xlen_t);
+uint64_t GET_uint64(SEXP, R_xlen_t);
 bool GET_bool(SEXP, R_xlen_t);
 std::string GET_stdstring(SEXP, R_xlen_t);
 std::string GET_bytes(SEXP, R_xlen_t);

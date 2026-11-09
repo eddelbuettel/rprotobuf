@@ -195,7 +195,7 @@ SEXP ZeroCopyInputStream_ReadString(SEXP xp, SEXP size) {
 SEXP ZeroCopyInputStream_ReadVarint32(SEXP xp) {
     BEGIN_RCPP
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
-    uint32 res = 0;
+    uint32_t res = 0;
     if (!coded_stream->ReadVarint32(&res)) Rcpp_error("error reading varint32");
     return Rf_ScalarInteger(res);
     END_RCPP
@@ -204,7 +204,7 @@ SEXP ZeroCopyInputStream_ReadVarint32(SEXP xp) {
 SEXP ZeroCopyInputStream_ReadLittleEndian32(SEXP xp) {
     BEGIN_RCPP
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
-    uint32 res = 0;
+    uint32_t res = 0;
     if (!coded_stream->ReadVarint32(&res)) Rcpp_error("error reading little endian int32");
     return Rf_ScalarInteger(res);
     END_RCPP
@@ -213,7 +213,7 @@ SEXP ZeroCopyInputStream_ReadLittleEndian32(SEXP xp) {
 SEXP ZeroCopyInputStream_ReadLittleEndian64(SEXP xp) {
     BEGIN_RCPP
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
-    uint64 res = 0;
+    uint64_t res = 0;
     if (!coded_stream->ReadVarint64(&res)) Rcpp_error("error reading little endian int32");
     return Rf_ScalarReal((double)res);
     END_RCPP
@@ -222,7 +222,7 @@ SEXP ZeroCopyInputStream_ReadLittleEndian64(SEXP xp) {
 SEXP ZeroCopyInputStream_ReadVarint64(SEXP xp) {
     BEGIN_RCPP
     GPB::io::CodedInputStream* coded_stream = GET_CIS(xp);
-    uint64 res = 0;
+    uint64_t res = 0;
     if (!coded_stream->ReadVarint64(&res)) Rcpp_error("error reading varint64");
     return Rf_ScalarReal((double)res);
     END_RCPP

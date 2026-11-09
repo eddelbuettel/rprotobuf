@@ -46,7 +46,7 @@ public:
     }
     inline std::string get(int i) const {
         std::stringstream stream;
-        int64 val = ref->GetRepeatedInt64(message, field, i);
+        int64_t val = ref->GetRepeatedInt64(message, field, i);
         stream << val;
         return stream.str();
     }
@@ -69,7 +69,7 @@ public:
     }
     inline std::string get(int i) const {
         std::stringstream stream;
-        uint64 val = ref->GetRepeatedUInt64(message, field, i);
+        uint64_t val = ref->GetRepeatedUInt64(message, field, i);
         stream << val;
         return stream.str();
     }
@@ -126,10 +126,10 @@ private:                                                         \
     const GPB::FieldDescriptor* field;                           \
 };
 
-GENERATE__FIELD__IMPORTER__DECL(GPB::int32, Int32)
-GENERATE__FIELD__IMPORTER__DECL(GPB::uint32, UInt32)
-GENERATE__FIELD__IMPORTER__DECL(GPB::int64, Int64)
-GENERATE__FIELD__IMPORTER__DECL(GPB::uint64, UInt64)
+GENERATE__FIELD__IMPORTER__DECL(int32_t, Int32)
+GENERATE__FIELD__IMPORTER__DECL(uint32_t, UInt32)
+GENERATE__FIELD__IMPORTER__DECL(int64_t, Int64)
+GENERATE__FIELD__IMPORTER__DECL(uint64_t, UInt64)
 GENERATE__FIELD__IMPORTER__DECL(float, Float)
 GENERATE__FIELD__IMPORTER__DECL(double, Double)
 GENERATE__FIELD__IMPORTER__DECL(bool, Bool)

@@ -1,3 +1,14 @@
+2026-11-09  Michael Chirico  <chiricom@google.com>
+
+	* src/rprotobuf.h: Include <cstdint> and replace legacy GPB::int32,
+	GPB::uint32, GPB::int64, and GPB::uint64 typedefs with standard
+	int32_t, uint32_t, int64_t, and uint64_t
+	* src/Rcppsupport.h: Idem
+	* src/extractors.cpp: Idem
+	* src/mutators.cpp: Idem
+	* src/streams.cpp: Idem
+	* src/wrapper_Message.cpp: Idem
+
 2026-11-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
